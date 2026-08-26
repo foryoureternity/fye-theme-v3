@@ -1,13 +1,12 @@
 {%- comment -%}
-  announcement-bar — sage pale ground, one line, dismissible-free.
-  Padding is intentionally NOT --sect-y: this is chrome, not a content band.
+  announcement-bar — pale sage strip. Sentence case, not uppercase (live site).
 {%- endcomment -%}
-{%- if settings.announcement_show and settings.announcement_text != blank -%}
+{%- if section.settings.text != blank -%}
   <div class="ann">
-    {%- if settings.announcement_link != blank -%}
-      <a href="{{ settings.announcement_link }}">{{ settings.announcement_text }}</a>
+    {%- if section.settings.link != blank -%}
+      <a href="{{ section.settings.link }}">{{ section.settings.text }}</a>
     {%- else -%}
-      <span>{{ settings.announcement_text }}</span>
+      <span>{{ section.settings.text }}</span>
     {%- endif -%}
   </div>
 {%- endif -%}
@@ -16,20 +15,23 @@
 .fye .ann {
   background: var(--sage-pale);
   color: var(--ink);
-  padding: var(--s2) var(--pad-x);
+  padding: var(--s3) var(--pad-x);
   text-align: center;
-  font-size: var(--fs-eyebrow);
-  font-weight: var(--fw-medium);
-  letter-spacing: var(--tr-eyebrow);
-  text-transform: uppercase;
+  font-size: 17px;
+  font-weight: var(--fw-light);
+  line-height: 1.4;
 }
-.fye .ann a { color: inherit; border-bottom: 1px solid transparent; }
-.fye .ann a:hover { color: var(--sage-deep); border-bottom-color: currentColor; }
+.fye .ann a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.fye .ann a:hover { color: var(--sage-deep); }
+@media (max-width: 560px) { .fye .ann { font-size: 14px; } }
 {% endstylesheet %}
 
 {% schema %}
 {
   "name": "Announcement bar",
-  "settings": []
+  "settings": [
+    { "type": "text", "id": "text", "label": "Text", "default": "Ethically sourced, independently certified, fairly priced. Book a free consultation — in London or online." },
+    { "type": "url", "id": "link", "label": "Link" }
+  ]
 }
 {% endschema %}

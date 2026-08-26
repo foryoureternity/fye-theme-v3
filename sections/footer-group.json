@@ -4,7 +4,27 @@
   "sections": {
     "footer": {
       "type": "footer",
-      "settings": {}
+      "settings": {
+        "talk_heading": "Talk to us",
+        "phone": "0208 178 6687",
+        "hours": "Mon–Fri, 9am–6pm",
+        "email": "hello@foryoureternity.com",
+        "whatsapp_url": "https://wa.me/447840042922",
+        "cta_label": "Book consultation",
+        "cta_link": "https://calendar.app.google/UKFkGvMLzAYEviqy8",
+        "strapline": "Beautiful jewellery. Ethically made. Fairly priced.",
+        "mission": "<p>Creating timeless, ethical wedding jewellery with responsibly sourced diamonds and sustainable metals — crafted with integrity, beauty, and love.</p>",
+        "signup_heading": "Keep up to date",
+        "signup_note": "New designs, guides and offers.",
+        "legal": "<p>© 2026 For Your Eternity Ltd - Company No. 16261484 - VAT No. 486 8865 12. A London jeweller offering in-person and online consultations across the London area. GIA &amp; IGI certified stones.</p>"
+      },
+      "blocks": {
+        "col_shop": { "type": "links", "settings": { "heading": "Shop" } },
+        "col_diamonds": { "type": "links", "settings": { "heading": "Diamonds & gemstones" } },
+        "col_guides": { "type": "links", "settings": { "heading": "Guides & advice" } },
+        "col_help": { "type": "links", "settings": { "heading": "Help & company" } }
+      },
+      "block_order": ["col_shop", "col_diamonds", "col_guides", "col_help"]
     }
   },
   "order": ["footer"]

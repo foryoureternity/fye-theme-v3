@@ -1,60 +1,117 @@
 {%- comment -%}
-  footer — teal band. Blocks so columns are editable in the customiser.
+  footer — rebuilt 26/08/2026 to match the LIVE site.
+  Reference: live foryoureternity.com footer.
+
+  Sage ground, teal type. Three stacked rows separated by hairlines:
+    1. five columns — four link lists + "Talk to us" contact column
+    2. brand row — monogram, strapline, mission text, newsletter
+    3. legal row — company details + policy links + back to top
+
+  Link columns are BLOCKS with a link_list, so they stay editable. Where a
+  block has no menu assigned, the column renders its heading only — assign the
+  menus in the customiser (Shop, Diamonds & Gemstones, Guides & Advice,
+  Help & Company).
+
+  Ground is --sage-pale-mid, declared locally: the live footer sits lighter than
+  --sage-band (which exists for ivory-on-dark text). Here the type is TEAL on
+  sage, so a lighter ground is correct and passes AA comfortably.
 {%- endcomment -%}
-<footer class="band band--teal ftr">
-  <div class="wrap">
-    <div class="ftr__top">
-      <div class="ftr__brand">
-        {%- if settings.logo != blank -%}
-          {{ settings.logo | image_url: width: 480 | image_tag: alt: shop.name, width: 150, class: 'ftr__logo', loading: 'lazy' }}
-        {%- else -%}
-          <span class="ftr__logo-text">{{ shop.name }}</span>
+
+<footer class="ftr">
+  <div class="ftr__in">
+
+    <div class="ftr__cols">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'links' -%}
+          <div class="ftr__col" {{ block.shopify_attributes }}>
+            {%- if block.settings.heading != blank -%}
+              <h3 class="ftr__head">{{ block.settings.heading }}</h3>
+            {%- endif -%}
+            {%- assign list = linklists[block.settings.menu] -%}
+            {%- if list.links.size > 0 -%}
+              <ul class="ftr__list">
+                {%- for link in list.links -%}
+                  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </div>
         {%- endif -%}
-        <p class="ftr__strap">Beautiful Jewellery. Ethically Made. Fairly Priced.</p>
-        <div class="ftr__contact">
-          {%- if settings.email != blank -%}
-            <a href="mailto:{{ settings.email }}">{% render 'icon', name: 'mail', size: 16 %} {{ settings.email }}</a>
+      {%- endfor -%}
+
+      <div class="ftr__col ftr__talk">
+        <h3 class="ftr__head">{{ section.settings.talk_heading }}</h3>
+        {%- if section.settings.phone != blank -%}
+          <a class="ftr__phone" href="tel:{{ section.settings.phone | remove: ' ' }}">{{ section.settings.phone }}</a>
+        {%- endif -%}
+        {%- if section.settings.hours != blank -%}
+          <p class="ftr__hours">{{ section.settings.hours }}</p>
+        {%- endif -%}
+        <ul class="ftr__list">
+          {%- if section.settings.email != blank -%}
+            <li><a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a></li>
           {%- endif -%}
-          {%- if settings.phone != blank -%}
-            <a href="tel:{{ settings.phone | remove: ' ' }}">{% render 'icon', name: 'phone', size: 16 %} {{ settings.phone }}</a>
+          {%- if section.settings.whatsapp_url != blank -%}
+            <li><a href="{{ section.settings.whatsapp_url }}">Message us on WhatsApp</a></li>
+          {%- endif -%}
+        </ul>
+        {%- if section.settings.cta_label != blank -%}
+          <a class="ftr__cta" href="{{ section.settings.cta_link | default: '#' }}">{{ section.settings.cta_label }}</a>
+        {%- endif -%}
+        <div class="ftr__social">
+          {%- if section.settings.instagram_url != blank -%}
+            <a href="{{ section.settings.instagram_url }}" aria-label="Instagram">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"></circle></svg>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.whatsapp_url != blank -%}
+            <a href="{{ section.settings.whatsapp_url }}" aria-label="WhatsApp">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 12a8.5 8.5 0 0 1-12.7 7.4L3.5 20.5l1.1-4.3A8.5 8.5 0 1 1 20.5 12z"></path><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5"></path></svg>
+            </a>
           {%- endif -%}
         </div>
       </div>
+    </div>
 
-      <div class="ftr__cols">
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'menu' -%}
-            {%- assign list = linklists[block.settings.menu] -%}
-            <div class="ftr__col" {{ block.shopify_attributes }}>
-              <p class="ftr__head">{{ block.settings.heading | default: list.title }}</p>
-              {%- if list.links.size > 0 -%}
-                <ul class="ftr__list">
-                  {%- for link in list.links -%}
-                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-                  {%- endfor -%}
-                </ul>
-              {%- endif -%}
-            </div>
-          {%- elsif block.type == 'text' -%}
-            <div class="ftr__col" {{ block.shopify_attributes }}>
-              <p class="ftr__head">{{ block.settings.heading }}</p>
-              <div class="ftr__text">{{ block.settings.text }}</div>
-            </div>
-          {%- endif -%}
-        {%- endfor -%}
+    <hr class="ftr__rule">
+
+    <div class="ftr__brand">
+      <div class="ftr__brand-mark">
+        {%- if section.settings.monogram != blank -%}
+          {{ section.settings.monogram | image_url: width: 320 | image_tag: alt: shop.name, width: 150, loading: 'lazy' }}
+        {%- endif -%}
+      </div>
+      <div class="ftr__brand-copy">
+        {%- if section.settings.strapline != blank -%}
+          <h2 class="ftr__strap">{{ section.settings.strapline }}</h2>
+        {%- endif -%}
+        {%- if section.settings.mission != blank -%}
+          <div class="ftr__mission">{{ section.settings.mission }}</div>
+        {%- endif -%}
+      </div>
+      <div class="ftr__signup">
+        {%- if section.settings.signup_heading != blank -%}
+          <h3 class="ftr__head">{{ section.settings.signup_heading }}</h3>
+        {%- endif -%}
+        {%- form 'customer', class: 'ftr__form' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <label class="visually-hidden" for="ftr-email">Email address</label>
+          <input id="ftr-email" type="email" name="contact[email]" placeholder="Your email address" required>
+          <button type="submit" aria-label="Subscribe">{% render 'icon', name: 'arrow-right', size: 20 %}</button>
+        {%- endform -%}
+        {%- if section.settings.signup_note != blank -%}
+          <p class="ftr__note">{{ section.settings.signup_note }}</p>
+        {%- endif -%}
       </div>
     </div>
 
-    <div class="ftr__guarantee">
-      <span>{% render 'icon', name: 'shipping', size: 20 %} Free insured UK delivery</span>
-      <span>{% render 'icon', name: 'resize', size: 20 %} Complimentary first resize</span>
-      <span>{% render 'icon', name: 'warranty', size: 20 %} Lifetime guarantee</span>
-      <span>{% render 'icon', name: 'ethical', size: 20 %} Ethically sourced</span>
-    </div>
+    <hr class="ftr__rule">
 
-    <div class="ftr__base">
-      <p class="ftr__fine">&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ 'footer.copyright' | t }}.</p>
-      {%- assign policies = linklists[settings.menu_footer] -%}
+    <div class="ftr__legal">
+      {%- if section.settings.legal != blank -%}
+        <div class="ftr__legal-text">{{ section.settings.legal }}</div>
+      {%- endif -%}
+      {%- assign policies = linklists[section.settings.policy_menu] -%}
       {%- if policies.links.size > 0 -%}
         <ul class="ftr__policies">
           {%- for link in policies.links -%}
@@ -63,106 +120,184 @@
         </ul>
       {%- endif -%}
     </div>
+
   </div>
+
+  <button class="ftr__top" type="button" aria-label="Back to top" data-fye-top>
+    {% render 'icon', name: 'chevron-up', size: 20 %}
+  </button>
 </footer>
 
 {% stylesheet %}
-.fye .ftr__top {
-  display: grid;
-  grid-template-columns: minmax(240px, 1fr) 2fr;
-  gap: var(--s10);
-  padding-bottom: var(--s9);
+.fye .ftr {
+  position: relative;
+  background: #A5C1A5;              /* live footer ground: teal type on sage */
+  color: var(--ink);
+  padding: var(--s11) var(--s9) var(--s8);
 }
-.fye .ftr__logo-text {
+.fye .ftr__in { max-width: var(--maxw-wide); margin-inline: auto; }
+
+.fye .ftr__head {
+  margin: 0 0 var(--s5);
   font-family: var(--font-display);
-  font-size: 22px;
+  font-size: 20px;
+  font-weight: var(--fw-regular);
   letter-spacing: var(--tr-h2);
   text-transform: uppercase;
+  color: var(--ink);
 }
-.fye .ftr__strap {
-  margin: var(--s4) 0 var(--s5);
-  font-size: var(--fs-eyebrow);
-  font-weight: var(--fw-medium);
-  letter-spacing: var(--tr-eyebrow);
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
-.fye .ftr__contact { display: flex; flex-direction: column; gap: var(--s2); }
-.fye .ftr__contact a { display: inline-flex; align-items: center; gap: var(--s2); font-size: var(--fs-small); }
 
-.fye .ftr__cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: var(--s7); }
-.fye .ftr__head {
-  margin: 0 0 var(--s4);
-  font-size: var(--fs-eyebrow);
-  font-weight: var(--fw-medium);
-  letter-spacing: var(--tr-eyebrow);
-  text-transform: uppercase;
+.fye .ftr__cols {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--s8);
+  padding-bottom: var(--s9);
 }
 .fye .ftr__list { margin: 0; padding: 0; list-style: none; }
-.fye .ftr__list li { margin-bottom: var(--s2); }
-.fye .ftr__list a, .fye .ftr__text { font-size: var(--fs-small); }
+.fye .ftr__list li { margin-bottom: var(--s3); }
+.fye .ftr__list a { font-size: 17px; font-weight: var(--fw-light); color: var(--ink); }
+.fye .ftr__list a:hover { color: var(--white); }
 
-.fye .ftr__guarantee {
-  display: flex; flex-wrap: wrap; gap: var(--s7);
-  padding: var(--s6) 0;
-  border-top: 1px solid var(--line-on-dark);
-  border-bottom: 1px solid var(--line-on-dark);
-}
-.fye .ftr__guarantee span {
-  display: inline-flex; align-items: center; gap: var(--s2);
-  font-size: var(--fs-eyebrow);
+.fye .ftr__phone {
+  display: block;
+  font-size: 22px;
   font-weight: var(--fw-medium);
-  letter-spacing: var(--tr-eyebrow);
+  color: var(--ink);
+}
+.fye .ftr__hours { margin: var(--s1) 0 var(--s4); font-size: 15px; }
+.fye .ftr__cta {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px;
+  margin-top: var(--s4);
+  padding: 0 var(--s6);
+  background: var(--white);
+  color: var(--ink);
+  font-size: var(--fs-fine);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-button);
   text-transform: uppercase;
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
 }
+.fye .ftr__cta:hover { background: var(--teal); color: var(--ivory); }
+.fye .ftr__social { display: flex; gap: var(--s4); margin-top: var(--s5); }
+.fye .ftr__social a { color: var(--ink); }
+.fye .ftr__social a:hover { color: var(--white); }
 
-.fye .ftr__base {
-  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
-  gap: var(--s4);
-  padding-top: var(--s6);
+.fye .ftr__rule { border: 0; border-top: 1px solid rgba(35, 61, 71, 0.22); margin: 0; }
+
+.fye .ftr__brand {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: var(--s8);
+  align-items: start;
+  padding: var(--s9) 0;
 }
-.fye .ftr__fine { margin: 0; font-size: var(--fs-fine); color: var(--ink-soft); }
-.fye .ftr__policies { display: flex; flex-wrap: wrap; gap: var(--s5); margin: 0; padding: 0; list-style: none; }
+.fye .ftr__strap {
+  margin: 0 0 var(--s4);
+  font-family: var(--font-display);
+  font-size: clamp(24px, 1.4rem + 1vw, 34px);
+  font-weight: var(--fw-regular);
+  letter-spacing: var(--tr-h2);
+  text-transform: uppercase;
+  max-width: 26ch;
+}
+.fye .ftr__mission { font-size: 17px; max-width: 56ch; }
+
+.fye .ftr__form { display: flex; align-items: stretch; border-bottom: 1px solid var(--ink); }
+.fye .ftr__form input {
+  flex: 1 1 auto;
+  min-height: 52px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 18px;
+  font-weight: var(--fw-light);
+  color: var(--ink);
+}
+.fye .ftr__form input::placeholder { color: rgba(35, 61, 71, 0.62); }
+.fye .ftr__form input:focus { outline: none; }
+.fye .ftr__form button {
+  flex: 0 0 auto;
+  width: 52px;
+  border: 0;
+  background: var(--teal);
+  color: var(--ivory);
+  display: grid; place-items: center;
+  transition: background var(--dur) var(--ease);
+}
+.fye .ftr__form button:hover { background: var(--sage-deep); }
+.fye .ftr__note { margin: var(--s3) 0 0; font-size: 15px; }
+
+.fye .ftr__legal {
+  display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between;
+  gap: var(--s6);
+  padding-top: var(--s7);
+}
+.fye .ftr__legal-text { font-size: 15px; max-width: 68ch; }
+.fye .ftr__policies { display: flex; flex-wrap: wrap; gap: var(--s6); margin: 0; padding: 0; list-style: none; }
 .fye .ftr__policies li { margin: 0; }
-.fye .ftr__policies a { font-size: var(--fs-fine); }
+.fye .ftr__policies a { font-size: 16px; color: var(--ink); }
+.fye .ftr__policies a:hover { color: var(--white); }
 
+.fye .ftr__top {
+  position: absolute; right: 0; bottom: 0;
+  width: 48px; height: 48px;
+  border: 0;
+  background: var(--white);
+  color: var(--ink);
+  display: grid; place-items: center;
+}
+.fye .ftr__top:hover { background: var(--teal); color: var(--ivory); }
+
+@media (max-width: 1200px) {
+  .fye .ftr__cols { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s7); }
+  .fye .ftr__brand { grid-template-columns: 1fr; }
+}
 @media (max-width: 900px) {
-  .fye .ftr__top { grid-template-columns: 1fr; gap: var(--s8); }
+  .fye .ftr { padding: var(--s10) var(--pad-x) var(--s7); }
+  .fye .ftr__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .fye .ftr__cols { grid-template-columns: 1fr; gap: var(--s6); }
+  .fye .ftr__legal { flex-direction: column; }
 }
 {% endstylesheet %}
 
 {% schema %}
 {
   "name": "Footer",
-  "max_blocks": 5,
-  "settings": [],
+  "max_blocks": 6,
+  "settings": [
+    { "type": "header", "content": "Talk to us" },
+    { "type": "text", "id": "talk_heading", "label": "Heading", "default": "Talk to us" },
+    { "type": "text", "id": "phone", "label": "Phone", "default": "0208 178 6687" },
+    { "type": "text", "id": "hours", "label": "Opening hours", "default": "Mon–Fri, 9am–6pm" },
+    { "type": "text", "id": "email", "label": "Email", "default": "hello@foryoureternity.com" },
+    { "type": "url", "id": "whatsapp_url", "label": "WhatsApp link" },
+    { "type": "url", "id": "instagram_url", "label": "Instagram link" },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Book consultation" },
+    { "type": "url", "id": "cta_link", "label": "Button link" },
+    { "type": "header", "content": "Brand row" },
+    { "type": "image_picker", "id": "monogram", "label": "Monogram" },
+    { "type": "text", "id": "strapline", "label": "Strapline", "default": "Beautiful jewellery. Ethically made. Fairly priced." },
+    { "type": "richtext", "id": "mission", "label": "Mission text" },
+    { "type": "header", "content": "Newsletter" },
+    { "type": "text", "id": "signup_heading", "label": "Heading", "default": "Keep up to date" },
+    { "type": "text", "id": "signup_note", "label": "Note", "default": "New designs, guides and offers." },
+    { "type": "header", "content": "Legal" },
+    { "type": "richtext", "id": "legal", "label": "Company details" },
+    { "type": "link_list", "id": "policy_menu", "label": "Policy menu" }
+  ],
   "blocks": [
     {
-      "type": "menu",
-      "name": "Menu column",
+      "type": "links",
+      "name": "Link column",
       "settings": [
         { "type": "text", "id": "heading", "label": "Heading" },
         { "type": "link_list", "id": "menu", "label": "Menu" }
       ]
-    },
-    {
-      "type": "text",
-      "name": "Text column",
-      "settings": [
-        { "type": "text", "id": "heading", "label": "Heading" },
-        { "type": "richtext", "id": "text", "label": "Text" }
-      ]
     }
   ],
-  "presets": [
-    {
-      "name": "Footer",
-      "blocks": [
-        { "type": "menu" },
-        { "type": "menu" },
-        { "type": "menu" }
-      ]
-    }
-  ]
+  "presets": [{ "name": "Footer" }]
 }
 {% endschema %}

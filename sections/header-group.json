@@ -4,11 +4,42 @@
   "sections": {
     "announcement": {
       "type": "announcement-bar",
-      "settings": {}
+      "settings": {
+        "text": "Ethically sourced, independently certified, fairly priced. Book a free consultation — in London or online."
+      }
     },
     "header": {
       "type": "header-bottom",
-      "settings": {}
+      "settings": {
+        "phone": "0208 178 6687",
+        "email": "hello@foryoureternity.com",
+        "booking_url": "https://calendar.app.google/UKFkGvMLzAYEviqy8",
+        "whatsapp_url": "https://wa.me/447840042922",
+        "cta_label": "Downloadable guides",
+        "cta_link": "/pages/downloadable-guides"
+      },
+      "blocks": {
+        "nav_home": { "type": "base", "settings": { "title": "Home", "url": "/" } },
+        "nav_engagement": { "type": "mega", "settings": { "title": "Engagement rings", "url": "/pages/engagement-rings" } },
+        "nav_wedding": { "type": "mega", "settings": { "title": "Wedding rings", "url": "/pages/wedding-rings" } },
+        "nav_eternity": { "type": "mega", "settings": { "title": "Eternity rings", "url": "/pages/eternity-rings" } },
+        "nav_diamonds": { "type": "mega", "settings": { "title": "Diamonds & gemstones", "url": "/pages/diamond-and-gemstone-guide" } },
+        "nav_guides": { "type": "mega", "settings": { "title": "Jewellery guides & advice", "url": "/pages/jewellery-guides" } },
+        "nav_news": { "type": "base", "settings": { "title": "News", "url": "/blogs/news" } },
+        "nav_about": { "type": "base", "settings": { "title": "About us", "url": "/pages/about-us" } },
+        "nav_contact": { "type": "base", "settings": { "title": "Contact", "url": "/pages/contact" } }
+      },
+      "block_order": [
+        "nav_home",
+        "nav_engagement",
+        "nav_wedding",
+        "nav_eternity",
+        "nav_diamonds",
+        "nav_guides",
+        "nav_news",
+        "nav_about",
+        "nav_contact"
+      ]
     }
   },
   "order": ["announcement", "header"]

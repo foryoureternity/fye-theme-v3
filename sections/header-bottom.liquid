@@ -1,78 +1,81 @@
 {%- comment -%}
-  header-bottom — the ONE live header. Type name kept from the old theme
-  (settings.header_design was "bottom", so this was the only variant rendering).
+  header-bottom — rebuilt 26/08/2026 to match the LIVE site exactly.
+  Reference: live foryoureternity.com header.
 
-  Structure: utility row → centred logo → centred nav, per the brand book.
-  Sticky. Mega menu lives here, not in a design-mode-only section.
+  Layout (desktop, full width):
+    row 1  announcement bar (separate section)
+    row 2  contact links (left) · script logo (centre) · guides button + icons (right)
+    row 3  nav band on ivory, centred, with a fine accent rule beneath
+
+  NOT sticky (live theme has sticky_header false).
+  NO wishlist icon in the utility set? — live shows one, so it is included.
+
+  TODO: nav items are section blocks so they stay editable. Mega dropdown
+  contents still to be built — the chevron is present and the markup hook is
+  there, but the panels come from the mega-menu port.
 {%- endcomment -%}
-{%- assign menu = linklists[settings.menu_main] -%}
 
-<header class="hdr" data-fye-header>
-  <div class="hdr__util">
-    <div class="wrap hdr__util-in">
-      <a class="hdr__util-link" href="/pages/contact">{% render 'icon', name: 'calendar', size: 16 %} Book a consultation</a>
-      <div class="hdr__util-right">
-        {%- if settings.phone != blank -%}
-          <a class="hdr__util-link" href="tel:{{ settings.phone | remove: ' ' }}">{% render 'icon', name: 'phone', size: 16 %} {{ settings.phone }}</a>
-        {%- endif -%}
-        <a class="hdr__util-link" href="/pages/find-your-ring-size">Ring sizer</a>
-      </div>
-    </div>
-  </div>
-
+<header class="hdr">
   <div class="hdr__main">
-    <div class="wrap hdr__main-in">
-      <button class="hdr__icon hdr__burger" type="button" aria-label="{{ 'general.menu' | t }}" aria-expanded="false" data-fye-drawer-open>
+    <div class="hdr__main-in">
+      <button class="hdr__burger" type="button" aria-label="{{ 'general.menu' | t }}" aria-expanded="false" data-fye-drawer-open>
         {% render 'icon', name: 'menu' %}
       </button>
 
+      <div class="hdr__contact">
+        {%- if section.settings.phone != blank -%}
+          <a class="hdr__contact-link" href="tel:{{ section.settings.phone | remove: ' ' }}">
+            {% render 'icon', name: 'phone', size: 18 %}<span>{{ section.settings.phone }}</span>
+          </a>
+        {%- endif -%}
+        {%- if section.settings.email != blank -%}
+          <a class="hdr__contact-link" href="mailto:{{ section.settings.email }}">
+            {% render 'icon', name: 'mail', size: 18 %}<span>Email</span>
+          </a>
+        {%- endif -%}
+        {%- if section.settings.booking_url != blank -%}
+          <a class="hdr__contact-link" href="{{ section.settings.booking_url }}">
+            {% render 'icon', name: 'calendar', size: 18 %}<span>Book appointment</span>
+          </a>
+        {%- endif -%}
+      </div>
+
       <a class="hdr__logo" href="{{ routes.root_url }}">
         {%- if settings.logo != blank -%}
-          {{ settings.logo | image_url: width: 640 | image_tag: alt: shop.name, width: settings.logo_width, loading: 'eager' }}
+          {{ settings.logo | image_url: width: 800 | image_tag: alt: shop.name, width: settings.logo_width, loading: 'eager' }}
         {%- else -%}
           <span class="hdr__logo-text">{{ shop.name }}</span>
         {%- endif -%}
       </a>
 
-      <div class="hdr__icons">
-        <a class="hdr__icon" href="{{ routes.search_url }}" aria-label="{{ 'general.search' | t }}">{% render 'icon', name: 'search' %}</a>
-        <a class="hdr__icon hdr__icon--hide-sm" href="{{ routes.account_url }}" aria-label="{{ 'general.account' | t }}">{% render 'icon', name: 'account' %}</a>
-        <a class="hdr__icon" href="/a/wishlist" aria-label="{{ 'general.wishlist' | t }}">{% render 'icon', name: 'heart' %}</a>
-        <a class="hdr__icon" href="{{ routes.cart_url }}" aria-label="{{ 'general.cart' | t }}">
-          {% render 'icon', name: 'bag' %}
-          {%- if cart.item_count > 0 -%}<span class="hdr__count">{{ cart.item_count }}</span>{%- endif -%}
-        </a>
+      <div class="hdr__right">
+        {%- if section.settings.cta_label != blank -%}
+          <a class="hdr__cta" href="{{ section.settings.cta_link | default: '#' }}">{{ section.settings.cta_label }}</a>
+        {%- endif -%}
+        <div class="hdr__icons">
+          <a class="hdr__icon" href="{{ routes.search_url }}" aria-label="{{ 'general.search' | t }}">{% render 'icon', name: 'search' %}</a>
+          <a class="hdr__icon" href="{{ routes.account_url }}" aria-label="{{ 'general.account' | t }}">{% render 'icon', name: 'account' %}</a>
+          <a class="hdr__icon" href="/a/wishlist" aria-label="{{ 'general.wishlist' | t }}">{% render 'icon', name: 'heart' %}</a>
+          <a class="hdr__icon" href="{{ routes.cart_url }}" aria-label="{{ 'general.cart' | t }}">
+            {% render 'icon', name: 'bag' %}
+            {%- if cart.item_count > 0 -%}<span class="hdr__count">{{ cart.item_count }}</span>{%- endif -%}
+          </a>
+        </div>
       </div>
     </div>
   </div>
 
-  {%- if menu.links.size > 0 -%}
+  {%- if section.blocks.size > 0 -%}
     <nav class="hdr__nav" aria-label="Main">
       <ul class="hdr__nav-list">
-        {%- for link in menu.links -%}
-          <li class="hdr__nav-item{% if link.links.size > 0 %} hdr__nav-item--has-menu{% endif %}">
-            <a class="hdr__nav-link{% if link.active or link.child_active %} is-active{% endif %}" href="{{ link.url }}">
-              {{ link.title }}
-              {%- if link.links.size > 0 -%}{% render 'icon', name: 'chevron-down', size: 14 %}{%- endif -%}
+        {%- for block in section.blocks -%}
+          {%- assign is_active = false -%}
+          {%- if block.settings.url == request.path -%}{%- assign is_active = true -%}{%- endif -%}
+          <li class="hdr__nav-item{% if block.type == 'mega' %} has-mega{% endif %}" {{ block.shopify_attributes }}>
+            <a class="hdr__nav-link{% if is_active %} is-active{% endif %}" href="{{ block.settings.url | default: '#' }}">
+              <span>{{ block.settings.title }}</span>
+              {%- if block.type == 'mega' -%}{% render 'icon', name: 'chevron-down', size: 13 %}{%- endif -%}
             </a>
-            {%- if link.links.size > 0 -%}
-              <div class="mega">
-                <div class="wrap mega__in">
-                  {%- for child in link.links -%}
-                    <div class="mega__col">
-                      <a class="mega__head" href="{{ child.url }}">{{ child.title }}</a>
-                      {%- if child.links.size > 0 -%}
-                        <ul class="mega__list">
-                          {%- for gc in child.links -%}
-                            <li><a href="{{ gc.url }}">{{ gc.title }}</a></li>
-                          {%- endfor -%}
-                        </ul>
-                      {%- endif -%}
-                    </div>
-                  {%- endfor -%}
-                </div>
-              </div>
-            {%- endif -%}
           </li>
         {%- endfor -%}
       </ul>
@@ -80,132 +83,125 @@
   {%- endif -%}
 </header>
 
-<div class="drawer" data-fye-drawer hidden>
+<div class="drawer" data-fye-drawer>
   <div class="drawer__panel">
-    <button class="hdr__icon drawer__close" type="button" aria-label="{{ 'general.close' | t }}" data-fye-drawer-close>
+    <button class="drawer__close" type="button" aria-label="{{ 'general.close' | t }}" data-fye-drawer-close>
       {% render 'icon', name: 'close' %}
     </button>
     <ul class="drawer__list">
-      {%- for link in menu.links -%}
-        <li>
-          <a href="{{ link.url }}">{{ link.title }}</a>
-          {%- if link.links.size > 0 -%}
-            <ul class="drawer__sub">
-              {%- for child in link.links -%}
-                <li><a href="{{ child.url }}">{{ child.title }}</a></li>
-              {%- endfor -%}
-            </ul>
-          {%- endif -%}
-        </li>
+      {%- for block in section.blocks -%}
+        <li><a href="{{ block.settings.url | default: '#' }}">{{ block.settings.title }}</a></li>
       {%- endfor -%}
     </ul>
+    <div class="drawer__contact">
+      {%- if section.settings.phone != blank -%}
+        <a href="tel:{{ section.settings.phone | remove: ' ' }}">{% render 'icon', name: 'phone', size: 18 %}<span>{{ section.settings.phone }}</span></a>
+      {%- endif -%}
+      {%- if section.settings.whatsapp_url != blank -%}
+        <a href="{{ section.settings.whatsapp_url }}">{% render 'icon', name: 'phone', size: 18 %}<span>WhatsApp</span></a>
+      {%- endif -%}
+      {%- if section.settings.email != blank -%}
+        <a href="mailto:{{ section.settings.email }}">{% render 'icon', name: 'mail', size: 18 %}<span>Email</span></a>
+      {%- endif -%}
+      {%- if section.settings.booking_url != blank -%}
+        <a class="btn btn--block" href="{{ section.settings.booking_url }}">Book appointment</a>
+      {%- endif -%}
+    </div>
   </div>
 </div>
 
 {% stylesheet %}
-/* Chrome, not a content band — padding here is deliberate, not --sect-y. */
-.fye .hdr {
-  position: sticky; top: 0; z-index: 40;
-  background: var(--white);
-  border-bottom: var(--hairline);
-}
-.fye .hdr__util {
-  background: var(--teal);
-  color: var(--on-dark);
-  padding: var(--s2) var(--pad-x);
-}
-.fye .hdr__util-in { display: flex; align-items: center; justify-content: space-between; gap: var(--s4); }
-.fye .hdr__util-right { display: flex; align-items: center; gap: var(--s6); }
-.fye .hdr__util-link {
-  display: inline-flex; align-items: center; gap: var(--s2);
-  color: var(--on-dark);
-  font-size: var(--fs-eyebrow);
-  font-weight: var(--fw-medium);
-  letter-spacing: var(--tr-eyebrow);
-  text-transform: uppercase;
-}
-.fye .hdr__util-link:hover { color: var(--sage-grey); }
-.fye .hdr__util-link .icon { stroke-width: 1.3; }
+/* Chrome, not a content band: padding here is deliberate, not --sect-y. */
+.fye .hdr { background: var(--white); }
 
-.fye .hdr__main { padding: var(--s5) var(--pad-x); }
+.fye .hdr__main { padding: var(--s8) var(--s9); }
 .fye .hdr__main-in {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  gap: var(--s4);
+  gap: var(--s6);
 }
-.fye .hdr__burger { display: none; justify-self: start; }
-.fye .hdr__logo { grid-column: 2; justify-self: center; }
+
+.fye .hdr__contact { display: flex; align-items: center; gap: var(--s7); }
+.fye .hdr__contact-link {
+  display: inline-flex; align-items: center; gap: var(--s2);
+  color: var(--ink);
+  font-size: var(--fs-fine);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.fye .hdr__contact-link:hover { color: var(--sage); }
+
+.fye .hdr__logo { justify-self: center; }
+.fye .hdr__logo img { display: block; }
 .fye .hdr__logo-text {
   font-family: var(--font-display);
-  font-size: 22px;
+  font-size: 26px;
   letter-spacing: var(--tr-h2);
   text-transform: uppercase;
 }
-.fye .hdr__icons { grid-column: 3; justify-self: end; display: flex; align-items: center; gap: var(--s2); }
+
+.fye .hdr__right { justify-self: end; display: flex; align-items: center; gap: var(--s6); }
+.fye .hdr__cta {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px;
+  padding: 0 var(--s6);
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  font-size: var(--fs-fine);
+  font-weight: var(--fw-regular);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.fye .hdr__cta:hover { background: var(--ink); color: var(--ivory); }
+
+.fye .hdr__icons { display: flex; align-items: center; gap: var(--s1); }
 .fye .hdr__icon {
   display: inline-flex; align-items: center; justify-content: center;
   position: relative;
-  width: 44px; height: 44px;          /* touch target */
-  border: 0; background: none;
+  width: 44px; height: 44px;
   color: var(--ink);
 }
 .fye .hdr__icon:hover { color: var(--sage); }
 .fye .hdr__count {
   position: absolute; top: 4px; right: 2px;
-  min-width: 17px; height: 17px;
+  min-width: 18px; height: 18px;
   display: grid; place-items: center;
+  padding: 0 4px;
   background: var(--teal); color: var(--ivory);
   font-size: 10px; font-weight: var(--fw-medium);
 }
 
-.fye .hdr__nav { border-top: var(--hairline); }
+.fye .hdr__burger { display: none; border: 0; background: none; color: var(--ink); width: 44px; height: 44px; align-items: center; justify-content: center; }
+
+/* Nav band */
+.fye .hdr__nav { background: var(--ivory); border-bottom: 2px solid var(--gold-rose); }
 .fye .hdr__nav-list {
-  display: flex; flex-wrap: wrap; justify-content: center;
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
   gap: var(--s7);
-  margin: 0; padding: 0 var(--pad-x); list-style: none;
+  margin: 0; padding: 0 var(--s9); list-style: none;
 }
 .fye .hdr__nav-item { margin: 0; }
 .fye .hdr__nav-link {
   display: inline-flex; align-items: center; gap: var(--s1);
-  padding: var(--s3) 0;
-  font-size: var(--fs-fine);
+  padding: var(--s4) 0;
+  color: var(--ink);
+  font-size: 14px;
   font-weight: var(--fw-medium);
-  letter-spacing: var(--tr-button);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  border-bottom: 1px solid transparent;
+  white-space: nowrap;
 }
-.fye .hdr__nav-link:hover,
-.fye .hdr__nav-link.is-active { color: var(--sage); border-bottom-color: currentColor; }
-
-/* Mega menu — hover on pointer devices, and keyboard-reachable via focus-within. */
-.fye .mega {
-  position: absolute; left: 0; right: 0;
-  background: var(--white);
-  border-top: var(--hairline);
-  border-bottom: var(--hairline);
-  padding: var(--s8) var(--pad-x);
-  opacity: 0; visibility: hidden;
-  transition: opacity var(--dur) var(--ease), visibility var(--dur) var(--ease);
-}
-.fye .hdr__nav-item--has-menu { position: relative; }
-.fye .hdr__nav-item--has-menu:hover .mega,
-.fye .hdr__nav-item--has-menu:focus-within .mega { opacity: 1; visibility: visible; }
-.fye .mega__in { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--s7); }
-.fye .mega__head {
-  display: block; margin-bottom: var(--s3);
-  font-family: var(--font-display);
-  font-size: var(--fs-h4);
-  letter-spacing: var(--tr-h2);
-  text-transform: uppercase;
-}
-.fye .mega__list { margin: 0; padding: 0; list-style: none; }
-.fye .mega__list li { margin-bottom: var(--s2); }
-.fye .mega__list a { font-size: var(--fs-small); }
+.fye .hdr__nav-link:hover { color: var(--sage); }
+.fye .hdr__nav-link.is-active { color: var(--sage); }
 
 /* Mobile drawer */
-.fye .drawer { position: fixed; inset: 0; z-index: 60; background: var(--scrim); }
-.fye .drawer[hidden] { display: none; }
+.fye .drawer { position: fixed; inset: 0; z-index: 60; background: var(--scrim); display: none; }
+.fye .drawer.is-open { display: block; }
 .fye .drawer__panel {
   position: absolute; inset-block: 0; inset-inline-start: 0;
   width: min(88vw, 380px);
@@ -213,32 +209,62 @@
   padding: var(--s6);
   overflow-y: auto;
 }
-.fye .drawer__close { position: absolute; top: var(--s3); right: var(--s3); }
-.fye .drawer__list { margin: var(--s8) 0 0; padding: 0; list-style: none; }
-.fye .drawer__list > li { border-bottom: var(--hairline); padding: var(--s3) 0; }
-.fye .drawer__list > li > a {
-  font-family: var(--font-display);
-  font-size: var(--fs-h4);
-  letter-spacing: var(--tr-h2);
-  text-transform: uppercase;
+.fye .drawer__close { position: absolute; top: var(--s3); right: var(--s3); width: 44px; height: 44px; border: 0; background: none; color: var(--ink); }
+.fye .drawer__list { margin: var(--s9) 0 var(--s7); padding: 0; list-style: none; }
+.fye .drawer__list li { border-bottom: var(--hairline); padding: var(--s3) 0; }
+.fye .drawer__list a {
+  font-size: 15px; font-weight: var(--fw-medium);
+  letter-spacing: 0.1em; text-transform: uppercase;
 }
-.fye .drawer__sub { margin: var(--s2) 0 0; padding: 0 0 0 var(--s4); list-style: none; }
-.fye .drawer__sub li { margin-bottom: var(--s1); }
-.fye .drawer__sub a { font-size: var(--fs-small); }
+.fye .drawer__contact { display: flex; flex-direction: column; gap: var(--s3); }
+.fye .drawer__contact a { display: inline-flex; align-items: center; gap: var(--s2); font-size: var(--fs-small); }
 
-@media (max-width: 900px) {
-  .fye .hdr__util { display: none; }
-  .fye .hdr__burger { display: inline-flex; }
-  .fye .hdr__nav { display: none; }
+@media (max-width: 1200px) {
+  .fye .hdr__contact-link span { display: none; }
+  .fye .hdr__contact { gap: var(--s4); }
 }
-@media (max-width: 560px) {
-  .fye .hdr__icon--hide-sm { display: none; }
+@media (max-width: 900px) {
+  .fye .hdr__main { padding: var(--s4) var(--pad-x); }
+  .fye .hdr__burger { display: inline-flex; }
+  .fye .hdr__contact { display: none; }
+  .fye .hdr__cta { display: none; }
+  .fye .hdr__nav { display: none; }
+  .fye .hdr__main-in { grid-template-columns: auto 1fr auto; }
+  .fye .hdr__logo img { max-width: 180px; }
 }
 {% endstylesheet %}
 
 {% schema %}
 {
   "name": "Header",
-  "settings": []
+  "tag": "header",
+  "settings": [
+    { "type": "text", "id": "phone", "label": "Phone", "default": "0208 178 6687" },
+    { "type": "text", "id": "email", "label": "Email", "default": "hello@foryoureternity.com" },
+    { "type": "url", "id": "booking_url", "label": "Booking link" },
+    { "type": "url", "id": "whatsapp_url", "label": "WhatsApp link" },
+    { "type": "header", "content": "Call to action" },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Downloadable guides" },
+    { "type": "url", "id": "cta_link", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "base",
+      "name": "Link",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "url", "id": "url", "label": "Link" }
+      ]
+    },
+    {
+      "type": "mega",
+      "name": "Link with dropdown",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "url", "id": "url", "label": "Link" },
+        { "type": "link_list", "id": "menu", "label": "Dropdown menu" }
+      ]
+    }
+  ]
 }
 {% endschema %}

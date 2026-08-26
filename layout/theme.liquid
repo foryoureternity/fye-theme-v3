@@ -1,0 +1,81 @@
+{%- comment -%}
+  FYE v3 — layout/theme.liquid
+  Rebuilt from scratch August 2026. No T4S inheritance.
+
+  Deliberately absent, and not to be reintroduced:
+    - jQuery, bootstrap.min.css, the 535KB T4S JS core
+    - the RTL branch (UK English store, one direction)
+    - the currency/flag kit (GBP only)
+    - fye-overrides-inline.liquid (it existed to out-cascade T4S)
+    - any selector keyed to template--<digits>
+
+  Stylesheets are normal cached asset files again. The /assets/ CDN staleness
+  that forced inline CSS was specific to the old theme; if it reappears here,
+  diagnose it rather than reaching for the inline workaround.
+{%- endcomment -%}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#233D47">
+  <link rel="canonical" href="{{ canonical_url }}">
+  {%- if settings.favicon != blank -%}
+    <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+  {%- endif -%}
+
+  <title>{{ page_title }}{% if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.page' | t }} {{ current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>
+  {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+
+  {%- comment -%}
+    Fonts: self-hosted, not Google Fonts. Two reasons — no third-party DNS+TLS
+    before first paint, and no visitor IPs sent to Google (GDPR).
+    Upload these five woff2 files to the theme's Assets in Shopify admin.
+  {%- endcomment -%}
+  <link rel="preload" as="font" type="font/woff2" href="{{ 'tenor-sans-400.woff2' | asset_url }}" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="{{ 'outfit-300.woff2' | asset_url }}" crossorigin>
+  <style>
+    @font-face{font-family:'Tenor Sans';src:url({{ 'tenor-sans-400.woff2' | asset_url }}) format('woff2');font-weight:400;font-style:normal;font-display:swap}
+    @font-face{font-family:'Outfit';src:url({{ 'outfit-300.woff2' | asset_url }}) format('woff2');font-weight:300;font-style:normal;font-display:swap}
+    @font-face{font-family:'Outfit';src:url({{ 'outfit-400.woff2' | asset_url }}) format('woff2');font-weight:400;font-style:normal;font-display:swap}
+    @font-face{font-family:'Outfit';src:url({{ 'outfit-500.woff2' | asset_url }}) format('woff2');font-weight:500;font-style:normal;font-display:swap}
+    @font-face{font-family:'Outfit';src:url({{ 'outfit-600.woff2' | asset_url }}) format('woff2');font-weight:600;font-style:normal;font-display:swap}
+  </style>
+
+  {{ 'fye-core.css' | asset_url | stylesheet_tag }}
+
+  {{ content_for_header }}
+</head>
+
+{%- comment -%}
+  Resolve the page type ONCE. Every consumer uses this variable — never
+  request.page_type directly, which is blank on /a/search proxy pages.
+{%- endcomment -%}
+{%- capture fye_page_type -%}{%- render 'fye-page-type' -%}{%- endcapture -%}
+{%- assign fye_page_type = fye_page_type | strip -%}
+
+{%- capture body_class -%}
+fye fye-tpl-{{ fye_page_type }}
+{%- if page.handle != blank %} fye-page-{{ page.handle }}{% endif -%}
+{%- if collection.handle != blank %} fye-collection-{{ collection.handle }}{% endif -%}
+{%- if article.handle != blank %} fye-article-{{ article.handle }}{% endif -%}
+{%- if product.handle != blank %} fye-product-{{ product.handle }}{% endif -%}
+{%- endcapture -%}
+
+<body class="{{ body_class | strip_newlines | strip }}">
+
+  <a href="#main" class="visually-hidden">{{ 'general.skip_to_content' | t }}</a>
+
+  {%- sections 'header-group' -%}
+
+  <main id="main" role="main">
+    {{ content_for_layout }}
+  </main>
+
+  {%- sections 'footer-group' -%}
+
+  <script src="{{ 'fye-ui.js' | asset_url }}" defer></script>
+</body>
+</html>

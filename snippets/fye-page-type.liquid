@@ -1,0 +1,34 @@
+{%- comment -%}
+  fye-page-type — the single source of truth for "what kind of page is this".
+
+  WHY THIS EXISTS: on the xCloud app-proxy filter pages (/a/search...) both
+  `request.page_type` and `template.name` come back EMPTY, so body classes and
+  template gates silently fail. The old theme worked around this in three
+  separate places with three slightly different fallbacks.
+
+  Outputs a single lowercase token. Capture it once in layout/theme.liquid and
+  pass it down; never re-derive it.
+
+    {%- capture fye_page_type -%}{%- render 'fye-page-type' -%}{%- endcapture -%}
+{%- endcomment -%}
+{%- liquid
+  assign path = request.path | downcase
+  assign type = request.page_type
+
+  # App-proxy pages report nothing. Resolve from the path instead.
+  if path contains '/a/search'
+    assign type = 'search'
+  elsif path contains '/a/wishlist'
+    assign type = 'wishlist'
+  elsif path contains '/a/compare'
+    assign type = 'compare'
+  elsif type == blank
+    assign type = template.name
+  endif
+
+  if type == blank
+    assign type = 'page'
+  endif
+
+  echo type | strip
+-%}

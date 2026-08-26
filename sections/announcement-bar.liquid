@@ -1,0 +1,35 @@
+{%- comment -%}
+  announcement-bar — sage pale ground, one line, dismissible-free.
+  Padding is intentionally NOT --sect-y: this is chrome, not a content band.
+{%- endcomment -%}
+{%- if settings.announcement_show and settings.announcement_text != blank -%}
+  <div class="ann">
+    {%- if settings.announcement_link != blank -%}
+      <a href="{{ settings.announcement_link }}">{{ settings.announcement_text }}</a>
+    {%- else -%}
+      <span>{{ settings.announcement_text }}</span>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+.fye .ann {
+  background: var(--sage-pale);
+  color: var(--ink);
+  padding: var(--s2) var(--pad-x);
+  text-align: center;
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+}
+.fye .ann a { color: inherit; border-bottom: 1px solid transparent; }
+.fye .ann a:hover { color: var(--sage-deep); border-bottom-color: currentColor; }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": []
+}
+{% endschema %}

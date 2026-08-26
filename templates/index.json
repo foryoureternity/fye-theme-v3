@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "hero": {
+      "type": "fye-hero",
+      "settings": {
+        "heading": "Timeless engagement rings",
+        "subheading": "Designed with you, to last for your eternity",
+        "button_label": "Create your own",
+        "button_link": "/pages/create-your-own-ring",
+        "band": "ivory"
+      }
+    }
+  },
+  "order": ["hero"]
+}

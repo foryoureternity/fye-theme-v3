@@ -1,0 +1,26 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+
+# Dropbox
+.dropbox
+.dropbox.attr
+*conflicted copy*
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Shopify CLI
+.shopifyignore
+node_modules/
+.env
+*.log
+
+# Never commit real store data
+config/settings_data.json.bak
+templates/*.bak-*
+.tmp*/

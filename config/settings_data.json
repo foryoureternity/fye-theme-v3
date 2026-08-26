@@ -1,0 +1,20 @@
+{
+  "current": {
+    "logo_width": 175,
+    "menu_main": "main-menu",
+    "menu_footer": "footer",
+    "announcement_text": "Beautiful Jewellery. Ethically Made. Fairly Priced.",
+    "announcement_show": true,
+    "phone": "",
+    "email": "hello@foryoureternity.com"
+  },
+  "presets": {
+    "Default": {
+      "logo_width": 175,
+      "menu_main": "main-menu",
+      "menu_footer": "footer",
+      "announcement_text": "Beautiful Jewellery. Ethically Made. Fairly Priced.",
+      "announcement_show": true
+    }
+  }
+}

@@ -1,0 +1,168 @@
+{%- comment -%}
+  footer — teal band. Blocks so columns are editable in the customiser.
+{%- endcomment -%}
+<footer class="band band--teal ftr">
+  <div class="wrap">
+    <div class="ftr__top">
+      <div class="ftr__brand">
+        {%- if settings.logo != blank -%}
+          {{ settings.logo | image_url: width: 480 | image_tag: alt: shop.name, width: 150, class: 'ftr__logo', loading: 'lazy' }}
+        {%- else -%}
+          <span class="ftr__logo-text">{{ shop.name }}</span>
+        {%- endif -%}
+        <p class="ftr__strap">Beautiful Jewellery. Ethically Made. Fairly Priced.</p>
+        <div class="ftr__contact">
+          {%- if settings.email != blank -%}
+            <a href="mailto:{{ settings.email }}">{% render 'icon', name: 'mail', size: 16 %} {{ settings.email }}</a>
+          {%- endif -%}
+          {%- if settings.phone != blank -%}
+            <a href="tel:{{ settings.phone | remove: ' ' }}">{% render 'icon', name: 'phone', size: 16 %} {{ settings.phone }}</a>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <div class="ftr__cols">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'menu' -%}
+            {%- assign list = linklists[block.settings.menu] -%}
+            <div class="ftr__col" {{ block.shopify_attributes }}>
+              <p class="ftr__head">{{ block.settings.heading | default: list.title }}</p>
+              {%- if list.links.size > 0 -%}
+                <ul class="ftr__list">
+                  {%- for link in list.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+            </div>
+          {%- elsif block.type == 'text' -%}
+            <div class="ftr__col" {{ block.shopify_attributes }}>
+              <p class="ftr__head">{{ block.settings.heading }}</p>
+              <div class="ftr__text">{{ block.settings.text }}</div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <div class="ftr__guarantee">
+      <span>{% render 'icon', name: 'shipping', size: 20 %} Free insured UK delivery</span>
+      <span>{% render 'icon', name: 'resize', size: 20 %} Complimentary first resize</span>
+      <span>{% render 'icon', name: 'warranty', size: 20 %} Lifetime guarantee</span>
+      <span>{% render 'icon', name: 'ethical', size: 20 %} Ethically sourced</span>
+    </div>
+
+    <div class="ftr__base">
+      <p class="ftr__fine">&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ 'footer.copyright' | t }}.</p>
+      {%- assign policies = linklists[settings.menu_footer] -%}
+      {%- if policies.links.size > 0 -%}
+        <ul class="ftr__policies">
+          {%- for link in policies.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</footer>
+
+{% stylesheet %}
+.fye .ftr__top {
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) 2fr;
+  gap: var(--s10);
+  padding-bottom: var(--s9);
+}
+.fye .ftr__logo-text {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: var(--tr-h2);
+  text-transform: uppercase;
+}
+.fye .ftr__strap {
+  margin: var(--s4) 0 var(--s5);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.fye .ftr__contact { display: flex; flex-direction: column; gap: var(--s2); }
+.fye .ftr__contact a { display: inline-flex; align-items: center; gap: var(--s2); font-size: var(--fs-small); }
+
+.fye .ftr__cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: var(--s7); }
+.fye .ftr__head {
+  margin: 0 0 var(--s4);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+}
+.fye .ftr__list { margin: 0; padding: 0; list-style: none; }
+.fye .ftr__list li { margin-bottom: var(--s2); }
+.fye .ftr__list a, .fye .ftr__text { font-size: var(--fs-small); }
+
+.fye .ftr__guarantee {
+  display: flex; flex-wrap: wrap; gap: var(--s7);
+  padding: var(--s6) 0;
+  border-top: 1px solid var(--line-on-dark);
+  border-bottom: 1px solid var(--line-on-dark);
+}
+.fye .ftr__guarantee span {
+  display: inline-flex; align-items: center; gap: var(--s2);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+}
+
+.fye .ftr__base {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: var(--s4);
+  padding-top: var(--s6);
+}
+.fye .ftr__fine { margin: 0; font-size: var(--fs-fine); color: var(--ink-soft); }
+.fye .ftr__policies { display: flex; flex-wrap: wrap; gap: var(--s5); margin: 0; padding: 0; list-style: none; }
+.fye .ftr__policies li { margin: 0; }
+.fye .ftr__policies a { font-size: var(--fs-fine); }
+
+@media (max-width: 900px) {
+  .fye .ftr__top { grid-template-columns: 1fr; gap: var(--s8); }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Footer",
+  "max_blocks": 5,
+  "settings": [],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu column",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading" },
+        { "type": "link_list", "id": "menu", "label": "Menu" }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text column",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading" },
+        { "type": "richtext", "id": "text", "label": "Text" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer",
+      "blocks": [
+        { "type": "menu" },
+        { "type": "menu" },
+        { "type": "menu" }
+      ]
+    }
+  ]
+}
+{% endschema %}

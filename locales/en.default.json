@@ -1,0 +1,25 @@
+{
+  "general": {
+    "page": "Page",
+    "skip_to_content": "Skip to content",
+    "search": "Search",
+    "close": "Close",
+    "menu": "Menu",
+    "account": "Account",
+    "wishlist": "Wishlist",
+    "cart": "Basket",
+    "home": "Home"
+  },
+  "products": {
+    "product": {
+      "from_price": "From",
+      "sold_out": "Sold out",
+      "add_to_cart": "Add to basket",
+      "enquire": "Enquire"
+    }
+  },
+  "footer": {
+    "newsletter": "Stay in touch",
+    "copyright": "All rights reserved"
+  }
+}

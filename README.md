@@ -6,58 +6,44 @@ No T4S/Kalles inheritance.
 See `docs/architecture.md` for the design system, the seven rules, and the
 contrast measurements. **Read it before touching CSS.**
 
+Repo: `foryoureternity/fye-theme-v3`, branch `main`.
+
 ---
 
-## First-time setup
+## Fonts — one-time cleanup
 
-Shopify only lets a theme be connected to GitHub **at the moment the theme is
-created**. A theme uploaded as a zip can never be linked to a repo afterwards.
-So the repo has to exist first.
+The design system shipped `outfit-300/400/500/600.woff2` as **four byte-identical
+copies of the same file** (verified 26/08/2026, hash `491118c9`). Declaring them
+as four fixed weights gave every weight the same rendering, flattening body copy
+at 300 against labels at 500.
 
-### 1. Create the repo on GitHub
-
-Go to github.com as **foryoureternity** and create a new **empty** repository
-called `fye-theme-v3`. No README, no .gitignore, no licence — it must be empty
-or the first push will be rejected.
-
-### 2. Push this folder to it
+`layout/theme.liquid` now declares Outfit once as a variable font spanning
+100–900. Only two font files belong in `assets/`:
 
 ```bash
-cd ~/Dropbox/GIT-repositaries/fye-theme-v3
-
-# let Dropbox finish syncing first — check for the green tick
-git init -b main
-git add .
-git commit -m "FYE v3 foundations: core CSS, layout, header, footer, hero"
-git remote add origin https://github.com/foryoureternity/fye-theme-v3.git
-git push -u origin main
+cd ~/Dropbox/GIT-repositaries/fye-theme-v3/assets
+mv outfit-300.woff2 outfit-variable.woff2
+rm outfit-400.woff2 outfit-500.woff2 outfit-600.woff2
 ```
 
-### 3. Create the theme from the repo
+If weights still render identically after that, the file is a static single
+weight rather than variable — download proper woff2 files from
+[fonts.google.com/specimen/Outfit](https://fonts.google.com/specimen/Outfit) and
+declare 300/400/500/600 separately in `theme.liquid`.
+
+---
+
+## Creating the Shopify theme
+
+Shopify only lets a theme be connected to GitHub **at the moment the theme is
+created**. A theme uploaded as a zip can never be linked to a repo afterwards —
+which is why this repo exists before the theme does.
 
 Shopify admin → **Online Store → Themes → Add theme → Connect from GitHub**
-→ pick `foryoureternity/fye-theme-v3`, branch `main`.
+→ `foryoureternity/fye-theme-v3`, branch `main`.
 
 Shopify creates the theme **unpublished** and keeps it synced in both
 directions from then on. Do not publish until sign-off.
-
-### 4. Upload the fonts
-
-Fonts are self-hosted, not Google Fonts — no third-party request before first
-paint, and no visitor IPs sent to Google. The five woff2 files can't be
-committed from the design tooling, so add them once by hand:
-
-Theme → **Edit code → Assets → Add a new asset**, upload:
-
-- `tenor-sans-400.woff2`
-- `outfit-300.woff2`
-- `outfit-400.woff2`
-- `outfit-500.woff2`
-- `outfit-600.woff2`
-
-`layout/theme.liquid` already declares the `@font-face` rules and preloads the
-two used above the fold. Until the files exist the site falls back to Georgia
-and the system sans.
 
 ---
 
@@ -68,8 +54,11 @@ edits made in the Shopify theme editor commit back to `main`. Two consequences:
 
 - **Pull before you push.** Customiser changes (section settings, template JSON)
   arrive as commits from Shopify.
-- **Never edit `config/settings_data.json` by hand** while the connection is
-  live. It is Shopify's file now.
+- **Never hand-edit `config/settings_data.json`** while the connection is live.
+  It is Shopify's file now.
+
+Dropbox note: this working tree lives inside Dropbox, so let sync finish (green
+tick) before any git operation. A half-synced `.git` is how repos get corrupted.
 
 ## Structure
 
@@ -84,9 +73,10 @@ docs/architecture.md      decisions, rules, contrast table, carried-forward fixe
 
 ## Status
 
-Built: core CSS, layout, page-type helper, icons, announcement bar, header
-(with a real mega menu), footer, hero, homepage template.
+**Built:** core CSS, layout, page-type helper, icon set, announcement bar, header
+(with a real mega menu — the old one was customiser-only), footer, hero,
+homepage template.
 
-Not built yet: `main-page`, `main-product`, `main-collection`, search, cart,
+**Not built yet:** `main-page`, `main-product`, `main-collection`, search, cart,
 customer account templates, and the ~85 content sections being ported from the
-old theme.
+old theme. Expect the homepage to render and little else until those land.

@@ -1,0 +1,275 @@
+{
+  "sections": {
+    "hero": {
+      "type": "fye-hero",
+      "settings": {
+        "band": "ivory",
+        "align": "left",
+        "image": "shopify://shop_images/eternity-new.png",
+        "logo_url": "https://cdn.shopify.com/s/files/1/0972/5391/7056/files/temp-logo-white-1.svg?v=1771834133",
+        "logo_alt": "For Your Eternity",
+        "logo_width": 250,
+        "heading": "Eternity rings by",
+        "heading_style": "sentence",
+        "subheading": "Celebrate a love with no beginning and no end — ethically crafted eternity rings, set with diamonds and gemstones to mark a lifetime together.",
+        "button_label": "View our eternity rings",
+        "button_link": "shopify://collections/eternity-rings",
+        "button2_label": "Eternity ring guide",
+        "button2_link": "shopify://pages/eternity-ring-guide"
+      }
+    },
+
+    "fye_mediatext_custom_eter": {
+      "type": "fye-media-text",
+      "blocks": {
+        "btn_book": {
+          "type": "button",
+          "settings": {
+            "label": "Book consultation",
+            "link": "https://calendar.app.google/UKFkGvMLzAYEviqy8",
+            "style": "btn"
+          }
+        }
+      },
+      "block_order": ["btn_book"],
+      "settings": {
+        "band": "sage",
+        "reverse": true,
+        "full_bleed": true,
+        "image": "shopify://shop_images/Custom_Eternity_Ring.png",
+        "image_alt": "Custom eternity ring craftsmanship",
+        "placeholder": "Custom ring craftsmanship",
+        "heading": "Custom eternity rings, made to fit",
+        "body": "<p>An eternity ring marks a milestone — an anniversary, a vow renewed, a life shared. We can craft one to sit perfectly alongside your existing engagement and wedding bands, matched to their exact contours. Book a free consultation to design yours.</p>"
+      }
+    },
+
+    "featured_collection_NFfNPH": {
+      "type": "featured-collection",
+      "settings": {
+        "top_heading": "Our most popular eternity rings",
+        "collection": "eternity-rings",
+        "limit": 8,
+        "head_btn_label": "View all",
+        "col_dk": "4",
+        "col_mb": "2",
+        "band": "white"
+      }
+    },
+
+    "fye_guidedl_eter": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "btn_download": {
+          "type": "button",
+          "settings": {
+            "label": "View the guide",
+            "link": "shopify://pages/eternity-ring-guide",
+            "style": "btn"
+          }
+        }
+      },
+      "block_order": ["btn_download"],
+      "settings": {
+        "band": "teal",
+        "cover": "shopify://shop_images/Eternity_Ring_Guide_Cover_v3.png",
+        "cover_alt": "The Eternity Ring Guide",
+        "cover_caption": "The Eternity Ring Guide",
+        "heading": "The Eternity Ring Guide",
+        "body": "<p>Full and half eternity styles, stone settings, spacing and how to wear them — read online or take the free PDF.</p>"
+      }
+    },
+
+    "shipping_why_eter": {
+      "type": "shipping",
+      "blocks": {
+        "shipping_CDXd6U": {
+          "type": "shipping",
+          "settings": { "illustration": "diamond", "text": "<p>Ethically sourced diamonds and materials</p>" }
+        },
+        "shipping_VVCxnM": {
+          "type": "shipping",
+          "settings": { "illustration": "pricing", "text": "<p>Competitive pricing</p>" }
+        },
+        "shipping_KaUaYF": {
+          "type": "shipping",
+          "settings": { "illustration": "rings", "text": "<p>Matching wedding rings</p>" }
+        },
+        "shipping_UJihwF": {
+          "type": "shipping",
+          "settings": { "illustration": "education", "text": "<p>Educational approach to finding you the right ring</p>" }
+        },
+        "shipping_FbFyEk": {
+          "type": "shipping",
+          "settings": { "illustration": "custom", "text": "<p>Fully customisable designs</p>" }
+        },
+        "shipping_jAAiTU": {
+          "type": "shipping",
+          "settings": { "illustration": "shipping", "text": "<p>Free, insured shipping</p>" }
+        },
+        "shipping_L4p6LB": {
+          "type": "shipping",
+          "settings": { "illustration": "resize", "text": "<p>Free resizing for one year</p>" }
+        },
+        "shipping_bVDUpk": {
+          "type": "shipping",
+          "settings": { "illustration": "warranty", "text": "<p>Lifetime warranty*</p>" }
+        }
+      },
+      "block_order": [
+        "shipping_CDXd6U", "shipping_VVCxnM", "shipping_KaUaYF", "shipping_UJihwF",
+        "shipping_FbFyEk", "shipping_jAAiTU", "shipping_L4p6LB", "shipping_bVDUpk"
+      ],
+      "settings": {
+        "top_heading": "Why choose For Your Eternity?",
+        "col_dk": "4",
+        "band": "white"
+      }
+    },
+
+    "fye_mediatext_consult_eter": {
+      "type": "fye-media-text",
+      "blocks": {
+        "btn_book": {
+          "type": "button",
+          "settings": {
+            "label": "Book consultation",
+            "link": "https://calendar.app.google/UKFkGvMLzAYEviqy8",
+            "style": "btn"
+          }
+        }
+      },
+      "block_order": ["btn_book"],
+      "settings": {
+        "band": "sage",
+        "reverse": true,
+        "full_bleed": true,
+        "image": "shopify://shop_images/fffg1_1.png",
+        "image_alt": "Ring presented for a personalised consultation",
+        "placeholder": "Consultation photo",
+        "eyebrow": "Your forever begins here",
+        "heading": "Book a personalised consultation",
+        "body": "<ul><li>Ensure you choose the right ring</li><li>Discover different ring styles</li><li>Pick the right ring for your budget</li><li>Find out how to choose the correct size</li></ul>"
+      }
+    },
+
+    "accordion_faq_eter": {
+      "type": "accordion",
+      "blocks": {
+        "accor_item_ii7YzP": {
+          "type": "accor_item",
+          "settings": {
+            "title": "What makes your eternity rings ethical?",
+            "content": "<p>At For Your Eternity, we are committed to ethical sourcing and responsible practices. Our rings are crafted using conflict-free or lab-grown diamonds, responsibly sourced or recycled precious metals, and sustainable materials wherever possible. We adhere to the Kimberley Process Certification Scheme (KPCS) and the World Diamond Council System of Warranties (SoW) to ensure all our diamonds are ethically obtained. Additionally, we work only with trusted suppliers who meet strict environmental and human rights standards.</p>"
+          }
+        },
+        "accor_item_H98KiF": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Do you offer custom ring designs?",
+            "content": "<p>Yes! We offer a <strong>fully bespoke ring design service</strong>, allowing you to create a one-of-a-kind engagement or wedding ring. Our experts will guide you through the process, from selecting the perfect diamond or gemstone to designing a setting that reflects your unique style. Whether you want a modern, classic, or vintage-inspired design, we can bring your vision to life.</p>"
+          }
+        },
+        "accor_item_DiqKtg": {
+          "type": "accor_item",
+          "settings": {
+            "title": "How long does it take to receive a custom ring?",
+            "content": "<p>Custom rings typically take 4–6 weeks from the date of design approval to completion. However, this timeframe can vary depending on the complexity of the design, material availability, and any additional customisation requests. If you need a ring by a specific date, please contact us, and we’ll do our best to accommodate your timeline.</p>"
+          }
+        },
+        "accor_item_xc9rtw": {
+          "type": "accor_item",
+          "settings": {
+            "title": "What is your return policy?",
+            "content": "<p>We want you to love your ring, and we stand by the quality of our craftsmanship. However, due to the personalised nature of engagement and wedding rings, we can only accept returns in the following circumstances:</p><ul><li>Custom, bespoke, or made-to-order rings are non-returnable and non-refundable.</li><li>Ready-to-wear rings can be returned within 30 days of purchase, provided they are unworn, in original packaging, and in resalable condition.</li><li>If there is a manufacturing defect or the ring does not match the agreed specifications, we will replace or repair it free of charge.</li></ul><p>To initiate a return, please email <a href=\"mailto:hello@foryoureternity.com\">hello@foryoureternity.com</a> with your order details.</p>"
+          }
+        },
+        "accor_item_inPnDK": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Are your diamonds certified?",
+            "content": "<p>Yes, all our natural and lab-grown diamonds come with independent certification from leading gemological institutes, such as the Gemological Institute of America (GIA) and International Gemological Institute (IGI). This certification guarantees the diamond’s authenticity and provides a detailed analysis of its cut, colour, clarity, and carat weight.</p>"
+          }
+        },
+        "accor_item_ptL8Qy": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Do you offer matching wedding bands?",
+            "content": "<p>Absolutely! We can create perfectly matching wedding bands to complement your engagement ring. Whether you want a classic plain band, diamond-set band, or a custom-fitted design, we’ll ensure your wedding band sits seamlessly alongside your engagement ring. We can also design bands to match rings purchased elsewhere — simply book a consultation to discuss your options.</p>"
+          }
+        },
+        "accor_item_ieUPmV": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Do you offer financing or payment plans?",
+            "content": "<p>Yes, we offer flexible financing and payment plans to help make your dream ring more affordable. Our options may include:</p><ul><li>Interest-free instalments</li><li>Buy now, pay later options</li><li>Custom payment schedules for bespoke pieces</li></ul><p>Please contact us at <a href=\"mailto:hello@foryoureternity.com\">hello@foryoureternity.com</a> for details on available financing options and eligibility requirements.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "accor_item_ii7YzP", "accor_item_H98KiF", "accor_item_DiqKtg", "accor_item_xc9rtw",
+        "accor_item_inPnDK", "accor_item_ptL8Qy", "accor_item_ieUPmV"
+      ],
+      "settings": {
+        "top_heading": "Frequently asked questions",
+        "left_heading": "Have more questions to ask?",
+        "left_text": "<p>We’re here to help. If you have any questions about our rings, designs, or ethical sourcing, feel free to reach out — our experts are happy to guide you.</p>",
+        "left_btn": "Enquire now",
+        "left_url": "shopify://pages/contact",
+        "emit_schema": true,
+        "band": "white"
+      }
+    },
+
+    "fye_mediatext_guarantee_eter": {
+      "type": "fye-media-text",
+      "settings": {
+        "band": "mist",
+        "full_bleed": true,
+        "image": "shopify://shop_images/Ring_211_5.png",
+        "image_alt": "Hand wearing a For Your Eternity ring",
+        "placeholder": "Hand with ring",
+        "heading": "The For Your Eternity guarantee",
+        "body": "<ul><li>GIA & IGI certified diamonds</li><li>Ethical, conflict free gemstones & precious metals</li><li>20% discount on your eternity ring for returning customers</li><li>Free insured delivery</li><li>Complimentary resizing for one year</li><li>Complimentary cleaning for life</li><li>Lifetime warranty against manufacturing defects</li></ul>"
+      }
+    },
+
+    "fye_consultation_eter": {
+      "type": "fye-consultation",
+      "blocks": {
+        "contact_phone": {
+          "type": "contact",
+          "settings": { "type": "phone", "label": "0208 178 6687" }
+        },
+        "contact_email": {
+          "type": "contact",
+          "settings": { "type": "email", "label": "hello@foryoureternity.com" }
+        },
+        "contact_whatsapp": {
+          "type": "contact",
+          "settings": { "type": "whatsapp", "label": "WhatsApp", "link": "https://wa.me/447840042922" }
+        }
+      },
+      "block_order": ["contact_phone", "contact_email", "contact_whatsapp"],
+      "settings": {
+        "band": "teal",
+        "eyebrow": "Personal guidance",
+        "heading": "Still unsure where to start?",
+        "lead": "Book a free consultation — in person, by phone or video.",
+        "btn_label": "Book a free consultation",
+        "btn_link": "https://calendar.app.google/UKFkGvMLzAYEviqy8"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "fye_mediatext_custom_eter",
+    "featured_collection_NFfNPH",
+    "fye_guidedl_eter",
+    "shipping_why_eter",
+    "fye_mediatext_consult_eter",
+    "accordion_faq_eter",
+    "fye_mediatext_guarantee_eter",
+    "fye_consultation_eter"
+  ]
+}

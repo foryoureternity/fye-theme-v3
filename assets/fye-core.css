@@ -768,6 +768,14 @@ a.visually-hidden:focus-visible {
    ========================================================================== */
 
 @media (max-width: 768px) {
+  /* Two across, not one. auto-fit with a 200px floor cannot fit two 200px
+     tracks in a phone's ~330px content width, so it collapsed to a single
+     column and the four points ran down the page. Live shows 2 x 2.
+     minmax(0, 1fr) because a floor is what caused this. */
+  .fye .tstrip__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 768px) {
   /* The mark is decorative here and live drops it on mobile, leading with the
      heading. NOTE: feature_columns2 is on 7 templates; every current mobile
      use of its image is a decorative mark. A future use with a real

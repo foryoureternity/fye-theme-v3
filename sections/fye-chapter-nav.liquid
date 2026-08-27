@@ -1,0 +1,351 @@
+{%- comment -%}
+  fye-chapter-nav — breadcrumb, chapter number and previous/next. 102 uses,
+  the second most-used section in the theme.
+
+  ============================================================================
+  THE CHAPTER ORDER LIVES IN THIS FILE. It is the only place to edit it.
+  Add a chapter by putting its page handle in the `seq_` list and its title in
+  the matching `ttl_` list, IN THE SAME POSITION. The two lists must stay the
+  same length or every title after the gap belongs to the wrong chapter.
+  ============================================================================
+
+  ONE PAGE CAN BELONG TO SEVERAL GUIDES. `find-your-ring-size` is a chapter of
+  the engagement guide, the plain wedding guide and two others. Only the FIRST
+  matching guide is rendered into the HTML; the rest are emitted as JSON and
+  swapped in by fye-ui.js when the incoming link carries `?guide=`. Rendering
+  all of them and hiding the spares put up to six invisible links and four
+  duplicate breadcrumbs into the markup of every shared chapter, which is bad
+  for crawlers and worse for screen readers.
+
+  WHAT CHANGED FROM THE OLD THEME
+  - Both inline <script> blocks are gone. The guide swap and the on-this-page
+    list are now named functions in assets/fye-ui.js (conventions §6: no script
+    tags in sections). The two <script type="application/json"> islands stay —
+    they are data, not code, and there is no other way to hand per-page values
+    to a delegated script.
+  - The CSS was 40 lines of literals (28px, 16px, 11px, .16em, var(--muted))
+    chained to `.fye-edu` to out-specify another rule. It is tokens now, and
+    the chaining is unnecessary because nothing else styles `.band` at equal
+    specificity in v3.
+  - The old file carried its own inline SVG arrows; they come from
+    snippets/icon.liquid now.
+  - `var(--muted)` does not exist in v3 — those became `--ink-soft`.
+
+  Setting IDs kept exactly: `band`, `show_prev_next`, `show_contents`,
+  `contents_label`, `emit_breadcrumbs`.
+
+  Two of these usually appear per page — breadcrumb at the top, prev/next at
+  the foot. **Only one should have `emit_breadcrumbs` on**, or the page ships
+  two BreadcrumbLists and Google picks one at random.
+
+  The visible breadcrumb and the JSON-LD must stay in lockstep: Home > Guides &
+  Advice > [Guide] > [Chapter]. They drifted apart once before (the visible
+  trail was missing Home while the JSON-LD had it). Change both or neither.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+
+  assign gkeys  = 'engagement,plain-wedding,dg-wedding,eternity,dg-master,care' | split: ','
+  assign gnames = 'The Engagement Ring Guide|The Plain Wedding Ring Guide|The Diamond and Gemstone Wedding Ring Guide|The Eternity Ring Guide|The Diamond and Gemstone Guide|The Ring and Jewellery Care Guide' | split: '|'
+  assign gurls  = '/pages/engagement-ring-guide|/pages/plain-wedding-ring-guide|/pages/diamond-gemstone-wedding-ring-guide|/pages/eternity-ring-guide|/pages/diamond-and-gemstone-guide|/pages/ring-and-jewellery-care-guide' | split: '|'
+
+  assign seq_engagement = 'engagement-ring-budget,engagement-ring-style,engagement-ring-styles,diamond-4cs,diamond-shapes,lab-grown-diamonds,gemstone-education,find-the-right-metal,find-your-ring-size,proposing-in-secret,create-your-own-ring,wedding-band-pairing,heirloom-stones,ring-care-servicing,engagement-ring-mistakes' | split: ','
+  assign ttl_engagement = 'Setting a Budget|Understanding Their Style|Ring Styles & Hidden Details|The Four Cs|Diamond Shapes|Natural & Lab-Grown|Coloured Stones|Choosing the Metal|Getting the Size Right|Proposing in Secret|The Bespoke Process|Pairing With the Wedding Band|Heirlooms & Antique Stones|Aftercare & Servicing|Mistakes to Avoid' | split: '|'
+
+  assign seq_plain_wedding = 'ring-profiles-and-widths,find-the-right-metal,ring-finishes,ring-engraving,matched-or-independent,wedding-band-pairing,shaped-to-fit-rings,find-your-ring-size,create-your-own-ring,ring-care-servicing' | split: ','
+  assign ttl_plain_wedding = 'Profiles, Width & Feel|Choosing the Metal|Finishes & How They Age|Engraving & Personalisation|Matched or Independent|Pairing With the Engagement Ring|Shaped-to-Fit Bands|Getting the Size Right|Bespoke Plain Rings|Aftercare & Servicing' | split: '|'
+
+  assign seq_dg_wedding = 'stone-settings,eternity-ring-coverage,stone-layout,diamond-4cs,diamond-shapes,lab-grown-diamonds,gemstone-education,ring-profiles-and-widths,find-the-right-metal,ring-engraving,wedding-band-pairing,shaped-to-fit-rings,find-your-ring-size,create-your-own-ring,heirloom-stones,ring-care-servicing' | split: ','
+  assign ttl_dg_wedding = 'Setting Styles|Half, Three-Quarter & Full|Carat Weight & Stone Layout|Diamond Quality|Diamond Shapes|Natural & Lab-Grown|Coloured Gemstones|Width, Depth & Proportion|Choosing the Metal|Engraving & Personalisation|Pairing With the Engagement Ring|Shaped-to-Fit Bands|Getting the Size Right|The Bespoke Process|Heirlooms & Reused Materials|Aftercare & Servicing' | split: '|'
+
+  assign seq_eternity = 'eternity-ring-coverage,stone-settings,stone-layout,eternity-ring-stacking,diamond-shapes,diamond-4cs,lab-grown-diamonds,gemstone-education,ring-profiles-and-widths,find-the-right-metal,ring-finishes,find-your-ring-size,ring-care-servicing,create-your-own-ring,heirloom-stones' | split: ','
+  assign ttl_eternity = 'Understanding Stone Coverage|Setting Styles|Carat Weight & Stone Layout|Wearing It in a Stack|Diamond Shapes|Diamond Quality & Matching|Natural & Lab-Grown|Coloured Gemstones|Width, Depth & Comfort|Choosing the Metal|Finish, Milgrain & Engraving|Getting the Size Right|Aftercare & Inspection|Our Process & Timeline|Heirlooms & Reused Materials' | split: '|'
+
+  assign seq_dg_master = 'diamond-education,diamond-4cs,diamond-shapes,lab-grown-diamonds,fancy-diamonds,fancy-lab-diamonds,diamond-alternatives,gemstone-education,sapphire-guide,ruby-guide,emerald-guide,aquamarine-guide,tanzanite-guide,morganite-guide,opal-guide,other-gemstones,gemstone-durability,gemstone-treatments,diamond-certification,ethical-sourcing,heirloom-stones,birthstones' | split: ','
+  assign ttl_dg_master = 'Diamonds Explained|The Four Cs|Diamond Shapes|Natural & Lab-Grown|Fancy Coloured Diamonds|Lab-Grown Fancy Colour|Diamond Alternatives|A World of Colour|Sapphire|Ruby|Emerald|Aquamarine|Tanzanite|Morganite|Opal & Fire Opal|Other Gemstones|Gemstone Durability|Gemstone Treatments|Certificates & Reports|Ethical Sourcing|Heirloom & Reused Stones|Birthstones' | split: '|'
+
+  assign seq_care = 'ring-care-everyday,ring-care-when-to-remove,ring-care-cleaning,ring-care-metals,ring-care-gemstones,ring-care-settings,ring-care-fit,ring-care-storage,ring-care-servicing' | split: ','
+  assign ttl_care = 'Everyday Wear & Habits|When to Take It Off|Cleaning at Home|Caring for Different Metals|Caring for Gemstones|Settings, Claws & Warning Signs|Fit, Resizing & Changing Fingers|Storage, Travel & Insurance|Servicing & the Annual Check-Up' | split: '|'
+
+  assign here = page.handle
+  assign found_any = false
+  assign nav_json = ''
+-%}
+
+{%- for gk in gkeys -%}
+  {%- liquid
+    case gk
+      when 'engagement'
+        assign seq = seq_engagement
+        assign ttl = ttl_engagement
+      when 'plain-wedding'
+        assign seq = seq_plain_wedding
+        assign ttl = ttl_plain_wedding
+      when 'dg-wedding'
+        assign seq = seq_dg_wedding
+        assign ttl = ttl_dg_wedding
+      when 'eternity'
+        assign seq = seq_eternity
+        assign ttl = ttl_eternity
+      when 'dg-master'
+        assign seq = seq_dg_master
+        assign ttl = ttl_dg_master
+      when 'care'
+        assign seq = seq_care
+        assign ttl = ttl_care
+    endcase
+
+    assign gname = gnames[forloop.index0]
+    assign gurl = gurls[forloop.index0]
+    assign idx = -1
+  -%}
+
+  {%- for h in seq -%}
+    {%- if h == here -%}{%- assign idx = forloop.index0 -%}{%- endif -%}
+  {%- endfor -%}
+
+  {%- if idx >= 0 -%}
+    {%- liquid
+      assign chap_no = idx | plus: 1
+      assign total = seq.size
+      assign prev_i = idx | minus: 1
+      assign next_i = idx | plus: 1
+
+      if prev_i >= 0
+        assign prev_h = seq[prev_i] | prepend: '/pages/' | append: '?guide=' | append: gk
+        assign prev_t = ttl[prev_i]
+        assign prev_l = 'Previous'
+      else
+        assign prev_h = gurl
+        assign prev_t = gname
+        assign prev_l = 'Back to'
+      endif
+
+      if next_i < total
+        assign next_h = seq[next_i] | prepend: '/pages/' | append: '?guide=' | append: gk
+        assign next_t = ttl[next_i]
+        assign next_l = 'Next'
+      else
+        assign next_h = gurl
+        assign next_t = 'Back to the guide'
+        assign next_l = 'Finished'
+      endif
+    -%}
+
+    {%- capture entry -%}
+      {"g":{{ gk | json }},"name":{{ gname | json }},"url":{{ gurl | json }},"n":{{ chap_no }},"t":{{ total }},"here":{{ ttl[idx] | json }},"prev":{"h":{{ prev_h | json }},"t":{{ prev_t | json }},"l":{{ prev_l | json }}},"next":{"h":{{ next_h | json }},"t":{{ next_t | json }},"l":{{ next_l | json }}}}
+    {%- endcapture -%}
+
+    {%- liquid
+      assign entry = entry | strip
+      if found_any
+        assign nav_json = nav_json | append: ',' | append: entry
+      else
+        assign nav_json = entry
+        assign d_gk = gk
+        assign d_name = gname
+        assign d_url = gurl
+        assign d_here = ttl[idx]
+        assign d_n = chap_no
+        assign d_t = total
+        assign d_prev_h = prev_h
+        assign d_prev_t = prev_t
+        assign d_prev_l = prev_l
+        assign d_next_h = next_h
+        assign d_next_t = next_t
+        assign d_next_l = next_l
+      endif
+      assign found_any = true
+    -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if found_any -%}
+  <div class="chnav" data-fye-chapter-nav data-default-guide="{{ d_gk }}" data-screen-label="Chapter navigation">
+    <div class="band band--{{ s.band | default: 'ivory' }} chnav__band">
+      <div class="wrap">
+        <nav class="crumbs chnav__crumbs" aria-label="Breadcrumb">
+          <a href="{{ shop.url }}">Home</a>
+          <span aria-hidden="true">›</span>
+          <a href="/pages/jewellery-guides">Guides &amp; advice</a>
+          <span aria-hidden="true">›</span>
+          <a class="chnav__guide" href="{{ d_url }}">{{ d_name }}</a>
+          <span aria-hidden="true">›</span>
+          <span class="chnav__here" aria-current="page">{{ d_here }}</span>
+        </nav>
+
+        <p class="eyebrow chnav__count">Chapter {{ d_n }} of {{ d_t }}</p>
+
+        {%- if s.show_prev_next -%}
+          <div class="chnav__pn">
+            <a class="chnav__link chnav__link--prev" href="{{ d_prev_h }}">
+              {%- render 'icon', name: 'arrow-left', class: 'icon--sm' -%}
+              <span>
+                <span class="chnav__lbl">{{ d_prev_l }}</span>
+                <span class="chnav__ttl">{{ d_prev_t }}</span>
+              </span>
+            </a>
+            <a class="chnav__link chnav__link--next" href="{{ d_next_h }}">
+              <span>
+                <span class="chnav__lbl">{{ d_next_l }}</span>
+                <span class="chnav__ttl">{{ d_next_t }}</span>
+              </span>
+              {%- render 'icon', name: 'arrow-right', class: 'icon--sm' -%}
+            </a>
+          </div>
+        {%- endif -%}
+
+        {%- comment -%}
+          On this page. Built by fye-ui.js from the page's own h2s rather than
+          maintained by hand, so it cannot drift from the content. Hidden until
+          the script finds more than three headings — with fewer, a contents
+          list is longer than the thing it indexes.
+
+          It lives inside this section because the long reference pages already
+          sit on Shopify's 25-section ceiling and cannot spare one for a
+          contents list.
+        {%- endcomment -%}
+        {%- if s.show_contents -%}
+          <details class="chnav__toc" data-fye-toc hidden>
+            <summary class="chnav__tocsum">{{ s.contents_label | default: 'On this page' }}</summary>
+            <ol class="chnav__toclist"></ol>
+          </details>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- comment -%} Data, not code: the other guides this page belongs to. {%- endcomment -%}
+    <script type="application/json" data-fye-chapter-data>[{{ nav_json }}]</script>
+  </div>
+
+  {%- if s.emit_breadcrumbs -%}
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Home","item":{{ shop.url | json }}},
+        {"@type":"ListItem","position":2,"name":"Guides & Advice","item":{{ shop.url | append: '/pages/jewellery-guides' | json }}},
+        {"@type":"ListItem","position":3,"name":{{ d_name | json }},"item":{{ shop.url | append: d_url | json }}},
+        {"@type":"ListItem","position":4,"name":{{ page.title | json }},"item":{{ shop.url | append: '/pages/' | append: page.handle | json }}}
+      ]}
+    </script>
+  {%- endif -%}
+{%- endif -%}
+
+{% stylesheet %}
+/* Navigation chrome, not a content band: it sits directly under the hero and
+   again above the footer, so it takes a much tighter rhythm than --sect-y.
+   Set as the variable, never as a padding declaration. */
+.fye .chnav__band { --sect-y: var(--s7); }
+
+.fye .chnav__crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s2);
+  font-size: var(--fs-fine);
+  color: var(--ink-soft);
+}
+.fye .chnav__crumbs a { color: var(--ink-soft); }
+.fye .chnav__crumbs a:hover { color: var(--sage); }
+.fye .chnav__here { color: var(--ink); }
+.fye .chnav__count { margin-top: var(--s1); color: var(--sage); }
+
+.fye .chnav__pn {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s4);
+  margin-top: var(--s6);
+  padding-top: var(--s6);
+  border-top: var(--hairline);
+}
+.fye .chnav__link {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  min-width: 0;
+  padding: var(--s4) var(--s5);
+  background: var(--white);
+  border: var(--hairline);
+  transition: border-color var(--dur) var(--ease);
+}
+.fye .band--white .chnav__link { background: var(--ivory); }
+.fye .chnav__link:hover { border-color: var(--line-strong); }
+.fye .chnav__link--next { justify-content: flex-end; text-align: right; }
+.fye .chnav__link .icon { color: var(--sage); }
+.fye .chnav__link > span { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.fye .chnav__lbl {
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.fye .chnav__ttl { font-size: var(--fs-small); line-height: 1.35; overflow-wrap: anywhere; }
+
+.fye .chnav__toc { margin-top: var(--s5); padding-top: var(--s4); border-top: var(--hairline); }
+.fye .chnav__tocsum {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  cursor: pointer;
+  list-style: none;
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.fye .chnav__tocsum::-webkit-details-marker { display: none; }
+.fye .chnav__tocsum::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-right: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  transform: rotate(45deg);
+  margin-top: -3px;
+  transition: transform var(--dur) var(--ease);
+}
+.fye .chnav__toc[open] .chnav__tocsum::after { transform: rotate(225deg); margin-top: 2px; }
+.fye .chnav__tocsum:hover { color: var(--ink); }
+.fye .chnav__toclist {
+  margin: var(--s4) 0 var(--s1);
+  padding: 0;
+  list-style: none;
+  columns: 2;
+  column-gap: var(--s8);
+}
+.fye .chnav__toclist li { break-inside: avoid; margin: 0 0 var(--s2); }
+.fye .chnav__toclist a { font-size: var(--fs-small); color: var(--ink-soft); }
+.fye .chnav__toclist a:hover { color: var(--sage); }
+
+@media (max-width: 560px) {
+  .fye .chnav__pn { grid-template-columns: 1fr; }
+  .fye .chnav__link--next { flex-direction: row-reverse; justify-content: flex-start; text-align: left; }
+  .fye .chnav__toclist { columns: 1; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Chapter navigation",
+  "tag": "section",
+  "settings": [
+    { "type": "paragraph", "content": "Breadcrumb, chapter number and previous/next for every guide this page belongs to. The chapter order is edited in the section file, not here." },
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "ivory",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Ivory" },
+        { "value": "mist",  "label": "Mist" }
+      ]
+    },
+    { "type": "checkbox", "id": "show_prev_next", "label": "Show previous and next", "default": true },
+    { "type": "header", "content": "On this page" },
+    { "type": "checkbox", "id": "show_contents", "label": "Show an on-this-page list", "default": false, "info": "Built from the page's own headings. Appears only when there are more than three." },
+    { "type": "text", "id": "contents_label", "label": "Label", "default": "On this page" },
+    { "type": "header", "content": "SEO" },
+    { "type": "checkbox", "id": "emit_breadcrumbs", "label": "Add breadcrumb structured data", "default": true, "info": "Turn this on for ONE chapter navigation per page — two would ship two breadcrumb trails." }
+  ],
+  "presets": [{ "name": "Chapter navigation" }]
+}
+{% endschema %}

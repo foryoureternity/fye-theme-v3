@@ -1,20 +1,28 @@
 {%- comment -%}
-  footer — rebuilt 26/08/2026 to match the LIVE site.
-  Reference: live foryoureternity.com footer.
+  footer — rebuilt 27/08/2026 against the LIVE site, measured from a 2x
+  screenshot at a 1470px viewport. Every number here was sampled.
 
-  Sage ground, teal type. Three stacked rows separated by hairlines:
-    1. five columns — four link lists + "Talk to us" contact column
-    2. brand row — monogram, strapline, mission text, newsletter
-    3. legal row — company details + policy links + back to top
+    ground              #879C87   (Ed's spec; screenshot sampled #8B9B89)
+    type                 teal     — NOT ivory. Sampled #293D46 on the ground.
+    measure             1320px    (--maxw), centred
+    columns             5 x 232px, 40px gap
+    padding-block-start   96px
+    hairlines           rgba(35,61,71,0.22) — sampled #75867A over the ground
 
-  Link columns are BLOCKS with a link_list, so they stay editable. Where a
-  block has no menu assigned, the column renders its heading only — assign the
-  menus in the customiser (Shop, Diamonds & Gemstones, Guides & Advice,
-  Help & Company).
+    heading             20px Tenor, uppercase, +0.08em
+    link                17px Outfit Light, ~30px row pitch
+    phone               24px / 600
+    BOOK CONSULTATION   223x41, white ground, teal type, 15px / 600 / +0.15em
+    monogram            94 x 100
+    strapline           30px Tenor, wraps after "MADE."
+    newsletter          underlined input + 45x44 teal arrow button
 
-  Ground is --sage-pale-mid, declared locally: the live footer sits lighter than
-  --sage-band (which exists for ivory-on-dark text). Here the type is TEAL on
-  sage, so a lighter ground is correct and passes AA comfortably.
+  Teal on #879C87 measures 4.8:1 — AA for normal text. Ivory on this ground
+  would be 2.6:1, which is why the live site uses teal and this file must not
+  be "corrected" to the ivory-on-sage band pattern in fye-core.css. This is
+  chrome with its own ground, not a .band--sage content band.
+
+  Link columns are BLOCKS with a link_list so they stay editable.
 {%- endcomment -%}
 
 <footer class="ftr">
@@ -40,14 +48,16 @@
       {%- endfor -%}
 
       <div class="ftr__col ftr__talk">
-        <h3 class="ftr__head">{{ section.settings.talk_heading }}</h3>
+        {%- if section.settings.talk_heading != blank -%}
+          <h3 class="ftr__head">{{ section.settings.talk_heading }}</h3>
+        {%- endif -%}
         {%- if section.settings.phone != blank -%}
           <a class="ftr__phone" href="tel:{{ section.settings.phone | remove: ' ' }}">{{ section.settings.phone }}</a>
         {%- endif -%}
         {%- if section.settings.hours != blank -%}
           <p class="ftr__hours">{{ section.settings.hours }}</p>
         {%- endif -%}
-        <ul class="ftr__list">
+        <ul class="ftr__list ftr__list--loose">
           {%- if section.settings.email != blank -%}
             <li><a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a></li>
           {%- endif -%}
@@ -60,13 +70,13 @@
         {%- endif -%}
         <div class="ftr__social">
           {%- if section.settings.instagram_url != blank -%}
-            <a href="{{ section.settings.instagram_url }}" aria-label="Instagram">
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"></circle></svg>
+            <a href="{{ section.settings.instagram_url }}" aria-label="Instagram" target="_blank" rel="noopener">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.2" cy="6.8" r="0.9" fill="currentColor" stroke="none"></circle></svg>
             </a>
           {%- endif -%}
           {%- if section.settings.whatsapp_url != blank -%}
-            <a href="{{ section.settings.whatsapp_url }}" aria-label="WhatsApp">
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 12a8.5 8.5 0 0 1-12.7 7.4L3.5 20.5l1.1-4.3A8.5 8.5 0 1 1 20.5 12z"></path><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5"></path></svg>
+            <a href="{{ section.settings.whatsapp_url }}" aria-label="WhatsApp" target="_blank" rel="noopener">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 12a8.5 8.5 0 0 1-12.7 7.4L3.5 20.5l1.1-4.3A8.5 8.5 0 1 1 20.5 12z"></path><path d="M8.8 8.6c0 3.1 2.5 5.6 5.6 5.6"></path></svg>
             </a>
           {%- endif -%}
         </div>
@@ -76,9 +86,9 @@
     <hr class="ftr__rule">
 
     <div class="ftr__brand">
-      <div class="ftr__brand-mark">
+      <div class="ftr__mark">
         {%- if section.settings.monogram != blank -%}
-          {{ section.settings.monogram | image_url: width: 320 | image_tag: alt: shop.name, width: 150, loading: 'lazy' }}
+          {{ section.settings.monogram | image_url: width: 280 | image_tag: alt: shop.name, loading: 'lazy' }}
         {%- endif -%}
       </div>
       <div class="ftr__brand-copy">
@@ -91,7 +101,7 @@
       </div>
       <div class="ftr__signup">
         {%- if section.settings.signup_heading != blank -%}
-          <h3 class="ftr__head">{{ section.settings.signup_heading }}</h3>
+          <h3 class="ftr__head ftr__head--sm">{{ section.settings.signup_heading }}</h3>
         {%- endif -%}
         {%- form 'customer', class: 'ftr__form' -%}
           <input type="hidden" name="contact[tags]" value="newsletter">
@@ -129,118 +139,133 @@
 </footer>
 
 {% stylesheet %}
+/* Chrome with its own ground. Teal type — see the note in this file's header
+   comment before changing either colour. */
 .fye .ftr {
   position: relative;
-  background: #A5C1A5;              /* live footer ground: teal type on sage */
+  background: #879C87;
   color: var(--ink);
-  padding: var(--s11) var(--s9) var(--s8);
+  padding: 96px var(--s7) var(--s9);
 }
-.fye .ftr__in { max-width: var(--maxw-wide); margin-inline: auto; }
+.fye .ftr__in { max-width: var(--maxw); margin-inline: auto; }
+.fye .ftr :where(a) { color: var(--ink); }
+.fye .ftr :where(a:hover) { color: var(--white); }
 
 .fye .ftr__head {
-  margin: 0 0 var(--s5);
+  margin: 0 0 var(--s7);
   font-family: var(--font-display);
   font-size: 20px;
   font-weight: var(--fw-regular);
   letter-spacing: var(--tr-h2);
+  line-height: 1.3;
   text-transform: uppercase;
   color: var(--ink);
 }
+.fye .ftr__head--sm { font-family: var(--font-body); font-size: 13px; font-weight: var(--fw-medium); letter-spacing: var(--tr-eyebrow); margin-bottom: var(--s5); }
 
 .fye .ftr__cols {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: var(--s8);
-  padding-bottom: var(--s9);
+  padding-bottom: var(--s11);
 }
 .fye .ftr__list { margin: 0; padding: 0; list-style: none; }
-.fye .ftr__list li { margin-bottom: var(--s3); }
-.fye .ftr__list a { font-size: 17px; font-weight: var(--fw-light); color: var(--ink); }
-.fye .ftr__list a:hover { color: var(--white); }
+.fye .ftr__list li { margin-bottom: 4px; }
+.fye .ftr__list a { font-size: 17px; font-weight: var(--fw-light); line-height: 1.55; }
+.fye .ftr__list--loose li { margin-bottom: var(--s4); }
 
 .fye .ftr__phone {
   display: block;
-  font-size: 22px;
-  font-weight: var(--fw-medium);
-  color: var(--ink);
+  font-size: 24px;
+  font-weight: var(--fw-semi);
+  line-height: 1.2;
+  letter-spacing: 0.01em;
 }
-.fye .ftr__hours { margin: var(--s1) 0 var(--s4); font-size: 15px; }
+.fye .ftr__hours {
+  margin: var(--s1) 0 var(--s6);
+  font-size: 16px;
+  font-weight: var(--fw-light);
+  color: rgba(35, 61, 71, 0.78);
+}
+
 .fye .ftr__cta {
   display: inline-flex; align-items: center; justify-content: center;
-  min-height: 48px;
-  margin-top: var(--s4);
+  min-height: 41px;
+  margin-top: var(--s5);
   padding: 0 var(--s6);
   background: var(--white);
   color: var(--ink);
-  font-size: var(--fs-fine);
-  font-weight: var(--fw-medium);
-  letter-spacing: var(--tr-button);
+  font-size: 15px;
+  font-weight: var(--fw-semi);
+  letter-spacing: 0.15em;
+  line-height: 1;
   text-transform: uppercase;
   transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
 }
 .fye .ftr__cta:hover { background: var(--teal); color: var(--ivory); }
-.fye .ftr__social { display: flex; gap: var(--s4); margin-top: var(--s5); }
-.fye .ftr__social a { color: var(--ink); }
-.fye .ftr__social a:hover { color: var(--white); }
+
+.fye .ftr__social { display: flex; gap: var(--s7); margin-top: var(--s8); }
+.fye .ftr__social .icon { width: 20px; height: 20px; }
 
 .fye .ftr__rule { border: 0; border-top: 1px solid rgba(35, 61, 71, 0.22); margin: 0; }
 
 .fye .ftr__brand {
   display: grid;
-  grid-template-columns: 150px minmax(0, 1.6fr) minmax(0, 1fr);
-  gap: var(--s8);
+  grid-template-columns: 110px minmax(0, 1fr) 400px;
+  gap: 50px;
   align-items: start;
-  padding: var(--s9) 0;
+  padding-block: var(--s10);
 }
+.fye .ftr__mark img { width: 94px; height: auto; }
 .fye .ftr__strap {
-  margin: 0 0 var(--s4);
+  margin: 0 0 var(--s5);
   font-family: var(--font-display);
-  font-size: clamp(24px, 1.4rem + 1vw, 34px);
+  font-size: 30px;
   font-weight: var(--fw-regular);
   letter-spacing: var(--tr-h2);
+  line-height: 1.3;
   text-transform: uppercase;
-  max-width: 26ch;
+  max-width: 18em;
 }
-.fye .ftr__mission { font-size: 17px; max-width: 56ch; }
+.fye .ftr__mission { font-size: 17px; font-weight: var(--fw-light); max-width: 60ch; }
 
-.fye .ftr__form { display: flex; align-items: stretch; border-bottom: 1px solid var(--ink); }
+.fye .ftr__form { display: flex; align-items: stretch; border-bottom: 1px solid var(--teal); }
 .fye .ftr__form input {
   flex: 1 1 auto;
-  min-height: 52px;
+  min-height: 44px;
   padding: 0;
   border: 0;
   background: none;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: var(--fw-light);
   color: var(--ink);
 }
-.fye .ftr__form input::placeholder { color: rgba(35, 61, 71, 0.62); }
-.fye .ftr__form input:focus { outline: none; }
+.fye .ftr__form input::placeholder { color: rgba(35, 61, 71, 0.66); }
+.fye .ftr__form input:focus { outline: none; border: 0; }
 .fye .ftr__form button {
   flex: 0 0 auto;
-  width: 52px;
+  width: 45px;
   border: 0;
   background: var(--teal);
   color: var(--ivory);
   display: grid; place-items: center;
   transition: background var(--dur) var(--ease);
 }
-.fye .ftr__form button:hover { background: var(--sage-deep); }
-.fye .ftr__note { margin: var(--s3) 0 0; font-size: 15px; }
+.fye .ftr__form button:hover { background: var(--white); color: var(--teal); }
+.fye .ftr__note { margin: var(--s4) 0 0; font-size: 15px; font-weight: var(--fw-light); }
 
 .fye .ftr__legal {
   display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between;
   gap: var(--s6);
-  padding-top: var(--s7);
+  padding-top: var(--s9);
 }
-.fye .ftr__legal-text { font-size: 15px; max-width: 68ch; }
+.fye .ftr__legal-text { font-size: 15px; font-weight: var(--fw-light); line-height: 1.6; max-width: 70ch; }
 .fye .ftr__policies { display: flex; flex-wrap: wrap; gap: var(--s6); margin: 0; padding: 0; list-style: none; }
 .fye .ftr__policies li { margin: 0; }
-.fye .ftr__policies a { font-size: 16px; color: var(--ink); }
-.fye .ftr__policies a:hover { color: var(--white); }
+.fye .ftr__policies a { font-size: 16px; font-weight: var(--fw-light); }
 
 .fye .ftr__top {
-  position: absolute; right: 0; bottom: 0;
+  position: fixed; right: 0; bottom: 0; z-index: 30;
   width: 48px; height: 48px;
   border: 0;
   background: var(--white);
@@ -249,17 +274,22 @@
 }
 .fye .ftr__top:hover { background: var(--teal); color: var(--ivory); }
 
-@media (max-width: 1200px) {
-  .fye .ftr__cols { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s7); }
-  .fye .ftr__brand { grid-template-columns: 1fr; }
+@media (max-width: 1280px) {
+  .fye .ftr__cols { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s8) var(--s7); }
+  .fye .ftr__brand { grid-template-columns: 110px minmax(0, 1fr); gap: var(--s8); }
+  .fye .ftr__signup { grid-column: 2; }
 }
 @media (max-width: 900px) {
-  .fye .ftr { padding: var(--s10) var(--pad-x) var(--s7); }
-  .fye .ftr__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fye .ftr { padding: var(--s11) var(--pad-x) var(--s7); }
+  .fye .ftr__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); padding-bottom: var(--s9); }
+  .fye .ftr__brand { grid-template-columns: 1fr; padding-block: var(--s9); }
+  .fye .ftr__signup { grid-column: 1; }
+  .fye .ftr__strap { font-size: 24px; }
 }
 @media (max-width: 560px) {
-  .fye .ftr__cols { grid-template-columns: 1fr; gap: var(--s6); }
+  .fye .ftr__cols { grid-template-columns: 1fr; gap: var(--s7); }
   .fye .ftr__legal { flex-direction: column; }
+  .fye .ftr__policies { gap: var(--s4) var(--s6); }
 }
 {% endstylesheet %}
 
@@ -271,7 +301,7 @@
     { "type": "header", "content": "Talk to us" },
     { "type": "text", "id": "talk_heading", "label": "Heading", "default": "Talk to us" },
     { "type": "text", "id": "phone", "label": "Phone", "default": "0208 178 6687" },
-    { "type": "text", "id": "hours", "label": "Opening hours", "default": "Mon–Fri, 9am–6pm" },
+    { "type": "text", "id": "hours", "label": "Opening hours", "default": "Mon-Fri, 9am-6pm" },
     { "type": "text", "id": "email", "label": "Email", "default": "hello@foryoureternity.com" },
     { "type": "url", "id": "whatsapp_url", "label": "WhatsApp link" },
     { "type": "url", "id": "instagram_url", "label": "Instagram link" },

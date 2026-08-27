@@ -1,5 +1,7 @@
 {%- comment -%}
-  announcement-bar — pale sage strip. Sentence case, not uppercase (live site).
+  announcement-bar — pale sage strip above the header.
+  Measured from the live site: ground #EEF2EE, 47.5px tall, 16px Outfit Light,
+  sentence case (NOT uppercase), centred, teal.
 {%- endcomment -%}
 {%- if section.settings.text != blank -%}
   <div class="ann">
@@ -17,13 +19,13 @@
   color: var(--ink);
   padding: var(--s3) var(--pad-x);
   text-align: center;
-  font-size: 17px;
+  font-size: 16px;
   font-weight: var(--fw-light);
   line-height: 1.4;
 }
 .fye .ann a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
-.fye .ann a:hover { color: var(--sage-deep); }
-@media (max-width: 560px) { .fye .ann { font-size: 14px; } }
+.fye .ann a:hover { color: var(--sage); }
+@media (max-width: 560px) { .fye .ann { font-size: 14px; padding: var(--s2) var(--pad-x); } }
 {% endstylesheet %}
 
 {% schema %}

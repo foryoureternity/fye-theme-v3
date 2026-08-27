@@ -248,6 +248,20 @@ Where a feature of the old theme is deliberately **not** ported, say so where
 the port lives, with the reason — otherwise the next session either re-adds it
 or wonders what was missed.
 
+### 9. A `.wrap` inside a flex or grid parent needs `width: 100%`
+
+A flex item shrink-to-fits. Put a `.wrap` inside `display: flex` and it stops
+being a full-width container: it collapses to its content, and its own
+`margin-inline: auto` centres that collapsed box. The symptom is content
+mysteriously indented by a few hundred pixels with no padding rule responsible
+— which is how the homepage hero shipped with its copy a third of the way
+across the screen.
+
+Same family as the `.shopify-section` rule above: **a parent's display type
+changes how its children size themselves.** When a section wraps its inner
+container in flex or grid for vertical centring, the inner container needs
+`width: 100%` stated explicitly.
+
 ## 10. Before you build a section at all
 
 The old theme has 228 section files and renders 107 of them. **Check

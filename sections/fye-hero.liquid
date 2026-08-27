@@ -151,7 +151,11 @@
    the lightest area of that image. */
 .fye .hero--media .hero__media { position: absolute; inset: 0; --scrim: rgba(35, 61, 71, 0.55); }
 .fye .hero--media .hero__img { width: 100%; height: 100%; object-fit: cover; }
-.fye .hero--media .hero__in { position: relative; z-index: 1; }
+/* width: 100% is load-bearing. .hero--media is display:flex, which makes this
+   wrap a flex item — without an explicit width it shrink-to-fits its own text
+   and .wrap's auto margins then centre that narrow box, indenting the copy by
+   a few hundred px. See the ninth non-negotiable in conventions.md. */
+.fye .hero--media .hero__in { position: relative; z-index: 1; width: 100%; }
 .fye .hero--media .hero__in,
 .fye .hero--media :where(h1, .eyebrow, .lead),
 .fye .hero--media .hero__link { color: var(--on-dark); }

@@ -215,8 +215,22 @@
 
 @media (max-width: 900px) {
   .fye .news__grid { grid-template-columns: 1fr; gap: var(--s7); }
-  /* Stacked, the caption becomes an ordinary block under the photograph —
-     absolute positioning would just crop the image. */
+
+  /* EVERY desktop mechanic has to stand down here, not just the caption's
+     position. On desktop the right column sets the height, the lead image
+     fills it with height: 100%, and the caption is absolute inside it. Stacked,
+     there is no definite height to fill, so height: 100% resolves to auto in
+     some places and collapses in others — which is how the caption ended up
+     over the next article's photograph even with position: static.
+     Spelled out property by property, because relying on one of them is what
+     failed the first time. */
+  .fye .news__lead { position: static; }
+  .fye .news__lead-img { height: auto; }
+  .fye .news__lead-img :where(img) { height: auto; }
+  .fye .news__list { height: auto; }
+  .fye .news__row { flex: 0 0 auto; }
+  .fye .news__row-img :where(img) { height: auto; }
+
   .fye .news__lead-words,
   .fye .band--white .news__lead-words {
     position: static;

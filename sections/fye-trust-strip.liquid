@@ -91,6 +91,16 @@
 .fye .tstrip__item .icon { margin-bottom: var(--s2); }
 
 
+
+/* tstrip 2 x 2 below 768. auto-fit with a 200px floor cannot fit two tracks in
+   a phone's ~330px content width, so it collapsed to one column and the four
+   points ran down the page. Live shows two across. This has to live in the
+   section: section stylesheets load after fye-core.css, so a core rule
+   competing with the declaration above would always lose. */
+@media (max-width: 768px) {
+  .fye .tstrip__list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s6) var(--s4); }
+  .fye .tstrip__sub { font-size: var(--fs-fine); }
+}
 {% endstylesheet %}
 
 {% schema %}

@@ -364,3 +364,44 @@
     teardownRotators(e.target);
   });
 })();
+
+
+/* ============================================================================
+   FOOTER ACCORDIONS — 28/08/2026
+   The footer's link columns are <details open>, so with no JavaScript every
+   section is expanded: the pre-accordion behaviour, and a safe failure. This
+   only sets the DEFAULT state for the breakpoint — closed below 769px, open
+   above — and it never fights a reader who has opened something: once any
+   summary in the footer has been clicked, the automatic sync stops for that
+   page view.
+   ========================================================================== */
+(function footerAccordions() {
+  var mq = window.matchMedia('(max-width: 768px)');
+  var touched = false;
+
+  function panels() {
+    return Array.prototype.slice.call(document.querySelectorAll('.ftr__acc'));
+  }
+
+  function sync() {
+    if (touched) return;
+    var mobile = mq.matches;
+    panels().forEach(function (el) {
+      if (mobile) el.removeAttribute('open');
+      else el.setAttribute('open', '');
+    });
+  }
+
+  document.addEventListener('click', function (e) {
+    if (e.target.closest && e.target.closest('.ftr__acc > summary')) touched = true;
+  });
+
+  if (mq.addEventListener) mq.addEventListener('change', sync);
+  else if (mq.addListener) mq.addListener(sync);
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', sync);
+  } else {
+    sync();
+  }
+})();

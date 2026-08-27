@@ -31,10 +31,8 @@
     <div class="ftr__cols">
       {%- for block in section.blocks -%}
         {%- if block.type == 'links' -%}
-          <div class="ftr__col" {{ block.shopify_attributes }}>
-            {%- if block.settings.heading != blank -%}
-              <h3 class="ftr__head">{{ block.settings.heading }}</h3>
-            {%- endif -%}
+          <details class="ftr__col ftr__acc" open {{ block.shopify_attributes }}>
+            <summary class="ftr__head">{{ block.settings.heading | default: 'More' }}</summary>
             {%- assign list = linklists[block.settings.menu] -%}
             {%- if list.links.size > 0 -%}
               <ul class="ftr__list">
@@ -43,14 +41,12 @@
                 {%- endfor -%}
               </ul>
             {%- endif -%}
-          </div>
+          </details>
         {%- endif -%}
       {%- endfor -%}
 
-      <div class="ftr__col ftr__talk">
-        {%- if section.settings.talk_heading != blank -%}
-          <h3 class="ftr__head">{{ section.settings.talk_heading }}</h3>
-        {%- endif -%}
+      <details class="ftr__col ftr__talk ftr__acc" open>
+        <summary class="ftr__head">{{ section.settings.talk_heading | default: 'Talk to us' }}</summary>
         {%- if section.settings.phone != blank -%}
           <a class="ftr__phone" href="tel:{{ section.settings.phone | remove: ' ' }}">{{ section.settings.phone }}</a>
         {%- endif -%}
@@ -80,7 +76,7 @@
             </a>
           {%- endif -%}
         </div>
-      </div>
+      </details>
     </div>
 
     <hr class="ftr__rule">
@@ -290,6 +286,70 @@
   .fye .ftr__cols { grid-template-columns: 1fr; gap: var(--s7); }
   .fye .ftr__legal { flex-direction: column; }
   .fye .ftr__policies { gap: var(--s4) var(--s6); }
+}
+
+/* ============================================================================
+   ACCORDION COLUMNS — 28/08/2026
+   The columns are <details open>. Desktop shows them as plain columns with an
+   inert heading; below 769px they become tappable rows. Script sets the
+   default state per breakpoint (see fye-ui.js) — with no script they stay open,
+   which is the safe failure.
+   ========================================================================== */
+
+/* Kill the default marker everywhere. Both properties are needed. */
+.fye .ftr__acc > summary { list-style: none; }
+.fye .ftr__acc > summary::-webkit-details-marker { display: none; }
+
+@media (min-width: 769px) {
+  /* A heading that is not a control should not behave like one. */
+  .fye .ftr__acc > summary { pointer-events: none; cursor: default; }
+}
+
+@media (max-width: 768px) {
+  .fye .ftr__cols {
+    display: block;
+    padding-bottom: var(--s7);
+  }
+
+  .fye .ftr__acc {
+    border-top: 1px solid rgba(35, 61, 71, 0.22);
+  }
+  .fye .ftr__acc:last-of-type { border-bottom: 1px solid rgba(35, 61, 71, 0.22); }
+
+  .fye .ftr__acc > summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s4);
+    /* 56px is the tap target; the type is the same 20px display face as the
+       desktop heading, so nothing about the brand changes on a phone. */
+    min-height: 56px;
+    margin: 0;
+    padding: var(--s3) 0;
+    cursor: pointer;
+    font-size: 17px;
+    letter-spacing: 0.08em;
+  }
+  .fye .ftr__acc > summary::after {
+    content: "+";
+    flex: none;
+    font-family: var(--font-body);
+    font-size: 22px;
+    font-weight: var(--fw-light);
+    line-height: 1;
+    transition: transform var(--dur) var(--ease);
+  }
+  .fye .ftr__acc[open] > summary::after { content: "\2212"; }
+
+  /* Everything that is not the summary is the panel. */
+  .fye .ftr__acc > *:not(summary) { margin-bottom: var(--s5); }
+  .fye .ftr__acc > *:first-of-type { margin-top: 0; }
+  .fye .ftr__list li { margin-bottom: var(--s2); }
+  .fye .ftr__list a { font-size: 16px; }
+
+  /* The talk column's own furniture needs to sit inside the panel, not float. */
+  .fye .ftr__talk .ftr__cta { width: 100%; }
+  .fye .ftr__talk .ftr__social { margin-top: var(--s6); margin-bottom: var(--s6); }
 }
 {% endstylesheet %}
 

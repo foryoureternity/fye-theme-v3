@@ -136,6 +136,23 @@
 .fye .acf__link:hover .acf__cta { border-color: var(--sage); }
 .fye .acf__link:hover .acf__cta { color: var(--sage); }
 
+/* The card carries its own white ground, so its contents must opt OUT of the
+   band's type colours. On a teal or sage band .band--teal :where(...) sets
+   everything to ivory — which on a white card is invisible. This is the whole
+   reason the style tiles rendered as blank cards. */
+.fye .band--teal .acf__link,
+.fye .band--sage .acf__link,
+.fye .band--teal .acf__title,
+.fye .band--sage .acf__title { color: var(--ink); }
+.fye .band--teal .acf__cta,
+.fye .band--sage .acf__cta { color: var(--ink); border-color: var(--line); }
+.fye .band--teal .acf__link:hover .acf__title,
+.fye .band--sage .acf__link:hover .acf__title,
+.fye .band--teal .acf__link:hover .acf__cta,
+.fye .band--sage .acf__link:hover .acf__cta { color: var(--sage-deep); }
+.fye .band--teal .acf__link:hover .acf__cta,
+.fye .band--sage .acf__link:hover .acf__cta { border-color: var(--sage-deep); }
+
 @media (max-width: 900px) {
   .fye .acf__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }

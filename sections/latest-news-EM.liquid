@@ -74,7 +74,7 @@
           {%- for article in arts offset: 1 limit: 3 -%}
             {%- liquid
               assign art_alt = article.title | strip_html | escape
-              assign art_excerpt = article.excerpt_or_content | strip_html | truncatewords: 16
+              assign art_excerpt = article.excerpt_or_content | strip_html | truncatewords: 13
             -%}
             <div class="news__row">
               <a class="news__row-img" href="{{ article.url }}" aria-label="{{ art_alt }}">
@@ -120,7 +120,9 @@
 .fye .news__lead-img { display: block; }
 .fye .news__lead-img :where(img) {
   display: block; width: 100%; height: auto;
-  aspect-ratio: 4 / 3; object-fit: cover;
+  /* Portrait, so the left column's height matches the three rows opposite.
+     At 4/3 the lead ended well short and the band looked lopsided. */
+  aspect-ratio: 4 / 5; object-fit: cover;
 }
 
 /* The words overlap the photograph's bottom-left corner — live's device, and
@@ -140,10 +142,15 @@
 /* On a white band the panel needs to differ from the ground it sits on. */
 .fye .band--white .news__lead-words { background: var(--ivory); }
 
-.fye .news__list { display: flex; flex-direction: column; gap: var(--s8); }
+/* --s6, not --s8: at the larger gap the space under each button read as a
+   missing element rather than a margin. */
+.fye .news__list { display: flex; flex-direction: column; gap: var(--s6); }
 .fye .news__row {
   display: grid;
-  grid-template-columns: 42% 1fr;
+  /* 34%, not 42%: narrower thumbnails leave the titles enough measure to
+     wrap to two lines. At 42% every title took three and the column read as
+     crowded. */
+  grid-template-columns: 34% 1fr;
   gap: var(--s6);
   align-items: start;
 }
@@ -195,7 +202,7 @@
 .fye .news__more:hover { background: var(--sage); color: var(--teal); }
 
 .fye .news__ph { display: block; aspect-ratio: 3 / 2; background: var(--ivory); border: var(--hairline); }
-.fye .news__ph--lead { aspect-ratio: 4 / 3; }
+.fye .news__ph--lead { aspect-ratio: 4 / 5; }
 .fye .news__foot { display: flex; justify-content: center; margin-top: var(--s9); }
 
 @media (max-width: 900px) {

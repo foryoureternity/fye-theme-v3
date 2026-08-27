@@ -101,11 +101,66 @@
   margin: 0;
   padding: 0;
 }
-@media (max-width: 1100px) {
+/* 769-1100: three across. Six covers below ~1180 are too small to read. */
+@media (min-width: 769px) and (max-width: 1100px) {
   .fye .guides__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
-@media (max-width: 560px) {
-  .fye .guides__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+/* ============================================================================
+   MOBILE (<=768px) — tappable list rows, per live and the responsive handoff.
+   A grid of covers gives two small tap targets per row and doubles the
+   section's height on a phone. Values are live's: 68px rows, 50px cover,
+   14px display title, 16px arrow, hairline between.
+   ========================================================================== */
+@media (max-width: 768px) {
+  .fye .guides__grid { display: block; }
+
+  .fye .guides__item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 4px;
+    min-height: 68px;
+    border-bottom: 1px solid rgba(242, 241, 232, 0.2);
+  }
+  .fye .band--ivory .guides__item,
+  .fye .band--white .guides__item,
+  .fye .band--mist .guides__item { border-bottom-color: rgba(35, 61, 71, 0.18); }
+
+  .fye .guides__cover { flex: 0 0 50px; width: 50px; }
+  .fye .guides__cover :where(img) {
+    width: 50px;
+    aspect-ratio: 634 / 895;
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+  .fye .guides__ph { width: 50px; aspect-ratio: 634 / 895; }
+
+  .fye .guides__words { flex: 1; min-width: 0; gap: 0; }
+  .fye .guides__title {
+    font-family: var(--font-display);
+    font-size: 14px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    line-height: 1.45;
+  }
+  /* Desktop-only: on a row there is no space, and the row itself is the link. */
+  .fye .guides__blurb,
+  .fye .guides__words .btn { display: none; }
+
+  /* Decoration, so a mask rather than an icon — it must not become a second
+     focus stop or be announced. */
+  .fye .guides__item::after {
+    content: "";
+    flex: 0 0 16px;
+    width: 16px;
+    height: 16px;
+    opacity: 0.8;
+    background: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.5' stroke-linecap='square'%3E%3Cpath d='M4 12h15'/%3E%3Cpath d='M13.5 6l6 6-6 6'/%3E%3C/svg%3E") center / 16px 16px no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.5' stroke-linecap='square'%3E%3Cpath d='M4 12h15'/%3E%3Cpath d='M13.5 6l6 6-6 6'/%3E%3C/svg%3E") center / 16px 16px no-repeat;
+  }
 }
 .fye .guides__item {
   display: flex;

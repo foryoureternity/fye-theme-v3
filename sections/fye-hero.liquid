@@ -115,6 +115,14 @@
   align-items: flex-start;
   text-align: left;
   max-width: var(--maxw-wide);
+  /* Twice live's 24px gutter. The left-aligned hero is the only place the
+     copy has a real left edge against a full-bleed photograph, and at one
+     gutter it sat too close to it. */
+  padding-inline-start: 48px;
+}
+@media (max-width: 560px) {
+  /* 48px of a 375px screen is a seventh of the width. Back to the gutter. */
+  .fye .hero--left .hero__in { padding-inline-start: var(--gutter, 16px); }
 }
 
 /* Tightened against the heading it completes, not floated in the stack. */

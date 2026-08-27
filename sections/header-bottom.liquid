@@ -227,7 +227,7 @@
 .fye .hdr__nav { background: var(--ivory); }
 .fye .hdr__nav-list {
   display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
-  gap: var(--s7);
+  gap: var(--s5);
   min-height: 49px;
   margin: 0; padding-inline: var(--s7); list-style: none;
 }
@@ -236,9 +236,11 @@
   display: inline-flex; align-items: center; gap: var(--s2);
   padding-block: var(--s3);
   color: var(--ink);
-  font-size: 15px;
+  /* 13px / 0.08em measured off live. At 15px and 0.10em the eleven menu
+     items could not fit one row and the last two wrapped. */
+  font-size: 13px;
   font-weight: var(--fw-semi);
-  letter-spacing: 0.10em;
+  letter-spacing: 0.08em;
   line-height: 1;
   text-transform: uppercase;
   white-space: nowrap;
@@ -309,8 +311,8 @@
 @media (max-width: 1280px) {
   .fye .hdr__contact { gap: var(--s5); }
   .fye .hdr__contact-link span { display: none; }
-  .fye .hdr__nav-list { gap: var(--s6); }
-  .fye .hdr__nav-link { font-size: 14px; letter-spacing: 0.08em; }
+  .fye .hdr__nav-list { gap: var(--s4); }
+  .fye .hdr__nav-link { font-size: 12px; letter-spacing: 0.06em; }
 }
 
 @media (max-width: 900px) {

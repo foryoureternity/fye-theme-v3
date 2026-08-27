@@ -329,11 +329,18 @@
   justify-content: center;
   gap: var(--s5);
   text-align: center;
+  /* align-self is load-bearing: .sect-head is a centred column flex, which
+     makes this heading a flex item that shrink-to-fits its own text. Without
+     stretch the hairlines have nothing to extend into and the device reads as
+     two short ticks. Ninth non-negotiable. */
+  align-self: stretch;
 }
 .fye .heading-flank::before,
 .fye .heading-flank::after {
   content: '';
-  flex: 0 1 72px;
+  /* Grow to fill whatever the heading leaves, so the rules always reach the
+     edges of the container instead of being a fixed length. */
+  flex: 1 1 0;
   height: 1px;
   background: var(--line-strong);
   opacity: 0.55;
@@ -679,8 +686,9 @@
     --pad-x: 20px;
     --grid-gap: 20px;
   }
-  .fye .heading-flank::before,
-  .fye .heading-flank::after { flex-basis: 24px; }
+  /* The lines already yield to the heading, so capping their length does
+     nothing here. Tightening the gap is what buys room on a narrow screen. */
+  .fye .heading-flank { gap: var(--s3); }
   .fye .btn { width: 100%; }
   .fye .row .btn { width: auto; }
   .fye .card--pad, .fye .panel { padding: var(--s5); }

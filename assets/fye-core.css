@@ -9,6 +9,7 @@
       A section wanting a tighter rhythm sets the VARIABLE, never `padding`.
    2. Section-specific CSS lives in that section's {% stylesheet %} block,
       always on a chained root class (.fye.fye-cards) so it beats the weak base.
+      Core earns vocabulary only when TWO OR MORE sections share it.
    3. Base rules are wrapped in :where() = zero specificity. A section
       overrides by simply stating intent. No !important, no specificity war.
    4. Three breakpoints only: 900 (grid collapse), 749 (tables), 560 (stack).
@@ -429,6 +430,102 @@
 .fye .rule { border: 0; border-top: var(--hairline); margin: 0; }
 
 /* ============================================================================
+   PRODUCT CARD — snippets/product-card.liquid
+   ----------------------------------------------------------------------------
+   In core, not in a section, because four sections render the same snippet:
+   featured-collection, main-collection, product-recommendations and the
+   product page's related rail. Shared implementation ⇒ shared vocabulary.
+
+   Per the design system a product card is: squared image, uppercase eyebrow,
+   Outfit name, £ price. No border, no shadow — whitespace and the image edge
+   do the separating. So there is no .pcard background or padding here on
+   purpose; the grid that holds the cards owns the spacing.
+
+   The square image ratio is deliberate and applies to every card on the site.
+   Ring photography is shot square; letting the tile adapt to each file is what
+   made the old grids ragged.
+   ========================================================================== */
+
+.fye .pcard { display: flex; }
+.fye .pcard__link { display: flex; flex-direction: column; gap: var(--s4); width: 100%; }
+
+.fye .pcard__media {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background: var(--ivory);      /* shows through transparent ring PNGs */
+}
+.fye .pcard__img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  transition: transform var(--dur) var(--ease), opacity var(--dur) var(--ease);
+}
+/* Second image, cross-faded in on hover — usually the on-hand shot. */
+.fye .pcard__img--alt {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+.fye .pcard__link:hover .pcard__img--alt { opacity: 1; }
+/* Only scale when there is no second image to swap to, so the two effects
+   never fight each other. */
+.fye .pcard__link:hover .pcard__img:only-child { transform: scale(1.03); }
+
+.fye .pcard__ph { display: block; aspect-ratio: 1; background: var(--ivory); }
+
+.fye .pcard__badge {
+  position: absolute;
+  inset-block-start: var(--s3);
+  inset-inline-start: var(--s3);
+  z-index: 1;
+  padding: var(--s1) var(--s3);
+  background: var(--teal);
+  color: var(--ivory);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+}
+
+.fye .pcard__words { display: flex; flex-direction: column; gap: var(--s2); }
+.fye .pcard__type {
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.fye .pcard__name {
+  font-size: var(--fs-small);
+  font-weight: var(--fw-regular);
+  line-height: 1.35;
+  color: var(--ink);
+  transition: color var(--dur) var(--ease);
+}
+.fye .pcard__link:hover .pcard__name { color: var(--sage); }
+
+.fye .pcard__price { display: flex; align-items: baseline; gap: var(--s2); font-size: var(--fs-small); }
+.fye .pcard__now { font-weight: var(--fw-medium); }
+.fye .pcard__was { color: var(--ink-soft); font-weight: var(--fw-light); }
+.fye .pcard__sold { color: var(--ink-soft); }
+
+/* The grid product cards sit in. Sections set --pcols / --pcols-mb. */
+.fye .pgrid {
+  display: grid;
+  grid-template-columns: repeat(var(--pcols, 4), minmax(0, 1fr));
+  gap: var(--s9) var(--grid-gap);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.fye .pgrid > li { margin: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fye .pcard__link:hover .pcard__img:only-child { transform: none; }
+}
+
+/* ============================================================================
    GRIDS — auto-fit so a section never needs its own media query for columns.
    ========================================================================== */
 
@@ -439,6 +536,7 @@
 .fye .stack   { display: flex; flex-direction: column; gap: var(--s5); }
 .fye .row     { display: flex; flex-wrap: wrap; gap: var(--s4); align-items: center; }
 .fye .row--end { justify-content: flex-end; }
+.fye .row--center { justify-content: center; }
 
 /* Media + text: the most repeated layout on the site. */
 .fye .media-text {
@@ -551,6 +649,9 @@
   .fye .media-text { grid-template-columns: 1fr; gap: var(--s7); }
   .fye .media-text--reverse > :first-child { order: 0; }
   .fye .sect-head { margin-bottom: var(--s7); }
+  /* Product grids drop to the mobile column count here, not at 560 — four
+     ring tiles at tablet width are too small to judge a stone. */
+  .fye .pgrid { grid-template-columns: repeat(var(--pcols-mb, 2), minmax(0, 1fr)); }
 }
 
 /* 749 — tables only. */
@@ -571,6 +672,7 @@
   .fye .btn { width: 100%; }
   .fye .row .btn { width: auto; }
   .fye .card--pad, .fye .panel { padding: var(--s5); }
+  .fye .pgrid { gap: var(--s7) var(--grid-gap); }
 }
 
 /* ============================================================================

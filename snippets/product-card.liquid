@@ -1,0 +1,95 @@
+{%- comment -%}
+  product-card — one product tile. The most reused markup on the site.
+
+  Used by featured-collection, and by main-collection / main-product /
+  product-recommendations when those are built. It is a snippet, not a section,
+  precisely so those four cannot drift apart.
+
+  Parameters:
+    product   — required
+    loading   — 'eager' for the first row above the fold, otherwise 'lazy'
+    sizes     — the sizes attribute for the grid it sits in
+    show_type — show the product type as an eyebrow. Default true.
+
+  THE CARD, per the design system: squared image, uppercase eyebrow, Outfit
+  name, £ price. No border, no shadow — whitespace and the image edge do the
+  separating. Hover shifts the name to sage and gently scales the image; if the
+  product has a second image, it cross-fades to it instead, which for rings is
+  usually the on-hand shot.
+
+  Money is always `| money`, never a hand-built string with a £ in it — the
+  store is GBP today, and a hardcoded symbol is how that becomes a bug later.
+
+  Price logic, in the order it is decided:
+    sold out            → "Sold out", no price
+    on sale             → sale price, then the original struck through
+    varies by variant   → "From <lowest>"
+    otherwise           → the price
+{%- endcomment -%}
+{%- liquid
+  assign show_eyebrow = show_type
+  if show_type == nil
+    assign show_eyebrow = true
+  endif
+  assign img_loading = loading | default: 'lazy'
+  assign img_sizes = sizes | default: '(max-width: 560px) 50vw, (max-width: 900px) 33vw, 25vw'
+  assign on_sale = false
+  if product.compare_at_price > product.price
+    assign on_sale = true
+  endif
+  assign second = product.images[1]
+-%}
+
+<div class="pcard">
+  <a class="pcard__link" href="{{ product.url }}">
+    <span class="pcard__media">
+      {%- if product.featured_image != blank -%}
+        {{ product.featured_image | image_url: width: 900 | image_tag:
+           loading: img_loading,
+           widths: '200,300,400,600,900',
+           sizes: img_sizes,
+           alt: product.featured_image.alt | default: product.title | escape,
+           class: 'pcard__img' }}
+        {%- if second != blank -%}
+          {{ second | image_url: width: 900 | image_tag:
+             loading: 'lazy',
+             widths: '200,300,400,600,900',
+             sizes: img_sizes,
+             alt: '',
+             class: 'pcard__img pcard__img--alt' }}
+        {%- endif -%}
+      {%- else -%}
+        <span class="pcard__ph"></span>
+      {%- endif -%}
+
+      {%- unless product.available -%}
+        <span class="pcard__badge">Sold out</span>
+      {%- else -%}
+        {%- if on_sale -%}
+          <span class="pcard__badge">Sale</span>
+        {%- endif -%}
+      {%- endunless -%}
+    </span>
+
+    <span class="pcard__words">
+      {%- if show_eyebrow and product.type != blank -%}
+        <span class="pcard__type">{{ product.type }}</span>
+      {%- endif -%}
+
+      <span class="pcard__name">{{ product.title }}</span>
+
+      <span class="pcard__price">
+        {%- if product.available == false -%}
+          <span class="pcard__sold">Sold out</span>
+        {%- elsif on_sale -%}
+          <span class="pcard__now">{{ product.price | money }}</span>
+          <s class="pcard__was">{{ product.compare_at_price | money }}</s>
+        {%- elsif product.price_varies -%}
+          <span class="pcard__now">From {{ product.price_min | money }}</span>
+        {%- else -%}
+          <span class="pcard__now">{{ product.price | money }}</span>
+        {%- endif -%}
+      </span>
+    </span>
+  </a>
+</div>

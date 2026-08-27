@@ -1,0 +1,123 @@
+{%- comment -%}
+  featured-collection — a row of products from one collection. 7 uses:
+  index, cart, page.engagement-rings, page.eternity-rings, page.wedding-rings,
+  collection.engagment, collection.wedding.
+
+  Tiles come from snippets/product-card.liquid and the grid from `.pgrid` in
+  fye-core.css, so this file is only a heading, a collection and a count. Four
+  sections render that same snippet; none of them owns the card.
+
+  SETTINGS DROPPED — 34 of the 40 this section carried. Named, because the list
+  IS the argument for the rebuild:
+    carousel        au_hover, btns_pos, btn_vi, btn_owl, btn_shape, btn_cl,
+                    btn_size, btn_hidden_mobile, dot_owl, dots_cl, dots_round,
+                    dots_space, use_pagination, enable_bar_lm
+                    — it was a carousel with 14 controls and `use_pagination`
+                      set to "none", i.e. a static grid wearing a carousel's
+                      settings.
+    heading         design_heading, heading_align, icon_heading, tophead_mb
+                    — the heading is the flanked centred device, sitewide.
+                      `icon_heading` was a Line Awesome gem glyph; there is no
+                      icon font in v3.
+    tile            product_des, image_ratio, image_size, image_position,
+                    content_align, layout_des
+                    — the card is one shape everywhere now. Square image,
+                      eyebrow, name, price. See the note in fye-core.css.
+    spacing         space_h_item, space_v_item, space_h_item_mb, space_v_item_mb
+                    — --grid-gap.
+    buttons         head_btn_style, head_btn_size, head_btn_cl,
+                    head_btn_effect, button_style, btns_size, btns_cl,
+                    button_effect, btn_pos
+                    — there are two button styles in this theme, filled and
+                      outline, and `button_effect: sweep-to-right` is not one
+                      of them.
+    layout          layout, custom_css
+  Shopify ignores settings a schema no longer declares, so every one of those
+  values can stay in the templates untouched.
+
+  KEPT, with their IDs: `top_heading`, `collection`, `limit`, `col_dk`,
+  `col_mb`, `head_btn_label`.
+  The "View all" button had no link setting — it goes to the chosen collection,
+  which is what it did before.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'white'
+  assign src = collections[s.collection]
+  assign cols = s.col_dk | default: 4
+  assign cols_mb = s.col_mb | default: 2
+  assign lim = s.limit | default: 4
+-%}
+
+<section class="fcol band band--{{ band }}" data-screen-label="Featured collection">
+  <div class="wrap">
+    {%- if s.top_heading != blank -%}
+      <div class="sect-head">
+        <h2 class="heading-flank">{{ s.top_heading }}</h2>
+      </div>
+    {%- endif -%}
+
+    {%- if src.products.size > 0 -%}
+      <ul class="pgrid" style="--pcols: {{ cols }}; --pcols-mb: {{ cols_mb }};">
+        {%- for product in src.products limit: lim -%}
+          <li>
+            {%- render 'product-card', product: product, loading: 'lazy' -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      {%- if s.head_btn_label != blank -%}
+        <div class="row row--center fcol__all">
+          <a class="btn btn--outline" href="{{ src.url }}">{{ s.head_btn_label }}</a>
+        </div>
+      {%- endif -%}
+
+    {%- elsif request.design_mode -%}
+      {%- comment -%} Empty or unset collection: tell the editor, show nothing
+        on the storefront. {%- endcomment -%}
+      <p class="lead">Choose a collection with products in this section's settings.</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .fcol__all { margin-top: var(--s10); }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Featured collection",
+  "settings": [
+    { "type": "text", "id": "top_heading", "label": "Heading", "default": "Our most popular rings" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "limit", "label": "Products to show", "default": 4, "min": 2, "max": 12, "step": 1, "unit": "prod" },
+    { "type": "text", "id": "head_btn_label", "label": "Button label", "default": "View all", "info": "Links to the collection. Leave empty to hide." },
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select", "id": "col_dk", "label": "Columns", "default": "4",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" },
+        { "value": "5", "label": "5" }
+      ]
+    },
+    {
+      "type": "select", "id": "col_mb", "label": "Columns below 900px", "default": "2",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ]
+    },
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "white",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Ivory" },
+        { "value": "mist",  "label": "Mist" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Featured collection" }]
+}
+{% endschema %}

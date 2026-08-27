@@ -761,3 +761,26 @@ a.visually-hidden:focus-visible {
   outline: 2px solid var(--teal, #233d47);
   outline-offset: 2px;
 }
+
+
+/* ============================================================================
+   MOBILE CORRECTIONS — 27/08/2026, measured against live's mobile views
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  /* The mark is decorative here and live drops it on mobile, leading with the
+     heading. NOTE: feature_columns2 is on 7 templates; every current mobile
+     use of its image is a decorative mark. A future use with a real
+     photograph needs a modifier class, not the removal of this rule. */
+  .fye .fcols__media { display: none; }
+}
+
+@media (max-width: 560px) {
+  /* fye-core sets .btn { width: 100% } at this width, then exempts .row .btn
+     so button rows do not stretch. The hero's actions are a .row, so they were
+     caught by the exception and rendered at two different widths. Live stacks
+     them full width. */
+  .fye .hero__actions { flex-direction: column; align-items: stretch; width: 100%; }
+  .fye .hero__actions .btn,
+  .fye .row.hero__actions .btn { width: 100%; }
+}

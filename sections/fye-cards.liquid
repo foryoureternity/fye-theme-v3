@@ -1,0 +1,189 @@
+{%- comment -%}
+  fye-cards — a grid of small cards with an optional icon. 23 uses.
+
+  "The Four Cs" as four tiles, "Setting styles", "What's included". Where
+  fye-terms is a reading list, this is a scannable grid.
+
+  Setting IDs kept exactly: `band`, `columns`, `show_head`, `eyebrow`,
+  `heading`, `intro`; per `card` block `icon`, `label`, `heading`, `body`; per
+  `cta` block `label`, `link`, `style`, `trigger_class`.
+
+  The `icon` is an image_picker, not a name from snippets/icon.liquid — the
+  guide pages use small custom line drawings (diamond shapes, ring profiles)
+  that are not in the icon set and should not be. It renders at 48px with no
+  ground behind it.
+
+  `cta` blocks render after the grid, in source order among themselves, so a
+  section can carry a card grid and one or two buttons under it. `trigger_class`
+  is the popup hook — same contract as fye-media-text; see build-state job 7.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'white'
+  assign cols = s.columns | default: 4
+  assign card_count = 0
+  assign cta_count = 0
+  for block in section.blocks
+    if block.type == 'card'
+      assign card_count = card_count | plus: 1
+    endif
+    if block.type == 'cta'
+      assign cta_count = cta_count | plus: 1
+    endif
+  endfor
+-%}
+
+<section class="cards band band--{{ band }}" data-screen-label="Cards">
+  <div class="wrap">
+    {%- render 'sect-head',
+        show: s.show_head,
+        eyebrow: s.eyebrow,
+        heading: s.heading,
+        intro: s.intro -%}
+
+    {%- if card_count > 0 -%}
+      <ul class="cards__grid" style="--ccols: {{ cols }};">
+        {%- for block in section.blocks -%}
+          {%- if block.type != 'card' -%}{% continue %}{%- endif -%}
+          {%- assign b = block.settings -%}
+          <li class="cards__item card card--line card--pad" {{ block.shopify_attributes }}>
+            {%- if b.icon != blank -%}
+              <span class="cards__icon">
+                {{ b.icon | image_url: width: 96 | image_tag:
+                   loading: 'lazy', widths: '48,96', sizes: '48px', alt: '' }}
+              </span>
+            {%- endif -%}
+
+            {%- if b.label != blank -%}
+              <span class="eyebrow">{{ b.label }}</span>
+            {%- endif -%}
+
+            {%- if b.heading != blank -%}
+              <h3 class="cards__heading">{{ b.heading }}</h3>
+            {%- endif -%}
+
+            {%- if b.body != blank -%}
+              <div class="cards__body">{{ b.body }}</div>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    {%- if cta_count > 0 -%}
+      <div class="row row--center cards__actions">
+        {%- for block in section.blocks -%}
+          {%- if block.type != 'cta' -%}{% continue %}{%- endif -%}
+          {%- liquid
+            assign b = block.settings
+            assign variant = ''
+            if b.style == 'btn--outline'
+              assign variant = ' btn--outline'
+            endif
+          -%}
+          {%- if b.label != blank -%}
+            {%- if b.link != blank and b.link != '#' -%}
+              <a class="btn{{ variant }} {{ b.trigger_class }}" href="{{ b.link }}" {{ block.shopify_attributes }}>{{ b.label }}</a>
+            {%- else -%}
+              <button type="button" class="btn{{ variant }} {{ b.trigger_class }}" {{ block.shopify_attributes }}>{{ b.label }}</button>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .cards__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--ccols, 4), minmax(0, 1fr));
+  gap: var(--grid-gap);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.fye .cards__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  margin: 0;
+}
+.fye .cards__icon { display: block; margin-bottom: var(--s2); }
+.fye .cards__icon :where(img) { width: 48px; height: 48px; object-fit: contain; }
+.fye .cards__heading { font-size: var(--fs-h4); }
+.fye .cards__body { font-size: var(--fs-small); color: var(--ink-soft); }
+.fye .cards__actions { margin-top: var(--s9); }
+
+/* On a dark band a white card ground would fight the band; hairline only. */
+.fye .band--teal .cards__item,
+.fye .band--sage .cards__item { background: transparent; }
+
+@media (max-width: 900px) {
+  .fye .cards__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .fye .cards__grid { grid-template-columns: 1fr; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Cards",
+  "settings": [
+    { "type": "checkbox", "id": "show_head", "label": "Show the header", "default": true },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The Four Cs" },
+    { "type": "textarea", "id": "intro", "label": "Intro" },
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select", "id": "columns", "label": "Columns", "default": "4",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ]
+    },
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "white",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Ivory" },
+        { "value": "mist",  "label": "Mist" },
+        { "value": "teal",  "label": "Teal" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        { "type": "image_picker", "id": "icon", "label": "Icon", "info": "A small line drawing. Shown at 48px." },
+        { "type": "text", "id": "label", "label": "Eyebrow" },
+        { "type": "text", "id": "heading", "label": "Heading" },
+        { "type": "richtext", "id": "body", "label": "Text" }
+      ]
+    },
+    {
+      "type": "cta",
+      "name": "Button (below the grid)",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "url", "id": "link", "label": "Link", "info": "Leave empty when the button opens a popup." },
+        {
+          "type": "select", "id": "style", "label": "Style", "default": "btn--outline",
+          "options": [
+            { "value": "btn",          "label": "Filled" },
+            { "value": "btn--outline", "label": "Outline" }
+          ]
+        },
+        { "type": "text", "id": "trigger_class", "label": "Popup trigger class" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Cards", "blocks": [{ "type": "card" }, { "type": "card" }, { "type": "card" }, { "type": "card" }] }
+  ]
+}
+{% endschema %}

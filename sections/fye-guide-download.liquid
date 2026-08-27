@@ -1,0 +1,286 @@
+{%- comment -%}
+  fye-guide-download — the gated PDF offer. 62 uses.
+
+  Cover art, a short pitch, and a button that opens the guide's Klaviyo form.
+  It appears near the foot of most guide pages, and on collection pages where
+  the `guide` block picks the right guide for the collection being viewed.
+
+  Setting IDs kept exactly: `band`, `cover`, `cover_alt`, `cover_caption`,
+  `cover2`, `cover2_alt`, `eyebrow`, `heading`, `body`; per `button` block
+  `label`, `link`, `klaviyo_form`, `style`; per `guide` block `match`, `hide`,
+  `cover`, `cover_alt`, `cover2`, `cover2_alt`, `eyebrow`, `heading`, `body`,
+  `button_label`, `trigger`, `link`, `style`.
+
+  TWO WAYS TO USE IT, and the second is why this section is 13KB in the old
+  theme rather than 3KB:
+
+  1. SECTION SETTINGS — one fixed guide. The section's own cover, heading and
+     body, with `button` blocks under it. This is what the guide pages use.
+
+  2. `guide` BLOCKS — collection-aware. Each block carries a `match` string;
+     the FIRST block whose `match` appears in the current collection handle,
+     page handle or template wins, and its content replaces the section's.
+     That is how one section on the collection template offers the engagement
+     guide on /collections/engagement-rings and the wedding guide on
+     /collections/wedding-rings. A block with `hide` set is skipped, and a
+     block with an empty `match` is the fallback for everything else.
+
+  If any `guide` block matches, the section settings are ignored entirely —
+  they are the no-blocks case, not a set of defaults to merge with.
+
+  `cover2` is the second cover shown fanned behind the first where a guide has
+  a two-book set. Purely decorative, so it carries an empty alt.
+
+  The button opens a popup via `data-fye-popup`, carrying either `klaviyo_form`
+  (button block) or `trigger` (guide block) — both are kept because both are in
+  use. A `link` wins over either, for a guide that has a real download page.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'mist'
+
+  comment
+    Work out the winning guide block. Matched against the collection handle
+    first, then the page handle, then the template name — most specific first.
+  endcomment
+  assign haystack = ''
+  if collection.handle != blank
+    assign haystack = haystack | append: collection.handle | append: ' '
+  endif
+  if page.handle != blank
+    assign haystack = haystack | append: page.handle | append: ' '
+  endif
+  assign haystack = haystack | append: template.name | append: ' ' | append: template.suffix
+
+  assign chosen = nil
+  assign fallback = nil
+  for block in section.blocks
+    if block.type != 'guide'
+      continue
+    endif
+    if block.settings.hide
+      continue
+    endif
+    if block.settings.match == blank
+      if fallback == nil
+        assign fallback = block
+      endif
+      continue
+    endif
+    if chosen == nil and haystack contains block.settings.match
+      assign chosen = block
+    endif
+  endfor
+  if chosen == nil
+    assign chosen = fallback
+  endif
+
+  comment
+    Resolve the content once, from whichever source won, so the markup below
+    reads the same either way.
+  endcomment
+  if chosen
+    assign g = chosen.settings
+    assign eyebrow = g.eyebrow
+    assign heading = g.heading
+    assign body = g.body
+    assign cover = g.cover
+    assign cover_alt = g.cover_alt
+    assign cover2 = g.cover2
+    assign caption = s.cover_caption
+  else
+    assign eyebrow = s.eyebrow
+    assign heading = s.heading
+    assign body = s.body
+    assign cover = s.cover
+    assign cover_alt = s.cover_alt
+    assign cover2 = s.cover2
+    assign caption = s.cover_caption
+  endif
+-%}
+
+<section class="gdl band band--{{ band }}" data-screen-label="Guide download">
+  <div class="wrap gdl__inner">
+
+    <div class="gdl__covers{% if cover2 != blank %} gdl__covers--pair{% endif %}">
+      {%- if cover != blank -%}
+        <div class="gdl__cover">
+          {{ cover | image_url: width: 800 | image_tag:
+             loading: 'lazy', widths: '260,400,600,800', sizes: '(max-width: 900px) 60vw, 300px',
+             alt: cover_alt }}
+        </div>
+        {%- if cover2 != blank -%}
+          {%- comment -%} Decorative second cover, fanned behind. {%- endcomment -%}
+          <div class="gdl__cover gdl__cover--back" aria-hidden="true">
+            {{ cover2 | image_url: width: 800 | image_tag:
+               loading: 'lazy', widths: '260,400,600,800', sizes: '(max-width: 900px) 60vw, 300px',
+               alt: '' }}
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+
+      {%- if caption != blank -%}
+        <p class="fine gdl__caption">{{ caption }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="gdl__words">
+      {%- if eyebrow != blank -%}
+        <p class="eyebrow">{{ eyebrow }}</p>
+      {%- endif -%}
+
+      {%- if heading != blank -%}
+        <h2 class="gdl__heading">{{ heading }}</h2>
+      {%- endif -%}
+
+      {%- if body != blank -%}
+        <div class="gdl__body">{{ body }}</div>
+      {%- endif -%}
+
+      <div class="row gdl__actions">
+        {%- if chosen -%}
+          {%- liquid
+            assign g = chosen.settings
+            assign variant = ''
+            if g.style == 'btn--outline'
+              assign variant = ' btn--outline'
+            endif
+          -%}
+          {%- if g.button_label != blank -%}
+            {%- if g.link != blank -%}
+              <a class="btn{{ variant }}" href="{{ g.link }}" {{ chosen.shopify_attributes }}>{{ g.button_label }}</a>
+            {%- else -%}
+              <button type="button" class="btn{{ variant }}" data-fye-popup="{{ g.trigger }}" {{ chosen.shopify_attributes }}>{{ g.button_label }}</button>
+            {%- endif -%}
+          {%- endif -%}
+        {%- else -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type != 'button' -%}{% continue %}{%- endif -%}
+            {%- liquid
+              assign b = block.settings
+              assign variant = ''
+              if b.style == 'btn--outline'
+                assign variant = ' btn--outline'
+              endif
+            -%}
+            {%- if b.label != blank -%}
+              {%- if b.link != blank -%}
+                <a class="btn{{ variant }}" href="{{ b.link }}" {{ block.shopify_attributes }}>{{ b.label }}</a>
+              {%- else -%}
+                <button type="button" class="btn{{ variant }}" data-fye-popup="{{ b.klaviyo_form }}" {{ block.shopify_attributes }}>{{ b.label }}</button>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .gdl__inner {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: var(--s10);
+  align-items: center;
+}
+.fye .gdl__covers { position: relative; display: flex; flex-direction: column; gap: var(--s4); }
+.fye .gdl__cover :where(img) { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+
+/* The pair: the second cover sits behind and slightly out, so the front one
+   still reads as the guide being offered. */
+.fye .gdl__covers--pair .gdl__cover--back {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  width: 100%;
+  z-index: -1;
+  transform: rotate(-4deg) translate(-6%, 2%);
+}
+.fye .gdl__covers--pair { padding-inline-start: var(--s6); }
+.fye .gdl__caption { margin: 0; }
+
+.fye .gdl__words { display: flex; flex-direction: column; align-items: flex-start; gap: var(--s4); }
+.fye .gdl__body { color: var(--ink-soft); max-width: 56ch; }
+.fye .gdl__actions { margin-top: var(--s3); }
+
+@media (max-width: 900px) {
+  .fye .gdl__inner { grid-template-columns: 1fr; gap: var(--s7); }
+  .fye .gdl__covers { max-width: 240px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Guide download",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Free download" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The Engagement Ring Guide" },
+    { "type": "richtext", "id": "body", "label": "Text" },
+    { "type": "header", "content": "Cover" },
+    { "type": "image_picker", "id": "cover", "label": "Cover" },
+    { "type": "text", "id": "cover_alt", "label": "Cover description" },
+    { "type": "text", "id": "cover_caption", "label": "Caption" },
+    { "type": "image_picker", "id": "cover2", "label": "Second cover", "info": "Fanned behind the first. Decorative." },
+    { "type": "text", "id": "cover2_alt", "label": "Second cover description", "info": "Not used — the second cover is decorative." },
+    { "type": "header", "content": "Background" },
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "mist",
+      "options": [
+        { "value": "mist",  "label": "Mist" },
+        { "value": "ivory", "label": "Ivory" },
+        { "value": "white", "label": "White" },
+        { "value": "teal",  "label": "Teal" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "button",
+      "name": "Button",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Download guide" },
+        { "type": "url", "id": "link", "label": "Link", "info": "Wins over the popup when set." },
+        { "type": "text", "id": "klaviyo_form", "label": "Klaviyo form ID" },
+        {
+          "type": "select", "id": "style", "label": "Style", "default": "btn",
+          "options": [
+            { "value": "btn",          "label": "Filled" },
+            { "value": "btn--outline", "label": "Outline" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "guide",
+      "name": "Guide (chosen by page)",
+      "settings": [
+        { "type": "paragraph", "content": "Add one block per guide. The first whose match text appears in the collection handle, page handle or template wins, and replaces the section's own content. Leave the match empty for a fallback." },
+        { "type": "text", "id": "match", "label": "Match text", "info": "e.g. engagement — matched against the collection or page handle." },
+        { "type": "checkbox", "id": "hide", "label": "Skip this guide", "default": false },
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Free download" },
+        { "type": "text", "id": "heading", "label": "Heading" },
+        { "type": "richtext", "id": "body", "label": "Text" },
+        { "type": "image_picker", "id": "cover", "label": "Cover" },
+        { "type": "text", "id": "cover_alt", "label": "Cover description" },
+        { "type": "image_picker", "id": "cover2", "label": "Second cover" },
+        { "type": "text", "id": "cover2_alt", "label": "Second cover description", "info": "Not used — decorative." },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "Download guide" },
+        { "type": "text", "id": "trigger", "label": "Popup trigger", "default": "open-engagement-ring-guide" },
+        { "type": "url", "id": "link", "label": "Link", "info": "Wins over the popup when set." },
+        {
+          "type": "select", "id": "style", "label": "Style", "default": "btn",
+          "options": [
+            { "value": "btn",          "label": "Filled" },
+            { "value": "btn--outline", "label": "Outline" }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Guide download", "blocks": [{ "type": "button" }] }
+  ]
+}
+{% endschema %}

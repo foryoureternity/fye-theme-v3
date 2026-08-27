@@ -1,0 +1,157 @@
+{%- comment -%}
+  fye-callout — a short, emphasised aside inside a guide. 78 uses.
+
+  A paragraph or two the reader should not skim past: a caveat, a definition,
+  a reassurance. Optional `chip` blocks sit under the body as small labelled
+  tags — on the live site these carry things like GIA, IGI, "Conflict free".
+
+  Setting IDs kept exactly: `band`, `style`, `narrow`, `eyebrow`, `heading`,
+  `body`; per chip `name`, `sub`.
+
+  `style` is rendered as a modifier class rather than a branch, because the old
+  option list is not fully known here. Any value becomes `.callout--<value>`
+  and an unrecognised one falls back to the base panel. Three are styled:
+  `default` (mist panel), `bare` (hairline rule, no ground) and `strong`
+  (teal panel). Add others as the templates turn them up.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'white'
+  assign style = s.style | default: 'default'
+-%}
+
+<section class="callout band band--{{ band }} band--tight" data-screen-label="Callout">
+  <div class="wrap{% if s.narrow %} wrap--narrow{% endif %}">
+    <div class="callout__box callout--{{ style }}">
+      {%- if s.eyebrow != blank -%}
+        <p class="eyebrow">{{ s.eyebrow }}</p>
+      {%- endif -%}
+
+      {%- if s.heading != blank -%}
+        <h2 class="callout__heading">{{ s.heading }}</h2>
+      {%- endif -%}
+
+      {%- if s.body != blank -%}
+        <div class="callout__body">{{ s.body }}</div>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <ul class="callout__chips">
+          {%- for block in section.blocks -%}
+            {%- assign b = block.settings -%}
+            {%- if b.name != blank -%}
+              <li class="callout__chip" {{ block.shopify_attributes }}>
+                <span class="callout__chip-name">{{ b.name }}</span>
+                {%- if b.sub != blank -%}
+                  <span class="callout__chip-sub">{{ b.sub }}</span>
+                {%- endif -%}
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .callout__box {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+  padding: var(--s7);
+  background: var(--mist);
+}
+.fye .callout__heading { font-size: var(--fs-h4); }
+.fye .callout__body { color: var(--ink-soft); }
+
+/* No ground: a hairline down the side, for a lighter aside that does not
+   interrupt the page as much as a filled panel. */
+.fye .callout--bare {
+  padding: 0 0 0 var(--s6);
+  background: none;
+  border-left: 1px solid var(--sage);
+}
+
+/* The one that should stop the reader. Teal ground inverts the type roles the
+   same way a teal band does. */
+.fye .callout--strong {
+  background: var(--teal);
+  color: var(--on-dark);
+  --ink-soft: var(--on-dark-soft);
+  --line: var(--line-on-dark);
+}
+.fye .callout--strong .callout__heading,
+.fye .callout--strong .eyebrow { color: var(--on-dark); }
+
+.fye .callout__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  list-style: none;
+  margin: var(--s2) 0 0;
+  padding: 0;
+}
+.fye .callout__chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--s2);
+  margin: 0;
+  padding: var(--s2) var(--s4);
+  border: 1px solid var(--line);
+  background: var(--white);
+}
+.fye .callout--strong .callout__chip { background: transparent; border-color: var(--line-on-dark); }
+.fye .callout__chip-name {
+  font-size: var(--fs-fine);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+}
+.fye .callout__chip-sub { font-size: var(--fs-fine); color: var(--ink-soft); }
+
+@media (max-width: 560px) {
+  .fye .callout__box { padding: var(--s5); }
+  .fye .callout--bare { padding: 0 0 0 var(--s5); }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Callout",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "richtext", "id": "body", "label": "Text" },
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select", "id": "style", "label": "Treatment", "default": "default",
+      "options": [
+        { "value": "default", "label": "Mist panel" },
+        { "value": "bare",    "label": "Hairline, no panel" },
+        { "value": "strong",  "label": "Teal panel" }
+      ]
+    },
+    { "type": "checkbox", "id": "narrow", "label": "Narrow measure", "default": false },
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "white",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Ivory" },
+        { "value": "mist",  "label": "Mist" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "chip",
+      "name": "Chip",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Label", "default": "GIA" },
+        { "type": "text", "id": "sub", "label": "Note" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Callout" }]
+}
+{% endschema %}

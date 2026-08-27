@@ -1,0 +1,88 @@
+{%- comment -%}
+  fye-rich-text — a block of long-form copy. 95 uses, the third most-used
+  section in the theme.
+
+  FYE-original, already lean, so this is a straight port to the design system:
+  `.prose` in fye-core.css carries the reading rhythm, and `narrow` picks the
+  780px measure. `body` is an `html` setting rather than `richtext` because the
+  guide pages need headings and lists inside it, which richtext strips.
+
+  Setting IDs kept exactly: `band`, `narrow`, `eyebrow`, `heading`, `variant`,
+  `body`.
+
+  `variant` is rendered as a modifier class rather than a branch. The old
+  theme's option list is not fully known here, so any value it holds becomes
+  `.rtext--<value>` and an unrecognised one simply falls back to the base
+  treatment. Two are styled: `lede` (larger opening paragraph) and `note`
+  (quieter, for an aside). Add more here as they turn up in the templates.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'ivory'
+  assign variant = s.variant | default: 'default'
+-%}
+
+<section class="rtext band band--{{ band }} rtext--{{ variant }}" data-screen-label="Rich text">
+  <div class="wrap{% if s.narrow %} wrap--narrow{% endif %}">
+    {%- render 'sect-head',
+        show: true,
+        eyebrow: s.eyebrow,
+        heading: s.heading,
+        align: 'left',
+        flank: false -%}
+
+    {%- if s.body != blank -%}
+      <div class="prose rtext__body">{{ s.body }}</div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+/* .prose caps itself at the narrow measure; inside an already-narrow wrap that
+   is the same number, and inside a full-width wrap it keeps the copy readable
+   rather than running to 1320px. */
+.fye .rtext__body :where(a) { text-decoration: underline; text-underline-offset: 3px; }
+.fye .rtext__body :where(h2, h3, h4) { color: var(--ink); }
+
+/* A larger opening paragraph, for the top of a guide. */
+.fye .rtext--lede .rtext__body { font-size: var(--fs-body-lg); color: var(--ink-soft); }
+
+/* A quieter aside. Smaller and indented behind a hairline, not lighter — the
+   two-text-levels rule holds. */
+.fye .rtext--note .rtext__body {
+  font-size: var(--fs-small);
+  border-left: 1px solid var(--sage);
+  padding-left: var(--s6);
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Rich text",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "html", "id": "body", "label": "Text", "info": "Headings, lists and links are all fine here." },
+    {
+      "type": "select", "id": "variant", "label": "Treatment", "default": "default",
+      "options": [
+        { "value": "default", "label": "Body copy" },
+        { "value": "lede",    "label": "Opening paragraph" },
+        { "value": "note",    "label": "Aside" }
+      ]
+    },
+    { "type": "checkbox", "id": "narrow", "label": "Narrow measure", "default": true, "info": "780px — the reading width for guides." },
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "ivory",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Ivory" },
+        { "value": "mist",  "label": "Mist" },
+        { "value": "teal",  "label": "Teal" },
+        { "value": "sage",  "label": "Sage" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Rich text" }]
+}
+{% endschema %}

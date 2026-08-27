@@ -1,0 +1,128 @@
+{%- comment -%}
+  fye-checklist — a list of things to check or decide. 44 uses.
+
+  "Before you decide", "What to look for", "Questions to ask your jeweller".
+  A tick and a short label, with an optional note under each.
+
+  Setting IDs kept exactly: `band`, `columns`, `narrow`, `show_head`,
+  `eyebrow`, `heading`, `intro`, `note`; per item `label` and `note`.
+
+  The tick is the thin outline check from snippets/icon.liquid, in sage, at the
+  same size as the label's cap height. It is decorative — the list is a <ul>,
+  so the item count and structure already reach a screen reader — hence
+  aria-hidden on the icon rather than a label for each one.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'ivory'
+  assign cols = s.columns | default: 2
+-%}
+
+<section class="chk band band--{{ band }}" data-screen-label="Checklist">
+  <div class="wrap{% if s.narrow %} wrap--narrow{% endif %}">
+    {%- render 'sect-head',
+        show: s.show_head,
+        eyebrow: s.eyebrow,
+        heading: s.heading,
+        intro: s.intro -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <ul class="chk__list" style="--ccols: {{ cols }};">
+        {%- for block in section.blocks -%}
+          {%- assign b = block.settings -%}
+          {%- if b.label != blank -%}
+            <li class="chk__item" {{ block.shopify_attributes }}>
+              {%- render 'icon', name: 'check', class: 'icon--sm' -%}
+              <span class="chk__text">
+                <span class="chk__label">{{ b.label }}</span>
+                {%- if b.note != blank -%}
+                  <span class="chk__note">{{ b.note }}</span>
+                {%- endif -%}
+              </span>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    {%- if s.note != blank -%}
+      <p class="fine chk__foot">{{ s.note }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .chk__list {
+  display: grid;
+  grid-template-columns: repeat(var(--ccols, 2), minmax(0, 1fr));
+  gap: var(--s5) var(--s10);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.fye .chk__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s3);
+  margin: 0;
+}
+.fye .chk__item .icon { margin-top: 3px; color: var(--sage); }
+.fye .chk__text { display: flex; flex-direction: column; gap: 2px; }
+.fye .chk__label { font-size: var(--fs-small); }
+.fye .chk__note { font-size: var(--fs-fine); color: var(--ink-soft); }
+.fye .chk__foot { margin-top: var(--s8); }
+
+/* On sage and teal the tick would disappear into the ground. */
+.fye .band--sage .chk__item .icon,
+.fye .band--teal .chk__item .icon { color: var(--on-dark); }
+
+@media (max-width: 900px) {
+  .fye .chk__list { grid-template-columns: 1fr; gap: var(--s4); }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Checklist",
+  "settings": [
+    { "type": "checkbox", "id": "show_head", "label": "Show the header", "default": true },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Before you decide" },
+    { "type": "textarea", "id": "intro", "label": "Intro" },
+    { "type": "text", "id": "note", "label": "Footnote" },
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select", "id": "columns", "label": "Columns", "default": "2",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" }
+      ]
+    },
+    { "type": "checkbox", "id": "narrow", "label": "Narrow measure", "default": false },
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "ivory",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Ivory" },
+        { "value": "mist",  "label": "Mist" },
+        { "value": "teal",  "label": "Teal" },
+        { "value": "sage",  "label": "Sage" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Item" },
+        { "type": "text", "id": "note", "label": "Note" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Checklist", "blocks": [{ "type": "item" }, { "type": "item" }, { "type": "item" }] }
+  ]
+}
+{% endschema %}

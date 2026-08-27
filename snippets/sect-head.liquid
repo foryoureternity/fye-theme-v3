@@ -1,0 +1,49 @@
+{%- comment -%}
+  sect-head — the eyebrow / heading / intro block that opens a section.
+
+  Nine of the guide-library sections carry the same four settings —
+  `show_head`, `eyebrow`, `heading`, `intro` — and rendered the same three
+  elements from nine copies of the markup. One copy, here.
+
+  Parameters:
+    show     — the section's `show_head`. Anything falsy renders nothing.
+    eyebrow  — small uppercase line above the heading
+    heading  — the heading text. Rendered h2, flanked and centred by default
+    intro    — a paragraph under the heading
+    align    — 'center' (default) or 'left'
+    flank    — false to drop the hairlines either side of the heading
+    level    — 'h2' (default) or 'h3', for a section nested inside another
+
+  Renders NOTHING when every text field is empty, so a section with no header
+  set does not leave an empty flex box and a 48px margin behind.
+{%- endcomment -%}
+{%- liquid
+  assign is_on = true
+  if show == false
+    assign is_on = false
+  endif
+  if eyebrow == blank and heading == blank and intro == blank
+    assign is_on = false
+  endif
+  assign al = align | default: 'center'
+  assign tag = level | default: 'h2'
+-%}
+{%- if is_on -%}
+  <div class="sect-head{% if al == 'left' %} sect-head--left{% endif %}">
+    {%- if eyebrow != blank -%}
+      <p class="eyebrow">{{ eyebrow }}</p>
+    {%- endif -%}
+
+    {%- if heading != blank -%}
+      {%- if tag == 'h3' -%}
+        <h3 class="{% if flank != false and al == 'center' %}heading-flank{% endif %}">{{ heading }}</h3>
+      {%- else -%}
+        <h2 class="{% if flank != false and al == 'center' %}heading-flank{% endif %}">{{ heading }}</h2>
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if intro != blank -%}
+      <p class="lead">{{ intro }}</p>
+    {%- endif -%}
+  </div>
+{%- endif -%}

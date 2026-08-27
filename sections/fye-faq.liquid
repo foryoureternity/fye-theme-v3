@@ -1,0 +1,153 @@
+{%- comment -%}
+  fye-faq — questions and answers. 49 uses.
+
+  Setting IDs kept exactly: `band`, `narrow`, `show_head`, `eyebrow`,
+  `heading`, `intro`, `open_first`, `emit_schema`; per block `q` and `a`.
+
+  NO JAVASCRIPT. Built on <details>/<summary>, so it opens and closes before
+  any script runs, works with the keyboard for free, and browser find-in-page
+  can reach answers inside collapsed items. The old version needed a click
+  handler and an aria-expanded dance to do less than this.
+
+  `open_first` opens the first question — worth it when the section holds one
+  or two questions, and worth avoiding on a long list where it makes the page
+  jump around.
+
+  `emit_schema` writes FAQPage structured data. Two guards on it: only when a
+  block actually has both a question and an answer, and the answer is stripped
+  of markup and JSON-escaped. Google penalises FAQ markup that does not match
+  the visible text, so the two are generated from the same fields in the same
+  loop rather than maintained separately.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'white'
+  assign narrow = s.narrow
+  if narrow == nil
+    assign narrow = true
+  endif
+-%}
+
+<section class="faq band band--{{ band }}" data-screen-label="FAQ">
+  <div class="wrap{% if narrow %} wrap--narrow{% endif %}">
+    {%- render 'sect-head',
+        show: s.show_head,
+        eyebrow: s.eyebrow,
+        heading: s.heading,
+        intro: s.intro -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="faq__list">
+        {%- for block in section.blocks -%}
+          {%- assign b = block.settings -%}
+          {%- if b.q != blank -%}
+            <details class="faq__item"
+              {%- if s.open_first and forloop.first %} open{% endif %}
+              {{ block.shopify_attributes }}>
+              <summary class="faq__q">
+                <span>{{ b.q }}</span>
+                {%- render 'icon', name: 'plus', class: 'icon--sm' -%}
+              </summary>
+              {%- if b.a != blank -%}
+                <div class="faq__a">{{ b.a }}</div>
+              {%- endif -%}
+            </details>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{%- if s.emit_schema and section.blocks.size > 0 -%}
+  {%- capture faq_json -%}
+    {%- assign first = true -%}
+    {%- for block in section.blocks -%}
+      {%- assign b = block.settings -%}
+      {%- if b.q != blank and b.a != blank -%}
+        {%- unless first %},{% endunless -%}
+        {"@type":"Question","name":{{ b.q | strip_html | json }},"acceptedAnswer":{"@type":"Answer","text":{{ b.a | strip_html | json }}}}
+        {%- assign first = false -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+  {%- assign faq_json = faq_json | strip -%}
+  {%- if faq_json != blank -%}
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{{ faq_json }}]}
+    </script>
+  {%- endif -%}
+{%- endif -%}
+
+{% stylesheet %}
+.fye .faq__list { display: flex; flex-direction: column; }
+.fye .faq__item { border-top: var(--hairline); }
+.fye .faq__item:last-child { border-bottom: var(--hairline); }
+
+.fye .faq__q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s5);
+  min-height: 44px;
+  padding: var(--s5) 0;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  letter-spacing: var(--tr-h2);
+  text-transform: uppercase;
+  color: var(--ink);
+  transition: color var(--dur) var(--ease);
+}
+/* Safari draws its own triangle without this. */
+.fye .faq__q::-webkit-details-marker { display: none; }
+.fye .faq__q:hover { color: var(--sage); }
+.fye .faq__q .icon { flex: 0 0 auto; transition: transform var(--dur) var(--ease); }
+.fye .faq__item[open] .faq__q .icon { transform: rotate(45deg); }
+
+.fye .faq__a {
+  padding-bottom: var(--s6);
+  color: var(--ink-soft);
+  max-width: 68ch;
+}
+.fye .faq__a :where(a) { text-decoration: underline; text-underline-offset: 3px; }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [
+    { "type": "checkbox", "id": "show_head", "label": "Show the header", "default": true },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Common questions" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Frequently asked questions" },
+    { "type": "textarea", "id": "intro", "label": "Intro" },
+    { "type": "header", "content": "Behaviour" },
+    { "type": "checkbox", "id": "open_first", "label": "Open the first question", "default": false },
+    { "type": "checkbox", "id": "emit_schema", "label": "Add FAQ structured data", "default": true, "info": "Helps these questions appear in search results. Only use it where the answers are genuinely on the page." },
+    { "type": "header", "content": "Layout" },
+    { "type": "checkbox", "id": "narrow", "label": "Narrow measure", "default": true },
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "white",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Ivory" },
+        { "value": "mist",  "label": "Mist" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "qa",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "q", "label": "Question" },
+        { "type": "richtext", "id": "a", "label": "Answer" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "FAQ", "blocks": [{ "type": "qa" }, { "type": "qa" }, { "type": "qa" }] }
+  ]
+}
+{% endschema %}

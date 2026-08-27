@@ -1,0 +1,162 @@
+{%- comment -%}
+  fye-table — a comparison table. 56 uses.
+
+  Metal hardness, stone durability, ring profiles, guide comparisons — anywhere
+  a guide sets values side by side. `.table` in fye-core.css carries the
+  styling; this file only assembles the rows and handles the delimiter.
+
+  Setting IDs kept exactly: `band`, `show_head`, `eyebrow`, `heading`, `intro`,
+  `headers`, `first_col_bold`, `narrow`, `col1_width`, `note`; per row `cells`.
+
+  THE DELIMITER, which matters more than it sounds
+  `headers` and each row's `cells` are one delimited string. The old theme used
+  commas, which breaks the moment a cell contains one — "Soft, scratches
+  easily" silently becomes two cells and knocks the row out of alignment. So:
+  **a pipe wins if the string contains one, otherwise commas.** Existing
+  comma-separated content keeps working, and any row that needs a comma can be
+  rewritten with pipes without touching the others.
+
+  Rows are padded or trimmed to the header count, so a short row leaves empty
+  cells rather than collapsing the table.
+
+  The 749px breakpoint exists for this section — see fye-core.css. Below it the
+  table scrolls sideways inside `.table-scroll` rather than crushing columns to
+  unreadable widths.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'white'
+
+  assign head_raw = s.headers | strip
+  if head_raw contains '|'
+    assign heads = head_raw | split: '|'
+  else
+    assign heads = head_raw | split: ','
+  endif
+  assign head_count = heads.size
+-%}
+
+<section class="ftable band band--{{ band }}" data-screen-label="Table">
+  <div class="wrap{% if s.narrow %} wrap--narrow{% endif %}">
+    {%- render 'sect-head',
+        show: s.show_head,
+        eyebrow: s.eyebrow,
+        heading: s.heading,
+        intro: s.intro -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="table-scroll">
+        <table class="table ftable__table{% if s.first_col_bold %} ftable--bold-first{% endif %}"
+          {%- if s.col1_width > 0 %} style="--col1: {{ s.col1_width }}%;"{% endif -%}>
+          {%- if head_count > 0 and head_raw != blank -%}
+            <thead>
+              <tr>
+                {%- for h in heads -%}
+                  <th scope="col">{{ h | strip }}</th>
+                {%- endfor -%}
+              </tr>
+            </thead>
+          {%- endif -%}
+
+          <tbody>
+            {%- for block in section.blocks -%}
+              {%- liquid
+                assign raw = block.settings.cells | strip
+                if raw contains '|'
+                  assign cells = raw | split: '|'
+                else
+                  assign cells = raw | split: ','
+                endif
+              -%}
+              {%- if raw != blank -%}
+                <tr {{ block.shopify_attributes }}>
+                  {%- for cell in cells -%}
+                    {%- if forloop.first and s.first_col_bold -%}
+                      <th scope="row">{{ cell | strip }}</th>
+                    {%- else -%}
+                      <td>{{ cell | strip }}</td>
+                    {%- endif -%}
+                  {%- endfor -%}
+
+                  {%- comment -%} Pad a short row so the grid stays square. {%- endcomment -%}
+                  {%- if head_count > cells.size -%}
+                    {%- assign gap = head_count | minus: cells.size -%}
+                    {%- for i in (1..gap) -%}
+                      <td></td>
+                    {%- endfor -%}
+                  {%- endif -%}
+                </tr>
+              {%- endif -%}
+            {%- endfor -%}
+          </tbody>
+        </table>
+      </div>
+    {%- endif -%}
+
+    {%- if s.note != blank -%}
+      <p class="fine ftable__note">{{ s.note }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .ftable__table { width: 100%; }
+
+/* A row header is a th, so it needs the body treatment rather than the mist
+   ground the column headers get. */
+.fye .ftable--bold-first :where(tbody th) {
+  background: none;
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0;
+  text-transform: none;
+}
+.fye .ftable__table :where(tbody th:first-child, td:first-child) { width: var(--col1, auto); }
+.fye .ftable__note { margin-top: var(--s5); }
+
+/* Below 749 the table scrolls rather than crushing. Give it a sensible floor
+   so the columns stay legible while it does. */
+@media (max-width: 749px) {
+  .fye .ftable__table { min-width: 560px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Table",
+  "settings": [
+    { "type": "checkbox", "id": "show_head", "label": "Show the header", "default": true },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "textarea", "id": "intro", "label": "Intro" },
+    { "type": "header", "content": "Table" },
+    { "type": "text", "id": "headers", "label": "Column headings", "info": "Separate with | — or with commas if no cell contains one." },
+    { "type": "checkbox", "id": "first_col_bold", "label": "First column is a row heading", "default": true },
+    { "type": "range", "id": "col1_width", "label": "First column width", "default": 0, "min": 0, "max": 60, "step": 5, "unit": "%", "info": "0 lets the table decide." },
+    { "type": "text", "id": "note", "label": "Footnote" },
+    { "type": "header", "content": "Layout" },
+    { "type": "checkbox", "id": "narrow", "label": "Narrow measure", "default": false },
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "white",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Ivory" },
+        { "value": "mist",  "label": "Mist" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Row",
+      "settings": [
+        { "type": "text", "id": "cells", "label": "Cells", "info": "Separate with | — or with commas if no cell contains one." }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Table", "blocks": [{ "type": "row" }, { "type": "row" }, { "type": "row" }] }
+  ]
+}
+{% endschema %}

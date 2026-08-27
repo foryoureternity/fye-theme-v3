@@ -1,0 +1,191 @@
+{%- comment -%}
+  fye-steps — a numbered process. 12 uses.
+
+  "How bespoke works", "What happens at a consultation", "Ordering a ring".
+  Where fye-terms defines things, this puts them in order.
+
+  Setting IDs kept exactly: `band`, `columns`, `show_head`, `eyebrow`,
+  `heading`, `intro`; per `step` block `number`, `heading`, `body`; per `cta`
+  block `label`, `link`, `style`, `trigger_class`.
+
+  Rendered as an <ol>. The order is the content, so it belongs in the markup
+  rather than in the numbers alone — a screen reader announces "list of 4
+  items" and the position of each. The visible number comes from the block when
+  it has one, otherwise the count, so a process can skip or letter its steps.
+
+  A hairline runs between steps on desktop, standing in for the arrow the old
+  version drew. It is a border on the item, not a pseudo-element, so it
+  disappears cleanly when the grid collapses to one column.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'ivory'
+  assign cols = s.columns | default: 4
+  assign step_count = 0
+  assign cta_count = 0
+  for block in section.blocks
+    if block.type == 'step'
+      assign step_count = step_count | plus: 1
+    endif
+    if block.type == 'cta'
+      assign cta_count = cta_count | plus: 1
+    endif
+  endfor
+-%}
+
+<section class="steps band band--{{ band }}" data-screen-label="Steps">
+  <div class="wrap">
+    {%- render 'sect-head',
+        show: s.show_head,
+        eyebrow: s.eyebrow,
+        heading: s.heading,
+        intro: s.intro -%}
+
+    {%- if step_count > 0 -%}
+      <ol class="steps__list" style="--scols: {{ cols }};">
+        {%- assign n = 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type != 'step' -%}{% continue %}{%- endif -%}
+          {%- liquid
+            assign b = block.settings
+            assign n = n | plus: 1
+            assign marker = b.number
+            if marker == blank
+              assign marker = n
+            endif
+          -%}
+          <li class="steps__item" {{ block.shopify_attributes }}>
+            <span class="steps__num" aria-hidden="true">{{ marker }}</span>
+            {%- if b.heading != blank -%}
+              <h3 class="steps__heading">{{ b.heading }}</h3>
+            {%- endif -%}
+            {%- if b.body != blank -%}
+              <div class="steps__body">{{ b.body }}</div>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ol>
+    {%- endif -%}
+
+    {%- if cta_count > 0 -%}
+      <div class="row row--center steps__actions">
+        {%- for block in section.blocks -%}
+          {%- if block.type != 'cta' -%}{% continue %}{%- endif -%}
+          {%- liquid
+            assign b = block.settings
+            assign variant = ''
+            if b.style == 'btn--outline'
+              assign variant = ' btn--outline'
+            endif
+          -%}
+          {%- if b.label != blank -%}
+            {%- if b.link != blank and b.link != '#' -%}
+              <a class="btn{{ variant }} {{ b.trigger_class }}" href="{{ b.link }}" {{ block.shopify_attributes }}>{{ b.label }}</a>
+            {%- else -%}
+              <button type="button" class="btn{{ variant }} {{ b.trigger_class }}" {{ block.shopify_attributes }}>{{ b.label }}</button>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .steps__list {
+  display: grid;
+  grid-template-columns: repeat(var(--scols, 4), minmax(0, 1fr));
+  gap: var(--s7) 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: none;
+}
+.fye .steps__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  margin: 0;
+  padding-inline: var(--s6);
+  border-left: var(--hairline);
+}
+.fye .steps__item:first-child { padding-inline-start: 0; border-left: 0; }
+
+.fye .steps__num {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  line-height: 1;
+  color: var(--sage);
+}
+.fye .steps__heading { font-size: var(--fs-h4); }
+.fye .steps__body { font-size: var(--fs-small); color: var(--ink-soft); }
+.fye .steps__actions { margin-top: var(--s9); }
+
+@media (max-width: 900px) {
+  .fye .steps__list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s7) var(--grid-gap); }
+  .fye .steps__item { padding-inline: 0; border-left: 0; }
+}
+@media (max-width: 560px) {
+  .fye .steps__list { grid-template-columns: 1fr; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Steps",
+  "settings": [
+    { "type": "checkbox", "id": "show_head", "label": "Show the header", "default": true },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "textarea", "id": "intro", "label": "Intro" },
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select", "id": "columns", "label": "Columns", "default": "4",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ]
+    },
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "ivory",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Ivory" },
+        { "value": "mist",  "label": "Mist" },
+        { "value": "teal",  "label": "Teal" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "text", "id": "number", "label": "Number", "info": "Leave empty to count automatically." },
+        { "type": "text", "id": "heading", "label": "Heading" },
+        { "type": "richtext", "id": "body", "label": "Text" }
+      ]
+    },
+    {
+      "type": "cta",
+      "name": "Button (below the steps)",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "url", "id": "link", "label": "Link", "info": "Leave empty when the button opens a popup." },
+        {
+          "type": "select", "id": "style", "label": "Style", "default": "btn--outline",
+          "options": [
+            { "value": "btn",          "label": "Filled" },
+            { "value": "btn--outline", "label": "Outline" }
+          ]
+        },
+        { "type": "text", "id": "trigger_class", "label": "Popup trigger class" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Steps", "blocks": [{ "type": "step" }, { "type": "step" }, { "type": "step" }] }
+  ]
+}
+{% endschema %}

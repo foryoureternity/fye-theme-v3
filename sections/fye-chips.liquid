@@ -1,0 +1,170 @@
+{%- comment -%}
+  fye-chips — a row of small labelled tags. 17 uses.
+
+  Diamond colour grades, clarity grades, metal options — a compact set of
+  values, sometimes with a swatch. Where fye-cards gives each item a tile, this
+  keeps a dozen of them on one line.
+
+  Setting IDs kept exactly: `band`, `align`, `narrow`, `show_head`, `eyebrow`,
+  `heading`, `intro`, `note`; per chip `name`, `sub`, `colour`, `colour_2`,
+  `link`.
+
+  THE ONE COLOUR EXCEPTION IN THE THEME
+  `colour` and `colour_2` stay free colour pickers, against the rule that every
+  colour is a palette choice. They are not styling: they are DATA — the actual
+  colour of a G-grade diamond, a champagne sapphire, an 18ct rose alloy. A
+  four-way brand palette cannot express those, and getting them approximately
+  right is the whole point of the chip. Two pickers because a stone is rarely
+  one flat colour; when `colour_2` is set the swatch is a hard-edged split
+  rather than a gradient, since a gradient would misrepresent a graded scale.
+
+  A chip with a `link` becomes an anchor; without one it is a plain span. No
+  empty hrefs.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'white'
+  assign align = s.align | default: 'left'
+-%}
+
+<section class="chips band band--{{ band }} band--tight chips--{{ align }}" data-screen-label="Chips">
+  <div class="wrap{% if s.narrow %} wrap--narrow{% endif %}">
+    {%- render 'sect-head',
+        show: s.show_head,
+        eyebrow: s.eyebrow,
+        heading: s.heading,
+        intro: s.intro,
+        align: align -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <ul class="chips__list">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign b = block.settings
+            assign has_swatch = false
+            if b.colour != blank
+              assign has_swatch = true
+            endif
+          -%}
+          {%- if b.name != blank -%}
+            <li class="chips__item" {{ block.shopify_attributes }}>
+              {%- if b.link != blank -%}<a class="chips__chip" href="{{ b.link }}">{%- else -%}<span class="chips__chip">{%- endif -%}
+                {%- if has_swatch -%}
+                  <span class="chips__swatch"
+                    style="--sw-1: {{ b.colour }};{% if b.colour_2 != blank %} --sw-2: {{ b.colour_2 }};{% endif %}"
+                    aria-hidden="true"></span>
+                {%- endif -%}
+                <span class="chips__name">{{ b.name }}</span>
+                {%- if b.sub != blank -%}
+                  <span class="chips__sub">{{ b.sub }}</span>
+                {%- endif -%}
+              {%- if b.link != blank -%}</a>{%- else -%}</span>{%- endif -%}
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    {%- if s.note != blank -%}
+      <p class="fine chips__note">{{ s.note }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .chips__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s3);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.fye .chips--center .chips__list { justify-content: center; }
+.fye .chips--right .chips__list { justify-content: flex-end; }
+.fye .chips__item { margin: 0; }
+
+.fye .chips__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  min-height: 40px;
+  padding: var(--s2) var(--s4);
+  border: 1px solid var(--line);
+  background: var(--white);
+  transition: border-color var(--dur) var(--ease);
+}
+.fye a.chips__chip:hover { border-color: var(--sage); }
+.fye .band--teal .chips__chip,
+.fye .band--sage .chips__chip { background: transparent; }
+
+/* Split swatch: a hard edge, not a gradient. A gradient reads as a blend
+   between two grades, which is exactly what these scales are not. */
+.fye .chips__swatch {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  background: var(--sw-1, transparent);
+}
+.fye .chips__swatch[style*='--sw-2'] {
+  background: linear-gradient(90deg, var(--sw-1) 0 50%, var(--sw-2) 50% 100%);
+}
+
+.fye .chips__name {
+  font-size: var(--fs-fine);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+}
+.fye .chips__sub { font-size: var(--fs-fine); color: var(--ink-soft); }
+.fye .chips__note { margin-top: var(--s6); }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Chips",
+  "settings": [
+    { "type": "checkbox", "id": "show_head", "label": "Show the header", "default": true },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "textarea", "id": "intro", "label": "Intro" },
+    { "type": "text", "id": "note", "label": "Footnote" },
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select", "id": "align", "label": "Alignment", "default": "left",
+      "options": [
+        { "value": "left",   "label": "Left" },
+        { "value": "center", "label": "Centred" },
+        { "value": "right",  "label": "Right" }
+      ]
+    },
+    { "type": "checkbox", "id": "narrow", "label": "Narrow measure", "default": false },
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "white",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Ivory" },
+        { "value": "mist",  "label": "Mist" },
+        { "value": "teal",  "label": "Teal" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "chip",
+      "name": "Chip",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Label" },
+        { "type": "text", "id": "sub", "label": "Note" },
+        { "type": "color", "id": "colour", "label": "Swatch colour", "info": "The real colour of the stone or metal — not a brand colour." },
+        { "type": "color", "id": "colour_2", "label": "Second swatch colour", "info": "For a two-tone swatch. Split down the middle, not blended." },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Chips", "blocks": [{ "type": "chip" }, { "type": "chip" }, { "type": "chip" }] }
+  ]
+}
+{% endschema %}

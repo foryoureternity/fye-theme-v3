@@ -63,17 +63,22 @@
   {%- endif -%}
 
   <div class="wrap hero__in">
-    {%- if s.logo_url != blank -%}
-      <img class="hero__logo" src="{{ s.logo_url }}" alt="{{ s.logo_alt | default: shop.name | escape }}"
-        style="--logo-w: {{ s.logo_width | default: 250 }}px;" loading="eager">
-    {%- endif -%}
-
     {%- if s.eyebrow != blank -%}
       <p class="eyebrow">{{ s.eyebrow }}</p>
     {%- endif -%}
 
     {%- if s.heading != blank -%}
       <h1 class="hero__title hero__title--{{ hstyle }}">{{ s.heading }}</h1>
+    {%- endif -%}
+
+    {%- comment -%}
+      The wordmark sits BELOW the heading, because the heading is written to
+      run into it — "Wedding Rings by" / [FOR YOUR ETERNITY]. Above the
+      heading it reads as a stray mark and the sentence dangles.
+    {%- endcomment -%}
+    {%- if s.logo_url != blank -%}
+      <img class="hero__logo" src="{{ s.logo_url }}" alt="{{ s.logo_alt | default: shop.name | escape }}"
+        style="--logo-w: {{ s.logo_width | default: 250 }}px;" loading="eager">
     {%- endif -%}
 
     {%- if s.subheading != blank -%}
@@ -105,7 +110,8 @@
 }
 .fye .hero--left .hero__in { align-items: flex-start; text-align: left; }
 
-.fye .hero__logo { width: var(--logo-w, 250px); height: auto; }
+/* Tightened against the heading it completes, not floated in the stack. */
+.fye .hero__logo { width: var(--logo-w, 250px); height: auto; margin-top: calc(var(--s5) * -0.5); }
 .fye .hero__sub { max-width: 56ch; }
 .fye .hero__actions { justify-content: center; margin-top: var(--s3); }
 .fye .hero--left .hero__actions { justify-content: flex-start; }

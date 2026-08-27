@@ -97,9 +97,18 @@
   text-align: center;
 }
 
-/* Ring cut-outs on white, so contain rather than cover — cropping a ring
-   photograph to a square edge cuts the shoulders off the setting. */
-.fye .acf__media { display: block; width: 100%; background: var(--ivory); }
+/* Each tile gets a ground. The photographs are ring cut-outs on white, so on
+   a white band there is no tile at all — just rings floating in space, which
+   is what my first pass produced. The live page runs them as light cards on a
+   teal band; this works on any band because the card brings its own ground.
+
+   contain rather than cover: cropping a ring photograph to a square edge cuts
+   the shoulders off the setting. */
+.fye .acf__link {
+  background: var(--white);
+  padding: var(--s4) var(--s4) var(--s5);
+}
+.fye .acf__media { display: block; width: 100%; background: var(--white); }
 .fye .acf__media :where(img) {
   width: 100%;
   aspect-ratio: 1;
@@ -114,7 +123,17 @@
   transition: color var(--dur) var(--ease);
 }
 .fye .acf__link:hover .acf__title { color: var(--sage); }
-.fye .acf__cta { margin-top: auto; border-bottom: 0; font-size: var(--fs-eyebrow); }
+/* A real button on the tile, matching live — the link text alone disappeared
+   against ten photographs. */
+.fye .acf__cta {
+  margin-top: auto;
+  border-bottom: 0;
+  font-size: var(--fs-eyebrow);
+  padding: var(--s2) var(--s4);
+  border: 1px solid var(--line);
+  transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.fye .acf__link:hover .acf__cta { border-color: var(--sage); }
 .fye .acf__link:hover .acf__cta { color: var(--sage); }
 
 @media (max-width: 900px) {

@@ -48,21 +48,12 @@
       </div>
     {%- endif -%}
 
+    {%- comment -%}
+      Questions first in the source AND on the page: a reader starts here, and
+      the panel is a follow-up. The panel led on my first pass, which read as
+      an advert with an FAQ attached to it.
+    {%- endcomment -%}
     <div class="acc__cols{% unless has_left %} acc__cols--single{% endunless %}">
-      {%- if has_left -%}
-        <div class="acc__aside">
-          {%- if s.left_heading != blank -%}
-            <h3 class="acc__aside-heading">{{ s.left_heading }}</h3>
-          {%- endif -%}
-          {%- if s.left_text != blank -%}
-            <div class="acc__aside-text">{{ s.left_text }}</div>
-          {%- endif -%}
-          {%- if s.left_btn != blank and s.left_url != blank -%}
-            <a class="btn btn--outline" href="{{ s.left_url }}">{{ s.left_btn }}</a>
-          {%- endif -%}
-        </div>
-      {%- endif -%}
-
       {%- if section.blocks.size > 0 -%}
         <div class="acc__list">
           {%- for block in section.blocks -%}
@@ -79,6 +70,20 @@
               </details>
             {%- endif -%}
           {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if has_left -%}
+        <div class="acc__aside">
+          {%- if s.left_heading != blank -%}
+            <h3 class="acc__aside-heading">{{ s.left_heading }}</h3>
+          {%- endif -%}
+          {%- if s.left_text != blank -%}
+            <div class="acc__aside-text">{{ s.left_text }}</div>
+          {%- endif -%}
+          {%- if s.left_btn != blank and s.left_url != blank -%}
+            <a class="btn" href="{{ s.left_url }}">{{ s.left_btn }}</a>
+          {%- endif -%}
         </div>
       {%- endif -%}
     </div>
@@ -108,12 +113,15 @@
 {% stylesheet %}
 .fye .acc__cols {
   display: grid;
-  grid-template-columns: 5fr 7fr;
+  grid-template-columns: 7fr 5fr;
   gap: var(--s10);
   align-items: start;
 }
 .fye .acc__cols--single { grid-template-columns: minmax(0, var(--maxw-narrow)); justify-content: center; }
 
+/* A teal card, as on the live pages — it is an offer, so it gets a ground
+   rather than sitting as loose text beside the questions. On teal the band
+   rules invert the type roles, so nothing here restates a colour. */
 .fye .acc__aside {
   display: flex;
   flex-direction: column;
@@ -121,9 +129,19 @@
   gap: var(--s4);
   position: sticky;
   top: var(--s7);
+  padding: var(--s7);
+  background: var(--teal);
+  color: var(--on-dark);
+  --ink-soft: var(--on-dark-soft);
 }
-.fye .acc__aside-heading { font-size: var(--fs-h3); }
+.fye .acc__aside-heading { font-size: var(--fs-h4); color: var(--on-dark); }
 .fye .acc__aside-text { color: var(--ink-soft); }
+.fye .acc__aside .btn {
+  background: var(--ivory);
+  border-color: var(--ivory);
+  color: var(--teal);
+}
+.fye .acc__aside .btn:hover { background: var(--sage); border-color: var(--sage); }
 
 .fye .acc__list { display: flex; flex-direction: column; }
 .fye .acc__item { border-top: var(--hairline); }

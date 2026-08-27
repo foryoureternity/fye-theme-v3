@@ -1,0 +1,144 @@
+{%- comment -%}
+  fye-trust-strip — four proof points in a row, under the hero.
+
+  3 templates: index, page.about-us, page.about-us-v2.
+
+  FYE-original, so nothing here is a T4S port: the old version was already
+  ours. What changed is that the icon names became a fixed list instead of
+  Line Awesome class strings, and the per-block colour controls went.
+
+  Setting IDs kept: `band` on the section; `icon`, `label`, `sub` per block.
+  The four `icon` values in use on the live site — certified, fair, guidance,
+  risk-free — are mapped to snippets/icon.liquid below, so existing content
+  needs no re-entry.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'white'
+-%}
+
+<section class="tstrip band band--{{ band }} band--tight" data-screen-label="Trust strip">
+  <div class="wrap">
+    <ul class="tstrip__list">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign b = block.settings
+          case b.icon
+            when 'certified'
+              assign ic = 'certificate'
+            when 'fair'
+              assign ic = 'scales'
+            when 'guidance'
+              assign ic = 'guidance'
+            when 'risk-free'
+              assign ic = 'warranty'
+            when 'ethical'
+              assign ic = 'ethical'
+            when 'delivery'
+              assign ic = 'shipping'
+            when 'resizing'
+              assign ic = 'resize'
+            else
+              assign ic = 'check'
+          endcase
+        -%}
+        <li class="tstrip__item" {{ block.shopify_attributes }}>
+          {%- render 'icon', name: ic -%}
+          {%- if b.label != blank -%}
+            <span class="tstrip__label">{{ b.label }}</span>
+          {%- endif -%}
+          {%- if b.sub != blank -%}
+            <span class="tstrip__sub">{{ b.sub }}</span>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% stylesheet %}
+/* Four across, collapsing to two at 900 and one at 560 — auto-fit rather than
+   a column count, so three or five blocks still balance. */
+.fye .tstrip__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--s7) var(--s6);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.fye .tstrip__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s2);
+  margin: 0;
+  text-align: center;
+}
+/* Hairlines between, not around — the divider does the work a card would. */
+.fye .tstrip__item + .tstrip__item { border-inline-start: var(--hairline); }
+.fye .tstrip__label {
+  font-size: var(--fs-fine);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+}
+.fye .tstrip__sub {
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+  max-width: 26ch;
+}
+.fye .tstrip__item .icon { margin-bottom: var(--s2); }
+
+/* The dividers only make sense while the items are in one row. */
+@media (max-width: 900px) {
+  .fye .tstrip__item + .tstrip__item { border-inline-start: 0; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Trust strip",
+  "settings": [
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "white",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Ivory" },
+        { "value": "mist",  "label": "Mist" }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "blocks": [
+    {
+      "type": "point",
+      "name": "Point",
+      "settings": [
+        {
+          "type": "select", "id": "icon", "label": "Icon", "default": "certified",
+          "options": [
+            { "value": "certified", "label": "Certificate" },
+            { "value": "fair",      "label": "Scales" },
+            { "value": "guidance",  "label": "Two people" },
+            { "value": "risk-free", "label": "Shield" },
+            { "value": "ethical",   "label": "Leaf" },
+            { "value": "delivery",  "label": "Delivery" },
+            { "value": "resizing",  "label": "Resizing" }
+          ]
+        },
+        { "type": "text", "id": "label", "label": "Label", "default": "Independently certified" },
+        { "type": "text", "id": "sub", "label": "Supporting line", "default": "GIA & IGI certified diamonds" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust strip",
+      "blocks": [
+        { "type": "point" }, { "type": "point" }, { "type": "point" }, { "type": "point" }
+      ]
+    }
+  ]
+}
+{% endschema %}

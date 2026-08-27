@@ -1,0 +1,220 @@
+{%- comment -%}
+  fye-two-ways — buy direct, or talk it through first. Two cards, side by side.
+
+  1 template: index. Kept as its own section rather than folded into a generic
+  two-card layout because the content is a specific commercial decision — the
+  two routes into the business — and it is the only place on the site that
+  states them.
+
+  Setting IDs kept: `ground`, `eyebrow`, `heading`, `subline`, and the
+  `card_a_*` / `card_b_*` pairs; `text`, `short` and `hide_mobile` per point.
+
+  THE `short` / `hide_mobile` PAIR — read before editing a point.
+  On the live site each card lists five points on desktop but three on mobile,
+  by merging three of them into one line. That is what these two settings do:
+    - `short` — the merged wording, shown INSTEAD of `text` below 560px
+    - `hide_mobile` — the points the merge absorbed, hidden below 560px
+  So point 3 says "Free insured delivery" on desktop and "Free insured
+  delivery, resizing for the first year, lifetime warranty" on mobile, and
+  points 4 and 5 disappear. Both strings live in the same <li>; nothing is
+  rendered twice. If you add a point, decide which of the two lists it joins.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign ground = s.ground | default: 'ivory'
+-%}
+
+<section class="tways band band--{{ ground }}" data-screen-label="Two ways to buy">
+  <div class="wrap">
+    {%- if s.eyebrow != blank or s.heading != blank or s.subline != blank -%}
+      <div class="sect-head">
+        {%- if s.eyebrow != blank -%}
+          <p class="eyebrow">{{ s.eyebrow }}</p>
+        {%- endif -%}
+        {%- if s.heading != blank -%}
+          <h2 class="heading-flank">{{ s.heading }}</h2>
+        {%- endif -%}
+        {%- if s.subline != blank -%}
+          <p class="lead">{{ s.subline }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="tways__cards">
+      {%- comment -%} Card A — buy direct. {%- endcomment -%}
+      <div class="tways__card card card--line card--pad">
+        {%- if s.card_a_title != blank -%}
+          <h3 class="tways__title">{{ s.card_a_title }}</h3>
+        {%- endif -%}
+        {%- if s.card_a_lede != blank -%}
+          <p class="tways__lede">{{ s.card_a_lede }}</p>
+        {%- endif -%}
+
+        <ul class="tways__points">
+          {%- for block in section.blocks -%}
+            {%- if block.type != 'point_a' -%}{% continue %}{%- endif -%}
+            {%- assign b = block.settings -%}
+            <li class="tways__point{% if b.hide_mobile %} tways__point--desk{% endif %}" {{ block.shopify_attributes }}>
+              {%- render 'icon', name: 'check', class: 'icon--sm' -%}
+              <span>
+                <span class="tways__pt{% if b.short != blank %} tways__pt--desk{% endif %}">{{ b.text }}</span>
+                {%- if b.short != blank -%}
+                  <span class="tways__pt-short">{{ b.short }}</span>
+                {%- endif -%}
+              </span>
+            </li>
+          {%- endfor -%}
+        </ul>
+
+        {%- if s.card_a_cta_label != blank -%}
+          {%- if s.card_a_cta_link != blank -%}
+            <a class="btn tways__cta" href="{{ s.card_a_cta_link }}">{{ s.card_a_cta_label }}</a>
+          {%- else -%}
+            <button type="button" class="btn tways__cta">{{ s.card_a_cta_label }}</button>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} Card B — talk it through. {%- endcomment -%}
+      <div class="tways__card card card--line card--pad tways__card--b">
+        {%- if s.card_b_title != blank -%}
+          <h3 class="tways__title">{{ s.card_b_title }}</h3>
+        {%- endif -%}
+        {%- if s.card_b_lede != blank -%}
+          <p class="tways__lede">{{ s.card_b_lede }}</p>
+        {%- endif -%}
+
+        <ul class="tways__points">
+          {%- for block in section.blocks -%}
+            {%- if block.type != 'point_b' -%}{% continue %}{%- endif -%}
+            {%- assign b = block.settings -%}
+            <li class="tways__point{% if b.hide_mobile %} tways__point--desk{% endif %}" {{ block.shopify_attributes }}>
+              {%- render 'icon', name: 'check', class: 'icon--sm' -%}
+              <span>
+                <span class="tways__pt{% if b.short != blank %} tways__pt--desk{% endif %}">{{ b.text }}</span>
+                {%- if b.short != blank -%}
+                  <span class="tways__pt-short">{{ b.short }}</span>
+                {%- endif -%}
+              </span>
+            </li>
+          {%- endfor -%}
+        </ul>
+
+        {%- if s.card_b_cta_label != blank -%}
+          {%- if s.card_b_popup or s.card_b_cta_link == blank -%}
+            {%- comment -%}
+              Opens the consultation popup. The popup itself is build-state
+              job 6; until it exists this button has nothing to open, so a link
+              set here wins over the popup flag.
+            {%- endcomment -%}
+            <button type="button" class="btn tways__cta" data-fye-popup="consultation">{{ s.card_b_cta_label }}</button>
+          {%- else -%}
+            <a class="btn tways__cta" href="{{ s.card_b_cta_link }}">{{ s.card_b_cta_label }}</a>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .tways__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--grid-gap);
+  align-items: start;
+}
+/* Cards are equal height so the two CTAs line up — the comparison is the point. */
+.fye .tways__card { display: flex; flex-direction: column; height: 100%; }
+.fye .tways__title { margin-bottom: var(--s3); }
+.fye .tways__lede { color: var(--ink-soft); margin-bottom: var(--s6); }
+
+.fye .tways__points {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  list-style: none;
+  margin: 0 0 var(--s7);
+  padding: 0;
+  flex: 1 1 auto;
+}
+.fye .tways__point {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s3);
+  margin: 0;
+  font-size: var(--fs-small);
+}
+.fye .tways__point .icon { margin-top: 3px; color: var(--sage); }
+.fye .tways__cta { align-self: flex-start; }
+
+/* Desktop wording by default; the short forms are hidden until 560. */
+.fye .tways__pt-short { display: none; }
+
+@media (max-width: 560px) {
+  .fye .tways__point--desk { display: none; }
+  .fye .tways__pt--desk { display: none; }
+  .fye .tways__pt-short { display: inline; }
+  .fye .tways__cta { align-self: stretch; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Two ways to buy",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Two ways to buy" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "text", "id": "subline", "label": "Supporting line" },
+    { "type": "header", "content": "Buy direct" },
+    { "type": "text", "id": "card_a_title", "label": "Title", "default": "Buy direct" },
+    { "type": "text", "id": "card_a_lede", "label": "Opening line" },
+    { "type": "text", "id": "card_a_cta_label", "label": "Button label", "default": "Shop rings" },
+    { "type": "url", "id": "card_a_cta_link", "label": "Button link" },
+    { "type": "header", "content": "Talk it through" },
+    { "type": "text", "id": "card_b_title", "label": "Title", "default": "Talk it through first" },
+    { "type": "text", "id": "card_b_lede", "label": "Opening line" },
+    { "type": "text", "id": "card_b_cta_label", "label": "Button label", "default": "Book a free consultation" },
+    { "type": "url", "id": "card_b_cta_link", "label": "Button link", "info": "Used instead of the popup when set." },
+    { "type": "checkbox", "id": "card_b_popup", "label": "Button opens the consultation popup", "default": true },
+    { "type": "header", "content": "Background" },
+    {
+      "type": "select", "id": "ground", "label": "Background", "default": "ivory",
+      "options": [
+        { "value": "ivory", "label": "Ivory" },
+        { "value": "white", "label": "White" },
+        { "value": "mist",  "label": "Mist" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "point_a",
+      "name": "Point — buy direct",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Point" },
+        { "type": "text", "id": "short", "label": "Mobile wording", "info": "Shown instead of the point below 560px, for a point that absorbs others." },
+        { "type": "checkbox", "id": "hide_mobile", "label": "Hide below 560px", "default": false }
+      ]
+    },
+    {
+      "type": "point_b",
+      "name": "Point — talk it through",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Point" },
+        { "type": "text", "id": "short", "label": "Mobile wording", "info": "Shown instead of the point below 560px, for a point that absorbs others." },
+        { "type": "checkbox", "id": "hide_mobile", "label": "Hide below 560px", "default": false }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Two ways to buy",
+      "blocks": [
+        { "type": "point_a" }, { "type": "point_a" }, { "type": "point_a" },
+        { "type": "point_b" }, { "type": "point_b" }, { "type": "point_b" }
+      ]
+    }
+  ]
+}
+{% endschema %}

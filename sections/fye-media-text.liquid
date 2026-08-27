@@ -1,0 +1,175 @@
+{%- comment -%}
+  fye-media-text — image one side, words the other. 13 uses.
+
+  index (×2), page.engagement-rings, page.eternity-rings, page.wedding-rings,
+  page.affiliate-programme.
+
+  The most repeated layout on the site, so it does the least surprising thing:
+  `.media-text` from fye-core.css carries the two-column grid and collapses it
+  at 900px. This file only adds the full-bleed variant and the placeholder.
+
+  Setting IDs kept: `band`, `reverse`, `full_bleed`, `image`, `image_alt`,
+  `placeholder`, `eyebrow`, `heading`, `body`; `label`, `link`, `style`,
+  `trigger_class` per button block.
+
+  `trigger_class` is how the live site opens a popup from a button — the class
+  is what the popup script listens for. Kept verbatim: the guide popups are
+  build-state job 6, and renaming these would break every one of them. A button
+  with a `trigger_class` and no link renders as a <button>, not a dead <a>.
+
+  `full_bleed` pushes the image to the viewport edge, which is why the section
+  sets `band--bleed` and re-pads only the text column. That is the one case
+  where a section may touch padding-inline; vertical rhythm is still --sect-y.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'white'
+  assign img = s.image
+-%}
+
+<section
+  class="mtext band band--{{ band }}{% if s.full_bleed %} band--bleed mtext--bleed{% endif %}"
+  data-screen-label="Media and text">
+  <div class="{% if s.full_bleed %}mtext__bleed{% else %}wrap{% endif %}">
+    <div class="media-text{% if s.reverse %} media-text--reverse{% endif %}">
+
+      <div class="mtext__media">
+        {%- if img != blank -%}
+          {{ img | image_url: width: 1400 | image_tag:
+             loading: 'lazy',
+             widths: '600,900,1200,1400',
+             sizes: '(max-width: 900px) 100vw, 50vw',
+             alt: s.image_alt | default: img.alt | escape,
+             class: 'mtext__img' }}
+        {%- else -%}
+          {%- comment -%} Editor placeholder — never reached with an image set. {%- endcomment -%}
+          <div class="mtext__ph">
+            <span class="eyebrow">{{ s.placeholder | default: 'Image' }}</span>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="mtext__body">
+        {%- if s.eyebrow != blank -%}
+          <p class="eyebrow">{{ s.eyebrow }}</p>
+        {%- endif -%}
+        {%- if s.heading != blank -%}
+          <h2 class="mtext__heading">{{ s.heading }}</h2>
+        {%- endif -%}
+        {%- if s.body != blank -%}
+          <div class="mtext__copy">{{ s.body }}</div>
+        {%- endif -%}
+
+        {%- if section.blocks.size > 0 -%}
+          <div class="row mtext__actions">
+            {%- for block in section.blocks -%}
+              {%- liquid
+                assign b = block.settings
+                assign variant = ''
+                if b.style == 'btn--outline'
+                  assign variant = ' btn--outline'
+                endif
+              -%}
+              {%- if b.label != blank -%}
+                {%- if b.link != blank and b.link != '#' -%}
+                  <a class="btn{{ variant }} {{ b.trigger_class }}" href="{{ b.link }}" {{ block.shopify_attributes }}>{{ b.label }}</a>
+                {%- else -%}
+                  <button type="button" class="btn{{ variant }} {{ b.trigger_class }}" {{ block.shopify_attributes }}>{{ b.label }}</button>
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .mtext__heading { margin-bottom: var(--s5); }
+.fye .mtext__copy { color: var(--ink-soft); }
+.fye .mtext__copy :where(ul) { padding-left: 1.1em; }
+.fye .mtext__copy :where(li) { margin-bottom: var(--s2); }
+.fye .mtext__actions { margin-top: var(--s7); }
+.fye .mtext__img { width: 100%; }
+
+/* Placeholder: a hairline box at the image's proportions, so the editor sees
+   the layout rather than a collapsed column. */
+.fye .mtext__ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 4 / 3;
+  border: var(--hairline);
+  background: var(--white);
+}
+
+/* Full bleed: the image runs to the viewport edge, the words keep the gutter.
+   The grid gap goes too — the colour change is the join. */
+.fye .mtext--bleed .media-text { gap: 0; align-items: stretch; }
+.fye .mtext--bleed .mtext__media { display: flex; }
+.fye .mtext--bleed .mtext__img { object-fit: cover; height: 100%; }
+.fye .mtext--bleed .mtext__body {
+  padding-inline: var(--pad-x);
+  padding-block: var(--s9);
+  align-self: center;
+  max-width: 60ch;
+}
+/* Keep the words off the far edge on wide screens without a full .wrap. */
+.fye .mtext--bleed .media-text:not(.media-text--reverse) .mtext__body { padding-inline-end: max(var(--pad-x), 6vw); }
+.fye .mtext--bleed .media-text--reverse .mtext__body { padding-inline-start: max(var(--pad-x), 6vw); }
+
+@media (max-width: 900px) {
+  .fye .mtext--bleed .mtext__body { padding-block: var(--s7) 0; }
+  .fye .mtext--bleed .media-text:not(.media-text--reverse) .mtext__body,
+  .fye .mtext--bleed .media-text--reverse .mtext__body { padding-inline: var(--pad-x); }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Media and text",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "image_alt", "label": "Image description", "info": "For screen readers and when the image fails to load." },
+    { "type": "text", "id": "placeholder", "label": "Placeholder label", "default": "Image", "info": "Shown in the editor only, before an image is chosen." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "richtext", "id": "body", "label": "Text" },
+    { "type": "header", "content": "Layout" },
+    { "type": "checkbox", "id": "reverse", "label": "Image on the right", "default": false },
+    { "type": "checkbox", "id": "full_bleed", "label": "Image runs to the edge", "default": false },
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "white",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Ivory" },
+        { "value": "mist",  "label": "Mist" },
+        { "value": "teal",  "label": "Teal" },
+        { "value": "sage",  "label": "Sage" }
+      ]
+    }
+  ],
+  "max_blocks": 2,
+  "blocks": [
+    {
+      "type": "button",
+      "name": "Button",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "url", "id": "link", "label": "Link", "info": "Leave empty when the button opens a popup." },
+        {
+          "type": "select", "id": "style", "label": "Style", "default": "btn",
+          "options": [
+            { "value": "btn", "label": "Filled" },
+            { "value": "btn--outline", "label": "Outline" }
+          ]
+        },
+        { "type": "text", "id": "trigger_class", "label": "Popup trigger class", "info": "Only for buttons that open a popup, e.g. open-design-your-own." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Media and text", "blocks": [{ "type": "button" }] }]
+}
+{% endschema %}

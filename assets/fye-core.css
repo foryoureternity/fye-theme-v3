@@ -703,3 +703,31 @@
   .fye .band { padding-block: var(--s6); background: #fff !important; color: #000 !important; }
   .fye .btn, .fye .no-print { display: none !important; }
 }
+
+
+/* ============================================================================
+   SCREEN-READER-ONLY TEXT
+   Appended 27/08/2026. The previous rule set width/height to 1px but did NOT
+   clip the content, so the text overflowed its 1px box visibly and added ~845px
+   of empty horizontal scroll to every page carrying a rating or an aria label.
+   Overflowing inline content counts toward the document's scrollable width.
+
+   Scoped and unscoped, because the header renders outside the .fye wrapper.
+   overflow + clip + clip-path together: clip-path is the modern rule, clip is
+   what older Safari honours, and overflow: hidden is the one that actually
+   stops the scroll contribution.
+   ========================================================================== */
+
+.visually-hidden,
+.fye .visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+}

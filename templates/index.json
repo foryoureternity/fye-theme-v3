@@ -20,7 +20,6 @@
         "link_url": "https://calendar.app.google/UKFkGvMLzAYEviqy8"
       }
     },
-
     "fye_trust_strip_home": {
       "type": "fye-trust-strip",
       "blocks": {
@@ -57,12 +56,16 @@
           }
         }
       },
-      "block_order": ["point_certified", "point_fair", "point_guidance", "point_riskfree"],
+      "block_order": [
+        "point_certified",
+        "point_fair",
+        "point_guidance",
+        "point_riskfree"
+      ],
       "settings": {
         "band": "white"
       }
     },
-
     "feature_columns2_A486RK": {
       "type": "feature_columns2",
       "blocks": {
@@ -83,23 +86,29 @@
           }
         }
       },
-      "block_order": ["text_block_VY9JKk", "text_block_P8TPry"],
+      "block_order": [
+        "text_block_VY9JKk",
+        "text_block_P8TPry"
+      ],
       "settings": {
         "text_align": "left",
         "band": "teal"
       }
     },
-
     "fye_two_ways_wdDULb": {
       "type": "fye-two-ways",
       "blocks": {
         "point_a_YiYbDV": {
           "type": "point_a",
-          "settings": { "text": "Over 3,000 rings, configurable by metal, size and centre stone" }
+          "settings": {
+            "text": "Over 3,000 rings, configurable by metal, size and centre stone"
+          }
         },
         "point_a_kkeCXY": {
           "type": "point_a",
-          "settings": { "text": "Order online today, no appointment needed" }
+          "settings": {
+            "text": "Order online today, no appointment needed"
+          }
         },
         "point_a_KDzAiU": {
           "type": "point_a",
@@ -110,11 +119,17 @@
         },
         "point_a_GET8UM": {
           "type": "point_a",
-          "settings": { "text": "Complimentary resizing for the first year", "hide_mobile": true }
+          "settings": {
+            "text": "Complimentary resizing for the first year",
+            "hide_mobile": true
+          }
         },
         "point_a_GVQnne": {
           "type": "point_a",
-          "settings": { "text": "Lifetime warranty", "hide_mobile": true }
+          "settings": {
+            "text": "Lifetime warranty",
+            "hide_mobile": true
+          }
         },
         "point_b_NP4tQc": {
           "type": "point_b",
@@ -125,11 +140,16 @@
         },
         "point_b_mLpUK6": {
           "type": "point_b",
-          "settings": { "text": "20 minutes to start, and as long as it takes after that", "hide_mobile": true }
+          "settings": {
+            "text": "20 minutes to start, and as long as it takes after that",
+            "hide_mobile": true
+          }
         },
         "point_b_gChC9k": {
           "type": "point_b",
-          "settings": { "text": "In person in London, or by video, phone or WhatsApp" }
+          "settings": {
+            "text": "In person in London, or by video, phone or WhatsApp"
+          }
         },
         "point_b_xNcR4h": {
           "type": "point_b",
@@ -140,12 +160,23 @@
         },
         "point_b_8jYhhK": {
           "type": "point_b",
-          "settings": { "text": "No obligation, no pressure", "hide_mobile": true }
+          "settings": {
+            "text": "No obligation, no pressure",
+            "hide_mobile": true
+          }
         }
       },
       "block_order": [
-        "point_a_YiYbDV", "point_a_kkeCXY", "point_a_KDzAiU", "point_a_GET8UM", "point_a_GVQnne",
-        "point_b_NP4tQc", "point_b_mLpUK6", "point_b_gChC9k", "point_b_xNcR4h", "point_b_8jYhhK"
+        "point_a_YiYbDV",
+        "point_a_kkeCXY",
+        "point_a_KDzAiU",
+        "point_a_GET8UM",
+        "point_a_GVQnne",
+        "point_b_NP4tQc",
+        "point_b_mLpUK6",
+        "point_b_gChC9k",
+        "point_b_xNcR4h",
+        "point_b_8jYhhK"
       ],
       "settings": {
         "ground": "ivory",
@@ -163,7 +194,6 @@
         "card_b_popup": false
       }
     },
-
     "custom_collections_cq7kaN": {
       "type": "custom-collections",
       "settings": {
@@ -182,7 +212,6 @@
         "ground": "white"
       }
     },
-
     "fye_testimonials_WTRaAj": {
       "type": "fye-testimonials",
       "blocks": {
@@ -242,8 +271,12 @@
         }
       },
       "block_order": [
-        "testimonial_YWNeHc", "testimonial_3QkATh", "testimonial_Rhnrrc",
-        "testimonial_qLjif4", "testimonial_3tEreq", "testimonial_RVhzLU"
+        "testimonial_YWNeHc",
+        "testimonial_3QkATh",
+        "testimonial_Rhnrrc",
+        "testimonial_qLjif4",
+        "testimonial_3tEreq",
+        "testimonial_RVhzLU"
       ],
       "settings": {
         "heading": "Testimonials",
@@ -254,7 +287,6 @@
         "band": "ivory"
       }
     },
-
     "featured_collection_PHLfPD": {
       "type": "featured-collection",
       "settings": {
@@ -267,7 +299,6 @@
         "band": "white"
       }
     },
-
     "fye_mediatext_designed_home": {
       "type": "fye-media-text",
       "blocks": {
@@ -280,7 +311,9 @@
           }
         }
       },
-      "block_order": ["btn_enquiry"],
+      "block_order": [
+        "btn_enquiry"
+      ],
       "settings": {
         "band": "sage",
         "reverse": true,
@@ -293,7 +326,6 @@
         "body": "<p>Tell us what you have in mind. We'll source the perfect stone, refine the design, and craft your ring in London.</p><p><em>Every commission is guided personally by our founder — from first sketch to final polish.</em></p>"
       }
     },
-
     "fye_gallery_promo_home": {
       "type": "fye-gallery-promo",
       "blocks": {
@@ -325,7 +357,11 @@
           }
         }
       },
-      "block_order": ["set_1", "set_2", "set_3"],
+      "block_order": [
+        "set_1",
+        "set_2",
+        "set_3"
+      ],
       "settings": {
         "eyebrow": "From our workshop",
         "heading": "<p>Pieces we've<br/>already made</p>",
@@ -336,7 +372,6 @@
         "ground": "white"
       }
     },
-
     "fye_mediatext_guarantee_home": {
       "type": "fye-media-text",
       "settings": {
@@ -349,7 +384,6 @@
         "body": "<ul><li>GIA & IGI certified diamonds</li><li>Ethical, conflict free gemstones & precious metals</li><li>10% discount on your wedding ring for returning customers</li><li>Free insured delivery</li><li>Complimentary resizing for one year</li><li>Complimentary cleaning for life</li><li>Lifetime warranty against manufacturing defects</li></ul>"
       }
     },
-
     "guide_download_block_HFUQjC": {
       "type": "guide-download-block",
       "blocks": {
@@ -416,8 +450,12 @@
         }
       },
       "block_order": [
-        "guide_nqMpEg", "guide_EcHX78", "guide_E4wjqh",
-        "guide_kfKxhB", "guide_6YGjbT", "guide_CareGd"
+        "guide_nqMpEg",
+        "guide_EcHX78",
+        "guide_E4wjqh",
+        "guide_kfKxhB",
+        "guide_6YGjbT",
+        "guide_CareGd"
       ],
       "settings": {
         "heading": "Free expert guides",
@@ -427,7 +465,6 @@
         "background": "teal"
       }
     },
-
     "latest_news_em_7BeeqP": {
       "type": "latest-news-EM",
       "settings": {
@@ -436,24 +473,37 @@
         "bg_color": "ivory"
       }
     },
-
     "fye_consultation_home": {
       "type": "fye-consultation",
       "blocks": {
         "contact_phone": {
           "type": "contact",
-          "settings": { "type": "phone", "label": "0208 178 6687" }
+          "settings": {
+            "type": "phone",
+            "label": "0208 178 6687"
+          }
         },
         "contact_email": {
           "type": "contact",
-          "settings": { "type": "email", "label": "hello@foryoureternity.com" }
+          "settings": {
+            "type": "email",
+            "label": "hello@foryoureternity.com"
+          }
         },
         "contact_whatsapp": {
           "type": "contact",
-          "settings": { "type": "whatsapp", "label": "WhatsApp", "link": "https://wa.me/447840042922" }
+          "settings": {
+            "type": "whatsapp",
+            "label": "WhatsApp",
+            "link": "https://wa.me/447840042922"
+          }
         }
       },
-      "block_order": ["contact_phone", "contact_email", "contact_whatsapp"],
+      "block_order": [
+        "contact_phone",
+        "contact_email",
+        "contact_whatsapp"
+      ],
       "settings": {
         "band": "teal",
         "eyebrow": "Personal guidance",
@@ -480,6 +530,3 @@
     "fye_consultation_home"
   ]
 }
-
-
-

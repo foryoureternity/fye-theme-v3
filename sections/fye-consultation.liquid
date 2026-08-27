@@ -1,28 +1,27 @@
 {%- comment -%}
-  fye-consultation — the booking CTA band. 8 uses.
+  fye-consultation — the closing "book a consultation" band.
 
-  index, page.about-us, page.about-us-v2, page.affiliate-programme,
-  page.engagement-rings, page.eternity-rings, page.wedding-rings, and the
-  layout (so it appears sitewide where a template does not place its own).
+  Setting IDs frozen: `eyebrow`, `heading`, `lead`, `btn_label`, `btn_link`,
+  `band`; contact blocks keep `type`, `label`, `link`.
 
-  Setting IDs kept: `band`, `eyebrow`, `heading`, `lead`, `btn_label`,
-  `btn_link`; `type` and `label` per contact block.
+  REBUILT 27/08/2026 to match live
+  Mine was a centred stack using the flanked heading. Once the flank fix let
+  those hairlines run the full container width, the band read as mostly empty
+  air — a lot of height for four short lines.
 
-  The contact blocks only ever carried a type and a label on the live site, so
-  the href is derived from the label — a phone number becomes tel:, an address
-  becomes mailto:. `link` is a new optional setting for the cases that cannot
-  be derived (WhatsApp), and wins when set.
-
-  WhatsApp gets the conversation icon, not the WhatsApp logo — see the note in
-  snippets/icon.liquid.
+  Live is two columns: eyebrow, heading and lead left; the button and the three
+  contact links right. Same content, two-thirds the height, and the button sits
+  beside the heading rather than three rows below it. No flanked heading here —
+  the device belongs on centred section headers, and this heading is not one.
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
   assign band = s.band | default: 'teal'
 -%}
 
-<section class="consult band band--{{ band }}" data-screen-label="Consultation CTA">
+<div class="band band--{{ band }}">
   <div class="wrap consult__inner">
+
     <div class="consult__words">
       {%- if s.eyebrow != blank -%}
         <p class="eyebrow">{{ s.eyebrow }}</p>
@@ -36,136 +35,124 @@
     </div>
 
     <div class="consult__actions">
-      {%- if s.btn_label != blank and s.btn_link != blank -%}
-        <a class="btn" href="{{ s.btn_link }}">{{ s.btn_label }}</a>
+      {%- if s.btn_label != blank -%}
+        <a class="btn consult__btn" href="{{ s.btn_link | default: '#' }}">{{ s.btn_label }}</a>
       {%- endif -%}
 
       {%- if section.blocks.size > 0 -%}
-        <ul class="consult__contacts">
+        <div class="consult__contacts">
           {%- for block in section.blocks -%}
             {%- liquid
               assign b = block.settings
               assign href = b.link
-              case b.type
-                when 'phone'
-                  assign ic = 'phone'
-                  if href == blank
-                    assign href = b.label | remove: ' ' | remove: '(' | remove: ')' | prepend: 'tel:'
-                  endif
-                when 'email'
-                  assign ic = 'mail'
-                  if href == blank
-                    assign href = b.label | strip | prepend: 'mailto:'
-                  endif
-                when 'whatsapp'
-                  assign ic = 'message'
-                else
-                  assign ic = 'pin'
-              endcase
+              if href == blank
+                case b.type
+                  when 'phone'
+                    assign href = b.label | remove: ' ' | prepend: 'tel:'
+                  when 'email'
+                    assign href = b.label | prepend: 'mailto:'
+                  when 'whatsapp'
+                    assign href = 'https://wa.me/442081786687'
+                endcase
+              endif
+              assign icon_name = b.type
+              if b.type == 'phone'
+                assign icon_name = 'phone'
+              endif
             -%}
-            {%- if b.label != blank -%}
-              <li class="consult__contact" {{ block.shopify_attributes }}>
-                {%- if href != blank -%}
-                  <a class="consult__contact-link" href="{{ href }}">
-                    {%- render 'icon', name: ic, class: 'icon--sm' -%}
-                    <span>{{ b.label }}</span>
-                  </a>
-                {%- else -%}
-                  <span class="consult__contact-link">
-                    {%- render 'icon', name: ic, class: 'icon--sm' -%}
-                    <span>{{ b.label }}</span>
-                  </span>
-                {%- endif -%}
-              </li>
-            {%- endif -%}
+            <a class="consult__contact-link" href="{{ href }}" {{ block.shopify_attributes }}>
+              {%- render 'icon', name: icon_name, class: 'icon--sm' -%}
+              <span>{{ b.label }}</span>
+            </a>
           {%- endfor -%}
-        </ul>
+        </div>
       {%- endif -%}
     </div>
+
   </div>
-</section>
+</div>
 
 {% stylesheet %}
-/* Words left, actions right; one column below 900. */
+/* Words left, actions right. auto on the second column so the button keeps its
+   natural width and the copy takes the rest. */
 .fye .consult__inner {
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: var(--s10);
+  gap: var(--s9);
   align-items: center;
 }
-.fye .consult__heading { margin-bottom: var(--s4); }
-.fye .consult__lead { max-width: 46ch; }
+.fye .consult__words { display: flex; flex-direction: column; align-items: flex-start; gap: var(--s4); }
+.fye .consult__heading { margin: 0; text-wrap: pretty; }
+.fye .consult__lead { margin: 0; max-width: 52ch; }
+
+/* Button above, contacts beneath, both aligned to the right edge — live's
+   arrangement, and it keeps the button clear of the contact row. */
 .fye .consult__actions {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
   gap: var(--s6);
 }
-.fye .consult__contacts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s3) var(--s6);
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.fye .consult__contact { margin: 0; }
+.fye .consult__contacts { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--s6); }
 .fye .consult__contact-link {
   display: inline-flex;
   align-items: center;
   gap: var(--s2);
-  min-height: 44px;
   font-size: var(--fs-small);
+  text-decoration: none;
 }
+.fye .consult__contact-link:hover { text-decoration: underline; text-underline-offset: 4px; }
 
 @media (max-width: 900px) {
   .fye .consult__inner { grid-template-columns: 1fr; gap: var(--s7); }
+  .fye .consult__actions { align-items: flex-start; }
+  .fye .consult__contacts { justify-content: flex-start; gap: var(--s5); }
 }
 {% endstylesheet %}
 
 {% schema %}
 {
   "name": "Consultation CTA",
+  "tag": "section",
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Personal guidance" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Still unsure where to start?" },
-    { "type": "text", "id": "lead", "label": "Supporting line", "default": "Book a free consultation — in person, by phone or video." },
+    { "type": "text", "id": "lead", "label": "Text" },
     { "type": "text", "id": "btn_label", "label": "Button label", "default": "Book a free consultation" },
     { "type": "url", "id": "btn_link", "label": "Button link" },
+    { "type": "header", "content": "Background" },
     {
       "type": "select", "id": "band", "label": "Background", "default": "teal",
       "options": [
-        { "value": "teal",  "label": "Teal" },
-        { "value": "sage",  "label": "Sage" },
-        { "value": "ivory", "label": "Ivory" },
-        { "value": "mist",  "label": "Mist" }
+        { "value": "teal",  "label": "Eternal teal" },
+        { "value": "sage",  "label": "Sage green" },
+        { "value": "ivory", "label": "Champagne ivory" },
+        { "value": "mist",  "label": "Mist blue" }
       ]
     }
   ],
-  "max_blocks": 4,
   "blocks": [
     {
       "type": "contact",
       "name": "Contact",
       "settings": [
         {
-          "type": "select", "id": "type", "label": "Kind", "default": "phone",
+          "type": "select", "id": "type", "label": "Type", "default": "phone",
           "options": [
             { "value": "phone",    "label": "Phone" },
             { "value": "email",    "label": "Email" },
-            { "value": "whatsapp", "label": "WhatsApp" },
-            { "value": "address",  "label": "Address" }
+            { "value": "whatsapp", "label": "WhatsApp" }
           ]
         },
-        { "type": "text", "id": "label", "label": "Text", "default": "0208 178 6687" },
-        { "type": "url", "id": "link", "label": "Link", "info": "Phone and email links are worked out from the text. Set this for WhatsApp." }
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "url", "id": "link", "label": "Link", "info": "Optional. Built from the label when empty." }
       ]
     }
   ],
   "presets": [
     {
       "name": "Consultation CTA",
-      "blocks": [{ "type": "contact" }, { "type": "contact" }]
+      "blocks": [{ "type": "contact" }, { "type": "contact" }, { "type": "contact" }]
     }
   ]
 }

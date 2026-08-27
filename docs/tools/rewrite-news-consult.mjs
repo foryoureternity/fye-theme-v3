@@ -1,7 +1,28 @@
-{%- comment -%}
+/* ============================================================================
+   rewrite-news-consult.mjs — 27/08/2026
+   ----------------------------------------------------------------------------
+     cd ~/Dropbox/GIT-repositaries/fye-theme-v3
+     node docs/tools/rewrite-news-consult.mjs
+
+   Delete once run and synced.
+
+   Rewrites the layout of two sections to match live. Every setting ID is kept
+   exactly as it was, so index.json needs no changes:
+     latest-news-EM   heading, blog, bg_color   (+ two new labels, defaulted)
+     fye-consultation eyebrow, heading, lead, btn_label, btn_link, band
+                      + contact blocks (type, label, link)
+   ========================================================================== */
+
+import { writeFile } from 'node:fs/promises';
+
+/* ==========================================================================
+   1. latest-news-EM
+   ========================================================================== */
+
+const news = `{%- comment -%}
   latest-news-EM — the homepage news band. 1 use: index.
 
-  Setting IDs frozen: `heading`, `blog`, `bg_color`. Two new label settings
+  Setting IDs frozen: \`heading\`, \`blog\`, \`bg_color\`. Two new label settings
   default, so existing JSON keeps working untouched.
 
   REBUILT 27/08/2026 to match live
@@ -233,3 +254,175 @@
   "presets": [{ "name": "Latest news" }]
 }
 {% endschema %}
+`;
+
+/* ==========================================================================
+   2. fye-consultation
+   ========================================================================== */
+
+const consult = `{%- comment -%}
+  fye-consultation — the closing "book a consultation" band.
+
+  Setting IDs frozen: \`eyebrow\`, \`heading\`, \`lead\`, \`btn_label\`, \`btn_link\`,
+  \`band\`; contact blocks keep \`type\`, \`label\`, \`link\`.
+
+  REBUILT 27/08/2026 to match live
+  Mine was a centred stack using the flanked heading. Once the flank fix let
+  those hairlines run the full container width, the band read as mostly empty
+  air — a lot of height for four short lines.
+
+  Live is two columns: eyebrow, heading and lead left; the button and the three
+  contact links right. Same content, two-thirds the height, and the button sits
+  beside the heading rather than three rows below it. No flanked heading here —
+  the device belongs on centred section headers, and this heading is not one.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'teal'
+-%}
+
+<div class="band band--{{ band }}">
+  <div class="wrap consult__inner">
+
+    <div class="consult__words">
+      {%- if s.eyebrow != blank -%}
+        <p class="eyebrow">{{ s.eyebrow }}</p>
+      {%- endif -%}
+      {%- if s.heading != blank -%}
+        <h2 class="consult__heading">{{ s.heading }}</h2>
+      {%- endif -%}
+      {%- if s.lead != blank -%}
+        <p class="lead consult__lead">{{ s.lead }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="consult__actions">
+      {%- if s.btn_label != blank -%}
+        <a class="btn consult__btn" href="{{ s.btn_link | default: '#' }}">{{ s.btn_label }}</a>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <div class="consult__contacts">
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign b = block.settings
+              assign href = b.link
+              if href == blank
+                case b.type
+                  when 'phone'
+                    assign href = b.label | remove: ' ' | prepend: 'tel:'
+                  when 'email'
+                    assign href = b.label | prepend: 'mailto:'
+                  when 'whatsapp'
+                    assign href = 'https://wa.me/442081786687'
+                endcase
+              endif
+              assign icon_name = b.type
+              if b.type == 'phone'
+                assign icon_name = 'phone'
+              endif
+            -%}
+            <a class="consult__contact-link" href="{{ href }}" {{ block.shopify_attributes }}>
+              {%- render 'icon', name: icon_name, class: 'icon--sm' -%}
+              <span>{{ b.label }}</span>
+            </a>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+  </div>
+</div>
+
+{% stylesheet %}
+/* Words left, actions right. auto on the second column so the button keeps its
+   natural width and the copy takes the rest. */
+.fye .consult__inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--s9);
+  align-items: center;
+}
+.fye .consult__words { display: flex; flex-direction: column; align-items: flex-start; gap: var(--s4); }
+.fye .consult__heading { margin: 0; text-wrap: pretty; }
+.fye .consult__lead { margin: 0; max-width: 52ch; }
+
+/* Button above, contacts beneath, both aligned to the right edge — live's
+   arrangement, and it keeps the button clear of the contact row. */
+.fye .consult__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--s6);
+}
+.fye .consult__contacts { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--s6); }
+.fye .consult__contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  font-size: var(--fs-small);
+  text-decoration: none;
+}
+.fye .consult__contact-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+@media (max-width: 900px) {
+  .fye .consult__inner { grid-template-columns: 1fr; gap: var(--s7); }
+  .fye .consult__actions { align-items: flex-start; }
+  .fye .consult__contacts { justify-content: flex-start; gap: var(--s5); }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Consultation CTA",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Personal guidance" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Still unsure where to start?" },
+    { "type": "text", "id": "lead", "label": "Text" },
+    { "type": "text", "id": "btn_label", "label": "Button label", "default": "Book a free consultation" },
+    { "type": "url", "id": "btn_link", "label": "Button link" },
+    { "type": "header", "content": "Background" },
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "teal",
+      "options": [
+        { "value": "teal",  "label": "Eternal teal" },
+        { "value": "sage",  "label": "Sage green" },
+        { "value": "ivory", "label": "Champagne ivory" },
+        { "value": "mist",  "label": "Mist blue" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "contact",
+      "name": "Contact",
+      "settings": [
+        {
+          "type": "select", "id": "type", "label": "Type", "default": "phone",
+          "options": [
+            { "value": "phone",    "label": "Phone" },
+            { "value": "email",    "label": "Email" },
+            { "value": "whatsapp", "label": "WhatsApp" }
+          ]
+        },
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "url", "id": "link", "label": "Link", "info": "Optional. Built from the label when empty." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Consultation CTA",
+      "blocks": [{ "type": "contact" }, { "type": "contact" }, { "type": "contact" }]
+    }
+  ]
+}
+{% endschema %}
+`;
+
+await writeFile('sections/latest-news-EM.liquid', news, 'utf8');
+console.log("FIXED sections/latest-news-EM.liquid");
+
+await writeFile('sections/fye-consultation.liquid', consult, 'utf8');
+console.log("FIXED sections/fye-consultation.liquid");

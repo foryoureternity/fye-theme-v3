@@ -42,7 +42,7 @@
             {{ s.left_image | image_url: width: 1200 | image_tag:
                loading: 'lazy', widths: '500,800,1000,1200',
                sizes: '(max-width: 900px) 100vw, 50vw',
-               alt: s.left_image.alt | escape, class: 'ccols__img' }}
+               alt: s.left_heading, class: 'ccols__img' }}
           {%- endif -%}
           <span class="ccols__words">
             {%- if s.left_heading != blank -%}
@@ -61,7 +61,7 @@
             {{ s.top_image | image_url: width: 900 | image_tag:
                loading: 'lazy', widths: '400,600,900',
                sizes: '(max-width: 900px) 100vw, 25vw',
-               alt: s.top_image.alt | escape, class: 'ccols__img' }}
+               alt: s.top_heading, class: 'ccols__img' }}
           {%- endif -%}
           <span class="ccols__words">
             {%- if s.top_heading != blank -%}
@@ -80,7 +80,7 @@
             {{ s.bottom_image | image_url: width: 900 | image_tag:
                loading: 'lazy', widths: '400,600,900',
                sizes: '(max-width: 900px) 100vw, 25vw',
-               alt: s.bottom_image.alt | escape, class: 'ccols__img' }}
+               alt: s.bottom_heading, class: 'ccols__img' }}
           {%- endif -%}
           <span class="ccols__words">
             {%- if s.bottom_heading != blank -%}

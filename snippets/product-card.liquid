@@ -38,6 +38,7 @@
     assign on_sale = true
   endif
   assign second = product.images[1]
+  assign card_alt = product.featured_image.alt | default: product.title
 -%}
 
 <div class="pcard">
@@ -48,7 +49,7 @@
            loading: img_loading,
            widths: '200,300,400,600,900',
            sizes: img_sizes,
-           alt: product.featured_image.alt | default: product.title | escape,
+           alt: card_alt,
            class: 'pcard__img' }}
         {%- if second != blank -%}
           {{ second | image_url: width: 900 | image_tag:

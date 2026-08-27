@@ -47,7 +47,7 @@
                   {{ article.image | image_url: width: 900 | image_tag:
                      loading: 'lazy', widths: '300,500,700,900',
                      sizes: '(max-width: 900px) 100vw, 33vw',
-                     alt: article.image.alt | default: article.title | escape }}
+                     alt: article.title }}
                 </span>
               {%- endif -%}
               <span class="news__words">

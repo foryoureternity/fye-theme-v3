@@ -65,7 +65,7 @@
                   {{ b.image | image_url: width: 1400 | image_tag:
                      loading: 'lazy', widths: '600,900,1200,1400',
                      sizes: '(max-width: 900px) 100vw, 1000px',
-                     alt: b.image.alt | escape }}
+                     alt: b.image.alt }}
                 </div>
               {%- endif -%}
 
@@ -80,7 +80,7 @@
                   {{ b.image_sig | image_url: width: 480 | image_tag:
                      loading: 'lazy', widths: '240,360,480',
                      sizes: '220px',
-                     alt: b.image_sig.alt | default: 'Signature' | escape }}
+                     alt: b.image_sig.alt }}
                 </div>
               {%- endif -%}
 

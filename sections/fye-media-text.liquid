@@ -25,6 +25,7 @@
   assign s = section.settings
   assign band = s.band | default: 'white'
   assign img = s.image
+  assign media_alt = s.image_alt | default: img.alt | default: s.heading
 -%}
 
 <section
@@ -39,7 +40,7 @@
              loading: 'lazy',
              widths: '600,900,1200,1400',
              sizes: '(max-width: 900px) 100vw, 50vw',
-             alt: s.image_alt | default: img.alt | escape,
+             alt: media_alt,
              class: 'mtext__img' }}
         {%- else -%}
           {%- comment -%} Editor placeholder — never reached with an image set. {%- endcomment -%}

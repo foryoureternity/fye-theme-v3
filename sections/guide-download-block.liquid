@@ -61,7 +61,7 @@
               {{ b.cover | image_url: width: 600 | image_tag:
                  loading: 'lazy', widths: '240,360,480,600',
                  sizes: '(max-width: 560px) 60vw, (max-width: 900px) 30vw, 220px',
-                 alt: b.title | default: b.cover.alt | escape }}
+                 alt: b.title }}
             {%- else -%}
               <span class="guides__ph"></span>
             {%- endif -%}

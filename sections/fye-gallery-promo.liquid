@@ -74,7 +74,7 @@
                   {{ b.image_lead | image_url: width: 1000 | image_tag:
                      loading: 'lazy', widths: '400,600,800,1000',
                      sizes: '(max-width: 900px) 60vw, 30vw',
-                     alt: b.image_lead.alt | escape }}
+                     alt: b.image_lead.alt }}
                 {%- else -%}
                   <span class="gpromo__ph"></span>
                 {%- endif -%}
@@ -85,7 +85,7 @@
                   {{ b.image_top | image_url: width: 700 | image_tag:
                      loading: 'lazy', widths: '300,500,700',
                      sizes: '(max-width: 900px) 40vw, 20vw',
-                     alt: b.image_top.alt | escape }}
+                     alt: b.image_top.alt }}
                 {%- else -%}
                   <span class="gpromo__ph"></span>
                 {%- endif -%}
@@ -96,7 +96,7 @@
                   {{ b.image_bottom | image_url: width: 700 | image_tag:
                      loading: 'lazy', widths: '300,500,700',
                      sizes: '(max-width: 900px) 40vw, 20vw',
-                     alt: b.image_bottom.alt | escape }}
+                     alt: b.image_bottom.alt }}
                 {%- else -%}
                   <span class="gpromo__ph"></span>
                 {%- endif -%}

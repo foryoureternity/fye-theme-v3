@@ -43,6 +43,7 @@
   assign band = s.band | default: 'ivory'
   assign align = s.align | default: 'center'
   assign hstyle = s.heading_style | default: 'display'
+  assign hero_alt = s.heading | default: shop.name | strip_html
   assign has_img = false
   if s.image != blank
     assign has_img = true
@@ -53,7 +54,7 @@
   {%- if has_img -%}
     <div class="hero__media scrim">
       {{ s.image | image_url: width: 2400 | image_tag:
-         alt: s.heading | escape,
+         alt: hero_alt,
          class: 'hero__img',
          loading: 'eager',
          sizes: '100vw',

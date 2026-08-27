@@ -106,6 +106,43 @@
   .fye .guides__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
+.fye .guides__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+  margin: 0;
+}
+/* Covers are portrait artwork; a fixed ratio keeps six unequal files aligned.
+   No max-width now — the column is the constraint, six to a row. */
+.fye .guides__cover { width: 100%; }
+.fye .guides__cover :where(img) { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+.fye .guides__ph { display: block; aspect-ratio: 3 / 4; background: var(--ivory); opacity: 0.25; }
+
+/* Centred under the cover: six covers in a row read as a shelf, and a
+   left-aligned label under centred artwork looks like a mistake at this size. */
+.fye .guides__words {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--s3);
+}
+/* Smaller at six across: the title is a label on a shelf, not a heading. */
+.fye .guides__title { font-size: var(--fs-fine); letter-spacing: var(--tr-h2); }
+.fye .guides__blurb {
+  margin: 0;
+  font-size: var(--fs-fine);
+  color: var(--ink-soft);
+}
+.fye .guides__words .btn { margin-top: var(--s1); }
+
+/* The blurb is the first thing to go when six share a row — it is a nice-to-
+   have and the title plus cover already say which guide this is. */
+@media (min-width: 1101px) {
+  .fye .guides__blurb { display: none; }
+}
+
+.fye .row--center { justify-content: center; }
 /* ============================================================================
    MOBILE (<=768px) — tappable list rows, per live and the responsive handoff.
    A grid of covers gives two small tap targets per row and doubles the
@@ -162,43 +199,6 @@
     mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.5' stroke-linecap='square'%3E%3Cpath d='M4 12h15'/%3E%3Cpath d='M13.5 6l6 6-6 6'/%3E%3C/svg%3E") center / 16px 16px no-repeat;
   }
 }
-.fye .guides__item {
-  display: flex;
-  flex-direction: column;
-  gap: var(--s4);
-  margin: 0;
-}
-/* Covers are portrait artwork; a fixed ratio keeps six unequal files aligned.
-   No max-width now — the column is the constraint, six to a row. */
-.fye .guides__cover { width: 100%; }
-.fye .guides__cover :where(img) { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
-.fye .guides__ph { display: block; aspect-ratio: 3 / 4; background: var(--ivory); opacity: 0.25; }
-
-/* Centred under the cover: six covers in a row read as a shelf, and a
-   left-aligned label under centred artwork looks like a mistake at this size. */
-.fye .guides__words {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: var(--s3);
-}
-/* Smaller at six across: the title is a label on a shelf, not a heading. */
-.fye .guides__title { font-size: var(--fs-fine); letter-spacing: var(--tr-h2); }
-.fye .guides__blurb {
-  margin: 0;
-  font-size: var(--fs-fine);
-  color: var(--ink-soft);
-}
-.fye .guides__words .btn { margin-top: var(--s1); }
-
-/* The blurb is the first thing to go when six share a row — it is a nice-to-
-   have and the title plus cover already say which guide this is. */
-@media (min-width: 1101px) {
-  .fye .guides__blurb { display: none; }
-}
-
-.fye .row--center { justify-content: center; }
 {% endstylesheet %}
 
 {% schema %}

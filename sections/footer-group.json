@@ -1,31 +1,73 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "name": "Footer",
   "type": "footer",
   "sections": {
     "footer": {
       "type": "footer",
+      "blocks": {
+        "col_shop": {
+          "type": "links",
+          "settings": {
+            "heading": "Shop",
+            "menu": "footer-shop"
+          }
+        },
+        "col_diamonds": {
+          "type": "links",
+          "settings": {
+            "heading": "Diamonds & gemstones",
+            "menu": "footer-diamonds"
+          }
+        },
+        "col_guides": {
+          "type": "links",
+          "settings": {
+            "heading": "Guides & advice",
+            "menu": "footer-guides"
+          }
+        },
+        "col_help": {
+          "type": "links",
+          "settings": {
+            "heading": "Help & company",
+            "menu": "footer-help"
+          }
+        }
+      },
+      "block_order": [
+        "col_shop",
+        "col_diamonds",
+        "col_guides",
+        "col_help"
+      ],
       "settings": {
         "talk_heading": "Talk to us",
         "phone": "0208 178 6687",
         "hours": "Mon–Fri, 9am–6pm",
         "email": "hello@foryoureternity.com",
         "whatsapp_url": "https://wa.me/447840042922",
+        "instagram_url": "",
         "cta_label": "Book consultation",
         "cta_link": "https://calendar.app.google/UKFkGvMLzAYEviqy8",
         "strapline": "Beautiful jewellery. Ethically made. Fairly priced.",
         "mission": "<p>Creating timeless, ethical wedding jewellery with responsibly sourced diamonds and sustainable metals — crafted with integrity, beauty, and love.</p>",
         "signup_heading": "Keep up to date",
         "signup_note": "New designs, guides and offers.",
-        "legal": "<p>© 2026 For Your Eternity Ltd - Company No. 16261484 - VAT No. 486 8865 12. A London jeweller offering in-person and online consultations across the London area. GIA &amp; IGI certified stones.</p>"
-      },
-      "blocks": {
-        "col_shop": { "type": "links", "settings": { "heading": "Shop" } },
-        "col_diamonds": { "type": "links", "settings": { "heading": "Diamonds & gemstones" } },
-        "col_guides": { "type": "links", "settings": { "heading": "Guides & advice" } },
-        "col_help": { "type": "links", "settings": { "heading": "Help & company" } }
-      },
-      "block_order": ["col_shop", "col_diamonds", "col_guides", "col_help"]
+        "legal": "<p>© 2026 For Your Eternity Ltd - Company No. 16261484 - VAT No. 486 8865 12. A London jeweller offering in-person and online consultations across the London area. GIA & IGI certified stones.</p>",
+        "policy_menu": ""
+      }
     }
   },
-  "order": ["footer"]
+  "order": [
+    "footer"
+  ]
 }

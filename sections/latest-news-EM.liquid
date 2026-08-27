@@ -130,9 +130,15 @@
 .fye .news__lead-words {
   position: relative;
   z-index: 1;
-  width: min(74%, 380px);
-  margin-top: -16%;
-  padding: var(--s6);
+  /* ~42% of the column, as live. A panel wider than half the photograph
+     stops reading as a caption on the image and starts reading as a card
+     that has slipped out of position. */
+  width: min(52%, 300px);
+  /* Percentage margins resolve against the container's WIDTH, not height:
+     -30% of a ~557px column is ~167px of lift, which lands the panel's
+     bottom edge near the photograph's, as live. */
+  margin-top: -30%;
+  padding: var(--s5);
   display: flex;
   flex-direction: column;
   align-items: flex-start;

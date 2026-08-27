@@ -1,0 +1,255 @@
+{%- comment -%}
+  heading-template — the page banner. THE most-used section on the site:
+  47 templates render it.
+
+  ----------------------------------------------------------------------------
+  WHAT CHANGED FROM THE OLD THEME, AND WHY
+  ----------------------------------------------------------------------------
+  The old version carried ~700 lines of schema. Each of its four block types
+  exposed font family, size, line-height, weight, letter-spacing, italic,
+  uppercase, text-shadow and margin — separately for desktop AND mobile — plus
+  four per-section padding/margin ranges and a free-text CSS box.
+
+  Forty-seven templates each setting those independently IS the inconsistency
+  Ed asked to fix. So this version removes every typography and spacing control
+  and takes them from the design system instead:
+
+      heading      h1  — Tenor Sans, uppercase, tracked
+      subheading   .lead
+      padding      fixed 80px block (48px under 900px)
+      spacing after   none — the NEXT band's own top padding makes the gap
+                      (fye-core rule 1: sections never set margins)
+
+  KEPT, so all 47 existing JSON templates keep working untouched:
+    block types  "1" heading · "2" subheading · "3" breadcrumb · "4" description
+    setting ids  heading · content · image · use_specify_image · overlay
+                 content_align · heading_fullwidth
+    Removed ids are simply ignored by Shopify — no template edits needed.
+
+  DELIBERATE BREAK — flagged for Ed:
+    The old `color` setting was a free colour picker defaulting to #000. Free
+    hex on 47 pages cannot be consistent, so it is replaced by `ground`, a
+    four-way choice from the palette. Templates that set `color` fall back to
+    ivory. If any page genuinely needs a different ground, set `ground` there.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign pt = request.page_type
+
+  if pt == 'collection' and collection.image != blank and s.use_specify_image
+    assign image = collection.image
+  else
+    assign image = s.image
+  endif
+
+  case pt
+    when 'collection'
+      assign title = collection.title
+    when 'blog'
+      assign title = blog.title
+    when 'article'
+      assign title = article.title
+    when 'search'
+      assign title = 'Search'
+    when 'product'
+      assign title = product.title
+    when '404'
+      assign title = 'Page not found'
+    when 'cart'
+      assign title = 'Your bag'
+    else
+      assign title = page.title
+  endcase
+
+  assign ground = s.ground | default: 'ivory'
+  if image != blank
+    assign ground = 'image'
+  endif
+
+  assign align = 'center'
+  if s.content_align == 't4s-text-start'
+    assign align = 'start'
+  elsif s.content_align == 't4s-text-end'
+    assign align = 'end'
+  endif
+-%}
+
+<section class="band pbanner pbanner--{{ ground }} pbanner--{{ align }}{% if s.heading_fullwidth %} pbanner--full{% endif %}"
+  {%- if image != blank -%}
+    style="background-image: url({{ image | image_url: width: 2400 }});"
+  {%- endif -%}
+  data-screen-label="Page banner">
+
+  {%- if image != blank -%}
+    <span class="pbanner__scrim" style="opacity: {{ s.overlay | default: 54 | divided_by: 100.0 }};"></span>
+  {%- endif -%}
+
+  <div class="pbanner__in">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+
+        {%- when '3' -%}
+          <nav class="crumbs" aria-label="Breadcrumb" {{ block.shopify_attributes }}>
+            <a href="{{ routes.root_url }}">Home</a>
+            {%- if pt == 'article' -%}
+              <span aria-hidden="true">›</span><a href="{{ blog.url }}">{{ blog.title }}</a>
+            {%- elsif pt == 'product' and collection != blank -%}
+              <span aria-hidden="true">›</span><a href="{{ collection.url }}">{{ collection.title }}</a>
+            {%- endif -%}
+            <span aria-hidden="true">›</span><span aria-current="page">{{ title }}</span>
+          </nav>
+
+        {%- when '1' -%}
+          <h1 class="pbanner__title" {{ block.shopify_attributes }}>
+            {{- block.settings.heading | default: title -}}
+          </h1>
+
+        {%- when '2' -%}
+          {%- if block.settings.content != blank -%}
+            <div class="pbanner__sub lead" {{ block.shopify_attributes }}>{{ block.settings.content }}</div>
+          {%- endif -%}
+
+        {%- when '4' -%}
+          {%- if pt == 'collection' and collection.description != blank -%}
+            <div class="pbanner__desc lead" {{ block.shopify_attributes }}>
+              {%- if block.settings.design_des == 'excerpt' -%}
+                {{ collection.description | strip_html | truncatewords: block.settings.length | default: 10 }}
+              {%- else -%}
+                {{ collection.description }}
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+      {%- endcase -%}
+    {%- endfor -%}
+
+    {%- comment -%} No heading block configured: still show the page title. {%- endcomment -%}
+    {%- if section.blocks.size == 0 -%}
+      <h1 class="pbanner__title">{{ title }}</h1>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .pbanner {
+  position: relative;
+  padding-block: var(--s11);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+.fye .pbanner--ivory { background-color: var(--ivory); color: var(--ink); }
+.fye .pbanner--white { background-color: var(--white); color: var(--ink); }
+.fye .pbanner--mist  { background-color: var(--mist);  color: var(--ink); }
+.fye .pbanner--teal  { background-color: var(--teal);  color: var(--on-dark); }
+.fye .pbanner--image { background-color: var(--teal);  color: var(--on-dark); }
+
+.fye .pbanner__scrim {
+  position: absolute; inset: 0;
+  background: var(--teal);
+  pointer-events: none;
+}
+
+.fye .pbanner__in {
+  position: relative;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+}
+.fye .pbanner--full .pbanner__in { max-width: none; }
+.fye .pbanner--center .pbanner__in { align-items: center; text-align: center; }
+.fye .pbanner--start  .pbanner__in { align-items: flex-start; text-align: left; }
+.fye .pbanner--end    .pbanner__in { align-items: flex-end; text-align: right; }
+
+.fye .pbanner__title { margin: 0; }
+.fye .pbanner--teal .pbanner__title,
+.fye .pbanner--image .pbanner__title { color: var(--on-dark); }
+
+.fye .pbanner__sub,
+.fye .pbanner__desc { max-width: 64ch; }
+.fye .pbanner--teal .pbanner__sub,
+.fye .pbanner--teal .pbanner__desc,
+.fye .pbanner--image .pbanner__sub,
+.fye .pbanner--image .pbanner__desc { color: var(--on-dark-soft); }
+.fye .pbanner__sub :where(p:last-child) { margin-bottom: 0; }
+
+/* Breadcrumb — the one place a Unicode glyph is allowed (brand rule). */
+.fye .crumbs {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2);
+  font-size: var(--fs-fine);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.fye .crumbs a { color: inherit; }
+.fye .crumbs a:hover { color: var(--sage); }
+.fye .pbanner--teal .crumbs a:hover,
+.fye .pbanner--image .crumbs a:hover { color: var(--sage-grey); }
+.fye .crumbs [aria-current] { opacity: 0.72; }
+
+@media (max-width: 900px) {
+  .fye .pbanner { padding-block: var(--s9); }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Page heading",
+  "settings": [
+    {
+      "type": "select", "id": "ground", "label": "Background", "default": "ivory",
+      "info": "Ignored when a background image is set.",
+      "options": [
+        { "value": "ivory", "label": "Ivory" },
+        { "value": "white", "label": "White" },
+        { "value": "mist",  "label": "Mist blue" },
+        { "value": "teal",  "label": "Teal" }
+      ]
+    },
+    { "type": "image_picker", "id": "image", "label": "Background image" },
+    { "type": "checkbox", "id": "use_specify_image", "label": "Use the collection's own image on collection pages", "default": true },
+    { "type": "range", "id": "overlay", "label": "Image overlay", "default": 54, "min": 0, "max": 100, "step": 2, "unit": "%" },
+    {
+      "type": "select", "id": "content_align", "label": "Alignment", "default": "t4s-text-center",
+      "options": [
+        { "value": "t4s-text-start",  "label": "Left" },
+        { "value": "t4s-text-center", "label": "Centre" },
+        { "value": "t4s-text-end",    "label": "Right" }
+      ]
+    },
+    { "type": "checkbox", "id": "heading_fullwidth", "label": "Full width", "default": false }
+  ],
+  "blocks": [
+    {
+      "type": "1", "name": "Page heading", "limit": 1,
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "info": "Leave blank to use the page's own title." }
+      ]
+    },
+    {
+      "type": "2", "name": "Page subheading",
+      "settings": [
+        { "type": "richtext", "id": "content", "label": "Subheading" }
+      ]
+    },
+    { "type": "3", "name": "Breadcrumb", "limit": 1, "settings": [] },
+    {
+      "type": "4", "name": "Collection description",
+      "settings": [
+        {
+          "type": "select", "id": "design_des", "label": "Length", "default": "excerpt",
+          "options": [
+            { "value": "excerpt",  "label": "Excerpt" },
+            { "value": "show_all", "label": "Full description" }
+          ]
+        },
+        { "type": "number", "id": "length", "label": "Excerpt length (words)", "default": 10 }
+      ]
+    }
+  ],
+  "default": { "blocks": [{ "type": "3" }, { "type": "1" }] }
+}
+{% endschema %}

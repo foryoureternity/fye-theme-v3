@@ -1,0 +1,94 @@
+{%- comment -%}
+  main-page — the page content shell. 17 templates render it.
+
+  Deliberately small. The page title comes from `heading-template`, which
+  almost every page template already includes above this section, so this
+  renders only the body.
+
+  `measure` is the one control that matters: guide pages want the narrow
+  reading measure (780px), landing pages want the full 1320px.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign ground = s.ground | default: 'white'
+-%}
+
+<section class="band band--{{ ground }}{% if s.tight %} band--tight{% endif %}" data-screen-label="Page content">
+  <div class="wrap{% if s.measure == 'narrow' %} wrap--narrow{% endif %}">
+    {%- if s.show_title -%}
+      <h1 class="mpage__title">{{ page.title }}</h1>
+    {%- endif -%}
+
+    {%- if page.content != blank -%}
+      <div class="prose mpage__body{% if s.measure != 'narrow' %} mpage__body--wide{% endif %}">
+        {{ page.content }}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+/* The prose class in fye-core carries the reading rhythm. This section only
+   needs to handle the wide case and the admin-authored HTML that comes out of
+   page.content, which cannot be styled at source. */
+.fye .mpage__title { margin-bottom: var(--s7); }
+.fye .mpage__body--wide { max-width: none; }
+
+/* Page content is written in the Shopify admin editor, so it arrives as bare
+   h2/h3/p/ul/table/img. Give those the design-system treatment here rather
+   than asking Ed to remember classes in the editor. */
+.fye .mpage__body :where(img) { margin-block: var(--s6); }
+.fye .mpage__body :where(table) {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-small);
+  margin-block: var(--s6);
+}
+.fye .mpage__body :where(th, td) {
+  padding: var(--s3) var(--s4);
+  border-bottom: var(--hairline);
+  text-align: left;
+  vertical-align: top;
+}
+.fye .mpage__body :where(th) {
+  background: var(--mist);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+}
+.fye .mpage__body :where(blockquote) {
+  margin: var(--s7) 0;
+  padding-left: var(--s6);
+  border-left: 1px solid var(--sage);
+  font-size: var(--fs-body-lg);
+  font-style: italic;
+}
+.fye .mpage__body :where(a) { text-decoration: underline; text-underline-offset: 3px; }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Page content",
+  "settings": [
+    {
+      "type": "select", "id": "measure", "label": "Width", "default": "narrow",
+      "info": "Narrow is the reading measure — use it for guides and long-form pages.",
+      "options": [
+        { "value": "narrow", "label": "Narrow (780px)" },
+        { "value": "full",   "label": "Full (1320px)" }
+      ]
+    },
+    {
+      "type": "select", "id": "ground", "label": "Background", "default": "white",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Ivory" }
+      ]
+    },
+    { "type": "checkbox", "id": "show_title", "label": "Show the page title here", "default": false, "info": "Leave off when the page banner above already shows it." },
+    { "type": "checkbox", "id": "tight", "label": "Tighter vertical padding", "default": false }
+  ],
+  "presets": [{ "name": "Page content" }]
+}
+{% endschema %}

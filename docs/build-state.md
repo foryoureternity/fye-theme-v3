@@ -8,6 +8,9 @@ Last updated: 27/08/2026
    Liquid, schema, JS, accessibility, comments, definition of done. Read it
    before writing anything, every session.
 2. This file — how to read/write the repo, what is built, what is next.
+3. **`section-usage.md`** — which of the old theme's 228 sections actually
+   render, generated from all 134 templates. It is the build queue. A reference
+   is not a use.
 
 ## HOW CLAUDE READS AND WRITES THIS REPO — read before anything else
 
@@ -23,7 +26,7 @@ The repo lives inside Ed's Dropbox, and Dropbox is connected. So:
 - **Read** with `dropbox__fetch`, id = that same path.
 - **List** with `dropbox__list_folder`.
 - **Read the OLD theme** the same way, at
-  `/GIT-repositaries/fye-shopify-theme/` — all 226 sections, ~140 templates,
+  `/GIT-repositaries/fye-shopify-theme/` — all 228 sections, 134 templates,
   its `CLAUDE.md` and `docs/` are all there. Read it for structure and setting
   IDs; never copy its code.
 
@@ -43,6 +46,21 @@ GitHub-connected and API writes conflict with the sync. Shopify's MCP is for
 *reading* — store data, theme file contents, settings — and for inspecting the
 live theme (id `197353406848`).
 
+**Anything that needs to read many files at once is a script, not a fetch
+loop.** 134 templates cannot be fetched one at a time inside a session, and the
+four biggest page templates are 180KB between them. Write a Node script into
+`docs/tools/`, have Ed run it, commit the output, then read the output. Two
+tools exist:
+
+| tool | what it gives you |
+|---|---|
+| `usage-map.mjs` | `section-usage.md` — every section, live / dormant / unreferenced |
+| `template-plan.mjs` | `template-plans/<name>.md` — one template reduced to section order, block types, settings that carry a decision, and flagged `custom_css` |
+
+When writing another: plain ESM Node, no dependencies, and **a C-style comment
+terminator inside a banner comment ends the comment early** — that cost a round
+trip on 27/08/2026.
+
 **One trap when reading:** `dropbox__fetch` runs text extraction, and on a file
 that starts with `<!doctype html>` it strips the tags — `layout/theme.liquid`
 came back as prose with every `<link>`, `<head>` and `<body>` missing. Section
@@ -55,6 +73,9 @@ A ground-up rebuild of the For Your Eternity Shopify theme as a standalone
 theme, replacing the T4S/Kalles-based live theme. Same URLs, same
 functionality, same section type names and setting IDs — so the existing JSON
 templates keep working — but written fresh, consistent and small.
+
+**Lean is a requirement, not a preference.** Nothing gets built because it
+exists in the old theme. See §10 of `conventions.md`.
 
 ## Where things are
 
@@ -90,7 +111,7 @@ Full detail in `conventions.md`. In brief:
 
 | File | Notes |
 |---|---|
-| `assets/fye-core.css` | Tokens, bands, type roles, buttons, forms, grids, sidebar |
+| `assets/fye-core.css` | Tokens, bands, type roles, buttons, forms, grids |
 | `assets/fye-ui.js` | Named drawers, back-to-top, disclosure. Vanilla, delegated |
 | `snippets/icon.liquid` | ~30 inline SVGs, replaces 3.3MB of Line Awesome |
 | `layout/theme.liquid` | Self-hosted Tenor Sans + Outfit variable |
@@ -98,25 +119,99 @@ Full detail in `conventions.md`. In brief:
 | `sections/header-bottom.liquid` | **Measured, pixel-matched to live** |
 | `sections/footer.liquid` | **Measured, pixel-matched to live** |
 | `sections/header-group.json` `footer-group.json` | Nav as section blocks |
-| `sections/heading-template.liquid` | 47 templates use it |
-| `sections/main-page.liquid` | 17 templates use it |
-| `templates/page.json` | Proves the content-page pattern |
+| `sections/heading-template.liquid` | 32 live templates, 10 more disabled |
+| `sections/main-page.liquid` | 10 live templates, 6 more disabled |
+| `sections/fye-hero.liquid` | 68 uses — the most-used section, already done |
+| `templates/page.json` `templates/index.json` | The content-page pattern |
+| `docs/tools/usage-map.mjs` `template-plan.mjs` | Read-the-old-theme tooling |
 
 Header and footer are **signed off by Ed** as matching the live site.
 
-## Built, not yet reviewed on a preview
+## The usage map — run 27/08/2026, all 134 templates
 
-| File | Notes |
+`docs/section-usage.md`. Re-run whenever templates change; it is cheap.
+
+| | count |
 |---|---|
-| `snippets/sidebar-widgets.liquid` | The one sidebar implementation — every widget both sidebars show |
-| `sections/sidebar-page.liquid` | Thin shell + page block set |
-| `sections/sidebar-collection.liquid` | Thin shell + collection block set |
+| live (≥1 enabled reference) | 107 |
+| dormant (referenced, every reference disabled) | 10 |
+| rendered only by another file | 1 |
+| unreferenced | 109 |
 
-**Not yet seen rendering.** Needs a preview pass before it counts as done:
-a guide page with the sidebar enabled, a collection page, and both at 900px
-and 560px. Nothing about it is measured against the live site — the live
-sidebars were switched off, so there was nothing to match; this is the design
-system applied fresh.
+**The old 89-live / 94-dead figures were wrong** — built from 70 templates, and
+they did not distinguish enabled from disabled.
+
+### Two caveats. Do not delete anything on the strength of this map alone.
+
+- **"Unreferenced" over-counts.** The old theme renders some sections through a
+  *variable* — `{% section settings.header_design %}` — and the script only
+  matches quoted literals. That is why `header-bottom`, `announcement-bar`,
+  `mega-menu`, `mini_cart` and `facets` appear unreferenced when they are
+  reachable. Treat that list as an investigation queue.
+- **`fye-guide-popups-group` is not missing.** The script's missing-file check
+  compared against `.liquid` names only, and it is a `.json` section group.
+  False positive; fix the check if the script is touched again.
+
+### The guide library is the bulk of the site
+
+The FYE-original sections carry it, and only `fye-hero` is built:
+
+| section | uses | | section | uses |
+|---|---|---|---|---|
+| `fye-terms` | 104 | | `fye-faq` | 49 |
+| `fye-chapter-nav` | 102 | | `fye-checklist` | 44 |
+| `fye-rich-text` | 95 | | `fye-xref` | 33 |
+| `fye-callout` | 78 | | `fye-cards` | 23 |
+| `fye-hero` | 68 **done** | | `fye-chips` | 17 |
+| `fye-guide-download` | 62 | | `fye-media-text` | 13 |
+| `fye-related` | 58 | | `fye-steps` | 12 |
+| `fye-table` | 56 | | | |
+
+~15 files, ~780 references. By comparison `main-collection` is live on 6
+templates and `main-product` on 5. **`custom-liquid`: 18 enabled references,
+11 disabled** — still the biggest unpicking job.
+
+## The sidebar: built, found dormant, deleted the same day
+
+Worth keeping as a record, because the reasoning applies to the next dormant
+section someone is tempted to port.
+
+The old theme has ten sidebar sections and **every one of them has zero enabled
+references** — `sidebar-collection` 15 refs / 0 enabled, `sidebar-page` 12 / 0,
+`sidebar-product` 5 / 0, and one each for article / blog / portfolio /
+article-portfolio. No sidebar renders anywhere on the live site. The "33 uses"
+in the old notes was counting references.
+
+It was built on 27/08/2026 (one snippet + two thin sections + a `.sbar` block
+in core), then **deleted the same day at Ed's instruction**: it is irrelevant to
+the site as it stands, and v3 stays lean. Removed:
+`sections/sidebar-page.liquid`, `sections/sidebar-collection.liquid`,
+`snippets/sidebar-widgets.liquid`, the `.sbar` block and `--sbar-w` token in
+`fye-core.css`, and the `.sbar` entry in `conventions.md` §2.
+
+**If a sidebar is ever wanted again:** it is in git history at the commit
+"Sidebar: one implementation behind both frozen type names; named drawers". But
+the better answer for guide pages is `fye-chapter-nav` (102 uses), which is the
+navigation those pages actually use.
+
+**The one consequence to remember.** A JSON template naming a section type that
+does not exist **breaks that template in the theme editor**. 27 old templates
+still name `sidebar-page` / `sidebar-collection`. So **when porting any template
+into v3, strip its `sidebar-*` entries** — from `sections` and from `order`.
+`template-plan.mjs` flags every type a template needs that v3 does not have, so
+this cannot be missed silently. Same applies to the other dormant sections:
+`blog_slider`, `featured-collection-new`, `personal-guidance-CTA`.
+
+Two things from that work stayed, because they are independently right:
+
+- **`fye-ui.js` drawers are named.** `data-fye-drawer="x"` pairs with
+  `data-fye-drawer-open="x"`, matched exactly. The old code did
+  `querySelector('[data-fye-drawer]')`, which would have broken the moment a
+  second drawer existed. The valueless pair still works, so the header's mobile
+  nav is untouched.
+- **Core only earns vocabulary that two or more sections share** —
+  `conventions.md` §2. That rule came from getting it wrong: `.sbar` went into
+  core for a component that turned out to render nowhere.
 
 ### Measured values — do not "tidy" these into tokens
 
@@ -140,76 +235,37 @@ me off building the wrong thing until I sampled pixels.
 
 ## Outstanding
 
-1. **Re-run the section usage map against all ~140 templates.** The current map
-   was built from 70 templates and found 89 live sections, 94 referenced by
-   nothing. The missing ones are the guide library (`ring-care-*`,
-   sapphire/ruby/emerald/opal/morganite/aquamarine/tanzanite) and the
-   `sections/*.json` groups. **Nothing gets deleted until this is re-run.**
-   The old templates contain JSON comments — strip `/* */` and `//` before
-   parsing, or every parse fails.
-   **This is now the next job**, and it got more interesting: see the sidebar
-   note below. The map should record `"disabled": true` per section reference,
-   not just presence — a dormant reference is not a live one.
-2. **`main-collection`, `main-product`.** `main-product` is 162KB in the old
+**Ed's priority, 27/08/2026: the home page, then the engagement rings, wedding
+rings and eternity rings pages.** Not the collection pages. Visual target:
+**design-system treatment with the current structure kept**, as
+`heading-template` got — not a pixel match, not a redesign.
+
+1. **`index` + `page.engagement-rings` + `page.wedding-rings` +
+   `page.eternity-rings`.** Run `template-plan.mjs` (defaults to exactly these
+   four) and build from the plans in `docs/template-plans/`. Between them they
+   need, at a guess from the usage map: `fye-hero` (done), `fye-media-text`,
+   `fye-rich-text`, `fye-callout`, `featured-collection`, `collections-list`,
+   `accordion`, `about_us`, `about-columns-four`, `feature_columns2`,
+   `fye-consultation`, `fye-trust-strip`, `fye-testimonials`,
+   `fye-gallery-promo`, `fye-two-ways`, `guide-download-block`,
+   `latest-news-EM`, `shipping`, `custom-collections`. The plans give the real
+   list; do not trust that guess.
+2. **The rest of the guide library** — the table above, in order of reach.
+3. **`main-collection`, `main-product`.** `main-product` is 162KB in the old
    theme and shares a buy box with `main-qv`; that becomes one product-form
-   snippet rendered two ways. `main-collection` also owns two things the old
-   sidebar reached across into: the facet form (it renders into the sidebar's
-   `[data-fye-facets]` slot) and the 5/6-column layout buttons the old sidebar
-   hid from its own `<style>`.
-3. **The 27 `custom-liquid` blocks.** Biggest single job in the project and the
-   real source of inconsistency — 27 blocks of hand-pasted HTML carrying their
-   own inline padding, invisible to any design system. Each needs reading and
-   folding into a real section.
-4. **Footer link columns and the five mega panels have no menus assigned.**
+   snippet rendered two ways.
+4. **The 29 `custom-liquid` references.** Hand-pasted HTML with its own inline
+   padding, invisible to any design system. `template-plan.mjs` flags every
+   `custom_css` block it finds, which is the same problem in a different place.
+5. **Customer account templates.** Seven sections, one template each, none
+   built. Cheap, and their absence is total.
+6. **Guide popups:** 12 sections, all via `fye-guide-popups-group.json`, all on
+   Shopify Forms defaults (`#202020`, links `#1878B9`). Consolidate to one
+   section + a `form_id` setting, in FYE teal/ivory.
+7. **Footer link columns and the five mega panels have no menus assigned.**
    Markup and hover behaviour are in place; they need Shopify menu handles.
-5. **Guide popups:** consolidate 11 near-identical sections into one with a
-   `form_id` setting.
-6. **Sidebar follow-ups.** Menus: the `category` / `blog_cate` blocks need a
-   link list assigned (same missing-menu problem as the footer). And decide
-   whether the guide library actually wants a sidebar at all — see below.
-
-## The sidebar, and what reading the templates turned up
-
-Job 1 is built: **one implementation, two section files**, because both type
-names are referenced and type names are frozen. `snippets/sidebar-widgets.liquid`
-holds every widget; the two sections are ~40 lines of shell each.
-
-Three things worth knowing:
-
-- **Every sidebar reference sampled is `"disabled": true`** — `page.diamonds`,
-  `page.gemstones`, `collection.gemstones`. The section had to be rebuilt
-  regardless (a template referencing a missing type breaks in the editor), but
-  the "33 uses" figure is references, not live sidebars. The usage-map re-run
-  should count enabled ones. If the real number is zero or near it, the honest
-  question is whether the guide library wants this sidebar or a different
-  navigation pattern — worth asking Ed before styling it further.
-- **Two sections cannot be one grid, so their parent is.** The sidebar and the
-  content are separate sections, so `main` becomes the grid: sidebar in column
-  one, everything after it in column two, anything before it full width. Keyed
-  to the schema class `.fye-sec--sidebar`. **The sidebar must sit above the
-  content section in the template order** — `page.diamonds` puts it last, which
-  renders it as a narrow column below the content. That is the template's
-  ordering, and those templates have it disabled anyway.
-- **One set of markup, two layouts.** Column above 900px, drawer at 900px and
-  below, by CSS only. The old theme rendered the widgets twice and cut the
-  markup apart in JS on a `[t4splitlz]` marker string.
-
-Dropped from the port, with reasons in the snippet's opening comment:
-`instagram` (60-day token + a third-party fetch at render), `cus_socials` (the
-footer owns socials), the image countdown, and every per-block colour / radius /
-spacing / items-per-row picker. `html` survives, narrowly, because the live
-collection sidebar uses it to place the xCloud search mount point.
-
-Also changed while here, both small and both documented in the files:
-
-- **`fye-ui.js` drawers are now named.** `data-fye-drawer="x"` pairs with
-  `data-fye-drawer-open="x"`, matched exactly. The old code did
-  `querySelector('[data-fye-drawer]')` and would have fought the header for
-  control the moment a second drawer existed. The valueless pair still works,
-  so the header is untouched.
-- **`.sbar` lives in `fye-core.css`**, not in a `{% stylesheet %}` block,
-  because a snippet cannot carry one and two sections share it. Added to the
-  shared-vocabulary list in `conventions.md` §2 with the reasoning.
+8. **The 109-name unreferenced list.** Resolve the dynamic-reference caveat
+   first, then Ed decides. **Nothing gets deleted without him saying so.**
 
 ## Decisions already taken (don't reopen without reason)
 
@@ -223,11 +279,11 @@ Also changed while here, both small and both documented in the files:
 - `heading-template` lost ALL its typography and spacing controls — that was
   the inconsistency. Its free colour picker became a four-way palette choice;
   pages that set a custom hex fall back to ivory.
-- Sidebars: one implementation behind two frozen type names; column on desktop
-  and drawer on mobile, with no setting to choose between them (`enable_drawer`
-  existed and every template set it false).
+- **Sidebars are out.** Ten dormant sections, nothing rendered, nothing ported.
+  Strip `sidebar-*` entries from every template as it comes across.
 - Dropping a schema setting is safe — Shopify ignores settings left in a JSON
   template that the schema no longer declares. Renaming one is not.
+- A reference is not a use. Count enabled references, always.
 - Old-theme facts worth keeping: `settings.header_design` is `"bottom"`, so only
   `header-bottom` ever rendered and the other five headers are dead;
   `cart_type` is `"disable"`, so `mini_cart` never rendered; the live nav is

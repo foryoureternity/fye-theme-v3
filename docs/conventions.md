@@ -5,7 +5,8 @@ section written in six months' time is indistinguishable from one written on day
 one. Where this document and a personal preference disagree, this document wins.
 
 Companion files: `build-state.md` (what is built, what is next),
-`architecture.md` (why the structure is as it is).
+`architecture.md` (why the structure is as it is),
+`section-usage.md` (what the old theme actually renders).
 
 ---
 
@@ -56,7 +57,7 @@ Rules:
 
 **Section and snippet filenames are frozen.** They keep the old theme's names
 exactly — `heading-template`, `main-page`, `header-bottom`, `about_us`,
-underscores and inconsistencies and all — because 140 JSON templates reference
+underscores and inconsistencies and all — because the JSON templates reference
 them by type name. A rename means re-entering content by hand on every page.
 The same applies to **block type names** (`"1"`, `"2"`, `mega`, `base`, `links`)
 and **setting IDs**.
@@ -79,13 +80,11 @@ New files, where nothing constrains us: lowercase, hyphenated,
 - Shared vocabulary lives in `fye-core.css` and is used unprefixed:
   `.band`, `.wrap`, `.btn`, `.card`, `.panel`, `.grid`, `.stack`, `.row`,
   `.eyebrow`, `.lead`, `.prose`, `.sect-head`, `.heading-flank`, `.icon`,
-  `.crumbs`, `.sbar`, `.visually-hidden`. **Check this list before inventing
-  anything.**
-  - `.sbar` is the exception that proves the rule: it is in core, not in a
-    `{% stylesheet %}` block, because **two** section files (`sidebar-page`,
-    `sidebar-collection`) render one shared snippet, and a snippet cannot carry
-    a stylesheet block. Duplicating it would mean two copies to keep in step.
-    Shared implementation ⇒ shared vocabulary ⇒ core.
+  `.crumbs`, `.visually-hidden`. **Check this list before inventing anything.**
+- **Core earns an addition only when two or more sections share it.** One
+  section's internals belong in its own `{% stylesheet %}` block, however
+  tempting the generality. If a shared implementation is later deleted, its
+  vocabulary comes out of core with it — core does not accumulate.
 
 ## 3. CSS
 
@@ -102,8 +101,7 @@ New files, where nothing constrains us: lowercase, hyphenated,
   `>`-chains three deep.
 - **Never key a selector to `template--<digits>` or `.shopify-section-<id>`.**
   Both are regenerated when a theme is duplicated. This broke the old theme
-  nine times. A section's own **schema `class`** is stable and fair game — that
-  is how the sidebar's two-column grid finds its parent.
+  nine times. A section's own **schema `class`** is stable and is fair game.
 - **No vertical padding in sections.** Rhythm comes from `--sect-y` via
   `.band`. A section wanting a tighter rhythm sets the *variable*
   (`.band--tight`), never a `padding` declaration.
@@ -175,9 +173,7 @@ figures for every existing pairing are in `fye-core.css`.
   IDs that remain keep their old names, exactly.
 - Offer a **palette choice**, never a free colour picker. `select` with
   ivory / white / mist / teal, not `{ "type": "color" }`.
-- No custom-CSS textarea. No custom-HTML box — with one narrow exception, an
-  app's mount point (the xCloud search container in the collection sidebar),
-  labelled as such in its `info`.
+- No custom-CSS textarea. No custom-HTML box.
 - Every section that can be added freely gets a `presets` entry.
 - Ranges: sensible `step`, always a `unit`.
 
@@ -195,9 +191,9 @@ figures for every existing pairing are in `fye-core.css`.
   `data-fye-drawer`, `data-fye-drawer-open`, `data-fye-top`, `data-fye-toggle`.
   CSS classes are for styling; data attributes are for behaviour.
 - **Drawers are named**: `data-fye-drawer="x"` pairs with
-  `data-fye-drawer-open="x"`, matched exactly. There is more than one drawer on
-  a page (mobile nav, sidebar), so a new drawer gets a name. The valueless pair
-  still works and belongs to the header.
+  `data-fye-drawer-open="x"`, matched exactly, so a second drawer on a page
+  cannot fight the first for control. The valueless pair still works and
+  belongs to the header.
 - State is a class on the element (`.is-open`), toggled by JS and styled by CSS.
   JS never writes `style.*` except where the value is genuinely computed.
 - Keep `aria-expanded`, `aria-controls` and focus in sync when toggling.
@@ -250,10 +246,23 @@ footer.
 
 Where a feature of the old theme is deliberately **not** ported, say so where
 the port lives, with the reason — otherwise the next session either re-adds it
-or wonders what was missed. See the DELIBERATELY NOT PORTED note in
-`snippets/sidebar-widgets.liquid`.
+or wonders what was missed.
 
-## 10. Definition of done, per section
+## 10. Before you build a section at all
+
+The old theme has 228 section files and renders 107 of them. **Check
+`section-usage.md` first**, and read the counts the way they are meant:
+
+- a **reference is not a use** — count enabled references. Ten sections in the
+  old theme are referenced only by `"disabled": true` entries and render
+  nowhere;
+- **build in order of reach.** A section on 100 pages earns care; a section on
+  one page earns whatever gets it correct;
+- **do not port a section because it exists.** Something that renders nowhere
+  should not be rebuilt on the chance it comes back. The sidebar was built on
+  27/08/2026, found to be dormant everywhere, and deleted the same day.
+
+## 11. Definition of done, per section
 
 1. Type name and setting IDs match the old theme, or the change is deliberate
    and recorded.

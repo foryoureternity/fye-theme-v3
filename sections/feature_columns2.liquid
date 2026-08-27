@@ -97,7 +97,10 @@
 .fye .fcols--center .fcols__col { align-items: center; text-align: center; }
 .fye .fcols--right .fcols__col { align-items: flex-end; text-align: right; }
 
-/* A logo or mark, not a photograph — contain, and never bigger than it is. */
+/* A logo or mark, not a photograph — contain, and never bigger than it is.
+   Without the cap the monogram stretches to the full column, which on the
+   homepage is 3 of 12 columns and far larger than the wordmark is drawn for. */
+.fye .fcols__media { max-width: 180px; }
 .fye .fcols__media :where(img) { max-width: 100%; }
 .fye .fcols__text { color: var(--ink-soft); }
 .fye .fcols__btn { margin-top: var(--s2); }

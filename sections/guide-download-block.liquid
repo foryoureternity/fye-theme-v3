@@ -96,13 +96,21 @@
 {% stylesheet %}
 .fye .guides__subtext :where(p) { margin: 0; }
 
+/* Three across, two rows. An explicit count, not auto-fit: there are six
+   guides and auto-fit laid them out five-then-one at desktop width. */
 .fye .guides__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--s9) var(--grid-gap);
   list-style: none;
   margin: 0;
   padding: 0;
+}
+@media (max-width: 900px) {
+  .fye .guides__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .fye .guides__grid { grid-template-columns: 1fr; }
 }
 .fye .guides__item {
   display: flex;

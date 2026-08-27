@@ -268,7 +268,19 @@
 .fye .band--bleed    { padding-inline: 0; }
 
 /* Consecutive same-colour bands collapse their shared padding, so two ivory
-   sections in a row read as one block instead of a 160px gap. */
+   sections in a row read as one block instead of a 160px gap.
+
+   TWO SETS OF SELECTORS, and both are needed. Shopify wraps every section in
+   its own <div class="shopify-section">, so a plain sibling selector only ever
+   matches two bands within ONE section — which is why this rule appeared to do
+   nothing on the first homepage preview and every same-colour neighbour showed
+   160px of dead space. The :has() pair reaches through the wrapper. Keep both:
+   a single section can still hold two bands. */
+.fye .shopify-section:has(> .band--ivory) + .shopify-section > .band--ivory,
+.fye .shopify-section:has(> .band--white) + .shopify-section > .band--white,
+.fye .shopify-section:has(> .band--mist)  + .shopify-section > .band--mist,
+.fye .shopify-section:has(> .band--teal)  + .shopify-section > .band--teal,
+.fye .shopify-section:has(> .band--sage)  + .shopify-section > .band--sage,
 .fye .band--ivory + .band--ivory,
 .fye .band--white + .band--white,
 .fye .band--mist  + .band--mist,

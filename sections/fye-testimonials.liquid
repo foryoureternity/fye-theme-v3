@@ -102,14 +102,17 @@
 </section>
 
 {% stylesheet %}
+/* Centred, like every other section header on the page. It was left-aligned
+   with the rating pushed to the right, which read as a different site. */
 .fye .tmon__head {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: var(--s6);
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s3);
   margin-bottom: var(--s9);
+  text-align: center;
 }
-.fye .tmon__head-words { display: flex; flex-direction: column; gap: var(--s3); }
+.fye .tmon__head-words { display: flex; flex-direction: column; align-items: center; gap: var(--s3); }
 .fye .tmon__avg {
   display: inline-flex;
   align-items: center;

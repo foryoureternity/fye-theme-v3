@@ -1,0 +1,368 @@
+{%- comment -%}
+  sidebar-widgets — the ONE sidebar implementation.
+
+  Rendered by both sections/sidebar-page.liquid and
+  sections/sidebar-collection.liquid. Those two section files exist only
+  because 33 JSON templates reference the two frozen type names; everything
+  they show lives here, so the two sidebars can never drift apart again.
+
+  Parameters:
+    blocks   — section.blocks
+    context  — 'page' or 'collection'. Only chooses which empty-state wording
+               makes sense; block types are handled by name regardless.
+
+  Setting IDs are the old theme's, verbatim — including the inconsistency that
+  page blocks call the widget heading `title` while collection blocks call it
+  `heading`. Both are read (`heading | default: title`), so neither breaks.
+
+  DELIBERATELY NOT PORTED, 27/08/2026 — reasoning, so nobody "restores" them
+  without deciding to:
+    - `instagram`: needs a long-lived token that expires every 60 days and a
+      third-party fetch at render time. Both break §8 (a section must not add a
+      network request), and it was rendering empty on the live site.
+    - `cus_socials`: the footer owns social links. A second set in a sidebar is
+      duplication, and it pulled in icon-social.css.
+    - the countdown inside `image`, and every per-block colour / radius /
+      spacing / items-per-row picker. Typography and rhythm come from the
+      design system, not from 33 templates each setting them independently.
+  If the usage map (build-state job 2) finds any of these configured with real
+  content, add it back HERE, not in a section file.
+
+  Old-theme markup this replaces: t4s-widget + the [t4splitlz] template split,
+  t4s-widget.css, collection-products.css, icon-social.css, drawer.min.css,
+  facets.css, pr-sidebar-loop, ar-sidebar-loop, sidebar-collection.js.
+  Styling is .sbar in fye-core.css; behaviour is the named drawer in fye-ui.js.
+{%- endcomment -%}
+{%- liquid
+  assign ctx = context | default: 'page'
+  assign icon_names = 'shipping,warranty,resize,ethical,star,certificate,check,heart,mail,phone,pin,calendar,download,filter' | split: ','
+-%}
+
+{%- for block in blocks -%}
+  {%- liquid
+    assign b = block.settings
+    assign wtitle = b.heading | default: b.title
+  -%}
+
+  {%- case block.type -%}
+
+    {%- comment -%} ---- Collection navigation (collection sidebar) ---- {%- endcomment -%}
+    {%- when 'category' -%}
+      {%- liquid
+        assign show_count = b.count
+        if b.cat_source == '1'
+          assign cat_links = nil
+        else
+          assign cat_links = linklists[b.cat_link_list].links
+        endif
+      -%}
+      <div class="sbar__w" {{ block.shopify_attributes }}>
+        {%- if wtitle != blank -%}<h2 class="sbar__w-title">{{ wtitle }}</h2>{%- endif -%}
+
+        {%- if b.cat_source == '1' -%}
+          <ul class="sbar__list">
+            {%- for cat in collections -%}
+              {%- if cat.all_products_count > 0 -%}
+                <li>
+                  <a class="sbar__link{% if collection.handle == cat.handle %} is-current{% endif %}" href="{{ cat.url }}"
+                    {%- if collection.handle == cat.handle %} aria-current="page"{% endif -%}>
+                    <span>{{ cat.title }}</span>
+                    {%- if show_count -%}<span class="sbar__count">{{ cat.all_products_count }}</span>{%- endif -%}
+                  </a>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+
+        {%- elsif cat_links.size > 0 -%}
+          <ul class="sbar__list">
+            {%- for link in cat_links -%}
+              {%- liquid
+                assign is_here = false
+                if link.active or link.child_active
+                  assign is_here = true
+                endif
+                assign sub_id = 'sbar-' | append: block.id | append: '-' | append: forloop.index
+              -%}
+              <li>
+                <div class="sbar__row">
+                  <a class="sbar__link{% if is_here %} is-current{% endif %}" href="{{ link.url }}"
+                    {%- if link.active %} aria-current="page"{% endif -%}>
+                    <span>{{ link.title }}</span>
+                    {%- if show_count and link.object.all_products_count -%}
+                      <span class="sbar__count">{{ link.object.all_products_count }}</span>
+                    {%- endif -%}
+                  </a>
+                  {%- if link.links.size > 0 -%}
+                    <button type="button" class="sbar__disc" data-fye-toggle="{{ sub_id }}"
+                      aria-expanded="{% if is_here %}true{% else %}false{% endif %}" aria-controls="{{ sub_id }}">
+                      <span class="visually-hidden">Show {{ link.title }} sub-collections</span>
+                      {%- render 'icon', name: 'chevron-down', class: 'icon--sm' -%}
+                    </button>
+                  {%- endif -%}
+                </div>
+
+                {%- if link.links.size > 0 -%}
+                  <ul class="sbar__list sbar__list--sub{% if is_here %} is-open{% endif %}" id="{{ sub_id }}">
+                    {%- for child in link.links -%}
+                      {%- assign sub2_id = sub_id | append: '-' | append: forloop.index -%}
+                      <li>
+                        <div class="sbar__row">
+                          <a class="sbar__link{% if child.active or child.child_active %} is-current{% endif %}" href="{{ child.url }}"
+                            {%- if child.active %} aria-current="page"{% endif -%}>
+                            <span>{{ child.title }}</span>
+                            {%- if show_count and child.object.all_products_count -%}
+                              <span class="sbar__count">{{ child.object.all_products_count }}</span>
+                            {%- endif -%}
+                          </a>
+                          {%- if child.links.size > 0 -%}
+                            <button type="button" class="sbar__disc" data-fye-toggle="{{ sub2_id }}"
+                              aria-expanded="{% if child.child_active %}true{% else %}false{% endif %}" aria-controls="{{ sub2_id }}">
+                              <span class="visually-hidden">Show {{ child.title }} sub-collections</span>
+                              {%- render 'icon', name: 'chevron-down', class: 'icon--sm' -%}
+                            </button>
+                          {%- endif -%}
+                        </div>
+                        {%- if child.links.size > 0 -%}
+                          <ul class="sbar__list sbar__list--sub{% if child.child_active %} is-open{% endif %}" id="{{ sub2_id }}">
+                            {%- for third in child.links -%}
+                              <li>
+                                <a class="sbar__link{% if third.active %} is-current{% endif %}" href="{{ third.url }}"
+                                  {%- if third.active %} aria-current="page"{% endif -%}>
+                                  <span>{{ third.title }}</span>
+                                  {%- if show_count and third.object.all_products_count -%}
+                                    <span class="sbar__count">{{ third.object.all_products_count }}</span>
+                                  {%- endif -%}
+                                </a>
+                              </li>
+                            {%- endfor -%}
+                          </ul>
+                        {%- endif -%}
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+
+    {%- comment -%} ---- Blog categories (page sidebar) ---- {%- endcomment -%}
+    {%- when 'blog_cate' -%}
+      {%- assign cat_links = linklists[b.cat_link_list].links -%}
+      {%- if cat_links.size > 0 -%}
+        <div class="sbar__w" {{ block.shopify_attributes }}>
+          {%- if wtitle != blank -%}<h2 class="sbar__w-title">{{ wtitle }}</h2>{%- endif -%}
+          <ul class="sbar__list">
+            {%- for link in cat_links -%}
+              {%- if link.type != 'blog_link' -%}{% continue %}{%- endif -%}
+              <li>
+                <a class="sbar__link{% if link.active %} is-current{% endif %}" href="{{ link.url }}"
+                  {%- if link.active %} aria-current="page"{% endif -%}>
+                  <span>{{ link.title }}</span>
+                  {%- if b.count and link.object.articles_count -%}
+                    <span class="sbar__count">{{ link.object.articles_count }}</span>
+                  {%- endif -%}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+    {%- comment -%} ---- Blog tags ---- {%- endcomment -%}
+    {%- when 'tags' -%}
+      {%- if blog.all_tags.size > 0 -%}
+        <div class="sbar__w" {{ block.shopify_attributes }}>
+          {%- if wtitle != blank -%}<h2 class="sbar__w-title">{{ wtitle }}</h2>{%- endif -%}
+          <ul class="sbar__tags">
+            {%- for tag in blog.all_tags -%}
+              {%- assign label = tag | remove: 'category_' | strip -%}
+              <li>
+                {%- if current_tags contains tag -%}
+                  <a class="sbar__tag is-current" href="{{ blog.url }}" aria-current="true">{{ label }}{% if b.count %} <span class="sbar__count">{{ tag.total_count }}</span>{% endif %}</a>
+                {%- else -%}
+                  <a class="sbar__tag" href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ label }}{% if b.count %} <span class="sbar__count">{{ tag.total_count }}</span>{% endif %}</a>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+    {%- comment -%} ---- Recent articles ---- {%- endcomment -%}
+    {%- when 'post' -%}
+      {%- liquid
+        assign src = blogs[b.blog]
+        assign lim = b.limit_post | default: 3
+      -%}
+      {%- if src.articles.size > 0 -%}
+        <div class="sbar__w" {{ block.shopify_attributes }}>
+          {%- if wtitle != blank -%}<h2 class="sbar__w-title">{{ wtitle }}</h2>{%- endif -%}
+          <div class="sbar__rows">
+            {%- for article in src.articles limit: lim -%}
+              <a class="sbar__row-item" href="{{ article.url }}">
+                {%- if article.image -%}
+                  {{ article.image | image_url: width: 160 | image_tag:
+                     loading: 'lazy', widths: '80,160,240', sizes: '80px',
+                     alt: article.image.alt | default: article.title,
+                     class: 'sbar__thumb' }}
+                {%- endif -%}
+                <span class="sbar__row-txt">
+                  <span class="sbar__row-name">{{ article.title }}</span>
+                  {%- if b.date -%}
+                    <time class="sbar__row-meta" datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%-d %B %Y' }}</time>
+                  {%- endif -%}
+                </span>
+              </a>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+
+    {%- comment -%} ---- Featured products ---- {%- endcomment -%}
+    {%- when 'collection' -%}
+      {%- liquid
+        assign src = collections[b.collection]
+        assign lim = b.limit_pr | default: 3
+      -%}
+      {%- if src.products.size > 0 -%}
+        <div class="sbar__w" {{ block.shopify_attributes }}>
+          {%- if wtitle != blank -%}<h2 class="sbar__w-title">{{ wtitle }}</h2>{%- endif -%}
+          <div class="sbar__rows">
+            {%- for product in src.products limit: lim -%}
+              <a class="sbar__row-item" href="{{ product.url }}">
+                {%- if product.featured_image -%}
+                  {{ product.featured_image | image_url: width: 160 | image_tag:
+                     loading: 'lazy', widths: '80,160,240', sizes: '80px',
+                     alt: product.featured_image.alt | default: product.title,
+                     class: 'sbar__thumb' }}
+                {%- endif -%}
+                <span class="sbar__row-txt">
+                  <span class="sbar__row-name">{{ product.title }}</span>
+                  <span class="sbar__row-meta">{{ product.price | money }}</span>
+                </span>
+              </a>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+
+    {%- comment -%} ---- Rich text ---- {%- endcomment -%}
+    {%- when 'text' -%}
+      {%- if b.text_html != blank -%}
+        <div class="sbar__w" {{ block.shopify_attributes }}>
+          {%- if wtitle != blank -%}<h2 class="sbar__w-title">{{ wtitle }}</h2>{%- endif -%}
+          <div class="sbar__prose">{{ b.text_html }}</div>
+        </div>
+      {%- endif -%}
+
+    {%- comment -%}
+      ---- Raw HTML ----
+      Kept, against §5's no-custom-HTML rule, for one reason: the live
+      collection sidebars use it to place the xCloud search mount point
+      (<div id="cloud_search_filters_sidebar">). That is structural markup for
+      an app, not styling. It is NOT a licence to paste layout here.
+    {%- endcomment -%}
+    {%- when 'html' -%}
+      {%- assign raw = b.html_content | default: b.custom_html -%}
+      {%- if raw != blank -%}
+        <div class="sbar__w" {{ block.shopify_attributes }}>
+          {%- if wtitle != blank -%}<h2 class="sbar__w-title">{{ wtitle }}</h2>{%- endif -%}
+          <div class="sbar__raw">{{ raw }}</div>
+        </div>
+      {%- endif -%}
+
+    {%- comment -%} ---- Image ---- {%- endcomment -%}
+    {%- when 'image' -%}
+      {%- assign img = b.image_sidebar -%}
+      {%- if img != blank -%}
+        <div class="sbar__w" {{ block.shopify_attributes }}>
+          {%- if wtitle != blank -%}<h2 class="sbar__w-title">{{ wtitle }}</h2>{%- endif -%}
+          {%- if b.b_link != blank -%}
+            <a class="sbar__img" href="{{ b.b_link }}"{% if b.open_link == '_blank' %} target="_blank" rel="noopener"{% endif %}>
+              {{ img | image_url: width: 640 | image_tag: loading: 'lazy', widths: '320,480,640', sizes: '300px', alt: img.alt | escape }}
+            </a>
+          {%- else -%}
+            <div class="sbar__img">
+              {{ img | image_url: width: 640 | image_tag: loading: 'lazy', widths: '320,480,640', sizes: '300px', alt: img.alt | escape }}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+    {%- comment -%} ---- Image grid ---- {%- endcomment -%}
+    {%- when 'gallery' -%}
+      <div class="sbar__w" {{ block.shopify_attributes }}>
+        {%- if wtitle != blank -%}<h2 class="sbar__w-title">{{ wtitle }}</h2>{%- endif -%}
+        <div class="sbar__gal">
+          {%- for i in (1..6) -%}
+            {%- liquid
+              assign img_key = 'img' | append: i
+              assign link_key = 'link' | append: i
+              assign img = b[img_key]
+              assign url = b[link_key]
+            -%}
+            {%- if img != blank -%}
+              {%- if url != blank -%}
+                <a href="{{ url }}"{% if b.open_link == '_blank' %} target="_blank" rel="noopener"{% endif %}>
+                  {{ img | image_url: width: 200 | image_tag: loading: 'lazy', widths: '100,200', sizes: '92px', alt: img.alt | escape }}
+                </a>
+              {%- else -%}
+                {{ img | image_url: width: 200 | image_tag: loading: 'lazy', widths: '100,200', sizes: '92px', alt: img.alt | escape }}
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+
+    {%- comment -%}
+      ---- Guarantees ----
+      Value format is the old theme's: "icon, title, description" per row, six
+      rows. Field 1 used to be a Line Awesome class (`facl facl-truck`); the
+      prefix is stripped and the remainder looked up in snippets/icon.liquid,
+      falling back to a tick. So existing content keeps working and new content
+      can just say `shipping`.
+    {%- endcomment -%}
+    {%- when 'shipping' -%}
+      <div class="sbar__w" {{ block.shopify_attributes }}>
+        {%- if wtitle != blank -%}<h2 class="sbar__w-title">{{ wtitle }}</h2>{%- endif -%}
+        <ul class="sbar__guarantees">
+          {%- for i in (1..6) -%}
+            {%- liquid
+              assign row_key = 'shipping_' | append: i
+              assign row = b[row_key]
+            -%}
+            {%- if row != blank -%}
+              {%- liquid
+                assign parts = row | replace: ' ,', ',' | replace: ', ', ',' | split: ','
+                assign ic = parts[0] | strip | replace: 'facl-', '' | replace: 'facl', '' | replace: 'la-', '' | strip
+                unless icon_names contains ic
+                  assign ic = 'check'
+                endunless
+              -%}
+              <li class="sbar__guarantee">
+                {%- render 'icon', name: ic, class: 'icon--sm' -%}
+                <span>
+                  {%- if parts[1] != blank -%}<span class="sbar__guarantee-title">{{ parts[1] | strip }}</span>{%- endif -%}
+                  {%- if parts[2] != blank -%}<span class="sbar__guarantee-desc">{{ parts[2] | strip }}</span>{%- endif -%}
+                </span>
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+
+    {%- comment -%}
+      ---- Facets slot ----
+      Empty on purpose. main-collection is not built yet (build-state job 3);
+      when it is, it renders the facet form into this element. Until then the
+      block reserves its place in the block order so nothing has to be
+      re-added in the editor later.
+    {%- endcomment -%}
+    {%- when 'filter' -%}
+      <div class="sbar__w" data-fye-facets {{ block.shopify_attributes }}></div>
+
+  {%- endcase -%}
+{%- endfor -%}

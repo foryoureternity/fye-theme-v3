@@ -79,7 +79,13 @@ New files, where nothing constrains us: lowercase, hyphenated,
 - Shared vocabulary lives in `fye-core.css` and is used unprefixed:
   `.band`, `.wrap`, `.btn`, `.card`, `.panel`, `.grid`, `.stack`, `.row`,
   `.eyebrow`, `.lead`, `.prose`, `.sect-head`, `.heading-flank`, `.icon`,
-  `.crumbs`, `.visually-hidden`. **Check this list before inventing anything.**
+  `.crumbs`, `.sbar`, `.visually-hidden`. **Check this list before inventing
+  anything.**
+  - `.sbar` is the exception that proves the rule: it is in core, not in a
+    `{% stylesheet %}` block, because **two** section files (`sidebar-page`,
+    `sidebar-collection`) render one shared snippet, and a snippet cannot carry
+    a stylesheet block. Duplicating it would mean two copies to keep in step.
+    Shared implementation ⇒ shared vocabulary ⇒ core.
 
 ## 3. CSS
 
@@ -96,7 +102,8 @@ New files, where nothing constrains us: lowercase, hyphenated,
   `>`-chains three deep.
 - **Never key a selector to `template--<digits>` or `.shopify-section-<id>`.**
   Both are regenerated when a theme is duplicated. This broke the old theme
-  nine times.
+  nine times. A section's own **schema `class`** is stable and fair game — that
+  is how the sidebar's two-column grid finds its parent.
 - **No vertical padding in sections.** Rhythm comes from `--sect-y` via
   `.band`. A section wanting a tighter rhythm sets the *variable*
   (`.band--tight`), never a `padding` declaration.
@@ -114,6 +121,9 @@ New files, where nothing constrains us: lowercase, hyphenated,
 - Inline `style=""` in markup is allowed **only** for a value Liquid computes
   at render time and CSS cannot know: a background image URL, a percentage
   overlay, a grid column count. Never for a static colour or spacing value.
+- **One set of markup per component, whatever the viewport.** If a component
+  looks like two different things at two widths — a column and a drawer, say —
+  that is a CSS job. Never render the same content twice and hide one copy.
 
 ### Colour and contrast
 
@@ -159,10 +169,15 @@ figures for every existing pairing are in `fye-core.css`.
   uppercase, shadow and margin — desktop and mobile separately — on every block.
   Forty-seven pages each setting those independently is what "inconsistent"
   means. Typography and rhythm come from the design system, not the customiser.
+- **Dropping a setting is safe; renaming one is not.** Shopify ignores settings
+  left in a JSON template that the schema no longer declares, so a control that
+  should never have existed can simply go — say so in the file comment. Setting
+  IDs that remain keep their old names, exactly.
 - Offer a **palette choice**, never a free colour picker. `select` with
   ivory / white / mist / teal, not `{ "type": "color" }`.
-- No custom-CSS textarea. No custom-HTML box. Those are how the old theme
-  accumulated 27 blocks of unstyleable hand-pasted markup.
+- No custom-CSS textarea. No custom-HTML box — with one narrow exception, an
+  app's mount point (the xCloud search container in the collection sidebar),
+  labelled as such in its `info`.
 - Every section that can be added freely gets a `presets` entry.
 - Ranges: sensible `step`, always a `unit`.
 
@@ -179,6 +194,10 @@ figures for every existing pairing are in `fye-core.css`.
 - Hooks are `data-fye-*` attributes, never classes, never IDs:
   `data-fye-drawer`, `data-fye-drawer-open`, `data-fye-top`, `data-fye-toggle`.
   CSS classes are for styling; data attributes are for behaviour.
+- **Drawers are named**: `data-fye-drawer="x"` pairs with
+  `data-fye-drawer-open="x"`, matched exactly. There is more than one drawer on
+  a page (mobile nav, sidebar), so a new drawer gets a name. The valueless pair
+  still works and belongs to the header.
 - State is a class on the element (`.is-open`), toggled by JS and styled by CSS.
   JS never writes `style.*` except where the value is genuinely computed.
 - Keep `aria-expanded`, `aria-controls` and focus in sync when toggling.
@@ -228,6 +247,11 @@ Where this theme deliberately departs from the brand book or the design system,
 say so in the file, with the reasoning and the measurement. There are two such
 departures so far: the sage band ground in `fye-core.css`, and the teal-on-sage
 footer.
+
+Where a feature of the old theme is deliberately **not** ported, say so where
+the port lives, with the reason — otherwise the next session either re-adds it
+or wonders what was missed. See the DELIBERATELY NOT PORTED note in
+`snippets/sidebar-widgets.liquid`.
 
 ## 10. Definition of done, per section
 

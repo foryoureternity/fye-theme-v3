@@ -1,9 +1,55 @@
-{%- comment -%}
+/* ============================================================================
+   rewrite-consult-live.mjs — 27/08/2026
+   ----------------------------------------------------------------------------
+     cd ~/Dropbox/GIT-repositaries/fye-theme-v3
+     node docs/tools/rewrite-consult-live.mjs
+
+   Delete once run and synced.
+
+   I READ THE TWO SCREENSHOTS THE WRONG WAY ROUND.
+   Ed sent a centred version and a two-column version and asked for live's. I
+   decided the two-column one was live and rewrote the section away from the
+   centred stack — which was live all along. Same mistake as the news band, one
+   step earlier in the process: I inferred which was live instead of reading it.
+
+   Live's section, read from the theme, is a centred column. Every number below
+   is lifted from it:
+
+     .consult        text-align center, flex column, align-items center, gap 22px
+     eyebrow         11px / 500 / .16em / uppercase / ivory at 60%
+     h2              font-head, 400, clamp(22px, 1.4rem + 0.7vw, 26px),
+                     line-height 1.2, letter-spacing .06em, uppercase
+     flanked heading gap 26px, hairlines flex 1 1 auto at ivory 45%
+     lead            clamp(17px, 1rem + 0.3vw, 19px), weight 300, max-width 620px
+     contacts        flex wrap centred, gap 12px 28px, margin-top 8px,
+                     links 13px / .04em, icon gap 9px, svg 16px
+     buttons         ivory on teal; ghost-light on sage
+     focus           2px ivory at 3px offset — the global teal ring vanishes
+                     on this band
+     560px           buttons go full width and stack
+
+   ALSO ADDED, because live has them and the ring pages will want them:
+   btn2_label / btn2_link / btn2_new_tab — an optional second button. The row
+   wrapper only renders when a second label is set, so single-button instances
+   are unchanged.
+
+   Setting IDs otherwise frozen: eyebrow, heading, lead, btn_label, btn_link,
+   band, and contact blocks (type, label, link).
+
+   Kept as v3 rather than copied: `.heading-flank` from fye-core instead of
+   live's private `.flanked`, no `.fye-edu` wrapper, and --sect-y for padding.
+   The band's type sizes ARE stated here, because they are a deliberate step
+   down from the section scale — this is a closing strip, not a section header.
+   ========================================================================== */
+
+import { writeFile } from 'node:fs/promises';
+
+const src = `{%- comment -%}
   fye-consultation — the closing "book a consultation" band.
 
-  Setting IDs frozen: `eyebrow`, `heading`, `lead`, `btn_label`, `btn_link`,
-  `band`, plus `btn2_*` for the optional second button; contact blocks keep
-  `type`, `label`, `link`.
+  Setting IDs frozen: \`eyebrow\`, \`heading\`, \`lead\`, \`btn_label\`, \`btn_link\`,
+  \`band\`, plus \`btn2_*\` for the optional second button; contact blocks keep
+  \`type\`, \`label\`, \`link\`.
 
   LAYOUT IS LIVE'S, read from the live theme: a centred column — eyebrow,
   flanked heading, lead, button, contact row. Gap 22px, flank gap 26px, lead
@@ -229,3 +275,7 @@
   ]
 }
 {% endschema %}
+`;
+
+await writeFile('sections/fye-consultation.liquid', src, 'utf8');
+console.log("FIXED sections/fye-consultation.liquid");

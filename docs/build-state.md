@@ -307,3 +307,133 @@ rings and eternity rings.** Not the collection pages. Visual target:
   never rendered; the live nav is built from section BLOCKS, not a linklist.
 - 18 themes exist in the store, 15 of them backups. Worth a clear-out once v3
   is live, but not without Ed saying so.
+
+
+---
+
+# Session — 27/08/2026 evening: homepage finished against live
+
+The homepage is now section-for-section against the live site on desktop and
+mobile. Everything below is on `main` and synced.
+
+## What changed
+
+**Sections rebuilt from live's own source** (see the rule below — this is the
+important part of tonight)
+
+- `latest-news-EM` — rebuilt entirely. Grid `1fr 1fr`, gap 25px,
+  `align-items: stretch`; the RIGHT column's three cards set the height
+  (`flex: 1` each, gap 20px) and the lead photograph fills it with
+  `height: 100%`/`object-fit: cover` and NO aspect ratio. The caption is
+  `position: absolute; bottom: 0; left: 0; max-width: 280px` inside the image.
+  Thumbnails a fixed 239px (190px between 1025–1400). Titles 16px/1.4/400.
+  Excerpts 18 words, no ellipsis. Do not reintroduce aspect ratios or negative
+  margins here.
+- `fye-consultation` — centred stack: eyebrow, flanked heading, lead, button,
+  contact row. Stack gap 22px, flank gap 26px, heading
+  `clamp(22px, 1.4rem + 0.7vw, 26px)` (deliberately a step DOWN from the h2
+  scale — a closing strip must not compete with the sections above it), lead
+  capped 620px, contacts 13px with 12/28px gaps, ivory focus ring. Gained
+  live's optional second button (`btn2_label`/`btn2_link`/`btn2_new_tab`).
+
+**Homepage fixes**
+
+- Hero: `.hero__in` needed `width: 100%` (see rule 9) and now carries 48px of
+  left padding on the left-aligned variant, dropping to the gutter under 560px.
+- Flanked heading: `flex: 1 1 0` on the hairlines plus `align-self: stretch` on
+  the heading, so the rules run to the container instead of a fixed 72px.
+- Header nav: 13px / 0.08em with a tighter gap, so eleven items fit one row.
+- `feature_columns2` ("why choose"): monogram cap 180px → 320px, body copy to
+  the lead scale, new `pad` setting (standard | tight) with the homepage on
+  tight, centred. The `tight` value is a documented exception to the --sect-y
+  rule: live gives this band 10px because its content is a mark and a paragraph.
+- Gallery promo: live's nine photographs, in live's three sets.
+- Guarantee: "20% discount on your wedding ring" corrected to 10%. 20% is the
+  eternity page's offer — a content error, not a layout one.
+- Guides: all-guides button removed, per-guide words centred under the cover.
+- Testimonials: stars filled (`fill: currentColor` on the svg AND its
+  descendants — a `fill="none"` on the inner path ignores a rule aimed at the
+  root), "4.9/5 average" removed with its setting.
+
+**Mobile, measured against live**
+
+- Guides: tappable list rows below 768px — 68px rows, 50px cover, 14px display
+  title, 16px arrow drawn with a CSS mask, hairline between. 3-up to 1100px,
+  6-up above.
+- Trust strip: 2 × 2 below 768px. `repeat(auto-fit, minmax(200px, 1fr))` cannot
+  fit two 200px tracks in a phone's ~330px content width, so it collapsed to
+  one column. Rule lives IN the section (see rule 11).
+- Hero buttons: stack full width below 560px. They were caught by core's
+  `.row .btn { width: auto }` exception.
+- Why-choose monogram: hidden below 768px, as live.
+- Latest news: every desktop height mechanic explicitly stood down below 900px
+  — the caption's position, both image heights, the list height and the row
+  flex. Standing down only the caption's position left it over the next
+  article's photograph.
+- Footer: link columns and "talk to us" are now native `<details>` accordions.
+  Rendered `open`; script closes them below 769px and reopens above, and stops
+  syncing once a summary has been tapped. No JS ⇒ all open, which is the
+  pre-accordion behaviour. 56px tap rows, + becoming −.
+
+**Site-wide bug fixed**
+
+`.visually-hidden` was a 1px box with NO clipping, and the skip link inside it
+was absolutely positioned with `left: auto` — so it sat at its static position
+around x=2314 and made every page 2315px wide, with ~845px of empty scroll to
+the right. Now clipped (overflow + clip + clip-path) and pinned to 0,0, and the
+skip link becomes visible on focus, which it never did.
+
+## Rules learned tonight — these cost real time
+
+**R1. When the brief is "match live", READ LIVE'S SECTION FIRST.**
+Four passes went into eyeballing the news band's proportions off screenshots
+before one API read gave every number exactly. Worse, I inferred which of two
+screenshots was live and rewrote the consultation band away from the correct
+layout. Read the file. `themeFiles` on the live theme id, filenames array.
+
+**R2 (conventions rule 9). A `.wrap` inside a flex or grid parent needs
+`width: 100%`.**
+A flex item shrink-to-fits. The hero's copy sat 305px from the left with no
+padding rule responsible. Hit twice in one hour.
+
+**R3. Media-query overrides go LAST in a stylesheet.**
+A media query adds a condition, not specificity. The guides mobile block sat
+above the base `.guides__item` rules, so `flex-direction` and `width` were
+overridden while `min-height` and `border-bottom` — properties the base never
+sets — applied. A partial apply is the signature of this bug.
+
+**R4. `fye-core.css` cannot override a section.**
+Section `{% stylesheet %}` blocks are served AFTER core. Core can supply what a
+section does not set; anything competing with a section's own declaration must
+live in that section. Cost one wasted trust-strip fix.
+
+**R5. One console line beats three screenshots.**
+`{vw: 399, dir: 'column', minH: '68px', border: '1px', coverW: '351px'}`
+diagnosed R3 instantly. For layout faults, query computed styles before
+theorising — and for horizontal overflow, list every element whose right edge
+exceeds `clientWidth`.
+
+## Outstanding
+
+1. **Header logo on mobile** renders the text fallback ("FOR YOUR ETERNITY" on
+   three lines) where live shows the script wordmark. Needs the dark logo's
+   Files URL set on the header section — data, not CSS.
+2. **`{% render 'schema-org' %}`** still not added to `theme.liquid`.
+3. **Two logo PNGs** (`fye-logo-square.png`, `fye-logo-wide.png`) still needed
+   as theme assets for the structured data.
+4. **27 old templates still name `sidebar-page` / `sidebar-collection`.** A
+   template naming a missing section type breaks the theme editor, so those
+   entries come out of `sections` and `order` as each template is ported.
+   `template-plan.mjs` flags any type a template needs that v3 lacks.
+5. **Live's mobile-only "View All 6 Guides" bar** was deliberately not re-added
+   when the all-guides button was removed. Say if it should come back on mobile.
+6. **A layout smoke-test script** would have caught the 845px overflow in
+   seconds: horizontal overflow, elements past the viewport, unclipped
+   screen-reader text, tap targets under 44px. Worth writing before the next
+   template.
+
+## Next
+
+The three ring pages are built and reviewed; the guide library (13 sections,
+~700 references) is done. Next is the remaining templates, in usage order —
+`node docs/tools/template-plan.mjs --full` for the current ranking.

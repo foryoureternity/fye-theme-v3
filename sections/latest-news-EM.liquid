@@ -38,9 +38,15 @@
     </div>
 
     {%- if src.articles_count > 0 -%}
+      {%- comment -%}
+        Four articles: the newest as a lead with a large image, then three
+        stacked beside it with thumbnails. Matching live — my first pass was
+        three equal cards, which has no focal point and takes more height for
+        fewer articles.
+      {%- endcomment -%}
       <ul class="news__grid">
-        {%- for article in src.articles limit: 3 -%}
-          <li class="news__item">
+        {%- for article in src.articles limit: 4 -%}
+          <li class="news__item{% if forloop.first %} news__item--lead{% endif %}">
             <a class="news__link" href="{{ article.url }}">
               {%- if article.image != blank -%}
                 <span class="news__img">
@@ -81,15 +87,19 @@
   gap: var(--s6);
   margin-bottom: var(--s9);
 }
+/* Lead article left, three stacked right. The lead spans both rows of its
+   own column; the rest fill the second column in order. */
 .fye .news__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--s7) var(--grid-gap);
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s6) var(--s10);
   list-style: none;
   margin: 0;
   padding: 0;
 }
 .fye .news__item { margin: 0; }
+.fye .news__item--lead { grid-row: span 3; }
+
 .fye .news__link { display: flex; flex-direction: column; gap: var(--s4); }
 .fye .news__img { display: block; overflow: hidden; }
 .fye .news__img :where(img) {
@@ -98,6 +108,19 @@
   object-fit: cover;
   transition: transform var(--dur) var(--ease);
 }
+
+/* The three stacked ones are a thumbnail beside the headline, not a card. */
+.fye .news__item:not(.news__item--lead) .news__link {
+  flex-direction: row-reverse;
+  align-items: flex-start;
+  gap: var(--s5);
+  padding-bottom: var(--s5);
+  border-bottom: var(--hairline);
+}
+.fye .news__item:not(.news__item--lead) .news__img { flex: 0 0 96px; }
+.fye .news__item:not(.news__item--lead) .news__img :where(img) { aspect-ratio: 1; }
+.fye .news__item:not(.news__item--lead) .news__excerpt { display: none; }
+.fye .news__item:not(.news__item--lead) .news__title { font-size: var(--fs-small); }
 .fye .news__link:hover .news__img :where(img) { transform: scale(1.03); }
 .fye .news__words { display: flex; flex-direction: column; gap: var(--s2); }
 .fye .news__title {
@@ -110,8 +133,13 @@
 .fye .news__link:hover .news__title { color: var(--sage); }
 .fye .news__excerpt { font-size: var(--fs-small); color: var(--ink-soft); }
 
+@media (max-width: 900px) {
+  .fye .news__grid { grid-template-columns: 1fr; gap: var(--s6); }
+  .fye .news__item--lead { grid-row: auto; }
+}
 @media (max-width: 560px) {
   .fye .news__head { flex-direction: column; align-items: flex-start; gap: var(--s3); margin-bottom: var(--s7); }
+  .fye .news__item:not(.news__item--lead) .news__img { flex-basis: 72px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .fye .news__link:hover .news__img :where(img) { transform: none; }

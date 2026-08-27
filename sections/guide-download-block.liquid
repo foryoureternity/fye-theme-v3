@@ -96,30 +96,32 @@
 {% stylesheet %}
 .fye .guides__subtext :where(p) { margin: 0; }
 
-/* Three across, two rows. An explicit count, not auto-fit: there are six
-   guides and auto-fit laid them out five-then-one at desktop width. */
+/* SIX ACROSS IN ONE ROW, as live. A compact shelf of guides, not a
+   catalogue: my 3 x 2 with large covers took three times the height for the
+   same six items. */
 .fye .guides__grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--s9) var(--grid-gap);
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: var(--s6) var(--s5);
   list-style: none;
   margin: 0;
   padding: 0;
 }
-@media (max-width: 900px) {
-  .fye .guides__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 1100px) {
+  .fye .guides__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 560px) {
-  .fye .guides__grid { grid-template-columns: 1fr; }
+  .fye .guides__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 .fye .guides__item {
   display: flex;
   flex-direction: column;
-  gap: var(--s5);
+  gap: var(--s4);
   margin: 0;
 }
-/* Covers are portrait artwork; a fixed ratio keeps six unequal files aligned. */
-.fye .guides__cover { max-width: 220px; }
+/* Covers are portrait artwork; a fixed ratio keeps six unequal files aligned.
+   No max-width now — the column is the constraint, six to a row. */
+.fye .guides__cover { width: 100%; }
 .fye .guides__cover :where(img) { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
 .fye .guides__ph { display: block; aspect-ratio: 3 / 4; background: var(--ivory); opacity: 0.25; }
 
@@ -129,13 +131,20 @@
   align-items: flex-start;
   gap: var(--s3);
 }
-.fye .guides__title { font-size: var(--fs-h4); }
+/* Smaller at six across: the title is a label on a shelf, not a heading. */
+.fye .guides__title { font-size: var(--fs-fine); letter-spacing: var(--tr-h2); }
 .fye .guides__blurb {
   margin: 0;
-  font-size: var(--fs-small);
+  font-size: var(--fs-fine);
   color: var(--ink-soft);
 }
-.fye .guides__words .btn { margin-top: var(--s2); }
+.fye .guides__words .btn { margin-top: var(--s1); }
+
+/* The blurb is the first thing to go when six share a row — it is a nice-to-
+   have and the title plus cover already say which guide this is. */
+@media (min-width: 1101px) {
+  .fye .guides__blurb { display: none; }
+}
 
 .fye .row--center { justify-content: center; }
 .fye .guides__all { margin-top: var(--s10); }

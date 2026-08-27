@@ -1,7 +1,51 @@
-{%- comment -%}
+/* ============================================================================
+   rewrite-news-live.mjs — latest news, built from live's real CSS. 27/08/2026
+   ----------------------------------------------------------------------------
+     cd ~/Dropbox/GIT-repositaries/fye-theme-v3
+     node docs/tools/rewrite-news-live.mjs
+
+   Delete once run and synced. Supersedes fix-news-02/03/04, which were four
+   rounds of guessing proportions off screenshots. I should have read live's
+   section first — every number below is lifted from it.
+
+   WHAT I HAD WRONG
+   I built the layout out of aspect ratios and a negative margin. Live uses
+   neither. Its mechanic is:
+
+     - grid 1fr 1fr, gap 25px, align-items: STRETCH
+     - the RIGHT column sets the height: three cards, flex: 1 each, gap 20px
+     - the lead photograph fills whatever height that comes to —
+       height: 100%, object-fit: cover, no aspect ratio at all
+     - the caption is position: absolute, bottom: 0, left: 0, max-width: 280px,
+       INSIDE the image — so it can never hang below it
+
+   That is why nothing I tried balanced: I was setting the lead's height
+   independently and then trying to make the other column agree with it. Live
+   derives one from the other.
+
+   Numbers from live, kept verbatim: gap 25px / 20px / 15px, thumbnail width
+   239px (190px between 1025-1400), caption max-width 280px, title 16px at 1.4
+   and weight 400, excerpt 18 words with no ellipsis, button 12px with 15px
+   side padding, big image capped at 560px between 1025-1400 and 420px below,
+   two-line clamps on the compact cards at the same widths.
+
+   Titles were my worst error: 20px for the rows and 24px for the lead against
+   live's 16px. Nearly half again too big, which is why every title wrapped to
+   three lines and the whole band felt crowded no matter what I did to the grid.
+
+   KEPT FROM MY VERSION, deliberately
+   - the flanked heading device rather than live's 37%-wide absolute pseudos.
+     Ours flexes, which is what you asked for earlier this evening.
+   - band + --sect-y for ground and padding, not live's 40px 183px 60px.
+   - sentence-case titles, no dates.
+   ========================================================================== */
+
+import { writeFile } from 'node:fs/promises';
+
+const src = `{%- comment -%}
   latest-news-EM — the homepage news band. 1 use: index.
 
-  Setting IDs frozen: `heading`, `blog`, `bg_color`, plus the two label
+  Setting IDs frozen: \`heading\`, \`blog\`, \`bg_color\`, plus the two label
   settings added on 27/08.
 
   GEOMETRY IS LIVE'S, read from the live theme rather than eyeballed:
@@ -253,3 +297,8 @@
   "presets": [{ "name": "Latest news" }]
 }
 {% endschema %}
+`;
+
+await writeFile('sections/latest-news-EM.liquid', src, 'utf8');
+console.log('FIXED sections/latest-news-EM.liquid');
+console.log('  geometry from live: 1fr 1fr / 25px / stretch, 239px thumbs, 280px caption, 16px titles');

@@ -1,0 +1,170 @@
+{%- comment -%}
+  about-columns-four — a grid of ring-style tiles: a photograph, a name and a
+  link into that collection. 3 uses: page.engagement-rings,
+  collection.engagment, page.downloadable-guides.
+
+  On the engagement page this is the ten setting styles — Solitaire, Halo,
+  Trilogy, Hidden Halo and so on — and it is the main way a shopper picks a
+  direction. The name is frozen; it describes neither "about" nor "four".
+
+  Setting IDs kept: `top_heading`, `col_dk`; per block `enable_image`, `image`,
+  `title`, `button_label`, `button_link`, `open_link`.
+
+  THE WHOLE TILE IS THE LINK. On the live site the photograph, the title and a
+  "VIEW OUR RINGS" button were three separate targets pointing at the same
+  collection — three tab stops and three announcements per tile, thirty for the
+  row. The button text still renders, as the affordance, but inside the one
+  anchor.
+
+  `button_label` therefore reads as the tile's call to action rather than a
+  button of its own. A tile with no label just shows the photograph and name.
+
+  SETTINGS DROPPED: 30, including `fs_title` 22 / `fs_text` 14 and their mobile
+  pair, the carousel controls (`loop`, `au_hover`, `btn_*`, `dot_*`), the ratio
+  and spacing sets, `pos_text`, `layout_des`, `layout`, and the per-block
+  button styling (`button_style`, `btn_size`, `btn_cl`, `button_effect`).
+  `col_dk` was "5" and is a real count now.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'white'
+  assign cols = s.col_dk | default: 5
+-%}
+
+<section class="acf band band--{{ band }}" data-screen-label="Style tiles">
+  <div class="wrap">
+    {%- if s.top_heading != blank -%}
+      <div class="sect-head">
+        <h2 class="heading-flank">{{ s.top_heading }}</h2>
+      </div>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <ul class="acf__grid" style="--acfcols: {{ cols }};">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign b = block.settings
+            assign target = ''
+            if b.open_link == '_blank'
+              assign target = '_blank'
+            endif
+          -%}
+          {%- if b.title != blank or b.image != blank -%}
+            <li class="acf__item" {{ block.shopify_attributes }}>
+              <a class="acf__link" href="{{ b.button_link | default: '#' }}"
+                {%- if target != blank %} target="{{ target }}" rel="noopener"{% endif -%}>
+                {%- if b.enable_image and b.image != blank -%}
+                  <span class="acf__media">
+                    {{ b.image | image_url: width: 600 | image_tag:
+                       loading: 'lazy', widths: '200,300,450,600',
+                       sizes: '(max-width: 560px) 45vw, (max-width: 900px) 30vw, 220px',
+                       alt: b.title }}
+                  </span>
+                {%- endif -%}
+
+                {%- if b.title != blank -%}
+                  <span class="acf__title">{{ b.title }}</span>
+                {%- endif -%}
+
+                {%- if b.button_label != blank -%}
+                  <span class="link acf__cta">{{ b.button_label }}</span>
+                {%- endif -%}
+              </a>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .acf__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--acfcols, 5), minmax(0, 1fr));
+  gap: var(--s8) var(--grid-gap);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.fye .acf__item { margin: 0; display: flex; }
+.fye .acf__link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s3);
+  width: 100%;
+  text-align: center;
+}
+
+/* Ring cut-outs on white, so contain rather than cover — cropping a ring
+   photograph to a square edge cuts the shoulders off the setting. */
+.fye .acf__media { display: block; width: 100%; background: var(--ivory); }
+.fye .acf__media :where(img) {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  transition: transform var(--dur) var(--ease);
+}
+.fye .acf__link:hover .acf__media :where(img) { transform: scale(1.03); }
+
+.fye .acf__title {
+  font-size: var(--fs-small);
+  line-height: 1.35;
+  transition: color var(--dur) var(--ease);
+}
+.fye .acf__link:hover .acf__title { color: var(--sage); }
+.fye .acf__cta { margin-top: auto; border-bottom: 0; font-size: var(--fs-eyebrow); }
+.fye .acf__link:hover .acf__cta { color: var(--sage); }
+
+@media (max-width: 900px) {
+  .fye .acf__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .fye .acf__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fye .acf__link:hover .acf__media :where(img) { transform: none; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Style tiles",
+  "settings": [
+    { "type": "text", "id": "top_heading", "label": "Heading" },
+    { "type": "range", "id": "col_dk", "label": "Tiles per row", "default": 5, "min": 3, "max": 6, "step": 1, "unit": "col" },
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "white",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Ivory" },
+        { "value": "mist",  "label": "Mist" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text_block",
+      "name": "Tile",
+      "settings": [
+        { "type": "checkbox", "id": "enable_image", "label": "Show the image", "default": true },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Name" },
+        { "type": "text", "id": "button_label", "label": "Link text", "default": "View our rings" },
+        { "type": "url", "id": "button_link", "label": "Link", "info": "The whole tile links here." },
+        {
+          "type": "select", "id": "open_link", "label": "Open link in", "default": "_self",
+          "options": [
+            { "value": "_self",  "label": "Same tab" },
+            { "value": "_blank", "label": "New tab" }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Style tiles", "blocks": [{ "type": "text_block" }, { "type": "text_block" }, { "type": "text_block" }] }
+  ]
+}
+{% endschema %}

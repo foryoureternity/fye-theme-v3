@@ -1,0 +1,187 @@
+{%- comment -%}
+  collections-list — a row of shape or category tiles, each an icon and a name.
+  5 uses: page.engagement-rings, collection.engagment, collection.sub, index
+  (disabled there), page.eternity-rings.
+
+  On the live site this is "Shop by diamond cut": ten line-drawn shape icons
+  linking to the cut collections. The icons are SVG files in Files, not the
+  theme's icon set, so they come through `image` as normal images.
+
+  Setting IDs kept: `top_heading`, `heading_mb`, `mobile_view_all_link`,
+  `head_btn_label`, `collection_subtitle`, `open_link`, `col_dk`; per block
+  `image`, `collection_title`, `collection_link`.
+
+  `heading_mb` and `mobile_view_all_link` are a real pattern, not noise: below
+  900px the row becomes a scrolling strip with a shorter heading ("Shop by
+  shape") and a "view all" link out to the shapes guide, because ten tiles do
+  not fit and a wrapped grid of ten pushes everything else off the screen.
+
+  SETTINGS DROPPED: 27 of them, including the carousel controls (`loop`,
+  `au_hover`, `btn_*`, `dot_*`), five colour pickers (`title_cl`,
+  `title_cl_hover`, `subtitle_cl` #878787, `count_cl`, `border_cl` #e5e5e5),
+  `collection_des`, `source`, `icon_width`, the ratio and spacing sets, and
+  `layout`. `col_dk` was "9" — a Bootstrap column span, not a column count;
+  it is a real count now, defaulting to the 10 tiles the live site shows.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'white'
+  assign cols = s.col_dk | default: 10
+  assign target = ''
+  if s.open_link == '_blank'
+    assign target = '_blank'
+  endif
+-%}
+
+<section class="clist band band--{{ band }}" data-screen-label="Category tiles">
+  <div class="wrap">
+    <div class="clist__head">
+      {%- if s.top_heading != blank -%}
+        <h2 class="clist__heading">{{ s.top_heading }}</h2>
+      {%- endif -%}
+      {%- if s.heading_mb != blank -%}
+        <h2 class="clist__heading clist__heading--mb">{{ s.heading_mb }}</h2>
+      {%- endif -%}
+
+      {%- if s.mobile_view_all_link != blank and s.head_btn_label != blank -%}
+        <a class="link clist__all" href="{{ s.mobile_view_all_link }}">{{ s.head_btn_label }}</a>
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <ul class="clist__row" style="--clcols: {{ cols }};">
+        {%- for block in section.blocks -%}
+          {%- assign b = block.settings -%}
+          {%- if b.collection_title != blank -%}
+            <li class="clist__item" {{ block.shopify_attributes }}>
+              <a class="clist__link" href="{{ b.collection_link | default: '#' }}"
+                {%- if target != blank %} target="{{ target }}" rel="noopener"{% endif -%}>
+                {%- if b.image != blank -%}
+                  <span class="clist__icon">
+                    {{ b.image | image_url: width: 120 | image_tag:
+                       loading: 'lazy', widths: '60,120', sizes: '60px', alt: '' }}
+                  </span>
+                {%- endif -%}
+                <span class="clist__name">{{ b.collection_title }}</span>
+                {%- if s.collection_subtitle != blank -%}
+                  <span class="clist__sub">{{ s.collection_subtitle }}</span>
+                {%- endif -%}
+              </a>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .clist__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s5);
+  margin-bottom: var(--s8);
+}
+.fye .clist__heading { font-size: var(--fs-h3); }
+.fye .clist__heading--mb { display: none; }
+.fye .clist__all { display: none; }
+
+.fye .clist__row {
+  display: grid;
+  grid-template-columns: repeat(var(--clcols, 10), minmax(0, 1fr));
+  gap: var(--s5) var(--s4);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.fye .clist__item { margin: 0; }
+.fye .clist__link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s3);
+  text-align: center;
+}
+.fye .clist__icon { display: block; }
+.fye .clist__icon :where(img) {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  transition: transform var(--dur) var(--ease);
+}
+.fye .clist__link:hover .clist__icon :where(img) { transform: translateY(-2px); }
+.fye .clist__name {
+  font-size: var(--fs-fine);
+  line-height: 1.3;
+  transition: color var(--dur) var(--ease);
+}
+.fye .clist__link:hover .clist__name { color: var(--sage); }
+.fye .clist__sub { font-size: var(--fs-eyebrow); color: var(--ink-soft); }
+
+/* Below 900 the row scrolls rather than wrapping. Ten tiles in a wrapped grid
+   pushes the rest of the page off a phone screen; a strip keeps it one line
+   and swipeable, with the short heading and a way out to the full list. */
+@media (max-width: 900px) {
+  .fye .clist__heading { display: none; }
+  .fye .clist__heading--mb { display: block; }
+  .fye .clist__all { display: inline-flex; }
+  .fye .clist__row {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: var(--s2);
+  }
+  .fye .clist__row::-webkit-scrollbar { display: none; }
+  .fye .clist__item { flex: 0 0 96px; scroll-snap-align: start; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fye .clist__link:hover .clist__icon :where(img) { transform: none; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Category tiles",
+  "settings": [
+    { "type": "text", "id": "top_heading", "label": "Heading", "default": "Shop by diamond cut" },
+    { "type": "text", "id": "heading_mb", "label": "Heading below 900px", "default": "Shop by shape", "info": "Shorter, because the row becomes a scrolling strip." },
+    { "type": "text", "id": "head_btn_label", "label": "Link text", "default": "View all" },
+    { "type": "url", "id": "mobile_view_all_link", "label": "Link", "info": "Shown below 900px, beside the heading." },
+    { "type": "text", "id": "collection_subtitle", "label": "Subtitle under each tile", "info": "Leave empty to hide." },
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "col_dk", "label": "Tiles per row", "default": 10, "min": 4, "max": 12, "step": 1, "unit": "col" },
+    {
+      "type": "select", "id": "open_link", "label": "Open links in", "default": "_self",
+      "options": [
+        { "value": "_self",  "label": "Same tab" },
+        { "value": "_blank", "label": "New tab" }
+      ]
+    },
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "white",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Ivory" },
+        { "value": "mist",  "label": "Mist" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_item",
+      "name": "Tile",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Icon" },
+        { "type": "text", "id": "collection_title", "label": "Name" },
+        { "type": "url", "id": "collection_link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Category tiles", "blocks": [{ "type": "collection_item" }, { "type": "collection_item" }, { "type": "collection_item" }] }
+  ]
+}
+{% endschema %}

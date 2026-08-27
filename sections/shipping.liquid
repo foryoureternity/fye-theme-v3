@@ -1,0 +1,162 @@
+{%- comment -%}
+  shipping — the "why choose us" icon grid. 9 uses: article, blog,
+  collection.engagment, collection.sub, collection.wedding, page.create,
+  page.engagement-rings, page.eternity-rings, page.wedding-rings.
+
+  Badly named — it is not about delivery. The name is frozen because nine
+  templates reference it.
+
+  Setting IDs kept: `top_heading`, `col_dk`; per block `icon`, `text`, `html`.
+
+  THE `html` BLOCK SETTING IS THE POINT OF THIS SECTION, and it is the one
+  place in the theme where raw HTML in a setting is right. Each block holds a
+  bespoke FYE line drawing as inline SVG — the faceted-diamond mark, the two
+  interlocking rings, the shield-and-tick — drawn for the brand at 0.75px
+  stroke in Eternal Teal. They are not in snippets/icon.liquid because they are
+  illustrations, not UI icons, and they are per-page content rather than a
+  fixed set. Rendered raw, unescaped, deliberately.
+
+  A block with no `html` falls back to the `icon` field read as a name from
+  snippets/icon.liquid, so a new row can be added without drawing anything.
+
+  SETTINGS DROPPED: `design_heading`, `heading_align`, `icon_heading`,
+  `tophead_mb`, `content_align`, `design_padding`, `source`, `icon_des`,
+  `icon_size`, `col_tb`, `col_mb`, the four spacing controls, `dots_cl`,
+  `layout`, and five colour pickers — `cl_bd` #dddddd, `cl_ic` #9e9e9e,
+  `cl_hd`/`cl_cot` #233d47, `bg_item` #ffffff. The greys were the reason this
+  section looked washed out against the rest of the page; the drawings now take
+  the band's own ink colour. `hd_fs` 16 / `hd_fw` 500 / `txt_fs` 12 are the
+  design system's job.
+
+  Per-block `icon_themes` is dropped: it was "none" on every block.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'white'
+  assign cols = s.col_dk | default: 4
+-%}
+
+<section class="ship band band--{{ band }}" data-screen-label="Why choose us">
+  <div class="wrap">
+    {%- if s.top_heading != blank -%}
+      <div class="sect-head">
+        <h2 class="heading-flank">{{ s.top_heading }}</h2>
+      </div>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <ul class="ship__grid" style="--shcols: {{ cols }};">
+        {%- for block in section.blocks -%}
+          {%- assign b = block.settings -%}
+          <li class="ship__item" {{ block.shopify_attributes }}>
+            <span class="ship__mark" aria-hidden="true">
+              {%- if b.html != blank -%}
+                {{ b.html }}
+              {%- elsif b.icon != blank -%}
+                {%- render 'icon', name: b.icon, class: 'icon--lg' -%}
+              {%- endif -%}
+            </span>
+
+            {%- if b.text != blank -%}
+              <span class="ship__text">{{ b.text }}</span>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .ship__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--shcols, 4), minmax(0, 1fr));
+  gap: var(--s9) var(--grid-gap);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.fye .ship__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s4);
+  margin: 0;
+  text-align: center;
+}
+
+/* The drawings arrive as inline SVG with their own viewBox and a hardcoded
+   teal stroke. Box them to a consistent height so eight illustrations of
+   different proportions line up. */
+.fye .ship__mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+}
+.fye .ship__mark :where(svg) { width: 100%; height: 100%; }
+
+.fye .ship__text {
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+  max-width: 24ch;
+}
+/* The copy is written lower-case in the settings and was uppercased in CSS on
+   the live site. Kept, because it is a label row rather than prose. */
+.fye .ship__text :where(p) {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: var(--tr-eyebrow);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  color: var(--ink);
+}
+
+@media (max-width: 900px) {
+  .fye .ship__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .fye .ship__grid { gap: var(--s7) var(--s5); }
+  .fye .ship__mark { width: 56px; height: 56px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Why choose us",
+  "settings": [
+    { "type": "text", "id": "top_heading", "label": "Heading", "default": "Why choose For Your Eternity?" },
+    {
+      "type": "select", "id": "col_dk", "label": "Columns", "default": "4",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ]
+    },
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "white",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Ivory" },
+        { "value": "mist",  "label": "Mist" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "shipping",
+      "name": "Point",
+      "settings": [
+        { "type": "richtext", "id": "text", "label": "Text" },
+        { "type": "html", "id": "html", "label": "Illustration", "info": "An FYE line drawing as inline SVG. Leave empty to use a named icon instead." },
+        { "type": "text", "id": "icon", "label": "Icon name", "info": "Used only when there is no illustration — e.g. shipping, warranty, resize, ethical, certificate." }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Why choose us", "blocks": [{ "type": "shipping" }, { "type": "shipping" }, { "type": "shipping" }, { "type": "shipping" }] }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,196 @@
+{%- comment -%}
+  accordion — a two-column FAQ: a short pitch on the left, the questions on the
+  right. 6 uses: page.engagement-rings, page.eternity-rings,
+  page.wedding-rings, page.faq-2, collection.engagment, collection.wedding.
+
+  Setting IDs kept: `top_heading`, `left_heading`, `left_text`, `left_btn`,
+  `left_url`; per block `title` and `content`.
+
+  WHY THIS IS NOT fye-faq
+  fye-faq is a single centred column for a guide page. This is the marketing
+  layout — questions beside a "still got questions?" panel with a button. Same
+  mechanism, different job, and six templates reference this type name.
+
+  NO JAVASCRIPT, same as fye-faq: <details>/<summary> opens before any script
+  runs, works on a keyboard, and lets find-in-page reach a collapsed answer.
+
+  `emit_schema` IS NEW, and it earns its place. On the ring pages this
+  section's questions were ALSO maintained by hand as a FAQPage JSON-LD inside
+  a `custom-liquid` section — the same seven answers, typed twice, already
+  drifting (the JSON-LD had "4-6 weeks", the visible copy "4–6 weeks", and one
+  answer had been edited in only one of the two). Generated from the same loop
+  as the visible text, they cannot diverge. **When porting a template that has
+  this section next to a FAQ custom-liquid, delete the custom-liquid and turn
+  this on.**
+
+  SETTINGS DROPPED: `design_heading`, `heading_align`, `icon_heading`,
+  `tophead_mb`, `accor_des`, `content_align`, `layout`, `custom_width`, and six
+  colour pickers (`title_cl`, `bg_title_cl`, `title_active_cl`,
+  `bg_title_active_cl`, `content_cl`, `bg_content_cl`) which held #1f2124 and
+  #ffffff — a near-black that is not the brand's teal, on a ground the band
+  already controls. The per-block `icon` is dropped too; it was set to "none"
+  everywhere.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'white'
+  assign has_left = false
+  if s.left_heading != blank or s.left_text != blank
+    assign has_left = true
+  endif
+-%}
+
+<section class="acc band band--{{ band }}" data-screen-label="FAQ accordion">
+  <div class="wrap">
+    {%- if s.top_heading != blank -%}
+      <div class="sect-head">
+        <h2 class="heading-flank">{{ s.top_heading }}</h2>
+      </div>
+    {%- endif -%}
+
+    <div class="acc__cols{% unless has_left %} acc__cols--single{% endunless %}">
+      {%- if has_left -%}
+        <div class="acc__aside">
+          {%- if s.left_heading != blank -%}
+            <h3 class="acc__aside-heading">{{ s.left_heading }}</h3>
+          {%- endif -%}
+          {%- if s.left_text != blank -%}
+            <div class="acc__aside-text">{{ s.left_text }}</div>
+          {%- endif -%}
+          {%- if s.left_btn != blank and s.left_url != blank -%}
+            <a class="btn btn--outline" href="{{ s.left_url }}">{{ s.left_btn }}</a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <div class="acc__list">
+          {%- for block in section.blocks -%}
+            {%- assign b = block.settings -%}
+            {%- if b.title != blank -%}
+              <details class="acc__item" {{ block.shopify_attributes }}>
+                <summary class="acc__q">
+                  <span>{{ b.title }}</span>
+                  {%- render 'icon', name: 'plus', class: 'icon--sm' -%}
+                </summary>
+                {%- if b.content != blank -%}
+                  <div class="acc__a">{{ b.content }}</div>
+                {%- endif -%}
+              </details>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{%- if s.emit_schema and section.blocks.size > 0 -%}
+  {%- capture faq_json -%}
+    {%- assign first = true -%}
+    {%- for block in section.blocks -%}
+      {%- assign b = block.settings -%}
+      {%- if b.title != blank and b.content != blank -%}
+        {%- unless first %},{% endunless -%}
+        {"@type":"Question","name":{{ b.title | strip_html | json }},"acceptedAnswer":{"@type":"Answer","text":{{ b.content | strip_html | json }}}}
+        {%- assign first = false -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+  {%- assign faq_json = faq_json | strip -%}
+  {%- if faq_json != blank -%}
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{{ faq_json }}]}
+    </script>
+  {%- endif -%}
+{%- endif -%}
+
+{% stylesheet %}
+.fye .acc__cols {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: var(--s10);
+  align-items: start;
+}
+.fye .acc__cols--single { grid-template-columns: minmax(0, var(--maxw-narrow)); justify-content: center; }
+
+.fye .acc__aside {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s4);
+  position: sticky;
+  top: var(--s7);
+}
+.fye .acc__aside-heading { font-size: var(--fs-h3); }
+.fye .acc__aside-text { color: var(--ink-soft); }
+
+.fye .acc__list { display: flex; flex-direction: column; }
+.fye .acc__item { border-top: var(--hairline); }
+.fye .acc__item:last-child { border-bottom: var(--hairline); }
+
+.fye .acc__q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s5);
+  min-height: 44px;
+  padding: var(--s5) 0;
+  cursor: pointer;
+  list-style: none;
+  font-size: var(--fs-body);
+  color: var(--ink);
+  transition: color var(--dur) var(--ease);
+}
+.fye .acc__q::-webkit-details-marker { display: none; }
+.fye .acc__q:hover { color: var(--sage); }
+.fye .acc__q .icon { flex: 0 0 auto; transition: transform var(--dur) var(--ease); }
+.fye .acc__item[open] .acc__q .icon { transform: rotate(45deg); }
+
+.fye .acc__a { padding-bottom: var(--s6); color: var(--ink-soft); }
+.fye .acc__a :where(a) { text-decoration: underline; text-underline-offset: 3px; }
+.fye .acc__a :where(ul) { padding-left: 1.1em; }
+
+@media (max-width: 900px) {
+  .fye .acc__cols { grid-template-columns: 1fr; gap: var(--s7); }
+  .fye .acc__aside { position: static; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "FAQ accordion",
+  "settings": [
+    { "type": "text", "id": "top_heading", "label": "Heading", "default": "Frequently asked questions" },
+    { "type": "header", "content": "Side panel" },
+    { "type": "text", "id": "left_heading", "label": "Heading", "info": "Leave empty for a single centred column." },
+    { "type": "richtext", "id": "left_text", "label": "Text" },
+    { "type": "text", "id": "left_btn", "label": "Button label" },
+    { "type": "url", "id": "left_url", "label": "Button link" },
+    { "type": "header", "content": "SEO" },
+    { "type": "checkbox", "id": "emit_schema", "label": "Add FAQ structured data", "default": true, "info": "Generated from these questions. Delete any separate FAQ code block on the page — two sets compete." },
+    { "type": "header", "content": "Background" },
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "white",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Ivory" },
+        { "value": "mist",  "label": "Mist" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "accor_item",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Question" },
+        { "type": "richtext", "id": "content", "label": "Answer" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "FAQ accordion", "blocks": [{ "type": "accor_item" }, { "type": "accor_item" }, { "type": "accor_item" }] }
+  ]
+}
+{% endschema %}

@@ -2,13 +2,12 @@
    template-plan.mjs — reduce a fat JSON template to a readable build plan
    ----------------------------------------------------------------------------
      cd ~/Dropbox/GIT-repositaries/fye-theme-v3
-     node docs/tools/template-plan.mjs
+     node docs/tools/template-plan.mjs                  # the four queue templates
+     node docs/tools/template-plan.mjs index --full     # nothing truncated
+     node docs/tools/template-plan.mjs page.about-us page.contact
+     node docs/tools/template-plan.mjs --all-pages
 
    Writes one file per template into docs/template-plans/ and prints a summary.
-   Defaults to the four templates at the top of the queue; override with names:
-
-     node docs/tools/template-plan.mjs index page.about-us
-     node docs/tools/template-plan.mjs --all-pages
 
    WHY THIS EXISTS
    index.json is 38KB, page.engagement-rings.json 60KB, page.eternity-rings
@@ -26,21 +25,26 @@
        to put, so every instance is a decision
      - whether v3 already has a section file for that type
 
-   Long values are truncated. If a truncated one matters, fetch that one
-   setting from the template directly.
+   --full
+   Values are truncated to 90 characters by default, which is right for
+   planning and wrong for PORTING: the real body copy gets cut off, and copy
+   must never be reconstructed from a truncated string — it either comes across
+   exactly or it is not carried over. Pass --full when the plan is about to be
+   turned into a v3 template, and nothing is shortened.
    ========================================================================== */
 
 import { readFile, readdir, writeFile, mkdir, stat } from 'node:fs/promises';
 import { join, basename, extname, resolve } from 'node:path';
 
 const DEFAULTS = ['index', 'page.engagement-rings', 'page.wedding-rings', 'page.eternity-rings'];
-const MAXLEN = 90;
 
 const args = process.argv.slice(2);
 const oldArg = args.find((a) => a.startsWith('--old='));
 const OLD = resolve(oldArg ? oldArg.slice(6) : '../fye-shopify-theme');
 const OUTDIR = resolve('docs/template-plans');
 const wantAllPages = args.includes('--all-pages');
+const full = args.includes('--full');
+const MAXLEN = full ? Infinity : 90;
 const names = args.filter((a) => !a.startsWith('--'));
 
 function stripJsonComments(text) {
@@ -95,6 +99,9 @@ function meaningful(value) {
 
 function short(value) {
   let s = typeof value === 'string' ? value : JSON.stringify(value);
+  /* In --full mode keep the string byte-for-byte: newlines and all. Collapsing
+     whitespace would quietly change the copy being ported. */
+  if (full) return s;
   s = s.replace(/\s+/g, ' ').trim();
   return s.length > MAXLEN ? `${s.slice(0, MAXLEN)}…` : s;
 }
@@ -129,11 +136,12 @@ for (const path of targets) {
   let cssBlocks = 0;
   const missing = new Set();
 
-  lines.push(`# ${name} — build plan`);
+  lines.push(`# ${name} — build plan${full ? ' (full values)' : ''}`);
   lines.push('');
   lines.push(`Reduced from \`${basename(path)}\` by \`docs/tools/template-plan.mjs\`.`);
   lines.push('Settings left at defaults, blanks and per-block typography controls are');
-  lines.push('dropped. Do not hand-edit; re-run instead.');
+  lines.push(`dropped. Values are ${full ? 'complete — safe to port from.' : 'truncated at 90 characters — re-run with --full before porting copy.'}`);
+  lines.push('Do not hand-edit; re-run instead.');
   lines.push('');
 
   const rows = [];
@@ -157,12 +165,12 @@ for (const path of targets) {
 
   lines.push('## Section order');
   lines.push('');
-  lines.push('| # | type | state | blocks | in v3 |');
-  lines.push('|---|---|---|---|---|');
+  lines.push('| # | id | type | state | blocks | in v3 |');
+  lines.push('|---|---|---|---|---|---|');
   rows.forEach((r, i) => {
     const blocks = Object.entries(r.tally).map(([t, n]) => (n > 1 ? `${t} ×${n}` : t)).join(', ') || '—';
     const inV3 = r.isApp ? 'app' : v3Sections.has(r.type) ? 'yes' : 'NO';
-    lines.push(`| ${i + 1} | \`${r.type}\` | ${r.off ? 'disabled' : 'live'} | ${blocks} | ${inV3} |`);
+    lines.push(`| ${i + 1} | \`${r.key}\` | \`${r.type}\` | ${r.off ? 'disabled' : 'live'} | ${blocks} | ${inV3} |`);
   });
   lines.push('');
   lines.push(`${rows.length} sections, ${live} live, ${rows.length - live} disabled.`);
@@ -190,13 +198,20 @@ for (const path of targets) {
       const bs = b?.settings || {};
       const bkeep = Object.entries(bs).filter(([k, v]) => meaningful(v) && !NOISE.has(k));
       if (!bkeep.length) continue;
-      blockLines.push(`  - **${b?.type || '?'}**${b?.disabled ? ' *(off)*' : ''} — ` +
-        bkeep.map(([k, v]) => `\`${k}\`: ${short(v)}`).join(' · '));
+      if (full) {
+        /* One setting per line in full mode — a single long line of
+           middot-separated richtext is unreadable and easy to mis-copy. */
+        blockLines.push(`  - **${b?.type || '?'}** \`${bid}\`${b?.disabled ? ' *(off)*' : ''}`);
+        for (const [k, v] of bkeep) blockLines.push(`    - \`${k}\`: ${short(v)}`);
+      } else {
+        blockLines.push(`  - **${b?.type || '?'}**${b?.disabled ? ' *(off)*' : ''} — ` +
+          bkeep.map(([k, v]) => `\`${k}\`: ${short(v)}`).join(' · '));
+      }
     }
 
     if (!keep.length && !blockLines.length && !css) continue;
 
-    lines.push(`### \`${r.type}\`${r.off ? ' *(disabled)*' : ''}`);
+    lines.push(`### \`${r.type}\` — id \`${r.key}\`${r.off ? ' *(disabled)*' : ''}`);
     lines.push('');
     if (keep.length) {
       for (const [k, v] of keep) lines.push(`- \`${k}\`: ${short(v)}`);
@@ -214,12 +229,12 @@ for (const path of targets) {
     lines.push('');
   }
 
-  const out = join(OUTDIR, `${name}.md`);
+  const out = join(OUTDIR, full ? `${name}.full.md` : `${name}.md`);
   await writeFile(out, lines.join('\n'), 'utf8');
   summary.push(`${name}: ${rows.length} sections (${live} live), ${missing.size} types missing from v3, ${cssBlocks} custom_css`);
 }
 
-console.log(`Old theme: ${OLD}`);
+console.log(`Old theme: ${OLD}${full ? '   (full values)' : ''}`);
 console.log('');
 for (const line of summary) console.log(line);
 console.log(`\nWrote ${targets.length} plan(s) to ${OUTDIR}`);

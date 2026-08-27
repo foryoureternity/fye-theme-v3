@@ -1,0 +1,174 @@
+{%- comment -%}
+  feature_columns2 — a row of text/image columns of unequal width. 7 uses:
+  index, article, blog, page.contact, page.create, collection.engagment,
+  collection.wedding.
+
+  Each block is a column and sets its own width out of 12, which is the one
+  genuinely useful thing the old version did: the homepage runs a 3-wide logo
+  beside an 8-wide heading-and-paragraph, and that asymmetry is the layout.
+  So `col_dk` survives as a 12-column span. Everything else went.
+
+  SETTINGS DROPPED, with reasons:
+    design_heading, heading_align, icon_heading, tophead_mb
+      — headings are the flanked centred device sitewide; `icon_heading` was a
+        Line Awesome gem and there is no icon font in v3.
+    fs_title, fs_text, fs_title_mb, fs_text_mb
+      — four font sizes per section, set independently on 7 templates. This is
+        the single clearest example of what the rebuild is for: the homepage had
+        35px/25px titles against the design system's scale.
+    image_ratio, image_size, image_position, img_effect, b_effect
+    space_h_item, space_v_item, space_h_item_mb, space_v_item_mb  — --grid-gap
+    button_style, btn_size, btn_cl, button_effect  — two button styles exist
+    pos_text, text_align  — kept as one section-level `text_align`
+    col_tb, col_mb  — columns stack below 900; a tablet-specific count on top
+      of that produced layouts nobody had looked at
+    layout, custom_css
+
+  KEPT, with their IDs: `top_heading`, `text_align`; per block `enable_image`,
+  `image`, `title`, `text`, `button_label`, `button_link`, `open_link`,
+  `col_dk`.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'white'
+  assign align = s.text_align | default: 'left'
+-%}
+
+<section class="fcols band band--{{ band }} fcols--{{ align }}" data-screen-label="Feature columns">
+  <div class="wrap">
+    {%- if s.top_heading != blank -%}
+      <div class="sect-head">
+        <h2 class="heading-flank">{{ s.top_heading }}</h2>
+      </div>
+    {%- endif -%}
+
+    <div class="fcols__grid">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign b = block.settings
+          assign span = b.col_dk | default: 4
+        -%}
+        <div class="fcols__col" style="--span: {{ span }};" {{ block.shopify_attributes }}>
+          {%- if b.enable_image and b.image != blank -%}
+            <div class="fcols__media">
+              {{ b.image | image_url: width: 800 | image_tag:
+                 loading: 'lazy', widths: '200,400,600,800',
+                 sizes: '(max-width: 900px) 100vw, 30vw',
+                 alt: b.image.alt | escape }}
+            </div>
+          {%- endif -%}
+
+          {%- if b.title != blank -%}
+            <h3 class="fcols__title">{{ b.title }}</h3>
+          {%- endif -%}
+
+          {%- if b.text != blank -%}
+            <div class="fcols__text">{{ b.text }}</div>
+          {%- endif -%}
+
+          {%- if b.button_label != blank and b.button_link != blank -%}
+            <a class="btn btn--outline fcols__btn" href="{{ b.button_link }}"
+              {%- if b.open_link == '_blank' %} target="_blank" rel="noopener"{% endif -%}>
+              {{ b.button_label }}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+/* Twelve columns; each block spans --span of them. The homepage's 3 + 8 leaves
+   one column of air between, which is the point. */
+.fye .fcols__grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--s7) var(--grid-gap);
+  align-items: center;
+}
+.fye .fcols__col {
+  grid-column: span var(--span, 4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+  align-items: flex-start;
+}
+.fye .fcols--center .fcols__col { align-items: center; text-align: center; }
+.fye .fcols--right .fcols__col { align-items: flex-end; text-align: right; }
+
+/* A logo or mark, not a photograph — contain, and never bigger than it is. */
+.fye .fcols__media :where(img) { max-width: 100%; }
+.fye .fcols__text { color: var(--ink-soft); }
+.fye .fcols__btn { margin-top: var(--s2); }
+
+@media (max-width: 900px) {
+  .fye .fcols__col { grid-column: 1 / -1; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Feature columns",
+  "settings": [
+    { "type": "text", "id": "top_heading", "label": "Heading", "info": "Optional — the columns often carry their own." },
+    {
+      "type": "select", "id": "text_align", "label": "Alignment", "default": "left",
+      "options": [
+        { "value": "left",   "label": "Left" },
+        { "value": "center", "label": "Centred" },
+        { "value": "right",  "label": "Right" }
+      ]
+    },
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "white",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Ivory" },
+        { "value": "mist",  "label": "Mist" },
+        { "value": "teal",  "label": "Teal" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "text_block",
+      "name": "Column",
+      "settings": [
+        {
+          "type": "select", "id": "col_dk", "label": "Width", "default": "4",
+          "info": "Out of 12. Columns stack below 900px.",
+          "options": [
+            { "value": "3",  "label": "A quarter (3)" },
+            { "value": "4",  "label": "A third (4)" },
+            { "value": "6",  "label": "Half (6)" },
+            { "value": "8",  "label": "Two thirds (8)" },
+            { "value": "9",  "label": "Three quarters (9)" },
+            { "value": "12", "label": "Full width (12)" }
+          ]
+        },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "richtext", "id": "text", "label": "Text" },
+        { "type": "checkbox", "id": "enable_image", "label": "Show an image", "default": false },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "button_label", "label": "Button label" },
+        { "type": "url", "id": "button_link", "label": "Button link" },
+        {
+          "type": "select", "id": "open_link", "label": "Open link in", "default": "_self",
+          "options": [
+            { "value": "_self",  "label": "Same tab" },
+            { "value": "_blank", "label": "New tab" }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Feature columns",
+      "blocks": [{ "type": "text_block" }, { "type": "text_block" }]
+    }
+  ]
+}
+{% endschema %}

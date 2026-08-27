@@ -1,0 +1,227 @@
+{%- comment -%}
+  about_us — a centred narrative block: heading, text, optional image, optional
+  signature, optional button. 7 uses: index, page.create, page.contact,
+  collection.engagment, collection.wedding, product.json, product.plain,
+  product.ring-products.
+
+  The underscore in the filename is the old theme's and is frozen — templates
+  ask for type `about_us`.
+
+  ON THE HOMEPAGE THIS SECTION IS EMPTY. Checked 27/08/2026: every content
+  setting on `index` is blank and the only block is a `bl_button` labelled
+  VIEW MORE pointing at /blogs/news — directly below `latest-news-EM`, which
+  already links to the same blog. So on the homepage it renders as a stray
+  button under a news grid. It is built here because six other templates use it
+  properly; **when v3's index.json is written, leave this section out.**
+  Recorded in build-state.
+
+  Block types kept, with their IDs: `bl_image` (image), `bl_text` (text),
+  `bl_sig` (image_sig), `bl_button` (button_label, button_link, open_link,
+  button_style). Order comes from the block order, so a signature can sit
+  before or after a button without a setting for it.
+
+  SETTINGS DROPPED
+    design_heading — SIXTEEN heading designs, of which the site used one.
+    heading_align, icon_heading, tophead_mb, image_ratio, image_size,
+    image_position, layout, cl_bg, cl_bg_gradient, image_bg,
+    mg / pd / mg_tb / pd_tb / mg_mb / pd_mb, use_cus_css, code_cus_css,
+    per-block mgb and mgb_mb, and on the button btn_icon / btn_size / btn_cl /
+    button_effect.
+  Also dropped: `video_url` on the image block. Its default was a T4S demo
+  YouTube link, it was never set to anything real, and an iframe embed is a
+  network request a section is not allowed to add (conventions §8). If a real
+  video is wanted here, it needs a decision about the player, not a revival.
+
+  KEPT: `top_heading`, `top_subheading`, `txt_align`.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'white'
+  assign align = s.txt_align | default: 'center'
+-%}
+
+<section class="aboutus band band--{{ band }} aboutus--{{ align }}" data-screen-label="About us">
+  <div class="wrap">
+    {%- if s.top_heading != blank or s.top_subheading != blank -%}
+      <div class="sect-head{% if align == 'start' %} sect-head--left{% endif %}">
+        {%- if s.top_heading != blank -%}
+          <h2 class="heading-flank">{{ s.top_heading }}</h2>
+        {%- endif -%}
+        {%- if s.top_subheading != blank -%}
+          <p class="lead">{{ s.top_subheading }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="aboutus__body">
+        {%- for block in section.blocks -%}
+          {%- assign b = block.settings -%}
+          {%- case block.type -%}
+
+            {%- when 'bl_image' -%}
+              {%- if b.image != blank -%}
+                <div class="aboutus__image" {{ block.shopify_attributes }}>
+                  {{ b.image | image_url: width: 1400 | image_tag:
+                     loading: 'lazy', widths: '600,900,1200,1400',
+                     sizes: '(max-width: 900px) 100vw, 1000px',
+                     alt: b.image.alt | escape }}
+                </div>
+              {%- endif -%}
+
+            {%- when 'bl_text' -%}
+              {%- if b.text != blank -%}
+                <div class="aboutus__text" {{ block.shopify_attributes }}>{{ b.text }}</div>
+              {%- endif -%}
+
+            {%- when 'bl_sig' -%}
+              {%- if b.image_sig != blank -%}
+                <div class="aboutus__sig" {{ block.shopify_attributes }}>
+                  {{ b.image_sig | image_url: width: 480 | image_tag:
+                     loading: 'lazy', widths: '240,360,480',
+                     sizes: '220px',
+                     alt: b.image_sig.alt | default: 'Signature' | escape }}
+                </div>
+              {%- endif -%}
+
+            {%- when 'bl_button' -%}
+              {%- if b.button_label != blank and b.button_link != blank -%}
+                {%- liquid
+                  assign variant = ''
+                  if b.button_style == 'outline' or b.button_style == 'bordered' or b.button_style == 'link'
+                    assign variant = ' btn--outline'
+                  endif
+                -%}
+                <div class="aboutus__action" {{ block.shopify_attributes }}>
+                  <a class="btn{{ variant }}" href="{{ b.button_link }}"
+                    {%- if b.open_link == '_blank' %} target="_blank" rel="noopener"{% endif -%}>
+                    {{ b.button_label }}
+                  </a>
+                </div>
+              {%- endif -%}
+
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+/* One column, centred by default, at the reading measure — this is narrative
+   copy, not a layout. The measure is what keeps it readable at 1320px. */
+.fye .aboutus__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s6);
+  align-items: center;
+  max-width: var(--maxw-narrow);
+  margin-inline: auto;
+  text-align: center;
+}
+.fye .aboutus--start .aboutus__body {
+  align-items: flex-start;
+  text-align: left;
+  margin-inline: 0;
+}
+.fye .aboutus--end .aboutus__body {
+  align-items: flex-end;
+  text-align: right;
+  margin-inline: auto 0;
+}
+
+/* The image is the one element allowed out to the full measure. */
+.fye .aboutus__image { width: 100%; }
+.fye .aboutus__image :where(img) { width: 100%; }
+
+.fye .aboutus__text { color: var(--ink-soft); }
+.fye .aboutus__text :where(h2, h3, h4) { color: var(--ink); margin-bottom: var(--s3); }
+.fye .aboutus__text :where(* + h2, * + h3, * + h4) { margin-top: var(--s7); }
+
+/* A handwritten signature reads as a mark, not an image: small, and never
+   stretched to the column. */
+.fye .aboutus__sig :where(img) { width: auto; max-width: 220px; }
+
+.fye .aboutus__action { margin-top: var(--s2); }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "About us",
+  "settings": [
+    { "type": "text", "id": "top_heading", "label": "Heading" },
+    { "type": "textarea", "id": "top_subheading", "label": "Subheading" },
+    {
+      "type": "select", "id": "txt_align", "label": "Alignment", "default": "center",
+      "options": [
+        { "value": "start",  "label": "Left" },
+        { "value": "center", "label": "Centred" },
+        { "value": "end",    "label": "Right" }
+      ]
+    },
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "white",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Ivory" },
+        { "value": "mist",  "label": "Mist" },
+        { "value": "teal",  "label": "Teal" },
+        { "value": "sage",  "label": "Sage" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bl_text",
+      "name": "Text",
+      "settings": [
+        { "type": "richtext", "id": "text", "label": "Text" }
+      ]
+    },
+    {
+      "type": "bl_image",
+      "name": "Image",
+      "limit": 1,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" }
+      ]
+    },
+    {
+      "type": "bl_sig",
+      "name": "Signature",
+      "limit": 1,
+      "settings": [
+        { "type": "image_picker", "id": "image_sig", "label": "Signature image", "info": "Shown at 220px wide." }
+      ]
+    },
+    {
+      "type": "bl_button",
+      "name": "Button",
+      "settings": [
+        { "type": "text", "id": "button_label", "label": "Label" },
+        { "type": "url", "id": "button_link", "label": "Link" },
+        {
+          "type": "select", "id": "button_style", "label": "Style", "default": "default",
+          "options": [
+            { "value": "default", "label": "Filled" },
+            { "value": "outline", "label": "Outline" }
+          ]
+        },
+        {
+          "type": "select", "id": "open_link", "label": "Open link in", "default": "_self",
+          "options": [
+            { "value": "_self",  "label": "Same tab" },
+            { "value": "_blank", "label": "New tab" }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About us",
+      "blocks": [{ "type": "bl_text" }, { "type": "bl_sig" }]
+    }
+  ]
+}
+{% endschema %}

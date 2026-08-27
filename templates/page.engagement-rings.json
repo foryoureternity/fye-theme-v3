@@ -1,0 +1,453 @@
+{
+  "sections": {
+    "hero": {
+      "type": "fye-hero",
+      "settings": {
+        "band": "ivory",
+        "align": "left",
+        "image": "shopify://shop_images/eng-new-2.webp",
+        "logo_url": "https://cdn.shopify.com/s/files/1/0972/5391/7056/files/temp-logo-white-1.svg?v=1771834133",
+        "logo_alt": "For Your Eternity",
+        "logo_width": 250,
+        "heading": "Engagement rings by",
+        "heading_style": "sentence",
+        "subheading": "Discover your perfect engagement ring, crafted with love, ethical materials, and timeless beauty to last a lifetime.",
+        "button_label": "View our engagement rings",
+        "button_link": "shopify://collections/engagement-rings",
+        "button2_label": "Engagement ring guide",
+        "button2_link": "shopify://pages/engagement-ring-guide"
+      }
+    },
+
+    "about_columns_four_LEFUDH": {
+      "type": "about-columns-four",
+      "blocks": {
+        "text_block_74ApTG": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/11_2ffb2c6d-eff8-43b3-b8b0-a76aea4e77b4.png",
+            "title": "Solitaire with diamond shoulders",
+            "button_label": "View our rings",
+            "button_link": "shopify://collections/solitaire"
+          }
+        },
+        "text_block_9Um8WB": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/12.png",
+            "title": "Solitaire with plain shoulders",
+            "button_label": "View our rings",
+            "button_link": "shopify://collections/solitaire"
+          }
+        },
+        "text_block_hwAaxQ": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/13.png",
+            "title": "Halo with diamond shoulders",
+            "button_label": "View our rings",
+            "button_link": "shopify://collections/halo-1"
+          }
+        },
+        "text_block_9iby6F": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/14.png",
+            "title": "Halo with plain shoulders",
+            "button_label": "View our rings",
+            "button_link": "shopify://collections/halo-1"
+          }
+        },
+        "text_block_hTMd4B": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/15.png",
+            "title": "Multistone invisible set",
+            "button_label": "View our rings",
+            "button_link": "shopify://collections/multistone-invisible"
+          }
+        },
+        "text_block_LHy8Df": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/21.png",
+            "title": "Trilogy",
+            "button_label": "View our rings",
+            "button_link": "shopify://collections/trilogy"
+          }
+        },
+        "text_block_pD6E4m": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/22.png",
+            "title": "Hidden halo",
+            "button_label": "View our rings",
+            "button_link": "shopify://collections/hidden-halo"
+          }
+        },
+        "text_block_FmFPVy": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/23.png",
+            "title": "Split shoulders",
+            "button_label": "View our rings",
+            "button_link": "shopify://collections/split-shoulders"
+          }
+        },
+        "text_block_pQamUQ": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/24.png",
+            "title": "Oyster deluxe",
+            "button_label": "View our rings",
+            "button_link": "shopify://collections/oyster-deluxe"
+          }
+        },
+        "text_block_Tfgy3L": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/25.png",
+            "title": "Coloured stones",
+            "button_label": "View our rings",
+            "button_link": "shopify://collections/coloured-engagement-ring"
+          }
+        }
+      },
+      "block_order": [
+        "text_block_74ApTG", "text_block_9Um8WB", "text_block_hwAaxQ", "text_block_9iby6F",
+        "text_block_hTMd4B", "text_block_LHy8Df", "text_block_pD6E4m", "text_block_FmFPVy",
+        "text_block_pQamUQ", "text_block_Tfgy3L"
+      ],
+      "settings": {
+        "top_heading": "Shop by ring style",
+        "col_dk": 5,
+        "band": "white"
+      }
+    },
+
+    "collections_list_feNKa9": {
+      "type": "collections-list",
+      "blocks": {
+        "collection_item_kYmGPh": {
+          "type": "collection_item",
+          "settings": { "image": "shopify://shop_images/icon101.svg", "collection_title": "Round brilliant", "collection_link": "shopify://collections/round-cut" }
+        },
+        "collection_item_AmXkj3": {
+          "type": "collection_item",
+          "settings": { "image": "shopify://shop_images/icon102.svg", "collection_title": "Oval", "collection_link": "shopify://collections/oval-cut" }
+        },
+        "collection_item_PbdCT6": {
+          "type": "collection_item",
+          "settings": { "image": "shopify://shop_images/icon103.svg", "collection_title": "Cushion", "collection_link": "shopify://collections/cushion-cut-engagement-rings" }
+        },
+        "collection_item_NUF4C9": {
+          "type": "collection_item",
+          "settings": { "image": "shopify://shop_images/icon104.svg", "collection_title": "Pear", "collection_link": "shopify://collections/pear-cut-engagement-rings" }
+        },
+        "collection_item_iBVaid": {
+          "type": "collection_item",
+          "settings": { "image": "shopify://shop_images/icon105.svg", "collection_title": "Emerald", "collection_link": "shopify://collections/emerald-cut-engagement-rings" }
+        },
+        "collection_item_xATLPa": {
+          "type": "collection_item",
+          "settings": { "image": "shopify://shop_images/icon106.svg", "collection_title": "Radiant", "collection_link": "shopify://collections/radiant-cut-engagement-rings" }
+        },
+        "collection_item_9JiBx4": {
+          "type": "collection_item",
+          "settings": { "image": "shopify://shop_images/icon107.svg", "collection_title": "Princess", "collection_link": "shopify://collections/princess-cut" }
+        },
+        "collection_item_4Nbp8E": {
+          "type": "collection_item",
+          "settings": { "image": "shopify://shop_images/icon108.svg", "collection_title": "Marquise", "collection_link": "shopify://collections/marquise-cut" }
+        },
+        "collection_item_UqgqFp": {
+          "type": "collection_item",
+          "settings": { "image": "shopify://shop_images/icon109.svg", "collection_title": "Asscher", "collection_link": "shopify://collections/asscher-cut-engagement-rings" }
+        },
+        "collection_item_76hcJM": {
+          "type": "collection_item",
+          "settings": { "image": "shopify://shop_images/icon110.svg", "collection_title": "Heart", "collection_link": "shopify://collections/heart-shaped-cut" }
+        }
+      },
+      "block_order": [
+        "collection_item_kYmGPh", "collection_item_AmXkj3", "collection_item_PbdCT6",
+        "collection_item_NUF4C9", "collection_item_iBVaid", "collection_item_xATLPa",
+        "collection_item_9JiBx4", "collection_item_4Nbp8E", "collection_item_UqgqFp",
+        "collection_item_76hcJM"
+      ],
+      "settings": {
+        "top_heading": "Shop by diamond cut",
+        "heading_mb": "Shop by shape",
+        "head_btn_label": "View all",
+        "mobile_view_all_link": "shopify://pages/diamond-shapes",
+        "col_dk": 10,
+        "band": "ivory"
+      }
+    },
+
+    "fye_mediatext_custom_eng": {
+      "type": "fye-media-text",
+      "blocks": {
+        "btn_build": {
+          "type": "button",
+          "settings": {
+            "label": "Book consultation",
+            "link": "https://calendar.app.google/UKFkGvMLzAYEviqy8",
+            "style": "btn"
+          }
+        }
+      },
+      "block_order": ["btn_build"],
+      "settings": {
+        "band": "sage",
+        "reverse": true,
+        "full_bleed": true,
+        "image": "shopify://shop_images/Ring_11.png",
+        "image_alt": "Design your own engagement ring",
+        "placeholder": "Bespoke design",
+        "heading": "Design your own engagement ring",
+        "body": "<p>Create a unique, bespoke ring that perfectly reflects your love story — crafted with ethical diamonds, sustainable metals, and expert craftsmanship.</p>"
+      }
+    },
+
+    "featured_collection_NFfNPH": {
+      "type": "featured-collection",
+      "settings": {
+        "top_heading": "Our most popular engagement rings",
+        "collection": "featured-engagement-rings",
+        "limit": 8,
+        "head_btn_label": "View all",
+        "col_dk": "4",
+        "col_mb": "2",
+        "band": "white"
+      }
+    },
+
+    "fye_guidedl_eng": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "btn_download": {
+          "type": "button",
+          "settings": {
+            "label": "View the guide",
+            "link": "shopify://pages/engagement-ring-guide",
+            "style": "btn"
+          }
+        }
+      },
+      "block_order": ["btn_download"],
+      "settings": {
+        "band": "teal",
+        "cover": "shopify://shop_images/Engagement_Ring_Cover.png",
+        "cover_alt": "The Engagement Ring Guide",
+        "cover_caption": "The Engagement Ring Guide",
+        "heading": "The Engagement Ring Guide",
+        "body": "<p>Budget, the Four Cs, diamond shapes, settings and sizing — read online or take the free PDF before you buy.</p>"
+      }
+    },
+
+    "shipping_why_eng": {
+      "type": "shipping",
+      "blocks": {
+        "shipping_CDXd6U": {
+          "type": "shipping",
+          "settings": { "illustration": "diamond", "text": "<p>Ethically sourced diamonds and materials</p>" }
+        },
+        "shipping_VVCxnM": {
+          "type": "shipping",
+          "settings": { "illustration": "pricing", "text": "<p>Competitive pricing</p>" }
+        },
+        "shipping_KaUaYF": {
+          "type": "shipping",
+          "settings": { "illustration": "rings", "text": "<p>Matching wedding rings</p>" }
+        },
+        "shipping_UJihwF": {
+          "type": "shipping",
+          "settings": { "illustration": "education", "text": "<p>Educational approach to finding you the right ring</p>" }
+        },
+        "shipping_FbFyEk": {
+          "type": "shipping",
+          "settings": { "illustration": "custom", "text": "<p>Fully customisable designs</p>" }
+        },
+        "shipping_jAAiTU": {
+          "type": "shipping",
+          "settings": { "illustration": "shipping", "text": "<p>Free, insured shipping</p>" }
+        },
+        "shipping_L4p6LB": {
+          "type": "shipping",
+          "settings": { "illustration": "resize", "text": "<p>Free resizing for one year</p>" }
+        },
+        "shipping_bVDUpk": {
+          "type": "shipping",
+          "settings": { "illustration": "warranty", "text": "<p>Lifetime warranty against manufacturing defects</p>" }
+        }
+      },
+      "block_order": [
+        "shipping_CDXd6U", "shipping_VVCxnM", "shipping_KaUaYF", "shipping_UJihwF",
+        "shipping_FbFyEk", "shipping_jAAiTU", "shipping_L4p6LB", "shipping_bVDUpk"
+      ],
+      "settings": {
+        "top_heading": "Why choose For Your Eternity?",
+        "col_dk": "4",
+        "band": "white"
+      }
+    },
+
+    "fye_mediatext_consult_eng": {
+      "type": "fye-media-text",
+      "blocks": {
+        "btn_book": {
+          "type": "button",
+          "settings": {
+            "label": "Book consultation",
+            "link": "https://calendar.app.google/UKFkGvMLzAYEviqy8",
+            "style": "btn"
+          }
+        }
+      },
+      "block_order": ["btn_book"],
+      "settings": {
+        "band": "sage",
+        "reverse": true,
+        "full_bleed": true,
+        "image": "shopify://shop_images/fffg1_1.png",
+        "image_alt": "Ring presented for a personalised consultation",
+        "placeholder": "Consultation photo",
+        "eyebrow": "Your forever begins here",
+        "heading": "Book a personalised consultation",
+        "body": "<ul><li>Ensure you choose the right ring</li><li>Discover different ring styles</li><li>Pick the right ring for your budget</li><li>Find out how to choose the correct size</li></ul>"
+      }
+    },
+
+    "accordion_faq_eng": {
+      "type": "accordion",
+      "blocks": {
+        "accor_item_VeDG49": {
+          "type": "accor_item",
+          "settings": {
+            "title": "What makes your wedding and engagement rings ethical?",
+            "content": "<p>At For Your Eternity, we are committed to ethical sourcing and responsible practices. Our rings are crafted using conflict-free or lab-grown diamonds, responsibly sourced or recycled precious metals, and sustainable materials wherever possible. We adhere to the Kimberley Process Certification Scheme (KPCS) and the World Diamond Council System of Warranties (SoW) to ensure all our diamonds are ethically obtained. Additionally, we work only with trusted suppliers who meet strict environmental and human rights standards.</p>"
+          }
+        },
+        "accor_item_fJztLh": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Do you offer custom ring designs?",
+            "content": "<p>Yes! We offer a <strong>fully bespoke ring design service</strong>, allowing you to create a one-of-a-kind engagement or wedding ring. Our experts will guide you through the process, from selecting the perfect diamond or gemstone to designing a setting that reflects your unique style. Whether you want a modern, classic, or vintage-inspired design, we can bring your vision to life.</p>"
+          }
+        },
+        "accor_item_CCxVkg": {
+          "type": "accor_item",
+          "settings": {
+            "title": "How long does it take to receive a custom wedding or engagement ring?",
+            "content": "<p>Custom rings typically take 4–6 weeks from the date of design approval to completion. However, this timeframe can vary depending on the complexity of the design, material availability, and any additional customisation requests. If you need a ring by a specific date, please contact us, and we’ll do our best to accommodate your timeline.</p>"
+          }
+        },
+        "accor_item_idpd9i": {
+          "type": "accor_item",
+          "settings": {
+            "title": "What is your return policy?",
+            "content": "<p>We want you to love your ring, and we stand by the quality of our craftsmanship. However, due to the personalised nature of engagement and wedding rings, we can only accept returns in the following circumstances:</p><ul><li>Custom, bespoke, or made-to-order rings are non-returnable and non-refundable.</li><li>Ready-to-wear rings can be returned within 30 days of purchase, provided they are unworn, in original packaging, and in resalable condition.</li><li>If there is a manufacturing defect or the ring does not match the agreed specifications, we will replace or repair it free of charge.</li></ul><p>To initiate a return, please email <a href=\"mailto:hello@foryoureternity.com\">hello@foryoureternity.com</a> with your order details.</p>"
+          }
+        },
+        "accor_item_e4XNEX": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Are your diamonds certified?",
+            "content": "<p>Yes, all our natural and lab-grown diamonds come with independent certification from leading gemological institutes, such as the Gemological Institute of America (GIA) and International Gemological Institute (IGI). This certification guarantees the diamond’s authenticity and provides a detailed analysis of its cut, colour, clarity, and carat weight.</p>"
+          }
+        },
+        "accor_item_edNx8a": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Do you offer matching wedding bands?",
+            "content": "<p>Absolutely! We can create perfectly matching wedding bands to complement your engagement ring. Whether you want a classic plain band, diamond-set band, or a custom-fitted design, we’ll ensure your wedding band sits seamlessly alongside your engagement ring. We can also design bands to match rings purchased elsewhere — simply book a consultation to discuss your options.</p>"
+          }
+        },
+        "accor_item_HAVMmt": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Do you offer financing or payment plans?",
+            "content": "<p>Yes, we offer flexible financing and payment plans to help make your dream ring more affordable. Our options may include:</p><ul><li>Interest-free instalments</li><li>Buy now, pay later options</li><li>Custom payment schedules for bespoke pieces</li></ul><p>Please contact us at <a href=\"mailto:hello@foryoureternity.com\">hello@foryoureternity.com</a> for details on available financing options and eligibility requirements.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "accor_item_VeDG49", "accor_item_fJztLh", "accor_item_CCxVkg", "accor_item_idpd9i",
+        "accor_item_e4XNEX", "accor_item_edNx8a", "accor_item_HAVMmt"
+      ],
+      "settings": {
+        "top_heading": "Frequently asked questions",
+        "left_heading": "Have more questions to ask?",
+        "left_text": "<p>We’re here to help. If you have any questions about our rings, designs, or ethical sourcing, feel free to reach out — our experts are happy to guide you.</p>",
+        "left_btn": "Enquire now",
+        "left_url": "shopify://pages/contact",
+        "emit_schema": true,
+        "band": "white"
+      }
+    },
+
+    "fye_mediatext_guarantee_eng": {
+      "type": "fye-media-text",
+      "settings": {
+        "band": "mist",
+        "full_bleed": true,
+        "image": "shopify://shop_images/Ring_211_5.png",
+        "image_alt": "Hand wearing a For Your Eternity ring",
+        "placeholder": "Hand with ring",
+        "heading": "The For Your Eternity guarantee",
+        "body": "<ul><li>GIA & IGI certified diamonds</li><li>Ethical, conflict free gemstones & precious metals</li><li>20% discount on your engagement ring for returning customers</li><li>Free insured delivery</li><li>Complimentary resizing for one year</li><li>Complimentary cleaning for life</li><li>Lifetime warranty against manufacturing defects</li></ul>"
+      }
+    },
+
+    "fye_consultation_eng": {
+      "type": "fye-consultation",
+      "blocks": {
+        "contact_phone": {
+          "type": "contact",
+          "settings": { "type": "phone", "label": "0208 178 6687" }
+        },
+        "contact_email": {
+          "type": "contact",
+          "settings": { "type": "email", "label": "hello@foryoureternity.com" }
+        },
+        "contact_whatsapp": {
+          "type": "contact",
+          "settings": { "type": "whatsapp", "label": "WhatsApp", "link": "https://wa.me/447840042922" }
+        }
+      },
+      "block_order": ["contact_phone", "contact_email", "contact_whatsapp"],
+      "settings": {
+        "band": "teal",
+        "eyebrow": "Personal guidance",
+        "heading": "Still unsure where to start?",
+        "lead": "Book a free consultation — in person, by phone or video.",
+        "btn_label": "Book a free consultation",
+        "btn_link": "https://calendar.app.google/UKFkGvMLzAYEviqy8"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "about_columns_four_LEFUDH",
+    "collections_list_feNKa9",
+    "fye_mediatext_custom_eng",
+    "featured_collection_NFfNPH",
+    "fye_guidedl_eng",
+    "shipping_why_eng",
+    "fye_mediatext_consult_eng",
+    "accordion_faq_eng",
+    "fye_mediatext_guarantee_eng",
+    "fye_consultation_eng"
+  ]
+}

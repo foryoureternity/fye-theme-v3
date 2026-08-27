@@ -1,0 +1,245 @@
+# FYE v3 — code conventions
+
+**Read this before writing a single line in this theme.** It exists so that a
+section written in six months' time is indistinguishable from one written on day
+one. Where this document and a personal preference disagree, this document wins.
+
+Companion files: `build-state.md` (what is built, what is next),
+`architecture.md` (why the structure is as it is).
+
+---
+
+## 1. File anatomy
+
+Every section file, in this order, with nothing else between:
+
+```liquid
+{%- comment -%}
+  <name> — <one line on what it is>
+
+  <How many templates use it, if it is a port.>
+  <What changed from the old theme, and why. Measured values, if any.>
+  <Anything a future editor would otherwise break.>
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  ... all computation here, none in the markup ...
+-%}
+
+<section class="band band--ivory" data-screen-label="Human name">
+  ...
+</section>
+
+{% stylesheet %}
+...
+{% endstylesheet %}
+
+{% schema %}
+...
+{% endschema %}
+```
+
+Rules:
+
+- **One `{%- liquid -%}` block at the top does all the thinking.** Markup
+  contains lookups and loops, never arithmetic, string building or branching
+  beyond a simple `if`.
+- **`{% stylesheet %}` and `{% schema %}` at the bottom, in that order.** Never
+  a `<style>` tag, never an external per-section CSS file, never
+  `{{ 'thing.css' | asset_url | stylesheet_tag }}`. Shopify concatenates
+  `{% stylesheet %}` blocks into one file — that is the whole point.
+- **`{% javascript %}` blocks are not used.** All JS lives in
+  `assets/fye-ui.js`. See §6.
+- No `<script>` tag inside a section, ever.
+
+## 2. Naming
+
+**Section and snippet filenames are frozen.** They keep the old theme's names
+exactly — `heading-template`, `main-page`, `header-bottom`, `about_us`,
+underscores and inconsistencies and all — because 140 JSON templates reference
+them by type name. A rename means re-entering content by hand on every page.
+The same applies to **block type names** (`"1"`, `"2"`, `mega`, `base`, `links`)
+and **setting IDs**.
+
+New files, where nothing constrains us: lowercase, hyphenated,
+`fye-` prefix for FYE-original sections (`fye-hero`, `fye-cards`).
+
+**CSS classes** are BEM-lite on a short section prefix:
+
+```
+.hdr            .hdr__contact-link          .hdr__nav-link.is-active
+.ftr            .ftr__head   .ftr__head--sm
+.pbanner        .pbanner__title             .pbanner--image
+```
+
+- Prefix is an abbreviation of the section, 3–8 characters. One per section.
+- `__element`, `--modifier`, `.is-state` for runtime state.
+- Never a utility soup of single-purpose classes. Never a class that names an
+  appearance (`.blue-box`, `.mt-40`) — name the role.
+- Shared vocabulary lives in `fye-core.css` and is used unprefixed:
+  `.band`, `.wrap`, `.btn`, `.card`, `.panel`, `.grid`, `.stack`, `.row`,
+  `.eyebrow`, `.lead`, `.prose`, `.sect-head`, `.heading-flank`, `.icon`,
+  `.crumbs`, `.visually-hidden`. **Check this list before inventing anything.**
+
+## 3. CSS
+
+- **`assets/fye-core.css` is the only file that defines a colour, spacing value,
+  type size, breakpoint or duration.** Sections consume `var(--*)`. A section
+  that needs a value not in the token set either uses the nearest token or the
+  token set gains it — never a stray literal.
+- **The one exception is measured chrome.** Header and footer were matched
+  pixel-for-pixel against the live site, so they carry literals with the
+  measurement recorded in a comment. That licence extends to nothing else.
+- **Selectors are `.fye .thing`.** Base rules in `fye-core.css` are wrapped in
+  `:where()` so they carry zero specificity; a section overrides them by simply
+  stating intent. Two classes is the ceiling. No `!important`, no `#id`, no
+  `>`-chains three deep.
+- **Never key a selector to `template--<digits>` or `.shopify-section-<id>`.**
+  Both are regenerated when a theme is duplicated. This broke the old theme
+  nine times.
+- **No vertical padding in sections.** Rhythm comes from `--sect-y` via
+  `.band`. A section wanting a tighter rhythm sets the *variable*
+  (`.band--tight`), never a `padding` declaration.
+- **Sibling spacing is `gap`, not margins.** `display: flex` / `grid` with
+  `gap:` — never `margin-right` on every child, never `:last-child` resets.
+- **Three breakpoints. That is the whole set:**
+  `900` grid collapse · `749` tables · `560` full stack.
+  Neighbouring sections must reflow at the same points. A fourth breakpoint
+  means the layout is wrong, not that the set is too small.
+- Squared corners: `--radius: 0`. Do not add a border-radius.
+- Structure is carried by hairlines (`var(--hairline)`), not shadows.
+- Motion: `var(--dur)` / `var(--ease)`, colour and opacity only. No bounce, no
+  springs, no infinite loops. Respect `prefers-reduced-motion` — `fye-core.css`
+  already does globally.
+- Inline `style=""` in markup is allowed **only** for a value Liquid computes
+  at render time and CSS cannot know: a background image URL, a percentage
+  overlay, a grid column count. Never for a static colour or spacing value.
+
+### Colour and contrast
+
+Two text levels per ground — full (`--ink` / `--on-dark`) and soft
+(`--ink-soft` / `--on-dark-soft`). **There is deliberately no third level.** If
+something must recede further, make it smaller or give it more space; never
+lighter.
+
+Before putting text on a new ground, compute the ratio by compositing in sRGB.
+Do not quote a figure you have not calculated — an unverified number in a
+comment misleads every later decision. Body text needs 4.5:1. The measured
+figures for every existing pairing are in `fye-core.css`.
+
+## 4. Liquid
+
+- Whitespace control on every tag that isn't emitting content: `{%- -%}`.
+- `assign s = section.settings` at the top; then `s.thing`. Same for
+  `b = block.settings` inside a long loop.
+- Use `default:` rather than an `if` for fallbacks: `s.heading | default: page.title`.
+- `{{ block.shopify_attributes }}` on **every** block wrapper. Without it the
+  theme editor cannot select or reorder that block.
+- `data-screen-label="Human name"` on each section's root element.
+- Images: always `image_url: width: N` with an explicit width, then
+  `image_tag`. `loading: 'eager'` above the fold, `'lazy'` everywhere else.
+  Never a bare `{{ image.src }}`.
+- Money: `| money`. Never hand-formatted. Never a hardcoded `£`.
+- Text a shopper can read comes from a setting or a locale key, never a literal
+  in the markup — except where the string is structural (`Home` in a
+  breadcrumb).
+- `{% render %}` only. Never `{% include %}` (deprecated, leaks scope).
+- Snippets take explicit named parameters. A snippet that reaches for
+  `section.settings` from inside is a bug.
+
+## 5. Schema
+
+- Settings in the order a human configures them: content first, then layout,
+  then background, then advanced. `{ "type": "header" }` to group.
+- **Labels are sentence case, UK English.** "Background image", not
+  "Background Image" or "+ Background image".
+- `info` only where the control is genuinely ambiguous. Not on every field.
+- **Expose the minimum that a human needs.** The old theme's failure mode was
+  a section exposing font family, size, line-height, weight, tracking, italic,
+  uppercase, shadow and margin — desktop and mobile separately — on every block.
+  Forty-seven pages each setting those independently is what "inconsistent"
+  means. Typography and rhythm come from the design system, not the customiser.
+- Offer a **palette choice**, never a free colour picker. `select` with
+  ivory / white / mist / teal, not `{ "type": "color" }`.
+- No custom-CSS textarea. No custom-HTML box. Those are how the old theme
+  accumulated 27 blocks of unstyleable hand-pasted markup.
+- Every section that can be added freely gets a `presets` entry.
+- Ranges: sensible `step`, always a `unit`.
+
+## 6. JavaScript
+
+- **One file: `assets/fye-ui.js`.** No per-section scripts, no inline
+  `<script>`, no `{% javascript %}` blocks.
+- Vanilla. No jQuery, no framework, no build step. The old theme's 535KB T4S
+  core is what we are removing.
+- **Everything is delegated from `document`**, so markup added later — a
+  section re-render in the theme editor, an AJAX load — works without
+  re-binding. Add behaviour as a small named function inside the existing
+  click/keydown listeners.
+- Hooks are `data-fye-*` attributes, never classes, never IDs:
+  `data-fye-drawer`, `data-fye-drawer-open`, `data-fye-top`, `data-fye-toggle`.
+  CSS classes are for styling; data attributes are for behaviour.
+- State is a class on the element (`.is-open`), toggled by JS and styled by CSS.
+  JS never writes `style.*` except where the value is genuinely computed.
+- Keep `aria-expanded`, `aria-controls` and focus in sync when toggling.
+  `Escape` closes anything that opens.
+- No dependency on jQuery-style DOM readiness — the file is deferred.
+- If a feature needs more than ~40 lines, it gets its own named function with a
+  comment saying what it is for. If it needs a library, ask first.
+
+## 7. Accessibility
+
+- One `<h1>` per page, from the page banner. Headings descend without skipping.
+- Interactive targets: 44px minimum on mobile. Desktop icon buttons may be
+  41×44 (measured chrome) but never smaller.
+- Every icon-only control has an `aria-label`. Decorative SVG gets
+  `aria-hidden="true"`.
+- Visible focus everywhere — `--focus-ring` is set globally; do not remove
+  outlines.
+- Form fields have a real `<label>`; `.visually-hidden` when the design has no
+  room for it. Placeholders are not labels.
+- Semantic elements: `<nav>`, `<header>`, `<footer>`, `<button>` for actions,
+  `<a>` for navigation. Never a `<div>` with a click handler.
+
+## 8. Performance
+
+- Two typefaces, self-hosted, woff2, `font-display: swap`. Outfit is a single
+  variable file. **No third font, no Google Fonts request.**
+- No icon font. All icons are inline SVG via `snippets/icon.liquid`.
+- No CSS framework, no reset library, no polyfill.
+- Section CSS goes in `{% stylesheet %}` so Shopify serves one concatenated
+  file. A section must not add a network request.
+- Images: explicit `width`, lazy below the fold, and a `srcset` wherever the
+  rendered size varies materially.
+- Nothing render-blocking below `<head>`.
+
+## 9. Comments
+
+Comment **why**, never what. `/* 32px, measured */` earns its place;
+`/* set the colour */` does not.
+
+Every section's opening comment answers: what is this, how many templates use
+it, what changed from the old theme and why, and what would a future editor
+break if they did not know. Where a value was measured rather than chosen, say
+so and say against what — otherwise someone will "tidy" it into a token and
+silently break the match.
+
+Where this theme deliberately departs from the brand book or the design system,
+say so in the file, with the reasoning and the measurement. There are two such
+departures so far: the sage band ground in `fye-core.css`, and the teal-on-sage
+footer.
+
+## 10. Definition of done, per section
+
+1. Type name and setting IDs match the old theme, or the change is deliberate
+   and recorded.
+2. No literal colours, sizes or spacings outside `fye-core.css` — unless
+   measured, and then commented as such.
+3. No vertical padding declaration; rhythm via `--sect-y`.
+4. Reflows correctly at 900 / 749 / 560 alongside its neighbours.
+5. Keyboard reachable, focus visible, labels present.
+6. `shopify_attributes` on every block; `data-screen-label` on the root.
+7. Schema exposes only what a human needs, in a sensible order, sentence case.
+8. Opening comment explains the port and any measurement.
+9. Renders with empty settings and with no blocks — no Liquid errors, no
+   collapsed layout.

@@ -2,6 +2,14 @@
 
 Last updated: 27/08/2026
 
+## Read first
+
+1. **`conventions.md`** — how to write code in this theme. File anatomy, CSS,
+   Liquid, schema, JS, accessibility, comments, definition of done. Read it
+   before writing anything, every session.
+2. **`architecture.md`** — why the structure is as it is.
+3. This file — what is built, what is next.
+
 ## What this is
 
 A ground-up rebuild of the For Your Eternity Shopify theme as a standalone
@@ -16,24 +24,27 @@ templates keep working — but written fresh, consistent and small.
   Shopify pulls from GitHub automatically.
 - **Shopify theme:** `fye-theme-v3/main`, id `197720146304`, UNPUBLISHED.
   Preview: `https://foryoureternity.com/?preview_theme_id=197720146304`
-  Clear the sticky cookie afterwards with `?preview_theme_id=` (empty).
+  Clear the sticky cookie afterwards with `?preview_theme_id=` (empty) — a
+  stale one once made the live site look completely unstyled.
 - **Do not** write to the theme via the Shopify API — it is GitHub-connected
   and direct writes conflict with the sync.
+- **The old theme is readable** at `~/Dropbox/GIT-repositaries/fye-shopify-theme`.
+  Read it for structure and setting IDs; do not copy its code.
 
-## Non-negotiables
+## The seven non-negotiables
 
-1. `assets/fye-core.css` is the ONLY file that defines a colour, spacing value,
-   type size or breakpoint. Sections consume tokens; they never redefine.
+Full detail in `conventions.md`. In brief:
+
+1. `assets/fye-core.css` is the ONLY file defining a colour, spacing value,
+   type size or breakpoint.
 2. No section sets its own vertical padding. Rhythm comes from `--sect-y`.
-   A section wanting a different rhythm sets the VARIABLE, not `padding`.
-3. Base rules are wrapped in `:where()` (zero specificity). Sections override
-   by stating intent on a `.fye .thing` selector. No `!important`.
+3. Base rules are `:where()` (zero specificity); sections override by stating
+   intent. No `!important`.
 4. Three breakpoints only: 900 / 749 / 560.
-5. Never key a selector to `template--<digits>` — it is regenerated on every
-   theme duplication. This broke the old theme nine times.
-6. Squared corners throughout (`--radius: 0`). The only curves in the brand are
-   the logo flourish and the monogram oval.
-7. UK English. No emoji. Thin outline icons only, via `snippets/icon.liquid`.
+5. Never key a selector to `template--<digits>` — regenerated on every theme
+   duplication, and it broke the old theme nine times.
+6. Squared corners throughout (`--radius: 0`).
+7. UK English, no emoji, thin outline icons only via `snippets/icon.liquid`.
 
 ## Built and signed off
 

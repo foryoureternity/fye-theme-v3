@@ -57,6 +57,7 @@
   {{ 'fye-core.css' | asset_url | stylesheet_tag }}
 
   {{ content_for_header }}
+  {% render 'schema-org' %}
 </head>
 
 {%- comment -%}

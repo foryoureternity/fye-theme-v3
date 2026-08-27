@@ -3,13 +3,480 @@
     "hero": {
       "type": "fye-hero",
       "settings": {
-        "heading": "Timeless engagement rings",
-        "subheading": "Designed with you, to last for your eternity",
-        "button_label": "Create your own",
-        "button_link": "/pages/create-your-own-ring",
+        "band": "ivory",
+        "align": "left",
+        "image": "shopify://shop_images/home_hero_39bd9050-faac-46b0-91e8-720cbd66a74a.webp",
+        "logo_url": "https://cdn.shopify.com/s/files/1/0972/5391/7056/files/temp-logo-white-1.svg?v=1771834133",
+        "logo_alt": "For Your Eternity",
+        "logo_width": 250,
+        "heading": "Beautifully made engagement rings, wedding rings and fine jewellery, ethically sourced, fairly priced.",
+        "heading_style": "sentence",
+        "subheading": "Ethical diamonds, personal guidance and bespoke craftsmanship from a London jeweller.",
+        "button_label": "Shop engagement rings",
+        "button_link": "shopify://pages/engagement-rings",
+        "button2_label": "Shop wedding rings",
+        "button2_link": "shopify://pages/wedding-rings",
+        "link_label": "Or book a free London or online consultation",
+        "link_url": "https://calendar.app.google/UKFkGvMLzAYEviqy8"
+      }
+    },
+
+    "fye_trust_strip_home": {
+      "type": "fye-trust-strip",
+      "blocks": {
+        "point_certified": {
+          "type": "point",
+          "settings": {
+            "icon": "certified",
+            "label": "Independently certified",
+            "sub": "GIA & IGI certified diamonds"
+          }
+        },
+        "point_fair": {
+          "type": "point",
+          "settings": {
+            "icon": "fair",
+            "label": "Fair & transparent",
+            "sub": "Direct pricing, no retail markups"
+          }
+        },
+        "point_guidance": {
+          "type": "point",
+          "settings": {
+            "icon": "guidance",
+            "label": "Personal guidance",
+            "sub": "1-on-1 consultations with London jewellers"
+          }
+        },
+        "point_riskfree": {
+          "type": "point",
+          "settings": {
+            "icon": "risk-free",
+            "label": "Risk-free purchasing",
+            "sub": "Free insured delivery & 1st-year resizing"
+          }
+        }
+      },
+      "block_order": ["point_certified", "point_fair", "point_guidance", "point_riskfree"],
+      "settings": {
+        "band": "white"
+      }
+    },
+
+    "feature_columns2_A486RK": {
+      "type": "feature_columns2",
+      "blocks": {
+        "text_block_VY9JKk": {
+          "type": "text_block",
+          "settings": {
+            "col_dk": "3",
+            "enable_image": true,
+            "image": "shopify://shop_images/FYE-initial-logo-light_1.png"
+          }
+        },
+        "text_block_P8TPry": {
+          "type": "text_block",
+          "settings": {
+            "col_dk": "8",
+            "title": "Why choose For Your Eternity?",
+            "text": "<p>At For Your Eternity, we offer ethically crafted engagement and wedding rings that combine exceptional quality, timeless design, and fair pricing. With ethical diamonds, both natural and lab-grown, and sustainable metals, a transparent and educational approach, and bespoke or ready-to-wear options, we make finding the perfect ring an effortless and meaningful experience.<br/>As a London-based jeweller, we offer in-person consultations across London and online appointments wherever you are.</p>"
+          }
+        }
+      },
+      "block_order": ["text_block_VY9JKk", "text_block_P8TPry"],
+      "settings": {
+        "text_align": "left",
+        "band": "white"
+      }
+    },
+
+    "fye_two_ways_wdDULb": {
+      "type": "fye-two-ways",
+      "blocks": {
+        "point_a_YiYbDV": {
+          "type": "point_a",
+          "settings": { "text": "Over 3,000 rings, configurable by metal, size and centre stone" }
+        },
+        "point_a_kkeCXY": {
+          "type": "point_a",
+          "settings": { "text": "Order online today, no appointment needed" }
+        },
+        "point_a_KDzAiU": {
+          "type": "point_a",
+          "settings": {
+            "text": "Free insured delivery",
+            "short": "Free insured delivery, resizing for the first year, lifetime warranty"
+          }
+        },
+        "point_a_GET8UM": {
+          "type": "point_a",
+          "settings": { "text": "Complimentary resizing for the first year", "hide_mobile": true }
+        },
+        "point_a_GVQnne": {
+          "type": "point_a",
+          "settings": { "text": "Lifetime warranty", "hide_mobile": true }
+        },
+        "point_b_NP4tQc": {
+          "type": "point_b",
+          "settings": {
+            "text": "Free, always",
+            "short": "Free, always. 20 minutes to start, and as long as it takes after that"
+          }
+        },
+        "point_b_mLpUK6": {
+          "type": "point_b",
+          "settings": { "text": "20 minutes to start, and as long as it takes after that", "hide_mobile": true }
+        },
+        "point_b_gChC9k": {
+          "type": "point_b",
+          "settings": { "text": "In person in London, or by video, phone or WhatsApp" }
+        },
+        "point_b_xNcR4h": {
+          "type": "point_b",
+          "settings": {
+            "text": "You speak to us, not a call centre",
+            "short": "You speak to us, not a call centre. No obligation"
+          }
+        },
+        "point_b_8jYhhK": {
+          "type": "point_b",
+          "settings": { "text": "No obligation, no pressure", "hide_mobile": true }
+        }
+      },
+      "block_order": [
+        "point_a_YiYbDV", "point_a_kkeCXY", "point_a_KDzAiU", "point_a_GET8UM", "point_a_GVQnne",
+        "point_b_NP4tQc", "point_b_mLpUK6", "point_b_gChC9k", "point_b_xNcR4h", "point_b_8jYhhK"
+      ],
+      "settings": {
+        "ground": "ivory",
+        "eyebrow": "Two ways to buy",
+        "heading": "Buy direct, or talk it through with us first",
+        "subline": "Order online whenever you are ready, or speak to us first and take as long as you need.",
+        "card_a_title": "Buy direct",
+        "card_a_lede": "Everything on the site is ready to order today.",
+        "card_a_cta_label": "Shop rings",
+        "card_a_cta_link": "shopify://collections/engagement-rings",
+        "card_b_title": "Talk it through first",
+        "card_b_lede": "A free conversation with us before you decide anything.",
+        "card_b_cta_label": "Book a free consultation",
+        "card_b_cta_link": "https://calendar.app.google/UKFkGvMLzAYEviqy8",
+        "card_b_popup": false
+      }
+    },
+
+    "custom_collections_cq7kaN": {
+      "type": "custom-collections",
+      "settings": {
+        "left_image": "shopify://shop_images/nectar871.png",
+        "left_heading": "Engagement rings",
+        "left_btn": "View our rings",
+        "left_link": "shopify://collections/engagement-rings",
+        "top_image": "shopify://shop_images/womens-wedding-ring.webp",
+        "top_heading": "Wedding rings",
+        "top_btn": "View our rings",
+        "top_link": "shopify://collections/wedding-rings",
+        "bottom_image": "shopify://shop_images/Ring_211_5.png",
+        "bottom_heading": "Eternity rings",
+        "bottom_btn": "View our rings",
+        "bottom_link": "shopify://collections/eternity-rings",
+        "ground": "white"
+      }
+    },
+
+    "fye_testimonials_WTRaAj": {
+      "type": "fye-testimonials",
+      "blocks": {
+        "testimonial_YWNeHc": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>The entire process was informative, with helpful guidence, lots of ideas and resulting in delivery of the very moment I had hoped. For your eternity is the place to start your special moments without doubt. Incredible quality and the correct asnwer !</p>",
+            "name": "Matthew C.",
+            "context": "Engagement ring",
+            "rating": 5
+          }
+        },
+        "testimonial_3QkATh": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>Expert and friendly guidance through out the process. I ended up with a beautiful ring both me and my partner love. would recommend highly to anyone.</p>",
+            "name": "James G.",
+            "context": "Engagement ring",
+            "rating": 5
+          }
+        },
+        "testimonial_Rhnrrc": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>Trustworthy, reliable and attentive - exactly what we wanted and delivered in time for the big day - thank you Ed. Great service</p>",
+            "name": "Azeem A.",
+            "context": "Pair of wedding rings",
+            "rating": 5
+          }
+        },
+        "testimonial_qLjif4": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>From the first email to the final fitting, the team made designing my engagement ring feel effortless. The lab-grown diamond is breathtaking and the craftsmanship is beyond anything I expected.</p>",
+            "name": "Eleanor R.",
+            "context": "Engagement ring",
+            "rating": 5
+          }
+        },
+        "testimonial_3tEreq": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>We wanted matching wedding bands that felt personal, and For Your Eternity delivered exactly that. The attention to detail and the gentle, unhurried guidance made the whole process a joy.</p>",
+            "name": "James & Priya",
+            "context": "A pair of wedding rings",
+            "rating": 5
+          }
+        },
+        "testimonial_RVhzLU": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>I was nervous buying a ring online, but the transparency around the stone and the lifetime guarantee put me completely at ease. It arrived beautifully packaged and even more stunning in person.</p>",
+            "name": "Marcus T.",
+            "context": "Solitaire engagement ring",
+            "rating": 5
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_YWNeHc", "testimonial_3QkATh", "testimonial_Rhnrrc",
+        "testimonial_qLjif4", "testimonial_3tEreq", "testimonial_RVhzLU"
+      ],
+      "settings": {
+        "heading": "Testimonials",
+        "avg_rating": "4.9/5",
+        "enable_autoplay": true,
+        "autoplay_seconds": 5.5,
+        "transition_ms": 500,
         "band": "ivory"
+      }
+    },
+
+    "featured_collection_PHLfPD": {
+      "type": "featured-collection",
+      "settings": {
+        "top_heading": "Our most popular rings",
+        "collection": "featured-engagement-rings",
+        "limit": 4,
+        "head_btn_label": "View all",
+        "col_dk": "4",
+        "col_mb": "2",
+        "band": "white"
+      }
+    },
+
+    "fye_mediatext_designed_home": {
+      "type": "fye-media-text",
+      "blocks": {
+        "btn_enquiry": {
+          "type": "button",
+          "settings": {
+            "label": "Start a bespoke enquiry",
+            "style": "btn",
+            "trigger_class": "open-design-your-own"
+          }
+        }
+      },
+      "block_order": ["btn_enquiry"],
+      "settings": {
+        "band": "sage",
+        "reverse": true,
+        "full_bleed": true,
+        "image": "shopify://shop_images/Ring_11.png",
+        "image_alt": "Bespoke ring design",
+        "placeholder": "Bespoke design",
+        "eyebrow": "Bespoke design",
+        "heading": "Designed with you",
+        "body": "<p>Tell us what you have in mind. We'll source the perfect stone, refine the design, and craft your ring in London.</p><p><em>Every commission is guided personally by our founder — from first sketch to final polish.</em></p>"
+      }
+    },
+
+    "fye_gallery_promo_home": {
+      "type": "fye-gallery-promo",
+      "blocks": {
+        "set_1": {
+          "type": "set",
+          "settings": {
+            "image_lead": "shopify://shop_images/teal-sapphire-engagement-ring-platinum-marquise-diamonds.jpg",
+            "image_top": "shopify://shop_images/curved-wedding-ring-pair-18ct-yellow-gold-matt-finish.jpg",
+            "image_bottom": "shopify://shop_images/emerald-cut-diamond-and-marquise-emerald-pendant-platinum.jpg",
+            "link": "shopify://pages/jewellery-gallery"
+          }
+        },
+        "set_2": {
+          "type": "set",
+          "settings": {
+            "image_lead": "shopify://shop_images/oval-diamond-solitaire-18ct-yellow-gold-diamond-set-shoulders.jpg",
+            "image_top": "shopify://shop_images/platinum-grain-set-and-white-gold-court-wedding-ring-pair.jpg",
+            "image_bottom": "shopify://shop_images/emerald-and-tanzanite-wedding-rings-18ct-yellow-and-white-gold.jpg",
+            "link": "shopify://pages/jewellery-gallery"
+          }
+        },
+        "set_3": {
+          "type": "set",
+          "settings": {
+            "image_lead": "shopify://shop_images/001-oval-solitaire-yellow-gold-2-17ct-photo-2-three-quarter.jpg",
+            "image_top": "shopify://shop_images/curved-diamond-set-platinum-wedding-ring.jpg",
+            "image_bottom": "shopify://shop_images/platinum-diamond-and-emerald-pendant-on-chain.jpg",
+            "link": "shopify://pages/jewellery-gallery"
+          }
+        }
+      },
+      "block_order": ["set_1", "set_2", "set_3"],
+      "settings": {
+        "eyebrow": "From our workshop",
+        "heading": "<p>Pieces we've<br/>already made</p>",
+        "body": "<p>Engagement rings, wedding pairs and pendants we've made for our clients — some chosen from our collections, some designed from scratch, most somewhere in between. Use the gallery to see what's possible, then tell us where you'd like to start.</p>",
+        "cta_label": "View the gallery",
+        "cta_link": "shopify://pages/jewellery-gallery",
+        "rotate_seconds": 5,
+        "ground": "white"
+      }
+    },
+
+    "fye_mediatext_guarantee_home": {
+      "type": "fye-media-text",
+      "settings": {
+        "band": "mist",
+        "full_bleed": true,
+        "image": "shopify://shop_images/Ring_211_5.png",
+        "image_alt": "Hand wearing a For Your Eternity ring",
+        "placeholder": "Hand with ring",
+        "heading": "The For Your Eternity guarantee",
+        "body": "<ul><li>GIA & IGI certified diamonds</li><li>Ethical, conflict free gemstones & precious metals</li><li>10% discount on your wedding ring for returning customers</li><li>Free insured delivery</li><li>Complimentary resizing for one year</li><li>Complimentary cleaning for life</li><li>Lifetime warranty against manufacturing defects</li></ul>"
+      }
+    },
+
+    "guide_download_block_HFUQjC": {
+      "type": "guide-download-block",
+      "blocks": {
+        "guide_nqMpEg": {
+          "type": "guide",
+          "settings": {
+            "show": true,
+            "cover": "shopify://shop_images/Engagement_Ring_Cover.png",
+            "title": "The Engagement Ring Guide",
+            "klaviyo_form_id": "V9eDYg",
+            "blurb": "Budget, the Four Cs, diamond shapes, settings, sizing and bespoke design."
+          }
+        },
+        "guide_EcHX78": {
+          "type": "guide",
+          "settings": {
+            "show": true,
+            "cover": "shopify://shop_images/Plain_Wedding_Cover.png",
+            "title": "The Plain Wedding Ring Guide",
+            "klaviyo_form_id": "XMzNMS",
+            "blurb": "Profiles, metals, finishes, shaped-to-fit bands and matched pairs."
+          }
+        },
+        "guide_E4wjqh": {
+          "type": "guide",
+          "settings": {
+            "show": true,
+            "cover": "shopify://shop_images/Diamond_Ring_Guide.png",
+            "title": "The Diamond Wedding Ring Guide",
+            "klaviyo_form_id": "Rch5bG",
+            "blurb": "Eternity rings, setting styles, shaped-to-fit bands and everyday wear."
+          }
+        },
+        "guide_kfKxhB": {
+          "type": "guide",
+          "settings": {
+            "show": true,
+            "cover": "shopify://shop_images/Eternity_Ring_Guide_Cover_v3.png",
+            "title": "The Eternity Ring Guide",
+            "klaviyo_form_id": "TNb26i",
+            "blurb": "Full and half eternity styles, stone settings, spacing and how to wear them."
+          }
+        },
+        "guide_6YGjbT": {
+          "type": "guide",
+          "settings": {
+            "show": true,
+            "cover": "shopify://shop_images/diamond-and-gemstone-guide-cover.png",
+            "title": "The Diamond & Gemstone Guide",
+            "klaviyo_form_id": "UbTxH7",
+            "blurb": "Diamonds, coloured gemstones, lab-grown stones and choosing the right stone for your ring."
+          }
+        },
+        "guide_CareGd": {
+          "type": "guide",
+          "settings": {
+            "show": true,
+            "cover": "shopify://shop_images/ring-care-guide-cover.png",
+            "title": "The Ring & Jewellery Care Guide",
+            "klaviyo_form_id": "RINGCARE",
+            "file_url": "/pages/ring-and-jewellery-care-guide-download",
+            "blurb": "Cleaning, safe storage, claw and setting checks, replating and when to have a ring serviced."
+          }
+        }
+      },
+      "block_order": [
+        "guide_nqMpEg", "guide_EcHX78", "guide_E4wjqh",
+        "guide_kfKxhB", "guide_6YGjbT", "guide_CareGd"
+      ],
+      "settings": {
+        "heading": "Free expert guides",
+        "subtext": "<p>Six expert guides — read online or take the free PDF, whatever stage you're at.</p>",
+        "button_label": "View guide",
+        "view_all_url": "shopify://pages/downloadable-guides",
+        "background": "teal"
+      }
+    },
+
+    "latest_news_em_7BeeqP": {
+      "type": "latest-news-EM",
+      "settings": {
+        "heading": "Latest news",
+        "blog": "news",
+        "bg_color": "ivory"
+      }
+    },
+
+    "fye_consultation_home": {
+      "type": "fye-consultation",
+      "blocks": {
+        "contact_phone": {
+          "type": "contact",
+          "settings": { "type": "phone", "label": "0208 178 6687" }
+        },
+        "contact_email": {
+          "type": "contact",
+          "settings": { "type": "email", "label": "hello@foryoureternity.com" }
+        },
+        "contact_whatsapp": {
+          "type": "contact",
+          "settings": { "type": "whatsapp", "label": "WhatsApp", "link": "https://wa.me/447840042922" }
+        }
+      },
+      "block_order": ["contact_phone", "contact_email", "contact_whatsapp"],
+      "settings": {
+        "band": "teal",
+        "eyebrow": "Personal guidance",
+        "heading": "Still unsure where to start?",
+        "lead": "Book a free consultation — in person, by phone or video.",
+        "btn_label": "Book a free consultation",
+        "btn_link": "https://calendar.app.google/UKFkGvMLzAYEviqy8"
       }
     }
   },
-  "order": ["hero"]
+  "order": [
+    "hero",
+    "fye_trust_strip_home",
+    "feature_columns2_A486RK",
+    "fye_two_ways_wdDULb",
+    "custom_collections_cq7kaN",
+    "fye_testimonials_WTRaAj",
+    "featured_collection_PHLfPD",
+    "fye_mediatext_designed_home",
+    "fye_gallery_promo_home",
+    "fye_mediatext_guarantee_home",
+    "guide_download_block_HFUQjC",
+    "latest_news_em_7BeeqP",
+    "fye_consultation_home"
+  ]
 }

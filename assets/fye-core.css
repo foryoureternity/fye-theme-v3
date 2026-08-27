@@ -721,6 +721,12 @@
 .visually-hidden,
 .fye .visually-hidden {
   position: absolute !important;
+  /* Pinned. With left/top auto an absolutely positioned element renders at its
+     static position — for the skip link that was x ~2314, which made the whole
+     document 2315px wide and put 845px of empty space to the right of every
+     page. A 1px box still counts if it is 1px in the wrong place. */
+  left: 0 !important;
+  top: 0 !important;
   width: 1px !important;
   height: 1px !important;
   margin: -1px !important;
@@ -730,4 +736,28 @@
   clip: rect(0 0 0 0) !important;
   clip-path: inset(50%) !important;
   white-space: nowrap !important;
+}
+
+/* The skip link must appear when focused, or it serves no one. Overrides the
+   screen-reader-only rule above on focus only. */
+.skip-link:focus,
+.skip-link:focus-visible,
+a.visually-hidden:focus,
+a.visually-hidden:focus-visible {
+  position: fixed !important;
+  left: var(--s5, 20px) !important;
+  top: var(--s5, 20px) !important;
+  z-index: 999;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 12px 20px !important;
+  overflow: visible !important;
+  clip: auto !important;
+  clip-path: none !important;
+  background: var(--ivory, #f2f1e8);
+  color: var(--teal, #233d47);
+  font-size: 14px;
+  outline: 2px solid var(--teal, #233d47);
+  outline-offset: 2px;
 }

@@ -3,8 +3,7 @@
 
   5 uses: index, article, blog, page.about-us, page.about-us-v2.
 
-  Setting IDs kept: `heading`, `subtext`, `button_label`, `view_all_url`,
-  `background`; `show`, `cover`, `title`, `klaviyo_form_id`, `file_url`,
+  Setting IDs kept: `heading`, `subtext`, `button_label`, `background`; `show`, `cover`, `title`, `klaviyo_form_id`, `file_url`,
   `blurb` per guide block.
 
   HOW THE CTA RESOLVES — this matters, it is the section's whole job
@@ -85,11 +84,6 @@
       {%- endfor -%}
     </ul>
 
-    {%- if s.view_all_url != blank -%}
-      <div class="row row--center guides__all">
-        <a class="btn" href="{{ s.view_all_url }}">All guides</a>
-      </div>
-    {%- endif -%}
   </div>
 </section>
 
@@ -125,10 +119,13 @@
 .fye .guides__cover :where(img) { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
 .fye .guides__ph { display: block; aspect-ratio: 3 / 4; background: var(--ivory); opacity: 0.25; }
 
+/* Centred under the cover: six covers in a row read as a shelf, and a
+   left-aligned label under centred artwork looks like a mistake at this size. */
 .fye .guides__words {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
   gap: var(--s3);
 }
 /* Smaller at six across: the title is a label on a shelf, not a heading. */
@@ -147,7 +144,6 @@
 }
 
 .fye .row--center { justify-content: center; }
-.fye .guides__all { margin-top: var(--s10); }
 {% endstylesheet %}
 
 {% schema %}
@@ -157,7 +153,6 @@
     { "type": "text", "id": "heading", "label": "Heading", "default": "Free expert guides" },
     { "type": "richtext", "id": "subtext", "label": "Supporting text" },
     { "type": "text", "id": "button_label", "label": "Button label", "default": "View guide", "info": "Used on every guide." },
-    { "type": "url", "id": "view_all_url", "label": "All-guides link" },
     {
       "type": "select", "id": "background", "label": "Background", "default": "teal",
       "options": [

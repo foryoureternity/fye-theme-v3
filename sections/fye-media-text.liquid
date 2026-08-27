@@ -107,7 +107,13 @@
 }
 
 /* Full bleed: the image runs to the viewport edge, the words keep the gutter.
-   The grid gap goes too — the colour change is the join. */
+   The grid gap goes too — the colour change is the join.
+
+   AND NO VERTICAL PADDING. A full-bleed image with --sect-y above and below it
+   leaves a strip of band colour top and bottom, so the photograph floats in a
+   box instead of meeting the sections either side. Live has none. Set as the
+   variable, never as a padding declaration. */
+.fye .mtext--bleed { --sect-y: 0; }
 .fye .mtext--bleed .media-text { gap: 0; align-items: stretch; }
 .fye .mtext--bleed .mtext__media { display: flex; }
 .fye .mtext--bleed .mtext__img { object-fit: cover; height: 100%; }

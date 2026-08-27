@@ -23,7 +23,8 @@
   Price logic, in the order it is decided:
     sold out            → "Sold out", no price
     on sale             → sale price, then the original struck through
-    varies by variant   → "From <lowest>"
+    varies by variant   → "Setting from <lowest>" — the stone is chosen
+                          separately, so "From" understates what it covers
     otherwise           → the price
 {%- endcomment -%}
 {%- liquid
@@ -86,7 +87,7 @@
           <span class="pcard__now">{{ product.price | money }}</span>
           <s class="pcard__was">{{ product.compare_at_price | money }}</s>
         {%- elsif product.price_varies -%}
-          <span class="pcard__now">From {{ product.price_min | money }}</span>
+          <span class="pcard__now">Setting from {{ product.price_min | money }}</span>
         {%- else -%}
           <span class="pcard__now">{{ product.price | money }}</span>
         {%- endif -%}

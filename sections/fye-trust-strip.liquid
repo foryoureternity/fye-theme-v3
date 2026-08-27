@@ -75,8 +75,8 @@
   margin: 0;
   text-align: center;
 }
-/* Hairlines between, not around — the divider does the work a card would. */
-.fye .tstrip__item + .tstrip__item { border-inline-start: var(--hairline); }
+/* No dividers. Live separates these four points with whitespace alone; the
+   rules I added made a four-column table out of a quiet reassurance strip. */
 .fye .tstrip__label {
   font-size: var(--fs-fine);
   font-weight: var(--fw-medium);
@@ -90,10 +90,7 @@
 }
 .fye .tstrip__item .icon { margin-bottom: var(--s2); }
 
-/* The dividers only make sense while the items are in one row. */
-@media (max-width: 900px) {
-  .fye .tstrip__item + .tstrip__item { border-inline-start: 0; }
-}
+
 {% endstylesheet %}
 
 {% schema %}

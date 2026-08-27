@@ -108,7 +108,14 @@
   gap: var(--s5);
   text-align: center;
 }
-.fye .hero--left .hero__in { align-items: flex-start; text-align: left; }
+/* Left-aligned heroes run wide: on a full-bleed photograph the centred 1320px
+   measure left a 124px gap before the copy at laptop width, which reads as a
+   mistake rather than a margin. Live uses 1368 plus the gutter. */
+.fye .hero--left .hero__in {
+  align-items: flex-start;
+  text-align: left;
+  max-width: var(--maxw-wide);
+}
 
 /* Tightened against the heading it completes, not floated in the stack. */
 .fye .hero__logo { width: var(--logo-w, 250px); height: auto; margin-top: calc(var(--s5) * -0.5); }

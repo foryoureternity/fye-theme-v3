@@ -1,0 +1,193 @@
+{%- comment -%}
+  custom-collections — the three category panels: engagement, wedding,
+  eternity. One tall panel left, two stacked right.
+
+  1 use: index. It is the main route off the homepage into the three ranges, so
+  it is worth its own section rather than a generic image-grid.
+
+  Setting IDs frozen, awkward names and all: `left_*`, `top_*`, `bottom_*`
+  (image / heading / btn / link). "Top" and "bottom" describe the right-hand
+  column, which reads oddly, but 1 template's content depends on those exact
+  keys and renaming would mean re-entering it.
+
+  WHAT CHANGED FROM THE OLD THEME
+  - Headings were UPPERCASE strings typed into the setting. They still render
+    uppercase, but from CSS, so the setting can hold sentence case and the
+    casing stays consistent if the brand ever changes it.
+  - Text sits on the brand's low-opacity teal scrim (`.scrim` in core), not on
+    the raw photograph. Ivory type straight onto a light ring photo was the
+    contrast problem here.
+  - The `custom_css` block that came with this section on the live template is
+    not carried over; there was nothing in it.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign ground = s.ground | default: 'white'
+-%}
+
+<section class="ccols band band--{{ ground }}" data-screen-label="Category panels">
+  <div class="wrap">
+    <div class="ccols__grid">
+
+      {%- comment -%}
+        Three near-identical panels. Written out rather than looped: the setting
+        IDs are three unrelated prefixes, and a loop over ['left','top','bottom']
+        with string-built keys is exactly the kind of cleverness that makes the
+        next edit hard to follow.
+      {%- endcomment -%}
+
+      {%- if s.left_heading != blank or s.left_image != blank -%}
+        <a class="ccols__panel ccols__panel--lead scrim" href="{{ s.left_link | default: '#' }}">
+          {%- if s.left_image != blank -%}
+            {{ s.left_image | image_url: width: 1200 | image_tag:
+               loading: 'lazy', widths: '500,800,1000,1200',
+               sizes: '(max-width: 900px) 100vw, 50vw',
+               alt: s.left_image.alt | escape, class: 'ccols__img' }}
+          {%- endif -%}
+          <span class="ccols__words">
+            {%- if s.left_heading != blank -%}
+              <span class="ccols__heading">{{ s.left_heading }}</span>
+            {%- endif -%}
+            {%- if s.left_btn != blank -%}
+              <span class="link ccols__link">{{ s.left_btn }}</span>
+            {%- endif -%}
+          </span>
+        </a>
+      {%- endif -%}
+
+      {%- if s.top_heading != blank or s.top_image != blank -%}
+        <a class="ccols__panel scrim" href="{{ s.top_link | default: '#' }}">
+          {%- if s.top_image != blank -%}
+            {{ s.top_image | image_url: width: 900 | image_tag:
+               loading: 'lazy', widths: '400,600,900',
+               sizes: '(max-width: 900px) 100vw, 25vw',
+               alt: s.top_image.alt | escape, class: 'ccols__img' }}
+          {%- endif -%}
+          <span class="ccols__words">
+            {%- if s.top_heading != blank -%}
+              <span class="ccols__heading">{{ s.top_heading }}</span>
+            {%- endif -%}
+            {%- if s.top_btn != blank -%}
+              <span class="link ccols__link">{{ s.top_btn }}</span>
+            {%- endif -%}
+          </span>
+        </a>
+      {%- endif -%}
+
+      {%- if s.bottom_heading != blank or s.bottom_image != blank -%}
+        <a class="ccols__panel scrim" href="{{ s.bottom_link | default: '#' }}">
+          {%- if s.bottom_image != blank -%}
+            {{ s.bottom_image | image_url: width: 900 | image_tag:
+               loading: 'lazy', widths: '400,600,900',
+               sizes: '(max-width: 900px) 100vw, 25vw',
+               alt: s.bottom_image.alt | escape, class: 'ccols__img' }}
+          {%- endif -%}
+          <span class="ccols__words">
+            {%- if s.bottom_heading != blank -%}
+              <span class="ccols__heading">{{ s.bottom_heading }}</span>
+            {%- endif -%}
+            {%- if s.bottom_btn != blank -%}
+              <span class="link ccols__link">{{ s.bottom_btn }}</span>
+            {%- endif -%}
+          </span>
+        </a>
+      {%- endif -%}
+
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .ccols__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: var(--grid-gap);
+}
+.fye .ccols__panel--lead { grid-row: span 2; }
+
+.fye .ccols__panel {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  min-height: 260px;
+  color: var(--on-dark);
+}
+.fye .ccols__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur) var(--ease);
+}
+.fye .ccols__panel:hover .ccols__img { transform: scale(1.03); }
+
+/* .scrim in core lays the low-opacity teal over the photo and lifts direct
+   children above it — hence the words being a child, not a sibling. */
+.fye .ccols__words {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s4);
+  height: 100%;
+  padding: var(--s7);
+  text-align: center;
+}
+.fye .ccols__heading {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  letter-spacing: var(--tr-h2);
+  text-transform: uppercase;
+  color: var(--on-dark);
+}
+.fye .ccols__panel--lead .ccols__heading { font-size: var(--fs-h2); }
+.fye .ccols__link { color: var(--on-dark); }
+.fye .ccols__panel:hover .ccols__link { color: var(--sage-grey); }
+
+.fye .ccols__panel--lead { min-height: 540px; }
+
+@media (max-width: 900px) {
+  .fye .ccols__grid { grid-template-columns: 1fr; grid-template-rows: none; }
+  .fye .ccols__panel--lead { grid-row: auto; min-height: 320px; }
+  .fye .ccols__panel { min-height: 240px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fye .ccols__panel:hover .ccols__img { transform: none; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Category panels",
+  "settings": [
+    { "type": "header", "content": "Large panel" },
+    { "type": "image_picker", "id": "left_image", "label": "Image" },
+    { "type": "text", "id": "left_heading", "label": "Heading", "default": "Engagement rings" },
+    { "type": "text", "id": "left_btn", "label": "Link text", "default": "View our rings" },
+    { "type": "url", "id": "left_link", "label": "Link" },
+    { "type": "header", "content": "Upper small panel" },
+    { "type": "image_picker", "id": "top_image", "label": "Image" },
+    { "type": "text", "id": "top_heading", "label": "Heading", "default": "Wedding rings" },
+    { "type": "text", "id": "top_btn", "label": "Link text", "default": "View our rings" },
+    { "type": "url", "id": "top_link", "label": "Link" },
+    { "type": "header", "content": "Lower small panel" },
+    { "type": "image_picker", "id": "bottom_image", "label": "Image" },
+    { "type": "text", "id": "bottom_heading", "label": "Heading", "default": "Eternity rings" },
+    { "type": "text", "id": "bottom_btn", "label": "Link text", "default": "View our rings" },
+    { "type": "url", "id": "bottom_link", "label": "Link" },
+    { "type": "header", "content": "Background" },
+    {
+      "type": "select", "id": "ground", "label": "Background", "default": "white",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Ivory" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Category panels" }]
+}
+{% endschema %}

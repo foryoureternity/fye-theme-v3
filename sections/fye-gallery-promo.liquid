@@ -1,0 +1,241 @@
+{%- comment -%}
+  fye-gallery-promo — "Pieces We've Already Made". Rotating three-image sets.
+
+  3 uses: index, page.about-us, page.about-us-v2.
+
+  FYE-original. Each block is a SET of three photographs — one lead portrait
+  and two stacked squares — and the section rotates between the sets. That is
+  the same shape as the testimonials rotator, so it uses the same one from
+  fye-ui.js: a scroll-snap track with `data-fye-rotate`. It therefore swipes
+  and scrolls before any JavaScript runs, pauses on hover and focus, and stops
+  when a visitor takes over.
+
+  Setting IDs kept: `eyebrow`, `heading`, `body`, `cta_label`, `cta_link`,
+  `ground`, `rotate_seconds`; `image_lead`, `image_top`, `image_bottom`, `link`
+  per set.
+
+  TWO SETTINGS DROPPED
+  - `pad_top` / `pad_bottom` (both 72 on the live site). Vertical rhythm is
+    --sect-y (80px, 64 under 900, 52 under 560) for every section in this
+    theme; a section that sets its own padding is what made the old site drift.
+    The 8px difference is not worth an exception.
+  - `ground` was a free colour picker holding #FFFFFF. It is now the four-way
+    palette choice, as heading-template got. A saved hex is ignored and falls
+    back to white — which is what #FFFFFF was anyway.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign ground = s.ground
+  unless ground == 'white' or ground == 'ivory' or ground == 'mist'
+    assign ground = 'white'
+  endunless
+  assign secs = s.rotate_seconds | default: 5
+  assign rotate = false
+  if section.blocks.size > 1
+    assign rotate = true
+  endif
+-%}
+
+<section class="gpromo band band--{{ ground }}" data-screen-label="Gallery promo">
+  <div class="wrap gpromo__inner">
+
+    <div class="gpromo__words">
+      {%- if s.eyebrow != blank -%}
+        <p class="eyebrow">{{ s.eyebrow }}</p>
+      {%- endif -%}
+      {%- if s.heading != blank -%}
+        <h2 class="gpromo__heading">{{ s.heading }}</h2>
+      {%- endif -%}
+      {%- if s.body != blank -%}
+        <div class="gpromo__body">{{ s.body }}</div>
+      {%- endif -%}
+      {%- if s.cta_label != blank and s.cta_link != blank -%}
+        <a class="btn btn--outline gpromo__cta" href="{{ s.cta_link }}">{{ s.cta_label }}</a>
+      {%- endif -%}
+    </div>
+
+    <div
+      class="gpromo__rot"
+      {%- if rotate %} data-fye-rotate="{{ secs }}"{% else %} data-fye-rotate=""{% endif %}>
+      <div class="gpromo__track" data-fye-rotate-track tabindex="0" role="group" aria-label="Recent pieces">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign b = block.settings
+            assign wrap_tag = 'div'
+            if b.link != blank
+              assign wrap_tag = 'a'
+            endif
+          -%}
+          <div class="gpromo__set" {{ block.shopify_attributes }}>
+            <{{ wrap_tag }} class="gpromo__collage"{% if b.link != blank %} href="{{ b.link }}"{% endif %}>
+
+              <div class="gpromo__cell gpromo__cell--lead">
+                {%- if b.image_lead != blank -%}
+                  {{ b.image_lead | image_url: width: 1000 | image_tag:
+                     loading: 'lazy', widths: '400,600,800,1000',
+                     sizes: '(max-width: 900px) 60vw, 30vw',
+                     alt: b.image_lead.alt | escape }}
+                {%- else -%}
+                  <span class="gpromo__ph"></span>
+                {%- endif -%}
+              </div>
+
+              <div class="gpromo__cell">
+                {%- if b.image_top != blank -%}
+                  {{ b.image_top | image_url: width: 700 | image_tag:
+                     loading: 'lazy', widths: '300,500,700',
+                     sizes: '(max-width: 900px) 40vw, 20vw',
+                     alt: b.image_top.alt | escape }}
+                {%- else -%}
+                  <span class="gpromo__ph"></span>
+                {%- endif -%}
+              </div>
+
+              <div class="gpromo__cell">
+                {%- if b.image_bottom != blank -%}
+                  {{ b.image_bottom | image_url: width: 700 | image_tag:
+                     loading: 'lazy', widths: '300,500,700',
+                     sizes: '(max-width: 900px) 40vw, 20vw',
+                     alt: b.image_bottom.alt | escape }}
+                {%- else -%}
+                  <span class="gpromo__ph"></span>
+                {%- endif -%}
+              </div>
+
+            </{{ wrap_tag }}>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      {%- if rotate -%}
+        <div class="gpromo__nav">
+          <button type="button" class="gpromo__arrow" data-fye-rotate-prev aria-label="Previous pieces">
+            {%- render 'icon', name: 'arrow-left', class: 'icon--sm' -%}
+          </button>
+          <button type="button" class="gpromo__arrow" data-fye-rotate-next aria-label="Next pieces">
+            {%- render 'icon', name: 'arrow-right', class: 'icon--sm' -%}
+          </button>
+        </div>
+      {%- endif -%}
+    </div>
+
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .gpromo__inner {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: var(--s10);
+  align-items: center;
+}
+.fye .gpromo__words { display: flex; flex-direction: column; gap: var(--s5); align-items: flex-start; }
+.fye .gpromo__heading :where(p) { margin: 0; }
+.fye .gpromo__body { color: var(--ink-soft); }
+.fye .gpromo__cta { margin-top: var(--s2); }
+
+.fye .gpromo__rot { position: relative; }
+.fye .gpromo__track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.fye .gpromo__track::-webkit-scrollbar { display: none; }
+
+/* One set fills the track; the next is a page away. */
+.fye .gpromo__set { flex: 0 0 100%; scroll-snap-align: start; }
+
+/* Lead portrait left, two squares stacked right. The lead spans both rows. */
+.fye .gpromo__collage {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  grid-template-rows: 1fr 1fr;
+  gap: var(--s3);
+}
+.fye .gpromo__cell { overflow: hidden; }
+.fye .gpromo__cell--lead { grid-row: span 2; }
+.fye .gpromo__cell :where(img) { width: 100%; height: 100%; object-fit: cover; }
+.fye .gpromo__cell--lead :where(img) { aspect-ratio: 4 / 5; }
+.fye .gpromo__cell :where(img) { aspect-ratio: 1; }
+.fye .gpromo__cell--lead :where(img) { aspect-ratio: 4 / 5; }
+
+/* Placeholder keeps the collage's shape in the editor before photos are set. */
+.fye .gpromo__ph { display: block; aspect-ratio: 1; background: var(--ivory); border: var(--hairline); }
+.fye .gpromo__cell--lead .gpromo__ph { aspect-ratio: 4 / 5; }
+
+/* Brand rule: images may scale gently on hover, nothing else. */
+.fye a.gpromo__collage :where(img) { transition: transform var(--dur) var(--ease); }
+.fye a.gpromo__collage:hover :where(img) { transform: scale(1.02); }
+
+.fye .gpromo__nav {
+  display: flex;
+  gap: var(--s2);
+  margin-top: var(--s5);
+}
+.fye .gpromo__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: var(--hairline);
+  background: transparent;
+  color: var(--ink);
+  transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.fye .gpromo__arrow:hover { border-color: var(--sage); color: var(--sage); }
+
+@media (max-width: 900px) {
+  .fye .gpromo__inner { grid-template-columns: 1fr; gap: var(--s7); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fye .gpromo__track { scroll-behavior: auto; }
+  .fye a.gpromo__collage:hover :where(img) { transform: none; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Gallery promo",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "From our workshop" },
+    { "type": "richtext", "id": "heading", "label": "Heading" },
+    { "type": "richtext", "id": "body", "label": "Text" },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "View the gallery" },
+    { "type": "url", "id": "cta_link", "label": "Button link" },
+    { "type": "header", "content": "Rotation" },
+    { "type": "range", "id": "rotate_seconds", "label": "Seconds per set", "default": 5, "min": 3, "max": 12, "step": 1, "unit": "sec", "info": "Only rotates when there is more than one set. Pauses on hover." },
+    { "type": "header", "content": "Background" },
+    {
+      "type": "select", "id": "ground", "label": "Background", "default": "white",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Ivory" },
+        { "value": "mist",  "label": "Mist" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "set",
+      "name": "Set of three",
+      "settings": [
+        { "type": "image_picker", "id": "image_lead", "label": "Lead image", "info": "Portrait. Shown large on the left." },
+        { "type": "image_picker", "id": "image_top", "label": "Top image", "info": "Square." },
+        { "type": "image_picker", "id": "image_bottom", "label": "Bottom image", "info": "Square." },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gallery promo",
+      "blocks": [{ "type": "set" }, { "type": "set" }, { "type": "set" }]
+    }
+  ]
+}
+{% endschema %}

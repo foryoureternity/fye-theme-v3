@@ -128,9 +128,19 @@
 .fye .mtext--bleed .media-text--reverse .mtext__body { padding-inline-start: max(var(--pad-x), 6vw); }
 
 @media (max-width: 900px) {
-  .fye .mtext--bleed .mtext__body { padding-block: var(--s7) 0; }
+  /* SYMMETRICAL. This was `var(--s7) 0` — zero bottom padding — and because
+     the bleed variant also sets --sect-y: 0, the text column had nothing at
+     all beneath it. The last element sat flush against the panel's bottom
+     edge, which on most of these pages is a button and looks clipped.
+     The image still bleeds: --sect-y: 0 is untouched, only the words are
+     re-inset. */
+  .fye .mtext--bleed .mtext__body { padding-block: var(--s7); }
+
+  /* 24px, not 20: against a coloured panel the eye reads the colour edge as
+     the container edge, so the same number looks tighter than it does on
+     white. This variant is always a coloured panel on mobile. */
   .fye .mtext--bleed .media-text:not(.media-text--reverse) .mtext__body,
-  .fye .mtext--bleed .media-text--reverse .mtext__body { padding-inline: var(--pad-x); }
+  .fye .mtext--bleed .media-text--reverse .mtext__body { padding-inline: var(--s6); }
 }
 {% endstylesheet %}
 

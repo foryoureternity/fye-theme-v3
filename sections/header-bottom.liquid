@@ -105,21 +105,77 @@
               {%- if block.type == 'mega' -%}{% render 'icon', name: 'chevron-down', size: 13 %}{%- endif -%}
             </a>
 
-            {%- if block.type == 'mega' and sub.links.size > 0 -%}
+            {%- if block.type == 'mega' -%}
+              {%- liquid
+                assign b = block.settings
+                assign guides = linklists[b.guides_menu]
+                assign has_zone1 = false
+                if sub.links.size > 0 or b.shape_suffix != blank or b.stone_suffix != blank
+                  assign has_zone1 = true
+                endif
+              -%}
               <div class="mega">
                 <div class="mega__in">
-                  {%- for child in sub.links -%}
-                    <div class="mega__col">
-                      <a class="mega__head" href="{{ child.url }}">{{ child.title }}</a>
-                      {%- if child.links.size > 0 -%}
-                        <ul class="mega__list">
-                          {%- for gc in child.links -%}
-                            <li><a href="{{ gc.url }}">{{ gc.title }}</a></li>
-                          {%- endfor -%}
-                        </ul>
-                      {%- endif -%}
-                    </div>
-                  {%- endfor -%}
+
+                  {%- if has_zone1 -%}
+                    <section class="mm__zone">
+                      <div class="mm__zone-head">
+                        <h2 class="mm__zone-title">{{ b.zone1_title | default: 'Pre-Designed Rings' }}</h2>
+                        {%- if b.zone1_all_url != blank -%}
+                          <a class="mm__viewall" href="{{ b.zone1_all_url }}">
+                            {{ b.zone1_all_label | default: 'View all' }}
+                            {% render 'icon', name: 'arrow-right', size: 14 %}
+                          </a>
+                        {%- endif -%}
+                      </div>
+
+                      <div class="mm__cols">
+                        {%- render 'mm-shapes', suffix: b.shape_suffix, label: b.shape_label -%}
+
+                        {%- comment -%}
+                          The menu's TOP level becomes one column each, its
+                          children the links under it — so "Shop by Type" is a
+                          menu item with children, not a hardcoded list.
+                        {%- endcomment -%}
+                        {%- for child in sub.links -%}
+                          <div class="mm__col">
+                            <a class="mm__label mm__label--link" href="{{ child.url }}">{{ child.title }}</a>
+                            {%- if child.links.size > 0 -%}
+                              <ul class="mm__list">
+                                {%- for gc in child.links -%}
+                                  <li><a href="{{ gc.url }}">{{ gc.title }}</a></li>
+                                {%- endfor -%}
+                              </ul>
+                            {%- endif -%}
+                          </div>
+                        {%- endfor -%}
+                      </div>
+
+                      {%- render 'mm-stones',
+                          suffix: b.stone_suffix,
+                          label: b.stone_label,
+                          all_url: b.stone_all_url,
+                          all_label: b.stone_all_label -%}
+                    </section>
+                  {%- endif -%}
+
+                  {%- if guides.links.size > 0 -%}
+                    <div class="mm__divider"></div>
+                    <section class="mm__zone">
+                      <div class="mm__zone-head">
+                        <h2 class="mm__zone-title">{{ b.guides_title | default: 'Guides & Advice' }}</h2>
+                      </div>
+                      <ul class="mm__guides">
+                        {%- for link in guides.links -%}
+                          <li><a href="{{ link.url }}">
+                            {% render 'icon', name: 'arrow-right', size: 14 %}
+                            <span>{{ link.title }}</span>
+                          </a></li>
+                        {%- endfor -%}
+                      </ul>
+                    </section>
+                  {%- endif -%}
+
                 </div>
               </div>
             {%- endif -%}
@@ -137,7 +193,36 @@
     </button>
     <ul class="drawer__list">
       {%- for block in section.blocks -%}
-        <li><a href="{{ block.settings.url | default: '#' }}">{{ block.settings.title }}</a></li>
+        {%- assign dsub = linklists[block.settings.menu] -%}
+        {%- if block.type == 'mega' and dsub.links.size > 0 -%}
+          {%- comment -%}
+            Native <details>, same reasoning as the footer: keyboard operable,
+            announced properly, and it opens with no JavaScript. Closed by
+            default here because the drawer is already a deliberate action —
+            unlike the footer, nothing is hidden until the user opens it.
+          {%- endcomment -%}
+          <li>
+            <details class="drawer__acc">
+              <summary>
+                <span>{{ block.settings.title }}</span>
+                {% render 'icon', name: 'chevron-down', size: 16 %}
+              </summary>
+              <ul class="drawer__sub">
+                {%- if block.settings.url != blank -%}
+                  <li><a href="{{ block.settings.url }}">All {{ block.settings.title | downcase }}</a></li>
+                {%- endif -%}
+                {%- for child in dsub.links -%}
+                  <li><a href="{{ child.url }}">{{ child.title }}</a></li>
+                  {%- for gc in child.links -%}
+                    <li class="drawer__sub-deep"><a href="{{ gc.url }}">{{ gc.title }}</a></li>
+                  {%- endfor -%}
+                {%- endfor -%}
+              </ul>
+            </details>
+          </li>
+        {%- else -%}
+          <li><a href="{{ block.settings.url | default: '#' }}">{{ block.settings.title }}</a></li>
+        {%- endif -%}
       {%- endfor -%}
     </ul>
     <div class="drawer__contact">
@@ -358,6 +443,127 @@
      as an afterthought beside the 22px icons. */
   .fye .hdr__logo img.hdr__logo-img--m { display: block; height: 52px; width: auto; }
 }
+
+/* ============================================================================
+   MEGA PANELS — 28/08/2026
+   Full-bleed ivory sheet under the nav band. Two zones: pre-designed rings
+   (shape grid, menu columns, stone grid) and guides.
+   ========================================================================== */
+
+.fye .hdr__nav-item.has-mega { position: static; }
+.fye .has-mega .mega {
+  position: absolute;
+  left: 0; right: 0; top: 100%;
+  transform: none;
+  min-width: 0;
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+  background: var(--ivory);
+  border: 0;
+  border-top: 1px solid var(--sage-grey);
+  padding: var(--s9) var(--s7);
+}
+.fye .has-mega .mega__in {
+  display: block;
+  max-width: var(--maxw);
+  margin-inline: auto;
+}
+
+.fye .mm__zone + .mm__zone { margin-top: var(--s8); }
+.fye .mm__zone-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--s6);
+  margin-bottom: var(--s7);
+}
+.fye .mm__zone-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: var(--fw-regular);
+  letter-spacing: var(--tr-h2);
+  text-transform: uppercase;
+}
+.fye .mm__viewall {
+  display: inline-flex; align-items: center; gap: var(--s2);
+  font-size: 13px; font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.fye .mm__cols { display: flex; gap: var(--s10); align-items: flex-start; }
+.fye .mm__col { min-width: 0; }
+.fye .mm__label {
+  display: block;
+  margin: 0 0 var(--s5);
+  font-size: 13px; font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+  color: var(--ink);
+}
+.fye .mm__list, .fye .mm__shapes, .fye .mm__stones, .fye .mm__guides { margin: 0; padding: 0; list-style: none; }
+.fye .mm__list li { margin-bottom: var(--s3); }
+.fye .mm__list a { font-size: 16px; font-weight: var(--fw-light); }
+
+/* Shapes: two columns of five, icon then name. */
+.fye .mm__shapes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s3) var(--s7);
+}
+.fye .mm__shapes li { margin: 0; }
+.fye .mm__shapes a { display: inline-flex; align-items: center; gap: var(--s3); font-size: 15px; font-weight: var(--fw-light); }
+.fye .mm__shapes img { width: 24px; height: 24px; flex: none; }
+
+/* Stones: the dot is a colour sample, so CSS states it — seventeen tiny
+   images would be seventeen requests for a hex value. */
+.fye .mm__stones-wrap { margin-top: var(--s8); padding-top: var(--s7); border-top: var(--hairline); }
+.fye .mm__stones-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s6); }
+.fye .mm__stones {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: var(--s3) var(--s7);
+}
+.fye .mm__stones li { margin: 0; }
+.fye .mm__stones a { display: inline-flex; align-items: center; gap: var(--s3); font-size: 15px; font-weight: var(--fw-light); }
+.fye .mm__dot {
+  width: 12px; height: 12px; flex: none;
+  border: 1px solid transparent;
+}
+/* Opal would have no edge at all on an ivory panel. Live does the same. */
+.fye .mm__dot--pale { border-color: rgba(35, 61, 71, 0.35); }
+
+.fye .mm__divider { height: 1px; background: rgba(35, 61, 71, 0.18); margin-block: var(--s8); }
+
+.fye .mm__guides {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--s3) var(--s7);
+}
+.fye .mm__guides li { margin: 0; }
+.fye .mm__guides a { display: inline-flex; align-items: center; gap: var(--s3); font-size: 16px; font-weight: var(--fw-light); }
+
+/* ---- drawer accordion --------------------------------------------------- */
+
+.fye .drawer__acc > summary {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--s4);
+  min-height: 48px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 15px; font-weight: var(--fw-semi);
+  letter-spacing: 0.09em; text-transform: uppercase;
+}
+.fye .drawer__acc > summary::-webkit-details-marker { display: none; }
+.fye .drawer__acc > summary .icon { transition: transform var(--dur) var(--ease); flex: none; }
+.fye .drawer__acc[open] > summary .icon { transform: rotate(180deg); }
+.fye .drawer__sub { margin: 0 0 var(--s4); padding: 0 0 0 var(--s4); list-style: none; }
+.fye .drawer__sub li { border: 0; padding: var(--s2) 0; margin: 0; }
+.fye .drawer__sub a { font-size: 15px; font-weight: var(--fw-light); letter-spacing: 0; text-transform: none; }
+.fye .drawer__sub-deep { padding-left: var(--s4); }
+.fye .drawer__sub-deep a { font-size: 14px; color: var(--ink-soft); }
+
+@media (max-width: 1100px) {
+  .fye .mm__cols { flex-wrap: wrap; gap: var(--s8); }
+}
 {% endstylesheet %}
 
 {% schema %}
@@ -396,11 +602,32 @@
     },
     {
       "type": "mega",
-      "name": "Link with dropdown",
+      "name": "Link with mega panel",
       "settings": [
         { "type": "text", "id": "title", "label": "Title" },
         { "type": "url", "id": "url", "label": "Link" },
-        { "type": "link_list", "id": "menu", "label": "Dropdown menu" }
+        { "type": "link_list", "id": "menu", "label": "Columns menu", "info": "Each top-level item becomes a column; its children become the links in it." },
+        { "type": "header", "content": "Zone 1" },
+        { "type": "text", "id": "zone1_title", "label": "Zone heading", "default": "Pre-Designed Rings" },
+        { "type": "url", "id": "zone1_all_url", "label": "View-all link" },
+        { "type": "text", "id": "zone1_all_label", "label": "View-all label", "default": "View all" },
+        { "type": "header", "content": "Shape grid" },
+        {
+          "type": "text", "id": "shape_suffix", "label": "Collection suffix",
+          "info": "e.g. engagement-rings \u2014 links become round-brilliant-engagement-rings and so on. Empty hides the grid."
+        },
+        { "type": "text", "id": "shape_label", "label": "Heading", "default": "Shop by Shape" },
+        { "type": "header", "content": "Coloured stone grid" },
+        {
+          "type": "text", "id": "stone_suffix", "label": "Collection suffix",
+          "info": "e.g. engagement-rings. Empty hides the grid."
+        },
+        { "type": "text", "id": "stone_label", "label": "Heading", "default": "Shop by Coloured Stone" },
+        { "type": "url", "id": "stone_all_url", "label": "View-all link" },
+        { "type": "text", "id": "stone_all_label", "label": "View-all label", "default": "View all coloured stone rings" },
+        { "type": "header", "content": "Guides" },
+        { "type": "link_list", "id": "guides_menu", "label": "Guides menu" },
+        { "type": "text", "id": "guides_title", "label": "Zone heading", "default": "Guides & Advice" }
       ]
     }
   ]

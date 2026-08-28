@@ -1,0 +1,39 @@
+{%- comment -%}
+  mm-shapes — the diamond-shape grid inside a mega panel.
+
+  Params:
+    suffix  collection-handle suffix, e.g. 'engagement-rings'. Each link is
+            <stem>-<suffix>. Renders nothing when blank.
+    label   column heading. Default 'Shop by Shape'.
+
+  The stems and icons are live's. Icons are live's own CDN files rather than
+  theme assets, so the artwork matches with nothing copied in.
+
+  This is a fixed taxonomy, not navigation — see build-mega.mjs on why it is
+  code and the type column is a menu.
+{%- endcomment -%}
+{%- liquid
+  assign sfx = suffix | strip
+  if sfx == blank
+    break
+  endif
+  assign heading = label | default: 'Shop by Shape'
+  assign stems = 'round-brilliant,princess-cut,oval-cut,cushion-cut,radiant-cut,pear-cut,emerald-cut,asscher-cut,marquise-cut,heart-cut' | split: ','
+  assign names = 'Round,Princess,Oval,Cushion,Radiant,Pear,Emerald,Asscher,Marquise,Heart' | split: ','
+  assign icons = 'icon101,icon107,icon102,icon103,icon106,icon104,icon105,icon109,icon108,icon110' | split: ','
+  assign cdn = 'https://foryoureternity.com/cdn/shop/files/'
+-%}
+
+<div class="mm__col mm__col--shapes">
+  <h3 class="mm__label">{{ heading }}</h3>
+  <ul class="mm__shapes">
+    {%- for stem in stems -%}
+      <li>
+        <a href="/collections/{{ stem }}-{{ sfx }}">
+          <img src="{{ cdn }}{{ icons[forloop.index0] }}.svg" alt="" width="24" height="24" loading="lazy">
+          <span>{{ names[forloop.index0] }}</span>
+        </a>
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>

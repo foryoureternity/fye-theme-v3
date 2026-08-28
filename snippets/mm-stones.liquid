@@ -1,0 +1,56 @@
+{%- comment -%}
+  mm-stones — the coloured-stone grid inside a mega panel.
+
+  Params:
+    suffix    collection-handle suffix, e.g. 'engagement-rings'. Renders
+              nothing when blank.
+    label     column heading. Default 'Shop by Coloured Stone'.
+    all_url   optional "view all" link.
+    all_label optional "view all" label.
+
+  Seventeen stones, each with the hex live uses for its dot. The dot is a
+  <span>, not an image: it is a colour sample, and seventeen tiny images would
+  be seventeen requests for something CSS can state exactly.
+
+  Opal gets a border because #EAE6D9 on an ivory panel would otherwise have no
+  edge at all — live does the same.
+{%- endcomment -%}
+{%- liquid
+  assign sfx = suffix | strip
+  if sfx == blank
+    break
+  endif
+  assign heading = label | default: 'Shop by Coloured Stone'
+  assign stems = 'ruby,sapphire,pink-sapphire,yellow-sapphire,emerald,tanzanite,aquamarine,morganite,peridot,amethyst,garnet,citrine,blue-topaz,opal,fire-opal,pink-tourmaline' | split: ','
+  assign names = 'Ruby,Sapphire,Pink Sapphire,Yellow Sapphire,Emerald,Tanzanite,Aquamarine,Morganite,Peridot,Amethyst,Garnet,Citrine,Blue Topaz,Opal,Fire Opal,Pink Tourmaline' | split: ','
+  assign hexes = '#9E2B2B,#2F5C8A,#D46A8B,#E3C14E,#2E7D54,#5B5AA0,#8FBFCB,#E3ADA6,#94A83E,#7E5AA2,#8B2E2E,#E0A33E,#4E93C4,#EAE6D9,#E0713E,#CE6B92' | split: ','
+-%}
+
+<div class="mm__stones-wrap">
+  <div class="mm__stones-head">
+    <h3 class="mm__label">{{ heading }}</h3>
+    {%- if all_url != blank -%}
+      <a class="mm__viewall" href="{{ all_url }}">
+        {{ all_label | default: 'View all' }}
+        {% render 'icon', name: 'arrow-right', size: 14 %}
+      </a>
+    {%- endif -%}
+  </div>
+  <ul class="mm__stones">
+    {%- for stem in stems -%}
+      {%- assign hex = hexes[forloop.index0] -%}
+      <li>
+        <a href="/collections/{{ stem }}-{{ sfx }}">
+          <span class="mm__dot{% if stem == 'opal' %} mm__dot--pale{% endif %}" style="background:{{ hex }}"></span>
+          <span>{{ names[forloop.index0] }}</span>
+        </a>
+      </li>
+    {%- endfor -%}
+    <li>
+      <a href="/collections/coloured-stone-rings">
+        <span class="mm__dot" style="background:#1C1C1C"></span>
+        <span>Black Diamond</span>
+      </a>
+    </li>
+  </ul>
+</div>

@@ -264,12 +264,29 @@
 
 @media (max-width: 900px) {
   .fye .gdl__inner { grid-template-columns: 1fr; gap: var(--s7); }
-  .fye .gdl__covers { max-width: 240px; }
-  /* Stacked, the pair still sits side by side — two covers in a row is the
-     whole point, and at 40vw each they stay legible. The 240px cap above
-     would crush them, so it is lifted here. */
+
+  /* Centred, and 200px rather than 240. In a one-column layout a cover pinned
+     left leaves an empty half-width beside it that reads as a missing element,
+     and 240px of a ~330px content width makes the cover the subject of the
+     band instead of the thing being offered. */
+  .fye .gdl__covers { max-width: 200px; margin-inline: auto; align-items: center; }
+  .fye .gdl__caption { text-align: center; }
+
+  /* The pair stays side by side — two covers in a row is the whole point — but
+     capped and centred. Left to stretch, each cover would land near 150px,
+     which is the size the desktop column was widened to avoid. */
   .fye .gdl__inner--side { grid-template-columns: 1fr; }
-  .fye .gdl__covers--side { max-width: 100%; gap: var(--s5); }
+  .fye .gdl__covers--side {
+    max-width: 300px;
+    margin-inline: auto;
+    gap: var(--s5);
+    align-items: flex-start;
+  }
+  .fye .gdl__book { align-items: center; }
+
+  /* The words stay left-aligned: centred body copy is harder to read, and the
+     brand sets body copy left. Only the art and its labels centre. */
+  .fye .gdl__words { align-items: flex-start; }
 }
 {% endstylesheet %}
 

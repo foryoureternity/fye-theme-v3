@@ -97,32 +97,72 @@
     assign cover2 = s.cover2
     assign caption = s.cover_caption
   endif
+
+  comment
+    Layout and second-cover labelling always come from the SECTION, never the
+    guide block: it is a presentation choice for the page, not part of a
+    guide's content.
+  endcomment
+  assign layout = s.covers_layout | default: 'fan'
+  assign cover2_alt = s.cover2_alt
+  assign caption2 = s.cover2_caption
 -%}
 
 <section class="gdl band band--{{ band }}" data-screen-label="Guide download">
-  <div class="wrap gdl__inner">
+  <div class="wrap gdl__inner{% if layout == 'side' and cover2 != blank %} gdl__inner--side{% endif %}">
 
-    <div class="gdl__covers{% if cover2 != blank %} gdl__covers--pair{% endif %}">
-      {%- if cover != blank -%}
-        <div class="gdl__cover">
-          {{ cover | image_url: width: 800 | image_tag:
-             loading: 'lazy', widths: '260,400,600,800', sizes: '(max-width: 900px) 60vw, 300px',
-             alt: cover_alt }}
-        </div>
-        {%- if cover2 != blank -%}
-          {%- comment -%} Decorative second cover, fanned behind. {%- endcomment -%}
-          <div class="gdl__cover gdl__cover--back" aria-hidden="true">
-            {{ cover2 | image_url: width: 800 | image_tag:
-               loading: 'lazy', widths: '260,400,600,800', sizes: '(max-width: 900px) 60vw, 300px',
-               alt: '' }}
+    {%- if layout == 'side' and cover2 != blank -%}
+      {%- comment -%}
+        SIDE BY SIDE. Both guides are real, distinct products, so each cover
+        gets its own caption and its own alt — no aria-hidden, no rotation.
+      {%- endcomment -%}
+      <div class="gdl__covers gdl__covers--side">
+        {%- if cover != blank -%}
+          <div class="gdl__book">
+            <div class="gdl__cover">
+              {{ cover | image_url: width: 700 | image_tag:
+                 loading: 'lazy', widths: '200,300,450,700', sizes: '(max-width: 900px) 40vw, 186px',
+                 alt: cover_alt }}
+            </div>
+            {%- if caption != blank -%}
+              <p class="fine gdl__caption">{{ caption }}</p>
+            {%- endif -%}
           </div>
         {%- endif -%}
-      {%- endif -%}
+        <div class="gdl__book">
+          <div class="gdl__cover">
+            {{ cover2 | image_url: width: 700 | image_tag:
+               loading: 'lazy', widths: '200,300,450,700', sizes: '(max-width: 900px) 40vw, 186px',
+               alt: cover2_alt }}
+          </div>
+          {%- if caption2 != blank -%}
+            <p class="fine gdl__caption">{{ caption2 }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- else -%}
+      <div class="gdl__covers{% if cover2 != blank %} gdl__covers--pair{% endif %}">
+        {%- if cover != blank -%}
+          <div class="gdl__cover">
+            {{ cover | image_url: width: 800 | image_tag:
+               loading: 'lazy', widths: '260,400,600,800', sizes: '(max-width: 900px) 60vw, 300px',
+               alt: cover_alt }}
+          </div>
+          {%- if cover2 != blank -%}
+            {%- comment -%} Decorative second cover, fanned behind. {%- endcomment -%}
+            <div class="gdl__cover gdl__cover--back" aria-hidden="true">
+              {{ cover2 | image_url: width: 800 | image_tag:
+                 loading: 'lazy', widths: '260,400,600,800', sizes: '(max-width: 900px) 60vw, 300px',
+                 alt: '' }}
+            </div>
+          {%- endif -%}
+        {%- endif -%}
 
-      {%- if caption != blank -%}
-        <p class="fine gdl__caption">{{ caption }}</p>
-      {%- endif -%}
-    </div>
+        {%- if caption != blank -%}
+          <p class="fine gdl__caption">{{ caption }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
 
     <div class="gdl__words">
       {%- if eyebrow != blank -%}
@@ -210,9 +250,26 @@
 .fye .gdl__body { color: var(--ink-soft); max-width: 56ch; }
 .fye .gdl__actions { margin-top: var(--s3); }
 
+/* ---- side by side: both guides visible and named ------------------------ */
+
+/* 420px, not 320: two 3:4 covers inside 320px would be ~150px each, too small
+   to read a guide's title on. */
+.fye .gdl__inner--side { grid-template-columns: 420px 1fr; }
+.fye .gdl__covers--side {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--s6);
+}
+.fye .gdl__book { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: var(--s4); }
+
 @media (max-width: 900px) {
   .fye .gdl__inner { grid-template-columns: 1fr; gap: var(--s7); }
   .fye .gdl__covers { max-width: 240px; }
+  /* Stacked, the pair still sits side by side — two covers in a row is the
+     whole point, and at 40vw each they stay legible. The 240px cap above
+     would crush them, so it is lifted here. */
+  .fye .gdl__inner--side { grid-template-columns: 1fr; }
+  .fye .gdl__covers--side { max-width: 100%; gap: var(--s5); }
 }
 {% endstylesheet %}
 
@@ -227,8 +284,17 @@
     { "type": "image_picker", "id": "cover", "label": "Cover" },
     { "type": "text", "id": "cover_alt", "label": "Cover description" },
     { "type": "text", "id": "cover_caption", "label": "Caption" },
-    { "type": "image_picker", "id": "cover2", "label": "Second cover", "info": "Fanned behind the first. Decorative." },
-    { "type": "text", "id": "cover2_alt", "label": "Second cover description", "info": "Not used — the second cover is decorative." },
+    { "type": "image_picker", "id": "cover2", "label": "Second cover" },
+    { "type": "text", "id": "cover2_alt", "label": "Second cover description", "info": "Used in side-by-side layout only." },
+    { "type": "text", "id": "cover2_caption", "label": "Second caption", "info": "Side-by-side layout only." },
+    {
+      "type": "select", "id": "covers_layout", "label": "Two covers", "default": "fan",
+      "info": "Side by side when both guides are distinct and a customer needs to know both exist.",
+      "options": [
+        { "value": "fan",  "label": "Fanned behind (decorative)" },
+        { "value": "side", "label": "Side by side, both labelled" }
+      ]
+    },
     { "type": "header", "content": "Background" },
     {
       "type": "select", "id": "band", "label": "Background", "default": "mist",

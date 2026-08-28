@@ -18,7 +18,6 @@
         "button2_link": "shopify://pages/jewellery-guides"
       }
     },
-
     "fye_mediatext_findingbands_wed": {
       "type": "fye-media-text",
       "blocks": {
@@ -31,7 +30,9 @@
           }
         }
       },
-      "block_order": ["btn_start"],
+      "block_order": [
+        "btn_start"
+      ],
       "settings": {
         "band": "sage",
         "reverse": true,
@@ -44,7 +45,6 @@
         "body": "<p>Matching, complementary or completely different — wedding rings are usually chosen as a pair. The right profile, width and metal decide how a band feels every day.</p><ul><li>Court, D-shape or flat — profiles for every hand</li><li>Yellow, white and rose gold, or platinum for life</li><li>Matched pairs and bands shaped to fit her engagement ring</li></ul>"
       }
     },
-
     "featured_collection_NFfNPH": {
       "type": "featured-collection",
       "settings": {
@@ -57,7 +57,6 @@
         "band": "white"
       }
     },
-
     "fye_guidedl_wed": {
       "type": "fye-guide-download",
       "blocks": {
@@ -70,57 +69,91 @@
           }
         }
       },
-      "block_order": ["btn_download"],
+      "block_order": [
+        "btn_download"
+      ],
       "settings": {
         "band": "teal",
         "cover": "shopify://shop_images/Plain_Wedding_Cover.png",
         "cover_alt": "The Plain Wedding Ring Guide",
-        "cover_caption": "Wedding Ring Guides",
+        "cover_caption": "The Plain Wedding Ring Guide",
         "cover2": "shopify://shop_images/Diamond_Ring_Guide.png",
-        "heading": "Our wedding ring guides",
-        "body": "<p>Plain bands and diamond-set — profiles, metals, settings and sizing. Read online or take the free PDFs.</p>"
+        "heading": "Two wedding ring guides",
+        "body": "<p>One for plain bands — profiles, metals, widths and sizing. One for diamond and gem-set rings — settings, stone choices and how they wear alongside an engagement ring. Read online or take the free PDFs.</p>",
+        "covers_layout": "side",
+        "cover2_alt": "The Diamond & Gem-Set Wedding Ring Guide",
+        "cover2_caption": "The Diamond & Gem-Set Guide"
       }
     },
-
     "shipping_why_wed": {
       "type": "shipping",
       "blocks": {
         "shipping_CDXd6U": {
           "type": "shipping",
-          "settings": { "illustration": "diamond", "text": "<p>Ethically sourced diamonds and materials</p>" }
+          "settings": {
+            "illustration": "diamond",
+            "text": "<p>Ethically sourced diamonds and materials</p>"
+          }
         },
         "shipping_VVCxnM": {
           "type": "shipping",
-          "settings": { "illustration": "pricing", "text": "<p>Competitive pricing</p>" }
+          "settings": {
+            "illustration": "pricing",
+            "text": "<p>Competitive pricing</p>"
+          }
         },
         "shipping_KaUaYF": {
           "type": "shipping",
-          "settings": { "illustration": "rings", "text": "<p>Matching wedding rings</p>" }
+          "settings": {
+            "illustration": "rings",
+            "text": "<p>Matching wedding rings</p>"
+          }
         },
         "shipping_UJihwF": {
           "type": "shipping",
-          "settings": { "illustration": "education", "text": "<p>Educational approach to finding you the right ring</p>" }
+          "settings": {
+            "illustration": "education",
+            "text": "<p>Educational approach to finding you the right ring</p>"
+          }
         },
         "shipping_FbFyEk": {
           "type": "shipping",
-          "settings": { "illustration": "custom", "text": "<p>Fully customisable designs</p>" }
+          "settings": {
+            "illustration": "custom",
+            "text": "<p>Fully customisable designs</p>"
+          }
         },
         "shipping_jAAiTU": {
           "type": "shipping",
-          "settings": { "illustration": "shipping", "text": "<p>Free, insured shipping</p>" }
+          "settings": {
+            "illustration": "shipping",
+            "text": "<p>Free, insured shipping</p>"
+          }
         },
         "shipping_L4p6LB": {
           "type": "shipping",
-          "settings": { "illustration": "resize", "text": "<p>Free resizing for one year</p>" }
+          "settings": {
+            "illustration": "resize",
+            "text": "<p>Free resizing for one year</p>"
+          }
         },
         "shipping_bVDUpk": {
           "type": "shipping",
-          "settings": { "illustration": "warranty", "text": "<p>Lifetime warranty*</p>" }
+          "settings": {
+            "illustration": "warranty",
+            "text": "<p>Lifetime warranty*</p>"
+          }
         }
       },
       "block_order": [
-        "shipping_CDXd6U", "shipping_VVCxnM", "shipping_KaUaYF", "shipping_UJihwF",
-        "shipping_FbFyEk", "shipping_jAAiTU", "shipping_L4p6LB", "shipping_bVDUpk"
+        "shipping_CDXd6U",
+        "shipping_VVCxnM",
+        "shipping_KaUaYF",
+        "shipping_UJihwF",
+        "shipping_FbFyEk",
+        "shipping_jAAiTU",
+        "shipping_L4p6LB",
+        "shipping_bVDUpk"
       ],
       "settings": {
         "top_heading": "Why choose For Your Eternity?",
@@ -128,7 +161,6 @@
         "band": "white"
       }
     },
-
     "fye_mediatext_consult_wed": {
       "type": "fye-media-text",
       "blocks": {
@@ -141,7 +173,9 @@
           }
         }
       },
-      "block_order": ["btn_book"],
+      "block_order": [
+        "btn_book"
+      ],
       "settings": {
         "band": "sage",
         "reverse": true,
@@ -154,7 +188,6 @@
         "body": "<ul><li>Ensure you choose the right ring</li><li>Discover different ring styles</li><li>Pick the right ring for your budget</li><li>Find out how to choose the correct size</li></ul>"
       }
     },
-
     "accordion_faq_wed": {
       "type": "accordion",
       "blocks": {
@@ -209,8 +242,13 @@
         }
       },
       "block_order": [
-        "accor_item_ii7YzP", "accor_item_H98KiF", "accor_item_DiqKtg", "accor_item_xc9rtw",
-        "accor_item_inPnDK", "accor_item_ptL8Qy", "accor_item_ieUPmV"
+        "accor_item_ii7YzP",
+        "accor_item_H98KiF",
+        "accor_item_DiqKtg",
+        "accor_item_xc9rtw",
+        "accor_item_inPnDK",
+        "accor_item_ptL8Qy",
+        "accor_item_ieUPmV"
       ],
       "settings": {
         "top_heading": "Frequently asked questions",
@@ -222,7 +260,6 @@
         "band": "white"
       }
     },
-
     "fye_mediatext_custom_wed": {
       "type": "fye-media-text",
       "blocks": {
@@ -235,7 +272,9 @@
           }
         }
       },
-      "block_order": ["btn_book"],
+      "block_order": [
+        "btn_book"
+      ],
       "settings": {
         "band": "sage",
         "reverse": true,
@@ -247,7 +286,6 @@
         "body": "<p>Sometimes a traditional straight wedding band will not sit well against your engagement ring. Our solution: a wedding ring designed to exactly fit its contours and match it perfectly. Book a free consultation to design yours.</p>"
       }
     },
-
     "fye_mediatext_guarantee_wed": {
       "type": "fye-media-text",
       "settings": {
@@ -260,24 +298,37 @@
         "body": "<ul><li>GIA & IGI certified diamonds</li><li>Ethical, conflict free gemstones & precious metals</li><li>10% discount on your wedding ring for returning customers</li><li>Free insured delivery</li><li>Complimentary resizing for one year</li><li>Complimentary cleaning for life</li><li>Lifetime warranty against manufacturing defects</li></ul>"
       }
     },
-
     "fye_consultation_wed": {
       "type": "fye-consultation",
       "blocks": {
         "contact_phone": {
           "type": "contact",
-          "settings": { "type": "phone", "label": "0208 178 6687" }
+          "settings": {
+            "type": "phone",
+            "label": "0208 178 6687"
+          }
         },
         "contact_email": {
           "type": "contact",
-          "settings": { "type": "email", "label": "hello@foryoureternity.com" }
+          "settings": {
+            "type": "email",
+            "label": "hello@foryoureternity.com"
+          }
         },
         "contact_whatsapp": {
           "type": "contact",
-          "settings": { "type": "whatsapp", "label": "WhatsApp", "link": "https://wa.me/447840042922" }
+          "settings": {
+            "type": "whatsapp",
+            "label": "WhatsApp",
+            "link": "https://wa.me/447840042922"
+          }
         }
       },
-      "block_order": ["contact_phone", "contact_email", "contact_whatsapp"],
+      "block_order": [
+        "contact_phone",
+        "contact_email",
+        "contact_whatsapp"
+      ],
       "settings": {
         "band": "teal",
         "eyebrow": "Personal guidance",

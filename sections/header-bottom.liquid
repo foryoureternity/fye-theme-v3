@@ -50,8 +50,21 @@
         {%- endif -%}
       </div>
 
+      {%- liquid
+        assign logo_d = section.settings.logo_url
+        assign logo_m = section.settings.logo_mb_url | default: logo_d
+      -%}
       <a class="hdr__logo" href="{{ routes.root_url }}">
-        {%- if settings.logo != blank -%}
+        {%- comment -%}
+          Output directly, NO image_url filter: that filter only handles
+          rasters, and handing it the SVG wordmark returned nothing, which is
+          why this fell through to the text fallback. width/height are the real
+          intrinsic sizes so the header does not reflow as they load.
+        {%- endcomment -%}
+        {%- if logo_d != blank -%}
+          <img class="hdr__logo-img hdr__logo-img--d" src="{{ logo_d }}" alt="{{ shop.name | escape }}" width="471" height="264" fetchpriority="high">
+          <img class="hdr__logo-img hdr__logo-img--m" src="{{ logo_m }}" alt="{{ shop.name | escape }}" width="571" height="320" fetchpriority="high">
+        {%- elsif settings.logo != blank -%}
           {{ settings.logo | image_url: width: 800 | image_tag: alt: shop.name, loading: 'eager' }}
         {%- else -%}
           <span class="hdr__logo-text">{{ shop.name }}</span>
@@ -326,6 +339,18 @@
   .fye .hdr__icons { margin-right: -10px; }
   .fye .hdr__icon { width: 40px; }
 }
+
+/* Which logo shows. Appended at the END: a media query adds a condition, not
+   specificity, so an override placed above the base rules only half-applies. */
+.fye .hdr__logo-img { display: block; height: 96px; width: auto; }
+.fye .hdr__logo-img--m { display: none; }
+
+@media (max-width: 900px) {
+  /* The mobile mark is 571x320 — a wide lockup. Capped by height to fit the
+     62px row; raise this if it reads small on a real phone. */
+  .fye .hdr__logo-img--d { display: none; }
+  .fye .hdr__logo-img--m { display: block; height: 40px; width: auto; }
+}
 {% endstylesheet %}
 
 {% schema %}
@@ -333,6 +358,18 @@
   "name": "Header",
   "tag": "header",
   "settings": [
+    { "type": "header", "content": "Logo" },
+    {
+      "type": "text", "id": "logo_url", "label": "Logo URL (desktop)",
+      "info": "A Files URL. Plain URL, not an image picker \u2014 SVG logos cannot be rendered through an image picker.",
+      "default": "https://cdn.shopify.com/s/files/1/0972/5391/7056/files/TER_Logo_Teal_f8aa5b79-0138-4319-8fba-25f42c08e217.svg?v=1774511367"
+    },
+    {
+      "type": "text", "id": "logo_mb_url", "label": "Logo URL (mobile)",
+      "info": "Optional. Falls back to the desktop logo.",
+      "default": "https://cdn.shopify.com/s/files/1/0972/5391/7056/files/fye-brand-mark.webp?v=1785320235"
+    },
+    { "type": "header", "content": "Contact" },
     { "type": "text", "id": "phone", "label": "Phone", "default": "0208 178 6687" },
     { "type": "text", "id": "email", "label": "Email", "default": "hello@foryoureternity.com" },
     { "type": "url", "id": "booking_url", "label": "Booking link" },

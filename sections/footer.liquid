@@ -84,7 +84,7 @@
     <div class="ftr__brand">
       <div class="ftr__mark">
         {%- if section.settings.monogram != blank -%}
-          {{ section.settings.monogram | image_url: width: 280 | image_tag: alt: shop.name, loading: 'lazy' }}
+          <img class="ftr__mono-img" src="{{ section.settings.mono_url | default: 'https://cdn.shopify.com/s/files/1/0972/5391/7056/files/FYE-initial-logo.svg?v=1771578232' }}" alt="{{ shop.name | escape }}" width="100" height="100" loading="lazy">
         {%- endif -%}
       </div>
       <div class="ftr__brand-copy">
@@ -351,6 +351,12 @@
   .fye .ftr__talk .ftr__cta { width: 100%; }
   .fye .ftr__talk .ftr__social { margin-top: var(--s6); margin-bottom: var(--s6); }
 }
+
+/* Monogram. Appended last, per the media-query ordering rule. */
+.fye .ftr__mono-img { display: block; width: 140px; height: auto; }
+@media (max-width: 768px) {
+  .fye .ftr__mono-img { width: 96px; margin-inline: auto; }
+}
 {% endstylesheet %}
 
 {% schema %}
@@ -358,6 +364,12 @@
   "name": "Footer",
   "max_blocks": 6,
   "settings": [
+    { "type": "header", "content": "Monogram" },
+    {
+      "type": "text", "id": "mono_url", "label": "Monogram URL",
+      "info": "A Files URL. Plain URL, not an image picker \u2014 an SVG cannot render through a picker.",
+      "default": "https://cdn.shopify.com/s/files/1/0972/5391/7056/files/FYE-initial-logo.svg?v=1771578232"
+    },
     { "type": "header", "content": "Talk to us" },
     { "type": "text", "id": "talk_heading", "label": "Heading", "default": "Talk to us" },
     { "type": "text", "id": "phone", "label": "Phone", "default": "0208 178 6687" },

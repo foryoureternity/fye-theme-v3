@@ -878,6 +878,20 @@
   .fye .mm__cols { flex-wrap: wrap; gap: var(--s8); }
   .fye .mm__stones { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+
+/* ---- polish, 28/08/2026 -------------------------------------------------
+   nowrap belongs to the LEFT zone only: the 380px right column has longer
+   headings and overflowed, and two non-wrapping labels in one narrow grid
+   track overlapped outright. */
+.fye .mm__side .mm__zone-title { white-space: normal; }
+.fye .mm__side-cols .mm__label { white-space: normal; line-height: 1.35; }
+.fye .mm__main .mm__zone-title { white-space: nowrap; }
+
+/* The panel was running past the bottom of the viewport and clipping the
+   stone grid. */
+.fye .mm__shapes img { width: 38px; height: 38px; }
+.fye .mm__shapes { gap: var(--s3) var(--s8); }
+.fye .mm__shapes a { gap: var(--s4); }
 {% endstylesheet %}
 
 {% schema %}

@@ -566,10 +566,19 @@
 .fye .has-mega .mega__in--wide { grid-template-columns: minmax(0, 1fr); }
 
 /* The vertical rule between zones. */
+/* min-width: 0 is load-bearing. A grid item defaults to min-width: auto —
+   "at least as wide as my content" — and the 25-cut grid's natural width is
+   enormous, so the track grew, the row overflowed, and the second column was
+   pushed off-screen. grid-column is pinned so placement cannot depend on
+   source order or on a stray child. */
+.fye .mm__main { min-width: 0; grid-column: 1; }
 .fye .mm__side {
+  min-width: 0;
+  grid-column: 2;
   padding-left: var(--s10);
   border-left: 1px solid rgba(35, 61, 71, 0.18);
 }
+.fye .mega__in--wide .mm__side { grid-column: 1; border-left: 0; padding-left: 0; }
 
 /* ---- shared heads ------------------------------------------------------- */
 
@@ -711,7 +720,6 @@
   .fye .has-mega .mega__in { grid-template-columns: minmax(0, 1fr) 320px; gap: 0 var(--s8); }
   .fye .mm__side { padding-left: var(--s8); }
   .fye .mm__cols { gap: var(--s9); }
-  .fye .mm__stones { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 @media (max-width: 1100px) {
   .fye .mm__cols { flex-wrap: wrap; gap: var(--s8); }
@@ -982,7 +990,9 @@
 .fye .mm__cuts-wrap { margin-top: var(--s8); padding-top: var(--s6); border-top: 1px solid rgba(35, 61, 71, 0.18); }
 .fye .mm__cuts {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  /* auto-fill with a floor, not a hard five: a fixed count makes the grid
+     demand width, which is what overflowed the panel. */
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: var(--s4) var(--s6);
   margin: 0; padding: 0; list-style: none;
 }
@@ -1007,7 +1017,6 @@
 .fye .mm__row-head--major .mm__tab-bar { border: 0; margin: 0; gap: var(--s7); }
 
 @media (max-width: 1280px) {
-  .fye .mm__cuts { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 {% endstylesheet %}
 

@@ -1,0 +1,27 @@
+{%- comment -%}
+  mm-guide-card — one guide offer in a mega panel's right zone.
+  Params: cover, title, blurb, link, pdf_label.
+
+  Renders nothing without a title, so an unused second card costs no markup.
+{%- endcomment -%}
+{%- if title != blank -%}
+  <div class="mm__card">
+    {%- if cover != blank -%}
+      <a class="mm__card-cover" href="{{ link | default: '#' }}" tabindex="-1" aria-hidden="true">
+        <img src="{{ cover }}" alt="" width="180" height="255" loading="lazy">
+      </a>
+    {%- endif -%}
+    <div class="mm__card-words">
+      <p class="mm__card-title">{{ title }}</p>
+      {%- if blurb != blank -%}
+        <p class="mm__card-blurb">{{ blurb }}</p>
+      {%- endif -%}
+      {%- if link != blank -%}
+        <a class="mm__card-dl" href="{{ link }}">
+          {% render 'icon', name: 'download', size: 16 %}
+          <span>{{ pdf_label | default: 'Download PDF' }}</span>
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}

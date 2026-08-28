@@ -44,7 +44,17 @@
             "stone_all_url": "/collections/coloured-engagement-ring",
             "stone_all_label": "View all coloured stone rings",
             "guides_menu": "footer-guides",
-            "guides_title": "Guides & Advice"
+            "guides_title": "Guides & Advice",
+            "shape_only": "",
+            "side_title": "The Engagement Ring Guide",
+            "guide1_cover": "https://foryoureternity.com/cdn/shop/files/Engagement_Ring_Cover.png",
+            "guide1_title": "The Engagement Ring Guide",
+            "guide1_blurb": "Budget, the Four Cs, diamond shapes, settings, sizing and bespoke design.",
+            "guide1_link": "/pages/engagement-ring-guide",
+            "edu_menu": "footer-diamonds",
+            "edu_label": "Diamond education",
+            "jewel_menu": "footer-guides",
+            "jewel_label": "Jewellery guide"
           }
         },
         "nav_wedding": {
@@ -56,10 +66,24 @@
             "zone1_title": "Pre-Designed Rings",
             "zone1_all_url": "/collections/wedding-rings",
             "zone1_all_label": "View all wedding rings",
-            "shape_suffix": "",
-            "stone_suffix": "",
+            "shape_suffix": "engagement-rings",
+            "stone_suffix": "engagement-rings",
             "guides_menu": "footer-guides",
-            "guides_title": "Guides & Advice"
+            "guides_title": "Guides & Advice",
+            "shape_label": "Diamond & gemstone set",
+            "shape_only": "round-brilliant,princess-cut,oval-cut,pear-cut,emerald-cut,asscher-cut,marquise-cut,heart-cut",
+            "stone_all_url": "/collections/coloured-stone-rings",
+            "side_title": "Wedding Ring Guides",
+            "guide1_cover": "https://foryoureternity.com/cdn/shop/files/Plain_Wedding_Cover.png",
+            "guide1_title": "The Plain Wedding Ring Guide",
+            "guide1_blurb": "Profiles, metals, finishes, shaped-to-fit bands and matched pairs.",
+            "guide1_link": "/pages/plain-wedding-ring-guide",
+            "guide2_cover": "https://foryoureternity.com/cdn/shop/files/Diamond_Ring_Guide.png",
+            "guide2_title": "The Diamond & Gemset Wedding Ring Guide",
+            "guide2_blurb": "Setting styles, stone choices, shaped bands and everyday wear.",
+            "guide2_link": "/pages/jewellery-guides",
+            "edu_menu": "footer-diamonds",
+            "jewel_menu": "footer-guides"
           }
         },
         "nav_eternity": {
@@ -71,10 +95,20 @@
             "zone1_title": "Pre-Designed Rings",
             "zone1_all_url": "/collections/eternity-rings",
             "zone1_all_label": "View all eternity rings",
-            "shape_suffix": "",
-            "stone_suffix": "",
+            "shape_suffix": "engagement-rings",
+            "stone_suffix": "engagement-rings",
             "guides_menu": "footer-guides",
-            "guides_title": "Guides & Advice"
+            "guides_title": "Guides & Advice",
+            "shape_label": "Shop by shape",
+            "shape_only": "round-brilliant,princess-cut,oval-cut,pear-cut,emerald-cut,asscher-cut,marquise-cut,heart-cut",
+            "stone_all_url": "/collections/coloured-stone-rings",
+            "side_title": "The Eternity Ring Guide",
+            "guide1_cover": "https://foryoureternity.com/cdn/shop/files/Eternity_Ring_Cover.png",
+            "guide1_title": "The Eternity Ring Guide",
+            "guide1_blurb": "Full, half and three-quarter styles, stone settings, spacing and how to wear them.",
+            "guide1_link": "/pages/eternity-ring-guide",
+            "edu_menu": "footer-diamonds",
+            "jewel_menu": "footer-guides"
           }
         },
         "nav_diamonds": {
@@ -89,7 +123,16 @@
             "shape_suffix": "",
             "stone_suffix": "",
             "guides_menu": "footer-diamonds",
-            "guides_title": "Learn About Stones"
+            "guides_title": "Learn About Stones",
+            "side_title": "Free Buying Guide",
+            "guide1_cover": "https://foryoureternity.com/cdn/shop/files/Diamond_Ring_Guide.png",
+            "guide1_title": "The Diamond and Gemstone Guide",
+            "guide1_blurb": "The 4Cs, lab-grown versus natural, colour and ethical sourcing.",
+            "guide1_link": "/pages/diamond-and-gemstone-guide",
+            "edu_menu": "footer-diamonds",
+            "edu_label": "Learn",
+            "jewel_menu": "",
+            "jewel_label": ""
           }
         },
         "nav_guides": {

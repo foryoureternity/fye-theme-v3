@@ -1,19 +1,11 @@
 {%- comment -%}
-  mm-stones — the coloured-stone grid inside a mega panel.
+  mm-stones — the coloured-stone grid. Five across, as live.
 
-  Params:
-    suffix    collection-handle suffix, e.g. 'engagement-rings'. Renders
-              nothing when blank.
-    label     column heading. Default 'Shop by Coloured Stone'.
-    all_url   optional "view all" link.
-    all_label optional "view all" label.
+  Params: suffix, label, all_url, all_label.
 
-  Seventeen stones, each with the hex live uses for its dot. The dot is a
-  <span>, not an image: it is a colour sample, and seventeen tiny images would
-  be seventeen requests for something CSS can state exactly.
-
-  Opal gets a border because #EAE6D9 on an ivory panel would otherwise have no
-  edge at all — live does the same.
+  The dot is a <span> with a background: it is a colour sample, and seventeen
+  tiny images would be seventeen requests for a hex value. Opal gets a border
+  or it would have no edge on the ivory panel — live does the same.
 {%- endcomment -%}
 {%- liquid
   assign sfx = suffix | strip
@@ -23,16 +15,16 @@
   assign heading = label | default: 'Shop by Coloured Stone'
   assign stems = 'ruby,sapphire,pink-sapphire,yellow-sapphire,emerald,tanzanite,aquamarine,morganite,peridot,amethyst,garnet,citrine,blue-topaz,opal,fire-opal,pink-tourmaline' | split: ','
   assign names = 'Ruby,Sapphire,Pink Sapphire,Yellow Sapphire,Emerald,Tanzanite,Aquamarine,Morganite,Peridot,Amethyst,Garnet,Citrine,Blue Topaz,Opal,Fire Opal,Pink Tourmaline' | split: ','
-  assign hexes = '#9E2B2B,#2F5C8A,#D46A8B,#E3C14E,#2E7D54,#5B5AA0,#8FBFCB,#E3ADA6,#94A83E,#7E5AA2,#8B2E2E,#E0A33E,#4E93C4,#EAE6D9,#E0713E,#CE6B92' | split: ','
+  assign hexes = '#9E2B2B,#1F4E79,#D46A8B,#E3C14E,#1E7A4C,#5B5AA0,#8FC7D8,#E3ADA6,#94A83E,#7E5AA2,#8B2E2E,#E0A33E,#4E93C4,#EAE6D9,#E0713E,#DE7BA0' | split: ','
 -%}
 
 <div class="mm__stones-wrap">
-  <div class="mm__stones-head">
+  <div class="mm__row-head">
     <h3 class="mm__label">{{ heading }}</h3>
     {%- if all_url != blank -%}
       <a class="mm__viewall" href="{{ all_url }}">
-        {{ all_label | default: 'View all' }}
-        {% render 'icon', name: 'arrow-right', size: 14 %}
+        {{ all_label | default: 'View all coloured stone rings' }}
+        {% render 'icon', name: 'arrow-right', size: 16 %}
       </a>
     {%- endif -%}
   </div>
@@ -48,7 +40,7 @@
     {%- endfor -%}
     <li>
       <a href="/collections/coloured-stone-rings">
-        <span class="mm__dot" style="background:#1C1C1C"></span>
+        <span class="mm__dot" style="background:#141414"></span>
         <span>Black Diamond</span>
       </a>
     </li>

@@ -102,78 +102,123 @@
           <li class="hdr__nav-item{% if block.type == 'mega' %} has-mega{% endif %}" {{ block.shopify_attributes }}>
             <a class="hdr__nav-link{% if is_active %} is-active{% endif %}" href="{{ block.settings.url | default: '#' }}">
               <span>{{ block.settings.title }}</span>
-              {%- if block.type == 'mega' -%}{% render 'icon', name: 'chevron-down', size: 13 %}{%- endif -%}
-            </a>
-
-            {%- if block.type == 'mega' -%}
+              {%- if block.type == 'mega' -%}
               {%- liquid
                 assign b = block.settings
-                assign guides = linklists[b.guides_menu]
-                assign has_zone1 = false
-                if sub.links.size > 0 or b.shape_suffix != blank or b.stone_suffix != blank
-                  assign has_zone1 = true
+                assign edu = linklists[b.edu_menu]
+                assign jew = linklists[b.jewel_menu]
+                assign has_side = false
+                if b.guide1_title != blank or b.guide2_title != blank or edu.links.size > 0 or jew.links.size > 0
+                  assign has_side = true
                 endif
               -%}
               <div class="mega">
-                <div class="mega__in">
+                <div class="mega__in{% unless has_side %} mega__in--wide{% endunless %}">
 
-                  {%- if has_zone1 -%}
-                    <section class="mm__zone">
-                      <div class="mm__zone-head">
-                        <h2 class="mm__zone-title">{{ b.zone1_title | default: 'Pre-Designed Rings' }}</h2>
-                        {%- if b.zone1_all_url != blank -%}
-                          <a class="mm__viewall" href="{{ b.zone1_all_url }}">
-                            {{ b.zone1_all_label | default: 'View all' }}
-                            {% render 'icon', name: 'arrow-right', size: 14 %}
-                          </a>
-                        {%- endif -%}
+                  <div class="mm__main">
+                    <div class="mm__row-head mm__row-head--major">
+                      <h2 class="mm__zone-title">{{ b.zone1_title | default: 'Pre-Designed Rings' }}</h2>
+                      {%- if b.zone1_all_url != blank -%}
+                        <a class="mm__viewall" href="{{ b.zone1_all_url }}">
+                          {{ b.zone1_all_label | default: 'View all' }}
+                          {% render 'icon', name: 'arrow-right', size: 16 %}
+                        </a>
+                      {%- endif -%}
+                    </div>
+
+                    <div class="mm__cols">
+                      {%- render 'mm-shapes', suffix: b.shape_suffix, label: b.shape_label, only: b.shape_only -%}
+
+                      {%- comment -%}
+                        Each top-level menu item becomes a column; its children
+                        are the links. A column whose title mentions metal gets
+                        colour swatches instead of plain links — live's
+                        "Plain · by metal" column.
+                      {%- endcomment -%}
+                      {%- for child in sub.links -%}
+                        {%- liquid
+                          assign lower = child.title | downcase
+                          assign as_dots = false
+                          if lower contains 'metal'
+                            assign as_dots = true
+                          endif
+                        -%}
+                        <div class="mm__col">
+                          <h3 class="mm__label">{{ child.title }}</h3>
+                          {%- if child.links.size > 0 -%}
+                            <ul class="mm__list{% if as_dots %} mm__list--dots{% endif %}">
+                              {%- for gc in child.links -%}
+                                {%- liquid
+                                  assign m = gc.title | downcase
+                                  assign hex = '#C8CDC7'
+                                  if m contains 'yellow'
+                                    assign hex = '#E8CE8B'
+                                  elsif m contains 'rose'
+                                    assign hex = '#DFAE9B'
+                                  elsif m contains 'white'
+                                    assign hex = '#E4E4E2'
+                                  elsif m contains 'platinum'
+                                    assign hex = '#C9CBCC'
+                                  endif
+                                -%}
+                                <li>
+                                  <a href="{{ gc.url }}">
+                                    {%- if as_dots -%}<span class="mm__dot mm__dot--pale" style="background:{{ hex }}"></span>{%- endif -%}
+                                    <span>{{ gc.title }}</span>
+                                  </a>
+                                </li>
+                              {%- endfor -%}
+                            </ul>
+                          {%- endif -%}
+                        </div>
+                      {%- endfor -%}
+                    </div>
+
+                    {%- render 'mm-stones',
+                        suffix: b.stone_suffix,
+                        label: b.stone_label,
+                        all_url: b.stone_all_url,
+                        all_label: b.stone_all_label -%}
+                  </div>
+
+                  {%- if has_side -%}
+                    <div class="mm__side">
+                      <div class="mm__row-head mm__row-head--major">
+                        <h2 class="mm__zone-title">{{ b.side_title | default: 'The Guide' }}</h2>
                       </div>
 
-                      <div class="mm__cols">
-                        {%- render 'mm-shapes', suffix: b.shape_suffix, label: b.shape_label -%}
+                      {%- render 'mm-guide-card',
+                          cover: b.guide1_cover, title: b.guide1_title,
+                          blurb: b.guide1_blurb, link: b.guide1_link -%}
+                      {%- render 'mm-guide-card',
+                          cover: b.guide2_cover, title: b.guide2_title,
+                          blurb: b.guide2_blurb, link: b.guide2_link -%}
 
-                        {%- comment -%}
-                          The menu's TOP level becomes one column each, its
-                          children the links under it — so "Shop by Type" is a
-                          menu item with children, not a hardcoded list.
-                        {%- endcomment -%}
-                        {%- for child in sub.links -%}
-                          <div class="mm__col">
-                            <a class="mm__label mm__label--link" href="{{ child.url }}">{{ child.title }}</a>
-                            {%- if child.links.size > 0 -%}
-                              <ul class="mm__list">
-                                {%- for gc in child.links -%}
-                                  <li><a href="{{ gc.url }}">{{ gc.title }}</a></li>
+                      {%- if edu.links.size > 0 or jew.links.size > 0 -%}
+                        <div class="mm__side-cols">
+                          {%- if edu.links.size > 0 -%}
+                            <div class="mm__col">
+                              <h3 class="mm__label">{{ b.edu_label | default: 'Diamond education' }}</h3>
+                              <ul class="mm__list mm__list--caps">
+                                {%- for link in edu.links -%}
+                                  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
                                 {%- endfor -%}
                               </ul>
-                            {%- endif -%}
-                          </div>
-                        {%- endfor -%}
-                      </div>
-
-                      {%- render 'mm-stones',
-                          suffix: b.stone_suffix,
-                          label: b.stone_label,
-                          all_url: b.stone_all_url,
-                          all_label: b.stone_all_label -%}
-                    </section>
-                  {%- endif -%}
-
-                  {%- if guides.links.size > 0 -%}
-                    <div class="mm__divider"></div>
-                    <section class="mm__zone">
-                      <div class="mm__zone-head">
-                        <h2 class="mm__zone-title">{{ b.guides_title | default: 'Guides & Advice' }}</h2>
-                      </div>
-                      <ul class="mm__guides">
-                        {%- for link in guides.links -%}
-                          <li><a href="{{ link.url }}">
-                            {% render 'icon', name: 'arrow-right', size: 14 %}
-                            <span>{{ link.title }}</span>
-                          </a></li>
-                        {%- endfor -%}
-                      </ul>
-                    </section>
+                            </div>
+                          {%- endif -%}
+                          {%- if jew.links.size > 0 -%}
+                            <div class="mm__col">
+                              <h3 class="mm__label">{{ b.jewel_label | default: 'Jewellery guide' }}</h3>
+                              <ul class="mm__list mm__list--caps">
+                                {%- for link in jew.links -%}
+                                  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                                {%- endfor -%}
+                              </ul>
+                            </div>
+                          {%- endif -%}
+                        </div>
+                      {%- endif -%}
+                    </div>
                   {%- endif -%}
 
                 </div>
@@ -450,103 +495,184 @@
 }
 
 /* ============================================================================
-   MEGA PANELS — 28/08/2026
-   Full-bleed ivory sheet under the nav band. Two zones: pre-designed rings
-   (shape grid, menu columns, stone grid) and guides.
+   MEGA PANELS — rebuilt 28/08/2026 to the live designs
+   Two zones on an ivory sheet: shop-by grids left, guide + education right,
+   divided by a vertical hairline.
    ========================================================================== */
 
-/* static so the panel is not trapped in one narrow nav item — it spans the
-   full width. The containing block then comes from .hdr__nav above. */
 .fye .hdr__nav-item.has-mega { position: static; }
 .fye .has-mega .mega {
   position: absolute;
   left: 0; right: 0; top: 100%;
   transform: none;
   min-width: 0;
-  max-height: calc(100vh - 200px);
+  max-height: calc(100vh - 190px);
   overflow-y: auto;
   background: var(--ivory);
   border: 0;
-  border-top: 1px solid var(--sage-grey);
-  padding: var(--s9) var(--s7);
+  border-top: 1px solid rgba(35, 61, 71, 0.35);
+  padding: var(--s8) var(--s7) var(--s10);
 }
 .fye .has-mega .mega__in {
-  display: block;
-  max-width: var(--maxw);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: 0 var(--s10);
+  max-width: 1500px;
   margin-inline: auto;
 }
+.fye .has-mega .mega__in--wide { grid-template-columns: minmax(0, 1fr); }
 
-.fye .mm__zone + .mm__zone { margin-top: var(--s8); }
-.fye .mm__zone-head {
+/* The vertical rule between zones. */
+.fye .mm__side {
+  padding-left: var(--s10);
+  border-left: 1px solid rgba(35, 61, 71, 0.18);
+}
+
+/* ---- shared heads ------------------------------------------------------- */
+
+.fye .mm__row-head {
   display: flex; align-items: baseline; justify-content: space-between;
   gap: var(--s6);
+  margin-bottom: var(--s5);
+}
+.fye .mm__row-head--major {
+  padding-bottom: var(--s4);
+  border-bottom: 1px solid rgba(35, 61, 71, 0.18);
   margin-bottom: var(--s7);
 }
 .fye .mm__zone-title {
   margin: 0;
   font-family: var(--font-display);
-  font-size: 20px;
+  font-size: 26px;
   font-weight: var(--fw-regular);
   letter-spacing: var(--tr-h2);
+  line-height: 1.2;
   text-transform: uppercase;
 }
 .fye .mm__viewall {
-  display: inline-flex; align-items: center; gap: var(--s2);
-  font-size: 13px; font-weight: var(--fw-medium);
-  letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+  display: inline-flex; align-items: center; gap: var(--s3);
+  font-size: 15px; font-weight: var(--fw-medium);
+  letter-spacing: 0.08em; text-transform: uppercase;
   white-space: nowrap;
 }
-
-.fye .mm__cols { display: flex; gap: var(--s10); align-items: flex-start; }
-.fye .mm__col { min-width: 0; }
+/* Small caps label. Softer than body ink — it is a category, not a link. */
 .fye .mm__label {
   display: block;
   margin: 0 0 var(--s5);
-  font-size: 13px; font-weight: var(--fw-medium);
-  letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
-  color: var(--ink);
+  font-size: 13px; font-weight: var(--fw-regular);
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgba(35, 61, 71, 0.55);
 }
-.fye .mm__list, .fye .mm__shapes, .fye .mm__stones, .fye .mm__guides { margin: 0; padding: 0; list-style: none; }
-.fye .mm__list li { margin-bottom: var(--s3); }
-.fye .mm__list a { font-size: 16px; font-weight: var(--fw-light); }
 
-/* Shapes: two columns of five, icon then name. */
+/* ---- left zone ---------------------------------------------------------- */
+
+.fye .mm__cols { display: flex; gap: var(--s11); align-items: flex-start; }
+.fye .mm__col { min-width: 0; }
+.fye .mm__list { margin: 0; padding: 0; list-style: none; }
+.fye .mm__list li { margin-bottom: var(--s4); }
+.fye .mm__list a {
+  display: inline-flex; align-items: center; gap: var(--s3);
+  font-size: 16px; font-weight: var(--fw-medium);
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.fye .mm__list--caps a { font-size: 15px; letter-spacing: 0.05em; }
+
+/* Two columns, filled COLUMN-MAJOR: live reads Round/Pear, Princess/Emerald.
+   Row-wise wrapping would pair Round with Princess. The row count comes from
+   the snippet, since panels carry different numbers of shapes. */
 .fye .mm__shapes {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--s3) var(--s7);
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  gap: var(--s4) var(--s9);
+  margin: 0; padding: 0; list-style: none;
 }
 .fye .mm__shapes li { margin: 0; }
-.fye .mm__shapes a { display: inline-flex; align-items: center; gap: var(--s3); font-size: 15px; font-weight: var(--fw-light); }
-.fye .mm__shapes img { width: 24px; height: 24px; flex: none; }
+.fye .mm__shapes a {
+  display: inline-flex; align-items: center; gap: var(--s5);
+  font-size: 15px; font-weight: var(--fw-medium);
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.fye .mm__shapes img { width: 44px; height: 44px; flex: none; }
 
-/* Stones: the dot is a colour sample, so CSS states it — seventeen tiny
-   images would be seventeen requests for a hex value. */
-.fye .mm__stones-wrap { margin-top: var(--s8); padding-top: var(--s7); border-top: var(--hairline); }
-.fye .mm__stones-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s6); }
+.fye .mm__stones-wrap {
+  margin-top: var(--s9);
+  padding-top: var(--s6);
+  border-top: 1px solid rgba(35, 61, 71, 0.18);
+}
 .fye .mm__stones {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-  gap: var(--s3) var(--s7);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--s4) var(--s6);
+  margin: 0; padding: 0; list-style: none;
 }
 .fye .mm__stones li { margin: 0; }
-.fye .mm__stones a { display: inline-flex; align-items: center; gap: var(--s3); font-size: 15px; font-weight: var(--fw-light); }
+.fye .mm__stones a {
+  display: inline-flex; align-items: center; gap: var(--s4);
+  font-size: 15px; font-weight: var(--fw-medium);
+  letter-spacing: 0.06em; text-transform: uppercase;
+  line-height: 1.25;
+}
 .fye .mm__dot {
-  width: 12px; height: 12px; flex: none;
+  width: 22px; height: 22px; flex: none;
+  border-radius: 50%;
   border: 1px solid transparent;
 }
-/* Opal would have no edge at all on an ivory panel. Live does the same. */
-.fye .mm__dot--pale { border-color: rgba(35, 61, 71, 0.35); }
+/* Pale stones and the metal swatches need an edge or they vanish on ivory. */
+.fye .mm__dot--pale { border-color: rgba(35, 61, 71, 0.28); }
+.fye .mm__list--dots a { gap: var(--s4); }
 
-.fye .mm__divider { height: 1px; background: rgba(35, 61, 71, 0.18); margin-block: var(--s8); }
+/* ---- right zone --------------------------------------------------------- */
 
-.fye .mm__guides {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--s3) var(--s7);
+.fye .mm__card {
+  display: flex;
+  gap: var(--s5);
+  padding: var(--s5);
+  background: var(--white);
+  margin-bottom: var(--s6);
 }
-.fye .mm__guides li { margin: 0; }
-.fye .mm__guides a { display: inline-flex; align-items: center; gap: var(--s3); font-size: 16px; font-weight: var(--fw-light); }
+.fye .mm__card-cover { flex: none; width: 84px; }
+.fye .mm__card-cover img { display: block; width: 100%; height: auto; }
+.fye .mm__card-words { display: flex; flex-direction: column; gap: var(--s3); min-width: 0; }
+.fye .mm__card-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 18px;
+  letter-spacing: var(--tr-h2);
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+.fye .mm__card-blurb {
+  margin: 0;
+  font-size: 15px; font-weight: var(--fw-light);
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.fye .mm__card-dl {
+  display: inline-flex; align-items: center; gap: var(--s3);
+  margin-top: var(--s2);
+  font-size: 14px; font-weight: var(--fw-medium);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+
+.fye .mm__side-cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s7);
+  margin-top: var(--s8);
+  padding-top: var(--s7);
+  border-top: 1px solid rgba(35, 61, 71, 0.18);
+}
+
+@media (max-width: 1280px) {
+  .fye .has-mega .mega__in { grid-template-columns: minmax(0, 1fr) 320px; gap: 0 var(--s8); }
+  .fye .mm__side { padding-left: var(--s8); }
+  .fye .mm__cols { gap: var(--s9); }
+  .fye .mm__stones { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (max-width: 1100px) {
+  .fye .mm__cols { flex-wrap: wrap; gap: var(--s8); }
+}
 
 /* ---- drawer accordion --------------------------------------------------- */
 
@@ -632,9 +758,21 @@
         { "type": "text", "id": "stone_label", "label": "Heading", "default": "Shop by Coloured Stone" },
         { "type": "url", "id": "stone_all_url", "label": "View-all link" },
         { "type": "text", "id": "stone_all_label", "label": "View-all label", "default": "View all coloured stone rings" },
-        { "type": "header", "content": "Guides" },
-        { "type": "link_list", "id": "guides_menu", "label": "Guides menu" },
-        { "type": "text", "id": "guides_title", "label": "Zone heading", "default": "Guides & Advice" }
+        { "type": "text", "id": "shape_only", "label": "Shapes to show", "info": "Comma list of stems, in order, e.g. round-brilliant,princess-cut. Empty shows all ten." },
+        { "type": "header", "content": "Right zone" },
+        { "type": "text", "id": "side_title", "label": "Zone heading", "default": "The Guide" },
+        { "type": "text", "id": "guide1_cover", "label": "Guide 1 cover URL" },
+        { "type": "text", "id": "guide1_title", "label": "Guide 1 title" },
+        { "type": "textarea", "id": "guide1_blurb", "label": "Guide 1 blurb" },
+        { "type": "url", "id": "guide1_link", "label": "Guide 1 link" },
+        { "type": "text", "id": "guide2_cover", "label": "Guide 2 cover URL" },
+        { "type": "text", "id": "guide2_title", "label": "Guide 2 title" },
+        { "type": "textarea", "id": "guide2_blurb", "label": "Guide 2 blurb" },
+        { "type": "url", "id": "guide2_link", "label": "Guide 2 link" },
+        { "type": "link_list", "id": "edu_menu", "label": "Education menu" },
+        { "type": "text", "id": "edu_label", "label": "Education heading", "default": "Diamond education" },
+        { "type": "link_list", "id": "jewel_menu", "label": "Jewellery guide menu" },
+        { "type": "text", "id": "jewel_label", "label": "Jewellery heading", "default": "Jewellery guide" }
       ]
     }
   ]

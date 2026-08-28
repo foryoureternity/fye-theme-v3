@@ -2,15 +2,13 @@
   mm-shapes — the diamond-shape grid inside a mega panel.
 
   Params:
-    suffix  collection-handle suffix, e.g. 'engagement-rings'. Each link is
-            <stem>-<suffix>. Renders nothing when blank.
+    suffix  collection-handle suffix, e.g. 'engagement-rings'. Blank = no grid.
     label   column heading. Default 'Shop by Shape'.
+    only    optional comma list of stems to include, in order. Blank = all ten.
 
-  The stems and icons are live's. Icons are live's own CDN files rather than
-  theme assets, so the artwork matches with nothing copied in.
-
-  This is a fixed taxonomy, not navigation — see build-mega.mjs on why it is
-  code and the type column is a menu.
+  Order is COLUMN-MAJOR, as live: Round/Pear, Princess/Emerald, Oval/Asscher.
+  The CSS does that with grid-auto-flow: column and an explicit row count —
+  wrapping row-wise would pair Round with Princess and read wrongly.
 {%- endcomment -%}
 {%- liquid
   assign sfx = suffix | strip
@@ -18,22 +16,40 @@
     break
   endif
   assign heading = label | default: 'Shop by Shape'
-  assign stems = 'round-brilliant,princess-cut,oval-cut,cushion-cut,radiant-cut,pear-cut,emerald-cut,asscher-cut,marquise-cut,heart-cut' | split: ','
-  assign names = 'Round,Princess,Oval,Cushion,Radiant,Pear,Emerald,Asscher,Marquise,Heart' | split: ','
-  assign icons = 'icon101,icon107,icon102,icon103,icon106,icon104,icon105,icon109,icon108,icon110' | split: ','
+  assign all_stems = 'round-brilliant,princess-cut,oval-cut,cushion-cut,radiant-cut,pear-cut,emerald-cut,asscher-cut,marquise-cut,heart-cut' | split: ','
+  assign all_names = 'Round,Princess,Oval,Cushion,Radiant,Pear,Emerald,Asscher,Marquise,Heart' | split: ','
+  assign all_icons = 'icon101,icon107,icon102,icon103,icon106,icon104,icon105,icon109,icon108,icon110' | split: ','
   assign cdn = 'https://foryoureternity.com/cdn/shop/files/'
+
+  assign stems = all_stems
+  if only != blank
+    assign stems = only | strip | split: ','
+  endif
+  assign rows = stems.size | plus: 1 | divided_by: 2
 -%}
 
 <div class="mm__col mm__col--shapes">
   <h3 class="mm__label">{{ heading }}</h3>
-  <ul class="mm__shapes">
+  <ul class="mm__shapes" style="grid-template-rows: repeat({{ rows }}, auto)">
     {%- for stem in stems -%}
-      <li>
-        <a href="/collections/{{ stem }}-{{ sfx }}">
-          <img src="{{ cdn }}{{ icons[forloop.index0] }}.svg" alt="" width="24" height="24" loading="lazy">
-          <span>{{ names[forloop.index0] }}</span>
-        </a>
-      </li>
+      {%- liquid
+        assign s = stem | strip
+        assign idx = -1
+        for a in all_stems
+          if a == s
+            assign idx = forloop.index0
+            break
+          endif
+        endfor
+      -%}
+      {%- if idx >= 0 -%}
+        <li>
+          <a href="/collections/{{ s }}-{{ sfx }}">
+            <img src="{{ cdn }}{{ all_icons[idx] }}.svg" alt="" width="44" height="44" loading="lazy">
+            <span>{{ all_names[idx] }}</span>
+          </a>
+        </li>
+      {%- endif -%}
     {%- endfor -%}
   </ul>
 </div>

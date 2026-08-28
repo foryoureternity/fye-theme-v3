@@ -340,16 +340,17 @@
   .fye .hdr__icon { width: 40px; }
 }
 
-/* Which logo shows. Appended at the END: a media query adds a condition, not
-   specificity, so an override placed above the base rules only half-applies. */
-.fye .hdr__logo-img { display: block; height: 96px; width: auto; }
-.fye .hdr__logo-img--m { display: none; }
+/* Which logo shows. The img TYPE selector is load-bearing: the base rule
+   .fye .hdr__logo img is (0,2,1), so a two-class override loses to it however
+   late it appears — order only breaks ties. These are (0,3,1). */
+.fye .hdr__logo img.hdr__logo-img--d { display: block; height: 96px; width: auto; }
+.fye .hdr__logo img.hdr__logo-img--m { display: none; }
 
 @media (max-width: 900px) {
-  /* The mobile mark is 571x320 — a wide lockup. Capped by height to fit the
-     62px row; raise this if it reads small on a real phone. */
-  .fye .hdr__logo-img--d { display: none; }
-  .fye .hdr__logo-img--m { display: block; height: 40px; width: auto; }
+  /* The mobile mark is 571x320 — a wide lockup — so it is capped by height to
+     fit the 62px row. Raise if it reads small on a real phone. */
+  .fye .hdr__logo img.hdr__logo-img--d { display: none; }
+  .fye .hdr__logo img.hdr__logo-img--m { display: block; height: 40px; width: auto; }
 }
 {% endstylesheet %}
 

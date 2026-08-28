@@ -83,8 +83,14 @@
 
     <div class="ftr__brand">
       <div class="ftr__mark">
-        {%- if section.settings.monogram != blank -%}
-          <img class="ftr__mono-img" src="{{ section.settings.mono_url | default: 'https://cdn.shopify.com/s/files/1/0972/5391/7056/files/FYE-initial-logo.svg?v=1771578232' }}" alt="{{ shop.name | escape }}" width="100" height="100" loading="lazy">
+        {%- comment -%}
+          Gated on mono_url. It used to be gated on the monogram image_picker,
+          which is empty and always will be — a picker cannot render an SVG,
+          which is the whole reason this moved to a URL.
+        {%- endcomment -%}
+        {%- assign mono = section.settings.mono_url | default: 'https://cdn.shopify.com/s/files/1/0972/5391/7056/files/FYE-initial-logo.svg?v=1771578232' -%}
+        {%- if mono != blank -%}
+          <img class="ftr__mono-img" src="{{ mono }}" alt="{{ shop.name | escape }}" width="100" height="100" loading="lazy">
         {%- endif -%}
       </div>
       <div class="ftr__brand-copy">
@@ -352,10 +358,10 @@
   .fye .ftr__talk .ftr__social { margin-top: var(--s6); margin-bottom: var(--s6); }
 }
 
-/* Monogram. Appended last, per the media-query ordering rule. */
-.fye .ftr__mono-img { display: block; width: 140px; height: auto; }
+/* Width comes from .ftr__mark img above — 94px, the measured live size. Do not
+   add a second width here; two rules disagreeing about one number is a trap. */
 @media (max-width: 768px) {
-  .fye .ftr__mono-img { width: 96px; margin-inline: auto; }
+  .fye .ftr__mark { display: flex; justify-content: center; margin-bottom: var(--s6); }
 }
 {% endstylesheet %}
 
@@ -380,7 +386,6 @@
     { "type": "text", "id": "cta_label", "label": "Button label", "default": "Book consultation" },
     { "type": "url", "id": "cta_link", "label": "Button link" },
     { "type": "header", "content": "Brand row" },
-    { "type": "image_picker", "id": "monogram", "label": "Monogram" },
     { "type": "text", "id": "strapline", "label": "Strapline", "default": "Beautiful jewellery. Ethically made. Fairly priced." },
     { "type": "richtext", "id": "mission", "label": "Mission text" },
     { "type": "header", "content": "Newsletter" },

@@ -116,7 +116,7 @@
           "settings": {
             "title": "Diamonds & gemstones",
             "url": "/pages/diamond-and-gemstone-guide",
-            "menu": "mega-diamonds",
+            "menu": "",
             "zone1_title": "Diamonds & Gemstones",
             "zone1_all_url": "/collections/loose-diamonds",
             "zone1_all_label": "View all loose stones",
@@ -132,7 +132,12 @@
             "edu_menu": "footer-diamonds",
             "edu_label": "Learn",
             "jewel_menu": "",
-            "jewel_label": ""
+            "jewel_label": "",
+            "tab1_label": "Diamonds",
+            "tab1_menu": "mega-diamonds",
+            "tab2_label": "Gemstones",
+            "tab2_menu": "mega-gemstones",
+            "tab2_stone_suffix": ""
           }
         },
         "nav_guides": {

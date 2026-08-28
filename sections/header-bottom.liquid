@@ -245,7 +245,10 @@
 {% stylesheet %}
 /* Header is CHROME, not a content band: its padding is deliberately its own
    and does NOT come from --sect-y. Full width, no max-width container. */
-.fye .hdr { background: var(--white); }
+/* position + z-index are load-bearing for the mega panels: without a
+   positioned ancestor an absolute panel resolves against the VIEWPORT, so
+   top: 100% put it one screen-height down the page, below the hero. */
+.fye .hdr { background: var(--white); position: relative; z-index: 40; }
 
 .fye .hdr__main {
   padding-inline: var(--s7);            /* 32px, measured */
@@ -322,7 +325,9 @@
 .fye .hdr__burger { display: none; justify-self: start; }
 
 /* Nav band — ivory, 49px, centred, NO rule beneath (content starts flush). */
-.fye .hdr__nav { background: var(--ivory); }
+/* The panel's vertical origin. top: 100% must mean "below the nav band", not
+   "below the whole header" — the logo row above it is 145px tall. */
+.fye .hdr__nav { background: var(--ivory); position: relative; }
 .fye .hdr__nav-list {
   display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
   gap: var(--s5);
@@ -450,6 +455,8 @@
    (shape grid, menu columns, stone grid) and guides.
    ========================================================================== */
 
+/* static so the panel is not trapped in one narrow nav item — it spans the
+   full width. The containing block then comes from .hdr__nav above. */
 .fye .hdr__nav-item.has-mega { position: static; }
 .fye .has-mega .mega {
   position: absolute;

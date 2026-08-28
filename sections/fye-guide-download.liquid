@@ -269,7 +269,9 @@
      left leaves an empty half-width beside it that reads as a missing element,
      and 240px of a ~330px content width makes the cover the subject of the
      band instead of the thing being offered. */
-  .fye .gdl__covers { max-width: 200px; margin-inline: auto; align-items: center; }
+  /* 240px. The 200 was tuned for a cover pinned left in a half-empty column;
+     as the top of a centred stack it carries the extra width comfortably. */
+  .fye .gdl__covers { max-width: 240px; margin-inline: auto; align-items: center; }
   .fye .gdl__caption { text-align: center; }
 
   /* The pair stays side by side — two covers in a row is the whole point — but
@@ -284,9 +286,20 @@
   }
   .fye .gdl__book { align-items: center; }
 
-  /* The words stay left-aligned: centred body copy is harder to read, and the
-     brand sets body copy left. Only the art and its labels centre. */
-  .fye .gdl__words { align-items: flex-start; }
+  /* Fully centred. Centred body copy is normally worse to read and the brand
+     sets copy left — but this is one short offer presented as a single object,
+     and a centred cover over left-aligned copy over a left-pinned button reads
+     as three things that failed to line up. */
+  .fye .gdl__words { align-items: center; text-align: center; }
+  .fye .gdl__body { max-width: 40ch; }
+
+  /* Core sets .btn { width: 100% } at 560px but exempts .row .btn so button
+     rows do not stretch — and .gdl__actions is a .row. Same exemption that
+     caught the hero buttons. Overridden here so the button reads as the band's
+     action rather than a small chip under centred text. */
+  .fye .gdl__actions { justify-content: center; width: 100%; }
+  .fye .gdl__actions .btn,
+  .fye .row.gdl__actions .btn { width: 100%; }
 }
 {% endstylesheet %}
 

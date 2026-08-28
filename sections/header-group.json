@@ -16,18 +16,110 @@
         "booking_url": "https://calendar.app.google/UKFkGvMLzAYEviqy8",
         "whatsapp_url": "https://wa.me/447840042922",
         "cta_label": "Downloadable guides",
-        "cta_link": "/pages/downloadable-guides"
+        "cta_link": "/pages/downloadable-guides",
+        "logo_url": "https://cdn.shopify.com/s/files/1/0972/5391/7056/files/TER_Logo_Teal_f8aa5b79-0138-4319-8fba-25f42c08e217.svg?v=1774511367",
+        "logo_mb_url": "https://cdn.shopify.com/s/files/1/0972/5391/7056/files/fye-brand-mark.webp?v=1785320235"
       },
       "blocks": {
-        "nav_home": { "type": "base", "settings": { "title": "Home", "url": "/" } },
-        "nav_engagement": { "type": "mega", "settings": { "title": "Engagement rings", "url": "/pages/engagement-rings" } },
-        "nav_wedding": { "type": "mega", "settings": { "title": "Wedding rings", "url": "/pages/wedding-rings" } },
-        "nav_eternity": { "type": "mega", "settings": { "title": "Eternity rings", "url": "/pages/eternity-rings" } },
-        "nav_diamonds": { "type": "mega", "settings": { "title": "Diamonds & gemstones", "url": "/pages/diamond-and-gemstone-guide" } },
-        "nav_guides": { "type": "mega", "settings": { "title": "Jewellery guides & advice", "url": "/pages/jewellery-guides" } },
-        "nav_news": { "type": "base", "settings": { "title": "News", "url": "/blogs/news" } },
-        "nav_about": { "type": "base", "settings": { "title": "About us", "url": "/pages/about-us" } },
-        "nav_contact": { "type": "base", "settings": { "title": "Contact", "url": "/pages/contact" } }
+        "nav_home": {
+          "type": "base",
+          "settings": {
+            "title": "Home",
+            "url": "/"
+          }
+        },
+        "nav_engagement": {
+          "type": "mega",
+          "settings": {
+            "title": "Engagement rings",
+            "url": "/pages/engagement-rings",
+            "menu": "mega-engagement",
+            "zone1_title": "Pre-Designed Rings",
+            "zone1_all_url": "/collections/engagement-rings",
+            "zone1_all_label": "View all engagement rings",
+            "shape_suffix": "engagement-rings",
+            "shape_label": "Shop by Shape",
+            "stone_suffix": "engagement-rings",
+            "stone_label": "Shop by Coloured Stone",
+            "stone_all_url": "/collections/coloured-engagement-ring",
+            "stone_all_label": "View all coloured stone rings",
+            "guides_menu": "footer-guides",
+            "guides_title": "Guides & Advice"
+          }
+        },
+        "nav_wedding": {
+          "type": "mega",
+          "settings": {
+            "title": "Wedding rings",
+            "url": "/pages/wedding-rings",
+            "menu": "mega-wedding",
+            "zone1_title": "Pre-Designed Rings",
+            "zone1_all_url": "/collections/wedding-rings",
+            "zone1_all_label": "View all wedding rings",
+            "shape_suffix": "",
+            "stone_suffix": "",
+            "guides_menu": "footer-guides",
+            "guides_title": "Guides & Advice"
+          }
+        },
+        "nav_eternity": {
+          "type": "mega",
+          "settings": {
+            "title": "Eternity rings",
+            "url": "/pages/eternity-rings",
+            "menu": "mega-eternity",
+            "zone1_title": "Pre-Designed Rings",
+            "zone1_all_url": "/collections/eternity-rings",
+            "zone1_all_label": "View all eternity rings",
+            "shape_suffix": "",
+            "stone_suffix": "",
+            "guides_menu": "footer-guides",
+            "guides_title": "Guides & Advice"
+          }
+        },
+        "nav_diamonds": {
+          "type": "mega",
+          "settings": {
+            "title": "Diamonds & gemstones",
+            "url": "/pages/diamond-and-gemstone-guide",
+            "menu": "mega-diamonds",
+            "zone1_title": "Diamonds & Gemstones",
+            "zone1_all_url": "/collections/loose-diamonds",
+            "zone1_all_label": "View all loose stones",
+            "shape_suffix": "",
+            "stone_suffix": "",
+            "guides_menu": "footer-diamonds",
+            "guides_title": "Learn About Stones"
+          }
+        },
+        "nav_guides": {
+          "type": "base",
+          "settings": {
+            "title": "Jewellery guides & advice",
+            "url": "/pages/jewellery-guides"
+          }
+        },
+        "nav_news": {
+          "type": "base",
+          "settings": {
+            "title": "News",
+            "url": "/blogs/news"
+          }
+        },
+        "nav_about": {
+          "type": "base",
+          "settings": {
+            "title": "About us",
+            "url": "/pages/about-us"
+          }
+        },
+        "nav_contact": {
+          "type": "base",
+          "settings": {
+            "title": "Contact",
+            "url": "/pages/contact"
+          }
+        }
       },
       "block_order": [
         "nav_home",
@@ -42,5 +134,8 @@
       ]
     }
   },
-  "order": ["announcement", "header"]
+  "order": [
+    "announcement",
+    "header"
+  ]
 }

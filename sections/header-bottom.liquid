@@ -102,25 +102,31 @@
           <li class="hdr__nav-item{% if block.type == 'mega' %} has-mega{% endif %}" {{ block.shopify_attributes }}>
             <a class="hdr__nav-link{% if is_active %} is-active{% endif %}" href="{{ block.settings.url | default: '#' }}">
               <span>{{ block.settings.title }}</span>
-              {%- if block.type == 'mega' -%}{% render 'icon', name: 'chevron-down', size: 13 %}{%- endif -%}
-            </a>
-
-            {%- if block.type == 'mega' -%}
+              {%- if block.type == 'mega' -%}
               {%- liquid
                 assign b = block.settings
                 assign edu = linklists[b.edu_menu]
                 assign jew = linklists[b.jewel_menu]
-                assign has_side = false
-                if b.guide1_title != blank or b.guide2_title != blank or edu.links.size > 0 or jew.links.size > 0
-                  assign has_side = true
+                assign tabbed = false
+                if b.tab2_label != blank
+                  assign tabbed = true
                 endif
               -%}
               <div class="mega">
-                <div class="mega__in{% unless has_side %} mega__in--wide{% endunless %}">
+                <div class="mega__in">
 
                   <div class="mm__main">
                     <div class="mm__row-head mm__row-head--major">
-                      <h2 class="mm__zone-title">{{ b.zone1_title | default: 'Pre-Designed Rings' }}</h2>
+                      {%- if tabbed -%}
+                        <div class="mm__tab-bar">
+                          <input class="mm__tab-in" type="radio" name="mmtab-{{ block.id }}" id="mmtab-{{ block.id }}-1" checked>
+                          <input class="mm__tab-in" type="radio" name="mmtab-{{ block.id }}" id="mmtab-{{ block.id }}-2">
+                          <label class="mm__tab" for="mmtab-{{ block.id }}-1">{{ b.tab1_label | default: 'Diamonds' }}</label>
+                          <label class="mm__tab" for="mmtab-{{ block.id }}-2">{{ b.tab2_label }}</label>
+                        </div>
+                      {%- else -%}
+                        <h2 class="mm__zone-title">{{ b.zone1_title | default: 'Pre-Designed Rings' }}</h2>
+                      {%- endif -%}
                       {%- if b.zone1_all_url != blank -%}
                         <a class="mm__viewall" href="{{ b.zone1_all_url }}">
                           {{ b.zone1_all_label | default: 'View all' }}
@@ -129,79 +135,27 @@
                       {%- endif -%}
                     </div>
 
-                    {%- if b.tab2_label != blank -%}
-                      {%- comment -%}
-                        CSS-only tabs: hidden radios + :checked siblings. Names
-                        carry the block id so two panels on one page cannot
-                        share a radio group.
-                      {%- endcomment -%}
-                      <div class="mm__tabs">
-                        <input class="mm__tab-in" type="radio" name="mmtab-{{ block.id }}" id="mmtab-{{ block.id }}-1" checked>
-                        <input class="mm__tab-in" type="radio" name="mmtab-{{ block.id }}" id="mmtab-{{ block.id }}-2">
-                        <div class="mm__tab-bar">
-                          <label class="mm__tab" for="mmtab-{{ block.id }}-1">{{ b.tab1_label | default: 'Diamonds' }}</label>
-                          <label class="mm__tab" for="mmtab-{{ block.id }}-2">{{ b.tab2_label }}</label>
-                        </div>
+                    {%- comment -%}
+                      Tab 1 / the untabbed panel. Column order differs per
+                      panel — wedding leads with shapes, the others lead with
+                      their menu columns — hence shapes_first.
+                    {%- endcomment -%}
+                    <div class="mm__tab-body mm__tab-body--1">
+                      <div class="mm__cols">
+                        {%- if b.shapes_first -%}
+                          {%- render 'mm-shapes', set: b.shape_set, label: b.shape_label -%}
+                        {%- endif -%}
 
-                        <div class="mm__tab-body mm__tab-body--1">
-                          <div class="mm__cols">
-                            {%- assign t1 = linklists[b.tab1_menu] -%}
-                            {%- for child in t1.links -%}
-                              <div class="mm__col">
-                                <h3 class="mm__label">{{ child.title }}</h3>
-                                <ul class="mm__list">
-                                  {%- for gc in child.links -%}
-                                    <li><a href="{{ gc.url }}">{{ gc.title }}</a></li>
-                                  {%- endfor -%}
-                                </ul>
-                              </div>
-                            {%- endfor -%}
-                          </div>
-                        </div>
-
-                        <div class="mm__tab-body mm__tab-body--2">
-                          <div class="mm__cols">
-                            {%- assign t2 = linklists[b.tab2_menu] -%}
-                            {%- for child in t2.links -%}
-                              <div class="mm__col">
-                                <h3 class="mm__label">{{ child.title }}</h3>
-                                <ul class="mm__list">
-                                  {%- for gc in child.links -%}
-                                    <li><a href="{{ gc.url }}">{{ gc.title }}</a></li>
-                                  {%- endfor -%}
-                                </ul>
-                              </div>
-                            {%- endfor -%}
-                          </div>
-                          {%- render 'mm-stones',
-                              suffix: b.tab2_stone_suffix,
-                              label: b.tab2_stone_label,
-                              all_url: b.tab2_stone_all_url,
-                              all_label: b.tab2_stone_all_label -%}
-                        </div>
-                      </div>
-                    {%- endif -%}
-
-                    <div class="mm__cols">
-                      {%- render 'mm-shapes', suffix: b.shape_suffix, label: b.shape_label, only: b.shape_only -%}
-
-                      {%- comment -%}
-                        Each top-level menu item becomes a column; its children
-                        are the links. A column whose title mentions metal gets
-                        colour swatches instead of plain links — live's
-                        "Plain · by metal" column.
-                      {%- endcomment -%}
-                      {%- for child in sub.links -%}
-                        {%- liquid
-                          assign lower = child.title | downcase
-                          assign as_dots = false
-                          if lower contains 'metal'
-                            assign as_dots = true
-                          endif
-                        -%}
-                        <div class="mm__col">
-                          <h3 class="mm__label">{{ child.title }}</h3>
-                          {%- if child.links.size > 0 -%}
+                        {%- for child in sub.links -%}
+                          {%- liquid
+                            assign lower = child.title | downcase
+                            assign as_dots = false
+                            if lower contains 'metal'
+                              assign as_dots = true
+                            endif
+                          -%}
+                          <div class="mm__col">
+                            <h3 class="mm__label">{{ child.title }}</h3>
                             <ul class="mm__list{% if as_dots %} mm__list--dots{% endif %}">
                               {%- for gc in child.links -%}
                                 {%- liquid
@@ -225,57 +179,90 @@
                                 </li>
                               {%- endfor -%}
                             </ul>
-                          {%- endif -%}
-                        </div>
-                      {%- endfor -%}
-                    </div>
+                          </div>
+                        {%- endfor -%}
 
-                    {%- render 'mm-stones',
-                        suffix: b.stone_suffix,
-                        label: b.stone_label,
-                        all_url: b.stone_all_url,
-                        all_label: b.stone_all_label -%}
-                  </div>
-
-                  {%- if has_side -%}
-                    <div class="mm__side">
-                      <div class="mm__row-head mm__row-head--major">
-                        <h2 class="mm__zone-title">{{ b.side_title | default: 'The Guide' }}</h2>
+                        {%- unless b.shapes_first -%}
+                          {%- render 'mm-shapes', set: b.shape_set, label: b.shape_label -%}
+                        {%- endunless -%}
                       </div>
 
-                      {%- render 'mm-guide-card',
-                          cover: b.guide1_cover, title: b.guide1_title,
-                          blurb: b.guide1_blurb, link: b.guide1_link -%}
-                      {%- render 'mm-guide-card',
-                          cover: b.guide2_cover, title: b.guide2_title,
-                          blurb: b.guide2_blurb, link: b.guide2_link -%}
-
-                      {%- if edu.links.size > 0 or jew.links.size > 0 -%}
-                        <div class="mm__side-cols">
-                          {%- if edu.links.size > 0 -%}
-                            <div class="mm__col">
-                              <h3 class="mm__label">{{ b.edu_label | default: 'Diamond education' }}</h3>
-                              <ul class="mm__list mm__list--caps">
-                                {%- for link in edu.links -%}
-                                  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-                                {%- endfor -%}
-                              </ul>
-                            </div>
-                          {%- endif -%}
-                          {%- if jew.links.size > 0 -%}
-                            <div class="mm__col">
-                              <h3 class="mm__label">{{ b.jewel_label | default: 'Jewellery guide' }}</h3>
-                              <ul class="mm__list mm__list--caps">
-                                {%- for link in jew.links -%}
-                                  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-                                {%- endfor -%}
-                              </ul>
-                            </div>
-                          {%- endif -%}
-                        </div>
+                      {%- if b.show_cuts -%}
+                        {%- render 'mm-cuts', label: b.cuts_label -%}
                       {%- endif -%}
+
+                      {%- render 'mm-stones',
+                          set: b.stone_set,
+                          label: b.stone_label,
+                          all_url: b.stone_all_url,
+                          all_label: b.stone_all_label -%}
                     </div>
-                  {%- endif -%}
+
+                    {%- if tabbed -%}
+                      <div class="mm__tab-body mm__tab-body--2">
+                        {%- assign t2 = linklists[b.tab2_menu] -%}
+                        <div class="mm__cols">
+                          {%- for child in t2.links -%}
+                            <div class="mm__col">
+                              <h3 class="mm__label">{{ child.title }}</h3>
+                              <ul class="mm__list">
+                                {%- for gc in child.links -%}
+                                  <li><a href="{{ gc.url }}">{{ gc.title }}</a></li>
+                                {%- endfor -%}
+                              </ul>
+                            </div>
+                          {%- endfor -%}
+                        </div>
+                        {%- render 'mm-stones',
+                            set: b.tab2_stone_set,
+                            label: b.tab2_stone_label,
+                            all_url: b.tab2_stone_all_url,
+                            all_label: b.tab2_stone_all_label -%}
+                      </div>
+                    {%- endif -%}
+                  </div>
+
+                  <div class="mm__side">
+                    <div class="mm__row-head mm__row-head--major">
+                      <h2 class="mm__zone-title">{{ b.side_title | default: 'The Guide' }}</h2>
+                    </div>
+
+                    {%- render 'mm-guide-card',
+                        cover: b.guide1_cover, title: b.guide1_title,
+                        blurb: b.guide1_blurb, link: b.guide1_link -%}
+                    {%- render 'mm-guide-card',
+                        cover: b.guide2_cover, title: b.guide2_title,
+                        blurb: b.guide2_blurb, link: b.guide2_link -%}
+
+                    {%- if edu.links.size > 0 or jew.links.size > 0 -%}
+                      <div class="mm__side-cols">
+                        {%- if edu.links.size > 0 -%}
+                          <div class="mm__col">
+                            <h3 class="mm__label">{{ b.edu_label | default: 'Diamond Education' }}</h3>
+                            <ul class="mm__list mm__list--caps">
+                              {%- for link in edu.links -%}
+                                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                              {%- endfor -%}
+                            </ul>
+                          </div>
+                        {%- endif -%}
+                        {%- if jew.links.size > 0 -%}
+                          <div class="mm__col">
+                            <h3 class="mm__label">{{ b.jewel_label | default: 'Jewellery Guide' }}</h3>
+                            <ul class="mm__list mm__list--caps">
+                              {%- for link in jew.links -%}
+                                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                              {%- endfor -%}
+                            </ul>
+                          </div>
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+
+                    {%- if b.side_note != blank -%}
+                      <p class="mm__note">{{ b.side_note }}</p>
+                    {%- endif -%}
+                  </div>
 
                 </div>
               </div>
@@ -989,6 +976,39 @@
   outline: 2px solid var(--teal);
   outline-offset: 3px;
 }
+
+/* Cuts grid — 25 items, so it wants more columns and a smaller icon than the
+   ten-shape grid. */
+.fye .mm__cuts-wrap { margin-top: var(--s8); padding-top: var(--s6); border-top: 1px solid rgba(35, 61, 71, 0.18); }
+.fye .mm__cuts {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--s4) var(--s6);
+  margin: 0; padding: 0; list-style: none;
+}
+.fye .mm__cuts li { margin: 0; }
+.fye .mm__cuts a {
+  display: inline-flex; align-items: center; gap: var(--s3);
+  font-size: 14px; font-weight: var(--fw-medium);
+  letter-spacing: 0.06em; text-transform: uppercase;
+  line-height: 1.25;
+}
+.fye .mm__cuts img { width: 40px; height: 40px; flex: none; }
+
+.fye .mm__note {
+  margin: var(--s6) 0 0;
+  font-size: 15px; font-weight: var(--fw-light);
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+/* The tab bar sits in the zone head, so it must not carry the head's own
+   bottom rule twice. */
+.fye .mm__row-head--major .mm__tab-bar { border: 0; margin: 0; gap: var(--s7); }
+
+@media (max-width: 1280px) {
+  .fye .mm__cuts { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
 {% endstylesheet %}
 
 {% schema %}
@@ -1120,31 +1140,13 @@
         },
         {
           "type": "text",
-          "id": "shape_suffix",
-          "label": "Collection suffix",
-          "info": "e.g. engagement-rings. Empty hides the grid."
-        },
-        {
-          "type": "text",
           "id": "shape_label",
           "label": "Heading",
           "default": "Shop by Shape"
         },
         {
-          "type": "text",
-          "id": "shape_only",
-          "label": "Shapes to show",
-          "info": "Comma list of stems in order, e.g. round-brilliant,princess-cut. Empty shows all ten."
-        },
-        {
           "type": "header",
           "content": "Coloured stone grid"
-        },
-        {
-          "type": "text",
-          "id": "stone_suffix",
-          "label": "Collection suffix",
-          "info": "e.g. engagement-rings. Empty hides the grid."
         },
         {
           "type": "text",
@@ -1266,12 +1268,6 @@
         },
         {
           "type": "text",
-          "id": "tab2_stone_suffix",
-          "label": "Tab 2 stone suffix",
-          "info": "Empty hides the stone grid."
-        },
-        {
-          "type": "text",
           "id": "tab2_stone_label",
           "label": "Tab 2 stone heading",
           "default": "Shop by Stone"
@@ -1286,6 +1282,101 @@
           "id": "tab2_stone_all_label",
           "label": "Tab 2 stone view-all label",
           "default": "View all loose gemstones"
+        },
+        {
+          "type": "select",
+          "id": "shape_set",
+          "label": "Shape grid",
+          "options": [
+            {
+              "value": "",
+              "label": "None"
+            },
+            {
+              "value": "engagement",
+              "label": "Engagement (10)"
+            },
+            {
+              "value": "wedding",
+              "label": "Wedding (8)"
+            },
+            {
+              "value": "eternity",
+              "label": "Eternity (8)"
+            }
+          ],
+          "default": ""
+        },
+        {
+          "type": "checkbox",
+          "id": "shapes_first",
+          "label": "Shapes before the menu columns",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "stone_set",
+          "label": "Coloured stone grid",
+          "options": [
+            {
+              "value": "",
+              "label": "None"
+            },
+            {
+              "value": "engagement",
+              "label": "Engagement"
+            },
+            {
+              "value": "wedding",
+              "label": "Wedding"
+            },
+            {
+              "value": "eternity",
+              "label": "Eternity"
+            }
+          ],
+          "default": ""
+        },
+        {
+          "type": "checkbox",
+          "id": "show_cuts",
+          "label": "Show the 25-cut grid",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "cuts_label",
+          "label": "Cuts heading",
+          "default": "Shop by Shape — All 25 Cuts"
+        },
+        {
+          "type": "select",
+          "id": "tab2_stone_set",
+          "label": "Tab 2 stone grid",
+          "options": [
+            {
+              "value": "",
+              "label": "None"
+            },
+            {
+              "value": "engagement",
+              "label": "Engagement"
+            },
+            {
+              "value": "wedding",
+              "label": "Wedding"
+            },
+            {
+              "value": "eternity",
+              "label": "Eternity"
+            }
+          ],
+          "default": ""
+        },
+        {
+          "type": "textarea",
+          "id": "side_note",
+          "label": "Right-zone note"
         }
       ]
     }

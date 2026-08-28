@@ -1,55 +1,48 @@
 {%- comment -%}
-  mm-shapes — the diamond-shape grid inside a mega panel.
+  mm-shapes — the diamond-shape grid in a mega panel.
 
   Params:
-    suffix  collection-handle suffix, e.g. 'engagement-rings'. Blank = no grid.
-    label   column heading. Default 'Shop by Shape'.
-    only    optional comma list of stems to include, in order. Blank = all ten.
+    set    'engagement' | 'wedding' | 'eternity'. Blank renders nothing.
+    label  column heading.
 
-  Order is COLUMN-MAJOR, as live: Round/Pear, Princess/Emerald, Oval/Asscher.
-  The CSS does that with grid-auto-flow: column and an explicit row count —
-  wrapping row-wise would pair Round with Princess and read wrongly.
+  Handles are held per set because live has no single rule: engagement is
+  <stem>-engagement-rings, wedding is wedding-<short>, eternity is
+  eternity-<short>. Order is live's, which reads correctly down a two-column
+  grid: Round/Pear, Princess/Emerald, Oval/Asscher.
 {%- endcomment -%}
 {%- liquid
-  assign sfx = suffix | strip
-  if sfx == blank
+  assign set = set | strip
+  if set == blank
     break
   endif
-  assign heading = label | default: 'Shop by Shape'
-  assign all_stems = 'round-brilliant,princess-cut,oval-cut,cushion-cut,radiant-cut,pear-cut,emerald-cut,asscher-cut,marquise-cut,heart-cut' | split: ','
-  assign all_names = 'Round,Princess,Oval,Cushion,Radiant,Pear,Emerald,Asscher,Marquise,Heart' | split: ','
-  assign all_icons = 'icon101,icon107,icon102,icon103,icon106,icon104,icon105,icon109,icon108,icon110' | split: ','
-  assign cdn = 'https://foryoureternity.com/cdn/shop/files/'
 
-  assign stems = all_stems
-  if only != blank
-    assign stems = only | strip | split: ','
+  if set == 'engagement'
+    assign names = 'Round,Pear,Princess,Emerald,Oval,Asscher,Cushion,Marquise,Radiant,Heart' | split: ','
+    assign icons = 'icon101,icon104,icon107,icon105,icon102,icon109,icon103,icon108,icon106,icon110' | split: ','
+    assign urls = 'round-brilliant-engagement-rings,pear-cut-engagement-rings,princess-cut-engagement-rings,emerald-cut-engagement-rings,oval-cut-engagement-rings,asscher-cut-engagement-rings,cushion-cut-engagement-rings,marquise-cut-engagement-rings,radiant-cut-engagement-rings,heart-cut-engagement-rings' | split: ','
+  elsif set == 'wedding'
+    assign names = 'Round,Pear,Princess,Emerald,Oval,Asscher,Marquise,Heart' | split: ','
+    assign icons = 'icon101,icon104,icon107,icon105,icon102,icon109,icon108,icon110' | split: ','
+    assign urls = 'wedding-round,wedding-pear,wedding-princess,wedding-emerald-cut,wedding-oval,wedding-asscher,wedding-marquise,wedding-heart' | split: ','
+  elsif set == 'eternity'
+    assign names = 'Round,Pear,Princess,Emerald,Oval,Asscher,Marquise,Heart' | split: ','
+    assign icons = 'icon101,icon104,icon107,icon105,icon102,icon109,icon108,icon110' | split: ','
+    assign urls = 'eternity-round,eternity-pear,eternity-princess,eternity-emerald-cut,eternity-oval,eternity-asscher,eternity-marquise,eternity-heart' | split: ','
+  else
+    break
   endif
-  assign rows = stems.size | plus: 1 | divided_by: 2
 -%}
 
 <div class="mm__col mm__col--shapes">
-  <h3 class="mm__label">{{ heading }}</h3>
-  <ul class="mm__shapes" style="grid-template-rows: repeat({{ rows }}, auto)">
-    {%- for stem in stems -%}
-      {%- liquid
-        assign s = stem | strip
-        assign idx = -1
-        for a in all_stems
-          if a == s
-            assign idx = forloop.index0
-            break
-          endif
-        endfor
-      -%}
-      {%- if idx >= 0 -%}
-        <li>
-          <a href="/collections/{{ s }}-{{ sfx }}">
-            <img src="{{ cdn }}{{ all_icons[idx] }}.svg" alt="" width="44" height="44" loading="lazy">
-            <span>{{ all_names[idx] }}</span>
-          </a>
-        </li>
-      {%- endif -%}
+  <h3 class="mm__label">{{ label | default: 'Shop by Shape' }}</h3>
+  <ul class="mm__shapes">
+    {%- for name in names -%}
+      <li>
+        <a href="/collections/{{ urls[forloop.index0] }}">
+          <img src="https://foryoureternity.com/cdn/shop/files/{{ icons[forloop.index0] }}.svg" alt="" width="44" height="44" loading="lazy">
+          <span>{{ name }}</span>
+        </a>
+      </li>
     {%- endfor -%}
   </ul>
 </div>

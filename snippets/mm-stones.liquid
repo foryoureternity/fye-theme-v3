@@ -1,48 +1,60 @@
 {%- comment -%}
-  mm-stones — the coloured-stone grid. Five across, as live.
+  mm-stones — the coloured-stone grid. Seventeen stones, live's order.
 
-  Params: suffix, label, all_url, all_label.
+  Params: set ('engagement' | 'wedding' | 'eternity'), label, all_url, all_label.
 
-  The dot is a <span> with a background: it is a colour sample, and seventeen
-  tiny images would be seventeen requests for a hex value. Opal gets a border
-  or it would have no edge on the ivory panel — live does the same.
+  Handles per set, because live's differ: engagement has a collection per
+  stone; wedding points every one at coloured-stone-rings; eternity has five of
+  its own and sends the rest to coloured-stone-rings.
+
+  The dot is a span with a background — a colour sample, not artwork.
+  Seventeen images would be seventeen requests for a hex value. Opal and the
+  metals get a hairline or they vanish against ivory, as live does.
 {%- endcomment -%}
 {%- liquid
-  assign sfx = suffix | strip
-  if sfx == blank
+  assign set = set | strip
+  if set == blank
     break
   endif
-  assign heading = label | default: 'Shop by Coloured Stone'
-  assign stems = 'ruby,sapphire,pink-sapphire,yellow-sapphire,emerald,tanzanite,aquamarine,morganite,peridot,amethyst,garnet,citrine,blue-topaz,opal,fire-opal,pink-tourmaline' | split: ','
-  assign names = 'Ruby,Sapphire,Pink Sapphire,Yellow Sapphire,Emerald,Tanzanite,Aquamarine,Morganite,Peridot,Amethyst,Garnet,Citrine,Blue Topaz,Opal,Fire Opal,Pink Tourmaline' | split: ','
-  assign hexes = '#9E2B2B,#1F4E79,#D46A8B,#E3C14E,#1E7A4C,#5B5AA0,#8FC7D8,#E3ADA6,#94A83E,#7E5AA2,#8B2E2E,#E0A33E,#4E93C4,#EAE6D9,#E0713E,#DE7BA0' | split: ','
+
+  assign names = 'Ruby,Sapphire,Pink Sapphire,Yellow Sapphire,Emerald,Tanzanite,Aquamarine,Morganite,Peridot,Amethyst,Garnet,Citrine,Blue Topaz,Opal,Fire Opal,Pink Tourmaline,Black Diamond' | split: ','
+  assign hexes = '#9E2B2B,#1F4E79,#D46A8B,#E3C14E,#1E7A4C,#5B5AA0,#8FC7D8,#E3ADA6,#94A83E,#7E5AA2,#8B2E2E,#E0A33E,#4E93C4,#EAE6D9,#E0713E,#DE7BA0,#141414' | split: ','
+  assign csr = 'coloured-stone-rings'
+
+  if set == 'engagement'
+    assign urls = 'ruby-engagement-rings,sapphire-engagement-rings,pink-sapphire-engagement-rings,yellow-sapphire-engagement-rings,emerald-engagement-rings,tanzanite-engagement-rings,aquamarine-engagement-rings,morganite-engagement-rings,peridot-engagement-rings,amethyst-engagement-rings,garnet-engagement-rings,citrine-engagement-rings,blue-topaz-engagement-rings,opal-engagement-rings,fire-opal-engagement-rings,pink-tourmaline-engagement-rings,coloured-stone-rings' | split: ','
+  elsif set == 'eternity'
+    assign urls = 'eternity-ruby,eternity-sapphire,pink-sapphire-eternity-rings,coloured-stone-rings,eternity-emerald,coloured-stone-rings,coloured-stone-rings,coloured-stone-rings,coloured-stone-rings,coloured-stone-rings,coloured-stone-rings,coloured-stone-rings,coloured-stone-rings,coloured-stone-rings,coloured-stone-rings,coloured-stone-rings,black-diamond-eternity-rings' | split: ','
+  else
+    assign urls = 'a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a' | split: ','
+  endif
 -%}
 
 <div class="mm__stones-wrap">
   <div class="mm__row-head">
-    <h3 class="mm__label">{{ heading }}</h3>
+    <h3 class="mm__label">{{ label | default: 'Shop by Coloured Stone' }}</h3>
     {%- if all_url != blank -%}
       <a class="mm__viewall" href="{{ all_url }}">
-        {{ all_label | default: 'View all coloured stone rings' }}
+        {{ all_label | default: 'View All Coloured Stone Rings' }}
         {% render 'icon', name: 'arrow-right', size: 16 %}
       </a>
     {%- endif -%}
   </div>
   <ul class="mm__stones">
-    {%- for stem in stems -%}
-      {%- assign hex = hexes[forloop.index0] -%}
+    {%- for name in names -%}
+      {%- liquid
+        assign u = urls[forloop.index0]
+        if set == 'wedding'
+          assign u = csr
+        endif
+        assign hex = hexes[forloop.index0]
+      -%}
       <li>
-        <a href="/collections/{{ stem }}-{{ sfx }}">
-          <span class="mm__dot{% if stem == 'opal' %} mm__dot--pale{% endif %}" style="background:{{ hex }}"></span>
-          <span>{{ names[forloop.index0] }}</span>
+        <a href="/collections/{{ u }}">
+          <span class="mm__dot{% if name == 'Opal' %} mm__dot--pale{% endif %}" style="background:{{ hex }}"></span>
+          <span>{{ name }}</span>
         </a>
       </li>
     {%- endfor -%}
-    <li>
-      <a href="/collections/coloured-stone-rings">
-        <span class="mm__dot" style="background:#141414"></span>
-        <span>Black Diamond</span>
-      </a>
-    </li>
   </ul>
 </div>

@@ -1,0 +1,57 @@
+{%- comment -%}
+  mm-gemstones — the Gemstones tab, matched to live 29/08/2026.
+
+  Live structure:
+
+    SHOP BY TYPE                    VIEW ALL LOOSE GEMSTONES ->
+    ------------------------------------------------------------
+    SHOP BY STONE
+    [ 4-column stone grid, 13 stones, row-major ]
+
+  Live shows the "Shop by type" head with NO links beneath it — the head row
+  exists purely to carry the view-all. Reproduced as-is for parity; if that
+  turns out to be a content gap on live rather than a decision, the list slots
+  back in under the head.
+
+  13 stones, in live's reading order across 4 columns:
+    Ruby        Sapphire   Emerald  Tanzanite
+    Aquamarine  Morganite  Peridot  Amethyst
+    Garnet      Citrine    Topaz    Opal
+    Tourmaline
+
+  v3 previously carried 17 — Pink Sapphire, Yellow Sapphire, Blue Topaz,
+  Fire Opal and Black Diamond are NOT on live and are dropped here. Live also
+  links these to /collections/<stone>-gemstones, not -engagement-rings.
+
+  Params: none.
+{%- endcomment -%}
+<div class="mm-gem">
+  <div class="mm-dg-colhead">
+    <h3 class="mm-dg-coltitle">Shop by Type</h3>
+    <a class="mm-viewall-link" href="/collections/gemstones">
+      View all loose gemstones
+      {% render 'icon', name: 'arrow-right', size: 13 %}
+    </a>
+  </div>
+
+  <p class="mm-col-label">Shop by Stone</p>
+  {%- comment -%}
+    Row-major to match live's reading order — keep this array interleaved.
+    Opal takes a hairline or it vanishes on the ivory ground.
+  {%- endcomment -%}
+  <ul class="mm-dg-swatches mm-dg-swatches--4col">
+    <li><a href="/collections/ruby-gemstones"><span class="mm__dot" style="background:#9B1B2E"></span><span>Ruby</span></a></li>
+    <li><a href="/collections/sapphire-gemstones"><span class="mm__dot" style="background:#1B3A6B"></span><span>Sapphire</span></a></li>
+    <li><a href="/collections/emerald-gemstones"><span class="mm__dot" style="background:#1B6B45"></span><span>Emerald</span></a></li>
+    <li><a href="/collections/tanzanite-gemstones"><span class="mm__dot" style="background:#5B4FA8"></span><span>Tanzanite</span></a></li>
+    <li><a href="/collections/aquamarine-gemstones"><span class="mm__dot" style="background:#8FC8DC"></span><span>Aquamarine</span></a></li>
+    <li><a href="/collections/morganite-gemstones"><span class="mm__dot" style="background:#E8AFA8"></span><span>Morganite</span></a></li>
+    <li><a href="/collections/peridot-gemstones"><span class="mm__dot" style="background:#9BB93B"></span><span>Peridot</span></a></li>
+    <li><a href="/collections/amethyst-gemstones"><span class="mm__dot" style="background:#8B4FA8"></span><span>Amethyst</span></a></li>
+    <li><a href="/collections/garnet-gemstones"><span class="mm__dot" style="background:#7B1B25"></span><span>Garnet</span></a></li>
+    <li><a href="/collections/citrine-gemstones"><span class="mm__dot" style="background:#E0A128"></span><span>Citrine</span></a></li>
+    <li><a href="/collections/topaz-gemstones"><span class="mm__dot" style="background:#3E92CC"></span><span>Topaz</span></a></li>
+    <li><a href="/collections/opal-gemstones"><span class="mm__dot mm__dot--pale" style="background:#EDE8DE"></span><span>Opal</span></a></li>
+    <li><a href="/collections/tourmaline-gemstones"><span class="mm__dot" style="background:#D9629B"></span><span>Tourmaline</span></a></li>
+  </ul>
+</div>

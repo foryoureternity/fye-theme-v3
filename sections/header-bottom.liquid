@@ -1158,9 +1158,12 @@
 /* ---- diamonds panel sub-zones, measured off live 29/08/2026 ------------- */
 
 .fye .mm-dg-cols { display: flex; gap: 36px; align-items: flex-start; }
-.fye .mm-dg-col { min-width: 0; flex: 0 0 auto; }
+/* The cut grid flexes and the aside is pinned, not the other way round: with
+   the grid fixed at 6 x 96px the aside was squeezed to ~114px and its
+   Natural / Lab-Grown row wrapped mid-word. */
+.fye .mm-dg-col { min-width: 0; flex: 1 1 auto; }
 .fye .mm-dg-col--aside {
-  flex: 1 1 auto;
+  flex: 0 0 240px;
   padding-left: 32px;
   border-left: 1px solid rgba(35, 61, 71, 0.18);
   align-self: stretch;
@@ -1169,7 +1172,8 @@
 .fye .mm-dg-colhead {
   display: flex; align-items: baseline; justify-content: space-between;
   gap: 20px;
-  padding-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(35, 61, 71, 0.18);
 }
 .fye .mm-dg-coltitle {
   margin: 0;
@@ -1185,7 +1189,9 @@
   white-space: nowrap;
 }
 
-.fye .mm-dg-sublinks { display: flex; gap: 22px; margin: 0 0 16px; }
+/* Live sits the shape label almost on top of this row — 6px, not 16px. */
+.fye .mm-dg-sublinks { display: flex; gap: 22px; margin: 12px 0 6px; flex-wrap: nowrap; }
+.fye .mm-dg-sublinks a { white-space: nowrap; }
 .fye .mm-dg-sublinks a {
   font-size: 12.5px; font-weight: 500;
   letter-spacing: 0.08em; text-transform: uppercase;
@@ -1193,7 +1199,7 @@
 
 .fye .mm-col-label {
   display: block;
-  margin: 0 0 16px;
+  margin: 0 0 12px;
   font-size: 11px; font-weight: 500;
   letter-spacing: 0.18em; text-transform: uppercase;
   color: rgba(35, 61, 71, 0.62);
@@ -1202,17 +1208,18 @@
 /* Inside a sub-zone the cut grid is not a band: no rule, no band margin, and
    96px tracks rather than the 80px used when it stood alone. */
 .fye .mm-dg-col .mm__cuts-wrap { margin: 0; padding: 0; border: 0; }
-.fye .mm-dg-col .mm__cuts { grid-template-columns: repeat(6, 96px); }
+.fye .mm-dg-col .mm__cuts { grid-template-columns: repeat(6, minmax(0, 1fr)); }
 
 .fye .mm-dg-swatches {
   display: grid;
   margin: 0; padding: 0; list-style: none;
 }
+/* Row-major: the snippet's array is interleaved (Yellow, Pink, Blue, Green…)
+   so markup order IS live's reading order. grid-auto-flow: column fought it
+   and produced Yellow/Cognac on row one. */
 .fye .mm-dg-swatches--2col {
-  grid-template-columns: repeat(2, 94px);
-  gap: 4px 28px;
-  grid-auto-flow: column;
-  grid-template-rows: repeat(5, auto);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px 20px;
 }
 .fye .mm-dg-swatches li { margin: 0; }
 .fye .mm-dg-swatches a {
@@ -1225,6 +1232,11 @@
 .fye .mm-dg-swatches .mm__dot { width: 18px; height: 18px; }
 
 .fye .mm-dg-colfoot { padding-top: 16px; }
+
+/* Live runs the gemstone grid at 4 columns. At 5 the labels wrapped. */
+.fye .mm__main:has(.mm__tab-in) .mm__stones {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
 .fye .mm__col:has(.mm__cuts-wrap) + .mm__col { flex: 1 1 auto; min-width: 0; }
 
 @media (max-width: 1280px) {

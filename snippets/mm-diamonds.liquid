@@ -46,8 +46,9 @@
     </p>
     <p class="mm-col-label">Shop by colour</p>
     {%- comment -%}
-      Column-major order, as live: Yellow/Blue/Champagne/Grey/Salt &amp; Pepper
-      down the first column, Pink/Green/Cognac/Black/Orange down the second.
+      Row-major, as live: Yellow/Pink on the first row, then Blue/Green,
+      Champagne/Cognac, Grey/Black, Salt &amp; Pepper/Orange. Keep this array
+      interleaved — the CSS relies on markup order being reading order.
       Pale swatches take a hairline or they vanish on ivory.
     {%- endcomment -%}
     <ul class="mm-dg-swatches mm-dg-swatches--2col">

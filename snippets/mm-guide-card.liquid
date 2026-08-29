@@ -3,8 +3,79 @@
   Params: cover, title, blurb, link, pdf_label.
 
   Renders nothing without a title, so an unused second card costs no markup.
+
+  29/08/2026 — the card's own layout CSS lives HERE, not in header-bottom's
+  stylesheet. Two reasons: it keeps the card self-contained, and a style block
+  rendered inside the panel lands after the section's own rules in document
+  order, so it wins at equal specificity without !important.
+
+  Blurbs default from live's own guide cards when the caller passes none, so
+  the panels read correctly before the section blocks gain a blurb setting.
+  Pass `blurb` explicitly to override.
 {%- endcomment -%}
 {%- if title != blank -%}
+  {%- liquid
+    assign _t = title | downcase
+    assign _blurb = blurb
+    if _blurb == blank
+      if _t contains 'gemset' or _t contains 'diamond & gemstone wedding'
+        assign _blurb = 'Eternity rings, setting styles, shaped-to-fit bands and everyday wear.'
+      elsif _t contains 'plain wedding'
+        assign _blurb = 'Profiles, metals, finishes, shaped-to-fit bands and matched pairs.'
+      elsif _t contains 'engagement'
+        assign _blurb = 'Budget, the Four Cs, diamond shapes, settings, sizing and bespoke design.'
+      elsif _t contains 'eternity'
+        assign _blurb = 'Full and half eternity styles, stone settings, spacing and how to wear them.'
+      elsif _t contains 'gemstone'
+        assign _blurb = 'Diamonds, coloured gemstones, lab-grown stones and choosing the right stone for your ring.'
+      endif
+    endif
+  -%}
+  <style>
+    /* Rail: 328px with a 64px gutter left 263px of content — the title wrapped
+       to four lines and the download icon collided with it. Live's card gives
+       the words roughly 290px. */
+    .fye .has-mega .mega__in { max-width: 1312px; grid-template-columns: minmax(0, 1fr) 480px; }
+    .fye .mega:has(.mm__tab-in) .mega__in { max-width: 1375px; grid-template-columns: 831px 480px; }
+    .fye .mm__side { padding-left: 48px; }
+    .fye .mm__side-cols { gap: 40px; }
+
+    .fye .mm__card { gap: 24px; padding: 24px; align-items: flex-start; }
+    .fye .mm__card-cover { flex: 0 0 128px; }
+    .fye .mm__card-cover img { width: 128px; height: auto; display: block; }
+    .fye .mm__card-words {
+      flex: 1 1 auto; min-width: 0;
+      display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
+    }
+    .fye .mm__card .mm__card-title {
+      margin: 0;
+      font-size: 15px;
+      letter-spacing: 0.06em;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+    .fye .mm__card .mm__card-blurb {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 0;
+      line-height: 1.5;
+      text-transform: none;
+      white-space: normal;
+      color: rgba(35, 61, 71, 0.78);
+    }
+    .fye .mm__card .mm__card-dl {
+      margin-top: 6px;
+      gap: 10px;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      white-space: nowrap;
+    }
+    .fye .mm__card .mm__card-dl .icon { flex: 0 0 auto; }
+
+    /* The Diamond & Gemset title is the longest by some way. */
+    .fye .mm__card .mm__card-title--long { font-size: 13px; letter-spacing: 0.04em; }
+  </style>
   <div class="mm__card">
     {%- if cover != blank -%}
       <a class="mm__card-cover" href="{{ link | default: '#' }}" tabindex="-1" aria-hidden="true">
@@ -12,9 +83,9 @@
       </a>
     {%- endif -%}
     <div class="mm__card-words">
-      <p class="mm__card-title">{{ title }}</p>
-      {%- if blurb != blank -%}
-        <p class="mm__card-blurb">{{ blurb }}</p>
+      <p class="mm__card-title{% if title.size > 26 %} mm__card-title--long{% endif %}">{{ title }}</p>
+      {%- if _blurb != blank -%}
+        <p class="mm__card-blurb">{{ _blurb }}</p>
       {%- endif -%}
       {%- if link != blank -%}
         <a class="mm__card-dl" href="{{ link }}">

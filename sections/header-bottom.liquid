@@ -1037,6 +1037,22 @@
    bottom rule twice. */
 .fye .mm__row-head--major .mm__tab-bar { border: 0; margin: 0; gap: var(--s7); }
 
+/* ---- shape grid, 29/08/2026 ---------------------------------------------
+   grid-auto-flow: column with no row count put all ten shapes in ONE row.
+   The grid overflowed the sheet, clipped Asscher mid-word, and on the wedding
+   panel ran over the profile and metal columns — OVAL printed on top of
+   TRADITIONAL COURT.
+
+   Two explicit columns, normal row flow. This also matches how mm-shapes
+   authors its arrays: reading PAIRS (Round/Pear, Princess/Emerald,
+   Oval/Asscher), which is row-major. Do not restore grid-auto-flow: column
+   without also reordering the snippet's arrays and pinning a row count. */
+.fye .mm__shapes {
+  grid-auto-flow: row;
+  grid-template-columns: repeat(2, max-content);
+  grid-auto-columns: auto;
+}
+
 @media (max-width: 1280px) {
 }
 {% endstylesheet %}

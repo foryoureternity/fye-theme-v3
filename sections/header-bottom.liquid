@@ -1222,16 +1222,30 @@
   gap: 4px 20px;
 }
 .fye .mm-dg-swatches li { margin: 0; }
+/* flex-start, not center: centring against a two-line label drops the dot
+   below its single-line neighbours and the row stops lining up. The negative
+   nudge re-centres it on the first line only. */
 .fye .mm-dg-swatches a {
-  display: inline-flex; align-items: center; gap: 10px;
+  display: inline-flex; align-items: flex-start; gap: 10px;
   font-size: 12px; font-weight: 500;
   letter-spacing: 0.06em; text-transform: uppercase;
   line-height: 1.25;
   padding: 4px 0;
 }
-.fye .mm-dg-swatches .mm__dot { width: 18px; height: 18px; }
+.fye .mm-dg-swatches .mm__dot {
+  width: 18px; height: 18px;
+  flex: 0 0 18px;
+  margin-top: calc((1.25em - 18px) / 2);
+}
 
 .fye .mm-dg-colfoot { padding-top: 16px; }
+
+/* mm__stones is built the same way and needs the same first-line alignment. */
+.fye .mm__stones a { align-items: flex-start; }
+.fye .mm__stones .mm__dot {
+  flex: 0 0 auto;
+  margin-top: calc((1.25em - 18px) / 2);
+}
 
 /* Live runs the gemstone grid at 4 columns. At 5 the labels wrapped. */
 .fye .mm__main:has(.mm__tab-in) .mm__stones {

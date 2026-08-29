@@ -1,7 +1,7 @@
 {%- comment -%}
   mm-diamonds — the Diamonds tab's two sub-zones, matched to live 29/08/2026.
 
-  Live structure (read from its DOM, classes mm-dg-*):
+  Live structure:
 
     White Diamonds            | Fancy Coloured
     View all ->               |
@@ -14,11 +14,17 @@
   would carry the titles and lose the sub-zone structure, the sublink row and
   the swatch colours.
 
-  NOTE on the cut count: live's label reads "all 35 cuts" but live renders the
-  same 25 this theme has. The label is wrong on live; 25 is correct here.
+  NOTE on the cut count: live's label reads "all 25 cuts" and renders 25.
+  Confirmed against live's own HTML — do not "correct" this to 35.
 
   Params: none.
 {%- endcomment -%}
+<style>
+  /* The two sub-zone heads must sit level. White Diamonds carries a View All
+     (a 24px icon row); Fancy Coloured does not, so its title floated 24px
+     higher. Pin both heads to the same height and bottom-align the contents. */
+  .fye .mm-dg-colhead { min-height: 24px; align-items: flex-end; }
+</style>
 <div class="mm-dg-cols">
 
   <section class="mm-dg-col">
@@ -60,7 +66,7 @@
       <li><a href="/collections/fancy-cognac-diamonds"><span class="mm__dot" style="background:#8A5A3B"></span><span>Cognac</span></a></li>
       <li><a href="/collections/fancy-gray-diamonds"><span class="mm__dot" style="background:#A8A8B8"></span><span>Grey</span></a></li>
       <li><a href="/collections/black-diamonds"><span class="mm__dot" style="background:#141414"></span><span>Black</span></a></li>
-      <li><a href="/collections/fancy-salt-and-pepper-diamonds"><span class="mm__dot mm__dot--pale" style="background:#F2F1E8"></span><span>Salt &amp; Pepper</span></a></li>
+      <li><a href="/collections/salt-and-pepper-diamonds"><span class="mm__dot mm__dot--pale" style="background:#F2F1E8"></span><span>Salt &amp; Pepper</span></a></li>
       <li><a href="/collections/fancy-orange-diamonds"><span class="mm__dot" style="background:#E0713E"></span><span>Orange</span></a></li>
     </ul>
     <div class="mm-dg-colfoot">

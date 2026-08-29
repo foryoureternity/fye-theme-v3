@@ -125,11 +125,21 @@
                 <div class="mega__in">
 
                   <div class="mm__main">
+                    {%- comment -%}
+                      The radios MUST be direct children of .mm__main, ahead of
+                      the row head and both tab bodies: every rule that reveals
+                      a body or marks the active tab is a sibling selector, and
+                      a sibling selector cannot climb out of .mm__tab-bar. This
+                      cost a full panel-blank bug on 28/08. The labels stay in
+                      the bar — <label for> works across the whole document.
+                    {%- endcomment -%}
+                    {%- if tabbed -%}
+                      <input class="mm__tab-in" type="radio" name="mmtab-{{ block.id }}" id="mmtab-{{ block.id }}-1" checked>
+                      <input class="mm__tab-in" type="radio" name="mmtab-{{ block.id }}" id="mmtab-{{ block.id }}-2">
+                    {%- endif -%}
                     <div class="mm__row-head mm__row-head--major">
                       {%- if tabbed -%}
                         <div class="mm__tab-bar">
-                          <input class="mm__tab-in" type="radio" name="mmtab-{{ block.id }}" id="mmtab-{{ block.id }}-1" checked>
-                          <input class="mm__tab-in" type="radio" name="mmtab-{{ block.id }}" id="mmtab-{{ block.id }}-2">
                           <label class="mm__tab" for="mmtab-{{ block.id }}-1">{{ b.tab1_label | default: 'Diamonds' }}</label>
                           <label class="mm__tab" for="mmtab-{{ block.id }}-2">{{ b.tab2_label }}</label>
                         </div>
@@ -979,16 +989,19 @@
 }
 .fye .mm__tab:hover { color: var(--sage); }
 
-.fye .mm__tab-body { display: none; }
+/* Scoped with :has() deliberately. An unscoped hide also caught the panels
+   with no tabs, which have no radio to reveal their single body — so those
+   panels rendered their heading and nothing else. */
+.fye .mm__main:has(.mm__tab-in) .mm__tab-body { display: none; }
 .fye .mm__tab-in:nth-of-type(1):checked ~ .mm__tab-body--1,
 .fye .mm__tab-in:nth-of-type(2):checked ~ .mm__tab-body--2 { display: block; }
-.fye .mm__tab-in:nth-of-type(1):checked ~ .mm__tab-bar .mm__tab:nth-of-type(1),
-.fye .mm__tab-in:nth-of-type(2):checked ~ .mm__tab-bar .mm__tab:nth-of-type(2) {
+.fye .mm__tab-in:nth-of-type(1):checked ~ .mm__row-head .mm__tab:nth-of-type(1),
+.fye .mm__tab-in:nth-of-type(2):checked ~ .mm__row-head .mm__tab:nth-of-type(2) {
   color: var(--ink);
   border-bottom-color: var(--ink);
 }
 /* Focus must be visible on the LABEL, since the input itself is hidden. */
-.fye .mm__tab-in:focus-visible ~ .mm__tab-bar .mm__tab {
+.fye .mm__tab-in:focus-visible ~ .mm__row-head .mm__tab {
   outline: 2px solid var(--teal);
   outline-offset: 3px;
 }

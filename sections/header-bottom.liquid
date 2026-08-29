@@ -198,6 +198,15 @@
                                 </li>
                               {%- endfor -%}
                             </ul>
+                            {%- comment -%}
+                              The cut grid belongs to the FIRST column, not to
+                              the panel. Rendered after the loop it became a
+                              full-width band under every column and fell off
+                              the bottom of the sheet.
+                            {%- endcomment -%}
+                            {%- if b.show_cuts and forloop.first -%}
+                              {%- render 'mm-cuts', label: b.cuts_label -%}
+                            {%- endif -%}
                           </div>
                         {%- endfor -%}
 
@@ -205,10 +214,6 @@
                           {%- render 'mm-shapes', set: b.shape_set, label: b.shape_label -%}
                         {%- endunless -%}
                       </div>
-
-                      {%- if b.show_cuts -%}
-                        {%- render 'mm-cuts', label: b.cuts_label -%}
-                      {%- endif -%}
 
                       {%- render 'mm-stones',
                           set: b.stone_set,
@@ -1116,6 +1121,31 @@
 .fye .mm__list:has(li:nth-child(11)) li {
   break-inside: avoid;
 }
+
+/* Sub-zone divider. The column holding the cut grid is the left zone; the one
+   after it is the right zone and carries the rule, mirroring the main
+   left/right divider on .mm__side. */
+.fye .mm__col:has(.mm__cuts-wrap) { flex: 0 0 auto; }
+.fye .mm__col:has(.mm__cuts-wrap) + .mm__col {
+  padding-left: 48px;
+  border-left: 1px solid rgba(35, 61, 71, 0.18);
+  align-self: stretch;
+}
+
+/* Inside a column the grid is no longer a band, so it loses the band's own
+   top rule and full-width margin. */
+.fye .mm__col .mm__cuts-wrap {
+  margin-top: 32px;
+  padding-top: 0;
+  border-top: 0;
+}
+
+/* A row carrying the cut grid is tighter than a plain column row: the grid is
+   491px of fixed content, so an 80px gap overflowed the 768px track by 4px and
+   quietly crushed the second column. Scoped with :has() so the other panels
+   keep their 80px. */
+.fye .mm__cols:has(.mm__cuts-wrap) { gap: 48px; }
+.fye .mm__col:has(.mm__cuts-wrap) + .mm__col { flex: 1 1 auto; min-width: 0; }
 
 @media (max-width: 1280px) {
 }

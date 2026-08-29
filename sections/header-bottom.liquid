@@ -1053,6 +1053,60 @@
   grid-auto-columns: auto;
 }
 
+/* ============================================================================
+   MEGA PANELS — MEASURED SCALE, 29/08/2026
+   Live, panel open, 1470px viewport, read from computed styles. See
+   docs/tools/fix-mega-scale.mjs for the full before/after table.
+   ========================================================================== */
+
+/* Content is 1160px centred, NOT 1500: max-width 1500 never binds at 1470, so
+   the panel ran the full viewport less padding — 1406px, 240px too wide. */
+.fye .has-mega .mega { padding: 24px 32px 48px; }
+.fye .has-mega .mega__in {
+  max-width: 1160px;
+  grid-template-columns: minmax(0, 1fr) 328px;
+  column-gap: 64px;
+}
+
+.fye .mm__zone-title { font-size: 19px; letter-spacing: 0.08em; font-weight: 400; }
+.fye .mm__viewall { font-size: 12px; letter-spacing: 0.08em; font-weight: 500; }
+
+/* 500, not 400 — at 11px the label needs the extra weight to hold its colour. */
+.fye .mm__label {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  font-weight: 500;
+  color: rgba(35, 61, 71, 0.62);
+  margin-bottom: 16px;
+}
+
+.fye .mm__list a,
+.fye .mm__list--caps a { font-size: 12px; letter-spacing: 0.06em; font-weight: 500; }
+.fye .mm__shapes a { font-size: 12px; letter-spacing: 0.06em; font-weight: 500; }
+.fye .mm__stones a { font-size: 12px; letter-spacing: 0.06em; font-weight: 500; }
+
+/* Cuts grid is a different object from the shape grid: six fixed columns, a
+   26px icon stacked ABOVE a centred 9.5px caption, and a 2px gap. Live gives
+   it 80px tracks — 6x80 + 5x2 = 491px, which is what live measured. */
+.fye .mm__cuts {
+  grid-template-columns: repeat(6, 80px);
+  gap: 2px;
+  justify-content: start;
+}
+.fye .mm__cuts a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 2px;
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: center;
+}
+.fye .mm__cuts img { width: 26px; height: 26px; }
+
 @media (max-width: 1280px) {
 }
 {% endstylesheet %}

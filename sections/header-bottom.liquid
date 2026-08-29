@@ -1107,6 +1107,16 @@
 }
 .fye .mm__cuts img { width: 26px; height: 26px; }
 
+/* A list of 11+ flows into two columns. Below that threshold live keeps a
+   single column (wedding's nine profiles), so the gate is deliberate. */
+.fye .mm__list:has(li:nth-child(11)) {
+  column-count: 2;
+  column-gap: 48px;
+}
+.fye .mm__list:has(li:nth-child(11)) li {
+  break-inside: avoid;
+}
+
 @media (max-width: 1280px) {
 }
 {% endstylesheet %}

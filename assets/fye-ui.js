@@ -519,87 +519,217 @@
 })();
 
 
+
 /* ============================================================================
-   PRODUCT VARIANTS — 31/08/2026
-   Keeps the buy box honest when the size changes.
+   PRODUCT GALLERY, ENGRAVING AND CART — 31/08/2026
+   Replaces the variant block above it; that earlier version handled the size
+   dropdown only and is superseded by update() here.
 
-   A plain wedding ring is priced by size: 70 variants, A to Z+9.5, each a few
-   pounds more than the last. So the selected price, the SKU and the hidden
-   variant id all have to follow the dropdown. Without this the page shows
-   size A's price whatever you pick, and adds size A to the bag.
+   Three behaviours, one file, all delegated from document:
 
-   Reads the variant list from a JSON data island the section renders
-   (data-fye-variants) rather than fetching it — same pattern as the chapter
-   nav. Only id, title, price, sku and availability are in there, which keeps
-   it small even at 70 variants.
+   1. GALLERY. Thumbnails switch stage panels. The 360 panel loads Sirv's
+      script the first time it is opened and never again — live loads it on
+      every product page and then fights Flickity to re-measure a canvas that
+      was hidden at init. No carousel here, so no fight.
 
-   Delegated from document, so a section re-render in the theme editor keeps
-   working. Inert on any page without the island.
+   2. ENGRAVING. A Yes/No toggle revealing a 35-character input and a font
+      select. The inputs are DISABLED until Yes, which is what keeps their
+      line-item properties out of the form post — a disabled field is not
+      submitted, so "No" cannot leave an empty Engraving property on the order.
 
-   NOTE: this does not touch the URL. Shopify's ?variant= parameter matters for
-   sharing and for analytics, and adding it is a deliberate next step rather
-   than an oversight — it wants testing against the app filters that already
-   own the query string elsewhere on this site.
+   3. ADD TO CART. Shopify cannot post two line items from one product form,
+      and the £55 engraving fee is a separate hidden product. So when engraving
+      is on, the submit is intercepted and both lines go through /cart/add.js
+      in one request. Without engraving the form posts normally and no JS is
+      involved — the page still works with JS disabled, minus the fee, which is
+      why the fee line is the thing that forces the interception rather than
+      something bolted on afterwards.
    ========================================================================== */
-(function productVariants() {
-  function moneyFormat() {
-    /* Shopify's money format is not exposed to JS without a Liquid handoff, so
-       format here to the store's actual convention: £ and two decimals. If the
-       store ever sells in a second currency this needs the real format string
-       passed in from Liquid rather than a hardcoded symbol. */
-    return function (pennies) {
-      return '£' + (pennies / 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    };
+(function productPage() {
+  var SIRV = 'https://scripts.sirv.com/sirvjs/v3/sirv.js';
+
+  function money(pennies) {
+    return '£' + (pennies / 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
 
-  var money = moneyFormat();
+  /* ---- gallery ---------------------------------------------------------- */
 
-  function update(form) {
+  function loadSirv(panel) {
+    if (window.__fyeSirvLoaded) {
+      if (window.Sirv && window.Sirv.start) window.Sirv.start();
+      return;
+    }
+    window.__fyeSirvLoaded = true;
+
+    var s = document.createElement('script');
+    s.src = SIRV;
+    s.async = true;
+    document.head.appendChild(s);
+  }
+
+  function showPanel(gallery, key) {
+    gallery.querySelectorAll('[data-fye-panel]').forEach(function (panel) {
+      var on = panel.getAttribute('data-fye-panel') === key;
+      panel.classList.toggle('is-on', on);
+      if (on && panel.querySelector('[data-fye-spin]')) loadSirv(panel);
+    });
+
+    gallery.querySelectorAll('[data-fye-thumb]').forEach(function (thumb) {
+      thumb.classList.toggle('is-on', thumb.getAttribute('data-fye-thumb') === key);
+    });
+  }
+
+  /* ---- variants --------------------------------------------------------- */
+
+  function variantsOf(form) {
     var island = form.querySelector('[data-fye-variants]');
-    if (!island) return;
-
-    var variants;
+    if (!island) return null;
     try {
-      variants = JSON.parse(island.textContent);
+      return JSON.parse(island.textContent);
     } catch (e) {
+      return null;
+    }
+  }
+
+  function chosenVariant(form) {
+    var variants = variantsOf(form);
+    if (!variants) return null;
+
+    var title = Array.prototype.map
+      .call(form.querySelectorAll('[data-fye-option]'), function (sel) { return sel.value; })
+      .join(' / ');
+
+    var match = null;
+    variants.forEach(function (v) { if (v.title === title) match = v; });
+    return match;
+  }
+
+  function engraveFee(form) {
+    var block = form.querySelector('[data-fye-engrave]');
+    if (!block || block.getAttribute('data-on') !== 'yes') return 0;
+    return parseInt(block.getAttribute('data-fee-price'), 10) || 0;
+  }
+
+  function render(form) {
+    var v = chosenVariant(form);
+    if (!v) return;
+
+    var id = form.querySelector('[data-fye-variant-id]');
+    if (id) id.value = v.id;
+
+    var price = form.querySelector('[data-fye-price]');
+    if (price) price.textContent = money(v.price + engraveFee(form));
+
+    var sku = document.querySelector('[data-fye-sku]');
+    if (sku && v.sku) sku.textContent = v.sku;
+
+    var atc = form.querySelector('[data-fye-atc]');
+    if (atc) atc.disabled = !v.available;
+  }
+
+  /* ---- events ----------------------------------------------------------- */
+
+  document.addEventListener('click', function (e) {
+    var thumb = e.target.closest ? e.target.closest('[data-fye-thumb]') : null;
+    if (thumb) {
+      var gallery = thumb.closest('[data-fye-gallery]');
+      if (gallery) showPanel(gallery, thumb.getAttribute('data-fye-thumb'));
       return;
     }
 
-    /* One option on these products (Ring Size), but read them all so the same
-       code serves a two- or three-option product later. */
-    var chosen = Array.prototype.map.call(
-      form.querySelectorAll('[data-fye-option]'),
-      function (select) { return select.value; }
-    ).join(' / ');
+    var seg = e.target.closest ? e.target.closest('[data-fye-engrave-set]') : null;
+    if (!seg) return;
 
-    var match = null;
-    variants.forEach(function (v) {
-      if (v.title === chosen) match = v;
+    var block = seg.closest('[data-fye-engrave]');
+    if (!block) return;
+
+    var want = seg.getAttribute('data-fye-engrave-set');
+    block.setAttribute('data-on', want);
+
+    block.querySelectorAll('[data-fye-engrave-set]').forEach(function (b) {
+      var on = b.getAttribute('data-fye-engrave-set') === want;
+      b.classList.toggle('is-on', on);
+      b.setAttribute('aria-checked', on ? 'true' : 'false');
     });
-    if (!match) return;
 
-    var id = form.querySelector('[data-fye-variant-id]');
-    if (id) id.value = match.id;
+    var body = block.querySelector('[data-fye-engrave-body]');
+    if (body) body.hidden = want !== 'yes';
 
-    var price = form.querySelector('[data-fye-price]');
-    if (price) price.textContent = money(match.price);
+    /* Disabled fields are not posted — that is what keeps an empty Engraving
+       property off the order when the answer is No. */
+    block.querySelectorAll('input, select').forEach(function (field) {
+      if (field.hasAttribute('data-fye-engrave-set')) return;
+      field.disabled = want !== 'yes';
+    });
 
-    /* The SKU sits outside the form, in the meta block. */
-    var sku = document.querySelector('[data-fye-sku]');
-    if (sku && match.sku) sku.textContent = match.sku;
-
-    var atc = form.querySelector('[data-fye-atc]');
-    if (atc) {
-      atc.disabled = !match.available;
-      atc.textContent = match.available ? atc.getAttribute('data-label') || atc.textContent : 'Made to order — enquire';
+    if (want === 'yes') {
+      var text = block.querySelector('[data-fye-engrave-text]');
+      if (text) text.focus();
     }
-  }
+
+    var form = block.closest('form');
+    if (form) render(form);
+  });
+
+  document.addEventListener('input', function (e) {
+    var text = e.target.closest ? e.target.closest('[data-fye-engrave-text]') : null;
+    if (!text) return;
+
+    var block = text.closest('[data-fye-engrave]');
+    var count = block && block.querySelector('[data-fye-engrave-count]');
+    if (count) count.textContent = text.value.length + '/' + (text.getAttribute('maxlength') || '');
+  });
 
   document.addEventListener('change', function (e) {
-    var select = e.target.closest ? e.target.closest('[data-fye-option]') : null;
-    if (!select) return;
+    var option = e.target.closest ? e.target.closest('[data-fye-option]') : null;
+    if (!option) return;
+    var form = option.closest('form');
+    if (form) render(form);
+  });
 
-    var form = select.closest('form');
-    if (form) update(form);
+  /* ---- submit: two lines when engraving is on --------------------------- */
+
+  document.addEventListener('submit', function (e) {
+    var form = e.target;
+    if (!form.querySelector || !form.querySelector('[data-fye-variants]')) return;
+
+    var block = form.querySelector('[data-fye-engrave]');
+    if (!block || block.getAttribute('data-on') !== 'yes') return; // plain post
+
+    var feeVariant = block.getAttribute('data-fee-variant');
+    if (!feeVariant) return;
+
+    var v = chosenVariant(form);
+    if (!v) return;
+
+    e.preventDefault();
+
+    var text = block.querySelector('[data-fye-engrave-text]');
+    var font = block.querySelector('[data-fye-engrave-font]');
+
+    var props = {};
+    if (text && text.value) props.Engraving = text.value;
+    if (font && font.value) props['Engraving font'] = font.value;
+
+    var atc = form.querySelector('[data-fye-atc]');
+    if (atc) atc.disabled = true;
+
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        items: [
+          { id: v.id, quantity: 1, properties: props },
+          { id: parseInt(feeVariant, 10), quantity: 1 }
+        ]
+      })
+    })
+      .then(function (res) { return res.ok ? res.json() : Promise.reject(res); })
+      .then(function () { window.location.href = '/cart'; })
+      .catch(function () {
+        /* Put the button back and let them try again, rather than leaving a
+           dead control. The plain form post is still there as a fallback. */
+        if (atc) atc.disabled = false;
+      });
   });
 })();

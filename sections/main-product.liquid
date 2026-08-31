@@ -1,73 +1,85 @@
 {%- comment -%}
   main-product — the product page. One section, branching on product type.
 
-  Built 31/08/2026, plain wedding rings first. Second pass: reordered to match
-  live's buy box after review. The other types are stubbed at the branch.
+  Built 31/08/2026. Third pass: live's buy-box pattern from sections/
+  product-block.liquid, which is the section behind live's engagement rings.
+  Plain wedding rings first; other types branch off `is_plain`.
 
-  NOT PORTED FROM LIVE'S MARKUP. Live's main-product is 162KB of T4S and shares
-  its buy box with main-qv; it could not be read whole even if it were worth
-  copying. Built from the DATA and from live's rendered page instead.
+  NOT PORTED AS MARKUP. Live runs TWO product pages — product-block (56KB) for
+  configurable diamond rings, main-product (162KB, T4S) for plain rings. Both
+  are too big to read whole and neither is worth copying. This merges the two
+  behaviours into one section, per Ed's call, built from the data and from
+  live's rendered pages.
 
-  ── THE DATA MODEL, which drives every decision here ──────────────────────
+  ── THE DATA MODEL ────────────────────────────────────────────────────────
 
-  A plain wedding ring is ONE PRODUCT PER combination of metal, profile, width
-  and weight. Its variants are RING SIZES ONLY: 70 of them, A to Z+9.5, priced
-  in steps as the size goes up — which is why the page states a RANGE at the
-  top and a SELECTED price at the point of purchase. Those are two different
-  numbers doing two different jobs; live shows both and it is right to.
+  A plain wedding ring is ONE PRODUCT PER metal + profile + width + weight.
+  Its variants are RING SIZES ONLY: 70 of them, A to Z+9.5, each priced a
+  little above the last because a bigger ring uses more metal.
 
-    options            Ring Size (the only one)
+    options              Ring Size (the only one)
     custom.ring_metal    "14ct Yellow Gold"
     custom.ring_profile  "Concave"
-    custom.ring_width    2.0            (number_decimal)
     custom.ring_weight   "Heavy Weight"
-    custom.ring_type     ["Plain Wedding Ring"]
     custom.spin_360      a Sirv .spin URL
-    filters.band_width   "2mm"          (the string form; see the slug note)
+    filters.band_width   "2mm"
 
-  So SIZE is a variant picker and METAL IS NAVIGATION — choosing a different
-  metal means going to a different product.
+  Two consequences that shape this whole file:
 
-  ── HOW THE METAL SWITCHER FINDS ITS SIBLINGS ─────────────────────────────
+  1. SIZE IS A VARIANT, so the page states a RANGE at the top and a SELECTED
+     price by the button. Two different questions, two different numbers.
+  2. METAL IS NAVIGATION. Choosing platinum means going to another product.
 
-  Handles are perfectly systematic, verified against live 31/08/2026:
+  NO OVERSIZE SURCHARGE ON PLAIN RINGS. Ed, 31/08/2026: the 10%-above-size-Q
+  surcharge that product-block applies does NOT apply here, because the metal
+  cost is already in the variant ladder — applying both would charge twice. It
+  DOES apply to every other ring type, where size is a line-item property with
+  no price of its own. When those branches are built they set the
+  `_size_surcharge` property that the Oversize Ring Surcharge cart-transform
+  function reads. Do not add it to this branch.
+
+  ── THE METAL SWITCHER ────────────────────────────────────────────────────
+
+  Two axes, as live's engagement page does it: COLOUR as round swatches, CARAT
+  as a separate row. Ten flat squares said less and read as noise.
+
+  Handles are perfectly systematic, verified 31/08/2026:
 
       {metal}-{profile}-wedding-ring-{width}-{weight}
       14ct-yellow-gold-concave-wedding-ring-2mm-heavy
       platinum-concave-wedding-ring-25mm-medium
 
-  so the ten metal siblings are CONSTRUCTED and looked up with all_products.
-  No app, no metafield list, no JS. Two consequences:
+  so each target is CONSTRUCTED and looked up with all_products. No app, no
+  metafield list, no JS.
 
-    · `all_products` is capped at TWENTY unique handles per page. Ten metals
-      fits; adding profile (9), width (many) or weight (4) switchers the same
-      way would blow through it. Do not add another row here.
-    · a handle that does not exist returns nothing and that metal renders
-      unavailable — a greyed swatch rather than a dead link.
+    · `all_products` is capped at TWENTY unique handles per page. Five colours
+      plus three carats is eight. Adding profile or width switchers the same
+      way would blow through it — they need a different mechanism.
+    · a handle that does not exist renders that option disabled rather than as
+      a dead link. Platinum and palladium have no carat, so the carat row
+      simply does not apply to them.
+    · the width slug is irregular: 2.5mm appears in handles as "25mm", so it
+      comes from `filters.band_width | remove: '.'`, not from `handle`, which
+      would give "2-5mm" and 404.
 
-  The width slug is the irregular part: 2.5mm appears in handles as "25mm", so
-  it comes from `filters.band_width | remove: '.'`, not from `handle`, which
-  would give "2-5mm" and 404.
+  ── ENGRAVING ─────────────────────────────────────────────────────────────
 
-  ── DIFFERENCES FROM LIVE, deliberate ─────────────────────────────────────
+  £55, interior, on every ring type. Copied from product-block, mechanism and
+  all: a Yes/No toggle revealing a 35-character input, a counter and a font
+  select. The text and font ride along as line-item properties; the MONEY is a
+  separate cart line for a hidden fee product, added by fye-ui.js. Shopify
+  cannot post two line items from one product form, which is why that add is
+  AJAX rather than a plain submit.
 
-  · SIZE IS A DROPDOWN, not live's grid of 70 chips. Ed's call. The grid was
-    four rows of pills that dominated the buy box and pushed the price and the
-    button below the fold.
-  · A METAL ROW that live does not have. The catalogue splits metal across
-    products, so without it the only way to see the same ring in platinum is
-    to go back to the collection and filter again.
-  · NO SEPARATE SPEC TABLE. The description already lists metal, profile,
-    width and band depth as bullets; a table beside it said everything twice.
-  · Wishlist is NOT rendered. It is an app feature (settings.wishlist_mode)
-    that v3 does not carry yet — a dead heart is worse than no heart.
+  The fee variant id is a SETTING, not a constant — a hardcoded variant id in
+  markup is a silent failure the day someone recreates the fee product.
 
-  ── STILL OPEN ────────────────────────────────────────────────────────────
+  ── GALLERY ───────────────────────────────────────────────────────────────
 
-  custom.spin_360 holds a Sirv 360 spin for every plain band, and live shows it
-  as a second thumbnail with a 360 badge. Rendering it needs Sirv's viewer
-  script — a third-party script in a theme with one JS file by design — so it
-  is not wired up. Hook marked in the gallery. Ed's decision.
+  Stage panels with thumbnails, not links to image files. The 360 is a panel
+  like any other, and Sirv's script loads ON DEMAND when that panel is first
+  opened — live loads it on every product page and then fights Flickity to
+  re-measure a canvas that was hidden at init. No carousel here, so no fight.
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
@@ -82,11 +94,36 @@
 
   assign current = p.selected_or_first_available_variant
 
+  comment
+    Sibling handles: the parts that stay fixed while metal changes.
+  endcomment
   assign profile_slug = cf.ring_profile | handle
   assign width_slug = p.metafields.filters.band_width | remove: '.'
   assign weight_slug = cf.ring_weight | split: ' ' | first | downcase
+  assign can_switch = false
+  if is_plain and profile_slug != blank and width_slug != blank and weight_slug != blank
+    assign can_switch = true
+  endif
 
-  assign metal_names = '9ct Yellow Gold,9ct White Gold,9ct Rose Gold,14ct Yellow Gold,14ct White Gold,14ct Rose Gold,18ct Yellow Gold,18ct White Gold,18ct Rose Gold,Platinum' | split: ','
+  comment
+    Split the metal into its two axes. "14ct Yellow Gold" -> 14ct + Yellow
+    Gold. "Platinum" -> no carat, colour is the whole string.
+  endcomment
+  assign metal_now = cf.ring_metal
+  assign carat_now = ''
+  assign colour_now = metal_now
+  if metal_now contains 'ct '
+    assign carat_now = metal_now | split: ' ' | first
+    assign colour_now = metal_now | remove_first: carat_now | strip
+  endif
+  assign carat_digits = carat_now | remove: 'ct'
+  if carat_digits == blank
+    assign carat_digits = '18'
+  endif
+
+  assign colours = 'Yellow Gold,White Gold,Rose Gold,Platinum,Palladium' | split: ','
+  assign carats = '18ct,14ct,9ct' | split: ','
+  assign golds = 'Yellow Gold,White Gold,Rose Gold' | split: ','
 -%}
 
 <section class="band band--white pdp" data-screen-label="Product">
@@ -94,56 +131,82 @@
     <div class="pdp__top">
 
       {%- comment -%} ---- Gallery ---- {%- endcomment -%}
-      <div class="pdp__gallery">
-        {%- if p.media.size > 0 -%}
-          <div class="pdp__stage">
-            {{ p.featured_media | image_url: width: 1400 | image_tag:
-               loading: 'eager',
-               widths: '400,600,900,1200,1400',
-               sizes: '(max-width: 900px) 100vw, 55vw',
-               alt: p.featured_media.alt | default: p.title,
-               class: 'pdp__hero' }}
-          </div>
+      <div class="pdp__gallery" data-fye-gallery>
+        <div class="pdp__stage">
+          {%- if p.media.size > 0 -%}
+            {%- for media in p.media limit: 8 -%}
+              <div class="pdp__panel{% if forloop.first %} is-on{% endif %}" data-fye-panel="{{ forloop.index0 }}">
+                {{ media | image_url: width: 1400 | image_tag:
+                   loading: forloop.first | default: false | replace: true, 'eager' | default: 'lazy',
+                   widths: '400,600,900,1200,1400',
+                   sizes: '(max-width: 900px) 100vw, 55vw',
+                   alt: media.alt | default: p.title,
+                   class: 'pdp__img' }}
+              </div>
+            {%- endfor -%}
+          {%- else -%}
+            <div class="pdp__panel is-on pdp__panel--empty"></div>
+          {%- endif -%}
 
           {%- comment -%}
-            360 SPIN HOOK. Live renders a second thumbnail here carrying a
-            "360°" badge, sourced from cf.spin_360 (a Sirv .spin URL). Wiring
-            it needs Sirv's viewer script; pending a decision. When added it
-            becomes a thumbnail in this list, not a replacement for the stills.
+            The 360. A panel like any other; its Sirv viewer is inert until
+            fye-ui.js loads the script, which it does the first time this panel
+            is opened. Nothing is requested on a page nobody rotates.
           {%- endcomment -%}
-          {%- if p.media.size > 1 -%}
-            <ul class="pdp__thumbs">
-              {%- for media in p.media limit: 8 -%}
-                <li>
-                  <a class="pdp__thumb" href="{{ media | image_url: width: 1400 }}">
-                    {{ media | image_url: width: 220 | image_tag:
-                       loading: 'lazy',
-                       widths: '110,220',
-                       sizes: '96px',
-                       alt: '' }}
-                  </a>
-                </li>
-              {%- endfor -%}
-            </ul>
+          {%- if cf.spin_360 != blank -%}
+            <div class="pdp__panel pdp__panel--spin" data-fye-panel="spin">
+              <div class="Sirv pdp__spin"
+                   data-fye-spin
+                   data-src="{{ cf.spin_360 }}"
+                   data-options="autospin: off; hint.text: Drag to rotate; hint.type: drag;"></div>
+            </div>
           {%- endif -%}
-        {%- else -%}
-          <div class="pdp__stage pdp__stage--empty"></div>
+        </div>
+
+        {%- if p.media.size > 1 or cf.spin_360 != blank -%}
+          <ul class="pdp__thumbs">
+            {%- for media in p.media limit: 8 -%}
+              <li>
+                <button class="pdp__thumb{% if forloop.first %} is-on{% endif %}"
+                        type="button"
+                        data-fye-thumb="{{ forloop.index0 }}"
+                        aria-label="View image {{ forloop.index }}">
+                  {{ media | image_url: width: 220 | image_tag:
+                     loading: 'lazy',
+                     widths: '110,220',
+                     sizes: '96px',
+                     alt: '' }}
+                </button>
+              </li>
+            {%- endfor -%}
+
+            {%- if cf.spin_360 != blank -%}
+              <li>
+                <button class="pdp__thumb pdp__thumb--spin"
+                        type="button"
+                        data-fye-thumb="spin"
+                        aria-label="View in 360 degrees">
+                  {{ p.featured_image | image_url: width: 220 | image_tag:
+                     loading: 'lazy',
+                     widths: '110,220',
+                     sizes: '96px',
+                     alt: '' }}
+                  <span class="pdp__spinbadge" aria-hidden="true">360°</span>
+                </button>
+              </li>
+            {%- endif -%}
+          </ul>
         {%- endif -%}
       </div>
 
-      {%- comment -%} ---- Buy box, in live's order ---- {%- endcomment -%}
+      {%- comment -%} ---- Buy box ---- {%- endcomment -%}
       <div class="pdp__buy">
 
         <h1 class="pdp__title">{{ p.title }}</h1>
 
-        {%- comment -%}
-          The RANGE, not the selected price. On a ring priced by size these are
-          different questions — "what do these cost" versus "what does mine
-          cost" — and the second one belongs next to the button, below.
-        {%- endcomment -%}
         <p class="pdp__range">
           {%- if p.price_varies -%}
-            Price range: {{ p.price_min | money }} – {{ p.price_max | money }}
+            Price range {{ p.price_min | money }} – {{ p.price_max | money }}
           {%- else -%}
             {{ p.price | money }}
           {%- endif -%}
@@ -153,9 +216,8 @@
           {%- if current.sku != blank -%}
             <p class="pdp__metarow"><span class="pdp__metakey">SKU</span> <span data-fye-sku>{{ current.sku }}</span></p>
           {%- endif -%}
-
-          {%- assign shown = 0 -%}
           {%- if p.collections.size > 0 -%}
+            {%- assign shown = 0 -%}
             <p class="pdp__metarow">
               <span class="pdp__metakey">Categories</span>
               {%- for c in p.collections -%}
@@ -169,60 +231,102 @@
           {%- endif -%}
         </div>
 
-        {%- comment -%}
-          Live puts the description HERE, above the choices — it is what tells
-          you the band depth and the size range before you pick. Kept.
-        {%- endcomment -%}
         {%- if p.description != blank -%}
           <div class="pdp__desc rte">{{ p.description }}</div>
         {%- endif -%}
 
-        {%- if is_plain and profile_slug != blank and width_slug != blank and weight_slug != blank -%}
+        {%- comment -%} ---- Metal: colour, then carat ---- {%- endcomment -%}
+        {%- if can_switch -%}
           <div class="pdp__field">
-            <p class="pdp__label">Metal<span class="pdp__labelval">{{ cf.ring_metal }}</span></p>
-            <ul class="pdp__metals">
-              {%- for name in metal_names -%}
+            <p class="pdp__label">Metal<span class="pdp__labelval">{{ metal_now }}</span></p>
+
+            <ul class="pdp__colours">
+              {%- for colour in colours -%}
                 {%- liquid
-                  assign metal_slug = name | handle
-                  assign sib_handle = metal_slug | append: '-' | append: profile_slug | append: '-wedding-ring-' | append: width_slug | append: '-' | append: weight_slug
+                  assign is_gold = false
+                  if golds contains colour
+                    assign is_gold = true
+                  endif
+
+                  if is_gold
+                    assign target_metal = carat_digits | append: 'ct ' | append: colour
+                  else
+                    assign target_metal = colour
+                  endif
+
+                  assign sib_handle = target_metal | handle | append: '-' | append: profile_slug | append: '-wedding-ring-' | append: width_slug | append: '-' | append: weight_slug
                   assign sib = all_products[sib_handle]
+
                   assign is_current = false
-                  if name == cf.ring_metal
+                  if colour == colour_now
                     assign is_current = true
                   endif
-                  assign swatch_token = name | handle | prepend: '--metal-' | replace: '--metal-9ct-', '--metal-9-' | replace: '--metal-14ct-', '--metal-14-' | replace: '--metal-18ct-', '--metal-18-' | replace: '-gold', ''
+
+                  if is_gold
+                    assign tone = colour | split: ' ' | first | downcase | prepend: '-' | prepend: carat_digits | prepend: '--metal-'
+                  elsif colour == 'Platinum'
+                    assign tone = '--metal-platinum'
+                  else
+                    assign tone = '--platinum'
+                  endif
                 -%}
                 <li>
                   {%- if is_current -%}
-                    <span class="pdp__metal is-current" style="--sw: var({{ swatch_token }});" aria-current="true">
-                      <span class="pdp__swatch"></span>
-                      <span class="visually-hidden">{{ name }}, selected</span>
+                    <span class="pdp__colour is-current" style="--sw: var({{ tone }});" aria-current="true">
+                      <span class="pdp__dot"></span>
+                      <span class="pdp__colourname">{{ colour }}</span>
                     </span>
                   {%- elsif sib != blank -%}
-                    <a class="pdp__metal" href="{{ sib.url }}" style="--sw: var({{ swatch_token }});">
-                      <span class="pdp__swatch"></span>
-                      <span class="visually-hidden">{{ name }} — from {{ sib.price_min | money }}</span>
+                    <a class="pdp__colour" href="{{ sib.url }}" style="--sw: var({{ tone }});">
+                      <span class="pdp__dot"></span>
+                      <span class="pdp__colourname">{{ colour }}</span>
                     </a>
                   {%- else -%}
-                    <span class="pdp__metal is-off" style="--sw: var({{ swatch_token }});">
-                      <span class="pdp__swatch"></span>
-                      <span class="visually-hidden">{{ name }}, not made in this profile and width</span>
+                    <span class="pdp__colour is-off" style="--sw: var({{ tone }});">
+                      <span class="pdp__dot"></span>
+                      <span class="pdp__colourname">{{ colour }}</span>
+                      <span class="visually-hidden">not made in this profile and width</span>
                     </span>
                   {%- endif -%}
                 </li>
               {%- endfor -%}
             </ul>
+
+            {%- comment -%}
+              Carat only applies to the golds. Platinum and palladium have no
+              carat, so the row is absent rather than disabled — an empty row
+              of greyed buttons would imply we might make a 9ct platinum.
+            {%- endcomment -%}
+            {%- if golds contains colour_now -%}
+              <ul class="pdp__carats">
+                {%- for carat in carats -%}
+                  {%- liquid
+                    assign target_metal = carat | append: ' ' | append: colour_now
+                    assign sib_handle = target_metal | handle | append: '-' | append: profile_slug | append: '-wedding-ring-' | append: width_slug | append: '-' | append: weight_slug
+                    assign sib = all_products[sib_handle]
+                    assign is_current = false
+                    if carat == carat_now
+                      assign is_current = true
+                    endif
+                  -%}
+                  <li>
+                    {%- if is_current -%}
+                      <span class="pdp__carat is-current" aria-current="true">{{ carat | upcase }}</span>
+                    {%- elsif sib != blank -%}
+                      <a class="pdp__carat" href="{{ sib.url }}">{{ carat | upcase }}</a>
+                    {%- else -%}
+                      <span class="pdp__carat is-off">{{ carat | upcase }}</span>
+                    {%- endif -%}
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
           </div>
         {%- endif -%}
 
         {%- form 'product', p, class: 'pdp__form', id: 'pdp-form' -%}
           <input type="hidden" name="id" value="{{ current.id }}" data-fye-variant-id>
 
-          {%- comment -%}
-            The variant JSON the price/SKU updater reads. A data island, not a
-            script — same pattern as fye-chapter-nav. Only the three fields the
-            buy box actually shows, so it stays small on a 70-variant product.
-          {%- endcomment -%}
           <script type="application/json" data-fye-variants>
             [
               {%- for v in p.variants -%}
@@ -240,10 +344,7 @@
                     <a class="pdp__sizelink" href="{{ s.size_guide_url }}">Find my size</a>
                   {%- endif -%}
                 </label>
-                <select class="pdp__select"
-                        id="pdp-opt-{{ forloop.index }}"
-                        name="options[{{ option.name | escape }}]"
-                        data-fye-option>
+                <select class="pdp__select" id="pdp-opt-{{ forloop.index }}" name="options[{{ option.name | escape }}]" data-fye-option>
                   {%- for value in option.values -%}
                     <option value="{{ value | escape }}"{% if option.selected_value == value %} selected{% endif %}>{{ value }}</option>
                   {%- endfor -%}
@@ -252,21 +353,44 @@
             {%- endfor -%}
           {%- endif -%}
 
-          {%- if s.engraving -%}
-            <div class="pdp__field">
-              <label class="pdp__label" for="pdp-engraving">
-                {{ s.engraving_label | default: 'Engraving' }}
-                <span class="pdp__labelnote">Optional</span>
-              </label>
-              <input class="pdp__input"
-                     type="text"
-                     id="pdp-engraving"
-                     name="properties[{{ s.engraving_label | default: 'Engraving' | escape }}]"
-                     maxlength="{{ s.engraving_max | default: 30 }}"
-                     placeholder="{{ s.engraving_placeholder | escape }}">
-              {%- if s.engraving_hint != blank -%}
-                <p class="pdp__hint fine">{{ s.engraving_hint }}</p>
-              {%- endif -%}
+          {%- if s.engraving and s.engraving_variant_id != blank -%}
+            <div class="pdp__engrave"
+                 data-fye-engrave
+                 data-fee-variant="{{ s.engraving_variant_id }}"
+                 data-fee-price="{{ s.engraving_price_pennies | default: 5500 }}">
+              <div class="pdp__engravehead">
+                <p class="pdp__label">
+                  {{ s.engraving_label | default: 'Custom engraving' }}
+                  <span class="pdp__labelval">{{ s.engraving_price_label | default: '+£55' }}</span>
+                </p>
+                <div class="pdp__seg" role="radiogroup" aria-label="{{ s.engraving_label | default: 'Custom engraving' | escape }}">
+                  <button type="button" role="radio" data-fye-engrave-set="no" class="is-on" aria-checked="true">No</button>
+                  <button type="button" role="radio" data-fye-engrave-set="yes" aria-checked="false">Yes</button>
+                </div>
+              </div>
+
+              <div class="pdp__engravebody" data-fye-engrave-body hidden>
+                <div class="pdp__engraverow">
+                  <input class="pdp__input"
+                         type="text"
+                         name="properties[Engraving]"
+                         data-fye-engrave-text
+                         maxlength="{{ s.engraving_max | default: 35 }}"
+                         placeholder="{{ s.engraving_placeholder | default: 'Engraving' | escape }}"
+                         disabled>
+                  <span class="pdp__count" data-fye-engrave-count>0/{{ s.engraving_max | default: 35 }}</span>
+                </div>
+
+                {%- if s.engraving_fonts != blank -%}
+                  <select class="pdp__select" name="properties[Engraving font]" data-fye-engrave-font disabled>
+                    <option value="">Select a font</option>
+                    {%- assign font_list = s.engraving_fonts | split: '|' -%}
+                    {%- for f in font_list -%}
+                      <option>{{ f | strip }}</option>
+                    {%- endfor -%}
+                  </select>
+                {%- endif -%}
+              </div>
             </div>
           {%- endif -%}
 
@@ -279,13 +403,13 @@
             {%- if current.available -%}
               {{ s.atc_label | default: 'Add to bag' }}
             {%- else -%}
-              Made to order — enquire
+              {{ s.mto_label | default: 'Made to order — enquire' }}
             {%- endif -%}
           </button>
         {%- endform -%}
 
         {%- if s.enquire_label != blank -%}
-          <a class="btn btn--outline btn--block pdp__enquire" href="{{ s.enquire_link | default: '/pages/contact-us' }}">{{ s.enquire_label }}</a>
+          <a class="btn btn--outline btn--block" href="{{ s.enquire_link | default: '/pages/contact-us' }}">{{ s.enquire_label }}</a>
         {%- endif -%}
 
         {%- if s.reassurance != blank -%}
@@ -307,17 +431,32 @@
 /* --- gallery ------------------------------------------------------------- */
 
 .fye .pdp__stage {
+  position: relative;
   background: var(--ivory);
 }
 
-.fye .pdp__hero {
+.fye .pdp__panel {
+  display: none;
+}
+
+.fye .pdp__panel.is-on {
+  display: block;
+}
+
+.fye .pdp__img {
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
 }
 
-.fye .pdp__stage--empty {
+.fye .pdp__panel--empty {
   aspect-ratio: 1;
+}
+
+.fye .pdp__spin {
+  aspect-ratio: 1;
+  width: 100%;
+  background: var(--white);
 }
 
 .fye .pdp__thumbs {
@@ -334,14 +473,34 @@
 }
 
 .fye .pdp__thumb {
+  position: relative;
   display: block;
   width: 96px;
-  background: var(--ivory);
+  padding: 0;
   border: 1px solid transparent;
+  background: var(--ivory);
 }
 
 .fye .pdp__thumb:hover {
   border-color: var(--sage);
+}
+
+.fye .pdp__thumb.is-on {
+  border-color: var(--line-strong);
+}
+
+/* The 360 badge sits over its thumbnail rather than beside it, so the row
+   stays one rhythm of squares. */
+.fye .pdp__spinbadge {
+  position: absolute;
+  inset-block-end: var(--s1);
+  inset-inline-end: var(--s1);
+  padding: 2px 6px;
+  background: var(--white);
+  color: var(--teal);
+  font-size: 10px;
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.08em;
 }
 
 /* --- buy box ------------------------------------------------------------- */
@@ -357,8 +516,6 @@
   font-size: var(--fs-h3);
 }
 
-/* The range is orientation, not the transaction — soft, and a step down from
-   the selected price beside the button. */
 .fye .pdp__range {
   margin: calc(var(--s5) * -1 + var(--s2)) 0 0;
   font-size: var(--fs-small);
@@ -395,7 +552,7 @@
 .fye .pdp__field {
   display: flex;
   flex-direction: column;
-  gap: var(--s2);
+  gap: var(--s3);
 }
 
 .fye .pdp__label {
@@ -411,8 +568,6 @@
   color: var(--ink-soft);
 }
 
-/* The chosen value sits in the label as well as the control, so the selection
-   is readable without opening a 70-item list. */
 .fye .pdp__labelval,
 .fye .pdp__labelnote,
 .fye .pdp__sizelink {
@@ -426,17 +581,73 @@
   color: var(--ink);
 }
 
-.fye .pdp__labelnote {
-  color: var(--ink-soft);
-}
-
 .fye .pdp__sizelink {
   border-bottom: 1px solid currentColor;
 }
 
-/* --- metal swatches ------------------------------------------------------ */
+/* --- metal: colour dots, then carat --------------------------------------
+   Round, per Ed. The only curves in the brand are the logo flourish and the
+   monogram — and now these, because a metal swatch is a picture of a ring's
+   colour, not a UI surface. Named beneath, because five golds are hard to
+   tell apart at 44px and impossible for anyone colour-blind. */
 
-.fye .pdp__metals {
+.fye .pdp__colours {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fye .pdp__colours > li {
+  margin: 0;
+}
+
+.fye .pdp__colour {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s2);
+  width: 76px;
+  text-align: center;
+}
+
+.fye .pdp__dot {
+  display: block;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--sw);
+  box-shadow: inset 0 0 0 1px var(--gem-edge);
+}
+
+.fye .pdp__colour.is-current .pdp__dot {
+  box-shadow: inset 0 0 0 1px var(--gem-edge), 0 0 0 2px var(--white), 0 0 0 3px var(--teal);
+}
+
+.fye .pdp__colour:hover .pdp__dot {
+  box-shadow: inset 0 0 0 1px var(--gem-edge), 0 0 0 2px var(--white), 0 0 0 3px var(--sage);
+}
+
+.fye .pdp__colourname {
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.fye .pdp__colour.is-current .pdp__colourname {
+  color: var(--ink);
+}
+
+.fye .pdp__colour.is-off {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.fye .pdp__carats {
   display: flex;
   flex-wrap: wrap;
   gap: var(--s2);
@@ -445,38 +656,34 @@
   list-style: none;
 }
 
-.fye .pdp__metals > li {
+.fye .pdp__carats > li {
   margin: 0;
 }
 
-.fye .pdp__metal {
-  display: flex;
+.fye .pdp__carat {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  border: 1px solid transparent;
+  min-width: 80px;
+  min-height: 44px;
+  padding-inline: var(--s4);
+  border: 1px solid var(--line);
+  font-size: var(--fs-fine);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-button);
 }
 
-.fye .pdp__swatch {
-  display: block;
-  width: 28px;
-  height: 28px;
-  background: var(--sw);
-  box-shadow: inset 0 0 0 1px var(--gem-edge);
-}
-
-.fye .pdp__metal:hover {
+.fye .pdp__carat:hover {
   border-color: var(--sage);
 }
 
-.fye .pdp__metal.is-current {
-  border-color: var(--line-strong);
+.fye .pdp__carat.is-current {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: var(--ivory);
 }
 
-/* Not made in this profile and width. Shown rather than hidden, so the row
-   always states the full range. */
-.fye .pdp__metal.is-off {
+.fye .pdp__carat.is-off {
   opacity: 0.35;
   cursor: not-allowed;
 }
@@ -495,12 +702,70 @@
   width: 100%;
 }
 
-.fye .pdp__hint {
-  margin: 0;
+/* --- engraving ----------------------------------------------------------- */
+
+.fye .pdp__engrave {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  padding-top: var(--s5);
+  border-top: var(--hairline);
 }
 
-/* The number that answers "what does MINE cost", sat directly above the
-   button. Full strength and larger than the range at the top. */
+.fye .pdp__engravehead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s4);
+}
+
+.fye .pdp__seg {
+  display: flex;
+  flex: 0 0 auto;
+}
+
+.fye .pdp__seg button {
+  min-width: 72px;
+  min-height: 44px;
+  border: 1px solid var(--line);
+  background: transparent;
+  font-size: var(--fs-fine);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-button);
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.fye .pdp__seg button + button {
+  border-inline-start: 0;
+}
+
+.fye .pdp__seg button.is-on {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: var(--ivory);
+}
+
+.fye .pdp__engravebody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+}
+
+.fye .pdp__engraverow {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+}
+
+.fye .pdp__count {
+  flex: 0 0 auto;
+  font-size: var(--fs-fine);
+  color: var(--ink-soft);
+}
+
+/* --- selected price + actions -------------------------------------------- */
+
 .fye .pdp__selected {
   display: flex;
   align-items: baseline;
@@ -536,6 +801,26 @@
     gap: var(--s7);
   }
 }
+
+@media (max-width: 560px) {
+  .fye .pdp__colours {
+    gap: var(--s4);
+  }
+
+  .fye .pdp__colour {
+    width: 64px;
+  }
+
+  .fye .pdp__engravehead {
+    align-items: stretch;
+    flex-direction: column;
+    gap: var(--s3);
+  }
+
+  .fye .pdp__seg button {
+    flex: 1 1 0;
+  }
+}
 {% endstylesheet %}
 
 {% schema %}
@@ -546,6 +831,7 @@
   "settings": [
     { "type": "header", "content": "Buy box" },
     { "type": "text", "id": "atc_label", "label": "Add to bag label", "default": "Add to bag" },
+    { "type": "text", "id": "mto_label", "label": "Unavailable label", "default": "Made to order — enquire" },
     { "type": "url", "id": "size_guide_url", "label": "Ring size guide" },
     { "type": "text", "id": "enquire_label", "label": "Secondary button label", "default": "Contact us about this ring" },
     { "type": "url", "id": "enquire_link", "label": "Secondary button link" },
@@ -557,9 +843,21 @@
     },
 
     { "type": "header", "content": "Engraving" },
+    {
+      "type": "paragraph",
+      "content": "The fee is charged as a separate cart line for a hidden fee product. Without a valid variant ID the whole engraving control is hidden rather than shown and uncharged."
+    },
     { "type": "checkbox", "id": "engraving", "label": "Offer engraving", "default": true },
-    { "type": "text", "id": "engraving_label", "label": "Field label", "default": "Engraving" },
-    { "type": "text", "id": "engraving_placeholder", "label": "Placeholder", "default": "A date, a name, a few words" },
+    { "type": "text", "id": "engraving_label", "label": "Label", "default": "Custom engraving" },
+    { "type": "text", "id": "engraving_price_label", "label": "Price label", "default": "+£55" },
+    { "type": "text", "id": "engraving_variant_id", "label": "Fee variant ID", "default": "58467296018816" },
+    {
+      "type": "number",
+      "id": "engraving_price_pennies",
+      "label": "Fee in pennies",
+      "default": 5500
+    },
+    { "type": "text", "id": "engraving_placeholder", "label": "Placeholder", "default": "Engraving (35 characters max)" },
     {
       "type": "range",
       "id": "engraving_max",
@@ -568,13 +866,13 @@
       "max": 60,
       "step": 5,
       "unit": "ch",
-      "default": 30
+      "default": 35
     },
     {
       "type": "textarea",
-      "id": "engraving_hint",
-      "label": "Helper text",
-      "default": "Engraved inside the band. Free of charge, and it does not affect delivery time."
+      "id": "engraving_fonts",
+      "label": "Fonts (pipe-separated)",
+      "default": "Classic Script|Elegant Serif|Modern Sans|Block Capitals"
     }
   ],
   "presets": [{ "name": "Main product" }]

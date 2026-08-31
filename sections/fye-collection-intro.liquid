@@ -18,10 +18,20 @@
   A collection with no description falls back to the centred variant — a
   masthead with an empty right column looks like a bug.
 
-  Colour comes from the band, not from here. `.band--teal` in fye-core.css
-  already inverts headings, links and `--ink-soft`, so this file states no
-  colours of its own beyond the two type levels it asks for by name. That is
-  the whole reason live's 30-odd `.band--teal .cintro__*` overrides are gone.
+  COLOUR COMES FROM THE BAND, BY INHERITANCE. Do not write `color: var(--ink)`
+  in this file. `.band--teal` in fye-core.css remaps `--ink-soft` to the
+  on-dark level but deliberately leaves `--ink` as teal — so `var(--ink)` on a
+  teal band paints text the same colour as the ground. That shipped on
+  31/08/2026 and made the breadcrumb's current page and the whole lead
+  paragraph invisible; the band looked like it had simply lost its first
+  paragraph. Full-strength text here is `color: inherit`, which resolves to
+  --ink on light bands and --on-dark on dark ones. Soft text is --ink-soft,
+  which the band already remaps correctly.
+
+  This band is deliberately TIGHTER than the section rhythm: it is a masthead
+  introducing the grid below, not a content section, and at the standard
+  --sect-y it pushed the first row of products below the fold. It sets the
+  VARIABLE, per the no-padding rule.
 
   Setting IDs are unchanged from live, so templates/collection.json carries
   over as-is.
@@ -64,7 +74,7 @@
   {%- endif -%}
 {%- endcapture -%}
 
-<section class="band band--{{ s.band | default: 'teal' }} band--tight cintro{% if is_centred %} cintro--centred{% endif %}" data-screen-label="Collection intro">
+<section class="band band--{{ s.band | default: 'teal' }} cintro{% if is_centred %} cintro--centred{% endif %}" data-screen-label="Collection intro">
   <div class="wrap">
     <div class="cintro__grid">
 
@@ -106,6 +116,12 @@
 </section>
 
 {% stylesheet %}
+/* A masthead, not a content section — see the file comment. Sets the token,
+   never a padding declaration. */
+.fye .cintro {
+  --sect-y: var(--s8);
+}
+
 .fye .cintro__grid {
   display: grid;
   grid-template-columns: 1fr 1.5fr;
@@ -126,14 +142,18 @@
 /* --- breadcrumb ----------------------------------------------------------
    `.crumbs` is named in conventions.md as shared vocabulary but has never been
    implemented in fye-core.css, and one section is not two — so it lives here
-   until a second section needs it, at which point it moves to core. */
+   until a second section needs it, at which point it moves to core.
+
+   Note what is NOT here: a colour on the nav itself. The links and separator
+   are soft; the current page inherits the band's full-strength colour. Setting
+   a colour on the parent would force the current page to override it upward,
+   which is what made it invisible on teal. */
 
 .fye .cintro__crumbs {
-  margin: 0 0 var(--s6);
+  margin: 0 0 var(--s5);
   font-size: var(--fs-fine);
   letter-spacing: var(--tr-eyebrow);
   text-transform: uppercase;
-  color: var(--ink-soft);
 }
 
 .fye .cintro__crumbs a {
@@ -142,40 +162,46 @@
 
 .fye .cintro__sep {
   margin-inline: var(--s2);
+  color: var(--ink-soft);
 }
 
 .fye .cintro__here {
-  color: var(--ink);
+  color: inherit;
 }
 
 /* --- headline ------------------------------------------------------------ */
 
 .fye .cintro__eyebrow {
-  margin-bottom: var(--s4);
+  margin-bottom: var(--s3);
 }
 
+/* A step down from the h1 scale on purpose. This is a listing masthead, and at
+   the full display size the title wrapped to two lines and pushed the grid
+   below the fold. It remains an h1 for document structure. */
 .fye .cintro__title {
   margin: 0;
+  font-size: var(--fs-h2);
   text-wrap: balance;
 }
 
 /* --- copy ----------------------------------------------------------------
    Two levels, per the contrast rule: the first paragraph at full strength,
-   everything after it soft. No third level. */
+   everything after it soft. No third level. Small rather than body size —
+   this is orientation copy above a grid, not something anyone reads at
+   length, and at body size it out-measured the title beside it. */
 
 .fye .cintro__copy {
   display: flex;
   flex-direction: column;
-  gap: var(--s4);
+  gap: var(--s3);
+  font-size: var(--fs-small);
 }
 
 .fye .cintro__lead {
-  font-size: var(--fs-body);
-  color: var(--ink);
+  color: inherit;
 }
 
 .fye .cintro__rest {
-  font-size: var(--fs-body);
   color: var(--ink-soft);
 }
 
@@ -200,7 +226,7 @@
 .fye .cintro--centred .cintro__copy {
   max-width: var(--maxw-narrow);
   margin-inline: auto;
-  margin-top: var(--s6);
+  margin-top: var(--s5);
 }
 
 /* --- breakpoints. Media queries LAST, always. ---------------------------- */
@@ -208,7 +234,7 @@
 @media (max-width: 900px) {
   .fye .cintro__grid {
     grid-template-columns: minmax(0, 1fr);
-    gap: var(--s6);
+    gap: var(--s5);
     align-items: start;
   }
 
@@ -221,7 +247,7 @@
 
 @media (max-width: 560px) {
   .fye .cintro__crumbs {
-    margin-bottom: var(--s5);
+    margin-bottom: var(--s4);
   }
 }
 {% endstylesheet %}

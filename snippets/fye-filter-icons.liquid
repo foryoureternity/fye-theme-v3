@@ -1,0 +1,99 @@
+{%- comment -%}
+  fye-filter-icons — metal swatches and ring-profile shapes for the xCloud
+  filter rail.
+
+  Ported 31/08/2026 from live, where this ran as an inline <script> + <style>
+  inside a custom-liquid block on templates/collection.json, gated on
+  collection.handle == 'plain-wedding-rings'. Every part of that arrangement is
+  something this theme forbids — inline script, a custom-CSS box, and markup
+  living in a JSON template where nobody would look for it.
+
+  HOW IT WORKS. xCloud renders the filter rail at runtime, so the icons cannot
+  be rendered into it from Liquid. This snippet emits two things and no script:
+
+    1. a hidden <svg> holding the two shared gradients, which must be IN THE
+       DOCUMENT (not in the <template>) because cloned nodes reference them by
+       url(#id) and a definition inside an inert template is not resolvable;
+    2. a <template> of icons keyed by data-fic, matching xCloud's own
+       data-filter-value strings EXACTLY, including capitalisation.
+
+  assets/fye-ui.js clones from the template into the rail as the app renders
+  it. That is the only script involved, and it is the theme's one JS file.
+
+  WHY THIS IS LEANER THAN LIVE. Live inlined a full <linearGradient> per icon —
+  nineteen of them, with unique ids, inside JSON-escaped strings inside a
+  Liquid setting inside a template file. Two shared defs replace all nineteen,
+  the colours are core tokens rather than repeated hexes, and the markup is
+  real markup rather than an escaped string, so it cannot rot from a bad
+  backslash.
+
+  THE VALUE STRINGS ARE THE CONTRACT. If a filter value is renamed in Shopify
+  or in xCloud, its icon silently stops appearing — no error, just a plain row.
+  That is the intended failure: a missing icon is survivable, a broken rail is
+  not. When adding a metal or a profile, copy the label from the rail itself.
+{%- endcomment -%}
+
+<svg class="fic-defs" aria-hidden="true" focusable="false" role="presentation">
+  <defs>
+    <linearGradient id="fic-sheen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="var(--metal-sheen-hi)"></stop>
+      <stop offset="0.5" stop-color="var(--metal-sheen-mid)"></stop>
+      <stop offset="1" stop-color="var(--metal-sheen-lo)"></stop>
+    </linearGradient>
+    <linearGradient id="fic-band" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="var(--metal-band-hi)"></stop>
+      <stop offset="1" stop-color="var(--metal-band-lo)"></stop>
+    </linearGradient>
+  </defs>
+</svg>
+
+<template data-fye-filter-icons>
+
+  {%- comment -%} ---- Metals. Ground, sheen, hairline, carat label. ---- {%- endcomment -%}
+
+  <span data-fic="9ct Yellow Gold"><svg class="fic fic--metal" viewBox="0 0 30 30" aria-hidden="true"><rect x="2.5" y="2.5" width="25" height="25" fill="var(--metal-9-yellow)"></rect><rect x="2.5" y="2.5" width="25" height="25" fill="url(#fic-sheen)"></rect><rect x="2.5" y="2.5" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1"></rect><text class="fic__lbl" x="15" y="16">9</text></svg></span>
+
+  <span data-fic="9ct White Gold"><svg class="fic fic--metal" viewBox="0 0 30 30" aria-hidden="true"><rect x="2.5" y="2.5" width="25" height="25" fill="var(--metal-9-white)"></rect><rect x="2.5" y="2.5" width="25" height="25" fill="url(#fic-sheen)"></rect><rect x="2.5" y="2.5" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1"></rect><text class="fic__lbl" x="15" y="16">9</text></svg></span>
+
+  <span data-fic="9ct Rose Gold"><svg class="fic fic--metal" viewBox="0 0 30 30" aria-hidden="true"><rect x="2.5" y="2.5" width="25" height="25" fill="var(--metal-9-rose)"></rect><rect x="2.5" y="2.5" width="25" height="25" fill="url(#fic-sheen)"></rect><rect x="2.5" y="2.5" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1"></rect><text class="fic__lbl" x="15" y="16">9</text></svg></span>
+
+  <span data-fic="14ct Yellow Gold"><svg class="fic fic--metal" viewBox="0 0 30 30" aria-hidden="true"><rect x="2.5" y="2.5" width="25" height="25" fill="var(--metal-14-yellow)"></rect><rect x="2.5" y="2.5" width="25" height="25" fill="url(#fic-sheen)"></rect><rect x="2.5" y="2.5" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1"></rect><text class="fic__lbl" x="15" y="16">14</text></svg></span>
+
+  <span data-fic="14ct White Gold"><svg class="fic fic--metal" viewBox="0 0 30 30" aria-hidden="true"><rect x="2.5" y="2.5" width="25" height="25" fill="var(--metal-14-white)"></rect><rect x="2.5" y="2.5" width="25" height="25" fill="url(#fic-sheen)"></rect><rect x="2.5" y="2.5" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1"></rect><text class="fic__lbl" x="15" y="16">14</text></svg></span>
+
+  <span data-fic="14ct Rose Gold"><svg class="fic fic--metal" viewBox="0 0 30 30" aria-hidden="true"><rect x="2.5" y="2.5" width="25" height="25" fill="var(--metal-14-rose)"></rect><rect x="2.5" y="2.5" width="25" height="25" fill="url(#fic-sheen)"></rect><rect x="2.5" y="2.5" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1"></rect><text class="fic__lbl" x="15" y="16">14</text></svg></span>
+
+  <span data-fic="18ct Yellow Gold"><svg class="fic fic--metal" viewBox="0 0 30 30" aria-hidden="true"><rect x="2.5" y="2.5" width="25" height="25" fill="var(--metal-18-yellow)"></rect><rect x="2.5" y="2.5" width="25" height="25" fill="url(#fic-sheen)"></rect><rect x="2.5" y="2.5" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1"></rect><text class="fic__lbl" x="15" y="16">18</text></svg></span>
+
+  <span data-fic="18ct White Gold"><svg class="fic fic--metal" viewBox="0 0 30 30" aria-hidden="true"><rect x="2.5" y="2.5" width="25" height="25" fill="var(--metal-18-white)"></rect><rect x="2.5" y="2.5" width="25" height="25" fill="url(#fic-sheen)"></rect><rect x="2.5" y="2.5" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1"></rect><text class="fic__lbl" x="15" y="16">18</text></svg></span>
+
+  <span data-fic="18ct Rose Gold"><svg class="fic fic--metal" viewBox="0 0 30 30" aria-hidden="true"><rect x="2.5" y="2.5" width="25" height="25" fill="var(--metal-18-rose)"></rect><rect x="2.5" y="2.5" width="25" height="25" fill="url(#fic-sheen)"></rect><rect x="2.5" y="2.5" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1"></rect><text class="fic__lbl" x="15" y="16">18</text></svg></span>
+
+  <span data-fic="Platinum"><svg class="fic fic--metal" viewBox="0 0 30 30" aria-hidden="true"><rect x="2.5" y="2.5" width="25" height="25" fill="var(--metal-platinum)"></rect><rect x="2.5" y="2.5" width="25" height="25" fill="url(#fic-sheen)"></rect><rect x="2.5" y="2.5" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1"></rect><text class="fic__lbl" x="15" y="16">Pt</text></svg></span>
+
+  {%- comment -%}
+    ---- Ring profiles: the cross-section of the band, viewed end-on. ----
+    Paths are live's, unchanged. They are drawn to a 48×28 box and are not
+    interchangeable with the metal box — a profile is wider than it is tall
+    because that is the shape of a ring in section.
+  {%- endcomment -%}
+
+  <span data-fic="Traditional Court"><svg class="fic fic--profile" viewBox="0 0 48 28" aria-hidden="true"><path d="M8.7,14 C8.7,9.58 15.55,6 24,6 C32.45,6 39.3,9.58 39.3,14 C39.3,18.42 32.45,22 24,22 C15.55,22 8.7,18.42 8.7,14 Z" fill="url(#fic-band)" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"></path></svg></span>
+
+  <span data-fic="Flat"><svg class="fic fic--profile" viewBox="0 0 48 28" aria-hidden="true"><path d="M6.8,8 H41.2 Q42,8 42,8.8 V19.2 Q42,20 41.2,20 H6.8 Q6,20 6,19.2 V8.8 Q6,8 6.8,8 Z" fill="url(#fic-band)" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"></path></svg></span>
+
+  <span data-fic="Flat Court"><svg class="fic fic--profile" viewBox="0 0 48 28" aria-hidden="true"><path d="M5.5,6.75 H42.5 V9 C42.5,16 34,21.25 24,21.25 C14,21.25 5.5,16 5.5,9 Z" fill="url(#fic-band)" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"></path></svg></span>
+
+  <span data-fic="D Shape"><svg class="fic fic--profile" viewBox="0 0 48 28" aria-hidden="true"><path d="M5.5,21.25 H42.5 V19 C42.5,12 34,6.75 24,6.75 C14,6.75 5.5,12 5.5,19 Z" fill="url(#fic-band)" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"></path></svg></span>
+
+  <span data-fic="Slight Court"><svg class="fic fic--profile" viewBox="0 0 48 28" aria-hidden="true"><path d="M14,7.6 Q24,6.9 34,7.6 Q42,8.1 42,14 Q42,19.9 34,20.4 Q24,21.1 14,20.4 Q6,19.9 6,14 Q6,8.1 14,7.6 Z" fill="url(#fic-band)" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"></path></svg></span>
+
+  <span data-fic="Edged Court"><svg class="fic fic--profile" viewBox="0 0 48 28" aria-hidden="true"><path d="M6,10 Q24,7 42,10 V18 Q24,21 6,18 Z" fill="url(#fic-band)" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"></path></svg></span>
+
+  <span data-fic="Edged Flat Court"><svg class="fic fic--profile" viewBox="0 0 48 28" aria-hidden="true"><path d="M5.5,8 H42.5 V14 C42.5,18 34,20.5 24,20.5 C14,20.5 5.5,18 5.5,14 Z" fill="url(#fic-band)" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"></path></svg></span>
+
+  <span data-fic="Engagement Match"><svg class="fic fic--profile" viewBox="0 0 48 28" aria-hidden="true"><path d="M13,7.5 Q24,5.8 35,7.5 Q40,9 40,14 Q40,19 35,20.5 Q24,22.2 13,20.5 Q8,19 8,14 Q8,9 13,7.5 Z" fill="url(#fic-band)" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"></path></svg></span>
+
+  <span data-fic="Concave"><svg class="fic fic--profile" viewBox="0 0 48 28" aria-hidden="true"><path d="M5,7 V15 C5,18.5 13,21 24,21 C35,21 43,18.5 43,15 V7 Q24,13.8 5,7 Z" fill="url(#fic-band)" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"></path></svg></span>
+
+</template>

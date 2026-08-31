@@ -31,6 +31,11 @@
   v3's first collection render. If the filters are missing, check the theme
   editor's App embeds panel BEFORE looking at this file.
 
+  METAL AND PROFILE ICONS come from snippets/fye-filter-icons, rendered in the
+  rail below, and are cloned into the app's markup by fye-ui.js. Stone type and
+  stone shape swatches are xCloud's OWN feature, configured in the app — there
+  is no theme code for those and none is wanted.
+
   Deliberately NOT ported, and why:
     · product_des 1–9 (nine tile designs)  — one card, snippets/product-card
     · layout_des grid/masonry              — masonry was never enabled
@@ -138,6 +143,13 @@
               way that changes it.
             {%- endcomment -%}
             <div id="cloud_search_filters_sidebar"></div>
+
+            {%- comment -%}
+              The icon library the app's rows are decorated from. Inert markup:
+              a <template> plus two gradient defs. Rendered here rather than in
+              theme.liquid so a page without a filter rail does not carry it.
+            {%- endcomment -%}
+            {%- render 'fye-filter-icons' -%}
 
             {%- if show_promo -%}
               <div class="coll__promo">
@@ -256,9 +268,9 @@
    rail, so it goes. Live suppresses it as well.
 
    Two departures from conventions.md, both deliberate:
-     · the selector is not `.fye`-prefixed as well as prefixed, it is BOTH —
-       the app injects outside our wrapper, the same reason the .visually-hidden
-       rule in fye-core.css is written twice;
+     · the selector is written BOTH scoped and unscoped — the app injects
+       outside our wrapper, the same reason the .visually-hidden rule in
+       fye-core.css is written twice;
      · it targets a third-party class we do not own. There is no alternative
        hook; the markup is not ours to add a class to. If xCloud renames it the
        bar reappears rather than the page breaking, which is the safe failure.
@@ -268,6 +280,78 @@
 .cloud-search-page-controls,
 .fye .cloud-search-page-controls {
   display: none;
+}
+
+/* --- filter icons --------------------------------------------------------
+   The icons themselves are in snippets/fye-filter-icons; fye-ui.js clones them
+   into the app's rows. These rules style OUR markup inside THEIR markup, which
+   is why the row selectors name xCloud classes — same exception as above.
+
+   Colour is carried on the wrapper and inherited by the SVG through
+   currentColor, so hover and checked states are one declaration each rather
+   than one per icon. */
+
+.fye .fic-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.fye .cloud-search-filter-value:has(.fic) {
+  display: flex;
+  align-items: center;
+}
+
+.fye .fic-wrap {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  margin-right: var(--s2);
+}
+
+.fye .fic {
+  display: block;
+}
+
+.fye .fic--metal {
+  width: 26px;
+  height: 26px;
+  color: var(--metal-edge);
+}
+
+.fye .fic--profile {
+  width: 46px;
+  height: 27px;
+  color: var(--metal-edge-profile);
+}
+
+.fye .fic__lbl {
+  font-family: var(--font-body);
+  font-size: 10.5px;
+  font-weight: var(--fw-semi);
+  fill: var(--metal-label);
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+/* The brand's interactive accent, on the icon as much as the label. */
+.fye .cloud-search-filter-value:hover .fic,
+.fye .cloud-search-filter-value:focus-within .fic {
+  color: var(--sage);
+}
+
+.fye .cloud-search-filter-value:has(input:checked) .fic {
+  color: var(--teal);
+}
+
+/* xCloud caps each filter group and scrolls it internally. With icons in the
+   rows that produces a scrollbar through the middle of the swatches. Live
+   removed the cap; this does the same without !important, so if the app ever
+   raises its own specificity the scroll returns rather than the rail breaking. */
+.fye .cloud-search-filter__values {
+  max-height: none;
+  overflow: visible;
 }
 
 /* This section always follows the collection masthead, which collapses this

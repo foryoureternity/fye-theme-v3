@@ -444,3 +444,76 @@
     window.location.assign(url.toString());
   });
 })();
+
+
+/* ============================================================================
+   FILTER ICONS — 31/08/2026
+   Metal swatches and ring-profile shapes in the xCloud filter rail.
+
+   xCloud renders the rail at runtime and re-renders it on every filter change,
+   so the icons cannot be put there from Liquid. snippets/fye-filter-icons
+   supplies a <template> of icons keyed by data-fic; this clones from it into
+   any filter value whose data-filter-value matches, and keeps doing so as the
+   app redraws.
+
+   Ported from live, where it was an inline <script> in a custom-liquid block.
+   Two things changed:
+     · it clones DOM nodes instead of assigning innerHTML from a JSON-escaped
+       SVG string — the escaping in live's version was four backslashes deep
+       and one bad edit from silently emitting nothing;
+     · it does nothing at all when the template is absent, so it costs a page
+       without filters one querySelector.
+
+   The observer is debounced because xCloud rewrites the whole rail on each
+   change; without it this runs dozens of times per interaction. 60ms is live's
+   figure and it is imperceptible.
+   ========================================================================== */
+(function filterIcons() {
+  var tpl = document.querySelector('[data-fye-filter-icons]');
+  if (!tpl) return;
+
+  /* Build the lookup once. Cloning from this map is what keeps the SVG out of
+     a string literal. */
+  var icons = {};
+  Array.prototype.forEach.call(tpl.content.querySelectorAll('[data-fic]'), function (el) {
+    icons[el.getAttribute('data-fic')] = el.firstElementChild;
+  });
+
+  function inject() {
+    var values = document.querySelectorAll('.cloud-search-filter-value[data-filter-value]');
+    Array.prototype.forEach.call(values, function (row) {
+      if (row.querySelector('.fic')) return;
+
+      var icon = icons[row.getAttribute('data-filter-value')];
+      if (!icon) return;
+
+      /* The label is the anchor: the icon goes immediately before it, inside
+         the row, so it sits after the checkbox rather than before it. */
+      var name = row.querySelector('.cloud-search-filter-value__name');
+      if (!name) return;
+
+      var wrap = document.createElement('span');
+      wrap.className = 'fic-wrap';
+      wrap.setAttribute('aria-hidden', 'true');
+      wrap.appendChild(icon.cloneNode(true));
+      name.parentNode.insertBefore(wrap, name);
+    });
+  }
+
+  function boot() {
+    inject();
+
+    var pending;
+    var observer = new MutationObserver(function () {
+      clearTimeout(pending);
+      pending = setTimeout(inject, 60);
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();

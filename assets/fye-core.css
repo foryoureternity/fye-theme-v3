@@ -784,3 +784,64 @@ a.visually-hidden:focus-visible {
   .fye .hero__actions .btn,
   .fye .row.hero__actions .btn { width: 100%; }
 }
+
+
+/* ============================================================================
+   METAL SWATCHES — appended 31/08/2026
+   ----------------------------------------------------------------------------
+   The four metal accents defined earlier in this file are the brand book's
+   generic set. The filter rail and (shortly) the product page need the REAL
+   carat-by-carat colours, which differ visibly: 9ct yellow is pale and
+   greenish, 18ct yellow is saturated, and a shopper comparing two bands is
+   looking at exactly that difference. Nine metals plus platinum.
+
+   Values are live's, carried across unchanged from the icon injector that ran
+   in a custom-liquid block on templates/collection.json. They were chosen
+   against real photography, so they are effectively measured — do not "tidy"
+   them toward the four generic tokens above.
+
+   These are PRODUCT AND EDUCATION colours, per the brand rule. They are not
+   part of the interface palette: nothing structural, interactive or textual
+   may use them.
+   ========================================================================== */
+
+:root {
+  /* 9ct — the palest of the three carats */
+  --metal-9-yellow:   #E8DEAB;
+  --metal-9-white:    #ECEBE7;
+  --metal-9-rose:     #E4C7B2;
+
+  /* 14ct */
+  --metal-14-yellow:  #E4D48C;
+  --metal-14-white:   #E6E5E1;
+  --metal-14-rose:    #D9B49A;
+
+  /* 18ct — the most saturated */
+  --metal-18-yellow:  #DEC66F;
+  --metal-18-white:   #DEDDD8;
+  --metal-18-rose:    #C99C7D;
+
+  --metal-platinum:   #CBCDCB;
+
+  /* Shared gradient stops. Sheen is the diagonal highlight across a metal
+     swatch; band is the vertical shading across a ring profile. Neutral
+     highlight and shadow rather than brand colour, but they live here because
+     this file is the only place a colour is defined. */
+  --metal-sheen-hi:   rgba(255, 255, 255, 0.55);
+  --metal-sheen-mid:  rgba(255, 255, 255, 0.05);
+  --metal-sheen-lo:   rgba(0, 0, 0, 0.08);
+  --metal-band-hi:    #E9EAE7;
+  --metal-band-lo:    #CBCECB;
+
+  /* The carat/Pt label inside a swatch. Teal at 0.8 so it reads on the pale
+     metals without going black on the dark ones. */
+  --metal-label:      rgba(35, 61, 71, 0.8);
+
+  /* Outlines for the two icon families. Both are stronger than --line (0.18),
+     because a hairline that works as a divider disappears when it has to
+     describe a 26px shape. The profile carries slightly more weight again: it
+     is an outline drawing rather than a filled square, so the line IS the
+     icon. Live's values, unchanged. */
+  --metal-edge:         rgba(35, 61, 71, 0.32);
+  --metal-edge-profile: rgba(35, 61, 71, 0.40);
+}

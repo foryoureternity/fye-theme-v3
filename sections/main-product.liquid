@@ -335,6 +335,7 @@
             ]
           </script>
 
+          {%- if is_plain -%}
           {%- if p.has_only_default_variant == false -%}
             {%- for option in p.options_with_values -%}
               <div class="pdp__field">
@@ -351,6 +352,9 @@
                 </select>
               </div>
             {%- endfor -%}
+          {%- endif -%}
+          {%- else -%}
+            {%- render 'fye-buybox-eternity', product: p, settings: s, current: current -%}
           {%- endif -%}
 
           {%- if s.engraving and s.engraving_variant_id != blank -%}

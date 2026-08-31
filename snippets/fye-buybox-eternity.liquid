@@ -1,0 +1,204 @@
+{%- comment -%}
+  fye-buybox-eternity — the choices for rings whose variants are
+  Metal x Diamond Quality: eternity, diamond and gem-set wedding rings.
+
+  Built 31/08/2026. Rendered by main-product when the product is NOT a plain
+  band. The plain branch lives inline in the section; this one is a snippet
+  because three more types will follow the same shape and the section should
+  not grow a fifth copy of a buy box.
+
+  ── WHY THIS IS A DIFFERENT BUY BOX ───────────────────────────────────────
+
+  Plain bands: one product per metal, variants are ring sizes.
+  These:       one product per design, variants are Metal x Diamond Quality.
+
+      Metal            Platinum, 18k Gold, 14k Gold, 9k Gold, Palladium
+      Diamond Quality  D/E VVS, F/G VS, G Si, H Si, Lab-grown D VVS
+
+  Both are VARIANT options and change the price. Two things that do NOT change
+  the price are line-item properties instead:
+
+      Gold colour   yellow / white / rose — same metal, same cost
+      Ring size     no variant, so no price ladder
+
+  which is why the OVERSIZE SURCHARGE exists here and not on plain bands. A
+  size above the threshold sets `_size_surcharge: "Yes"` and the Oversize Ring
+  Surcharge cart-transform function adds 10%. On plain rings the metal cost is
+  already in the variant ladder, so applying it there would charge twice —
+  Ed, 31/08/2026.
+
+  ── METAL IS A LINK, NOT A RADIO ──────────────────────────────────────────
+
+  Each metal is a link to ?variant=<id>, resolved in Liquid by finding the
+  variant pairing that metal with the CURRENT quality. Three things follow:
+
+    · the gold-colour row's presence is decided server-side on load, so no JS
+      has to know that platinum has no colour;
+    · a metal with no variant at the current quality is disabled rather than
+      offered and then failing;
+    · it matches the plain branch, where metal is also navigation.
+
+  Quality stays a <select> because it changes only the price, which fye-ui.js
+  already updates.
+
+  ── PROPERTY NAMES ARE A CONTRACT ─────────────────────────────────────────
+
+  Verbatim from live's product-block.js, because the workshop reads these off
+  the order:
+
+      "Gold colour"      value with " gold" stripped — "Yellow", not "Yellow Gold"
+      "Ring size"
+      "Engraving", "Engraving font"
+      "_size_surcharge"  "Yes" — the underscore hides it from the customer
+
+  Do not re-word any of them without checking what reads the order.
+
+  Parameters: product, settings (the section's), current (chosen variant)
+{%- endcomment -%}
+{%- liquid
+  assign s = settings
+  assign p = product
+
+  assign metal_opt = nil
+  assign quality_opt = nil
+  for option in p.options_with_values
+    if option.name == 'Metal'
+      assign metal_opt = option
+    elsif option.name contains 'Quality'
+      assign quality_opt = option
+    endif
+  endfor
+
+  assign metal_now = metal_opt.selected_value
+  assign quality_now = quality_opt.selected_value
+  assign is_gold = false
+  if metal_now contains 'Gold'
+    assign is_gold = true
+  endif
+
+  assign golds = s.gold_colours | default: 'Yellow,White,Rose' | split: ','
+  assign sizes = s.ring_sizes | default: 'A,A.5,B,B.5,C,C.5,D,D.5,E,E.5,F,F.5,G,G.5,H,H.5,I,I.5,J,J.5,K,K.5,L,L.5,M,M.5,N,N.5,O,O.5,P,P.5,Q,Q.5,R,R.5,S,S.5,T,T.5,U,U.5,V,V.5,W,W.5,X,X.5,Y,Y.5,Z,Z.5,Z+1,Z+1.5,Z+2,Z+2.5,Z+3,Z+3.5,Z+4,Z+4.5,Z+5,Z+5.5,Z+6,Z+6.5,Z+7,Z+7.5,Z+8,Z+8.5,Z+9,Z+9.5' | split: ','
+  assign threshold = s.surcharge_size | default: 'Q'
+-%}
+
+{%- if metal_opt != nil -%}
+  <div class="pdp__field">
+    <p class="pdp__label pdp__label--inline">Metal: <span class="pdp__labelval">{{ metal_now }}</span></p>
+    <ul class="pdp__carats">
+      {%- for value in metal_opt.values -%}
+        {%- liquid
+          comment
+            This metal at the quality already chosen, so switching metal does
+            not silently reset the diamond grade.
+          endcomment
+          assign target = nil
+          for v in p.variants
+            if v.option1 == value and v.option2 == quality_now
+              assign target = v
+              break
+            endif
+          endfor
+        -%}
+        <li>
+          {%- if value == metal_now -%}
+            <span class="pdp__carat is-current" aria-current="true">{{ value }}</span>
+          {%- elsif target != nil -%}
+            <a class="pdp__carat" href="{{ p.url }}?variant={{ target.id }}">{{ value }}</a>
+          {%- else -%}
+            <span class="pdp__carat is-off">{{ value }}</span>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+{%- endif -%}
+
+{%- comment -%}
+  Gold colour: a property, not a variant, and only meaningful on a gold. On
+  platinum and palladium the control is absent entirely rather than greyed — a
+  disabled row would imply we might make a rose platinum.
+{%- endcomment -%}
+{%- if is_gold -%}
+  <div class="pdp__field">
+    <p class="pdp__label pdp__label--inline">Gold colour</p>
+    <ul class="pdp__colours">
+      {%- for colour in golds -%}
+        {%- liquid
+          assign name = colour | strip
+          assign tone = name | downcase | prepend: '--metal-18-'
+        -%}
+        <li>
+          <label class="pdp__colour{% if forloop.first %} is-current{% endif %}" style="--sw: var({{ tone }});">
+            <input class="visually-hidden"
+                   type="radio"
+                   name="properties[Gold colour]"
+                   value="{{ name | escape }}"
+                   data-fye-gold
+                   {% if forloop.first %}checked{% endif %}>
+            <span class="pdp__dot"></span>
+            <span class="pdp__colourname">{{ name }}</span>
+          </label>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+{%- endif -%}
+
+{%- if quality_opt != nil -%}
+  <div class="pdp__field">
+    <label class="pdp__label" for="pdp-quality">
+      {{ quality_opt.name }}
+      {%- if s.quality_help_url != blank -%}
+        <a class="pdp__sizelink" href="{{ s.quality_help_url }}">What do these mean?</a>
+      {%- endif -%}
+    </label>
+    <select class="pdp__select" id="pdp-quality" name="options[{{ quality_opt.name | escape }}]" data-fye-option>
+      {%- for value in quality_opt.values -%}
+        <option value="{{ value | escape }}"{% if quality_now == value %} selected{% endif %}>{{ value }}</option>
+      {%- endfor -%}
+    </select>
+  </div>
+{%- endif -%}
+
+{%- comment -%}
+  The variant matcher in fye-ui.js joins every [data-fye-option] control to
+  build a variant title. Metal is a link here, not a control, so its value
+  reaches that join through this hidden input, which sits FIRST to match
+  Shopify's "Metal / Quality" title order.
+{%- endcomment -%}
+{%- if metal_opt != nil -%}
+  <input type="hidden" value="{{ metal_now | escape }}" data-fye-option>
+{%- endif -%}
+
+{%- if sizes.size > 0 -%}
+  <div class="pdp__field">
+    <label class="pdp__label" for="pdp-size">
+      Ring size
+      {%- if s.size_guide_url != blank -%}
+        <a class="pdp__sizelink" href="{{ s.size_guide_url }}">Find my size</a>
+      {%- endif -%}
+    </label>
+    <select class="pdp__select"
+            id="pdp-size"
+            name="properties[Ring size]"
+            data-fye-size
+            data-threshold="{{ threshold }}"
+            required>
+      <option value="">Select your size</option>
+      {%- for size in sizes -%}
+        <option>{{ size | strip }}</option>
+      {%- endfor -%}
+    </select>
+
+    {%- comment -%}
+      Enabled by fye-ui.js when the chosen size is above the threshold; the
+      cart transform reads it. Disabled otherwise, and a disabled field is not
+      posted, so an ordinary size carries no flag at all.
+    {%- endcomment -%}
+    <input type="hidden" name="properties[_size_surcharge]" value="Yes" data-fye-surcharge disabled>
+
+    <p class="pdp__hint fine" data-fye-surcharge-note hidden>
+      {{ s.surcharge_note | default: 'Sizes above Q use more metal, so a 10% surcharge applies. It is shown in the cart.' }}
+    </p>
+  </div>
+{%- endif -%}

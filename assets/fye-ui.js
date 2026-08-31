@@ -733,3 +733,62 @@
       });
   });
 })();
+
+
+/* ============================================================================
+   OVERSIZE SURCHARGE — 31/08/2026
+   Eternity, diamond and gem-set rings only.
+
+   On these, ring size is a line-item property with no price of its own, so a
+   size above the threshold sets `_size_surcharge: "Yes"` and the Oversize Ring
+   Surcharge cart-transform function adds 10% at checkout.
+
+   NOT on plain wedding rings: there the price ladder is already in the
+   variants, and flagging them too would charge twice. Ed, 31/08/2026. The flag
+   only exists on pages that render fye-buybox-eternity, so this is inert
+   elsewhere by construction rather than by a check.
+
+   ── HOW SIZES COMPARE ──────────────────────────────────────────────────────
+
+   UK ring sizes run A, A.5, B … Z, Z+1, Z+1.5 … Z+9.5, which no string or
+   numeric comparison gets right on its own: "Z+1" < "Z" alphabetically, and
+   "A.5" is not a number. So each size is converted to a position on that
+   sequence and the positions are compared.
+
+   Anything at or past Z is beyond the plain alphabet, so it scores above every
+   letter automatically.
+   ========================================================================== */
+(function oversizeSurcharge() {
+  var LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+  /* A -> 0, A.5 -> 0.5, Z -> 25, Z+1 -> 26, Z+1.5 -> 26.5 */
+  function position(size) {
+    if (!size) return -1;
+    var s = String(size).trim().toUpperCase();
+
+    var plus = s.match(/^Z\+([\d.]+)$/);
+    if (plus) return 25 + parseFloat(plus[1]);
+
+    var letter = s.match(/^([A-Z])(\.5)?$/);
+    if (!letter) return -1;
+
+    return LETTERS.indexOf(letter[1]) + (letter[2] ? 0.5 : 0);
+  }
+
+  document.addEventListener('change', function (e) {
+    var select = e.target.closest ? e.target.closest('[data-fye-size]') : null;
+    if (!select) return;
+
+    var form = select.closest('form');
+    if (!form) return;
+
+    var over = position(select.value) > position(select.getAttribute('data-threshold'));
+
+    /* Disabled fields are not posted, so an ordinary size carries no flag. */
+    var flag = form.querySelector('[data-fye-surcharge]');
+    if (flag) flag.disabled = !over;
+
+    var note = form.querySelector('[data-fye-surcharge-note]');
+    if (note) note.hidden = !over;
+  });
+})();

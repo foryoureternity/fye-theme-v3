@@ -1,0 +1,553 @@
+{%- comment -%}
+  main-product — the product page. One section, branching on product type.
+
+  Built 31/08/2026, plain wedding rings first. The other types are stubbed at
+  the branch, not written: they get the shared shell (gallery, buy box, spec,
+  guarantees) and their own buy-box include as each is built.
+
+  NOT PORTED FROM LIVE'S MARKUP. Live's main-product is 162KB of T4S and shares
+  its buy box with main-qv; it could not be read whole even if it were worth
+  copying. This is built from the DATA instead, which is unambiguous — see
+  below — and from the design system. Ed's call: improve where live is weak.
+
+  ── THE DATA MODEL, which drives every decision here ──────────────────────
+
+  A plain wedding ring is ONE PRODUCT PER combination of metal, profile, width
+  and weight. Its variants are RING SIZES ONLY: 70 of them, A to Z+9.5, priced
+  in steps as the size goes up.
+
+    options            Ring Size (the only one)
+    custom.ring_metal    "14ct Yellow Gold"
+    custom.ring_profile  "Concave"
+    custom.ring_width    2.0            (number_decimal)
+    custom.ring_weight   "Heavy Weight"
+    custom.ring_type     ["Plain Wedding Ring"]
+    custom.spin_360      a Sirv .spin URL
+    filters.band_width   "2mm"          (the string form; see the slug note)
+
+  So SIZE is a variant picker and METAL IS NAVIGATION — choosing a different
+  metal means going to a different product. That is not a quirk to work around;
+  it is the catalogue's shape, and the buy box has to be honest about it.
+
+  ── HOW THE METAL SWITCHER FINDS ITS SIBLINGS ─────────────────────────────
+
+  Handles are perfectly systematic, verified against live 31/08/2026:
+
+      {metal}-{profile}-wedding-ring-{width}-{weight}
+      14ct-yellow-gold-concave-wedding-ring-2mm-heavy
+      18ct-white-gold-concave-wedding-ring-2mm-heavy
+      platinum-concave-wedding-ring-25mm-medium
+
+  so the ten metal siblings are CONSTRUCTED and looked up with all_products.
+  No app, no metafield list of references, no JS. Two things follow:
+
+    · `all_products` is capped at TWENTY unique handles per page. Ten metals
+      fits. Adding profile (9), width (many) or weight (4) switchers the same
+      way would blow straight through it — those need a different mechanism,
+      so do not "just add one more row" here.
+    · a handle that does not exist simply returns nothing and that metal is
+      rendered as unavailable. A missing combination degrades to a greyed
+      swatch rather than a dead link, which is the failure we want.
+
+  The width slug is the one irregular part: 2.5mm appears in handles as "25mm",
+  not "2-5mm", so it comes from `filters.band_width | remove: '.'` rather than
+  from the `handle` filter, which would produce "2-5mm" and 404.
+
+  ── STILL OPEN ────────────────────────────────────────────────────────────
+
+  custom.spin_360 holds a Sirv 360 spin for every plain band. Rendering it
+  needs Sirv's viewer script — a third-party script in a theme that has one JS
+  file by design — so it is NOT wired up. The hook is marked in the gallery.
+  Ed's decision.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign p = product
+  assign cf = p.metafields.custom
+
+  comment
+    Which branch. ring_type is a list metafield, so `first`. Falls back to the
+    product type, then to a generic layout — a product with neither still
+    renders a correct page, just without the type-specific extras.
+  endcomment
+  assign ring_type = cf.ring_type.value | first | default: p.type
+  assign is_plain = false
+  if ring_type contains 'Plain Wedding'
+    assign is_plain = true
+  endif
+
+  assign current = p.selected_or_first_available_variant
+
+  comment
+    Sibling handles. The three parts that stay fixed across metals.
+  endcomment
+  assign profile_slug = cf.ring_profile | handle
+  assign width_slug = p.metafields.filters.band_width | remove: '.'
+  assign weight_slug = cf.ring_weight | split: ' ' | first | downcase
+
+  assign metal_names = '9ct Yellow Gold,9ct White Gold,9ct Rose Gold,14ct Yellow Gold,14ct White Gold,14ct Rose Gold,18ct Yellow Gold,18ct White Gold,18ct Rose Gold,Platinum' | split: ','
+  assign metal_tokens = 'gem,gem,gem' | split: ','
+-%}
+
+<section class="band band--white pdp" data-screen-label="Product">
+  <div class="wrap">
+    <div class="pdp__top">
+
+      {%- comment -%} ---- Gallery ---- {%- endcomment -%}
+      <div class="pdp__gallery">
+        {%- comment -%}
+          360 SPIN HOOK. cf.spin_360 is a Sirv .spin URL present on every plain
+          band. Rendering it requires Sirv's viewer script; not wired up
+          pending a decision on adding a third-party script. When it is, it
+          becomes the FIRST slide here, not a replacement for the stills.
+        {%- endcomment -%}
+        {%- if p.media.size > 0 -%}
+          <div class="pdp__stage">
+            {{ p.featured_media | image_url: width: 1400 | image_tag:
+               loading: 'eager',
+               widths: '400,600,900,1200,1400',
+               sizes: '(max-width: 900px) 100vw, 55vw',
+               alt: p.featured_media.alt | default: p.title,
+               class: 'pdp__hero' }}
+          </div>
+
+          {%- if p.media.size > 1 -%}
+            <ul class="pdp__thumbs">
+              {%- for media in p.media limit: 8 -%}
+                <li>
+                  <a class="pdp__thumb" href="{{ media | image_url: width: 1400 }}">
+                    {{ media | image_url: width: 200 | image_tag:
+                       loading: 'lazy',
+                       widths: '100,200',
+                       sizes: '80px',
+                       alt: '' }}
+                  </a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        {%- else -%}
+          <div class="pdp__stage pdp__stage--empty"></div>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} ---- Buy box ---- {%- endcomment -%}
+      <div class="pdp__buy">
+
+        {%- if cf.ring_metal != blank -%}
+          <p class="eyebrow">{{ cf.ring_metal }}</p>
+        {%- endif -%}
+
+        <h1 class="pdp__title">{{ p.title }}</h1>
+
+        <p class="pdp__price">
+          <span class="pdp__now">{{ current.price | money }}</span>
+          {%- if current.compare_at_price > current.price -%}
+            <s class="pdp__was">{{ current.compare_at_price | money }}</s>
+          {%- endif -%}
+        </p>
+
+        {%- if is_plain -%}
+          <p class="pdp__pricenote fine">Price shown is for size {{ current.title }}. Larger sizes use more metal and cost a little more.</p>
+        {%- endif -%}
+
+        {%- comment -%}
+          ---- Metal: navigation, not a variant ----
+          Ten constructed handles. An absent combination renders as a disabled
+          swatch, so the row always shows the full range and tells the truth
+          about what we make.
+        {%- endcomment -%}
+        {%- if is_plain and profile_slug != blank and width_slug != blank and weight_slug != blank -%}
+          <div class="pdp__field">
+            <p class="pdp__label">Metal<span class="pdp__labelval">{{ cf.ring_metal }}</span></p>
+            <ul class="pdp__metals">
+              {%- for name in metal_names -%}
+                {%- liquid
+                  assign metal_slug = name | handle
+                  assign sib_handle = metal_slug | append: '-' | append: profile_slug | append: '-wedding-ring-' | append: width_slug | append: '-' | append: weight_slug
+                  assign sib = all_products[sib_handle]
+                  assign is_current = false
+                  if name == cf.ring_metal
+                    assign is_current = true
+                  endif
+                  assign swatch_token = name | handle | prepend: '--metal-' | replace: '--metal-9ct-', '--metal-9-' | replace: '--metal-14ct-', '--metal-14-' | replace: '--metal-18ct-', '--metal-18-' | replace: '-gold', ''
+                -%}
+                <li>
+                  {%- if is_current -%}
+                    <span class="pdp__metal is-current" style="--sw: var({{ swatch_token }});" aria-current="true">
+                      <span class="pdp__swatch"></span>
+                      <span class="visually-hidden">{{ name }}, selected</span>
+                    </span>
+                  {%- elsif sib != blank -%}
+                    <a class="pdp__metal" href="{{ sib.url }}" style="--sw: var({{ swatch_token }});">
+                      <span class="pdp__swatch"></span>
+                      <span class="visually-hidden">{{ name }} — {{ sib.price_min | money }}</span>
+                    </a>
+                  {%- else -%}
+                    <span class="pdp__metal is-off" style="--sw: var({{ swatch_token }});">
+                      <span class="pdp__swatch"></span>
+                      <span class="visually-hidden">{{ name }}, not made in this profile and width</span>
+                    </span>
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+
+        {%- comment -%} ---- The form: size, engraving, add to bag ---- {%- endcomment -%}
+        {%- form 'product', p, class: 'pdp__form', id: 'pdp-form' -%}
+          <input type="hidden" name="id" value="{{ current.id }}" data-fye-variant-id>
+
+          {%- if p.has_only_default_variant == false -%}
+            {%- for option in p.options_with_values -%}
+              <div class="pdp__field">
+                <label class="pdp__label" for="pdp-opt-{{ forloop.index }}">
+                  {{ option.name }}
+                  {%- if option.name == 'Ring Size' -%}
+                    <a class="pdp__sizelink" href="{{ s.size_guide_url | default: '/pages/ring-size-guide' }}">Find my size</a>
+                  {%- endif -%}
+                </label>
+                <select class="pdp__select"
+                        id="pdp-opt-{{ forloop.index }}"
+                        name="options[{{ option.name | escape }}]"
+                        data-fye-option="{{ forloop.index }}">
+                  {%- for value in option.values -%}
+                    <option value="{{ value | escape }}"{% if option.selected_value == value %} selected{% endif %}>{{ value }}</option>
+                  {%- endfor -%}
+                </select>
+              </div>
+            {%- endfor -%}
+          {%- endif -%}
+
+          {%- if s.engraving -%}
+            <div class="pdp__field">
+              <label class="pdp__label" for="pdp-engraving">
+                {{ s.engraving_label | default: 'Engraving' }}
+                <span class="pdp__labelnote">Optional</span>
+              </label>
+              <input class="pdp__input"
+                     type="text"
+                     id="pdp-engraving"
+                     name="properties[{{ s.engraving_label | default: 'Engraving' | escape }}]"
+                     maxlength="{{ s.engraving_max | default: 30 }}"
+                     placeholder="{{ s.engraving_placeholder | escape }}">
+              <p class="pdp__hint fine">{{ s.engraving_hint }}</p>
+            </div>
+          {%- endif -%}
+
+          <button class="btn btn--block pdp__atc" type="submit" name="add"{% unless current.available %} disabled{% endunless %}>
+            {%- if current.available -%}
+              {{ s.atc_label | default: 'Add to bag' }}
+            {%- else -%}
+              Made to order — enquire
+            {%- endif -%}
+          </button>
+        {%- endform -%}
+
+        {%- if s.reassurance != blank -%}
+          <p class="pdp__reassure fine">{{ s.reassurance }}</p>
+        {%- endif -%}
+
+        {%- comment -%} ---- Spec: straight from the metafields ---- {%- endcomment -%}
+        {%- if is_plain -%}
+          <dl class="pdp__spec">
+            {%- if cf.ring_metal != blank -%}
+              <div class="pdp__specrow"><dt>Metal</dt><dd>{{ cf.ring_metal }}</dd></div>
+            {%- endif -%}
+            {%- if cf.ring_profile != blank -%}
+              <div class="pdp__specrow"><dt>Profile</dt><dd>{{ cf.ring_profile }}</dd></div>
+            {%- endif -%}
+            {%- if p.metafields.filters.band_width != blank -%}
+              <div class="pdp__specrow"><dt>Width</dt><dd>{{ p.metafields.filters.band_width }}</dd></div>
+            {%- endif -%}
+            {%- if cf.ring_weight != blank -%}
+              <div class="pdp__specrow"><dt>Weight</dt><dd>{{ cf.ring_weight }}</dd></div>
+            {%- endif -%}
+          </dl>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- if p.description != blank -%}
+      <div class="pdp__desc prose">{{ p.description }}</div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .pdp__top {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: var(--s10);
+  align-items: start;
+}
+
+/* --- gallery ------------------------------------------------------------- */
+
+.fye .pdp__stage {
+  background: var(--ivory);
+}
+
+.fye .pdp__hero {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.fye .pdp__stage--empty {
+  aspect-ratio: 1;
+}
+
+.fye .pdp__thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  margin: var(--s2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fye .pdp__thumbs > li {
+  margin: 0;
+}
+
+.fye .pdp__thumb {
+  display: block;
+  width: 80px;
+  background: var(--ivory);
+  border: 1px solid transparent;
+}
+
+.fye .pdp__thumb:hover {
+  border-color: var(--sage);
+}
+
+/* --- buy box ------------------------------------------------------------- */
+
+.fye .pdp__buy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s5);
+}
+
+.fye .pdp__title {
+  margin: 0;
+  font-size: var(--fs-h2);
+}
+
+.fye .pdp__price {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s3);
+  margin: 0;
+  font-size: var(--fs-h4);
+}
+
+.fye .pdp__now {
+  font-weight: var(--fw-medium);
+}
+
+.fye .pdp__was {
+  color: var(--ink-soft);
+  font-weight: var(--fw-light);
+}
+
+.fye .pdp__pricenote {
+  margin: calc(var(--s5) * -1 + var(--s2)) 0 0;
+}
+
+.fye .pdp__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+.fye .pdp__label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s4);
+  margin: 0;
+}
+
+/* The chosen value sits in the label rather than only in the control, so the
+   selection is readable without opening a 70-item select. */
+.fye .pdp__labelval {
+  font-size: var(--fs-small);
+  font-weight: var(--fw-light);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink);
+}
+
+.fye .pdp__labelnote {
+  font-size: var(--fs-fine);
+  font-weight: var(--fw-light);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink-soft);
+}
+
+.fye .pdp__sizelink {
+  font-size: var(--fs-fine);
+  font-weight: var(--fw-light);
+  letter-spacing: 0;
+  text-transform: none;
+  border-bottom: 1px solid currentColor;
+}
+
+/* --- metal swatches ------------------------------------------------------ */
+
+.fye .pdp__metals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fye .pdp__metals > li {
+  margin: 0;
+}
+
+.fye .pdp__metal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid transparent;
+}
+
+.fye .pdp__swatch {
+  display: block;
+  width: 28px;
+  height: 28px;
+  background: var(--sw);
+  box-shadow: inset 0 0 0 1px var(--gem-edge);
+}
+
+.fye .pdp__metal:hover {
+  border-color: var(--sage);
+}
+
+.fye .pdp__metal.is-current {
+  border-color: var(--line-strong);
+}
+
+/* Not made in this profile and width. Shown rather than hidden, so the row
+   always states the full range. */
+.fye .pdp__metal.is-off {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* --- form ---------------------------------------------------------------- */
+
+.fye .pdp__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s5);
+  margin: 0;
+}
+
+.fye .pdp__select,
+.fye .pdp__input {
+  width: 100%;
+}
+
+.fye .pdp__hint {
+  margin: 0;
+}
+
+.fye .pdp__reassure {
+  margin: 0;
+}
+
+/* --- spec ---------------------------------------------------------------- */
+
+.fye .pdp__spec {
+  margin: 0;
+  padding-top: var(--s5);
+  border-top: var(--hairline);
+}
+
+.fye .pdp__specrow {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s4);
+  padding: var(--s3) 0;
+  border-bottom: var(--hairline);
+}
+
+.fye .pdp__specrow dt {
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.fye .pdp__specrow dd {
+  margin: 0;
+  font-size: var(--fs-small);
+}
+
+/* --- description --------------------------------------------------------- */
+
+.fye .pdp__desc {
+  margin-top: var(--s10);
+}
+
+/* --- breakpoints. Media queries LAST, always. ---------------------------- */
+
+@media (max-width: 900px) {
+  .fye .pdp__top {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s7);
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Main product",
+  "tag": "section",
+  "class": "fye-main-product",
+  "settings": [
+    { "type": "header", "content": "Buy box" },
+    { "type": "text", "id": "atc_label", "label": "Add to bag label", "default": "Add to bag" },
+    { "type": "url", "id": "size_guide_url", "label": "Ring size guide" },
+    {
+      "type": "textarea",
+      "id": "reassurance",
+      "label": "Reassurance line",
+      "default": "Handmade to order in the UK. Free delivery, complimentary resizing for a year."
+    },
+
+    { "type": "header", "content": "Engraving" },
+    { "type": "checkbox", "id": "engraving", "label": "Offer engraving", "default": true },
+    { "type": "text", "id": "engraving_label", "label": "Field label", "default": "Engraving" },
+    { "type": "text", "id": "engraving_placeholder", "label": "Placeholder", "default": "A date, a name, a few words" },
+    {
+      "type": "range",
+      "id": "engraving_max",
+      "label": "Maximum characters",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "ch",
+      "default": 30
+    },
+    {
+      "type": "textarea",
+      "id": "engraving_hint",
+      "label": "Helper text",
+      "default": "Engraved inside the band. Free of charge, and it does not affect delivery time."
+    }
+  ],
+  "presets": [{ "name": "Main product" }]
+}
+{% endschema %}

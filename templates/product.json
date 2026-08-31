@@ -1,0 +1,20 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "atc_label": "Add to bag",
+        "size_guide_url": "",
+        "reassurance": "Handmade to order in the UK. Free delivery, complimentary resizing for a year.",
+        "engraving": true,
+        "engraving_label": "Engraving",
+        "engraving_placeholder": "A date, a name, a few words",
+        "engraving_max": 30,
+        "engraving_hint": "Engraved inside the band. Free of charge, and it does not affect delivery time."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

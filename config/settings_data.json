@@ -1,12 +1,39 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "logo_width": 175,
     "menu_main": "main-menu",
     "menu_footer": "footer",
-    "announcement_text": "Beautiful Jewellery. Ethically Made. Fairly Priced.",
     "announcement_show": true,
+    "announcement_text": "Beautiful Jewellery. Ethically Made. Fairly Priced.",
     "phone": "",
-    "email": "hello@foryoureternity.com"
+    "email": "hello@foryoureternity.com",
+    "content_for_index": [],
+    "blocks": {
+      "13768625480086291342": {
+        "type": "shopify://apps/forms/blocks/forms/8744a304-fcb1-4347-b211-bb6b4759a76a",
+        "disabled": false,
+        "settings": {}
+      },
+      "14352282602675302068": {
+        "type": "shopify://apps/xcloud-search-filter/blocks/cloudsearch_opt/8ddbd0bf-e311-492e-ab28-69d0ad268fac",
+        "disabled": false,
+        "settings": {}
+      },
+      "11651401770006824842": {
+        "type": "shopify://apps/ymq-product-options/blocks/app-embed/86b91121-1f62-4e27-9812-b70a823eb918",
+        "disabled": false,
+        "settings": {}
+      }
+    }
   },
   "presets": {
     "Default": {

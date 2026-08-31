@@ -845,3 +845,55 @@ a.visually-hidden:focus-visible {
   --metal-edge:         rgba(35, 61, 71, 0.32);
   --metal-edge-profile: rgba(35, 61, 71, 0.40);
 }
+
+
+/* ============================================================================
+   GEMSTONES — appended 31/08/2026
+   ----------------------------------------------------------------------------
+   Stone colours for the filter rail's stone-type swatches, and (shortly) the
+   product page's stone selector.
+
+   Values are live's, carried across unchanged from assets/custom.css. They are
+   not literal gem colours and are not meant to be: each is a legible 20px dot
+   that reads as its stone at a glance against an ivory or white ground. A
+   "correct" sapphire is nearly black at this size. Do not adjust them toward
+   photographic accuracy.
+
+   PRODUCT AND EDUCATION colours, like the metals above. Nothing structural,
+   interactive or textual may use them.
+
+   Diamond is white and Opal is near-white, which is why every swatch carries
+   an inset hairline — without it those two are invisible on a white row.
+   ========================================================================== */
+
+:root {
+  --gem-diamond:          #FFFFFF;
+  --gem-black-diamond:    #1C1C1C;
+  --gem-sapphire:         #2F5C8A;
+  --gem-ruby:             #9E2B2B;
+  --gem-emerald:          #2E7D54;
+  --gem-aquamarine:       #8FBFCB;
+  --gem-tanzanite:        #5B5AA0;
+  --gem-opal:             #EAE6D9;
+  --gem-fire-opal:        #E0713E;
+  --gem-morganite:        #E3ADA6;
+  --gem-amethyst:         #7E5AA2;
+  --gem-blue-topaz:       #4E93C4;
+  --gem-citrine:          #E0A33E;
+  --gem-garnet:           #8B2E2E;
+  --gem-peridot:          #94A83E;
+  --gem-pink-tourmaline:  #CE6B92;
+
+  /* The hairline around every swatch, and the shape icons' resting fill.
+     Both are teal at low alpha; the shape sits heavier because it is a filled
+     silhouette rather than an outlined dot. Live's values. */
+  --gem-edge:             rgba(35, 61, 71, 0.28);
+  --gem-shape:            rgba(35, 61, 71, 0.42);
+
+  /* Filter row grounds. Two extremely light greens: hover, then selected.
+     They are not --sage-pale (#EEF2EE) — these sit a step either side of it,
+     and the pair has to stay distinguishable from each other AND from white.
+     Live's values, kept because the three-way distinction was tuned. */
+  --filter-row-hover:     #F2F5F2;
+  --filter-row-checked:   #E9EFE9;
+}

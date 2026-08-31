@@ -21,20 +21,25 @@
     #cloud_search_filters_root     a horizontal chip bar plus a "Filter" link,
                                    injected by the app on its own initiative,
                                    outside our markup. Hidden — see the
-                                   stylesheet. Live suppresses it too and keeps
-                                   filtering in the rail.
+                                   stylesheet. Live suppresses it too.
 
   THE MOUNT POINT IS NOT ENOUGH ON ITS OWN. xCloud arrives as an APP EMBED,
-  which is stored in config/settings_data.json — a file Shopify auto-generates.
-  A newly created theme has no app embeds enabled, so the div renders and stays
-  empty with no error anywhere. 31/08/2026: that is exactly what happened on
-  v3's first collection render. If the filters are missing, check the theme
-  editor's App embeds panel BEFORE looking at this file.
+  stored in config/settings_data.json, which Shopify auto-generates. A newly
+  created theme has no app embeds enabled, so the div renders and stays empty
+  with no error anywhere. If the filters are missing, check the theme editor's
+  App embeds panel BEFORE looking at this file.
 
-  METAL AND PROFILE ICONS come from snippets/fye-filter-icons, rendered in the
-  rail below, and are cloned into the app's markup by fye-ui.js. Stone type and
-  stone shape swatches are xCloud's OWN feature, configured in the app — there
-  is no theme code for those and none is wanted.
+  FILTER ICONS — three families, two mechanisms, all of them live's:
+    metal + profile   inline SVG from snippets/fye-filter-icons, cloned into
+                      the app's rows by fye-ui.js. Live did this with an
+                      inline <script> in a custom-liquid block.
+    stone shape       CSS mask-image on ::before, from Shopify Files
+                      (icon101–icon110, baguette.svg). Store-level Files, not
+                      theme assets, so the URLs resolve unchanged here.
+    stone type        CSS background colour on ::before. Tokens in core.
+  The last two need no JS at all and are pure CSS, exactly as on live
+  (assets/custom.css). Only metal and profile need cloning, because a metal
+  swatch is a layered gradient rather than a single fill.
 
   Deliberately NOT ported, and why:
     · product_des 1–9 (nine tile designs)  — one card, snippets/product-card
@@ -50,8 +55,7 @@
   unchanged, so templates/collection.json needs no edit.
 
   Block types ("layout", "filter", "sortby") keep their old names because the
-  JSON template references them. "layout" = the result count, "filter" = the
-  mobile rail toggle, "sortby" = the sort control.
+  JSON template references them.
 
   Sorting is a real <select> that fye-ui.js submits on change (data-fye-sort).
   It must navigate rather than GET-submit a form: xCloud keeps its active
@@ -67,8 +71,7 @@
     A `select` setting is a STRING, and Liquid refuses to compare a string to
     an integer — it raises rather than coercing, and the whole tag renders as
     an error. `cols` stays a string for the CSS custom property; `cols_n` is
-    the number the eager/lazy test below needs. Fixed 31/08/2026, having
-    shipped "comparison of Integer with String failed" on every card.
+    the number the eager/lazy test below needs.
   endcomment
   assign cols_n = cols | plus: 0
 
@@ -145,9 +148,9 @@
             <div id="cloud_search_filters_sidebar"></div>
 
             {%- comment -%}
-              The icon library the app's rows are decorated from. Inert markup:
-              a <template> plus two gradient defs. Rendered here rather than in
-              theme.liquid so a page without a filter rail does not carry it.
+              The metal and profile icon library. Inert markup: a <template>
+              plus two gradient defs. Rendered here rather than in theme.liquid
+              so a page without a filter rail does not carry it.
             {%- endcomment -%}
             {%- render 'fye-filter-icons' -%}
 
@@ -262,45 +265,267 @@
 {%- endpaginate -%}
 
 {% stylesheet %}
-/* xCLOUD'S HORIZONTAL CHIP BAR — hidden on purpose.
-   The app injects #cloud_search_filters_root above the page content on its own
-   initiative: a "Filter" link plus a row of filter-name chips. We only want the
-   rail, so it goes. Live suppresses it as well.
+/* ============================================================================
+   THE xCLOUD FILTER RAIL
+   ----------------------------------------------------------------------------
+   Everything in this block styles markup we do not own and cannot add classes
+   to, so the selectors name xCloud's classes. That is a deliberate departure
+   from conventions.md, and it is the only way to skin an app-rendered rail.
+   Written scoped and unscoped where the app injects outside .fye, the same
+   reason .visually-hidden is written twice in core.
 
-   Two departures from conventions.md, both deliberate:
-     · the selector is written BOTH scoped and unscoped — the app injects
-       outside our wrapper, the same reason the .visually-hidden rule in
-       fye-core.css is written twice;
-     · it targets a third-party class we do not own. There is no alternative
-       hook; the markup is not ours to add a class to. If xCloud renames it the
-       bar reappears rather than the page breaking, which is the safe failure.
+   Live carried all of this with !important on nearly every declaration
+   (assets/custom.css). None of it is repeated here: if the app ever raises its
+   own specificity the rail loses our skin and keeps working, which is the safe
+   failure. If a rule silently stops applying, that is why.
+   ========================================================================== */
 
-   Hiding it does NOT cost the mobile filter affordance: the rail's own
-   <details> summary is the mobile trigger. */
+/* The app's horizontal chip bar, injected above the page content on its own
+   initiative: a "Filter" link plus a row of filter-name chips. We only want
+   the rail. Live suppresses it too. Hiding it costs nothing on mobile — the
+   rail's own <details> summary is the filter trigger there. */
 .cloud-search-page-controls,
 .fye .cloud-search-page-controls {
   display: none;
 }
 
-/* --- filter icons --------------------------------------------------------
-   The icons themselves are in snippets/fye-filter-icons; fye-ui.js clones them
-   into the app's rows. These rules style OUR markup inside THEIR markup, which
-   is why the row selectors name xCloud classes — same exception as above.
+/* --- the row ------------------------------------------------------------- */
 
-   Colour is carried on the wrapper and inherited by the SVG through
-   currentColor, so hover and checked states are one declaration each rather
-   than one per icon. */
+/* Whole-row rollover rather than a hover on the label alone: the row is the
+   target, and a 5px/8px inset gives the ground something to be. */
+.fye .cloud-search-filter-value {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 5px 8px;
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+.fye .cloud-search-filter-value:hover {
+  background: var(--filter-row-hover);
+}
+
+.fye .cloud-search-filter-value:has(input:checked) {
+  background: var(--filter-row-checked);
+}
+
+.fye .cloud-search-filter-value input[type='checkbox'] {
+  accent-color: var(--sage);
+}
+
+.fye .cloud-search-filter-value:hover .cloud-search-filter-value__name,
+.fye .cloud-search-filter-value:focus-within .cloud-search-filter-value__name {
+  color: var(--sage);
+}
+
+.fye .cloud-search-filter-value:has(input:checked) .cloud-search-filter-value__name {
+  color: var(--teal);
+}
+
+/* xCloud caps each filter group and scrolls it internally. With icons in the
+   rows that puts a scrollbar through the middle of the swatches. */
+.fye .cloud-search-filter__values {
+  max-height: none;
+  overflow: visible;
+}
+
+/* --- stone shapes: mask-image on ::before --------------------------------
+   The silhouettes are Shopify FILES, not theme assets — store-level uploads,
+   so these URLs resolve on any theme without copying anything. A mask rather
+   than an <img> so one colour declaration drives resting, hover and checked
+   across all eleven. */
+
+.fye .cloud-search-filter-value[data-filter-value='Round Brilliant'] .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Oval'] .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Cushion'] .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Pear'] .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Emerald Cut'] .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Radiant'] .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Princess'] .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Marquise'] .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Asscher'] .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Heart'] .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Baguette'] .cloud-search-filter-value__name::before {
+  content: '';
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  margin-right: 9px;
+  vertical-align: middle;
+  background-color: var(--gem-shape);
+  mask-position: center;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  transition: background-color var(--dur) var(--ease);
+}
+
+.fye .cloud-search-filter-value[data-filter-value='Round Brilliant'] .cloud-search-filter-value__name::before {
+  mask-image: url(/cdn/shop/files/icon101.svg);
+  -webkit-mask-image: url(/cdn/shop/files/icon101.svg);
+}
+
+.fye .cloud-search-filter-value[data-filter-value='Oval'] .cloud-search-filter-value__name::before {
+  mask-image: url(/cdn/shop/files/icon102.svg);
+  -webkit-mask-image: url(/cdn/shop/files/icon102.svg);
+}
+
+.fye .cloud-search-filter-value[data-filter-value='Cushion'] .cloud-search-filter-value__name::before {
+  mask-image: url(/cdn/shop/files/icon103.svg);
+  -webkit-mask-image: url(/cdn/shop/files/icon103.svg);
+}
+
+.fye .cloud-search-filter-value[data-filter-value='Pear'] .cloud-search-filter-value__name::before {
+  mask-image: url(/cdn/shop/files/icon104.svg);
+  -webkit-mask-image: url(/cdn/shop/files/icon104.svg);
+}
+
+.fye .cloud-search-filter-value[data-filter-value='Emerald Cut'] .cloud-search-filter-value__name::before {
+  mask-image: url(/cdn/shop/files/icon105.svg);
+  -webkit-mask-image: url(/cdn/shop/files/icon105.svg);
+}
+
+.fye .cloud-search-filter-value[data-filter-value='Radiant'] .cloud-search-filter-value__name::before {
+  mask-image: url(/cdn/shop/files/icon106.svg);
+  -webkit-mask-image: url(/cdn/shop/files/icon106.svg);
+}
+
+.fye .cloud-search-filter-value[data-filter-value='Princess'] .cloud-search-filter-value__name::before {
+  mask-image: url(/cdn/shop/files/icon107.svg);
+  -webkit-mask-image: url(/cdn/shop/files/icon107.svg);
+}
+
+.fye .cloud-search-filter-value[data-filter-value='Marquise'] .cloud-search-filter-value__name::before {
+  mask-image: url(/cdn/shop/files/icon108.svg);
+  -webkit-mask-image: url(/cdn/shop/files/icon108.svg);
+}
+
+.fye .cloud-search-filter-value[data-filter-value='Asscher'] .cloud-search-filter-value__name::before {
+  mask-image: url(/cdn/shop/files/icon109.svg);
+  -webkit-mask-image: url(/cdn/shop/files/icon109.svg);
+}
+
+.fye .cloud-search-filter-value[data-filter-value='Heart'] .cloud-search-filter-value__name::before {
+  mask-image: url(/cdn/shop/files/icon110.svg);
+  -webkit-mask-image: url(/cdn/shop/files/icon110.svg);
+}
+
+.fye .cloud-search-filter-value[data-filter-value='Baguette'] .cloud-search-filter-value__name::before {
+  mask-image: url(/cdn/shop/files/baguette.svg);
+  -webkit-mask-image: url(/cdn/shop/files/baguette.svg);
+}
+
+/* --- stone colours: a 20px dot on ::before -------------------------------
+   The inset hairline is not decoration: Diamond is #FFFFFF and Opal is
+   near-white, and without it those two rows have no visible swatch at all. */
+
+.fye .cloud-search-filter-value[data-filter-value='Diamond'] .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Black Diamond'] .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Sapphire'] .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Ruby'] .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Emerald'] .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Aquamarine'] .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Tanzanite'] .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Opal'] .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Fire Opal'] .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Morganite'] .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Amethyst'] .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Blue Topaz'] .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Citrine'] .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Garnet'] .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Peridot'] .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Pink Tourmaline'] .cloud-search-filter-value__name::before {
+  content: '';
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  margin-right: 9px;
+  vertical-align: middle;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px var(--gem-edge);
+  transition: box-shadow var(--dur) var(--ease);
+}
+
+.fye .cloud-search-filter-value[data-filter-value='Diamond'] .cloud-search-filter-value__name::before { background: var(--gem-diamond); }
+.fye .cloud-search-filter-value[data-filter-value='Black Diamond'] .cloud-search-filter-value__name::before { background: var(--gem-black-diamond); }
+.fye .cloud-search-filter-value[data-filter-value='Sapphire'] .cloud-search-filter-value__name::before { background: var(--gem-sapphire); }
+.fye .cloud-search-filter-value[data-filter-value='Ruby'] .cloud-search-filter-value__name::before { background: var(--gem-ruby); }
+.fye .cloud-search-filter-value[data-filter-value='Emerald'] .cloud-search-filter-value__name::before { background: var(--gem-emerald); }
+.fye .cloud-search-filter-value[data-filter-value='Aquamarine'] .cloud-search-filter-value__name::before { background: var(--gem-aquamarine); }
+.fye .cloud-search-filter-value[data-filter-value='Tanzanite'] .cloud-search-filter-value__name::before { background: var(--gem-tanzanite); }
+.fye .cloud-search-filter-value[data-filter-value='Opal'] .cloud-search-filter-value__name::before { background: var(--gem-opal); }
+.fye .cloud-search-filter-value[data-filter-value='Fire Opal'] .cloud-search-filter-value__name::before { background: var(--gem-fire-opal); }
+.fye .cloud-search-filter-value[data-filter-value='Morganite'] .cloud-search-filter-value__name::before { background: var(--gem-morganite); }
+.fye .cloud-search-filter-value[data-filter-value='Amethyst'] .cloud-search-filter-value__name::before { background: var(--gem-amethyst); }
+.fye .cloud-search-filter-value[data-filter-value='Blue Topaz'] .cloud-search-filter-value__name::before { background: var(--gem-blue-topaz); }
+.fye .cloud-search-filter-value[data-filter-value='Citrine'] .cloud-search-filter-value__name::before { background: var(--gem-citrine); }
+.fye .cloud-search-filter-value[data-filter-value='Garnet'] .cloud-search-filter-value__name::before { background: var(--gem-garnet); }
+.fye .cloud-search-filter-value[data-filter-value='Peridot'] .cloud-search-filter-value__name::before { background: var(--gem-peridot); }
+.fye .cloud-search-filter-value[data-filter-value='Pink Tourmaline'] .cloud-search-filter-value__name::before { background: var(--gem-pink-tourmaline); }
+
+/* Selected and hover states for both ::before families. A dot cannot change
+   colour to show selection — it IS a colour — so it gains a teal ring, while
+   the shape silhouettes recolour like any other icon. */
+
+.fye .cloud-search-filter-value:hover .cloud-search-filter-value__name::before {
+  background-color: var(--sage);
+}
+
+.fye .cloud-search-filter-value:has(input:checked) .cloud-search-filter-value__name::before {
+  background-color: var(--teal);
+}
+
+.fye .cloud-search-filter-value[data-filter-value='Diamond']:hover .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Black Diamond']:hover .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Sapphire']:hover .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Ruby']:hover .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Emerald']:hover .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Aquamarine']:hover .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Tanzanite']:hover .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Opal']:hover .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Fire Opal']:hover .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Morganite']:hover .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Amethyst']:hover .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Blue Topaz']:hover .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Citrine']:hover .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Garnet']:hover .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Peridot']:hover .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Pink Tourmaline']:hover .cloud-search-filter-value__name::before {
+  background-color: inherit;
+}
+
+.fye .cloud-search-filter-value[data-filter-value='Diamond']:has(input:checked) .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Black Diamond']:has(input:checked) .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Sapphire']:has(input:checked) .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Ruby']:has(input:checked) .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Emerald']:has(input:checked) .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Aquamarine']:has(input:checked) .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Tanzanite']:has(input:checked) .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Opal']:has(input:checked) .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Fire Opal']:has(input:checked) .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Morganite']:has(input:checked) .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Amethyst']:has(input:checked) .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Blue Topaz']:has(input:checked) .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Citrine']:has(input:checked) .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Garnet']:has(input:checked) .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Peridot']:has(input:checked) .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter-value[data-filter-value='Pink Tourmaline']:has(input:checked) .cloud-search-filter-value__name::before {
+  box-shadow: inset 0 0 0 1px var(--gem-edge), 0 0 0 2px var(--teal);
+}
+
+/* --- metal and profile icons, cloned in by fye-ui.js ---------------------
+   Colour sits on the wrapper and reaches the SVG through currentColor, so
+   hover and checked are one declaration each rather than one per icon. */
 
 .fye .fic-defs {
   position: absolute;
   width: 0;
   height: 0;
   overflow: hidden;
-}
-
-.fye .cloud-search-filter-value:has(.fic) {
-  display: flex;
-  align-items: center;
 }
 
 .fye .fic-wrap {
@@ -335,7 +560,6 @@
   dominant-baseline: middle;
 }
 
-/* The brand's interactive accent, on the icon as much as the label. */
 .fye .cloud-search-filter-value:hover .fic,
 .fye .cloud-search-filter-value:focus-within .fic {
   color: var(--sage);
@@ -345,14 +569,9 @@
   color: var(--teal);
 }
 
-/* xCloud caps each filter group and scrolls it internally. With icons in the
-   rows that produces a scrollbar through the middle of the swatches. Live
-   removed the cap; this does the same without !important, so if the app ever
-   raises its own specificity the scroll returns rather than the rail breaking. */
-.fye .cloud-search-filter__values {
-  max-height: none;
-  overflow: visible;
-}
+/* ============================================================================
+   THE LISTING ITSELF
+   ========================================================================== */
 
 /* This section always follows the collection masthead, which collapses this
    band's top padding via a :has() rule in fye-collection-intro. --sect-y is
@@ -715,7 +934,7 @@
     { "type": "header", "content": "Filter rail" },
     {
       "type": "paragraph",
-      "content": "The filters themselves come from the xCloud app embed. If the rail is empty, enable that embed in the App embeds panel — it is not part of this section. The app's own horizontal filter bar is hidden by this section on purpose."
+      "content": "The filters come from the xCloud app embed. If the rail is empty, enable that embed in the App embeds panel — it is not part of this section. The app's own horizontal filter bar is hidden on purpose."
     },
     {
       "type": "checkbox",

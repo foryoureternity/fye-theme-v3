@@ -437,3 +437,121 @@ exceeds `clientWidth`.
 The three ring pages are built and reviewed; the guide library (13 sections,
 ~700 references) is done. Next is the remaining templates, in usage order —
 `node docs/tools/template-plan.mjs --full` for the current ranking.
+
+---
+
+# Session — 31/08/2026: the collection page
+
+`main-collection` is ported and rendering on v3. Everything below is on `main`.
+
+## What was built
+
+| File | Notes |
+|---|---|
+| `sections/main-collection.liquid` | 18.2KB, from live's 56.9KB. Rail + grid, toolbar, bespoke tile, promo card, pagination, empty state |
+| `templates/collection.json` | Did not exist. One section |
+| `assets/fye-ui.js` | +1 IIFE: the sort select |
+| `docs/tools/layout-smoke-test.js` | `fyeSmoke()` — six checks |
+
+Visual target was **design-system treatment with live's structure kept**, not a
+pixel match. Ed corrected this mid-session after first asking for pixel match.
+
+**34 settings dropped.** Nine tile designs, masonry, the list/grid switch, the
+items-per-row switcher, load-more, infinite scroll, countdowns, vendors, colour
+and size swatches, quick view, compare, and the three image-ratio controls.
+Every surviving setting ID is unchanged, so no template edit was needed.
+
+Block types `layout` / `filter` / `sortby` keep their names. `layout` renders
+the result count, which is all it did on live — its switcher markup was already
+commented out there.
+
+## THE FILTERS ARE NOT THEME CODE — read before touching the rail
+
+Live renders an empty `<div id="cloud_search_filters_sidebar">` and the
+**xCloud app injects the entire filter rail into it at runtime**. The old
+section's native Shopify facet button was hidden with inline CSS on every
+non-editor request, and `type_filters` is `facets_tags`. There has been no
+theme-rendered facet form on this page for some time.
+
+So there was nothing to rebuild — v3 emits the same mount point and styles what
+the app drops in. **If xCloud is ever removed, the filter UI has to be
+designed, not recovered.**
+
+## Two silent-data failures, and the pre-flight they earn
+
+Neither was visible in the repo, and neither produced an error anywhere.
+
+1. **No `templates/collection.json`.** Every collection URL 404'd. The first
+   file check asked for it, Shopify returned nothing, and that was read as
+   "the section isn't built yet" rather than "the template is missing too".
+2. **No app embeds.** `config/settings_data.json` was 519 bytes with no
+   `blocks` key; live's is 153KB. A newly created theme has **no app embeds
+   enabled**, so xCloud's script never loaded and the mount div rendered empty,
+   silently. Fixed by Ed in the theme editor — it cannot come from the repo,
+   because enabling it rewrites `settings_data.json` from Shopify's side.
+
+> **PRE-FLIGHT, before porting any template.** Two questions, thirty seconds:
+> **(a)** does v3 have the template JSON, or only the section? **(b)** does the
+> page depend on an app embed that live has enabled and v3 does not? Check
+> `config/settings_data.json` size on both themes — 519 bytes means none are on.
+
+## The rebase trap, now hit twice
+
+A file written straight to the theme with `themeFilesUpsert` gets **committed
+back by Shopify**, so the next push collides add/add on that exact file.
+
+**Mid-rebase, `--ours` is UPSTREAM (Shopify's copy) and `--theirs` is the commit
+being replayed (ours).** It reads backwards. To keep our work:
+
+```
+git checkout --theirs sections/<file>.liquid
+git add sections/<file>.liquid
+GIT_EDITOR=true git rebase --continue
+```
+
+`GIT_EDITOR=true` matters: the commit-message editor opened and hung, and
+closing the terminal window left the rebase mid-flight.
+
+**Conclusion worth acting on:** new section files should go to Dropbox only and
+reach the theme via the push. `themeFilesUpsert` earns its place for READING
+the error out of a rejected file, not as the delivery route. Direct writes cost
+a manual merge both times they were used.
+
+## Liquid gotcha
+
+**A `select` setting is a STRING. Liquid raises rather than coercing.**
+`{% if forloop.index <= s.col_dk %}` renders
+*"comparison of Integer with String failed"* on every iteration. Coerce once at
+the top: `assign cols_n = cols | plus: 0`. Shipped and caught on first preview.
+
+## Decisions taken this session
+
+- **The mobile filter rail is a `<details>`, not a drawer.** One set of markup
+  at every width — a show/hide pair would give xCloud two mount points with the
+  same id. Desktop hides the summary and forces the body open; mobile is a real
+  disclosure. Live uses a drawer here; revisit if Ed wants the match.
+- **Sort navigates, it does not submit.** A `<form method="get">` serialises
+  only its own fields, which would silently drop every xCloud filter in the
+  query string. `data-fye-sort` rewrites the current URL and drops `page`.
+  Without JS the select renders and shows the current sort but does nothing.
+- **The bespoke tile is a grid cell**, square like the cards, page one only,
+  and only when the collection has ≥4 products.
+
+## Outstanding
+
+1. **Five more sections render on `templates/collection.json` on live** and
+   none exist in v3: `fye-diamond-browser`, `fye-collection-intro`,
+   `fye-bespoke-cta`, `fye-guide-download`, plus a `custom-liquid` that injects
+   the metal and profile filter icons on `plain-wedding-rings`. Until they land
+   the page is the grid and nothing else. This is a bigger job than
+   `main-product`.
+2. **`fyeSmoke()` has not been run** at 1440 / 899 / 748 / 559 yet.
+3. **Per-collection template variants.** Not yet checked whether live has
+   `templates/collection.<suffix>.json` files — if it does, those collections
+   still 404 on v3.
+4. **`main-product`** — the other half of what Ed asked for this session, not
+   started. 162KB in the old theme, shares its buy box with `main-qv`.
+5. Carried over, untouched: the wedding panel's 17 stone links all resolving to
+   `/collections/coloured-stone-rings`; deleting the spent `fix-*.mjs` and
+   `mega-css-consolidate.mjs`; `{% render 'schema-org' %}` into `theme.liquid`;
+   the two logo PNGs; `snippets/mm-probe.liquid` still on the theme.

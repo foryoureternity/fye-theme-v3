@@ -9,6 +9,21 @@
  */
 {
   "sections": {
+    "fye_collection_intro": {
+      "type": "fye-collection-intro",
+      "name": "FYE · Collection intro",
+      "settings": {
+        "band": "teal",
+        "layout": "masthead",
+        "show_breadcrumb": true,
+        "parent_label": "",
+        "parent_link": "",
+        "show_eyebrow": true,
+        "unit_plural": "designs",
+        "unit_singular": "design",
+        "from_price": ""
+      }
+    },
     "main": {
       "type": "main-collection",
       "blocks": {
@@ -52,6 +67,7 @@
     }
   },
   "order": [
+    "fye_collection_intro",
     "main"
   ]
 }

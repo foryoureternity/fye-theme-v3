@@ -1,0 +1,282 @@
+{%- comment -%}
+  fye-collection-intro — breadcrumb, count eyebrow, H1 and collection copy,
+  sat above the listing on every collection page.
+
+  Ported 31/08/2026 from live's 8.8KB section. On live this replaced the old
+  teal heading-template banner plus a custom-liquid description block; that
+  consolidation is kept.
+
+  THE LAYOUT IDEA, which is easy to lose: two columns, and the left one is a
+  flex column whose headline block has `margin-top: auto`. The breadcrumb sits
+  at the top, the eyebrow and title are pushed to the BOTTOM, so the title
+  lands level with the end of the copy on the right rather than level with its
+  start. Remove the auto margin and the whole band reads as two unrelated
+  blocks. The right column is deliberately wider than an even split.
+
+  Copy comes from the collection description, split on the first `</p>`: first
+  paragraph is the lead at full strength, the remainder is the soft level.
+  A collection with no description falls back to the centred variant — a
+  masthead with an empty right column looks like a bug.
+
+  Colour comes from the band, not from here. `.band--teal` in fye-core.css
+  already inverts headings, links and `--ink-soft`, so this file states no
+  colours of its own beyond the two type levels it asks for by name. That is
+  the whole reason live's 30-odd `.band--teal .cintro__*` overrides are gone.
+
+  Setting IDs are unchanged from live, so templates/collection.json carries
+  over as-is.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign desc = collection.description
+
+  assign lead = ''
+  if desc != blank
+    if desc contains '</p>'
+      assign parts = desc | split: '</p>'
+      assign lead = parts[0] | append: '</p>'
+    else
+      assign lead = desc
+    endif
+  endif
+
+  assign from_price = s.from_price
+  if from_price == blank
+    assign from_price = collection.metafields.custom.from_price
+  endif
+
+  assign is_centred = false
+  if s.layout == 'centred' or lead == blank
+    assign is_centred = true
+  endif
+
+  assign unit = s.unit_plural | default: 'designs'
+  if collection.products_count == 1
+    assign unit = s.unit_singular | default: 'design'
+  endif
+-%}
+{%- capture rest -%}
+  {%- if desc contains '</p>' -%}
+    {%- assign parts = desc | split: '</p>' -%}
+    {%- for p in parts offset: 1 -%}
+      {%- if p != blank -%}{{ p }}</p>{%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endcapture -%}
+
+<section class="band band--{{ s.band | default: 'teal' }} band--tight cintro{% if is_centred %} cintro--centred{% endif %}" data-screen-label="Collection intro">
+  <div class="wrap">
+    <div class="cintro__grid">
+
+      <div class="cintro__head">
+        {%- if s.show_breadcrumb -%}
+          <nav class="cintro__crumbs" aria-label="Breadcrumb">
+            <a href="{{ routes.root_url }}">Home</a>
+            {%- if s.parent_label != blank and s.parent_link != blank -%}
+              <span class="cintro__sep" aria-hidden="true">&rsaquo;</span>
+              <a href="{{ s.parent_link }}">{{ s.parent_label | escape }}</a>
+            {%- endif -%}
+            <span class="cintro__sep" aria-hidden="true">&rsaquo;</span>
+            <span class="cintro__here" aria-current="page">{{ collection.title | escape }}</span>
+          </nav>
+        {%- endif -%}
+
+        <div class="cintro__headline">
+          {%- if s.show_eyebrow and collection.products_count > 0 -%}
+            <p class="eyebrow cintro__eyebrow">
+              {{- collection.products_count }} {{ unit -}}
+              {%- if from_price != blank %} &middot; from {{ from_price }}{% endif -%}
+            </p>
+          {%- endif -%}
+          <h1 class="cintro__title">{{ collection.title | escape }}</h1>
+        </div>
+      </div>
+
+      {%- if lead != blank -%}
+        <div class="cintro__copy">
+          <div class="cintro__lead">{{ lead }}</div>
+          {%- if rest != blank -%}
+            <div class="cintro__rest">{{ rest }}</div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .cintro__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: var(--s10);
+  align-items: stretch;
+}
+
+.fye .cintro__head {
+  display: flex;
+  flex-direction: column;
+}
+
+/* The load-bearing declaration. See the file comment. */
+.fye .cintro__headline {
+  margin-top: auto;
+}
+
+/* --- breadcrumb ----------------------------------------------------------
+   `.crumbs` is named in conventions.md as shared vocabulary but has never been
+   implemented in fye-core.css, and one section is not two — so it lives here
+   until a second section needs it, at which point it moves to core. */
+
+.fye .cintro__crumbs {
+  margin: 0 0 var(--s6);
+  font-size: var(--fs-fine);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.fye .cintro__crumbs a {
+  color: var(--ink-soft);
+}
+
+.fye .cintro__sep {
+  margin-inline: var(--s2);
+}
+
+.fye .cintro__here {
+  color: var(--ink);
+}
+
+/* --- headline ------------------------------------------------------------ */
+
+.fye .cintro__eyebrow {
+  margin-bottom: var(--s4);
+}
+
+.fye .cintro__title {
+  margin: 0;
+  text-wrap: balance;
+}
+
+/* --- copy ----------------------------------------------------------------
+   Two levels, per the contrast rule: the first paragraph at full strength,
+   everything after it soft. No third level. */
+
+.fye .cintro__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+}
+
+.fye .cintro__lead {
+  font-size: var(--fs-body);
+  color: var(--ink);
+}
+
+.fye .cintro__rest {
+  font-size: var(--fs-body);
+  color: var(--ink-soft);
+}
+
+.fye .cintro__copy a {
+  border-bottom: 1px solid currentColor;
+}
+
+/* --- centred variant ----------------------------------------------------- */
+
+.fye .cintro--centred {
+  text-align: center;
+}
+
+.fye .cintro--centred .cintro__grid {
+  display: block;
+}
+
+.fye .cintro--centred .cintro__headline {
+  margin-top: 0;
+}
+
+.fye .cintro--centred .cintro__copy {
+  max-width: var(--maxw-narrow);
+  margin-inline: auto;
+  margin-top: var(--s6);
+}
+
+/* --- breakpoints. Media queries LAST, always. ---------------------------- */
+
+@media (max-width: 900px) {
+  .fye .cintro__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s6);
+    align-items: start;
+  }
+
+  /* Stacked, there is nothing below to align to, so the title returns to
+     sitting directly under the breadcrumb. */
+  .fye .cintro__headline {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .fye .cintro__crumbs {
+    margin-bottom: var(--s5);
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "FYE · Collection intro",
+  "tag": "section",
+  "class": "fye-collection-intro",
+  "settings": [
+    {
+      "type": "select",
+      "id": "band",
+      "label": "Background band",
+      "default": "teal",
+      "options": [
+        { "value": "teal", "label": "Teal" },
+        { "value": "ivory", "label": "Ivory" },
+        { "value": "white", "label": "White" },
+        { "value": "mist", "label": "Mist" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "default": "masthead",
+      "info": "A collection with no description always falls back to centred.",
+      "options": [
+        { "value": "masthead", "label": "Masthead — title left, copy right" },
+        { "value": "centred", "label": "Centred" }
+      ]
+    },
+
+    { "type": "header", "content": "Breadcrumb" },
+    { "type": "checkbox", "id": "show_breadcrumb", "label": "Show breadcrumb", "default": true },
+    {
+      "type": "text",
+      "id": "parent_label",
+      "label": "Parent link text",
+      "info": "Optional middle crumb. Applies to every collection using this template."
+    },
+    { "type": "url", "id": "parent_link", "label": "Parent link" },
+
+    { "type": "header", "content": "Eyebrow" },
+    { "type": "checkbox", "id": "show_eyebrow", "label": "Show count eyebrow", "default": true },
+    { "type": "text", "id": "unit_plural", "label": "Word for many", "default": "designs" },
+    { "type": "text", "id": "unit_singular", "label": "Word for one", "default": "design" },
+    {
+      "type": "text",
+      "id": "from_price",
+      "label": "\"From\" price",
+      "info": "Leave blank to take it from the collection's custom.from_price metafield, or to show the count on its own."
+    }
+  ],
+  "presets": [{ "name": "FYE · Collection intro" }]
+}
+{% endschema %}

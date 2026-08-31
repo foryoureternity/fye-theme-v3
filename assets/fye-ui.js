@@ -618,7 +618,9 @@
     if (id) id.value = v.id;
 
     var price = form.querySelector('[data-fye-price]');
-    if (price) price.textContent = money(v.price + engraveFee(form));
+    var over = form.querySelector("[data-fye-surcharge]");
+    var mul = over && !over.disabled ? 1.1 : 1;
+    if (price) price.textContent = money(Math.round(v.price * mul) + engraveFee(form));
 
     var sku = document.querySelector('[data-fye-sku]');
     if (sku && v.sku) sku.textContent = v.sku;
@@ -790,6 +792,9 @@
 
     var note = form.querySelector('[data-fye-surcharge-note]');
     if (note) note.hidden = !over;
+
+    var opt = form.querySelector("[data-fye-option]");
+    if (opt) opt.dispatchEvent(new Event("change", { bubbles: true }));
   });
 })();
 

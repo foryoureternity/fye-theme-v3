@@ -101,6 +101,12 @@
   where the grade buys nothing — is a fair refinement and is still outstanding;
   it is about plain shoulders, not about trilogies.
 
+  NOTHING IS SELECTED BY DEFAULT in either panel. Ed, 31/08/2026. Live
+  preselects the dearest route, which lets a shopper reach the basket without
+  ever making the decision. The cost of that choice is a REQUIREMENT on
+  fye-ui.js: add to cart must be blocked until each rendered panel has a mode,
+  because an unselected chooser is an incomplete order, not a neutral one.
+
   Neither panel present = the page exactly as it was before they existed.
 {%- endcomment -%}
 {%- liquid
@@ -858,40 +864,44 @@
   text-wrap: pretty;
 }
 
-/* Three mode cards. A column on every width: side by side they force the
-   copy to two or three words and the choice stops being explicable. */
+/* Three mode cards ACROSS, per Ed 31/08/2026. Each is its own bordered tile
+   with its own edge, rather than one divided stack — three tiles read as
+   three options at a glance, which a stack with dividers does not.
+
+   Equal columns rather than auto-fit: the three are peers and a widow column
+   would imply one matters more. The copy in each card is kept to a few words
+   for the same reason — at ~200px a sentence wraps to four lines. */
 .fye .pdp__modes {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s2);
   margin-top: var(--s2);
-  border: 1px solid var(--line);
 }
 
 .fye .pdp__mode {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 2px var(--s4);
-  padding: var(--s4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s1);
   min-height: 44px;
-  border: 0;
-  background: transparent;
+  padding: var(--s3) var(--s4) var(--s4);
+  border: 1px solid var(--line);
+  background: var(--white);
   text-align: start;
-}
-
-.fye .pdp__mode + .pdp__mode {
-  border-top: 1px solid var(--line);
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
 }
 
 .fye .pdp__mode:hover {
-  background: var(--ivory);
+  border-color: var(--sage);
 }
 
-/* Chosen state is a teal edge, not a fill: the card holds two levels of
-   type and a fill would drop the second below contrast. */
+/* Chosen: a changed ground and a darker edge — Ed, 31/08/2026. No radio dot
+   and no heavy left rule; the tile itself carries the state. Ivory rather
+   than a teal fill so both levels of type keep their contrast (ink on ivory
+   is 8.2:1, ink-soft 5.5:1 — a teal fill would drop the second line below
+   AA). --line-strong resolves to teal, so the edge is unmistakable. */
 .fye .pdp__mode.is-on {
-  box-shadow: inset 3px 0 0 var(--teal);
   background: var(--ivory);
+  border-color: var(--line-strong);
 }
 
 .fye .pdp__modetitle {
@@ -901,15 +911,16 @@
 }
 
 .fye .pdp__modecopy {
-  grid-column: 1;
   font-size: var(--fs-fine);
   color: var(--ink-soft);
   text-wrap: pretty;
 }
 
+/* Pinned to the foot of the tile so the three fees line up across the row
+   however long each explanation runs. */
 .fye .pdp__modefee {
-  grid-row: 1;
-  grid-column: 2;
+  margin-block-start: auto;
+  padding-block-start: var(--s2);
   font-size: var(--fs-small);
   font-weight: var(--fw-medium);
   color: var(--ink);
@@ -917,12 +928,22 @@
 
 .fye .pdp__modebody[hidden] { display: none; }
 
+/* Mist is the design system's info-panel ground and is what live uses here.
+   It also does the structural job: the body is visibly the consequence of the
+   tile above it rather than another section of the page. */
 .fye .pdp__modebody {
   display: flex;
   flex-direction: column;
   gap: var(--s3);
   padding: var(--s4);
-  background: var(--ivory);
+  background: var(--mist);
+}
+
+/* ink-soft on mist measures 4.5:1 — exactly at the AA limit (see fye-core).
+   The panel's own explanatory copy carries the full level instead, and soft
+   is left for genuinely secondary lines. */
+.fye .pdp__modebody .pdp__choosenote {
+  color: var(--ink);
 }
 
 .fye .pdp__stonestate {
@@ -989,16 +1010,18 @@
   background: var(--white);
   font-size: var(--fs-fine);
   color: var(--ink);
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
 }
 
 .fye .pdp__chip:hover {
   border-color: var(--sage);
 }
 
+/* Same logic as the mode tiles: ground plus a darker edge, not a teal fill,
+   because the chip carries a price line under its name. */
 .fye .pdp__chip.is-on {
-  background: var(--teal);
-  border-color: var(--teal);
-  color: var(--ivory);
+  background: var(--ivory);
+  border-color: var(--line-strong);
 }
 
 .fye .pdp__chipname {
@@ -1010,17 +1033,16 @@
   color: var(--ink-soft);
 }
 
-.fye .pdp__chip.is-on .pdp__chipprice {
-  color: var(--on-dark-soft);
-}
-
 .fye .pdp__waiver {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: var(--s3);
   align-items: start;
   font-size: var(--fs-fine);
-  color: var(--ink-soft);
+  color: var(--ink);
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: var(--fw-light);
   text-wrap: pretty;
 }
 
@@ -1042,7 +1064,7 @@
 .fye .pdp__modalscrim {
   position: absolute;
   inset: 0;
-  background: var(--fye-scrim, rgba(35, 61, 71, 0.58));
+  background: var(--scrim);
 }
 
 .fye .pdp__modalpanel {
@@ -1145,9 +1167,11 @@
 .fye .pdp__range input {
   grid-area: 1 / 1;
   width: 100%;
+  min-height: 0;
   margin: 0;
+  padding: 0;
+  border: 0;
   background: transparent;
-  pointer-events: auto;
 }
 
 .fye .pdp__modaltools {
@@ -1172,6 +1196,7 @@
 }
 
 .fye .pdp__sortlbl {
+  margin: 0;
   font-size: var(--fs-eyebrow);
   font-weight: var(--fw-medium);
   letter-spacing: var(--tr-eyebrow);
@@ -1210,8 +1235,8 @@
 }
 
 .fye .pdp__stonecard.is-on {
-  border-color: var(--teal);
-  box-shadow: inset 0 0 0 1px var(--teal);
+  border-color: var(--line-strong);
+  background: var(--ivory);
 }
 
 .fye .pdp__stonecardmedia {
@@ -1251,7 +1276,7 @@
 .fye .pdp__modalfoot {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: var(--s4);
   padding: var(--s5);
   border-top: var(--hairline);
@@ -1315,6 +1340,17 @@
     flex: 1 1 0;
   }
 
+  /* Three tiles across a phone leaves ~100px each, which cannot hold a title
+     and a line of explanation. Stacking is the same markup, one column — not
+     a second copy (conventions §3). */
+  .fye .pdp__modes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .fye .pdp__modefee {
+    margin-block-start: 0;
+  }
+
   .fye .pdp__stones {
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   }
@@ -1353,7 +1389,7 @@
     { "type": "header", "content": "Stone choosers" },
     {
       "type": "paragraph",
-      "content": "Both panels are gated by the product's own data as well as these tickboxes. The centre panel needs all three of fye.centre_shape, carat_min and carat_max; the side panel needs the Trilogy Ring tag and fye.side_stones. Most engagement rings get neither."
+      "content": "Both panels are gated by the product's own data as well as these tickboxes. The centre panel needs all three of fye.centre_shape, carat_min and carat_max; the side panel needs the Trilogy Ring tag and fye.side_stones. Most engagement rings get neither. Nothing is selected by default, so add to cart stays blocked until the shopper chooses."
     },
     { "type": "checkbox", "id": "enable_centre_diamond", "label": "Offer a centre-diamond choice", "default": true },
     { "type": "checkbox", "id": "enable_side_diamonds", "label": "Offer a side-diamond choice", "default": true },

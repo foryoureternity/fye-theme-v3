@@ -18,6 +18,14 @@
   the authority, not the metafield. Getting that backwards prices the ring
   twice.
 
+  ── NOTHING IS SELECTED ON LOAD ───────────────────────────────────────────
+
+  Ed, 31/08/2026. No mode card and NO QUALITY CHIP carries `is-on`. Live
+  preselects both — the "Required" card and the F/G VS chip — so a trilogy
+  could be bought with a grade nobody chose. fye-ui.js must block add to cart
+  until a mode is picked, and until a chip is picked when the mode is
+  "Required".
+
   ── THE THREE CHOICES DO NOT OVERLAP ──────────────────────────────────────
 
   Ed, 31/08/2026. On a trilogy with diamond-set shoulders the customer picks:
@@ -94,12 +102,12 @@
 
   <div class="pdp__modes" role="radiogroup" aria-label="{{ s.sides_heading | default: 'Side diamonds' | escape }}">
     <button type="button"
-            class="pdp__mode is-on"
+            class="pdp__mode"
             role="radio"
-            aria-checked="true"
+            aria-checked="false"
             data-fye-sides-mode="required">
       <span class="pdp__modetitle">{{ s.sides_required_label | default: 'Choose a pair' }}</span>
-      <span class="pdp__modecopy">We supply and set a matched pair with your ring.</span>
+      <span class="pdp__modecopy">We supply a matched pair.</span>
     </button>
 
     {%- if has_sides_fee -%}
@@ -109,8 +117,8 @@
               aria-checked="false"
               data-fye-sides-mode="supplied">
         <span class="pdp__modetitle">{{ s.sides_supplied_label | default: 'Supply your own' }}</span>
-        <span class="pdp__modecopy">We set your own pair of {{ cut }} diamonds.</span>
-        <span class="pdp__modefee">{{ s.sides_fee_price_pennies | money }}</span>
+        <span class="pdp__modecopy">We set your own pair.</span>
+        <span class="pdp__modefee">+{{ s.sides_fee_price_pennies | money_without_trailing_zeros }}</span>
       </button>
     {%- endif -%}
 
@@ -120,15 +128,15 @@
             aria-checked="false"
             data-fye-sides-mode="none">
       <span class="pdp__modetitle">{{ s.sides_none_label | default: 'Mount only' }}</span>
-      <span class="pdp__modecopy">The ring without side stones, at the price shown.</span>
+      <span class="pdp__modecopy">No side stones.</span>
     </button>
   </div>
 
   <input type="hidden" name="properties[Side Diamonds]" value="" data-fye-sides-prop disabled>
 
   {%- comment -%} ---- Mode: choose a pair ---- {%- endcomment -%}
-  <div class="pdp__modebody" data-fye-sides-body="required">
-    <p class="pdp__choosenote fine">Priced per pair, supplied and set with your ring.</p>
+  <div class="pdp__modebody" data-fye-sides-body="required" hidden>
+    <p class="pdp__choosenote">Choose the quality of your pair — priced per pair, supplied and set with your ring.</p>
 
     <div class="pdp__chips pdp__sidechips" role="radiogroup" aria-label="Side diamond quality">
       {%- assign rendered = 0 -%}
@@ -152,9 +160,9 @@
         -%}
         {%- if found != nil and found.available -%}
           <button type="button"
-                  class="pdp__chip{% if rendered == 0 %} is-on{% endif %}"
+                  class="pdp__chip"
                   role="radio"
-                  aria-checked="{% if rendered == 0 %}true{% else %}false{% endif %}"
+                  aria-checked="false"
                   data-fye-side-qual="{{ quality | escape }}"
                   data-fye-side-variant="{{ found.id }}"
                   data-fye-side-price="{{ found.price }}"

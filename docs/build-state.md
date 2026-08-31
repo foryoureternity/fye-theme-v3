@@ -555,3 +555,130 @@ the top: `assign cols_n = cols | plus: 0`. Shipped and caught on first preview.
    `/collections/coloured-stone-rings`; deleting the spent `fix-*.mjs` and
    `mega-css-consolidate.mjs`; `{% render 'schema-org' %}` into `theme.liquid`;
    the two logo PNGs; `snippets/mm-probe.liquid` still on the theme.
+
+---
+
+# Session — 31/08/2026 (2): the product page
+
+`main-product` is built for PLAIN WEDDING RINGS and rendering on v3. Other
+ring types branch off `is_plain` and are not written yet.
+
+| File | Notes |
+|---|---|
+| `sections/main-product.liquid` | 29.1KB. Gallery with 360, metal colour/carat, size, engraving, price |
+| `templates/product.json` | Did not exist. One section |
+| `assets/fye-ui.js` | +1 IIFE: gallery panels, Sirv on demand, engraving toggle, two-line cart add |
+
+## THE DATA MODEL — read before touching the buy box
+
+A plain wedding ring is **one product per metal + profile + width + weight**.
+Variants are **ring sizes only** — 70 of them, A to Z+9.5, each priced a little
+above the last because a bigger ring uses more metal.
+
+```
+options              Ring Size (the only one)
+custom.ring_metal    "14ct Yellow Gold"
+custom.ring_profile  "Concave"
+custom.ring_weight   "Heavy Weight"
+custom.spin_360      Sirv .spin URL
+filters.band_width   "2mm"
+```
+
+Two consequences shape the whole page:
+
+1. **Size is a variant**, so the page shows a RANGE at the top and a SELECTED
+   price by the button. Two questions, two numbers. Live does the same.
+2. **Metal is navigation.** Choosing platinum means loading another product.
+
+**Handles are perfectly systematic**, verified against live:
+
+```
+{metal}-{profile}-wedding-ring-{width}-{weight}
+14ct-yellow-gold-concave-wedding-ring-2mm-heavy
+platinum-concave-wedding-ring-25mm-medium
+```
+
+so the metal switcher CONSTRUCTS each target and looks it up with
+`all_products`. No app, no metafield list of references, no JS.
+
+- `all_products` is capped at **20 unique handles per page**. Four colours plus
+  three carats is seven. A profile or width switcher done the same way would
+  blow through it — those need a different mechanism.
+- A handle that does not exist renders that option disabled, not as a dead
+  link. Safe failure by design.
+- **The width slug is irregular**: 2.5mm appears in handles as `25mm`, so it
+  comes from `filters.band_width | remove: '.'`. The `handle` filter gives
+  `2-5mm` and 404s.
+
+## Business rules — Ed's, not inferred
+
+- **Engraving is £55, interior, on every ring type.** An earlier pass wrote
+  "free of charge" as an assumption and that was wrong. Never infer pricing,
+  policy or product availability — take it from Ed or from the code.
+- **The oversize surcharge does NOT apply to plain rings**, because the metal
+  cost is already in the variant ladder; applying both charges twice. It DOES
+  apply to every other ring type, where size is a line-item property with no
+  price of its own — those branches set `_size_surcharge`, which the Oversize
+  Ring Surcharge cart-transform function reads to add 10%.
+- **No palladium in plain rings at present.** Removed from the colour list.
+  Engagement rings on live do offer it, so that list becomes per-branch.
+
+## How live does the things we copied
+
+Live runs **two** product pages, which is why this section merges two sources:
+
+| | |
+|---|---|
+| `sections/product-block.liquid` (57KB) | configurable diamond rings — engagement, eternity, gem-set. The metal/carat/engraving pattern comes from here |
+| `sections/main-product.liquid` (162KB, T4S) | plain rings |
+
+**Engraving fee.** A hidden fee PRODUCT, added as a separate cart line
+(`engraving_variant_id`, live's is `58467296018816`). `engraving_price_pennies`
+is only the on-page preview. Shopify cannot post two line items from one
+product form, so when engraving is on the submit is intercepted and both lines
+go through `/cart/add.js`. Without engraving the form posts normally and no JS
+is involved.
+
+**Sirv 360.** `snippets/spin-360.liquid` on live: a `.Sirv` div with
+`data-src` and `data-options`, plus a one-time injection of
+`scripts.sirv.com/sirvjs/v3/sirv.js`. Live loads it on every product page and
+then fights Flickity to re-measure a canvas that was hidden at init. v3 has no
+carousel and loads the script **on demand** when the 360 panel is first opened.
+
+## Gotchas earned this session
+
+- **`[hidden]` loses to any `display` rule.** `.pdp__engravebody { display:
+  flex }` kept the engraving fields visible with "No" selected. The attribute
+  only works if nothing else sets display; pair every `display` on a
+  `hidden`-toggled element with a `[hidden] { display: none }`.
+- **Disabled fields are not submitted.** That is what keeps an empty
+  `Engraving` property off the order when the answer is No — the toggle
+  disables the inputs rather than only hiding them.
+- **A stale compiled stylesheet looks exactly like a fix that did not work.**
+  Shopify concatenates every `{% stylesheet %}` into one `compiled_assets/
+  styles.css`. File size and `updatedAt` on the theme prove the file ARRIVED;
+  they say nothing about what the browser is running. For a CSS change the
+  check is a resolved custom property in the console, not a screenshot. This
+  nearly caused a fourth rewrite of a 21KB file that was already correct.
+- **Targeted `sed` beats rewriting a 29KB file** for a one-value change, when
+  the anchor is unique and the change is verified with a `grep` either side.
+  Used four times today without incident.
+
+## Outstanding on the product page
+
+1. **Every other product type.** Engagement, eternity, diamond and gem-set,
+   loose diamonds, loose gemstones. Each needs its own buy-box branch; the
+   surcharge applies to all of them.
+2. **Wishlist** — agreed as its own session. Live uses the T4S app wishlist
+   (`t4s_wis_cp`, `interactable.min.js`, `templates/search.wishlist.liquid`)
+   with `fye-wishlist-share` on top. v3 has none of it.
+3. **Not yet built, from Ed's list of what differs by type:** certification /
+   provenance panel, ring sizer, pairing suggestions, related products, guide
+   download, long-form description tabs.
+4. **`engraving_variant_id` is unverified on this store.** The default is
+   live's. The control hides itself when the setting is blank, but it cannot
+   tell whether a non-blank id actually exists — a wrong id fails at add-to-cart.
+5. **Metal switching does not preserve the chosen size.** Changing metal loads
+   a sibling product at its default size. Live has the same behaviour; worth
+   fixing with a `?variant=` handoff once sizes are confirmed identical across
+   siblings.

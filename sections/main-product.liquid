@@ -878,14 +878,13 @@
   margin-top: var(--s2);
 }
 
-/* Explicit grid areas rather than auto-placement: the radio mark occupies
-   column 1 for the title's row only, so the copy and the fee both align to
-   the title's left edge instead of stepping back under the mark. */
+/* ONE COLUMN inside the tile: the mark sits ABOVE the text, per Ed
+   31/08/2026. Explicit rows rather than auto-placement so the fee can be
+   pinned to row 4 whether or not a tile has one. */
 .fye .pdp__mode {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  grid-template-rows: auto auto 1fr;
-  column-gap: var(--s3);
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto auto 1fr;
   row-gap: var(--s1);
   min-height: 44px;
   padding: var(--s3) var(--s4) var(--s4);
@@ -908,22 +907,20 @@
   border-color: var(--line-strong);
 }
 
-/* The radio mark. A DELIBERATE DEPARTURE from the brand's squared-corner rule
-   (conventions §9 asks for these to be stated): Ed, 31/08/2026, "they're a
-   good signpost for users". A circle is the only shape that reads as
-   "choose one of these" without a label, and the cards are role="radio" in a
-   role="radiogroup" — so the mark is aria-hidden and assistive tech reads the
-   state off aria-checked, never off this.
+/* The selection mark. SQUARED, per Ed 31/08/2026 — so it obeys the brand's
+   --radius: 0 rule like everything else, and an earlier round circle is gone.
+   It is a signpost only: the tiles are role="radio" inside a role="radiogroup"
+   and the mark is aria-hidden, so assistive tech reads the state off
+   aria-checked and never off this.
 
-   Sized 16px, which is smaller than the 44px minimum — legitimate here
-   because the mark is decorative and the whole 200px tile is the hit area. */
+   16px is below the 44px touch minimum, which is legitimate here because the
+   mark is decorative and the whole tile is the hit area. */
 .fye .pdp__radio {
   grid-area: 1 / 1;
   width: 16px;
   height: 16px;
-  margin-block-start: 3px;   /* aligns to the title's cap height, not its box */
+  margin-block-end: var(--s1);
   border: 1px solid var(--sage-grey);
-  border-radius: 50%;
   background: var(--white);
   transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
 }
@@ -933,7 +930,7 @@
 }
 
 /* Filled centre drawn with an inset ring, so there is no extra element and
-   nothing to reflow when the state changes. */
+   nothing reflows when the state changes. */
 .fye .pdp__mode.is-on .pdp__radio {
   border-color: var(--teal);
   background: var(--teal);
@@ -941,23 +938,23 @@
 }
 
 .fye .pdp__modetitle {
-  grid-area: 1 / 2;
+  grid-area: 2 / 1;
   font-size: var(--fs-small);
   font-weight: var(--fw-medium);
   color: var(--ink);
 }
 
 .fye .pdp__modecopy {
-  grid-area: 2 / 2;
+  grid-area: 3 / 1;
   font-size: var(--fs-fine);
   color: var(--ink-soft);
   text-wrap: pretty;
 }
 
-/* Row 3 takes the slack, so the fee sits at the foot of its tile and the
+/* Row 4 takes the slack, so the fee sits at the foot of its tile and the
    three tiles stay the same height however long each explanation runs. */
 .fye .pdp__modefee {
-  grid-area: 3 / 2;
+  grid-area: 4 / 1;
   align-self: end;
   padding-block-start: var(--s2);
   font-size: var(--fs-small);
@@ -1387,7 +1384,7 @@
   }
 
   .fye .pdp__mode {
-    grid-template-rows: auto auto auto;
+    grid-template-rows: auto auto auto auto;
   }
 
   .fye .pdp__modefee {

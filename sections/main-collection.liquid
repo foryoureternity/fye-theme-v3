@@ -242,6 +242,33 @@
 {%- endpaginate -%}
 
 {% stylesheet %}
+/* This section always follows the collection masthead, which carries its own
+   bottom padding — at the full --sect-y the grid started 120px below the teal
+   band. Live gives this section a top margin of 0 for the same reason. Sets
+   the token, never a padding declaration. */
+.fye .coll {
+  --sect-y: var(--s8);
+}
+
+/* THE ROW HEIGHT, DECLARED ONCE.
+   The rail head and the toolbar are one row across two columns; their
+   hairlines only line up if both boxes resolve to the same height.
+
+   Do NOT do this by asserting `min-height: 44px` on both. That was the first
+   attempt and it was 22px out, because box-sizing is border-box: on the rail
+   head, min-height INCLUDES the 20px padding, so the box was 44px total; the
+   toolbar meanwhile grew past its min-height because the <select> renders 45px
+   intrinsically, giving 45 + 20 + 1 = 66px. Two boxes both claiming "44px",
+   nowhere near each other.
+
+   So: one variable sets the row's content height, the select is pinned to it
+   rather than left to its intrinsic size, and the rail head asks for that
+   height PLUS its own padding. Both then resolve to
+   --coll-row + --s5 + 1px border. */
+.fye .coll {
+  --coll-row: 44px;   /* the touch-target minimum; also the sort control */
+}
+
 .fye .coll__layout {
   display: grid;
   grid-template-columns: 260px minmax(0, 1fr);
@@ -292,24 +319,15 @@
   padding-bottom: var(--s6);
 }
 
-/* THE RAIL HEAD AND THE TOOLBAR ARE ONE ROW ACROSS TWO COLUMNS.
-   Their hairlines only line up if both boxes are the same height, and the
-   grid content below them only lines up if both clear the same distance.
-   The toolbar's height is set by the sort <select> (44px), not by its text,
-   so matching the type alone leaves the rail 23px high and everything in the
-   rail riding above the grid — which is what shipped on the first render.
-
-   Both boxes therefore state the same three values:
-       content height   44px  (--s9 + var(--s1), i.e. the select's min-height)
-       padding-bottom   --s5
-       clearance below  --s8   (here: --s4 margin + the --s6 railbody gap)
-   Change one and change its pair, or the columns drift apart again. */
+/* Pairs with .coll__bar. Height: --coll-row + --s5 padding, stated as a calc
+   because border-box would otherwise eat the padding out of the row. Clearance
+   below: --s4 margin + the --s6 railbody gap = --s8, matching the bar. */
 .fye .coll__railhead {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--s4);
-  min-height: 44px;
+  min-height: calc(var(--coll-row) + var(--s5));
   padding-bottom: var(--s5);
   margin-bottom: var(--s4);
   border-bottom: var(--hairline);
@@ -350,13 +368,14 @@
 
 /* --- toolbar ------------------------------------------------------------- */
 
+/* Pairs with .coll__railhead. No min-height: the row's height comes from the
+   select, which is pinned to --coll-row below. */
 .fye .coll__bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--s5);
   flex-wrap: wrap;
-  min-height: 44px;
   padding-bottom: var(--s5);
   margin-bottom: var(--s8);
   border-bottom: var(--hairline);
@@ -368,10 +387,14 @@
   color: var(--ink-soft);
 }
 
+/* `height`, not `min-height` — an intrinsically-45px control is what threw the
+   two columns out of line. */
 .fye .coll__select {
   width: auto;
   min-width: 220px;
-  min-height: 44px;
+  height: var(--coll-row);
+  min-height: 0;
+  padding-block: 0;
   font-size: var(--fs-small);
 }
 
@@ -459,8 +482,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 44px;
-  min-height: 44px;
+  min-width: var(--coll-row);
+  min-height: var(--coll-row);
   padding-inline: var(--s3);
   border: 1px solid transparent;
   font-size: var(--fs-small);
@@ -473,7 +496,7 @@
 .fye .coll__gap {
   display: inline-flex;
   align-items: center;
-  min-height: 44px;
+  min-height: var(--coll-row);
   padding-inline: var(--s2);
   color: var(--ink-soft);
 }
@@ -527,7 +550,6 @@
     align-items: stretch;
     flex-direction: column;
     gap: var(--s3);
-    min-height: 0;
   }
 
   .fye .coll__select {

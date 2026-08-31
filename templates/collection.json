@@ -1,0 +1,48 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "blocks": {
+        "layout_Bq6f6R": {
+          "type": "layout",
+          "settings": {}
+        },
+        "filter_id": {
+          "type": "filter",
+          "settings": {}
+        },
+        "30594d23-d644-4653-9545-9ff769d2e6ab": {
+          "type": "sortby",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "layout_Bq6f6R",
+        "filter_id",
+        "30594d23-d644-4653-9545-9ff769d2e6ab"
+      ],
+      "settings": {
+        "limit": 24,
+        "col_dk": "4",
+        "col_mb": "2",
+        "show_desc": false,
+        "fye_rail_head": true,
+        "fye_rail_title": "Refine",
+        "fye_rail_clear": "Clear all",
+        "fye_promo_heading": "Not sure yet?",
+        "fye_promo_body": "Tell us your budget and we'll shortlist three rings for you.",
+        "fye_promo_label": "Ask an expert",
+        "fye_promo_link": "",
+        "fye_tile_eyebrow": "Bespoke",
+        "fye_tile_heading": "Design your own",
+        "fye_tile_body": "Can't see the ring you have in mind? We'll design it with you, priced to your budget.",
+        "fye_tile_label": "Start a design",
+        "fye_tile_link": "",
+        "fye_tile_position": 4
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

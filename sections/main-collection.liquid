@@ -16,6 +16,13 @@
   it, and does NOT rebuild a facet form. If xCloud is ever removed, the filter
   UI has to be designed, not recovered.
 
+  THE MOUNT POINT IS NOT ENOUGH ON ITS OWN. xCloud arrives as an APP EMBED,
+  which is stored in config/settings_data.json — a file Shopify auto-generates.
+  A newly created theme has no app embeds enabled, so the div renders and stays
+  empty with no error anywhere. 31/08/2026: that is exactly what happened on
+  v3's first collection render. If the filters are missing, check the theme
+  editor's App embeds panel BEFORE looking at this file.
+
   Deliberately NOT ported, and why:
     · product_des 1–9 (nine tile designs)  — one card, snippets/product-card
     · layout_des grid/masonry              — masonry was never enabled
@@ -42,6 +49,15 @@
   assign cols = s.col_dk | default: '4'
   assign cols_mb = s.col_mb | default: '2'
   assign per_page = s.limit | default: 24
+
+  comment
+    A `select` setting is a STRING, and Liquid refuses to compare a string to
+    an integer — it raises rather than coercing, and the whole tag renders as
+    an error. `cols` stays a string for the CSS custom property; `cols_n` is
+    the number the eager/lazy test below needs. Fixed 31/08/2026, having
+    shipped "comparison of Integer with String failed" on every card.
+  endcomment
+  assign cols_n = cols | plus: 0
 
   assign has_sort = false
   assign has_count = false
@@ -181,7 +197,7 @@
                 </li>
               {%- endif -%}
               <li>
-                {%- if forloop.index <= cols -%}
+                {%- if forloop.index <= cols_n -%}
                   {%- render 'product-card', product: product, loading: 'eager' -%}
                 {%- else -%}
                   {%- render 'product-card', product: product, loading: 'lazy' -%}
@@ -548,6 +564,10 @@
     },
 
     { "type": "header", "content": "Filter rail" },
+    {
+      "type": "paragraph",
+      "content": "The filters themselves come from the xCloud app embed. If the rail is empty, enable that embed in the App embeds panel — it is not part of this section."
+    },
     {
       "type": "checkbox",
       "id": "fye_rail_head",

@@ -794,69 +794,142 @@
 })();
 
 
+
 /* ============================================================================
-   GOLD COLOUR — 31/08/2026
+   METAL AND GOLD COLOUR — 31/08/2026, second pass
    Eternity, diamond and gem-set rings.
 
-   Gold colour does not change the price, so it is a line-item property rather
-   than a variant. But picking a colour from platinum HAS to change the variant
-   to a gold, so every colour tile is a link carrying ?gold=<Colour> alongside
-   ?variant=. This reads that parameter back on load: sets the hidden property
-   input, lights the right tile, and keeps the label honest.
+   REPLACES the "GOLD COLOUR" block above, which made every colour tile a link
+   carrying ?gold= and reloaded the page on each change. Live's product-block
+   does it without any of that: the state lives in JS, the variant is resolved
+   from metal x quality, and nothing navigates. This copies that.
 
-   Carat links carry no ?gold=, so switching 18k -> 14k would drop the colour.
-   They are marked data-fye-keepgold and this appends the current colour to
-   them, so carat changes preserve it.
+   ── THE MODEL, from live's product-block.js ───────────────────────────────
 
-   Without JS the property falls back to the first colour in the list. Wrong,
-   but harmless and visible — the alternative is radios, which cannot change
-   the variant at all.
+     data-fye-gold="Yellow"     sets the PROPERTY. Does not touch the variant
+                                — UNLESS the current metal is not a gold, in
+                                which case the metal moves to the preferred
+                                carat (live's W785 behaviour).
+     data-fye-metal="Platinum"  sets the METAL. On a non-gold the carat row
+                                hides and the colour property is disabled.
+     data-fye-metal="14k Gold"  same, within the golds; colour and quality
+                                both survive.
+
+   ── QUALITY FALLBACK ──────────────────────────────────────────────────────
+
+   live's selectMetal(): if the chosen metal is not made at the current
+   quality, move to a quality it IS made at, rather than leaving the buy box
+   pointing at a variant that does not exist. Same here.
+
+   ── HOW IT REACHES THE PRICE ──────────────────────────────────────────────
+
+   The hidden metal input is a [data-fye-option], so the existing variant
+   matcher already reads it. After changing it this dispatches a bubbling
+   `change` from that input, which is exactly what the matcher listens for —
+   so price, SKU, availability and the hidden variant id all update through
+   the one code path rather than a second copy of it.
    ========================================================================== */
-(function goldColour() {
-  function currentGold() {
+(function metalSelect() {
+  function variants(form) {
+    var island = form.querySelector('[data-fye-variants]');
+    if (!island) return [];
     try {
-      return new URLSearchParams(window.location.search).get('gold') || '';
+      return JSON.parse(island.textContent);
     } catch (e) {
-      return '';
+      return [];
     }
   }
 
-  function apply() {
-    var input = document.querySelector('[data-fye-gold-input]');
-    if (!input) return;
+  /* Variant titles are "Metal / Quality". */
+  function partsOf(v) {
+    var bits = String(v.title).split(' / ');
+    return { metal: bits[0], quality: bits[1] };
+  }
 
-    var gold = currentGold();
-    if (gold) input.value = gold;
+  function isGold(metal) {
+    return /gold/i.test(metal || '');
+  }
 
-    /* The chosen tile. With no parameter the first one stays lit, which is
-       what the input already defaults to. */
-    var tiles = document.querySelectorAll('[data-fye-goldtile]');
-    if (gold && tiles.length) {
-      Array.prototype.forEach.call(tiles, function (tile) {
-        tile.classList.toggle('is-current', tile.getAttribute('data-fye-goldtile') === gold);
+  function apply(root, metal, gold) {
+    var form = root.closest('form');
+    if (!form) return;
+
+    var metalInput = form.querySelector('[data-fye-metal-input]');
+    var quality = form.querySelector('[data-fye-quality]');
+    if (!metalInput) return;
+
+    /* Quality fallback — do not strand the buy box on a variant that is not
+       made. Live's selectMetal does the same. */
+    if (quality) {
+      var all = variants(form);
+      var made = all.some(function (v) {
+        var pt = partsOf(v);
+        return pt.metal === metal && pt.quality === quality.value && v.available;
       });
 
-      var label = document.querySelector('[data-fye-metal-label]');
-      if (label && label.textContent.indexOf('Gold') > -1) {
-        label.textContent = gold + ' ' + label.textContent.trim();
+      if (!made) {
+        var alt = null;
+        all.forEach(function (v) {
+          if (alt) return;
+          var pt = partsOf(v);
+          if (pt.metal === metal && v.available) alt = pt.quality;
+        });
+        if (alt) quality.value = alt;
       }
     }
 
-    /* Carry the colour through a carat change. */
-    var keep = document.querySelectorAll('[data-fye-keepgold]');
-    if (gold && keep.length) {
-      Array.prototype.forEach.call(keep, function (a) {
-        var href = a.getAttribute('href');
-        if (href && href.indexOf('gold=') === -1) {
-          a.setAttribute('href', href + '&gold=' + encodeURIComponent(gold));
-        }
-      });
+    metalInput.value = metal;
+
+    var label = form.querySelector('[data-fye-metal-label]') ||
+                document.querySelector('[data-fye-metal-label]');
+    if (label) label.textContent = isGold(metal) && gold ? gold + ' ' + metal : metal;
+
+    /* Carat row and the colour property only mean anything on a gold. */
+    var karatRow = document.querySelector('[data-fye-karatrow]');
+    if (karatRow) karatRow.hidden = !isGold(metal);
+
+    var goldInput = form.querySelector('[data-fye-gold-input]');
+    if (goldInput) {
+      goldInput.disabled = !isGold(metal);
+      if (gold) goldInput.value = gold;
     }
+
+    /* Highlights. */
+    document.querySelectorAll('[data-fye-metal]').forEach(function (b) {
+      b.classList.toggle('is-current', b.getAttribute('data-fye-metal') === metal);
+    });
+    document.querySelectorAll('[data-fye-gold]').forEach(function (b) {
+      var on = isGold(metal) && b.getAttribute('data-fye-gold') === (goldInput ? goldInput.value : '');
+      b.classList.toggle('is-current', on);
+    });
+
+    /* One code path for the price: let the existing matcher do it. */
+    metalInput.dispatchEvent(new Event('change', { bubbles: true }));
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', apply);
-  } else {
-    apply();
-  }
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest) return;
+
+    var goldBtn = e.target.closest('[data-fye-gold]');
+    if (goldBtn) {
+      var wrap = goldBtn.closest('[data-fye-metals]');
+      var form = goldBtn.closest('form');
+      var metalInput = form && form.querySelector('[data-fye-metal-input]');
+      if (!metalInput) return;
+
+      var metal = metalInput.value;
+      /* Coming from platinum or palladium, land on the preferred carat. */
+      if (!isGold(metal) && wrap) metal = wrap.getAttribute('data-preferred-karat') || metal;
+
+      apply(goldBtn, metal, goldBtn.getAttribute('data-fye-gold'));
+      return;
+    }
+
+    var metalBtn = e.target.closest('[data-fye-metal]');
+    if (metalBtn) {
+      var f = metalBtn.closest('form');
+      var gi = f && f.querySelector('[data-fye-gold-input]');
+      apply(metalBtn, metalBtn.getAttribute('data-fye-metal'), gi ? gi.value : '');
+    }
+  });
 })();

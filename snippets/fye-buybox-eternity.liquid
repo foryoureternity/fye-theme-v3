@@ -10,30 +10,29 @@
       Diamond Quality  D/E VVS, F/G VS, G Si, H Si, Lab-grown D VVS
 
   Both are variant options — 25 variants on a typical eternity ring — and both
-  change the price. Gold COLOUR does not change the price, so it is a
-  line-item property, not a variant.
+  change the price. Gold COLOUR does not, so it is a line-item property.
 
-  ── THE CONTROL ORDER IS DELIBERATE ───────────────────────────────────────
+  ── EVERYTHING IS A BUTTON. NOTHING NAVIGATES. ────────────────────────────
 
-  Colour first, then carat, matching how someone actually chooses a ring and
-  how the plain-band branch already works. Ed, 31/08/2026.
+  Copied from live's product-block, which does this correctly:
 
       row 1   Yellow · White · Rose · Platinum · Palladium
-      row 2   18k · 14k · 9k          (only when row 1 is a gold)
+      row 2   18K · 14K · 9K          (shown only on a gold)
 
-  That does not map one-to-one onto the data, because "Yellow" is a property
-  while "Platinum" is a variant. So every tile in row 1 is a LINK:
+    · a gold colour sets the "Gold colour" PROPERTY. It does not touch the
+      variant — unless you were on platinum, in which case the metal moves to
+      the preferred carat, exactly as live does (W785).
+    · platinum and palladium set the METAL, and the carat row hides itself.
+    · carat tiles set the metal within the golds, keeping colour and quality.
 
-    · a gold colour links to the gold variant at the CURRENT carat (or the
-      first available), carrying ?gold=Yellow;
-    · platinum and palladium link straight to their own variant.
+  An earlier pass made these links carrying ?variant= and ?gold=, which worked
+  but reloaded the page on every colour change. Ed: live does it without that.
+  It does, because the state lives in JS and the variant is resolved from
+  metal x quality on the fly. So: buttons, and fye-ui.js keeps the hidden
+  inputs in step.
 
-  fye-ui.js reads ?gold= on load, sets the hidden property input and lights the
-  right tile. Without JS the property falls back to the first colour, which is
-  wrong but harmless — and the alternative, radios, cannot change the variant.
-
-  Carat tiles link to the same colour at another carat, so switching carat
-  keeps both the colour and the diamond grade.
+  Both rows render for EVERY metal — the carat row is hidden, not absent, so
+  the script can reveal it without a page load.
 
   ── PROPERTY NAMES ARE A CONTRACT ─────────────────────────────────────────
 
@@ -75,146 +74,89 @@
     assign is_gold = true
   endif
 
-  comment
-    The carat to aim at when someone picks a gold colour from a non-gold
-    metal: keep theirs if they have one, otherwise the first gold offered.
-  endcomment
-  assign carat_now = ''
-  if is_gold
-    assign carat_now = metal_now
-  else
-    for value in metal_opt.values
-      if value contains 'Gold'
-        assign carat_now = value
-        break
-      endif
-    endfor
-  endif
-
   assign golds = s.gold_colours | default: 'Yellow,White,Rose' | split: ','
   assign sizes = s.ring_sizes | default: 'A,A.5,B,B.5,C,C.5,D,D.5,E,E.5,F,F.5,G,G.5,H,H.5,I,I.5,J,J.5,K,K.5,L,L.5,M,M.5,N,N.5,O,O.5,P,P.5,Q,Q.5,R,R.5,S,S.5,T,T.5,U,U.5,V,V.5,W,W.5,X,X.5,Y,Y.5,Z,Z.5,Z+1,Z+1.5,Z+2,Z+2.5,Z+3,Z+3.5,Z+4,Z+4.5,Z+5,Z+5.5,Z+6,Z+6.5,Z+7,Z+7.5,Z+8,Z+8.5,Z+9,Z+9.5' | split: ','
   assign threshold = s.surcharge_size | default: 'Q'
 
   comment
-    Non-gold metals, in the order the option lists them, so row 1 ends with
-    whatever this product actually offers rather than an assumed pair.
+    The carat to land on when someone picks a gold colour from platinum.
+    Live calls this preferredKarat() and lands on 18ct; here it is simply the
+    first gold the product offers, which is the same thing without hardcoding.
   endcomment
-  assign plains = ''
+  assign preferred_karat = ''
   for value in metal_opt.values
-    unless value contains 'Gold'
-      assign plains = plains | append: value | append: '|'
-    endunless
+    if value contains 'Gold'
+      assign preferred_karat = value
+      break
+    endif
   endfor
-  assign plains = plains | split: '|'
 -%}
 
 {%- if metal_opt != nil -%}
-  {%- comment -%} ---- Row 1: colour ---- {%- endcomment -%}
   <div class="pdp__field">
     <p class="pdp__label pdp__label--inline">Metal: <span class="pdp__labelval" data-fye-metal-label>{{ metal_now }}</span></p>
 
-    <ul class="pdp__colours">
+    <ul class="pdp__colours" data-fye-metals data-preferred-karat="{{ preferred_karat | escape }}">
       {%- for colour in golds -%}
         {%- liquid
           assign name = colour | strip
           assign tone = name | downcase | prepend: '--metal-18-'
-          assign target = nil
-          for v in p.variants
-            if v.option1 == carat_now and v.option2 == quality_now
-              assign target = v
-              break
-            endif
-          endfor
         -%}
         <li>
-          {%- if target != nil -%}
-            <a class="pdp__colour{% if is_gold and forloop.first %} is-current{% endif %}"
-               data-fye-goldtile="{{ name | escape }}"
-               style="--sw: var({{ tone }});"
-               href="{{ p.url }}?variant={{ target.id }}&gold={{ name | url_encode }}">
-              <span class="pdp__dot"></span>
-              <span class="pdp__colourname">{{ name }}</span>
-            </a>
-          {%- else -%}
-            <span class="pdp__colour is-off" style="--sw: var({{ tone }});">
-              <span class="pdp__dot"></span>
-              <span class="pdp__colourname">{{ name }}</span>
-            </span>
-          {%- endif -%}
+          <button type="button"
+                  class="pdp__colour{% if is_gold and forloop.first %} is-current{% endif %}"
+                  style="--sw: var({{ tone }});"
+                  data-fye-gold="{{ name | escape }}">
+            <span class="pdp__dot"></span>
+            <span class="pdp__colourname">{{ name }}</span>
+          </button>
         </li>
       {%- endfor -%}
 
-      {%- for value in plains -%}
-        {%- liquid
-          assign target = nil
-          for v in p.variants
-            if v.option1 == value and v.option2 == quality_now
-              assign target = v
-              break
+      {%- for value in metal_opt.values -%}
+        {%- unless value contains 'Gold' -%}
+          {%- liquid
+            if value == 'Platinum'
+              assign tone = '--metal-platinum'
+            else
+              assign tone = '--platinum'
             endif
-          endfor
-          if value == 'Platinum'
-            assign tone = '--metal-platinum'
-          else
-            assign tone = '--platinum'
-          endif
-        -%}
-        <li>
-          {%- if value == metal_now -%}
-            <span class="pdp__colour is-current" style="--sw: var({{ tone }});" aria-current="true">
+          -%}
+          <li>
+            <button type="button"
+                    class="pdp__colour{% if value == metal_now %} is-current{% endif %}"
+                    style="--sw: var({{ tone }});"
+                    data-fye-metal="{{ value | escape }}">
               <span class="pdp__dot"></span>
               <span class="pdp__colourname">{{ value }}</span>
-            </span>
-          {%- elsif target != nil -%}
-            <a class="pdp__colour" style="--sw: var({{ tone }});" href="{{ p.url }}?variant={{ target.id }}">
-              <span class="pdp__dot"></span>
-              <span class="pdp__colourname">{{ value }}</span>
-            </a>
-          {%- else -%}
-            <span class="pdp__colour is-off" style="--sw: var({{ tone }});">
-              <span class="pdp__dot"></span>
-              <span class="pdp__colourname">{{ value }}</span>
-            </span>
-          {%- endif -%}
-        </li>
+            </button>
+          </li>
+        {%- endunless -%}
       {%- endfor -%}
     </ul>
   </div>
 
-  {%- comment -%} ---- Row 2: carat, golds only ---- {%- endcomment -%}
-  {%- if is_gold -%}
-    <div class="pdp__field">
-      <ul class="pdp__carats">
-        {%- for value in metal_opt.values -%}
-          {%- if value contains 'Gold' -%}
-            {%- liquid
-              assign target = nil
-              for v in p.variants
-                if v.option1 == value and v.option2 == quality_now
-                  assign target = v
-                  break
-                endif
-              endfor
-              assign label = value | remove: ' Gold' | upcase
-            -%}
-            <li>
-              {%- if value == metal_now -%}
-                <span class="pdp__carat is-current" aria-current="true">{{ label }}</span>
-              {%- elsif target != nil -%}
-                <a class="pdp__carat" href="{{ p.url }}?variant={{ target.id }}" data-fye-keepgold>{{ label }}</a>
-              {%- else -%}
-                <span class="pdp__carat is-off">{{ label }}</span>
-              {%- endif -%}
-            </li>
-          {%- endif -%}
-        {%- endfor -%}
-      </ul>
-    </div>
-  {%- endif -%}
+  {%- comment -%}
+    Rendered for every metal and HIDDEN on the non-golds, so the script can
+    reveal it without a page load.
+  {%- endcomment -%}
+  <div class="pdp__field" data-fye-karatrow{% unless is_gold %} hidden{% endunless %}>
+    <ul class="pdp__carats">
+      {%- for value in metal_opt.values -%}
+        {%- if value contains 'Gold' -%}
+          <li>
+            <button type="button"
+                    class="pdp__carat{% if value == metal_now %} is-current{% endif %}"
+                    data-fye-metal="{{ value | escape }}">{{ value | remove: ' Gold' | upcase }}</button>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
 
   {%- comment -%}
-    Carries the gold colour to the cart. Value is set by fye-ui.js from ?gold=;
-    disabled on a non-gold so it is not posted at all.
+    Carries the gold colour to the cart. Disabled on a non-gold, and a disabled
+    field is not posted — so a platinum order has no colour on it.
   {%- endcomment -%}
   <input type="hidden"
          name="properties[Gold colour]"
@@ -223,7 +165,7 @@
          {% unless is_gold %}disabled{% endunless %}>
 
   {%- comment -%} MUST precede the quality select. See the header. {%- endcomment -%}
-  <input type="hidden" value="{{ metal_now | escape }}" data-fye-option>
+  <input type="hidden" value="{{ metal_now | escape }}" data-fye-option data-fye-metal-input>
 {%- endif -%}
 
 {%- if quality_opt != nil -%}
@@ -234,7 +176,7 @@
         <a class="pdp__sizelink" href="{{ s.quality_help_url }}">What do these mean?</a>
       {%- endif -%}
     </label>
-    <select class="pdp__select" id="pdp-quality" name="options[{{ quality_opt.name | escape }}]" data-fye-option>
+    <select class="pdp__select" id="pdp-quality" name="options[{{ quality_opt.name | escape }}]" data-fye-option data-fye-quality>
       {%- for value in quality_opt.values -%}
         <option value="{{ value | escape }}"{% if quality_now == value %} selected{% endif %}>{{ value }}</option>
       {%- endfor -%}
@@ -262,10 +204,6 @@
       {%- endfor -%}
     </select>
 
-    {%- comment -%}
-      Enabled by fye-ui.js above the threshold; the cart transform reads it.
-      Disabled fields are not posted, so an ordinary size carries no flag.
-    {%- endcomment -%}
     <input type="hidden" name="properties[_size_surcharge]" value="Yes" data-fye-surcharge disabled>
 
     <p class="pdp__hint fine" data-fye-surcharge-note hidden>

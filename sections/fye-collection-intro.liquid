@@ -28,10 +28,10 @@
   --ink on light bands and --on-dark on dark ones. Soft text is --ink-soft,
   which the band already remaps correctly.
 
-  This band is deliberately TIGHTER than the section rhythm: it is a masthead
-  introducing the grid below, not a content section, and at the standard
-  --sect-y it pushed the first row of products below the fold. It sets the
-  VARIABLE, per the no-padding rule.
+  THIS BAND OWNS THE SPACE BELOW IT. It is a masthead, so it is tighter than
+  the section rhythm AND it collapses the top padding of whatever follows —
+  see the `:has()` rule in the stylesheet. Live expresses the same thing from
+  the other end, by giving main-collection a top margin of 0.
 
   Setting IDs are unchanged from live, so templates/collection.json carries
   over as-is.
@@ -120,6 +120,22 @@
    never a padding declaration. */
 .fye .cintro {
   --sect-y: var(--s8);
+}
+
+/* THE MASTHEAD OWNS THE SPACE BELOW IT.
+   The listing that follows would otherwise add its own --sect-y on top of this
+   band's bottom padding, which put the first row of products 120px below the
+   teal edge. Collapsing the follower's top padding leaves exactly this band's
+   --s8, which is the gap the design wants.
+
+   The `:has()` is not optional and not decoration: Shopify wraps every section
+   in its own element, so `.cintro + .band` NEVER matches across two sections.
+   Same trap as the band-collapse rule in fye-core.css — it silently did
+   nothing until it was written this way. Stated generically (`> .band`) rather
+   than naming main-collection, because it is true of anything placed under
+   this masthead. */
+.fye .shopify-section:has(> .cintro) + .shopify-section > .band {
+  padding-block-start: 0;
 }
 
 .fye .cintro__grid {

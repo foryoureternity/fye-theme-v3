@@ -405,3 +405,42 @@
     sync();
   }
 })();
+
+
+/* ============================================================================
+   COLLECTION SORT — 31/08/2026
+   The sort control on main-collection is a real <select>. It NAVIGATES rather
+   than submitting a form, and that is the whole reason this exists:
+
+   the collection page's filters are injected by xCloud, which keeps its active
+   filters in the query string. A <form method="get"> serialises only its own
+   fields, so submitting one would silently drop every active filter and hand
+   the shopper an unfiltered grid. Rewriting the current URL keeps whatever is
+   already there — xCloud's parameters, campaign tags, anything — and changes
+   one key.
+
+   `page` is dropped deliberately: page 4 of the old sort is not page 4 of the
+   new one, and landing on an empty page looks like a broken filter.
+
+   No JS ⇒ the select still renders and still reads as the current sort; it
+   just does not act. That is a degraded control, not a broken page. If this
+   ever needs to work without JS, the fallback is a submit button beside it,
+   not a second copy of the markup.
+   ========================================================================== */
+(function collectionSort() {
+  document.addEventListener('change', function (e) {
+    var select = e.target.closest ? e.target.closest('[data-fye-sort]') : null;
+    if (!select) return;
+
+    var url;
+    try {
+      url = new URL(window.location.href);
+    } catch (err) {
+      return;
+    }
+
+    url.searchParams.set('sort_by', select.value);
+    url.searchParams.delete('page');
+    window.location.assign(url.toString());
+  });
+})();

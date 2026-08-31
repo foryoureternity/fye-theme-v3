@@ -878,16 +878,22 @@
   margin-top: var(--s2);
 }
 
-/* ONE COLUMN inside the tile: the mark sits ABOVE the text, per Ed
-   31/08/2026. Explicit rows rather than auto-placement so the fee can be
-   pinned to row 4 whether or not a tile has one. */
+/* SQUARE TILES — Ed, 31/08/2026. aspect-ratio rather than a fixed height, so
+   the three stay square at any buy-box width. It is a floor, not a cap: a
+   tile whose copy needs more room grows taller rather than clipping, because
+   min-content height wins over the ratio.
+
+   ONE COLUMN inside the tile: the mark sits ABOVE the text. Explicit rows
+   rather than auto-placement so the fee can be pinned to row 4 whether or not
+   a tile has one. */
 .fye .pdp__mode {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   grid-template-rows: auto auto auto 1fr;
   row-gap: var(--s1);
+  aspect-ratio: 1;
   min-height: 44px;
-  padding: var(--s3) var(--s4) var(--s4);
+  padding: var(--s4);
   border: 1px solid var(--line);
   background: var(--white);
   text-align: start;
@@ -907,20 +913,23 @@
   border-color: var(--line-strong);
 }
 
-/* The selection mark. SQUARED, per Ed 31/08/2026 — so it obeys the brand's
-   --radius: 0 rule like everything else, and an earlier round circle is gone.
+/* The selection mark. A CIRCLE, per Ed 31/08/2026 — a deliberate departure
+   from the brand's --radius: 0 rule (conventions §9 asks for these to be
+   stated), because a circle is the one shape that reads as "choose one of
+   these" without a label. The TILE is square; only the mark is round.
+
    It is a signpost only: the tiles are role="radio" inside a role="radiogroup"
    and the mark is aria-hidden, so assistive tech reads the state off
-   aria-checked and never off this.
-
-   16px is below the 44px touch minimum, which is legitimate here because the
-   mark is decorative and the whole tile is the hit area. */
+   aria-checked and never off this. 16px is below the 44px touch minimum,
+   which is legitimate because the mark is decorative and the whole tile is
+   the hit area. */
 .fye .pdp__radio {
   grid-area: 1 / 1;
   width: 16px;
   height: 16px;
   margin-block-end: var(--s1);
   border: 1px solid var(--sage-grey);
+  border-radius: 50%;
   background: var(--white);
   transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
 }
@@ -951,8 +960,8 @@
   text-wrap: pretty;
 }
 
-/* Row 4 takes the slack, so the fee sits at the foot of its tile and the
-   three tiles stay the same height however long each explanation runs. */
+/* Row 4 takes the slack, so the fee sits at the foot of the square whatever
+   length the explanation above it runs to. */
 .fye .pdp__modefee {
   grid-area: 4 / 1;
   align-self: end;
@@ -1378,12 +1387,16 @@
 
   /* Three tiles across a phone leaves ~100px each, which cannot hold a title
      and a line of explanation. Stacking is the same markup, one column — not
-     a second copy (conventions §3). */
+     a second copy (conventions §3).
+
+     The square goes with it: a full-width tile squared would be a ~330px
+     block holding three short lines. */
   .fye .pdp__modes {
     grid-template-columns: minmax(0, 1fr);
   }
 
   .fye .pdp__mode {
+    aspect-ratio: auto;
     grid-template-rows: auto auto auto auto;
   }
 

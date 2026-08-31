@@ -16,6 +16,14 @@
   it, and does NOT rebuild a facet form. If xCloud is ever removed, the filter
   UI has to be designed, not recovered.
 
+  xCLOUD HAS TWO INJECTION POINTS, and only one of them is wanted:
+    #cloud_search_filters_sidebar  the rail. We place this one, in the aside.
+    #cloud_search_filters_root     a horizontal chip bar plus a "Filter" link,
+                                   injected by the app on its own initiative,
+                                   outside our markup. Hidden — see the
+                                   stylesheet. Live suppresses it too and keeps
+                                   filtering in the rail.
+
   THE MOUNT POINT IS NOT ENOUGH ON ITS OWN. xCloud arrives as an APP EMBED,
   which is stored in config/settings_data.json — a file Shopify auto-generates.
   A newly created theme has no app embeds enabled, so the div renders and stays
@@ -125,9 +133,9 @@
             {%- endif -%}
 
             {%- comment -%}
-              xCloud's mount point. Empty on purpose — the app fills it. The id
-              is load-bearing and must not be renamed or wrapped in a way that
-              changes it.
+              xCloud's rail mount point. Empty on purpose — the app fills it.
+              The id is load-bearing and must not be renamed or wrapped in a
+              way that changes it.
             {%- endcomment -%}
             <div id="cloud_search_filters_sidebar"></div>
 
@@ -242,31 +250,48 @@
 {%- endpaginate -%}
 
 {% stylesheet %}
-/* This section always follows the collection masthead, which carries its own
-   bottom padding — at the full --sect-y the grid started 120px below the teal
-   band. Live gives this section a top margin of 0 for the same reason. Sets
-   the token, never a padding declaration. */
-.fye .coll {
-  --sect-y: var(--s8);
+/* xCLOUD'S HORIZONTAL CHIP BAR — hidden on purpose.
+   The app injects #cloud_search_filters_root above the page content on its own
+   initiative: a "Filter" link plus a row of filter-name chips. We only want the
+   rail, so it goes. Live suppresses it as well.
+
+   Two departures from conventions.md, both deliberate:
+     · the selector is not `.fye`-prefixed as well as prefixed, it is BOTH —
+       the app injects outside our wrapper, the same reason the .visually-hidden
+       rule in fye-core.css is written twice;
+     · it targets a third-party class we do not own. There is no alternative
+       hook; the markup is not ours to add a class to. If xCloud renames it the
+       bar reappears rather than the page breaking, which is the safe failure.
+
+   Hiding it does NOT cost the mobile filter affordance: the rail's own
+   <details> summary is the mobile trigger. */
+.cloud-search-page-controls,
+.fye .cloud-search-page-controls {
+  display: none;
 }
 
-/* THE ROW HEIGHT, DECLARED ONCE.
-   The rail head and the toolbar are one row across two columns; their
-   hairlines only line up if both boxes resolve to the same height.
-
-   Do NOT do this by asserting `min-height: 44px` on both. That was the first
-   attempt and it was 22px out, because box-sizing is border-box: on the rail
-   head, min-height INCLUDES the 20px padding, so the box was 44px total; the
-   toolbar meanwhile grew past its min-height because the <select> renders 45px
-   intrinsically, giving 45 + 20 + 1 = 66px. Two boxes both claiming "44px",
-   nowhere near each other.
-
-   So: one variable sets the row's content height, the select is pinned to it
-   rather than left to its intrinsic size, and the rail head asks for that
-   height PLUS its own padding. Both then resolve to
-   --coll-row + --s5 + 1px border. */
+/* This section always follows the collection masthead, which collapses this
+   band's top padding via a :has() rule in fye-collection-intro. --sect-y is
+   still reduced here for the case where the masthead is absent. Sets the
+   token, never a padding declaration. */
 .fye .coll {
-  --coll-row: 44px;   /* the touch-target minimum; also the sort control */
+  --sect-y: var(--s8);
+
+  /* THE ROW HEIGHT, DECLARED ONCE.
+     The rail head and the toolbar are one row across two columns; their
+     hairlines only line up if both boxes resolve to the same height.
+
+     Do NOT do this by asserting `min-height: 44px` on both. That was the first
+     attempt and it was 22px out, because box-sizing is border-box: on the rail
+     head, min-height INCLUDES the 20px padding, so the box was 44px total; the
+     toolbar meanwhile grew past its min-height because the <select> renders
+     45px intrinsically, giving 45 + 20 + 1 = 66px. Two boxes both claiming
+     "44px", nowhere near each other.
+
+     So: one variable sets the row's content height, the select is pinned to it
+     rather than left to its intrinsic size, and the rail head asks for that
+     height PLUS its own padding. */
+  --coll-row: 44px;
 }
 
 .fye .coll__layout {
@@ -606,7 +631,7 @@
     { "type": "header", "content": "Filter rail" },
     {
       "type": "paragraph",
-      "content": "The filters themselves come from the xCloud app embed. If the rail is empty, enable that embed in the App embeds panel — it is not part of this section."
+      "content": "The filters themselves come from the xCloud app embed. If the rail is empty, enable that embed in the App embeds panel — it is not part of this section. The app's own horizontal filter bar is hidden by this section on purpose."
     },
     {
       "type": "checkbox",

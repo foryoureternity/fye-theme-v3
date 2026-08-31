@@ -517,3 +517,89 @@
     boot();
   }
 })();
+
+
+/* ============================================================================
+   PRODUCT VARIANTS — 31/08/2026
+   Keeps the buy box honest when the size changes.
+
+   A plain wedding ring is priced by size: 70 variants, A to Z+9.5, each a few
+   pounds more than the last. So the selected price, the SKU and the hidden
+   variant id all have to follow the dropdown. Without this the page shows
+   size A's price whatever you pick, and adds size A to the bag.
+
+   Reads the variant list from a JSON data island the section renders
+   (data-fye-variants) rather than fetching it — same pattern as the chapter
+   nav. Only id, title, price, sku and availability are in there, which keeps
+   it small even at 70 variants.
+
+   Delegated from document, so a section re-render in the theme editor keeps
+   working. Inert on any page without the island.
+
+   NOTE: this does not touch the URL. Shopify's ?variant= parameter matters for
+   sharing and for analytics, and adding it is a deliberate next step rather
+   than an oversight — it wants testing against the app filters that already
+   own the query string elsewhere on this site.
+   ========================================================================== */
+(function productVariants() {
+  function moneyFormat() {
+    /* Shopify's money format is not exposed to JS without a Liquid handoff, so
+       format here to the store's actual convention: £ and two decimals. If the
+       store ever sells in a second currency this needs the real format string
+       passed in from Liquid rather than a hardcoded symbol. */
+    return function (pennies) {
+      return '£' + (pennies / 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    };
+  }
+
+  var money = moneyFormat();
+
+  function update(form) {
+    var island = form.querySelector('[data-fye-variants]');
+    if (!island) return;
+
+    var variants;
+    try {
+      variants = JSON.parse(island.textContent);
+    } catch (e) {
+      return;
+    }
+
+    /* One option on these products (Ring Size), but read them all so the same
+       code serves a two- or three-option product later. */
+    var chosen = Array.prototype.map.call(
+      form.querySelectorAll('[data-fye-option]'),
+      function (select) { return select.value; }
+    ).join(' / ');
+
+    var match = null;
+    variants.forEach(function (v) {
+      if (v.title === chosen) match = v;
+    });
+    if (!match) return;
+
+    var id = form.querySelector('[data-fye-variant-id]');
+    if (id) id.value = match.id;
+
+    var price = form.querySelector('[data-fye-price]');
+    if (price) price.textContent = money(match.price);
+
+    /* The SKU sits outside the form, in the meta block. */
+    var sku = document.querySelector('[data-fye-sku]');
+    if (sku && match.sku) sku.textContent = match.sku;
+
+    var atc = form.querySelector('[data-fye-atc]');
+    if (atc) {
+      atc.disabled = !match.available;
+      atc.textContent = match.available ? atc.getAttribute('data-label') || atc.textContent : 'Made to order — enquire';
+    }
+  }
+
+  document.addEventListener('change', function (e) {
+    var select = e.target.closest ? e.target.closest('[data-fye-option]') : null;
+    if (!select) return;
+
+    var form = select.closest('form');
+    if (form) update(form);
+  });
+})();

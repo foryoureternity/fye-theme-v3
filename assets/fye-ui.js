@@ -521,11 +521,13 @@
 
 
 /* ============================================================================
-   PRODUCT GALLERY, ENGRAVING AND CART — 31/08/2026
-   Replaces the variant block above it; that earlier version handled the size
-   dropdown only and is superseded by update() here.
-
-   Three behaviours, one file, all delegated from document:
+   PRODUCT GALLERY, ENGRAVING, STONE CHOOSERS AND CART — 31/08/2026
+   ----------------------------------------------------------------------------
+   Five behaviours, one block, because they all read and write the same buy box
+   and the PRICE has to be computed in one place. Splitting them into separate
+   IIFEs would mean either duplicating the price maths or inventing a shared
+   global, and the first version of this file already proved that the moment
+   two things compute a price they disagree.
 
    1. GALLERY. Thumbnails switch stage panels. The 360 panel loads Sirv's
       script the first time it is opened and never again — live loads it on
@@ -537,24 +539,64 @@
       line-item properties out of the form post — a disabled field is not
       submitted, so "No" cannot leave an empty Engraving property on the order.
 
-   3. ADD TO CART. Shopify cannot post two line items from one product form,
-      and the £55 engraving fee is a separate hidden product. So when engraving
-      is on, the submit is intercepted and both lines go through /cart/add.js
-      in one request. Without engraving the form posts normally and no JS is
-      involved — the page still works with JS disabled, minus the fee, which is
-      why the fee line is the thing that forces the interception rather than
-      something bolted on afterwards.
+   3. STONE CHOOSERS. The centre-diamond and side-diamond panels. Mode tiles,
+      the picker modal, and the chosen stone.
+
+   4. PRICE AND THE ADD BUTTON. One render() computes
+         ring variant  (+10% if oversize)  + engraving + centre + sides
+      and one requirement() decides whether the button can be pressed at all.
+
+   5. ADD TO CART. Up to five lines through one /cart/add.js call.
+
+   ── STATE LIVES IN THE DOM ────────────────────────────────────────────────
+
+   Deliberately. `data-mode` on each chooser, `data-stone` for the chosen
+   diamond, `.is-on` for the chosen chip. No state object, so a section
+   re-render in the theme editor cannot leave this block pointing at elements
+   that no longer exist, and every handler can stay delegated from document.
+
+   ── NOTHING IS SELECTED BY DEFAULT ────────────────────────────────────────
+
+   Ed, 31/08/2026. So the button is BLOCKED until every rendered chooser has a
+   mode, plus a stone where the mode needs one and a ticked waiver where the
+   mode needs one. requirement() below is the single place that decides; its
+   message is what the button says, so the shopper is never staring at a dead
+   control with no explanation.
+
+   With JavaScript off, the form posts the ring alone at the variant price —
+   no add-ons, no fee lines. That is a degraded page, not a wrong order: every
+   add-on is a separate line that simply never gets added.
    ========================================================================== */
 (function productPage() {
   var SIRV = 'https://scripts.sirv.com/sirvjs/v3/sirv.js';
+
+  /* Feed paging and carat-window limits. Both are live's, and both exist
+     because of hard Shopify behaviour rather than taste — see the comments at
+     caratParams() and fetchOrigin(). */
+  var CARAT_STEP_CAP = 150;
+  var FEED_PAGE_CAP = 10;
+  var REVEAL_SIZE = 30;
+
+  var COLOURS = ['D', 'E', 'F', 'G', 'H', 'I', 'J'];
+  var CLARITIES = ['FL', 'IF', 'VVS1', 'VVS2', 'VS1', 'VS2'];
 
   function money(pennies) {
     return '£' + (pennies / 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
 
+  function shortMoney(pennies) {
+    return '£' + Math.round((Number(pennies) || 0) / 100).toLocaleString('en-GB');
+  }
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (ch) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch];
+    });
+  }
+
   /* ---- gallery ---------------------------------------------------------- */
 
-  function loadSirv(panel) {
+  function loadSirv() {
     if (window.__fyeSirvLoaded) {
       if (window.Sirv && window.Sirv.start) window.Sirv.start();
       return;
@@ -571,7 +613,7 @@
     gallery.querySelectorAll('[data-fye-panel]').forEach(function (panel) {
       var on = panel.getAttribute('data-fye-panel') === key;
       panel.classList.toggle('is-on', on);
-      if (on && panel.querySelector('[data-fye-spin]')) loadSirv(panel);
+      if (on && panel.querySelector('[data-fye-spin]')) loadSirv();
     });
 
     gallery.querySelectorAll('[data-fye-thumb]').forEach(function (thumb) {
@@ -610,6 +652,513 @@
     return parseInt(block.getAttribute('data-fee-price'), 10) || 0;
   }
 
+  /* ---- choosers: reading state -----------------------------------------
+     Every question below is answered off the DOM, so there is one source of
+     truth and no object to keep in step. */
+
+  function centreOf(form) { return form.querySelector('[data-fye-centre]'); }
+  function sidesOf(form) { return form.querySelector('[data-fye-sides]'); }
+
+  function modeOf(panel) {
+    return panel ? (panel.getAttribute('data-mode') || '') : '';
+  }
+
+  function feePrice(panel) {
+    return panel ? (parseInt(panel.getAttribute('data-fee-price'), 10) || 0) : 0;
+  }
+
+  function feeVariant(panel) {
+    return panel ? (panel.getAttribute('data-fee-variant') || '').trim() : '';
+  }
+
+  function stoneOf(panel) {
+    if (!panel) return null;
+    var raw = panel.getAttribute('data-stone');
+    if (!raw) return null;
+    try {
+      return JSON.parse(raw);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function chosenChip(panel) {
+    return panel ? panel.querySelector('[data-fye-side-qual].is-on') : null;
+  }
+
+  function waiverOf(panel, kind) {
+    return panel ? panel.querySelector('[data-fye-' + kind + '-waiver]') : null;
+  }
+
+  /* What each chooser adds to the price. Required mode charges for the stone
+     itself; supplied mode charges the setting fee; none charges nothing. */
+  function centreAddOn(form) {
+    var panel = centreOf(form);
+    var mode = modeOf(panel);
+    if (mode === 'supplied') return feePrice(panel);
+    if (mode !== 'required') return 0;
+    var stone = stoneOf(panel);
+    return stone ? (Number(stone.price) || 0) : 0;
+  }
+
+  function sidesAddOn(form) {
+    var panel = sidesOf(form);
+    var mode = modeOf(panel);
+    if (mode === 'supplied') return feePrice(panel);
+    if (mode !== 'required') return 0;
+    var chip = chosenChip(panel);
+    return chip ? (parseInt(chip.getAttribute('data-fye-side-price'), 10) || 0) : 0;
+  }
+
+  /* ---- choosers: setting a mode ----------------------------------------
+     Shows the matching body, hides the others, and — the part that actually
+     matters for the order — enables exactly the hidden inputs that belong to
+     the chosen mode. A disabled field is not submitted, which is how a mode
+     nobody picked leaves no trace on the order. */
+
+  function setMode(panel, kind, mode) {
+    panel.setAttribute('data-mode', mode);
+
+    panel.querySelectorAll('[data-fye-' + kind + '-mode]').forEach(function (tile) {
+      var on = tile.getAttribute('data-fye-' + kind + '-mode') === mode;
+      tile.classList.toggle('is-on', on);
+      tile.setAttribute('aria-checked', on ? 'true' : 'false');
+    });
+
+    panel.querySelectorAll('[data-fye-' + kind + '-body]').forEach(function (body) {
+      body.hidden = body.getAttribute('data-fye-' + kind + '-body') !== mode;
+    });
+
+    /* The property that rides on the RING line. On "required" it is disabled,
+       because the stone travels as its own cart line and a property saying the
+       same thing twice is a contradiction waiting to happen. */
+    var prop = panel.querySelector('[data-fye-' + kind + '-prop]');
+    if (prop) {
+      if (mode === 'supplied') {
+        prop.value = kind === 'centre' ? "Customer's own diamond" : 'Supplied by customer';
+        prop.disabled = false;
+      } else if (mode === 'none') {
+        prop.value = kind === 'centre' ? 'Semi-mount only' : 'Mount only';
+        prop.disabled = false;
+      } else {
+        prop.value = '';
+        prop.disabled = true;
+      }
+    }
+
+    var service = panel.querySelector('[data-fye-' + kind + '-service]');
+    if (service) service.disabled = mode !== 'supplied';
+
+    var waiver = waiverOf(panel, kind);
+    if (waiver) {
+      waiver.disabled = mode !== 'supplied';
+      if (mode !== 'supplied') waiver.checked = false;
+    }
+
+    /* Leaving "required" does not throw the chosen stone away — coming back to
+       it should find the stone still there rather than making the shopper pick
+       again. It is only ever cleared by choosing another one. */
+    if (kind === 'centre' && mode === 'required') ensureStones(panel);
+  }
+
+  /* ---- choosers: the chosen stone summary ------------------------------ */
+
+  function paintStone(panel) {
+    var wrap = panel.querySelector('[data-fye-stone]');
+    var btn = panel.querySelector('[data-fye-picker-open]');
+    var stone = stoneOf(panel);
+    if (!wrap) return;
+
+    if (!stone) {
+      wrap.hidden = true;
+      wrap.innerHTML = '';
+      if (btn) btn.textContent = btn.getAttribute('data-label-choose') || btn.textContent;
+      return;
+    }
+
+    wrap.hidden = false;
+    wrap.innerHTML =
+      (stone.image
+        ? '<img class="pdp__stoneimg" src="' + esc(stone.image) + '" alt="" loading="lazy" width="64" height="64">'
+        : '<span class="pdp__stoneimg"></span>') +
+      '<span>' +
+        '<span class="pdp__stonename">' + esc(stoneTitle(stone)) + '</span><br>' +
+        '<span class="pdp__stonesub">' + esc(stoneSub(stone)) + '</span>' +
+      '</span>' +
+      '<span class="pdp__stoneprice">' + money(Number(stone.price) || 0) + '</span>';
+  }
+
+  function stoneTitle(d) {
+    return [d.shape, (d.carat ? d.carat + 'ct' : ''), d.colour, d.clarity]
+      .filter(Boolean).join(' ');
+  }
+
+  function stoneSub(d) {
+    var bits = [];
+    if (d.origin) bits.push(d.origin);
+    if (d.certLab) bits.push(d.certLab + ' certified');
+    return bits.join(' · ');
+  }
+
+  /* ---- the feed --------------------------------------------------------
+     One request per origin, both fired on the first open so the Natural /
+     Lab-grown toggle inside the modal needs no further network. Live's W029.
+
+     THE CARAT WINDOW IS NOT A RANGE QUERY. This store's metafield filters have
+     no range operator (.gte/.lte are price-only) and they silently ignore
+     trailing zeros — carat=0.30 returns nothing, carat=0.3 works. Repeated
+     params DO OR correctly, so the window travels as one param per 0.01ct
+     step. Past CARAT_STEP_CAP steps the URL stops being reasonable, so a wide
+     window skips the filter and relies on the page cap plus the client-side
+     check instead.
+
+     NO Accept HEADER. Shopify content-negotiates /collections/... and returns
+     the collection OBJECT json — ignoring ?view= — the moment one is sent. */
+
+  function trimCarat(n) {
+    return String(Math.round(n * 100) / 100)
+      .replace(/^(-?\d+\.\d*?)0+$/, '$1')
+      .replace(/\.$/, '');
+  }
+
+  function caratParams(panel) {
+    var lo = parseFloat(panel.getAttribute('data-carat-min'));
+    var hi = parseFloat(panel.getAttribute('data-carat-max'));
+    if (!(hi >= lo)) return '';
+    var steps = Math.round((hi - lo) * 100) + 1;
+    if (steps <= 0 || steps > CARAT_STEP_CAP) return '';
+    var out = '';
+    for (var i = 0; i < steps; i++) {
+      out += '&filter.p.m.fye.carat=' + encodeURIComponent(trimCarat(lo + i / 100));
+    }
+    return out;
+  }
+
+  function fetchOrigin(panel, handle, page, acc) {
+    page = page || 1;
+    acc = acc || [];
+    var url = '/collections/' + handle + '?view=cdc-json' + caratParams(panel) + '&page=' + page;
+
+    return fetch(url)
+      .then(function (r) {
+        if (!r.ok) throw new Error('feed ' + r.status);
+        return r.json();
+      })
+      .then(function (data) {
+        acc = acc.concat(data.diamonds || []);
+        if (data.page < data.pages && page < FEED_PAGE_CAP) {
+          return fetchOrigin(panel, handle, page + 1, acc);
+        }
+        return acc;
+      });
+  }
+
+  function caratOk(panel, d) {
+    var lo = parseFloat(panel.getAttribute('data-carat-min'));
+    var hi = parseFloat(panel.getAttribute('data-carat-max'));
+    if (isNaN(lo) || isNaN(hi)) return true;
+    var n = Number(d.carat);
+    return n >= lo && n <= hi;
+  }
+
+  function ensureStones(panel) {
+    if (panel.__fyeStones || panel.__fyeLoading) return;
+    panel.__fyeLoading = true;
+
+    var natural = panel.getAttribute('data-feed-natural');
+    var lab = panel.getAttribute('data-feed-lab');
+    var state = panel.querySelector('[data-fye-stone-state]');
+
+    Promise.all([
+      fetchOrigin(panel, natural).catch(function () { return []; }),
+      fetchOrigin(panel, lab).catch(function () { return []; })
+    ]).then(function (both) {
+      var all = both[0].concat(both[1]).filter(function (d) {
+        return d && d.variantId && d.available !== false && caratOk(panel, d);
+      });
+
+      panel.__fyeStones = all;
+      panel.__fyeLoading = false;
+
+      var btn = panel.querySelector('[data-fye-picker-open]');
+      var help = panel.querySelector('[data-fye-stone-help]');
+
+      if (!all.length) {
+        /* An empty feed is not a broken page: the enquiry route is the answer,
+           and the button stays hidden rather than opening onto nothing. */
+        if (state) state.textContent = 'We have no matching stones in stock at the moment.';
+        if (help) help.hidden = false;
+        return;
+      }
+
+      if (state) {
+        state.textContent = all.length === 1
+          ? '1 diamond suits this setting.'
+          : all.length + ' diamonds suit this setting.';
+      }
+      if (btn) btn.hidden = false;
+      if (help) help.hidden = false;
+      initRanges(panel, all);
+    });
+  }
+
+  /* ---- the picker: filter state ---------------------------------------- */
+
+  function pk(panel) {
+    if (!panel.__fyePk) {
+      panel.__fyePk = {
+        type: 'natural',      /* Ed, 31/08/2026 — Natural opens first */
+        colours: [],
+        clarities: [],
+        certs: [],
+        ctMin: 0, ctMax: 0,
+        pMin: 0, pMax: 0,
+        sort: 'price-asc',
+        pages: 1,
+        sel: null
+      };
+    }
+    return panel.__fyePk;
+  }
+
+  function bounds(list, get) {
+    var lo = Infinity, hi = -Infinity;
+    list.forEach(function (d) {
+      var v = get(d);
+      if (v < lo) lo = v;
+      if (v > hi) hi = v;
+    });
+    if (lo === Infinity) { lo = 0; hi = 0; }
+    return [lo, hi];
+  }
+
+  /* Two range inputs sharing one grid cell make a dual-range without a
+     library. Bounds come from the stones actually returned, not from the
+     ring's window, so the handles always have somewhere to go. */
+  function initRanges(panel, list) {
+    var st = pk(panel);
+    var ct = bounds(list, function (d) { return Number(d.carat) || 0; });
+    var pr = bounds(list, function (d) { return Number(d.price) || 0; });
+
+    st.ctMin = ct[0]; st.ctMax = ct[1];
+    st.pMin = pr[0]; st.pMax = pr[1];
+
+    setRange(panel, 'ct', ct[0], ct[1], 0.01, ct[0], ct[1]);
+    setRange(panel, 'price', pr[0], pr[1], 1000, pr[0], pr[1]);
+    paintRangeLabels(panel);
+  }
+
+  function setRange(panel, key, min, max, step, lo, hi) {
+    var wrap = panel.querySelector('[data-fye-range="' + key + '"]');
+    if (!wrap) return;
+    var a = wrap.querySelector('[data-fye-range-min]');
+    var b = wrap.querySelector('[data-fye-range-max]');
+    [a, b].forEach(function (input) {
+      if (!input) return;
+      input.min = min;
+      input.max = max;
+      input.step = step;
+    });
+    if (a) a.value = lo;
+    if (b) b.value = hi;
+  }
+
+  function paintRangeLabels(panel) {
+    var st = pk(panel);
+    var ctLbl = panel.querySelector('[data-fye-ct-label]');
+    var pLbl = panel.querySelector('[data-fye-price-label]');
+    if (ctLbl) ctLbl.textContent = st.ctMin.toFixed(2) + '–' + st.ctMax.toFixed(2) + 'ct';
+    if (pLbl) pLbl.textContent = shortMoney(st.pMin) + '–' + shortMoney(st.pMax);
+  }
+
+  function matches(panel, d) {
+    var st = pk(panel);
+    var isLab = /lab/i.test(String(d.origin || ''));
+    if (st.type === 'natural' && isLab) return false;
+    if (st.type === 'lab' && !isLab) return false;
+
+    var colour = String(d.colour || '').toUpperCase();
+    var clarity = String(d.clarity || '').toUpperCase();
+    var cert = String(d.certLab || '').toUpperCase();
+
+    if (st.colours.length && st.colours.indexOf(colour) < 0) return false;
+    if (st.clarities.length && st.clarities.indexOf(clarity) < 0) return false;
+    if (st.certs.length && st.certs.indexOf(cert) < 0) return false;
+
+    var ct = Number(d.carat) || 0;
+    if (ct < st.ctMin - 0.001 || ct > st.ctMax + 0.001) return false;
+
+    var p = Number(d.price) || 0;
+    if (p < st.pMin || p > st.pMax) return false;
+
+    return true;
+  }
+
+  function rank(d, key) {
+    if (key === 'colour') {
+      var ci = COLOURS.indexOf(String(d.colour || '').toUpperCase());
+      return ci < 0 ? COLOURS.length : ci;
+    }
+    if (key === 'clarity') {
+      var li = CLARITIES.indexOf(String(d.clarity || '').toUpperCase());
+      return li < 0 ? CLARITIES.length : li;
+    }
+    if (key === 'ct') return Number(d.carat) || 0;
+    return Number(d.price) || 0;
+  }
+
+  /* Deterministic "varied" reveal, from live: sort the filtered set by price,
+     split it into up to REVEAL_SIZE equal-width bands, then take the Nth
+     deepest stone from each. Page one is therefore one stone per band — the
+     whole price spread in 30 tiles rather than the 30 cheapest, which on a
+     15,000-stone feed all look the same. No randomness. */
+  function reveal(list, pages) {
+    var byPrice = list.slice().sort(function (a, b) {
+      return (Number(a.price) || 0) - (Number(b.price) || 0);
+    });
+    var n = byPrice.length;
+    var bandCount = Math.max(1, Math.min(REVEAL_SIZE, n));
+    var out = [];
+    var more = false;
+
+    for (var b = 0; b < bandCount; b++) {
+      var start = Math.floor(b * n / bandCount);
+      var end = Math.floor((b + 1) * n / bandCount);
+      var depth = end - start;
+      for (var p = 0; p < pages && p < depth; p++) out.push(byPrice[start + p]);
+      if (depth > pages) more = true;
+    }
+    return { list: out, more: more };
+  }
+
+  function paintPicker(panel) {
+    var st = pk(panel);
+    var all = panel.__fyeStones || [];
+    var results = panel.querySelector('[data-fye-picker-results]');
+    var count = panel.querySelector('[data-fye-picker-count]');
+    var moreBtn = panel.querySelector('[data-fye-picker-more]');
+    var confirm = panel.querySelector('[data-fye-picker-confirm]');
+    if (!results) return;
+
+    var filtered = all.filter(function (d) { return matches(panel, d); });
+    var rv = reveal(filtered, st.pages);
+
+    var key = st.sort.split('-')[0];
+    var dir = st.sort.split('-')[1] === 'desc' ? -1 : 1;
+    var shown = rv.list.slice().sort(function (a, b) {
+      return (rank(a, key) - rank(b, key)) * dir ||
+             (Number(a.price) || 0) - (Number(b.price) || 0);
+    });
+
+    if (count) {
+      count.textContent = filtered.length === 1
+        ? '1 stone matches'
+        : filtered.length + ' stones match';
+    }
+
+    if (!shown.length) {
+      results.innerHTML =
+        '<p class="pdp__stoneempty">No stones match those filters. ' +
+        'Widen the carat range or drop a filter.</p>';
+    } else {
+      results.innerHTML = shown.map(function (d) { return cardHtml(panel, d); }).join('');
+    }
+
+    if (moreBtn) moreBtn.hidden = !rv.more;
+    if (confirm) confirm.disabled = !st.sel;
+
+    panel.querySelectorAll('[data-fye-chip]').forEach(function (chip) {
+      var group = chip.getAttribute('data-fye-chip');
+      var val = chip.getAttribute('data-val');
+      chip.classList.toggle('is-on', st[group].indexOf(val) >= 0);
+    });
+
+    panel.querySelectorAll('[data-fye-stone-type]').forEach(function (btn) {
+      var on = btn.getAttribute('data-fye-stone-type') === st.type;
+      btn.classList.toggle('is-on', on);
+      btn.setAttribute('aria-checked', on ? 'true' : 'false');
+    });
+  }
+
+  function cardHtml(panel, d) {
+    var st = pk(panel);
+    var on = st.sel && String(st.sel) === String(d.variantId);
+    var isLab = /lab/i.test(String(d.origin || ''));
+
+    return '<button type="button" class="pdp__stonecard' + (on ? ' is-on' : '') + '" ' +
+      'data-fye-stone-pick="' + esc(d.variantId) + '">' +
+      '<span class="pdp__stonecardmedia">' +
+        (d.image ? '<img src="' + esc(d.image) + '" alt="" loading="lazy">' : '') +
+      '</span>' +
+      '<span class="pdp__stonecardbody">' +
+        (isLab ? '<span class="pdp__stoneflag">Lab-grown</span>' : '') +
+        '<span class="pdp__stonename">' + esc(stoneTitle(d)) + '</span>' +
+        '<span class="pdp__stonesub">' + esc(stoneSub(d)) + '</span>' +
+        '<span class="pdp__stoneprice">' + money(Number(d.price) || 0) + '</span>' +
+      '</span>' +
+    '</button>';
+  }
+
+  function openPicker(panel) {
+    var modal = panel.querySelector('[data-fye-picker]');
+    if (!modal) return;
+    pk(panel).sel = null;
+    modal.hidden = false;
+    document.documentElement.style.overflow = 'hidden';
+    paintPicker(panel);
+    var close = modal.querySelector('[data-fye-picker-close]');
+    if (close) close.focus();
+  }
+
+  function closePicker(panel) {
+    var modal = panel.querySelector('[data-fye-picker]');
+    if (!modal) return;
+    modal.hidden = true;
+    if (!document.querySelector('[data-fye-picker]:not([hidden])')) {
+      document.documentElement.style.overflow = '';
+    }
+    var opener = panel.querySelector('[data-fye-picker-open]');
+    if (opener) opener.focus();
+  }
+
+  /* ---- what the button is allowed to do -------------------------------
+     ONE place decides. Returns the first unmet requirement, so the button can
+     say what is missing instead of being mysteriously dead. `open` means the
+     shopper can act on it by pressing the button itself. */
+
+  function requirement(form) {
+    var centre = centreOf(form);
+    var sides = sidesOf(form);
+
+    if (centre) {
+      var cm = modeOf(centre);
+      if (!cm) return { label: 'Choose your centre diamond option', block: true };
+      if (cm === 'required' && !stoneOf(centre)) {
+        return { label: 'Choose centre diamond', open: centre };
+      }
+      if (cm === 'supplied') {
+        var cw = waiverOf(centre, 'centre');
+        if (cw && !cw.checked) return { label: 'Accept the setting waiver', block: true };
+      }
+    }
+
+    if (sides) {
+      var sm = modeOf(sides);
+      if (!sm) return { label: 'Choose your side diamond option', block: true };
+      if (sm === 'required' && !chosenChip(sides)) {
+        return { label: 'Choose a side diamond quality', block: true };
+      }
+      if (sm === 'supplied') {
+        var sw = waiverOf(sides, 'sides');
+        if (sw && !sw.checked) return { label: 'Accept the setting waiver', block: true };
+      }
+    }
+
+    return null;
+  }
+
+  /* ---- render ---------------------------------------------------------- */
+
   function render(form) {
     var v = chosenVariant(form);
     if (!v) return;
@@ -617,29 +1166,170 @@
     var id = form.querySelector('[data-fye-variant-id]');
     if (id) id.value = v.id;
 
-    var price = form.querySelector('[data-fye-price]');
-    var over = form.querySelector("[data-fye-surcharge]");
+    var over = form.querySelector('[data-fye-surcharge]');
     var mul = over && !over.disabled ? 1.1 : 1;
-    if (price) price.textContent = money(Math.round(v.price * mul) + engraveFee(form));
+
+    /* The oversize surcharge is taken on the RING LINE ONLY — every add-on
+       travels as its own unflagged cart line and is not surcharged. Taking it
+       on the total here would make the page disagree with the cart. */
+    var base = Math.round(v.price * mul);
+    var total = base + engraveFee(form) + centreAddOn(form) + sidesAddOn(form);
+
+    var price = form.querySelector('[data-fye-price]');
+    if (price) price.textContent = money(total);
 
     var sku = document.querySelector('[data-fye-sku]');
     if (sku && v.sku) sku.textContent = v.sku;
 
     var atc = form.querySelector('[data-fye-atc]');
-    if (atc) atc.disabled = !v.available;
+    if (!atc) return;
+
+    if (!atc.getAttribute('data-label-default')) {
+      atc.setAttribute('data-label-default', atc.textContent.trim());
+    }
+
+    var need = requirement(form);
+    if (!v.available) {
+      atc.disabled = true;
+      atc.textContent = atc.getAttribute('data-label-default');
+    } else if (need) {
+      atc.disabled = !!need.block;
+      atc.textContent = need.label;
+    } else {
+      atc.disabled = false;
+      atc.textContent = atc.getAttribute('data-label-default');
+    }
+  }
+
+  function renderForm(el) {
+    var form = el.closest ? el.closest('form') : null;
+    if (form) render(form);
   }
 
   /* ---- events ----------------------------------------------------------- */
 
   document.addEventListener('click', function (e) {
-    var thumb = e.target.closest ? e.target.closest('[data-fye-thumb]') : null;
+    if (!e.target.closest) return;
+
+    /* gallery */
+    var thumb = e.target.closest('[data-fye-thumb]');
     if (thumb) {
       var gallery = thumb.closest('[data-fye-gallery]');
       if (gallery) showPanel(gallery, thumb.getAttribute('data-fye-thumb'));
       return;
     }
 
-    var seg = e.target.closest ? e.target.closest('[data-fye-engrave-set]') : null;
+    /* chooser mode tiles */
+    var tile = e.target.closest('[data-fye-centre-mode], [data-fye-sides-mode]');
+    if (tile) {
+      var isCentre = tile.hasAttribute('data-fye-centre-mode');
+      var kind = isCentre ? 'centre' : 'sides';
+      var panel = tile.closest('[data-fye-' + kind + ']');
+      if (panel) {
+        setMode(panel, kind, tile.getAttribute('data-fye-' + kind + '-mode'));
+        if (isCentre) paintStone(panel);
+        renderForm(panel);
+      }
+      return;
+    }
+
+    /* side-diamond quality chips */
+    var sideChip = e.target.closest('[data-fye-side-qual]');
+    if (sideChip) {
+      var sidesPanel = sideChip.closest('[data-fye-sides]');
+      if (sidesPanel) {
+        sidesPanel.querySelectorAll('[data-fye-side-qual]').forEach(function (c) {
+          var on = c === sideChip;
+          c.classList.toggle('is-on', on);
+          c.setAttribute('aria-checked', on ? 'true' : 'false');
+        });
+        renderForm(sidesPanel);
+      }
+      return;
+    }
+
+    /* picker: open, close, filters, pick, confirm */
+    var openBtn = e.target.closest('[data-fye-picker-open]');
+    if (openBtn) {
+      var op = openBtn.closest('[data-fye-centre]');
+      if (op) openPicker(op);
+      return;
+    }
+
+    var closeBtn = e.target.closest('[data-fye-picker-close]');
+    if (closeBtn) {
+      var cp = closeBtn.closest('[data-fye-centre]');
+      if (cp) closePicker(cp);
+      return;
+    }
+
+    var typeBtn = e.target.closest('[data-fye-stone-type]');
+    if (typeBtn) {
+      var tp = typeBtn.closest('[data-fye-centre]');
+      if (tp) {
+        pk(tp).type = typeBtn.getAttribute('data-fye-stone-type');
+        pk(tp).pages = 1;
+        paintPicker(tp);
+      }
+      return;
+    }
+
+    var filterChip = e.target.closest('[data-fye-chip]');
+    if (filterChip) {
+      var fp = filterChip.closest('[data-fye-centre]');
+      if (fp) {
+        var st = pk(fp);
+        var group = filterChip.getAttribute('data-fye-chip');
+        var val = filterChip.getAttribute('data-val');
+        var at = st[group].indexOf(val);
+        if (at < 0) st[group].push(val);
+        else st[group].splice(at, 1);
+        st.pages = 1;
+        paintPicker(fp);
+      }
+      return;
+    }
+
+    var pick = e.target.closest('[data-fye-stone-pick]');
+    if (pick) {
+      var pp = pick.closest('[data-fye-centre]');
+      if (pp) {
+        pk(pp).sel = pick.getAttribute('data-fye-stone-pick');
+        paintPicker(pp);
+      }
+      return;
+    }
+
+    var moreBtn = e.target.closest('[data-fye-picker-more]');
+    if (moreBtn) {
+      var mp = moreBtn.closest('[data-fye-centre]');
+      if (mp) {
+        pk(mp).pages += 1;
+        paintPicker(mp);
+      }
+      return;
+    }
+
+    var confirmBtn = e.target.closest('[data-fye-picker-confirm]');
+    if (confirmBtn) {
+      var xp = confirmBtn.closest('[data-fye-centre]');
+      if (xp) {
+        var sel = pk(xp).sel;
+        var found = (xp.__fyeStones || []).filter(function (d) {
+          return String(d.variantId) === String(sel);
+        })[0];
+        if (found) {
+          xp.setAttribute('data-stone', JSON.stringify(found));
+          paintStone(xp);
+          closePicker(xp);
+          renderForm(xp);
+        }
+      }
+      return;
+    }
+
+    /* engraving */
+    var seg = e.target.closest('[data-fye-engrave-set]');
     if (!seg) return;
 
     var block = seg.closest('[data-fye-engrave]');
@@ -669,62 +1359,179 @@
       if (text) text.focus();
     }
 
-    var form = block.closest('form');
-    if (form) render(form);
+    renderForm(block);
   });
 
   document.addEventListener('input', function (e) {
-    var text = e.target.closest ? e.target.closest('[data-fye-engrave-text]') : null;
-    if (!text) return;
+    if (!e.target.closest) return;
 
-    var block = text.closest('[data-fye-engrave]');
-    var count = block && block.querySelector('[data-fye-engrave-count]');
-    if (count) count.textContent = text.value.length + '/' + (text.getAttribute('maxlength') || '');
+    var text = e.target.closest('[data-fye-engrave-text]');
+    if (text) {
+      var block = text.closest('[data-fye-engrave]');
+      var count = block && block.querySelector('[data-fye-engrave-count]');
+      if (count) {
+        count.textContent = text.value.length + '/' + (text.getAttribute('maxlength') || '');
+      }
+      return;
+    }
+
+    /* Dual ranges. The two handles share a track, so each pushes the other
+       rather than crossing it — a min above the max would filter everything
+       out and read as a broken picker. */
+    var range = e.target.closest('[data-fye-range] input');
+    if (range) {
+      var wrap = range.closest('[data-fye-range]');
+      var panel = range.closest('[data-fye-centre]');
+      if (!wrap || !panel) return;
+
+      var key = wrap.getAttribute('data-fye-range');
+      var a = wrap.querySelector('[data-fye-range-min]');
+      var b = wrap.querySelector('[data-fye-range-max]');
+      var lo = parseFloat(a.value);
+      var hi = parseFloat(b.value);
+
+      if (lo > hi) {
+        if (range === a) { lo = hi; a.value = hi; }
+        else { hi = lo; b.value = lo; }
+      }
+
+      var st = pk(panel);
+      if (key === 'ct') { st.ctMin = lo; st.ctMax = hi; }
+      else { st.pMin = lo; st.pMax = hi; }
+
+      st.pages = 1;
+      paintRangeLabels(panel);
+      paintPicker(panel);
+    }
   });
 
   document.addEventListener('change', function (e) {
-    var option = e.target.closest ? e.target.closest('[data-fye-option]') : null;
-    if (!option) return;
-    var form = option.closest('form');
-    if (form) render(form);
+    if (!e.target.closest) return;
+
+    var option = e.target.closest('[data-fye-option]');
+    if (option) {
+      renderForm(option);
+      return;
+    }
+
+    var sortSel = e.target.closest('[data-fye-picker-sort]');
+    if (sortSel) {
+      var sp = sortSel.closest('[data-fye-centre]');
+      if (sp) {
+        pk(sp).sort = sortSel.value;
+        paintPicker(sp);
+      }
+      return;
+    }
+
+    /* Ticking a waiver can unblock the button, so it has to re-render. */
+    var waiver = e.target.closest('[data-fye-centre-waiver], [data-fye-sides-waiver]');
+    if (waiver) renderForm(waiver);
   });
 
-  /* ---- submit: two lines when engraving is on --------------------------- */
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    var open = document.querySelectorAll('[data-fye-picker]:not([hidden])');
+    for (var i = 0; i < open.length; i++) {
+      var panel = open[i].closest('[data-fye-centre]');
+      if (panel) closePicker(panel);
+    }
+  });
+
+  /* ---- submit: up to five lines ----------------------------------------
+     Shopify cannot post more than one line item from a product form, and every
+     add-on here IS a separate line. So the submit is intercepted whenever
+     there is anything to add, and everything goes in one /cart/add.js call —
+     one request, so a half-added order is not possible.
+
+     With no add-ons the form posts normally and no JS is involved. */
+
+  function ringProps(form) {
+    var props = {};
+    form.querySelectorAll('[name^="properties["]').forEach(function (field) {
+      if (field.disabled) return;
+      if (field.type === 'checkbox' && !field.checked) return;
+      var name = field.getAttribute('name').replace(/^properties\[/, '').replace(/\]$/, '');
+      if (!field.value) return;
+      props[name] = field.value;
+    });
+    return props;
+  }
+
+  function addOnLines(form, ring) {
+    var lines = [];
+    var tag = { 'For ring': ring.title, 'Ring SKU': ring.sku || '' };
+
+    var block = form.querySelector('[data-fye-engrave]');
+    if (block && block.getAttribute('data-on') === 'yes') {
+      var engVariant = (block.getAttribute('data-fee-variant') || '').trim();
+      if (engVariant) lines.push({ id: parseInt(engVariant, 10), quantity: 1, properties: tag });
+    }
+
+    var centre = centreOf(form);
+    if (centre) {
+      var cm = modeOf(centre);
+      if (cm === 'required') {
+        var stone = stoneOf(centre);
+        if (stone) lines.push({ id: parseInt(stone.variantId, 10), quantity: 1, properties: tag });
+      } else if (cm === 'supplied') {
+        var cf = feeVariant(centre);
+        if (cf) lines.push({ id: parseInt(cf, 10), quantity: 1, properties: tag });
+      }
+    }
+
+    var sides = sidesOf(form);
+    if (sides) {
+      var sm = modeOf(sides);
+      if (sm === 'required') {
+        var chip = chosenChip(sides);
+        if (chip) {
+          lines.push({
+            id: parseInt(chip.getAttribute('data-fye-side-variant'), 10),
+            quantity: 1,
+            properties: tag
+          });
+        }
+      } else if (sm === 'supplied') {
+        var sf = feeVariant(sides);
+        if (sf) lines.push({ id: parseInt(sf, 10), quantity: 1, properties: tag });
+      }
+    }
+
+    return lines.filter(function (l) { return l.id; });
+  }
 
   document.addEventListener('submit', function (e) {
     var form = e.target;
     if (!form.querySelector || !form.querySelector('[data-fye-variants]')) return;
 
-    var block = form.querySelector('[data-fye-engrave]');
-    if (!block || block.getAttribute('data-on') !== 'yes') return; // plain post
-
-    var feeVariant = block.getAttribute('data-fee-variant');
-    if (!feeVariant) return;
-
     var v = chosenVariant(form);
     if (!v) return;
 
+    /* A missing requirement never reaches the cart. requirement() decides;
+       pressing the button when a stone is outstanding opens the picker
+       instead, because that is the thing the shopper needs to do next. */
+    var need = requirement(form);
+    if (need) {
+      e.preventDefault();
+      if (need.open) openPicker(need.open);
+      return;
+    }
+
+    var extras = addOnLines(form, v);
+    if (!extras.length) return; /* plain post — no JS needed */
+
     e.preventDefault();
-
-    var text = block.querySelector('[data-fye-engrave-text]');
-    var font = block.querySelector('[data-fye-engrave-font]');
-
-    var props = {};
-    if (text && text.value) props.Engraving = text.value;
-    if (font && font.value) props['Engraving font'] = font.value;
 
     var atc = form.querySelector('[data-fye-atc]');
     if (atc) atc.disabled = true;
 
+    var items = [{ id: v.id, quantity: 1, properties: ringProps(form) }].concat(extras);
+
     fetch('/cart/add.js', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        items: [
-          { id: v.id, quantity: 1, properties: props },
-          { id: parseInt(feeVariant, 10), quantity: 1 }
-        ]
-      })
+      body: JSON.stringify({ items: items })
     })
       .then(function (res) { return res.ok ? res.json() : Promise.reject(res); })
       .then(function () { window.location.href = '/cart'; })
@@ -734,6 +1541,25 @@
         if (atc) atc.disabled = false;
       });
   });
+
+  /* ---- first paint -----------------------------------------------------
+     The buy box renders from Liquid with nothing selected, so the only thing
+     needed on load is the button's state: a page with a chooser must not open
+     showing "Add to bag" when the order is incomplete. */
+
+  function boot() {
+    document.querySelectorAll('form [data-fye-variants]').forEach(function (island) {
+      var form = island.closest('form');
+      if (form) render(form);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+  document.addEventListener('shopify:section:load', boot);
 })();
 
 
@@ -793,8 +1619,8 @@
     var note = form.querySelector('[data-fye-surcharge-note]');
     if (note) note.hidden = !over;
 
-    var opt = form.querySelector("[data-fye-option]");
-    if (opt) opt.dispatchEvent(new Event("change", { bubbles: true }));
+    var opt = form.querySelector('[data-fye-option]');
+    if (opt) opt.dispatchEvent(new Event('change', { bubbles: true }));
   });
 })();
 

@@ -1,0 +1,601 @@
+{%- comment -%}
+  main-collection — the collection listing page.
+
+  Ported 31/08/2026 from the old theme's 56.8KB T4S section. Visual target:
+  design-system treatment with live's structure kept — the two-column
+  rail + grid, the toolbar above the grid, the bespoke tile in the grid, the
+  promo card under the filters. Sizing, type, spacing and colour follow
+  fye-core.css; none of live's own values were carried across.
+
+  THE FILTERS ARE NOT OURS. Live renders an empty
+  <div id="cloud_search_filters_sidebar"> and the xCloud app injects the entire
+  filter rail into it at runtime. The old section's native Shopify facet button
+  was hidden with inline CSS on every non-editor request, and `type_filters`
+  is "facets_tags", so no theme-rendered facet form has been on this page for
+  some time. This port keeps the mount point, styles what the app drops into
+  it, and does NOT rebuild a facet form. If xCloud is ever removed, the filter
+  UI has to be designed, not recovered.
+
+  Deliberately NOT ported, and why:
+    · product_des 1–9 (nine tile designs)  — one card, snippets/product-card
+    · layout_des grid/masonry              — masonry was never enabled
+    · list/grid view switch, items-per-row switcher — the markup was commented
+      out in live already; the `layout` block now renders the result count,
+      which is all it actually did
+    · load-more / infinite scroll          — live is on "default" pagination
+    · countdowns, vendors, colour + size swatches, quick view, compare,
+      the isotope and ajax stacks — none enabled on this store
+    · image_ratio / image_size / image_position — the card is square, sitewide
+  34 of the old section's settings are gone. Setting IDs that remain are
+  unchanged, so templates/collection.json needs no edit.
+
+  Block types ("layout", "filter", "sortby") keep their old names because the
+  JSON template references them. "layout" = the result count, "filter" = the
+  mobile rail toggle, "sortby" = the sort control.
+
+  Sorting is a real <select> that fye-ui.js submits on change (data-fye-sort).
+  It must navigate rather than GET-submit a form: xCloud keeps its active
+  filters in the query string, and a bare form would drop every one of them.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign cols = s.col_dk | default: '4'
+  assign cols_mb = s.col_mb | default: '2'
+  assign per_page = s.limit | default: 24
+
+  assign has_sort = false
+  assign has_count = false
+  assign has_filter = false
+  for block in section.blocks
+    case block.type
+      when 'sortby'
+        assign has_sort = true
+      when 'layout'
+        assign has_count = true
+      when 'filter'
+        assign has_filter = true
+    endcase
+  endfor
+
+  assign sort_current = collection.sort_by | default: collection.default_sort_by
+
+  assign show_promo = false
+  if s.fye_promo_heading != blank
+    assign show_promo = true
+  endif
+  assign promo_link = s.fye_promo_link | default: '/pages/contact-us'
+  assign tile_link = s.fye_tile_link | default: '/pages/create-your-own-ring'
+-%}
+
+{%- paginate collection.products by per_page -%}
+{%- liquid
+  assign first_index = paginate.current_offset | plus: 1
+  assign last_index = paginate.current_offset | plus: paginate.page_size
+  if last_index > collection.products_count
+    assign last_index = collection.products_count
+  endif
+
+  comment
+    The bespoke tile only earns a slot on page one, and only when there are
+    enough products that it reads as part of the grid rather than as the grid.
+  endcomment
+  assign tile_on = false
+  if s.fye_tile_heading != blank and paginate.current_page == 1 and collection.products.size >= 4
+    assign tile_on = true
+  endif
+  assign tile_at = s.fye_tile_position | default: 4
+-%}
+<section class="band band--white coll" data-screen-label="Collection">
+  <div class="wrap wrap--wide">
+    <div class="coll__layout">
+
+      <aside class="coll__rail">
+        <details class="coll__railbox" open>
+          <summary class="coll__railtoggle">
+            {%- if has_filter -%}
+              {{ s.fye_rail_title | default: 'Refine' }}
+            {%- else -%}
+              Refine
+            {%- endif -%}
+            {%- render 'icon', name: 'chevron-down', class: 'icon icon--sm coll__railchev' -%}
+          </summary>
+
+          <div class="coll__railbody">
+            {%- if s.fye_rail_head -%}
+              <div class="coll__railhead">
+                <p class="eyebrow">{{ s.fye_rail_title | default: 'Refine' }}</p>
+                <a class="coll__clear" href="{{ collection.url }}">{{ s.fye_rail_clear | default: 'Clear all' }}</a>
+              </div>
+            {%- endif -%}
+
+            {%- comment -%}
+              xCloud's mount point. Empty on purpose — the app fills it. The id
+              is load-bearing and must not be renamed or wrapped in a way that
+              changes it.
+            {%- endcomment -%}
+            <div id="cloud_search_filters_sidebar"></div>
+
+            {%- if show_promo -%}
+              <div class="coll__promo">
+                <p class="coll__promotitle">{{ s.fye_promo_heading }}</p>
+                {%- if s.fye_promo_body != blank -%}
+                  <p class="coll__promobody">{{ s.fye_promo_body }}</p>
+                {%- endif -%}
+                {%- if s.fye_promo_label != blank -%}
+                  <a class="link coll__promolink" href="{{ promo_link }}">{{ s.fye_promo_label }}</a>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </div>
+        </details>
+      </aside>
+
+      <div class="coll__main">
+
+        {%- if has_count or has_sort -%}
+          <div class="coll__bar">
+            {%- for block in section.blocks -%}
+              {%- case block.type -%}
+                {%- when 'layout' -%}
+                  <p class="coll__count" {{ block.shopify_attributes }}>
+                    {%- if collection.products_count > 0 -%}
+                      Showing {{ first_index }}–{{ last_index }} of {{ collection.products_count }} results
+                    {%- else -%}
+                      Showing 0 results
+                    {%- endif -%}
+                  </p>
+
+                {%- when 'sortby' -%}
+                  <div class="coll__sort" {{ block.shopify_attributes }}>
+                    <label class="visually-hidden" for="coll-sort">Sort by</label>
+                    <select id="coll-sort" class="coll__select" data-fye-sort>
+                      {%- for option in collection.sort_options -%}
+                        <option value="{{ option.value }}"{% if option.value == sort_current %} selected{% endif %}>{{ option.name }}</option>
+                      {%- endfor -%}
+                    </select>
+                  </div>
+              {%- endcase -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        {%- if collection.products.size > 0 -%}
+          <ul class="pgrid coll__grid" style="--pcols: {{ cols }}; --pcols-mb: {{ cols_mb }};">
+            {%- for product in collection.products -%}
+              {%- if tile_on and forloop.index == tile_at -%}
+                <li class="coll__tile">
+                  <div class="coll__tileinner">
+                    <div class="coll__tilewords">
+                      {%- if s.fye_tile_eyebrow != blank -%}
+                        <p class="eyebrow">{{ s.fye_tile_eyebrow }}</p>
+                      {%- endif -%}
+                      <p class="coll__tiletitle">{{ s.fye_tile_heading }}</p>
+                      {%- if s.fye_tile_body != blank -%}
+                        <p class="coll__tilebody">{{ s.fye_tile_body }}</p>
+                      {%- endif -%}
+                    </div>
+                    {%- if s.fye_tile_label != blank -%}
+                      <a class="link coll__tilelink" href="{{ tile_link }}">{{ s.fye_tile_label }}</a>
+                    {%- endif -%}
+                  </div>
+                </li>
+              {%- endif -%}
+              <li>
+                {%- if forloop.index <= cols -%}
+                  {%- render 'product-card', product: product, loading: 'eager' -%}
+                {%- else -%}
+                  {%- render 'product-card', product: product, loading: 'lazy' -%}
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- else -%}
+          <p class="coll__empty lead">No products match these filters. <a href="{{ collection.url }}">Clear all filters</a> to see everything in this collection.</p>
+        {%- endif -%}
+
+        {%- if paginate.pages > 1 -%}
+          <nav class="coll__pages" aria-label="Pagination">
+            <p class="coll__pageof fine">Page {{ paginate.current_page }} of {{ paginate.pages }}</p>
+            <ul class="coll__pagelist">
+              {%- if paginate.previous.is_link -%}
+                <li><a class="coll__page" href="{{ paginate.previous.url }}" rel="prev">Previous</a></li>
+              {%- endif -%}
+              {%- for part in paginate.parts -%}
+                {%- if part.is_link -%}
+                  <li><a class="coll__page" href="{{ part.url }}">{{ part.title }}</a></li>
+                {%- elsif part.title == '&hellip;' -%}
+                  <li><span class="coll__gap">…</span></li>
+                {%- else -%}
+                  <li><span class="coll__page is-current" aria-current="page">{{ part.title }}</span></li>
+                {%- endif -%}
+              {%- endfor -%}
+              {%- if paginate.next.is_link -%}
+                <li><a class="coll__page" href="{{ paginate.next.url }}" rel="next">Next</a></li>
+              {%- endif -%}
+            </ul>
+          </nav>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- if s.show_desc and collection.description != blank -%}
+      <div class="coll__desc prose">{{ collection.description }}</div>
+    {%- endif -%}
+  </div>
+</section>
+{%- endpaginate -%}
+
+{% stylesheet %}
+.fye .coll__layout {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: var(--s10);
+  align-items: start;
+}
+
+/* --- rail ---------------------------------------------------------------- */
+
+/* The rail is one component at every width: a <details> that is forced open
+   above 900px with its summary hidden, and a real disclosure below it. Two
+   copies of the filter markup would give xCloud two mount points with the
+   same id, which is why this is not a show/hide pair. */
+.fye .coll__railbox {
+  border-bottom: var(--hairline);
+}
+
+.fye .coll__railtoggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s3);
+  min-height: 56px;
+  font-size: var(--fs-fine);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-button);
+  text-transform: uppercase;
+  cursor: pointer;
+  list-style: none;
+}
+
+.fye .coll__railtoggle::-webkit-details-marker {
+  display: none;
+}
+
+.fye .coll__railchev {
+  transition: transform var(--dur) var(--ease);
+}
+
+.fye .coll__railbox[open] .coll__railchev {
+  transform: rotate(180deg);
+}
+
+.fye .coll__railbody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s6);
+  padding-bottom: var(--s6);
+}
+
+.fye .coll__railhead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s4);
+  padding-bottom: var(--s3);
+  border-bottom: var(--hairline);
+}
+
+.fye .coll__clear {
+  font-size: var(--fs-fine);
+  color: var(--ink-soft);
+}
+
+/* --- promo card ---------------------------------------------------------- */
+
+.fye .coll__promo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  padding: var(--s6);
+  background: var(--mist);
+}
+
+.fye .coll__promotitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  letter-spacing: var(--tr-h2);
+  text-transform: uppercase;
+}
+
+.fye .coll__promobody {
+  margin: 0;
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+}
+
+.fye .coll__promolink {
+  align-self: flex-start;
+}
+
+/* --- toolbar ------------------------------------------------------------- */
+
+.fye .coll__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s5);
+  flex-wrap: wrap;
+  padding-bottom: var(--s5);
+  margin-bottom: var(--s8);
+  border-bottom: var(--hairline);
+}
+
+.fye .coll__count {
+  margin: 0;
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+}
+
+.fye .coll__select {
+  width: auto;
+  min-width: 220px;
+  min-height: 44px;
+  font-size: var(--fs-small);
+}
+
+/* --- the bespoke tile ---------------------------------------------------- */
+
+/* Sits in a grid cell alongside the cards, so it inherits the square media
+   ratio rather than setting a height. */
+.fye .coll__tile {
+  display: flex;
+}
+
+.fye .coll__tileinner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--s6);
+  width: 100%;
+  aspect-ratio: 1;
+  padding: var(--s7);
+  background: var(--ivory);
+}
+
+.fye .coll__tilewords {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+}
+
+.fye .coll__tiletitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  letter-spacing: var(--tr-h2);
+  text-transform: uppercase;
+}
+
+.fye .coll__tilebody {
+  margin: 0;
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+}
+
+.fye .coll__tilelink {
+  align-self: flex-start;
+}
+
+/* --- empty state --------------------------------------------------------- */
+
+.fye .coll__empty {
+  margin: 0;
+  padding-block: var(--s10);
+}
+
+/* --- pagination ---------------------------------------------------------- */
+
+.fye .coll__pages {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s4);
+  margin-top: var(--s10);
+  padding-top: var(--s8);
+  border-top: var(--hairline);
+}
+
+.fye .coll__pageof {
+  margin: 0;
+}
+
+.fye .coll__pagelist {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fye .coll__pagelist > li {
+  margin: 0;
+}
+
+.fye .coll__page {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding-inline: var(--s3);
+  border: 1px solid transparent;
+  font-size: var(--fs-small);
+}
+
+.fye .coll__page.is-current {
+  border-color: var(--line-strong);
+}
+
+.fye .coll__gap {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: var(--s2);
+  color: var(--ink-soft);
+}
+
+/* --- description --------------------------------------------------------- */
+
+.fye .coll__desc {
+  margin-top: var(--s10);
+}
+
+/* --- breakpoints. Media queries LAST, always. ---------------------------- */
+
+@media (min-width: 901px) {
+  /* Above the collapse the rail is not a disclosure at all: the summary goes,
+     and the body is forced visible whatever the element's open state, so a
+     visitor who collapsed it on a phone does not find a desktop page with no
+     filters. */
+  .fye .coll__railbox {
+    border-bottom: 0;
+  }
+
+  .fye .coll__railtoggle {
+    display: none;
+  }
+
+  .fye .coll__railbody {
+    display: flex;
+    padding-bottom: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .fye .coll__layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s7);
+  }
+
+  .fye .coll__railhead {
+    display: none;
+  }
+
+  .fye .coll__bar {
+    margin-bottom: var(--s7);
+  }
+}
+
+@media (max-width: 560px) {
+  .fye .coll__bar {
+    align-items: stretch;
+    flex-direction: column;
+    gap: var(--s3);
+  }
+
+  .fye .coll__select {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .fye .coll__tileinner {
+    aspect-ratio: auto;
+    padding: var(--s6);
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Main collection",
+  "tag": "section",
+  "class": "fye-main-collection",
+  "settings": [
+    { "type": "header", "content": "Grid" },
+    {
+      "type": "range",
+      "id": "limit",
+      "label": "Products per page",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "unit": "pr",
+      "default": 24
+    },
+    {
+      "type": "select",
+      "id": "col_dk",
+      "label": "Columns",
+      "default": "4",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "col_mb",
+      "label": "Columns on mobile",
+      "default": "2",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ]
+    },
+
+    { "type": "header", "content": "Filter rail" },
+    {
+      "type": "checkbox",
+      "id": "fye_rail_head",
+      "label": "Show rail heading",
+      "default": true
+    },
+    { "type": "text", "id": "fye_rail_title", "label": "Rail heading", "default": "Refine" },
+    { "type": "text", "id": "fye_rail_clear", "label": "Clear link label", "default": "Clear all" },
+
+    { "type": "header", "content": "Rail promo" },
+    { "type": "text", "id": "fye_promo_heading", "label": "Heading" },
+    { "type": "textarea", "id": "fye_promo_body", "label": "Body" },
+    { "type": "text", "id": "fye_promo_label", "label": "Link label" },
+    { "type": "url", "id": "fye_promo_link", "label": "Link" },
+
+    { "type": "header", "content": "Bespoke tile" },
+    {
+      "type": "paragraph",
+      "content": "Sits in the grid on page one only, and only when the collection has at least four products. Leave the heading empty to hide it."
+    },
+    { "type": "text", "id": "fye_tile_eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "fye_tile_heading", "label": "Heading" },
+    { "type": "textarea", "id": "fye_tile_body", "label": "Body" },
+    { "type": "text", "id": "fye_tile_label", "label": "Link label" },
+    { "type": "url", "id": "fye_tile_link", "label": "Link" },
+    {
+      "type": "range",
+      "id": "fye_tile_position",
+      "label": "Grid position",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "unit": "th",
+      "default": 4
+    },
+
+    { "type": "header", "content": "Description" },
+    {
+      "type": "checkbox",
+      "id": "show_desc",
+      "label": "Show collection description",
+      "default": false
+    }
+  ],
+  "blocks": [
+    { "type": "layout", "name": "Result count", "limit": 1 },
+    { "type": "sortby", "name": "Sort", "limit": 1 },
+    { "type": "filter", "name": "Filter rail", "limit": 1 }
+  ]
+}
+{% endschema %}

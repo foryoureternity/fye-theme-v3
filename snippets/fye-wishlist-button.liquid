@@ -1,0 +1,27 @@
+{%- comment -%}
+  fye-wishlist-button — the heart. Markup only; NOT WIRED UP YET.
+
+  Added 31/08/2026. The real wishlist is its own session: live runs the T4S app
+  wishlist (t4s_wis_cp, interactable.min.js, templates/search.wishlist.liquid)
+  with fye-wishlist-share layered on top, and v3 carries none of it.
+
+  This exists so the product page is visually complete and so there is exactly
+  ONE place to wire when the store behind it is built — the same button will go
+  on product cards, which is why it is a snippet and not inline markup.
+
+  It is a real <button> with `aria-pressed`, not a link or a div, so the
+  pressed state is already correct for a toggle once JS arrives. Until then it
+  does nothing on click. That is deliberate and visible in the DOM
+  (data-fye-wishlist has no handler) rather than hidden behind a dead href.
+
+  Parameters:
+    product — required for the id the eventual store will key on
+    label   — override the default wording
+{%- endcomment -%}
+<button class="wish"
+        type="button"
+        data-fye-wishlist="{{ product.id }}"
+        aria-pressed="false">
+  {%- render 'icon', name: 'heart', class: 'icon--sm' -%}
+  <span>{{ label | default: 'Add to wishlist' }}</span>
+</button>

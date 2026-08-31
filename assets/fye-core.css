@@ -897,3 +897,48 @@ a.visually-hidden:focus-visible {
   --filter-row-hover:     #F2F5F2;
   --filter-row-checked:   #E9EFE9;
 }
+
+
+/* ============================================================================
+   WISHLIST BUTTON — appended 31/08/2026
+   snippets/fye-wishlist-button.liquid
+
+   In core rather than a section stylesheet because two consumers are already
+   known: the product page now, and the product card when the wishlist is
+   actually built. That is the rule — core earns vocabulary at two, not one.
+
+   NOT WIRED UP. The button renders and does nothing; the store behind it is a
+   separate session. The pressed state below is written now so that wiring it
+   later is a JS change only, with no CSS to remember.
+   ========================================================================== */
+
+.fye .wish {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--font-body);
+  font-size: var(--fs-fine);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-button);
+  text-transform: uppercase;
+  color: var(--ink);
+  transition: color var(--dur) var(--ease);
+}
+
+.fye .wish:hover {
+  color: var(--sage);
+}
+
+/* Outline until saved, filled after — the icon carries the state, so the
+   label does not have to change and the control cannot reflow on click. */
+.fye .wish .icon {
+  transition: fill var(--dur) var(--ease);
+}
+
+.fye .wish[aria-pressed='true'] .icon {
+  fill: currentColor;
+}

@@ -412,6 +412,8 @@
           <a class="btn btn--outline btn--block" href="{{ s.enquire_link | default: '/pages/contact-us' }}">{{ s.enquire_label }}</a>
         {%- endif -%}
 
+        {%- render 'fye-wishlist-button', product: p -%}
+
         {%- if s.reassurance != blank -%}
           <p class="pdp__reassure fine">{{ s.reassurance }}</p>
         {%- endif -%}

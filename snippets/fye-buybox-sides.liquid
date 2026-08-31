@@ -18,13 +18,23 @@
   the authority, not the metafield. Getting that backwards prices the ring
   twice.
 
+  ── ALL THREE MODES ALWAYS OFFERED ────────────────────────────────────────
+
+  Ed, 31/08/2026: "Side Diamonds Supplied by You" is an option, full stop. An
+  earlier pass hid that card until a fee PRICE was configured, which was the
+  wrong call — the price setting is only the ON-PAGE PREVIEW, exactly as with
+  engraving. The money actually charged comes from the fee PRODUCT's own price
+  when its line is added to the cart. So the card is gated on the fee VARIANT
+  existing, and the "+£x" line simply does not print until a preview figure is
+  set.
+
   ── NOTHING IS SELECTED ON LOAD ───────────────────────────────────────────
 
   Ed, 31/08/2026. No mode card and NO QUALITY CHIP carries `is-on`. Live
   preselects both — the "Required" card and the F/G VS chip — so a trilogy
   could be bought with a grade nobody chose. fye-ui.js must block add to cart
   until a mode is picked, and until a chip is picked when the mode is
-  "Required".
+  "Choose a pair".
 
   ── THE THREE CHOICES DO NOT OVERLAP ──────────────────────────────────────
 
@@ -68,14 +78,19 @@
   assign want = '-' | append: code
 
   comment
-    "Supply your own" needs BOTH a fee variant and a fee price. Without the
-    price the card would advertise the service at £0.00, which is worse than
-    not offering it — so the card hides itself until both are set, the same
-    way the engraving control does. The fee figure is outstanding from Ed.
+    The card needs a fee VARIANT to add to the cart. It does not need a price
+    to be offered — see the header. Without a variant there is nothing to
+    charge and the service cannot be fulfilled through the basket, so that is
+    the one case where the card is withheld.
   endcomment
   assign has_sides_fee = false
-  if s.sides_fee_variant_id != blank and s.sides_fee_price_pennies > 0
+  if s.sides_fee_variant_id != blank
     assign has_sides_fee = true
+  endif
+
+  assign show_sides_fee_price = false
+  if s.sides_fee_price_pennies > 0
+    assign show_sides_fee_price = true
   endif
 
   comment
@@ -106,6 +121,7 @@
             role="radio"
             aria-checked="false"
             data-fye-sides-mode="required">
+      <span class="pdp__radio" aria-hidden="true"></span>
       <span class="pdp__modetitle">{{ s.sides_required_label | default: 'Choose a pair' }}</span>
       <span class="pdp__modecopy">We supply a matched pair.</span>
     </button>
@@ -116,9 +132,12 @@
               role="radio"
               aria-checked="false"
               data-fye-sides-mode="supplied">
+        <span class="pdp__radio" aria-hidden="true"></span>
         <span class="pdp__modetitle">{{ s.sides_supplied_label | default: 'Supply your own' }}</span>
         <span class="pdp__modecopy">We set your own pair.</span>
-        <span class="pdp__modefee">+{{ s.sides_fee_price_pennies | money_without_trailing_zeros }}</span>
+        {%- if show_sides_fee_price -%}
+          <span class="pdp__modefee">+{{ s.sides_fee_price_pennies | money_without_trailing_zeros }}</span>
+        {%- endif -%}
       </button>
     {%- endif -%}
 
@@ -127,6 +146,7 @@
             role="radio"
             aria-checked="false"
             data-fye-sides-mode="none">
+      <span class="pdp__radio" aria-hidden="true"></span>
       <span class="pdp__modetitle">{{ s.sides_none_label | default: 'Mount only' }}</span>
       <span class="pdp__modecopy">No side stones.</span>
     </button>
@@ -191,6 +211,10 @@
   {%- comment -%} ---- Mode: supply your own ---- {%- endcomment -%}
   {%- if has_sides_fee -%}
     <div class="pdp__modebody" data-fye-sides-body="supplied" hidden>
+      {%- if s.sides_supplied_note != blank -%}
+        <p class="pdp__choosenote">{{ s.sides_supplied_note }}</p>
+      {%- endif -%}
+
       {%- comment -%}
         Its OWN fee product, deliberately not the centre one: the cart
         reconciler counts the centre fee by variant id and a shared line would

@@ -32,6 +32,11 @@
   BLOCKED until a mode is chosen. An unselected chooser is not a neutral
   state — it is an incomplete order.
 
+  Each card carries a real radio mark (`.pdp__radio`) — Ed, 31/08/2026: it is
+  the signpost that says "pick one of these". The cards are `role="radio"`
+  inside a `role="radiogroup"`, so the mark is decorative and hidden from
+  assistive tech, which reads the state off aria-checked instead.
+
   ── THE THREE MODES ───────────────────────────────────────────────────────
 
     required  the ring plus a stone we supply. The stone is its OWN cart line,
@@ -101,6 +106,16 @@
   endif
 
   comment
+    The fee price setting is only the ON-PAGE PREVIEW; the money charged comes
+    from the fee product's own price when its line is added. So a missing
+    figure suppresses the "+£x" line and nothing else.
+  endcomment
+  assign show_centre_fee_price = false
+  if s.centre_fee_price_pennies > 0
+    assign show_centre_fee_price = true
+  endif
+
+  comment
     Shape sub-collection handles, for the "see them all" link and for the
     feed. Note the asymmetry live uses: "natural" but "lab-grown".
   endcomment
@@ -117,7 +132,7 @@
      data-feed-natural="{{ natural_handle }}"
      data-feed-lab="{{ lab_handle }}"
      data-fee-variant="{{ s.centre_fee_variant_id }}"
-     data-fee-price="{{ s.centre_fee_price_pennies }}">
+     data-fee-price="{{ s.centre_fee_price_pennies | default: 0 }}">
 
   <p class="pdp__label">{{ s.centre_heading | default: 'Centre diamond' }}</p>
   <p class="pdp__choosenote">{{ suitability }}</p>
@@ -128,6 +143,7 @@
             role="radio"
             aria-checked="false"
             data-fye-centre-mode="required">
+      <span class="pdp__radio" aria-hidden="true"></span>
       <span class="pdp__modetitle">{{ s.centre_required_label | default: 'Choose a diamond' }}</span>
       <span class="pdp__modecopy">We supply a matched stone.</span>
     </button>
@@ -137,9 +153,12 @@
             role="radio"
             aria-checked="false"
             data-fye-centre-mode="supplied">
+      <span class="pdp__radio" aria-hidden="true"></span>
       <span class="pdp__modetitle">{{ s.centre_supplied_label | default: 'Supply your own' }}</span>
       <span class="pdp__modecopy">We set your {{ shape_lower }} diamond.</span>
-      <span class="pdp__modefee">+{{ s.centre_fee_price_pennies | money_without_trailing_zeros }}</span>
+      {%- if show_centre_fee_price -%}
+        <span class="pdp__modefee">+{{ s.centre_fee_price_pennies | money_without_trailing_zeros }}</span>
+      {%- endif -%}
     </button>
 
     <button type="button"
@@ -147,6 +166,7 @@
             role="radio"
             aria-checked="false"
             data-fye-centre-mode="none">
+      <span class="pdp__radio" aria-hidden="true"></span>
       <span class="pdp__modetitle">{{ s.centre_none_label | default: 'Semi-mount only' }}</span>
       <span class="pdp__modecopy">No centre stone.</span>
     </button>

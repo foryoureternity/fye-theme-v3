@@ -878,10 +878,15 @@
   margin-top: var(--s2);
 }
 
+/* Explicit grid areas rather than auto-placement: the radio mark occupies
+   column 1 for the title's row only, so the copy and the fee both align to
+   the title's left edge instead of stepping back under the mark. */
 .fye .pdp__mode {
-  display: flex;
-  flex-direction: column;
-  gap: var(--s1);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: auto auto 1fr;
+  column-gap: var(--s3);
+  row-gap: var(--s1);
   min-height: 44px;
   padding: var(--s3) var(--s4) var(--s4);
   border: 1px solid var(--line);
@@ -894,8 +899,7 @@
   border-color: var(--sage);
 }
 
-/* Chosen: a changed ground and a darker edge — Ed, 31/08/2026. No radio dot
-   and no heavy left rule; the tile itself carries the state. Ivory rather
+/* Chosen: a changed ground and a darker edge — Ed, 31/08/2026. Ivory rather
    than a teal fill so both levels of type keep their contrast (ink on ivory
    is 8.2:1, ink-soft 5.5:1 — a teal fill would drop the second line below
    AA). --line-strong resolves to teal, so the edge is unmistakable. */
@@ -904,22 +908,57 @@
   border-color: var(--line-strong);
 }
 
+/* The radio mark. A DELIBERATE DEPARTURE from the brand's squared-corner rule
+   (conventions §9 asks for these to be stated): Ed, 31/08/2026, "they're a
+   good signpost for users". A circle is the only shape that reads as
+   "choose one of these" without a label, and the cards are role="radio" in a
+   role="radiogroup" — so the mark is aria-hidden and assistive tech reads the
+   state off aria-checked, never off this.
+
+   Sized 16px, which is smaller than the 44px minimum — legitimate here
+   because the mark is decorative and the whole 200px tile is the hit area. */
+.fye .pdp__radio {
+  grid-area: 1 / 1;
+  width: 16px;
+  height: 16px;
+  margin-block-start: 3px;   /* aligns to the title's cap height, not its box */
+  border: 1px solid var(--sage-grey);
+  border-radius: 50%;
+  background: var(--white);
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.fye .pdp__mode:hover .pdp__radio {
+  border-color: var(--sage);
+}
+
+/* Filled centre drawn with an inset ring, so there is no extra element and
+   nothing to reflow when the state changes. */
+.fye .pdp__mode.is-on .pdp__radio {
+  border-color: var(--teal);
+  background: var(--teal);
+  box-shadow: inset 0 0 0 3px var(--white);
+}
+
 .fye .pdp__modetitle {
+  grid-area: 1 / 2;
   font-size: var(--fs-small);
   font-weight: var(--fw-medium);
   color: var(--ink);
 }
 
 .fye .pdp__modecopy {
+  grid-area: 2 / 2;
   font-size: var(--fs-fine);
   color: var(--ink-soft);
   text-wrap: pretty;
 }
 
-/* Pinned to the foot of the tile so the three fees line up across the row
-   however long each explanation runs. */
+/* Row 3 takes the slack, so the fee sits at the foot of its tile and the
+   three tiles stay the same height however long each explanation runs. */
 .fye .pdp__modefee {
-  margin-block-start: auto;
+  grid-area: 3 / 2;
+  align-self: end;
   padding-block-start: var(--s2);
   font-size: var(--fs-small);
   font-weight: var(--fw-medium);
@@ -1347,8 +1386,12 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
+  .fye .pdp__mode {
+    grid-template-rows: auto auto auto;
+  }
+
   .fye .pdp__modefee {
-    margin-block-start: 0;
+    align-self: start;
   }
 
   .fye .pdp__stones {
@@ -1406,7 +1449,7 @@
     {
       "type": "number",
       "id": "centre_fee_price_pennies",
-      "label": "Centre setting fee in pennies",
+      "label": "Centre setting fee, shown on the page",
       "default": 8000
     },
     {
@@ -1432,7 +1475,13 @@
     {
       "type": "number",
       "id": "sides_fee_price_pennies",
-      "label": "Side setting fee in pennies"
+      "label": "Side setting fee, shown on the page"
+    },
+    {
+      "type": "textarea",
+      "id": "sides_supplied_note",
+      "label": "Side \"supply your own\" note",
+      "default": "Send us your pair once your order is placed and we will grade, set and finish them with the ring."
     },
     {
       "type": "textarea",

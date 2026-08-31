@@ -121,7 +121,7 @@
     assign carat_digits = '18'
   endif
 
-  assign colours = 'Yellow Gold,White Gold,Rose Gold,Platinum,Palladium' | split: ','
+  assign colours = 'Yellow Gold,White Gold,Rose Gold,Platinum' | split: ','
   assign carats = '18ct,14ct,9ct' | split: ','
   assign golds = 'Yellow Gold,White Gold,Rose Gold' | split: ','
 -%}
@@ -238,7 +238,7 @@
         {%- comment -%} ---- Metal: colour, then carat ---- {%- endcomment -%}
         {%- if can_switch -%}
           <div class="pdp__field">
-            <p class="pdp__label">Metal<span class="pdp__labelval">{{ metal_now }}</span></p>
+            <p class="pdp__label pdp__label--inline">Metal: <span class="pdp__labelval">{{ metal_now }}</span></p>
 
             <ul class="pdp__colours">
               {%- for colour in colours -%}
@@ -567,6 +567,8 @@
   text-transform: uppercase;
   color: var(--ink-soft);
 }
+
+.fye .pdp__label--inline { justify-content: flex-start; gap: var(--s2); }
 
 .fye .pdp__labelval,
 .fye .pdp__labelnote,

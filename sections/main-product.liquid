@@ -54,7 +54,8 @@
 
     · `all_products` is capped at TWENTY unique handles per page. Five colours
       plus three carats is eight. Adding profile or width switchers the same
-      way would blow through it — they need a different mechanism.
+      way would blow through it — they need a different mechanism. The side-
+      diamond panel spends four more; that is the current total.
     · a handle that does not exist renders that option disabled rather than as
       a dead link. Platinum and palladium have no carat, so the carat row
       simply does not apply to them.
@@ -74,17 +75,39 @@
   The fee variant id is a SETTING, not a constant — a hardcoded variant id in
   markup is a silent failure the day someone recreates the fee product.
 
-  ── GALLERY ───────────────────────────────────────────────────────────────
+  ── THE STONE CHOOSERS — added 31/08/2026 evening ─────────────────────────
 
-  Stage panels with thumbnails, not links to image files. The 360 is a panel
-  like any other, and Sirv's script loads ON DEMAND when that panel is first
-  opened — live loads it on every product page and then fights Flickity to
-  re-measure a canvas that was hidden at init. No carousel here, so no fight.
+  Two OPTIONAL PANELS rendered after the buy box, not a third branch. Most
+  engagement rings get neither. Ed, 31/08/2026.
+
+    fye-buybox-centre   semi-mounts: all three of fye.centre_shape,
+                        carat_min, carat_max, plus enable_centre_diamond
+    fye-buybox-sides    trilogies: tag "Trilogy Ring" + fye.side_stones.code,
+                        plus enable_side_diamonds
+
+  THE THREE CHOICES ARE INDEPENDENT AND NONE OVERLAPS. Ed, 31/08/2026 — worth
+  stating because live's code implies otherwise and it cost a wrong turn:
+
+    · "Diamond Quality" is the SHOULDER diamond quality. It always was. With
+      Metal it forms the variant, so it sets the variant price.
+    · the centre diamond is its own cart line, at its own price.
+    · the side pair is its own cart line, at its own price.
+
+  So a trilogy with diamond-set shoulders offers all three and nothing is
+  charged twice. Live hides the quality row on any trilogy carrying a
+  side_stones metafield (its W333) and locks the ring to its cheapest natural
+  grade; that behaviour is DELIBERATELY NOT PORTED, because it takes away a
+  real choice. Live's other rule — hiding the row on PLAIN-shouldered rings,
+  where the grade buys nothing — is a fair refinement and is still outstanding;
+  it is about plain shoulders, not about trilogies.
+
+  Neither panel present = the page exactly as it was before they existed.
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
   assign p = product
   assign cf = p.metafields.custom
+  assign fye = p.metafields.fye
 
   assign ring_type = cf.ring_type.value | first | default: p.type
   assign is_plain = false
@@ -124,6 +147,26 @@
   assign colours = 'Yellow Gold,White Gold,Rose Gold,Platinum' | split: ','
   assign carats = '18ct,14ct,9ct' | split: ','
   assign golds = 'Yellow Gold,White Gold,Rose Gold' | split: ','
+
+  comment
+    ── Chooser gates ──
+    All three metafields for the centre panel, per Ed 31/08/2026. The -SMT SKU
+    tail is not the gate, though 30 of 30 sampled -smt products satisfy both.
+
+    Blank comparisons on possibly-nil metafields are safe here. Liquid parses
+    `a and b` RIGHT TO LEFT, so a condition whose right-hand side can throw
+    (nil.size, a number compared with nil) has to be nested instead — see
+    live's product-block for what that looks like when it goes wrong.
+  endcomment
+  assign show_centre = false
+  if s.enable_centre_diamond and fye.centre_shape != blank and fye.carat_min != blank and fye.carat_max != blank
+    assign show_centre = true
+  endif
+
+  assign show_sides = false
+  if s.enable_side_diamonds and p.tags contains 'Trilogy Ring' and fye.side_stones.value.code != blank
+    assign show_sides = true
+  endif
 -%}
 
 <section class="band band--white pdp" data-screen-label="Product">
@@ -355,6 +398,19 @@
           {%- endif -%}
           {%- else -%}
             {%- render 'fye-buybox-eternity', product: p, settings: s, current: current -%}
+
+            {%- comment -%}
+              The choosers. AFTER the ordinary buy box, because the metal and
+              shoulder-quality choices come first in the customer's head: what
+              the ring is made of, then what goes in it.
+            {%- endcomment -%}
+            {%- if show_centre -%}
+              {%- render 'fye-buybox-centre', product: p, settings: s -%}
+            {%- endif -%}
+
+            {%- if show_sides -%}
+              {%- render 'fye-buybox-sides', product: p, settings: s -%}
+            {%- endif -%}
           {%- endif -%}
 
           {%- if s.engraving and s.engraving_variant_id != blank -%}
@@ -782,19 +838,289 @@
   color: var(--ink-soft);
 }
 
-/* --- selected price + actions -------------------------------------------- */
+/* --- stone choosers -----------------------------------------------------
+   Centre diamond and side diamonds. Both snippets share this vocabulary;
+   it stays here rather than in core because only this section renders them
+   (conventions §2 — core earns an addition at two sections, not one). */
 
-.fye .pdp__selected {
+.fye .pdp__choose {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--s4);
-  margin: 0;
+  flex-direction: column;
+  gap: var(--s3);
   padding-top: var(--s5);
   border-top: var(--hairline);
 }
 
-.fye .pdp__selectedkey {
+.fye .pdp__choosenote {
+  margin: 0;
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+
+/* Three mode cards. A column on every width: side by side they force the
+   copy to two or three words and the choice stops being explicable. */
+.fye .pdp__modes {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: var(--s2);
+  border: 1px solid var(--line);
+}
+
+.fye .pdp__mode {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2px var(--s4);
+  padding: var(--s4);
+  min-height: 44px;
+  border: 0;
+  background: transparent;
+  text-align: start;
+}
+
+.fye .pdp__mode + .pdp__mode {
+  border-top: 1px solid var(--line);
+}
+
+.fye .pdp__mode:hover {
+  background: var(--ivory);
+}
+
+/* Chosen state is a teal edge, not a fill: the card holds two levels of
+   type and a fill would drop the second below contrast. */
+.fye .pdp__mode.is-on {
+  box-shadow: inset 3px 0 0 var(--teal);
+  background: var(--ivory);
+}
+
+.fye .pdp__modetitle {
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+  color: var(--ink);
+}
+
+.fye .pdp__modecopy {
+  grid-column: 1;
+  font-size: var(--fs-fine);
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+
+.fye .pdp__modefee {
+  grid-row: 1;
+  grid-column: 2;
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+  color: var(--ink);
+}
+
+.fye .pdp__modebody[hidden] { display: none; }
+
+.fye .pdp__modebody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  padding: var(--s4);
+  background: var(--ivory);
+}
+
+.fye .pdp__stonestate {
+  margin: 0;
+  font-size: var(--fs-fine);
+  color: var(--ink-soft);
+}
+
+.fye .pdp__stonebtn {
+  align-self: flex-start;
+}
+
+/* The chosen stone, once picked. */
+.fye .pdp__stone[hidden] { display: none; }
+
+.fye .pdp__stone {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  gap: var(--s3);
+  align-items: center;
+  padding: var(--s3);
+  background: var(--white);
+  border: 1px solid var(--line);
+}
+
+.fye .pdp__stoneimg {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  background: var(--ivory);
+}
+
+.fye .pdp__stonename {
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+}
+
+.fye .pdp__stonesub {
+  font-size: var(--fs-fine);
+  color: var(--ink-soft);
+}
+
+.fye .pdp__stoneprice {
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+}
+
+/* Chips: side-diamond grades, and the picker's colour / clarity filters. */
+.fye .pdp__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+}
+
+.fye .pdp__chip {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-height: 44px;
+  min-width: 44px;
+  padding: var(--s2) var(--s3);
+  border: 1px solid var(--line);
+  background: var(--white);
+  font-size: var(--fs-fine);
+  color: var(--ink);
+}
+
+.fye .pdp__chip:hover {
+  border-color: var(--sage);
+}
+
+.fye .pdp__chip.is-on {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: var(--ivory);
+}
+
+.fye .pdp__chipname {
+  font-weight: var(--fw-medium);
+}
+
+.fye .pdp__chipprice {
+  font-size: 11px;
+  color: var(--ink-soft);
+}
+
+.fye .pdp__chip.is-on .pdp__chipprice {
+  color: var(--on-dark-soft);
+}
+
+.fye .pdp__waiver {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--s3);
+  align-items: start;
+  font-size: var(--fs-fine);
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+
+/* --- the picker modal ---------------------------------------------------
+   One set of markup at every width (conventions §3): the stone grid drops to
+   one column and the filter block is a real <details> on a phone. */
+
+.fye .pdp__modal[hidden] { display: none; }
+
+.fye .pdp__modal {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: var(--s5);
+}
+
+.fye .pdp__modalscrim {
+  position: absolute;
+  inset: 0;
+  background: var(--fye-scrim, rgba(35, 61, 71, 0.58));
+}
+
+.fye .pdp__modalpanel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1080px;
+  max-height: 88vh;
+  background: var(--white);
+  border: 1px solid var(--line-strong);
+}
+
+.fye .pdp__modalhead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s4);
+  padding: var(--s5);
+  border-bottom: var(--hairline);
+}
+
+.fye .pdp__modaltitle {
+  margin: 0;
+  font-size: var(--fs-h4);
+}
+
+.fye .pdp__modalsub {
+  margin: var(--s2) 0 0;
+  font-size: var(--fs-fine);
+  color: var(--ink-soft);
+}
+
+.fye .pdp__modalx {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--teal);
+}
+
+.fye .pdp__modalx:hover {
+  border-color: var(--sage);
+  color: var(--sage);
+}
+
+.fye .pdp__filters {
+  border-bottom: var(--hairline);
+}
+
+.fye .pdp__filterssum {
+  display: none;
+  min-height: 44px;
+  padding: var(--s3) var(--s5);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.fye .pdp__filtersbody {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: var(--s4) var(--s5);
+  padding: var(--s5);
+}
+
+.fye .pdp__filter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+.fye .pdp__filterlbl {
   font-size: var(--fs-eyebrow);
   font-weight: var(--fw-medium);
   letter-spacing: var(--tr-eyebrow);
@@ -802,13 +1128,133 @@
   color: var(--ink-soft);
 }
 
-.fye .pdp__selectedval {
-  font-size: var(--fs-h4);
-  font-weight: var(--fw-medium);
+.fye .pdp__filterval {
+  font-size: var(--fs-fine);
+  font-weight: var(--fw-light);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink);
 }
 
-.fye .pdp__reassure {
+/* Two range inputs stacked in one track: a dual-range without a library.
+   Both sit in the same grid cell; JS keeps min <= max. */
+.fye .pdp__range {
+  display: grid;
+}
+
+.fye .pdp__range input {
+  grid-area: 1 / 1;
+  width: 100%;
   margin: 0;
+  background: transparent;
+  pointer-events: auto;
+}
+
+.fye .pdp__modaltools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s4);
+  padding: var(--s3) var(--s5);
+  border-bottom: var(--hairline);
+}
+
+.fye .pdp__count {
+  margin: 0;
+  font-size: var(--fs-fine);
+  color: var(--ink-soft);
+}
+
+.fye .pdp__toolsright {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+}
+
+.fye .pdp__sortlbl {
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.fye .pdp__sort {
+  width: auto;
+  min-height: 44px;
+}
+
+/* The results are the only scrolling part, so the head, filters and footer
+   stay put while a long list moves. */
+.fye .pdp__stones {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--s4);
+  padding: var(--s5);
+}
+
+.fye .pdp__stonecard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  padding: 0;
+  border: 1px solid var(--line);
+  background: var(--white);
+  text-align: start;
+}
+
+.fye .pdp__stonecard:hover {
+  border-color: var(--sage);
+}
+
+.fye .pdp__stonecard.is-on {
+  border-color: var(--teal);
+  box-shadow: inset 0 0 0 1px var(--teal);
+}
+
+.fye .pdp__stonecardmedia {
+  aspect-ratio: 1;
+  background: var(--ivory);
+}
+
+.fye .pdp__stonecardmedia img,
+.fye .pdp__stonecardmedia video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fye .pdp__stonecardbody {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--s3);
+}
+
+.fye .pdp__stoneflag {
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.fye .pdp__stoneempty {
+  grid-column: 1 / -1;
+  padding: var(--s7) 0;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+.fye .pdp__modalfoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s4);
+  padding: var(--s5);
+  border-top: var(--hairline);
 }
 
 /* --- breakpoints. Media queries LAST, always. ---------------------------- */
@@ -817,6 +1263,36 @@
   .fye .pdp__top {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--s7);
+  }
+}
+
+@media (max-width: 749px) {
+  /* The filter block becomes a real disclosure, closed by default — six
+     filter groups above the stones is the whole screen on a phone. */
+  .fye .pdp__filterssum {
+    display: block;
+  }
+
+  .fye .pdp__filters:not([open]) .pdp__filtersbody {
+    display: none;
+  }
+
+  .fye .pdp__modal {
+    padding: 0;
+  }
+
+  .fye .pdp__modalpanel {
+    max-width: none;
+    max-height: 100vh;
+    height: 100%;
+    border: 0;
+  }
+
+  .fye .pdp__modalhead,
+  .fye .pdp__filtersbody,
+  .fye .pdp__stones,
+  .fye .pdp__modalfoot {
+    padding: var(--s4);
   }
 }
 
@@ -836,6 +1312,20 @@
   }
 
   .fye .pdp__seg button {
+    flex: 1 1 0;
+  }
+
+  .fye .pdp__stones {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+
+  .fye .pdp__modaltools {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s2);
+  }
+
+  .fye .pdp__modalfoot .btn {
     flex: 1 1 0;
   }
 }
@@ -858,6 +1348,61 @@
       "id": "reassurance",
       "label": "Reassurance line",
       "default": "Handmade to order in the UK. Free delivery, complimentary resizing for a year."
+    },
+
+    { "type": "header", "content": "Stone choosers" },
+    {
+      "type": "paragraph",
+      "content": "Both panels are gated by the product's own data as well as these tickboxes. The centre panel needs all three of fye.centre_shape, carat_min and carat_max; the side panel needs the Trilogy Ring tag and fye.side_stones. Most engagement rings get neither."
+    },
+    { "type": "checkbox", "id": "enable_centre_diamond", "label": "Offer a centre-diamond choice", "default": true },
+    { "type": "checkbox", "id": "enable_side_diamonds", "label": "Offer a side-diamond choice", "default": true },
+
+    { "type": "text", "id": "centre_heading", "label": "Centre panel heading", "default": "Centre diamond" },
+    { "type": "text", "id": "centre_picker_label", "label": "Picker button label", "default": "Choose your diamond" },
+    { "type": "url", "id": "centre_help_link", "label": "\"We will help you choose\" link" },
+    {
+      "type": "text",
+      "id": "centre_fee_variant_id",
+      "label": "Centre setting fee variant ID",
+      "default": "58461224927616"
+    },
+    {
+      "type": "number",
+      "id": "centre_fee_price_pennies",
+      "label": "Centre setting fee in pennies",
+      "default": 8000
+    },
+    {
+      "type": "textarea",
+      "id": "centre_supplied_note",
+      "label": "Centre \"supply your own\" note",
+      "default": "Send us your stone once your order is placed and we will grade, set and finish it with the ring."
+    },
+    {
+      "type": "textarea",
+      "id": "centre_waiver_text",
+      "label": "Centre waiver wording",
+      "default": "I understand that stones supplied by me are set at my own risk, and that For Your Eternity cannot be held liable for damage to a stone we have not graded."
+    },
+
+    { "type": "text", "id": "sides_heading", "label": "Side panel heading", "default": "Side diamonds" },
+    {
+      "type": "text",
+      "id": "sides_fee_variant_id",
+      "label": "Side setting fee variant ID",
+      "default": "58739448938880"
+    },
+    {
+      "type": "number",
+      "id": "sides_fee_price_pennies",
+      "label": "Side setting fee in pennies"
+    },
+    {
+      "type": "textarea",
+      "id": "sides_waiver_text",
+      "label": "Side waiver wording",
+      "default": "I understand that stones supplied by me are set at my own risk, and that For Your Eternity cannot be held liable for damage to a stone we have not graded."
     },
 
     { "type": "header", "content": "Engraving" },

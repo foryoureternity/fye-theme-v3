@@ -1,0 +1,26 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "atc_label": "Add to bag",
+        "mto_label": "Made to order — enquire",
+        "size_guide_url": "",
+        "enquire_label": "Customise this ring",
+        "enquire_link": "",
+        "reassurance": "Handmade to order in the UK. Free delivery, complimentary resizing for a year.",
+        "engraving": true,
+        "engraving_label": "Custom engraving",
+        "engraving_price_label": "+£55",
+        "engraving_variant_id": "58467296018816",
+        "engraving_price_pennies": 5500,
+        "engraving_placeholder": "Engraving (35 characters max)",
+        "engraving_max": 35,
+        "engraving_fonts": "Classic Script|Elegant Serif|Modern Sans|Block Capitals"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

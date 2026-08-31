@@ -1,0 +1,83 @@
+{% layout none %}{%- comment -%}
+  collection.cdc-json — JSON feed for the centre-diamond picker.
+
+  New in v3, 31/08/2026. Ported from live's templates/collection.cdc-json.liquid
+  (1,856 bytes), key for key, because the picker's client code filters and
+  sorts on these exact names.
+
+  ── HOW IT IS CALLED ──────────────────────────────────────────────────────
+
+  NOT as /collections/loose-diamonds. Live moved off that in W029: Shopify
+  silently stops applying storefront filters once a collection passes 5,000
+  products, and Loose Diamonds holds 15,000+. So the picker asks the SHAPE
+  SUB-COLLECTIONS instead, one request per origin:
+
+      /collections/round-natural-diamonds?view=cdc-json&page=1
+      /collections/round-lab-grown-diamonds?view=cdc-json&page=1
+
+  Note the asymmetry in those handles — "natural" but "lab-grown". Carat
+  travels as one filter.p.m.fye.carat param per 0.01ct step, because this
+  store's metafield filters have no range operator and silently ignore
+  trailing zeros (carat=0.30 returns nothing; carat=0.3 works). Repeated
+  params OR correctly.
+
+  This template is collection-agnostic on purpose: it renders whatever
+  collection it is asked for, so the loose-diamonds URL still works as the
+  fallback for a ring with no shape metafield.
+
+  ── THINGS THAT WILL BREAK IT ─────────────────────────────────────────────
+
+  · Sending an "Accept: application/json" header. Shopify content-negotiates
+    /collections/... and returns the collection OBJECT json, ignoring ?view=.
+    The fetch must send no Accept header.
+  · Draft products never appear here, which is deliberate — a draft diamond is
+    not for sale, and one in the picker is a stone we cannot deliver.
+  · A trailing comma. The last-item guard below is load-bearing.
+{%- endcomment -%}
+{%- paginate collection.products by 100 -%}
+{
+  "page": {{ paginate.current_page }},
+  "pages": {{ paginate.pages }},
+  "diamonds": [
+    {%- for product in collection.products -%}
+      {%- liquid
+        assign v = product.selected_or_first_available_variant
+        assign mf = product.metafields.fye
+
+        comment
+          First mp4 among the media, if any. The picker plays it on hover in
+          place of the still, so a stone with a spin video sells itself.
+        endcomment
+        assign video_src = ''
+        for m in product.media
+          if m.media_type == 'video' and video_src == ''
+            for src in m.sources
+              if src.mime_type == 'video/mp4' and video_src == ''
+                assign video_src = src.url
+              endif
+            endfor
+          endif
+        endfor
+      -%}
+    {
+      "id": {{ product.id }},
+      "variantId": {{ v.id }},
+      "title": {{ product.title | json }},
+      "price": {{ product.price | json }},
+      "available": {{ product.available }},
+      "sku": {{ v.sku | json }},
+      "url": {{ product.url | json }},
+      "image": {% if product.featured_image %}{{ product.featured_image | image_url: width: 480 | json }}{% else %}null{% endif %},
+      "video": {{ video_src | json }},
+      "shape": {{ mf.shape | json }},
+      "carat": {{ mf.carat | json }},
+      "colour": {{ mf.colour | json }},
+      "clarity": {{ mf.clarity | json }},
+      "certLab": {{ mf.cert_lab | json }},
+      "certNumber": {{ mf.cert_number | json }},
+      "origin": {{ mf.origin | json }}
+    }{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ]
+}
+{%- endpaginate -%}

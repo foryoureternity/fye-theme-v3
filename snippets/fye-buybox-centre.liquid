@@ -1,0 +1,309 @@
+{%- comment -%}
+  fye-buybox-centre — the centre-diamond chooser, for semi-mount rings.
+
+  Rendered by main-product AFTER fye-buybox-eternity, not instead of it. An
+  engagement ring's buy box is the ordinary Metal x Diamond Quality one; this
+  is an extra panel on top of it, and MOST ENGAGEMENT RINGS DO NOT GET IT.
+  Ed, 31/08/2026.
+
+  ── THE GATE ──────────────────────────────────────────────────────────────
+
+  All three metafields, or no panel — Ed's ruling, 31/08/2026:
+
+      fye.centre_shape   "Round"
+      fye.carat_min      0.8
+      fye.carat_max      1.3
+
+  plus the section's `enable_centre_diamond`, which product.complete.json,
+  product.gemset.json, product.gents.json and product.plain.json untick.
+
+  The `-SMT` SKU tail is NOT the gate, though the two agree in practice: 30 of
+  30 sampled -smt products carry all three metafields. A SKU convention is a
+  naming habit; a metafield is data someone entered on purpose.
+
+  ── THE THREE MODES ───────────────────────────────────────────────────────
+
+  Copied from live's product-block, whose wording is already in customers'
+  inboxes:
+
+    required  the ring plus a stone we supply. The stone is its OWN cart line,
+              chosen in the picker modal. Default.
+    supplied  the customer sends their own stone. Adds the centre-diamond
+              setting fee as its own line, and requires a ticked waiver.
+    none      semi-mount only. Nothing added, price as shown.
+
+  ── PROPERTY NAMES ARE A CONTRACT ─────────────────────────────────────────
+
+  Verbatim from live — the workshop reads these off orders, so a "tidier"
+  spelling here is a production error:
+
+      "Centre Diamond"   "Customer's own diamond" | "Semi-mount only"
+      "Setting service"
+      "Waiver"
+
+  Every add-on line also carries "For ring" and "Ring SKU" so the cart can
+  group them; those are set by fye-ui.js at add time, not here, because the
+  SKU depends on the variant chosen.
+
+  ── WHAT THIS SNIPPET DOES NOT DO ─────────────────────────────────────────
+
+  It renders the modal SHELL and the mode cards. The stones themselves are
+  fetched at runtime from templates/collection.cdc-json.liquid and injected by
+  fye-ui.js — there is no server-rendered stone list, because the feed is
+  15,000+ products and the carat window is per ring.
+
+  Parameters: product, settings (the section's)
+{%- endcomment -%}
+{%- liquid
+  assign s = settings
+  assign p = product
+  assign mf = p.metafields.fye
+
+  assign shape = mf.centre_shape
+  assign ct_min = mf.carat_min
+  assign ct_max = mf.carat_max
+
+  comment
+    "a Round" but "an Emerald". Live builds the same sentence; the article is
+    chosen from the first letter rather than a lookup table so a shape added
+    to the catalogue tomorrow reads correctly without a code change.
+  endcomment
+  assign article = 'a'
+  assign first_letter = shape | slice: 0, 1 | downcase
+  assign vowels = 'a,e,i,o,u' | split: ','
+  if vowels contains first_letter
+    assign article = 'an'
+  endif
+
+  assign shape_lower = shape | downcase
+
+  comment
+    The suitability sentence. Built from the metafields, because a note typed
+    into a section setting cannot know the shape of the ring it is shown on.
+    custom.centre_suitability overrides per product; the section setting is
+    the last resort.
+  endcomment
+  assign suitability = 'This ring is suitable for ' | append: article | append: ' ' | append: shape | append: ' cut centre diamond, ' | append: ct_min | append: '–' | append: ct_max | append: 'ct.'
+  if p.metafields.custom.centre_suitability != blank
+    assign suitability = p.metafields.custom.centre_suitability
+  endif
+
+  comment
+    Shape sub-collection handles, for the "see them all" link and for the
+    feed. Note the asymmetry live uses: "natural" but "lab-grown".
+  endcomment
+  assign shape_slug = shape | downcase | replace: ' ', '-'
+  assign natural_handle = shape_slug | append: '-natural-diamonds'
+  assign lab_handle = shape_slug | append: '-lab-grown-diamonds'
+-%}
+
+<div class="pdp__choose"
+     data-fye-centre
+     data-shape="{{ shape | escape }}"
+     data-carat-min="{{ ct_min }}"
+     data-carat-max="{{ ct_max }}"
+     data-feed-natural="{{ natural_handle }}"
+     data-feed-lab="{{ lab_handle }}"
+     data-fee-variant="{{ s.centre_fee_variant_id }}"
+     data-fee-price="{{ s.centre_fee_price_pennies }}">
+
+  <p class="pdp__label">{{ s.centre_heading | default: 'Centre diamond' }}</p>
+  <p class="pdp__choosenote">{{ suitability }}</p>
+
+  <div class="pdp__modes" role="radiogroup" aria-label="{{ s.centre_heading | default: 'Centre diamond' | escape }}">
+    <button type="button"
+            class="pdp__mode is-on"
+            role="radio"
+            aria-checked="true"
+            data-fye-centre-mode="required">
+      <span class="pdp__modetitle">{{ s.centre_required_label | default: 'Choose a diamond' }}</span>
+      <span class="pdp__modecopy">{{ s.centre_required_note | default: 'We supply a certified stone, matched to this setting and set for you.' }}</span>
+    </button>
+
+    <button type="button"
+            class="pdp__mode"
+            role="radio"
+            aria-checked="false"
+            data-fye-centre-mode="supplied">
+      <span class="pdp__modetitle">{{ s.centre_supplied_label | default: 'Supply your own' }}</span>
+      <span class="pdp__modecopy">We set your own {{ shape_lower }} diamond.</span>
+      <span class="pdp__modefee">{{ s.centre_fee_price_pennies | money }}</span>
+    </button>
+
+    <button type="button"
+            class="pdp__mode"
+            role="radio"
+            aria-checked="false"
+            data-fye-centre-mode="none">
+      <span class="pdp__modetitle">{{ s.centre_none_label | default: 'Semi-mount only' }}</span>
+      <span class="pdp__modecopy">The ring without a centre stone, at the price shown.</span>
+    </button>
+  </div>
+
+  {%- comment -%}
+    Carries the mode to the cart. Its VALUE is rewritten by fye-ui.js as the
+    mode changes; on "required" the field is disabled instead, because the
+    chosen stone travels as its own line and a duplicate property on the ring
+    line would contradict it.
+  {%- endcomment -%}
+  <input type="hidden" name="properties[Centre Diamond]" value="" data-fye-centre-prop disabled>
+
+  {%- comment -%} ---- Mode: choose a diamond ---- {%- endcomment -%}
+  <div class="pdp__modebody" data-fye-centre-body="required">
+    <p class="pdp__stonestate" data-fye-stone-state>{{ s.centre_loading | default: 'Checking which diamonds suit this setting…' }}</p>
+
+    {%- comment -%}
+      The chosen stone's summary. Populated by fye-ui.js; empty and hidden
+      until a stone is picked, so nothing implies a default choice.
+    {%- endcomment -%}
+    <div class="pdp__stone" data-fye-stone hidden></div>
+
+    <button type="button" class="btn btn--outline pdp__stonebtn" data-fye-picker-open hidden>
+      {{ s.centre_picker_label | default: 'Choose your diamond' }}
+    </button>
+
+    <p class="pdp__hint fine" data-fye-stone-help hidden>
+      Not sure? <a href="{{ s.centre_help_link | default: '/pages/contact-us' }}">We will help you choose</a> — or
+      <a href="/collections/{{ natural_handle }}">browse every {{ shape_lower }} diamond</a>.
+    </p>
+  </div>
+
+  {%- comment -%} ---- Mode: supply your own ---- {%- endcomment -%}
+  <div class="pdp__modebody" data-fye-centre-body="supplied" hidden>
+    {%- if s.centre_supplied_note != blank -%}
+      <p class="pdp__choosenote">{{ s.centre_supplied_note }}</p>
+    {%- endif -%}
+
+    <input type="hidden" name="properties[Setting service]" value="Customer's own centre diamond" data-fye-centre-service disabled>
+
+    {%- comment -%}
+      The waiver is a real checkbox with a real label, and add-to-cart is
+      blocked until it is ticked — we are setting a stone we have not graded
+      and cannot be liable for it. Disabled when this mode is not chosen, so
+      an untouched waiver never reaches an order.
+    {%- endcomment -%}
+    <label class="pdp__waiver">
+      <input type="checkbox"
+             name="properties[Waiver]"
+             value="Accepted"
+             data-fye-centre-waiver
+             disabled>
+      <span>{{ s.centre_waiver_text | default: 'I understand that stones supplied by me are set at my own risk, and that For Your Eternity cannot be held liable for damage to a stone we have not graded.' }}</span>
+    </label>
+  </div>
+
+  {%- comment -%}
+    ---- The picker modal ----
+    One set of markup at every width: the grid becomes a single column on a
+    phone and the filter block becomes a disclosure. Never a second copy of
+    the content (conventions §3).
+
+    Rendered inert — no stones, no ranges. fye-ui.js fills the results, sets
+    the slider bounds from the stones actually returned, and only then reveals
+    the open button. A modal that opens onto "0 stones" is worse than a button
+    that has not appeared yet.
+  {%- endcomment -%}
+  <div class="pdp__modal" data-fye-picker hidden>
+    <div class="pdp__modalscrim" data-fye-picker-close></div>
+
+    <div class="pdp__modalpanel" role="dialog" aria-modal="true" aria-labelledby="pdp-picker-title">
+      <div class="pdp__modalhead">
+        <div>
+          <h2 class="pdp__modaltitle" id="pdp-picker-title">Choose your {{ shape_lower }} diamond</h2>
+          <p class="pdp__modalsub">{{ ct_min }}–{{ ct_max }}ct suits this setting. Every stone is supplied with its certificate.</p>
+        </div>
+        <button type="button" class="pdp__modalx" data-fye-picker-close aria-label="Close">
+          {%- render 'icon', name: 'close' -%}
+        </button>
+      </div>
+
+      <details class="pdp__filters" data-fye-picker-filters>
+        <summary class="pdp__filterssum">Filters</summary>
+
+        <div class="pdp__filtersbody">
+          <div class="pdp__filter">
+            <span class="pdp__filterlbl">Carat <span class="pdp__filterval" data-fye-ct-label></span></span>
+            <div class="pdp__range" data-fye-range="ct">
+              <input type="range" data-fye-range-min aria-label="Minimum carat">
+              <input type="range" data-fye-range-max aria-label="Maximum carat">
+            </div>
+          </div>
+
+          <div class="pdp__filter">
+            <span class="pdp__filterlbl">Budget <span class="pdp__filterval" data-fye-price-label></span></span>
+            <div class="pdp__range" data-fye-range="price">
+              <input type="range" data-fye-range-min aria-label="Minimum price">
+              <input type="range" data-fye-range-max aria-label="Maximum price">
+            </div>
+          </div>
+
+          {%- comment -%}
+            Natural opens first — Ed, 31/08/2026. These rings are sold mainly
+            as natural, and opening on lab-grown prices would misrepresent
+            them.
+          {%- endcomment -%}
+          <div class="pdp__filter">
+            <span class="pdp__filterlbl">Stone type</span>
+            <div class="pdp__seg" role="radiogroup" aria-label="Stone type">
+              <button type="button" role="radio" aria-checked="true" class="is-on" data-fye-stone-type="natural">Natural</button>
+              <button type="button" role="radio" aria-checked="false" data-fye-stone-type="lab">Lab-grown</button>
+              <button type="button" role="radio" aria-checked="false" data-fye-stone-type="all">Both</button>
+            </div>
+          </div>
+
+          <div class="pdp__filter">
+            <span class="pdp__filterlbl">Colour</span>
+            <div class="pdp__chips" role="group" aria-label="Colour">
+              {%- assign colours = 'D,E,F,G,H,I,J' | split: ',' -%}
+              {%- for c in colours -%}
+                <button type="button" class="pdp__chip" data-fye-chip="colours" data-val="{{ c }}">{{ c }}</button>
+              {%- endfor -%}
+            </div>
+          </div>
+
+          <div class="pdp__filter">
+            <span class="pdp__filterlbl">Clarity</span>
+            <div class="pdp__chips" role="group" aria-label="Clarity">
+              {%- assign clarities = 'FL,IF,VVS1,VVS2,VS1,VS2' | split: ',' -%}
+              {%- for c in clarities -%}
+                <button type="button" class="pdp__chip" data-fye-chip="clarities" data-val="{{ c }}">{{ c }}</button>
+              {%- endfor -%}
+            </div>
+          </div>
+
+          <div class="pdp__filter">
+            <span class="pdp__filterlbl">Certificate</span>
+            <div class="pdp__chips" role="group" aria-label="Certificate">
+              {%- assign certs = 'GIA,IGI' | split: ',' -%}
+              {%- for c in certs -%}
+                <button type="button" class="pdp__chip" data-fye-chip="certs" data-val="{{ c }}">{{ c }}</button>
+              {%- endfor -%}
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <div class="pdp__modaltools">
+        <p class="pdp__count" data-fye-picker-count aria-live="polite"></p>
+        <div class="pdp__toolsright">
+          <label class="pdp__sortlbl" for="pdp-picker-sort">Sort</label>
+          <select class="pdp__select pdp__sort" id="pdp-picker-sort" data-fye-picker-sort>
+            <option value="price-asc">Price, low to high</option>
+            <option value="price-desc">Price, high to low</option>
+            <option value="ct-desc">Carat, high to low</option>
+            <option value="ct-asc">Carat, low to high</option>
+            <option value="colour-asc">Colour, best first</option>
+            <option value="clarity-asc">Clarity, best first</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="pdp__stones" data-fye-picker-results></div>
+
+      <div class="pdp__modalfoot">
+        <button type="button" class="btn btn--outline" data-fye-picker-more hidden>Show more stones</button>
+        <button type="button" class="btn" data-fye-picker-confirm disabled>Use this diamond</button>
+      </div>
+    </div>
+  </div>
+</div>

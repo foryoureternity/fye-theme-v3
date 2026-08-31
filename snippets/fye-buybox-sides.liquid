@@ -1,0 +1,203 @@
+{%- comment -%}
+  fye-buybox-sides — the side-diamond chooser, for trilogy rings only.
+
+  Rendered by main-product after fye-buybox-centre. Side stones are a TRILOGY
+  concern and nothing else — Ed, 31/08/2026.
+
+  ── THE GATE ──────────────────────────────────────────────────────────────
+
+      section.settings.enable_side_diamonds   unticked on product.complete.json
+      tag "Trilogy Ring"
+      fye.side_stones.code                    {"cut":"Pear","pair_ct":0.2,"code":"PE-020"}
+
+  All three. The 8 tension trilogies have no side_stones metafield and behave
+  like any other ring, which is correct — their sides are structural.
+
+  A COMPLETE trilogy carries the metafield AND sits on product.complete.json,
+  so its panel is off: the sides are already set and paid for. The template is
+  the authority, not the metafield. Getting that backwards prices the ring
+  twice.
+
+  ── THE THREE CHOICES DO NOT OVERLAP ──────────────────────────────────────
+
+  Ed, 31/08/2026. On a trilogy with diamond-set shoulders the customer picks:
+
+    · the centre diamond          its own cart line, its own price
+    · the side diamond quality    its own cart line, its own price  (this file)
+    · the shoulder diamond grade  the "Diamond Quality" variant option, which
+                                  with Metal sets the VARIANT price
+
+  So the ordinary quality selector stays on screen and keeps working. Live
+  hides it on any trilogy with a side_stones metafield and locks the ring to
+  its cheapest grade (its W333); that is NOT ported, because on a set-shoulder
+  ring it removes a real choice the customer is entitled to make.
+
+  ── WHY THE SIDES ARE A SEPARATE LINE ─────────────────────────────────────
+
+  Ed's call, 20/08/2026: ring price and side-stone price must be independent.
+  The four choices are variants of four hidden add-on products, matched by SKU
+  tail against this ring's `code`, and their PRICES ARE READ LIVE off those
+  products. Repricing side stones is four product edits and touches no ring.
+
+  ── PROPERTY NAMES ────────────────────────────────────────────────────────
+
+  "Side Diamonds" and "Setting service" follow the centre panel's pattern.
+  UNVERIFIED against live's own keys — live's side-stone properties sit in the
+  part of product-block.js past the readable limit. Confirm with Ed before
+  go-live: a mismatched key means the workshop does not see the instruction.
+
+  Parameters: product, settings (the section's)
+{%- endcomment -%}
+{%- liquid
+  assign s = settings
+  assign p = product
+  assign sides = p.metafields.fye.side_stones.value
+
+  assign code = sides.code
+  assign cut = sides.cut | downcase
+  assign pair_ct = sides.pair_ct
+
+  assign want = '-' | append: code
+
+  comment
+    "Supply your own" needs BOTH a fee variant and a fee price. Without the
+    price the card would advertise the service at £0.00, which is worse than
+    not offering it — so the card hides itself until both are set, the same
+    way the engraving control does. The fee figure is outstanding from Ed.
+  endcomment
+  assign has_sides_fee = false
+  if s.sides_fee_variant_id != blank and s.sides_fee_price_pennies > 0
+    assign has_sides_fee = true
+  endif
+
+  comment
+    The four add-on products, handle*display, exactly as live hardcodes them.
+    A handle that does not resolve simply renders no chip — a missing add-on
+    product must not take add-to-cart down with it.
+
+    all_products is capped at 20 unique handles per page. Four here, and the
+    plain-ring metal switcher (up to 8) never runs on a trilogy, so there is
+    headroom. Anything else added to this page counts against the same cap.
+  endcomment
+  assign addons = 'trilogy-side-diamonds-devvs*D/E VVS,trilogy-side-diamonds-fgvs*F/G VS,trilogy-side-diamonds-gsi*G Si,trilogy-side-diamonds-lab*Lab-grown D VVS' | split: ','
+-%}
+
+<div class="pdp__choose"
+     data-fye-sides
+     data-fee-variant="{{ s.sides_fee_variant_id }}"
+     data-fee-price="{{ s.sides_fee_price_pennies | default: 0 }}">
+
+  <p class="pdp__label">{{ s.sides_heading | default: 'Side diamonds' }}</p>
+  <p class="pdp__choosenote">
+    A matched pair of {{ cut }} diamonds, {{ pair_ct }}ct combined, one set either side of the centre stone.
+  </p>
+
+  <div class="pdp__modes" role="radiogroup" aria-label="{{ s.sides_heading | default: 'Side diamonds' | escape }}">
+    <button type="button"
+            class="pdp__mode is-on"
+            role="radio"
+            aria-checked="true"
+            data-fye-sides-mode="required">
+      <span class="pdp__modetitle">{{ s.sides_required_label | default: 'Choose a pair' }}</span>
+      <span class="pdp__modecopy">We supply and set a matched pair with your ring.</span>
+    </button>
+
+    {%- if has_sides_fee -%}
+      <button type="button"
+              class="pdp__mode"
+              role="radio"
+              aria-checked="false"
+              data-fye-sides-mode="supplied">
+        <span class="pdp__modetitle">{{ s.sides_supplied_label | default: 'Supply your own' }}</span>
+        <span class="pdp__modecopy">We set your own pair of {{ cut }} diamonds.</span>
+        <span class="pdp__modefee">{{ s.sides_fee_price_pennies | money }}</span>
+      </button>
+    {%- endif -%}
+
+    <button type="button"
+            class="pdp__mode"
+            role="radio"
+            aria-checked="false"
+            data-fye-sides-mode="none">
+      <span class="pdp__modetitle">{{ s.sides_none_label | default: 'Mount only' }}</span>
+      <span class="pdp__modecopy">The ring without side stones, at the price shown.</span>
+    </button>
+  </div>
+
+  <input type="hidden" name="properties[Side Diamonds]" value="" data-fye-sides-prop disabled>
+
+  {%- comment -%} ---- Mode: choose a pair ---- {%- endcomment -%}
+  <div class="pdp__modebody" data-fye-sides-body="required">
+    <p class="pdp__choosenote fine">Priced per pair, supplied and set with your ring.</p>
+
+    <div class="pdp__chips pdp__sidechips" role="radiogroup" aria-label="Side diamond quality">
+      {%- assign rendered = 0 -%}
+      {%- for entry in addons -%}
+        {%- liquid
+          assign parts = entry | split: '*'
+          assign addon = all_products[parts[0]]
+          assign quality = parts[1]
+
+          comment
+            Match this ring's spec by SKU tail. Live does the same; a code that
+            has no variant on this add-on product renders no chip.
+          endcomment
+          assign found = nil
+          for v in addon.variants
+            if v.sku contains want
+              assign found = v
+              break
+            endif
+          endfor
+        -%}
+        {%- if found != nil and found.available -%}
+          <button type="button"
+                  class="pdp__chip{% if rendered == 0 %} is-on{% endif %}"
+                  role="radio"
+                  aria-checked="{% if rendered == 0 %}true{% else %}false{% endif %}"
+                  data-fye-side-qual="{{ quality | escape }}"
+                  data-fye-side-variant="{{ found.id }}"
+                  data-fye-side-price="{{ found.price }}"
+                  data-fye-side-name="{{ addon.title | escape }}">
+            <span class="pdp__chipname">{{ quality }}</span>
+            <span class="pdp__chipprice">{{ found.price | money }}</span>
+          </button>
+          {%- assign rendered = rendered | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- comment -%}
+      No chips at all means the add-on products are missing or this ring's code
+      has no matching variant. Say so plainly rather than showing an empty row,
+      and leave add-to-cart working — the ring is still sellable as a mount.
+    {%- endcomment -%}
+    {%- if rendered == 0 -%}
+      <p class="pdp__hint fine">
+        We do not currently hold a matched pair for this ring.
+        <a href="{{ s.enquire_link | default: '/pages/contact-us' }}">Ask us to source one</a>.
+      </p>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} ---- Mode: supply your own ---- {%- endcomment -%}
+  {%- if has_sides_fee -%}
+    <div class="pdp__modebody" data-fye-sides-body="supplied" hidden>
+      {%- comment -%}
+        Its OWN fee product, deliberately not the centre one: the cart
+        reconciler counts the centre fee by variant id and a shared line would
+        be stripped.
+      {%- endcomment -%}
+      <input type="hidden" name="properties[Setting service]" value="Customer's own side diamonds" data-fye-sides-service disabled>
+
+      <label class="pdp__waiver">
+        <input type="checkbox"
+               name="properties[Waiver]"
+               value="Accepted"
+               data-fye-sides-waiver
+               disabled>
+        <span>{{ s.sides_waiver_text | default: 'I understand that stones supplied by me are set at my own risk, and that For Your Eternity cannot be held liable for damage to a stone we have not graded.' }}</span>
+      </label>
+    </div>
+  {%- endif -%}
+</div>

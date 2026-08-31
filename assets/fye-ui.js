@@ -792,3 +792,71 @@
     if (note) note.hidden = !over;
   });
 })();
+
+
+/* ============================================================================
+   GOLD COLOUR — 31/08/2026
+   Eternity, diamond and gem-set rings.
+
+   Gold colour does not change the price, so it is a line-item property rather
+   than a variant. But picking a colour from platinum HAS to change the variant
+   to a gold, so every colour tile is a link carrying ?gold=<Colour> alongside
+   ?variant=. This reads that parameter back on load: sets the hidden property
+   input, lights the right tile, and keeps the label honest.
+
+   Carat links carry no ?gold=, so switching 18k -> 14k would drop the colour.
+   They are marked data-fye-keepgold and this appends the current colour to
+   them, so carat changes preserve it.
+
+   Without JS the property falls back to the first colour in the list. Wrong,
+   but harmless and visible — the alternative is radios, which cannot change
+   the variant at all.
+   ========================================================================== */
+(function goldColour() {
+  function currentGold() {
+    try {
+      return new URLSearchParams(window.location.search).get('gold') || '';
+    } catch (e) {
+      return '';
+    }
+  }
+
+  function apply() {
+    var input = document.querySelector('[data-fye-gold-input]');
+    if (!input) return;
+
+    var gold = currentGold();
+    if (gold) input.value = gold;
+
+    /* The chosen tile. With no parameter the first one stays lit, which is
+       what the input already defaults to. */
+    var tiles = document.querySelectorAll('[data-fye-goldtile]');
+    if (gold && tiles.length) {
+      Array.prototype.forEach.call(tiles, function (tile) {
+        tile.classList.toggle('is-current', tile.getAttribute('data-fye-goldtile') === gold);
+      });
+
+      var label = document.querySelector('[data-fye-metal-label]');
+      if (label && label.textContent.indexOf('Gold') > -1) {
+        label.textContent = gold + ' ' + label.textContent.trim();
+      }
+    }
+
+    /* Carry the colour through a carat change. */
+    var keep = document.querySelectorAll('[data-fye-keepgold]');
+    if (gold && keep.length) {
+      Array.prototype.forEach.call(keep, function (a) {
+        var href = a.getAttribute('href');
+        if (href && href.indexOf('gold=') === -1) {
+          a.setAttribute('href', href + '&gold=' + encodeURIComponent(gold));
+        }
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', apply);
+  } else {
+    apply();
+  }
+})();

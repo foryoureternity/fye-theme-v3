@@ -38,6 +38,26 @@
   `_size_surcharge` property that the Oversize Ring Surcharge cart-transform
   function reads. Do not add it to this branch.
 
+  ── THE BREADCRUMB ────────────────────────────────────────────────────────
+
+  Added 31/08/2026 — v3 never had one; live's product-block does.
+
+  The trail is Home › collection › product. The collection is Shopify's
+  `collection` object when the shopper arrived through a collection URL
+  (/collections/x/products/y), because that is the path they actually took;
+  otherwise it falls back to the product's first collection, skipping `all`,
+  which is what live does.
+
+  CSS lives in this section's stylesheet, NOT in core, even though
+  conventions.md lists `.crumbs` as core vocabulary. Core earns an addition at
+  TWO consumers and this is the first (conventions §2). When main-collection
+  grows a breadcrumb, move `.pdp__crumbs` into core as `.crumbs` and delete it
+  from here — do not copy it.
+
+  `›` is one of only two Unicode glyphs the brand allows (the other is the
+  middot), and it is drawn with a CSS ::before on the second and subsequent
+  items so it is never read aloud as content.
+
   ── THE METAL SWITCHER ────────────────────────────────────────────────────
 
   Two axes, as live's engagement page does it: COLOUR as round swatches, CARAT
@@ -75,7 +95,7 @@
   The fee variant id is a SETTING, not a constant — a hardcoded variant id in
   markup is a silent failure the day someone recreates the fee product.
 
-  ── THE STONE CHOOSERS — added 31/08/2026 evening ─────────────────────────
+  ── THE STONE CHOOSERS ────────────────────────────────────────────────────
 
   Two OPTIONAL PANELS rendered after the buy box, not a third branch. Most
   engagement rings get neither. Ed, 31/08/2026.
@@ -122,6 +142,20 @@
   endif
 
   assign current = p.selected_or_first_available_variant
+
+  comment
+    Breadcrumb collection: the route the shopper actually took, if Shopify
+    knows it, else the product's first real collection.
+  endcomment
+  assign crumb_col = collection
+  unless crumb_col
+    for c in p.collections
+      unless c.handle == 'all'
+        assign crumb_col = c
+        break
+      endunless
+    endfor
+  endunless
 
   comment
     Sibling handles: the parts that stay fixed while metal changes.
@@ -177,6 +211,17 @@
 
 <section class="band band--white pdp" data-screen-label="Product">
   <div class="wrap">
+
+    <nav class="pdp__crumbs" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="{{ routes.root_url }}">Home</a></li>
+        {%- if crumb_col -%}
+          <li><a href="{{ crumb_col.url }}">{{ crumb_col.title }}</a></li>
+        {%- endif -%}
+        <li><span aria-current="page">{{ p.title }}</span></li>
+      </ol>
+    </nav>
+
     <div class="pdp__top">
 
       {%- comment -%} ---- Gallery ---- {%- endcomment -%}
@@ -494,6 +539,45 @@
   grid-template-columns: 1.15fr 1fr;
   gap: var(--s10);
   align-items: start;
+}
+
+/* --- breadcrumb ---------------------------------------------------------
+   Moves to core as `.crumbs` when a second section needs it — see the file
+   comment. The separator is a ::before so it is decoration, not content: a
+   screen reader announcing "Home chevron Diamond Engagement Rings" is worse
+   than no separator at all. */
+
+.fye .pdp__crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  margin: 0 0 var(--s5);
+  padding: 0;
+  list-style: none;
+  font-size: var(--fs-fine);
+  color: var(--ink-soft);
+}
+
+.fye .pdp__crumbs li {
+  margin: 0;
+}
+
+.fye .pdp__crumbs li + li::before {
+  content: '\203A';
+  padding-inline: var(--s2);
+  color: var(--ink-soft);
+}
+
+.fye .pdp__crumbs a {
+  color: var(--ink-soft);
+}
+
+.fye .pdp__crumbs a:hover {
+  color: var(--sage);
+}
+
+.fye .pdp__crumbs [aria-current] {
+  color: var(--ink);
 }
 
 /* --- gallery ------------------------------------------------------------- */
@@ -1367,6 +1451,12 @@
 }
 
 @media (max-width: 560px) {
+  /* The product title is the page's own heading; the trail above it is
+     orientation, not content, so it yields first on a narrow screen. */
+  .fye .pdp__crumbs ol {
+    margin-bottom: var(--s4);
+  }
+
   .fye .pdp__colours {
     gap: var(--s4);
   }

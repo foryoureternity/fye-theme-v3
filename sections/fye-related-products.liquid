@@ -1,0 +1,301 @@
+{%- comment -%}
+  fye-related-products — the "you may also like" row on a product page.
+
+  Built 01/09/2026. Ed's relationship metafield is being generated now, so this
+  is written to read it the moment it lands AND to render something sensible
+  until then — the section is designed and reviewable today rather than blocked
+  on the data.
+
+  ── WHERE THE RELATIONSHIPS COME FROM ─────────────────────────────────────
+
+  Shopify's own Search & Discovery fields, which are already DEFINED on this
+  store (verified 31/08/2026) and being populated now:
+
+    shopify--discovery--product_recommendation.related_products
+    shopify--discovery--product_recommendation.complementary_products
+
+  Both are `list.product_reference`, so `.value` is a list of product drops —
+  no handle lookups, no all_products cost, and a renamed product follows
+  automatically.
+
+  **THE NAMESPACE MUST BE READ WITH BRACKETS.** It contains hyphens, which
+  Liquid cannot parse in dot notation:
+
+      product.metafields.shopify--discovery--product_recommendation   ✗ nil
+      product.metafields['shopify--discovery--product_recommendation'] ✓
+
+  The dotted form does not error. It silently returns nil, so the section
+  quietly falls back and looks like the data never arrived. Worth knowing
+  before anyone "tidies" this.
+
+  RELATED vs COMPLEMENTARY is a `source` setting rather than two sections,
+  because the markup is identical and the difference is entirely editorial:
+
+    related        other rings to consider INSTEAD of this one
+    complementary  what goes WITH it — the matching band
+
+  So the same section is added twice to a template with different settings and
+  different wording. Shopify's two fields mean the same distinction, which is
+  why they are kept apart rather than merged into one row.
+
+  ── THE FALLBACK ──────────────────────────────────────────────────────────
+
+  A product with no relationships set shows its collection siblings instead —
+  server-rendered, no JS, no recommendations API call. Two reasons this is not
+  just a stopgap:
+
+    · most of the catalogue will never have hand-picked relationships, and a
+      collection sibling is a genuinely good suggestion for a ring;
+    · it uses the SAME collection the breadcrumb chose (the route the shopper
+      actually took, else the product's first real collection), so the trail
+      and the row agree about where this ring lives.
+
+  Set `fallback` to false to make the section disappear when there is no
+  curated list — appropriate for a complementary row, where a guess is worse
+  than silence: "buy this with it" has to be a real pairing.
+
+  ── WHY IT MAY RENDER NOTHING ─────────────────────────────────────────────
+
+  Deliberately, in these cases:
+
+    · fewer than two items survive filtering. A "related products" row of one
+      is not a row — it is a non-sequitur next to a 4-column grid.
+    · every reference points at the current product, a deleted product or a
+      draft. product_reference keeps pointing at products that have been
+      deleted, so the nil guard below is load-bearing.
+
+  ── PARAMETERS THIS DOES NOT NEED ─────────────────────────────────────────
+
+  No card markup, no heading markup. `product-card` and `sect-head` already
+  exist and are used by the collection page, so a ring in this row is
+  pixel-identical to the same ring in a grid — which is the point of them being
+  snippets (see product-card's own comment: it was written for this).
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign p = product
+
+  assign ns = 'shopify--discovery--product_recommendation'
+  assign key = 'related_products'
+  if s.source == 'complementary'
+    assign key = 'complementary_products'
+  endif
+
+  assign curated = p.metafields[ns][key].value
+
+  comment
+    Build the list. Curated first; the collection fallback only runs when the
+    curated list yields nothing usable, never to top up a short list — a
+    hand-picked pair of rings followed by two arbitrary siblings reads as
+    though nobody chose any of them.
+  endcomment
+  assign picks = ''
+  assign found = 0
+
+  if curated != blank
+    for item in curated
+      if found >= s.count
+        break
+      endif
+      unless item == blank or item.handle == p.handle or item.available == false
+        assign picks = picks | append: item.handle | append: ','
+        assign found = found | plus: 1
+      endunless
+    endfor
+  endif
+
+  comment
+    Fallback: siblings from the same collection the breadcrumb chose.
+  endcomment
+  assign fb_col = nil
+  if found == 0 and s.fallback
+    assign fb_col = collection
+    unless fb_col
+      for c in p.collections
+        unless c.handle == 'all'
+          assign fb_col = c
+          break
+        endunless
+      endfor
+    endunless
+
+    if fb_col
+      for item in fb_col.products
+        if found >= s.count
+          break
+        endif
+        unless item.handle == p.handle or item.available == false
+          assign picks = picks | append: item.handle | append: ','
+          assign found = found | plus: 1
+        endunless
+      endfor
+    endif
+  endif
+
+  assign handles = picks | split: ','
+
+  comment
+    Two is the floor — see the file comment.
+  endcomment
+  assign show = false
+  if handles.size >= 2
+    assign show = true
+  endif
+
+  comment
+    The heading. A curated row and a fallback row are not making the same
+    claim, so they are allowed different wording: "We also recommend" is a
+    promise the fallback cannot keep.
+  endcomment
+  assign head = s.heading
+  if fb_col and s.heading_fallback != blank
+    assign head = s.heading_fallback
+  endif
+-%}
+
+{%- if show -%}
+  <section class="band band--{{ s.ground }} rel" data-screen-label="Related products">
+    <div class="wrap">
+      {%- render 'sect-head',
+            show: true,
+            eyebrow: s.eyebrow,
+            heading: head,
+            intro: s.intro,
+            align: s.align,
+            flank: s.flank -%}
+
+      <div class="rel__grid">
+        {%- for handle in handles -%}
+          {%- assign item = all_products[handle] -%}
+          {%- if item != blank -%}
+            {%- render 'product-card',
+                  product: item,
+                  loading: 'lazy',
+                  sizes: '(max-width: 900px) 50vw, 25vw' -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      {%- if s.link_label != blank and s.link_url != blank -%}
+        <div class="rel__more">
+          <a class="btn btn--outline" href="{{ s.link_url }}">{{ s.link_label }}</a>
+        </div>
+      {%- endif -%}
+    </div>
+  </section>
+{%- endif -%}
+
+{% stylesheet %}
+/* Four across, matching the collection grid exactly, so the same ring is the
+   same size in both places. A short row leaves the trailing columns empty
+   rather than stretching its cards — a 3-card row at 1/3 width would read as
+   a different, more important component. */
+.fye .rel__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--s7) var(--s5);
+}
+
+/* The row sits closer to the section head than a collection grid does: it is
+   a suggestion, not the page's subject. */
+.fye .rel .sect-head {
+  margin-bottom: var(--s7);
+}
+
+.fye .rel__more {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--s7);
+}
+
+@media (max-width: 900px) {
+  /* Two across, not three: at this width three cards put the ring images
+     below the size where a setting is legible. */
+  .fye .rel__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s5) var(--s4);
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Related products",
+  "tag": "section",
+  "class": "fye-related-products",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Reads the product's Search & Discovery relationships. Add this section twice — once for related rings, once for complementary — with different wording."
+    },
+    {
+      "type": "select",
+      "id": "source",
+      "label": "Relationship",
+      "options": [
+        { "value": "related", "label": "Related products — other rings to consider" },
+        { "value": "complementary", "label": "Complementary products — what goes with it" }
+      ],
+      "default": "related"
+    },
+    {
+      "type": "checkbox",
+      "id": "fallback",
+      "label": "Fall back to collection siblings",
+      "info": "When this product has no relationships set. Leave off for a complementary row, where a guessed pairing is worse than none.",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "count",
+      "label": "How many to show",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4,
+      "info": "The row hides itself entirely if fewer than two survive."
+    },
+
+    { "type": "header", "content": "Wording" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "You may also like" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "We also recommend" },
+    {
+      "type": "text",
+      "id": "heading_fallback",
+      "label": "Heading when falling back",
+      "default": "More from this collection",
+      "info": "Used when the row is showing collection siblings rather than chosen relationships."
+    },
+    { "type": "textarea", "id": "intro", "label": "Intro" },
+    {
+      "type": "select",
+      "id": "align",
+      "label": "Alignment",
+      "options": [
+        { "value": "center", "label": "Centred" },
+        { "value": "left", "label": "Left" }
+      ],
+      "default": "center"
+    },
+    { "type": "checkbox", "id": "flank", "label": "Hairlines either side of the heading", "default": true },
+
+    { "type": "header", "content": "Band" },
+    {
+      "type": "select",
+      "id": "ground",
+      "label": "Background",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Champagne ivory" }
+      ],
+      "default": "ivory",
+      "info": "The product page above is white, so ivory keeps the band rhythm."
+    },
+
+    { "type": "header", "content": "Optional link" },
+    { "type": "text", "id": "link_label", "label": "Button label" },
+    { "type": "url", "id": "link_url", "label": "Button link" }
+  ],
+  "presets": [{ "name": "Related products" }]
+}
+{% endschema %}

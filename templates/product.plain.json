@@ -18,9 +18,27 @@
         "engraving_max": 35,
         "engraving_fonts": "Classic Script|Elegant Serif|Modern Sans|Block Capitals"
       }
+    },
+    "related": {
+      "type": "fye-related-products",
+      "settings": {
+        "source": "related",
+        "fallback": true,
+        "count": 4,
+        "eyebrow": "You may also like",
+        "heading": "We also recommend",
+        "heading_fallback": "More wedding rings",
+        "intro": "",
+        "align": "center",
+        "flank": true,
+        "ground": "ivory",
+        "link_label": "",
+        "link_url": ""
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "related"
   ]
 }

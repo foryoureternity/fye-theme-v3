@@ -65,30 +65,56 @@ Order of preference:
    terminal, and it either succeeds or returns an error I can see.
 2. **Whole-file write to Dropbox** as `name.new.liquid` + a one-line `mv` —
    for repo-only files, or to bring the repo back in sync after (1).
-3. **A patch script** — only for a change across many files at once, and only
-   if I then confirm the file's `updatedAt` actually moved.
+3. **A patch script** — only in the narrow case below.
 
-**Always verify.** `size` and `updatedAt` from the theme's file query tell me
-whether my write landed. Checking that once at the start would have caught the
-whole dead evening. If Ed says "nothing changed", check the timestamp *before*
-writing anything new.
+**The one legitimate script case.** A file too large to read whole (the
+readers truncate around 50KB) cannot be safely rewritten, because the part I
+cannot see may hold the `{% schema %}`. A script edits a span in place without
+needing the rest. When writing one it must refuse unless it can prove the
+tail survived — e.g. assert `{% schema %}` still follows the close marker.
+Anything smaller: write the whole file, don't script it.
+
+**Always verify — this is the step that would have saved the dead evening.**
+
+```
+query { theme(id: "gid://shopify/OnlineStoreTheme/197720146304") {
+  files(filenames: ["sections/x.liquid"], first: 1) {
+    nodes { filename size updatedAt } } } }
+```
+
+Cross-check that against Dropbox's `last_modified` and `size` for the same
+file. Both matching = the edit ran, the commit pushed, and Shopify has it.
+Divergent = it tells me *which* link broke. Do this before writing anything
+new, and always when Ed says "nothing's changed". Size cannot tell me it
+renders correctly — that still needs one hard-reload from Ed — but it settles
+"did it arrive", which is the question that wasted the time.
 
 Note: theme file *deletion* is blocked by policy — Ed has to remove files by
 hand in the editor. Don't create scratch files on the theme.
 
-## R4 — Small self-contained files, not edits to the big one
+## R4 — One declaration per selector, in the section's own stylesheet
 
-`header-bottom.liquid` is 58KB. Every string-match patch against it was
-fragile and most were never applied.
+Two separate rules, both learned the hard way.
 
-Instead: **one snippet per component, and its CSS lives inside it.** A
-`<style>` block rendered inside the panel lands *after* the section's own
-rules in document order, so it wins at equal specificity with no
-`!important` — and I can rewrite a 4KB file whole instead of surgically
-patching a 58KB one.
+**Where it lives.** `fye-core.css` states its own architecture: section CSS
+belongs in that section's `{% stylesheet %}` block, and core earns vocabulary
+only when TWO OR MORE sections share it. The mega menu is one section, so its
+CSS belongs in `header-bottom.liquid` — not in core, and not in the snippets.
 
-This is why `mm-guide-card.liquid` and `mm-diamonds.liquid` now carry their
-own layout CSS. Follow that pattern for everything new.
+An inline `<style>` inside a snippet is a *delivery* workaround, not
+architecture. `mm-guide-card` renders up to five times a page, so its style
+block shipped five times, uncached, and needed defensive selector chains
+(`.fye .mm__card .mm__card-title`) to out-specify the section. Consolidated
+31/08: ~7.9KB saved and the chains dropped back to single classes.
+
+**Never append an override.** The mega CSS reached 400 lines as five stacked
+generations — `.mm__zone-title` declared four times, `.mm__shapes` four,
+`.mm__label` three. Reading it told you nothing about what applied; you had to
+run the cascade in your head, and that is what made every fix slow.
+
+> **Find the existing declaration and change it. If you are appending a rule
+> that re-states a selector already in the file, you are making the next fix
+> slower.**
 
 ## R5 — Read the old theme's Liquid before rebuilding
 
@@ -119,9 +145,9 @@ recreation, and it needs Ed's intent rather than live's DOM.
 2. **Read the old theme's Liquid** for that section — settings, params, and
    any snippet that already does the job.
 3. **Confirm the target exists on live.** If not, stop and ask.
-4. **Write a self-contained snippet** — markup + its own `<style>` — straight
-   to the v3 theme with `themeFilesUpsert`.
-5. **Verify** the file's size and `updatedAt` moved.
+4. **Write a self-contained snippet** — markup only, CSS into the section's
+   stylesheet — straight to the v3 theme with `themeFilesUpsert`.
+5. **Verify** size + `updatedAt` on the theme, cross-checked against Dropbox.
 6. **Ask Ed to hard-reload and look.** One round trip, not six.
 7. **Sync the repo:** write the same content to Dropbox as `name.new.liquid`,
    hand over `mv … && git add -A && git commit && git pull --rebase && git push`.
@@ -135,6 +161,7 @@ step. Don't fight it.
 
 - `git push` after a direct theme write will usually reject; `git pull
   --rebase` first. On a conflict in a file I wrote to the theme, keep ours.
+- The git → Shopify sync works: a push updates the theme within seconds.
 - A `.wrap` inside a flex/grid parent needs explicit `width: 100%`.
 - Media queries must come last in the cascade chain.
 - Absolute positioning with no positioned ancestor measures against the
@@ -152,10 +179,7 @@ step. Don't fight it.
 - `snippets/mm-probe.liquid` — scratch file on the theme, delete by hand.
 - Wedding panel: all 17 stone links resolve to
   `/collections/coloured-stone-rings` — the `mm-stones` wedding-branch
-  override is firing. Fixable directly on the theme.
-- The four unrun scripts in `docs/tools/` should be deleted:
-  `fix-diamonds-geometry`, `fix-guide-rail`, `fix-guide-card`,
-  `fix-megamenu-all`. `fix-megamenu-all` would now do harm — it sets the rail
-  width a second time and injects blurbs the snippet already handles.
+  override is firing.
 - `docs/tools/dump-megamenus.js` is worth keeping — fallback for computed
-  geometry live's HTML won't give.
+  geometry live's HTML won't give. The `fix-*.mjs` and
+  `mega-css-consolidate.mjs` scripts are spent; delete them.

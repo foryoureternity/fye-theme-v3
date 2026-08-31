@@ -1,15 +1,17 @@
 {%- comment -%}
   product-card — one product tile. The most reused markup on the site.
 
-  Used by featured-collection, and by main-collection / main-product /
+  Used by featured-collection and main-collection, and by main-product /
   product-recommendations when those are built. It is a snippet, not a section,
-  precisely so those four cannot drift apart.
+  precisely so those cannot drift apart.
 
   Parameters:
-    product   — required
-    loading   — 'eager' for the first row above the fold, otherwise 'lazy'
-    sizes     — the sizes attribute for the grid it sits in
-    show_type — show the product type as an eyebrow. Default true.
+    product      — required
+    loading      — 'eager' for the first row above the fold, otherwise 'lazy'
+    sizes        — the sizes attribute for the grid it sits in
+    show_type    — show the product type as an eyebrow. Default true.
+    price_prefix — force the price wording: 'setting' | 'from' | 'none'.
+                   Omit it and the card works the wording out itself; see below.
 
   THE CARD, per the design system: squared image, uppercase eyebrow, Outfit
   name, £ price. No border, no shadow — whitespace and the image edge do the
@@ -20,11 +22,33 @@
   Money is always `| money`, never a hand-built string with a £ in it — the
   store is GBP today, and a hardcoded symbol is how that becomes a bug later.
 
+  PRICE WORDING — three cases, decided from the product, not the page.
+  Ed's rule, 31/08/2026:
+
+    loose stones (diamonds, gemstones)   the actual price
+    engagement rings                     "Setting from <price>"
+    wedding, eternity, plain bands       "From <price>"
+
+  Rather than key that to collection handles — which would be wrong the moment
+  a ring appears in search, on the ring pages, or in a featured row — it is
+  derived from what the product IS:
+
+    · a product whose price does not vary has ONE price, so it states it. A
+      loose stone is a single SKU, which is exactly this case.
+    · a ring that varies and is tagged 'Engagement Ring' says "Setting from",
+      because the stone is chosen separately and "From" would understate by an
+      order of magnitude.
+    · anything else that varies says "From" — the variation is metal and size,
+      which is a modest spread.
+
+  The tag is the same one the Engagement Rings collection is built on, so the
+  card and the collection cannot disagree. `price_prefix` overrides all of it
+  where a caller knows better.
+
   Price logic, in the order it is decided:
     sold out            → "Sold out", no price
     on sale             → sale price, then the original struck through
-    varies by variant   → "Setting from <lowest>" — the stone is chosen
-                          separately, so "From" understates what it covers
+    varies by variant   → the prefix above, then the lowest price
     otherwise           → the price
 {%- endcomment -%}
 {%- liquid
@@ -40,6 +64,26 @@
   endif
   assign second = product.images[1]
   assign card_alt = product.featured_image.alt | default: product.title
+
+  comment
+    Resolve the wording once. `price_prefix` from the caller wins; otherwise
+    the tag decides. Only consulted when the price actually varies.
+  endcomment
+  assign prefix_mode = price_prefix
+  if prefix_mode == blank
+    if product.tags contains 'Engagement Ring'
+      assign prefix_mode = 'setting'
+    else
+      assign prefix_mode = 'from'
+    endif
+  endif
+
+  assign price_lead = ''
+  if prefix_mode == 'setting'
+    assign price_lead = 'Setting from '
+  elsif prefix_mode == 'from'
+    assign price_lead = 'From '
+  endif
 -%}
 
 <div class="pcard">
@@ -87,7 +131,7 @@
           <span class="pcard__now">{{ product.price | money }}</span>
           <s class="pcard__was">{{ product.compare_at_price | money }}</s>
         {%- elsif product.price_varies -%}
-          <span class="pcard__now">Setting from {{ product.price_min | money }}</span>
+          <span class="pcard__now">{{ price_lead }}{{ product.price_min | money }}</span>
         {%- else -%}
           <span class="pcard__now">{{ product.price | money }}</span>
         {%- endif -%}

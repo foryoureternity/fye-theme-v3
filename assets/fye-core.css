@@ -888,7 +888,7 @@ a.visually-hidden:focus-visible {
      Both are teal at low alpha; the shape sits heavier because it is a filled
      silhouette rather than an outlined dot. Live's values. */
   --gem-edge:             rgba(35, 61, 71, 0.28);
-  --gem-shape:            rgba(35, 61, 71, 0.42);
+  --gem-shape:            rgba(35, 61, 71, 0.72);
 
   /* Filter row grounds. Two extremely light greens: hover, then selected.
      They are not --sage-pale (#EEF2EE) — these sit a step either side of it,

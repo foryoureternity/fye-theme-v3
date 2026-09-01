@@ -1661,6 +1661,33 @@
     flex: 1 1 0;
   }
 }
+
+/* --- sticky gallery — Ed, 01/09/2026 -------------------------------------
+   The ring stays visible while the buy box scrolls, and stops of its own
+   accord at the foot of .pdp__top: a sticky element cannot leave its
+   containing block, so nothing can ride over the section below. No JS.
+
+   Depends on .pdp__top keeping `align-items: start` — with the default
+   stretch the gallery is as tall as the buy box and has nowhere to slide.
+
+   The offset is breathing room, not a header allowance: this theme has no
+   sticky header. If one is added, change it here.
+
+   The width cap keeps the WHOLE gallery — thumbnails included — on screen
+   while it is stuck. A gallery taller than the viewport would have its foot
+   permanently below the fold and unreachable. Bounding width bounds height
+   because the stage is square, so the photograph shrinks instead of being
+   cropped; on a tall window the cap exceeds the column and does nothing.
+
+   Desktop only: below 901px the layout is one column and a sticky gallery
+   would sit over the buy box it accompanies. */
+@media (min-width: 901px) {
+  .fye .pdp__gallery {
+    position: sticky;
+    top: var(--s5);
+    max-width: calc(100vh - 180px);
+  }
+}
 {% endstylesheet %}
 
 {% schema %}

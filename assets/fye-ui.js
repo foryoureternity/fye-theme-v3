@@ -861,6 +861,21 @@
     return n >= lo && n <= hi;
   }
 
+  /* Fancy colour feeds are MIXED-SHAPE — fancy-yellow-natural-diamonds holds
+     every cut, where round-natural-diamonds holds one. So a fancy ring asks
+     for its own shape and nothing else.
+
+     Gated on the panel's flag rather than applied always: on a shape
+     collection this is a no-op, and a no-op that could empty the picker if
+     fye.shape and fye.centre_shape ever drifted apart is not worth having.
+     Verified 01/09/2026 that both use the same words ("Radiant", "Oval"). */
+  function shapeOk(panel, d) {
+    if (panel.getAttribute('data-shape-filter') !== '1') return true;
+    var want = String(panel.getAttribute('data-shape') || '').trim().toLowerCase();
+    if (!want) return true;
+    return String(d.shape || '').trim().toLowerCase() === want;
+  }
+
   function ensureStones(panel) {
     if (panel.__fyeStones || panel.__fyeLoading) return;
     panel.__fyeLoading = true;
@@ -874,7 +889,7 @@
       fetchOrigin(panel, lab).catch(function () { return []; })
     ]).then(function (both) {
       var all = both[0].concat(both[1]).filter(function (d) {
-        return d && d.variantId && d.available !== false && caratOk(panel, d);
+        return d && d.variantId && d.available !== false && caratOk(panel, d) && shapeOk(panel, d);
       });
 
       panel.__fyeStones = all;

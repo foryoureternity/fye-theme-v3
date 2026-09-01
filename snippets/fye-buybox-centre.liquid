@@ -10,16 +10,49 @@
 
   All three metafields, or no panel — Ed's ruling, 31/08/2026:
 
-      fye.centre_shape   "Round"
-      fye.carat_min      0.8
-      fye.carat_max      1.3
+      fye.centre_shape   "Radiant"
+      fye.carat_min      0.4
+      fye.carat_max      0.65
 
   plus the section's `enable_centre_diamond`, which product.complete.json,
   product.gemset.json, product.gents.json and product.plain.json untick.
 
-  The `-SMT` SKU tail is NOT the gate, though the two agree in practice: 30 of
-  30 sampled -smt products carry all three metafields. A SKU convention is a
-  naming habit; a metafield is data someone entered on purpose.
+  The picker is driven by THESE THREE FIELDS ONLY. fye.family_carat belongs to
+  the carat stepper and is no part of this — Ed, 01/09/2026.
+
+  ── FANCY COLOURED CENTRE STONES — added 01/09/2026 ───────────────────────
+
+  A semi-mount whose SKU carries a colour code takes a FANCY COLOURED diamond,
+  not a white one, and the picker must offer those instead. Ed, 01/09/2026.
+
+      ENG29338-FY-SMT-PT-DE-VVS   ->  fancy yellow
+
+  Measured the same day: of 250 sampled semi-mounts only two SKU shapes occur,
+  `eng#####-smt` and `eng#####-fy-smt`, so FY is the only code in use TODAY.
+  COLOUR_CODES below is a one-line-per-code map precisely so another can be
+  added without touching anything else — but codes are NOT invented here. An
+  unrecognised code falls through to the white-diamond feed, which is the
+  behaviour before this change and no worse.
+
+  The colour collections exist already and are large:
+
+      fancy-yellow-natural-diamonds        1,000
+      fancy-yellow-lab-grown-diamonds      1,000
+
+  Same natural / lab-grown asymmetry as the shape collections, so the two
+  origins are fetched exactly as before.
+
+  **THEY ARE MIXED-SHAPE.** Unlike `round-natural-diamonds`, a fancy colour
+  collection holds every cut — a sample returned Asscher, Emerald, Heart, Oval,
+  Marquise, Princess, Tapered Baguette and Trapezoid. So the panel sets
+  `data-shape-filter="1"` and fye-ui.js drops anything whose shape is not this
+  ring's. Verified 01/09/2026 that fye.shape on those stones uses the same
+  vocabulary as fye.centre_shape ("Radiant", "Oval", "Asscher"), which is what
+  makes the comparison safe.
+
+  The flag is per-panel rather than always-on deliberately: on the shape
+  collections the filter would be a no-op, and a no-op that could empty the
+  picker if the two vocabularies ever drift is not worth having.
 
   ── NOTHING IS SELECTED ON LOAD ───────────────────────────────────────────
 
@@ -45,10 +78,6 @@
               setting fee as its own line, and requires a ticked waiver.
     none      semi-mount only. Nothing added, price as shown.
 
-  Copy is kept to a few words per card because the three sit side by side —
-  Ed, 31/08/2026. A card ~200px wide cannot hold a sentence without wrapping
-  to four lines and dragging the panel down the page.
-
   ── PROPERTY NAMES ARE A CONTRACT ─────────────────────────────────────────
 
   Verbatim from live — the workshop reads these off orders, so a "tidier"
@@ -57,17 +86,6 @@
       "Centre Diamond"   "Customer's own diamond" | "Semi-mount only"
       "Setting service"
       "Waiver"
-
-  Every add-on line also carries "For ring" and "Ring SKU" so the cart can
-  group them; those are set by fye-ui.js at add time, not here, because the
-  SKU depends on the variant chosen.
-
-  ── WHAT THIS SNIPPET DOES NOT DO ─────────────────────────────────────────
-
-  It renders the modal SHELL and the mode cards. The stones themselves are
-  fetched at runtime from templates/collection.cdc-json.liquid and injected by
-  fye-ui.js — there is no server-rendered stone list, because the feed is
-  15,000+ products and the carat window is per ring.
 
   Parameters: product, settings (the section's)
 {%- endcomment -%}
@@ -81,26 +99,65 @@
   assign ct_max = mf.carat_max
 
   comment
-    "a Round" but "an Emerald". Live builds the same sentence; the article is
-    chosen from the first letter rather than a lookup table so a shape added
-    to the catalogue tomorrow reads correctly without a code change.
+    ── Fancy colour detection ──
+    One entry per code, CODE*collection-slug. Only codes seen in real SKUs.
+    The needle is hyphen-wrapped so a code can never match inside a model
+    number: "-FY-" cannot appear in "ENG29338".
+  endcomment
+  assign COLOUR_CODES = 'FY*yellow' | split: ','
+
+  assign sku_up = p.selected_or_first_available_variant.sku | default: p.handle | upcase
+  assign fancy_colour = ''
+  for pair in COLOUR_CODES
+    assign bits = pair | split: '*'
+    assign needle = '-' | append: bits[0] | append: '-'
+    if sku_up contains needle
+      assign fancy_colour = bits[1]
+      break
+    endif
+  endfor
+
+  comment
+    Feed handles. A fancy ring reads the colour collections and asks the
+    picker to filter by shape; a white one reads the shape collections, which
+    are already shape-pure.
+  endcomment
+  assign shape_slug = shape | downcase | replace: ' ', '-'
+  if fancy_colour != blank
+    assign natural_handle = 'fancy-' | append: fancy_colour | append: '-natural-diamonds'
+    assign lab_handle = 'fancy-' | append: fancy_colour | append: '-lab-grown-diamonds'
+    assign browse_handle = 'fancy-' | append: fancy_colour | append: '-diamonds'
+    assign shape_filter = '1'
+  else
+    assign natural_handle = shape_slug | append: '-natural-diamonds'
+    assign lab_handle = shape_slug | append: '-lab-grown-diamonds'
+    assign browse_handle = natural_handle
+    assign shape_filter = ''
+  endif
+
+  comment
+    How the stone is described in prose. "fancy yellow radiant" reads as the
+    trade does — colour first, then cut.
+  endcomment
+  assign shape_lower = shape | downcase
+  if fancy_colour != blank
+    assign stone_words = 'fancy ' | append: fancy_colour | append: ' ' | append: shape_lower
+  else
+    assign stone_words = shape_lower
+  endif
+
+  comment
+    "a Round" but "an Emerald" — and "a fancy yellow Emerald", because the
+    article follows the FIRST word actually spoken, not the shape.
   endcomment
   assign article = 'a'
-  assign first_letter = shape | slice: 0, 1 | downcase
+  assign first_letter = stone_words | slice: 0, 1 | downcase
   assign vowels = 'a,e,i,o,u' | split: ','
   if vowels contains first_letter
     assign article = 'an'
   endif
 
-  assign shape_lower = shape | downcase
-
-  comment
-    The suitability sentence. Built from the metafields, because a note typed
-    into a section setting cannot know the shape of the ring it is shown on.
-    custom.centre_suitability overrides per product; the section setting is
-    the last resort.
-  endcomment
-  assign suitability = 'This ring is suitable for ' | append: article | append: ' ' | append: shape | append: ' cut centre diamond, ' | append: ct_min | append: '–' | append: ct_max | append: 'ct.'
+  assign suitability = 'This ring is suitable for ' | append: article | append: ' ' | append: stone_words | append: ' cut centre diamond, ' | append: ct_min | append: '–' | append: ct_max | append: 'ct.'
   if p.metafields.custom.centre_suitability != blank
     assign suitability = p.metafields.custom.centre_suitability
   endif
@@ -114,19 +171,12 @@
   if s.centre_fee_price_pennies > 0
     assign show_centre_fee_price = true
   endif
-
-  comment
-    Shape sub-collection handles, for the "see them all" link and for the
-    feed. Note the asymmetry live uses: "natural" but "lab-grown".
-  endcomment
-  assign shape_slug = shape | downcase | replace: ' ', '-'
-  assign natural_handle = shape_slug | append: '-natural-diamonds'
-  assign lab_handle = shape_slug | append: '-lab-grown-diamonds'
 -%}
 
 <div class="pdp__choose"
      data-fye-centre
      data-shape="{{ shape | escape }}"
+     data-shape-filter="{{ shape_filter }}"
      data-carat-min="{{ ct_min }}"
      data-carat-max="{{ ct_max }}"
      data-feed-natural="{{ natural_handle }}"
@@ -155,7 +205,7 @@
             data-fye-centre-mode="supplied">
       <span class="pdp__radio" aria-hidden="true"></span>
       <span class="pdp__modetitle">{{ s.centre_supplied_label | default: 'Supply your own' }}</span>
-      <span class="pdp__modecopy">We set your {{ shape_lower }} diamond.</span>
+      <span class="pdp__modecopy">We set your {{ stone_words }} diamond.</span>
       {%- if show_centre_fee_price -%}
         <span class="pdp__modefee">+{{ s.centre_fee_price_pennies | money_without_trailing_zeros }}</span>
       {%- endif -%}
@@ -187,7 +237,7 @@
   {%- endcomment -%}
   <div class="pdp__modebody" data-fye-centre-body="required" hidden>
     <p class="pdp__choosenote">
-      Add a certified {{ shape_lower }} diamond to complete this ring.
+      Add a certified {{ stone_words }} diamond to complete this ring.
       {{ ct_min }}–{{ ct_max }}ct suits this setting.
     </p>
 
@@ -205,7 +255,7 @@
 
     <p class="pdp__hint fine" data-fye-stone-help hidden>
       Not sure? <a href="{{ s.centre_help_link | default: '/pages/contact-us' }}">We will help you choose</a> — or
-      <a href="/collections/{{ natural_handle }}">browse every {{ shape_lower }} diamond</a>.
+      <a href="/collections/{{ browse_handle }}">browse every {{ stone_words }} diamond</a>.
     </p>
   </div>
 
@@ -250,7 +300,7 @@
     <div class="pdp__modalpanel" role="dialog" aria-modal="true" aria-labelledby="pdp-picker-title">
       <div class="pdp__modalhead">
         <div>
-          <h2 class="pdp__modaltitle" id="pdp-picker-title">Choose your {{ shape_lower }} diamond</h2>
+          <h2 class="pdp__modaltitle" id="pdp-picker-title">Choose your {{ stone_words }} diamond</h2>
           <p class="pdp__modalsub">{{ ct_min }}–{{ ct_max }}ct suits this setting. Every stone is supplied with its certificate.</p>
         </div>
         <button type="button" class="pdp__modalx" data-fye-picker-close aria-label="Close">
@@ -292,15 +342,23 @@
             </div>
           </div>
 
-          <div class="pdp__filter">
-            <span class="pdp__filterlbl">Colour</span>
-            <div class="pdp__chips" role="group" aria-label="Colour">
-              {%- assign colours = 'D,E,F,G,H,I,J' | split: ',' -%}
-              {%- for c in colours -%}
-                <button type="button" class="pdp__chip" data-fye-chip="colours" data-val="{{ c }}">{{ c }}</button>
-              {%- endfor -%}
+          {%- comment -%}
+            Colour and clarity grades. The D–J scale describes WHITE diamonds;
+            a fancy coloured stone is graded by hue and intensity instead, so
+            the colour chips would filter every stone out. They are dropped on
+            a fancy ring rather than shown and useless.
+          {%- endcomment -%}
+          {%- if fancy_colour == blank -%}
+            <div class="pdp__filter">
+              <span class="pdp__filterlbl">Colour</span>
+              <div class="pdp__chips" role="group" aria-label="Colour">
+                {%- assign colours = 'D,E,F,G,H,I,J' | split: ',' -%}
+                {%- for c in colours -%}
+                  <button type="button" class="pdp__chip" data-fye-chip="colours" data-val="{{ c }}">{{ c }}</button>
+                {%- endfor -%}
+              </div>
             </div>
-          </div>
+          {%- endif -%}
 
           <div class="pdp__filter">
             <span class="pdp__filterlbl">Clarity</span>
@@ -333,7 +391,9 @@
             <option value="price-desc">Price, high to low</option>
             <option value="ct-desc">Carat, high to low</option>
             <option value="ct-asc">Carat, low to high</option>
-            <option value="colour-asc">Colour, best first</option>
+            {%- if fancy_colour == blank -%}
+              <option value="colour-asc">Colour, best first</option>
+            {%- endif -%}
             <option value="clarity-asc">Clarity, best first</option>
           </select>
         </div>

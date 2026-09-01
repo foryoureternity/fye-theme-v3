@@ -12,10 +12,18 @@
   `placeholder`, `eyebrow`, `heading`, `body`; `label`, `link`, `style`,
   `trigger_class` per button block.
 
-  `trigger_class` is how the live site opens a popup from a button — the class
-  is what the popup script listens for. Kept verbatim: the guide popups are
-  build-state job 6, and renaming these would break every one of them. A button
-  with a `trigger_class` and no link renders as a <button>, not a dead <a>.
+  `trigger_class` is how the LIVE site opens a popup from a button: the class
+  is what Klaviyo's script listened for. The setting ID is kept verbatim so no
+  template needs editing, but v3 listens for DATA ATTRIBUTES, never classes
+  (conventions §6) — so the same value is also emitted as
+  `data-fye-popup`, which is what sections/fye-popups.liquid answers to.
+
+  Until 01/09/2026 only the class was emitted, and the homepage's "Start a
+  bespoke enquiry" button was therefore completely inert. If a button opens
+  nothing, check that a popup with that key exists in Footer > Popups.
+
+  A button with a `trigger_class` and no link renders as a <button>, not a
+  dead <a>.
 
   `full_bleed` pushes the image to the viewport edge, which is why the section
   sets `band--bleed` and re-pads only the text column. That is the one case
@@ -73,9 +81,9 @@
               -%}
               {%- if b.label != blank -%}
                 {%- if b.link != blank and b.link != '#' -%}
-                  <a class="btn{{ variant }} {{ b.trigger_class }}" href="{{ b.link }}" {{ block.shopify_attributes }}>{{ b.label }}</a>
+                  <a class="btn{{ variant }} {{ b.trigger_class }}" href="{{ b.link }}"{% if b.trigger_class != blank %} data-fye-popup="{{ b.trigger_class }}"{% endif %} {{ block.shopify_attributes }}>{{ b.label }}</a>
                 {%- else -%}
-                  <button type="button" class="btn{{ variant }} {{ b.trigger_class }}" {{ block.shopify_attributes }}>{{ b.label }}</button>
+                  <button type="button" class="btn{{ variant }} {{ b.trigger_class }}"{% if b.trigger_class != blank %} data-fye-popup="{{ b.trigger_class }}"{% endif %} {{ block.shopify_attributes }}>{{ b.label }}</button>
                 {%- endif -%}
               {%- endif -%}
             {%- endfor -%}

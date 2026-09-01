@@ -219,6 +219,28 @@
             "no_file_note": ""
           }
         },
+        "pop_bespoke": {
+          "type": "popup",
+          "settings": {
+            "key": "open-design-your-own",
+            "email_subject": "Bespoke design enquiry",
+            "image": "shopify://shop_images/Ring_11.png",
+            "image_alt": "Bespoke ring being designed",
+            "eyebrow": "For Your Eternity · Bespoke",
+            "heading": "Start a bespoke enquiry",
+            "intro": "<p>Tell us what you have in mind — a stone, a setting, a sketch, or just a feeling about it. We will come back with what is possible, what it would cost, and how long it would take.</p>",
+            "button_label": "Start my enquiry",
+            "show_message": true,
+            "message_label": "What do you have in mind?",
+            "message_placeholder": "A ring you have seen, a stone you love, a budget, a date…",
+            "show_journey": true,
+            "show_consent": true,
+            "reassurance": "Your details are kept private. Every commission is guided personally.",
+            "success_heading": "Thank you",
+            "success_body": "<p>We have your enquiry and will come back to you personally — usually within one working day — with next steps and an idea of cost.</p>",
+            "no_file_note": ""
+          }
+        },
         "pop_enquire": {
           "type": "popup",
           "settings": {
@@ -250,6 +272,7 @@
         "pop_stones",
         "pop_care",
         "pop_consultation",
+        "pop_bespoke",
         "pop_enquire"
       ],
       "settings": {}

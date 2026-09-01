@@ -1,0 +1,38 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": { "type": "3", "settings": {} },
+        "title": { "type": "1", "settings": { "heading": "Gallery" } },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Explore a selection of past pieces created for our clients, from bespoke engagement rings and wedding bands to unique, one-of-a-kind designs. Each piece reflects a personal story, thoughtfully crafted with care, character and exceptional materials. Use the gallery as inspiration for what we could create together.</p>"
+          }
+        }
+      },
+      "block_order": ["crumbs", "title", "sub"],
+      "settings": {
+        "image": "shopify://shop_images/Untitled_design_-_2026-03-31T154948.747_1.jpg",
+        "use_specify_image": true,
+        "overlay": 45,
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false
+      }
+    },
+
+    "gallery": {
+      "type": "past-pieces-gallery",
+      "name": "Past Pieces gallery",
+      "settings": {
+        "show_filters": true,
+        "all_label": "All pieces",
+        "items_initial": 9,
+        "more_label": "Load more pieces",
+        "bg_color": "ivory"
+      }
+    }
+  },
+  "order": ["heading", "gallery"]
+}

@@ -2383,3 +2383,195 @@
     apply();
   }
 })();
+
+
+/* ============================================================================
+   PAST PIECES GALLERY — appended 01/09/2026
+   sections/past-pieces-gallery.liquid
+
+   Four jobs: masonry layout, one media carousel per card, category filters
+   with live counts, and load more.
+
+   MASONRY. The grid's CSS default is an even three-column grid, which is what
+   a visitor without JavaScript sees and is perfectly readable. This adds
+   .is-masonry, which switches the rows to 1px tracks, and then gives each
+   card a grid-row span matching its measured height. Cards keep their natural
+   heights and stagger, and — unlike CSS columns, which balance by height —
+   they still fill left to right in DOM order, which is what "newest first"
+   requires.
+
+   Everything is delegated from document, so a section re-render in the theme
+   editor needs no re-binding.
+   ========================================================================== */
+(function () {
+  function grids(scope) {
+    return Array.prototype.slice.call(
+      (scope || document).querySelectorAll('[data-fye-gallery-grid]')
+    );
+  }
+
+  function gutter(grid) {
+    var g = parseFloat(getComputedStyle(grid).columnGap);
+    return isNaN(g) ? 32 : g;
+  }
+
+  function layout(grid) {
+    if (!grid.classList.contains('is-masonry')) return;
+    var g = gutter(grid);
+    grid.querySelectorAll('.ppg__card').forEach(function (card) {
+      card.style.gridRowEnd = '';
+      if (card.classList.contains('is-capped') || card.style.display === 'none') return;
+      var h = card.getBoundingClientRect().height;
+      if (h > 0) card.style.gridRowEnd = 'span ' + Math.ceil(h + g);
+    });
+  }
+
+  function relayoutAll() {
+    grids().forEach(layout);
+  }
+
+  // Counts are filled in from the DOM rather than Liquid, so they cannot
+  // disagree with what is actually on the page.
+  function tally(root) {
+    var grid = root.querySelector('[data-fye-gallery-grid]');
+    if (!grid) return;
+    var total = grid.querySelectorAll('[data-cat]').length;
+    root.querySelectorAll('[data-fye-gallery-filter]').forEach(function (btn) {
+      var f = btn.getAttribute('data-fye-gallery-filter');
+      var n = f === 'all'
+        ? total
+        : grid.querySelectorAll('[data-cat="' + f + '"]').length;
+      var slot = btn.querySelector('[data-fye-gallery-tally]');
+      if (slot) slot.textContent = n;
+    });
+  }
+
+  function uncap(root) {
+    root.querySelectorAll('.ppg__card.is-capped').forEach(function (card) {
+      card.classList.remove('is-capped');
+    });
+    var wrap = root.querySelector('[data-fye-gallery-more-wrap]');
+    if (wrap) wrap.style.display = 'none';
+  }
+
+  function filter(root, value) {
+    var grid = root.querySelector('[data-fye-gallery-grid]');
+    if (!grid) return;
+    // Reveal the capped cards first, or a filtered count would be a promise
+    // the grid does not keep.
+    uncap(root);
+    root.querySelectorAll('[data-fye-gallery-filter]').forEach(function (btn) {
+      btn.classList.toggle('is-on', btn.getAttribute('data-fye-gallery-filter') === value);
+    });
+    grid.querySelectorAll('[data-cat]').forEach(function (card) {
+      var show = value === 'all' || card.getAttribute('data-cat') === value;
+      card.style.display = show ? '' : 'none';
+    });
+    layout(grid);
+  }
+
+  function step(car, dir) {
+    var track = car.querySelector('[data-fye-car-track]');
+    if (!track) return;
+    var n = track.children.length;
+    if (n < 2) return;
+    var i = (parseInt(car.getAttribute('data-fye-car-i') || '0', 10) + dir + n) % n;
+    car.setAttribute('data-fye-car-i', i);
+    track.style.transform = 'translateX(' + (-100 * i) + '%)';
+    var count = car.querySelector('[data-fye-car-count]');
+    if (count) count.textContent = (i + 1) + ' / ' + n;
+    var card = car.parentElement;
+    if (card) {
+      card.querySelectorAll('.ppg__dash').forEach(function (dash, j) {
+        dash.classList.toggle('is-on', j === i);
+      });
+    }
+    // A video on a slide that has scrolled away keeps playing otherwise.
+    track.querySelectorAll('video').forEach(function (v) { v.pause(); });
+  }
+
+  document.addEventListener('click', function (e) {
+    if (!e.target || !e.target.closest) return;
+
+    var prev = e.target.closest('[data-fye-car-prev]');
+    if (prev) {
+      step(prev.closest('[data-fye-car]'), -1);
+      return;
+    }
+    var next = e.target.closest('[data-fye-car-next]');
+    if (next) {
+      step(next.closest('[data-fye-car]'), 1);
+      return;
+    }
+    var btn = e.target.closest('[data-fye-gallery-filter]');
+    if (btn) {
+      filter(btn.closest('[data-fye-gallery]'), btn.getAttribute('data-fye-gallery-filter'));
+      return;
+    }
+    var more = e.target.closest('[data-fye-gallery-more]');
+    if (more) {
+      var root = more.closest('[data-fye-gallery]');
+      uncap(root);
+      layout(root.querySelector('[data-fye-gallery-grid]'));
+    }
+  });
+
+  /* Touch swipe. Horizontal drags only, so vertical page scrolling is
+     untouched, and never when the drag starts on a video — those controls need
+     the gesture. Passive listeners: preventDefault is never called. */
+  var sx = 0, sy = 0, swiping = null;
+  document.addEventListener('touchstart', function (e) {
+    swiping = null;
+    if (e.touches.length !== 1 || !e.target || !e.target.closest) return;
+    if (e.target.closest('video')) return;
+    var car = e.target.closest('[data-fye-car]');
+    if (!car) return;
+    sx = e.touches[0].clientX;
+    sy = e.touches[0].clientY;
+    swiping = car;
+  }, { passive: true });
+
+  document.addEventListener('touchend', function (e) {
+    if (!swiping) return;
+    var car = swiping;
+    swiping = null;
+    var dx = e.changedTouches[0].clientX - sx;
+    var dy = e.changedTouches[0].clientY - sy;
+    if (Math.abs(dx) < 40 || Math.abs(dx) <= Math.abs(dy)) return; // a scroll
+    step(car, dx < 0 ? 1 : -1);
+  }, { passive: true });
+
+  function init(scope) {
+    grids(scope).forEach(function (grid) {
+      if (grid.getAttribute('data-fye-ready')) return;
+      grid.setAttribute('data-fye-ready', '1');
+      grid.classList.add('is-masonry');
+
+      var root = grid.closest('[data-fye-gallery]');
+      if (root) tally(root);
+      layout(grid);
+
+      // Images and videos arrive after first paint and change card heights.
+      grid.querySelectorAll('img').forEach(function (im) {
+        if (!im.complete) {
+          im.addEventListener('load', function () { layout(grid); }, { once: true });
+        }
+      });
+      if (window.ResizeObserver) {
+        var ro = new ResizeObserver(function () {
+          window.requestAnimationFrame(function () { layout(grid); });
+        });
+        grid.querySelectorAll('.ppg__card').forEach(function (c) { ro.observe(c); });
+      }
+    });
+  }
+
+  var t;
+  window.addEventListener('resize', function () {
+    clearTimeout(t);
+    t = setTimeout(relayoutAll, 120);
+  });
+
+  init();
+  document.addEventListener('shopify:section:load', function (e) { init(e.target); });
+})();

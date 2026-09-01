@@ -1,0 +1,62 @@
+{%- comment -%}
+  article-card — one article tile.
+
+  Parameters:
+    article     required
+    heading     'h2' | 'h3' — the level this card sits at in the page outline.
+                Defaults to h2.
+    show_date   boolean
+    show_more   boolean
+    more_label  string, defaults to 'Read more'
+    words       excerpt length in words, defaults to 22
+
+  A snippet, with its vocabulary in fye-core.css, because TWO sections render
+  it: main-blog's grid and main-article's closing row. latest-news-EM does NOT
+  use it — that band's lead-plus-three layout was measured against live and
+  shares nothing with this but the idea of an article.
+
+  The photograph is a link but is kept OUT of the tab order and hidden from
+  assistive tech: it points at the same URL as the title immediately below it,
+  so exposing both gives every card two identical stops.
+{%- endcomment -%}
+{%- liquid
+  assign alt = article.title | strip_html | escape
+  assign n = words | default: 22
+  assign excerpt = article.excerpt_or_content | strip_html | truncatewords: n, ''
+  assign label = more_label | default: 'Read more'
+  assign tag = heading | default: 'h2'
+-%}
+
+<article class="acard">
+  <a class="acard__media" href="{{ article.url }}" tabindex="-1" aria-hidden="true">
+    {%- if article.image != blank -%}
+      {{ article.image | image_url: width: 900 | image_tag:
+         loading: 'lazy',
+         widths: '300, 420, 600, 900',
+         sizes: '(max-width: 560px) 100vw, (max-width: 900px) 50vw, 320px',
+         alt: alt }}
+    {%- else -%}
+      <span class="acard__ph"></span>
+    {%- endif -%}
+  </a>
+
+  <div class="acard__words">
+    {%- if show_date -%}
+      <p class="acard__date">
+        <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+          {{- article.published_at | date: '%-d %B %Y' -}}
+        </time>
+      </p>
+    {%- endif -%}
+
+    <{{ tag }} class="acard__title"><a href="{{ article.url }}">{{ article.title }}</a></{{ tag }}>
+
+    {%- if excerpt != blank -%}
+      <p class="acard__excerpt">{{ excerpt }}</p>
+    {%- endif -%}
+
+    {%- if show_more -%}
+      <a class="link acard__more" href="{{ article.url }}">{{ label }}</a>
+    {%- endif -%}
+  </div>
+</article>

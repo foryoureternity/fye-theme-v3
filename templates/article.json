@@ -1,0 +1,166 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": { "type": "3", "settings": {} },
+        "title": { "type": "1", "settings": { "heading": "" } }
+      },
+      "block_order": ["crumbs", "title"],
+      "settings": {
+        "ground": "teal",
+        "use_specify_image": false,
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false
+      }
+    },
+
+    "main": {
+      "type": "main-article",
+      "blocks": {
+        "featured": { "type": "image", "settings": {} },
+        "related": {
+          "type": "related",
+          "settings": { "hd_related": "Latest news", "limit_related": 4 }
+        }
+      },
+      "block_order": ["featured", "related"],
+      "settings": {
+        "show_date": true,
+        "ground": "white",
+        "rel_ground": "ivory"
+      }
+    },
+
+    "guides": {
+      "type": "guide-download-block",
+      "name": "Guide downloads",
+      "blocks": {
+        "guide_engagement": {
+          "type": "guide",
+          "settings": {
+            "show": true,
+            "cover": "shopify://shop_images/Engagement_Ring_Cover.png",
+            "title": "The Engagement Ring Guide",
+            "blurb": "Budget, the Four Cs, diamond shapes, settings, sizing and bespoke design.",
+            "klaviyo_form_id": "V9eDYg"
+          }
+        },
+        "guide_plain": {
+          "type": "guide",
+          "settings": {
+            "show": true,
+            "cover": "shopify://shop_images/Plain_Wedding_Cover.png",
+            "title": "The Plain Wedding Ring Guide",
+            "blurb": "Profiles, metals, finishes, shaped-to-fit bands and matched pairs.",
+            "klaviyo_form_id": "XMzNMS"
+          }
+        },
+        "guide_diamond_wedding": {
+          "type": "guide",
+          "settings": {
+            "show": true,
+            "cover": "shopify://shop_images/Diamond_Ring_Guide.png",
+            "title": "The Diamond Wedding Ring Guide",
+            "blurb": "Eternity rings, setting styles, shaped-to-fit bands and everyday wear.",
+            "klaviyo_form_id": "Rch5bG"
+          }
+        },
+        "guide_eternity": {
+          "type": "guide",
+          "settings": {
+            "show": true,
+            "cover": "shopify://shop_images/Eternity_Ring_Guide_Cover_v3.png",
+            "title": "The Eternity Ring Guide",
+            "blurb": "Full and half eternity styles, stone settings, spacing and how to wear them.",
+            "klaviyo_form_id": "TNb26i"
+          }
+        },
+        "guide_stones": {
+          "type": "guide",
+          "settings": {
+            "show": true,
+            "cover": "shopify://shop_images/diamond-and-gemstone-guide-cover.png",
+            "title": "The Diamond & Gemstone Guide",
+            "blurb": "Diamonds, coloured gemstones, lab-grown stones and choosing the right stone for your ring.",
+            "klaviyo_form_id": "UbTxH7"
+          }
+        },
+        "guide_care": {
+          "type": "guide",
+          "settings": {
+            "show": true,
+            "cover": "shopify://shop_images/ring-care-guide-cover.png",
+            "title": "The Ring & Jewellery Care Guide",
+            "blurb": "Cleaning, safe storage, claw and setting checks, replating and when to have a ring serviced.",
+            "klaviyo_form_id": "RINGCARE",
+            "file_url": "/pages/ring-and-jewellery-care-guide-download"
+          }
+        }
+      },
+      "block_order": [
+        "guide_engagement",
+        "guide_plain",
+        "guide_diamond_wedding",
+        "guide_eternity",
+        "guide_stones",
+        "guide_care"
+      ],
+      "settings": {
+        "heading": "Free expert guides",
+        "subtext": "<p>Six expert guides — read online or take the free PDF, whatever stage you're at.</p>",
+        "button_label": "View guide",
+        "background": "teal"
+      }
+    },
+
+    "guarantee": {
+      "type": "fye-media-text",
+      "settings": {
+        "band": "mist",
+        "full_bleed": true,
+        "image": "shopify://shop_images/Ring_211_5.png",
+        "image_alt": "Hand wearing a For Your Eternity ring",
+        "placeholder": "Hand with ring",
+        "heading": "The For Your Eternity guarantee",
+        "body": "<ul><li>GIA & IGI certified diamonds</li><li>Ethical, conflict free gemstones & precious metals</li><li>10% discount on your wedding ring for returning customers</li><li>Free insured delivery</li><li>Free cleaning & inspection for life</li><li>Free resizing for one year</li></ul>"
+      }
+    },
+
+    "trust": {
+      "type": "shipping",
+      "name": "Trust strip",
+      "blocks": {
+        "trust_pricing": {
+          "type": "shipping",
+          "settings": { "illustration": "pricing", "text": "<p>Competitive pricing</p>" }
+        },
+        "trust_shipping": {
+          "type": "shipping",
+          "settings": { "illustration": "shipping", "text": "<p>Free, insured shipping</p>" }
+        },
+        "trust_resize": {
+          "type": "shipping",
+          "settings": { "illustration": "resize", "text": "<p>Free resizing for one year</p>" }
+        },
+        "trust_warranty": {
+          "type": "shipping",
+          "settings": { "illustration": "warranty", "text": "<p>Lifetime warranty*</p>" }
+        },
+        "trust_ethical": {
+          "type": "shipping",
+          "settings": { "illustration": "diamond", "text": "<p>Ethically sourced diamonds and materials</p>" }
+        }
+      },
+      "block_order": [
+        "trust_pricing",
+        "trust_shipping",
+        "trust_resize",
+        "trust_warranty",
+        "trust_ethical"
+      ],
+      "settings": { "col_dk": "5", "band": "ivory" }
+    }
+  },
+  "order": ["heading", "main", "guides", "guarantee", "trust"]
+}

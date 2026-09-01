@@ -1,0 +1,187 @@
+{%- comment -%}
+  main-article — one blog post. 1 use: article.
+
+  NEW FILE. Live runs a 53.3KB T4S section here with seven block types, six of
+  them switched off on every article: content, tags, socials, navigation and
+  comments were all disabled, and only `image` and `related` were enabled. So
+  only those two block types exist in v3. Adding one back means adding it
+  here, not un-disabling anything.
+
+  DEPARTURE FROM LIVE, flagged: live disables heading-article and prints the
+  title inside this section. v3 uses the standard `heading-template` banner
+  instead — it already knows how to title an article and how to build the
+  Home > News > title breadcrumb, so an article now looks like every other
+  page on the site and gets crumbs it never had.
+
+  Setting IDs kept from live: `hd_related`, `limit_related` on the related
+  block. New: `ground`, `show_date`, `rel_ground`.
+
+  Live's related row was 8 posts over two rows. v3 shows 4 in one — two rows
+  of thumbnails under an article is a lot of furniture for a 16-post blog.
+  It is a range: put it back to 8 if you want live's count. The rendered
+  column count is capped at 4 in Liquid rather than in CSS, because capping a
+  custom property with min(var(--cols),4) in a rule on the SAME element that
+  sets --cols inline is a self-reference: the property goes
+  guaranteed-invalid and the grid silently falls back to one column.
+
+  NOT BUILT, deliberately: comments (disabled on live and the blog takes
+  none), share icons, tags and prev/next. Say so before re-adding any of
+  them — each needs a design decision, not just markup.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.ground | default: 'white'
+
+  comment
+    Blocks are looked up by TYPE, not rendered in block order. The two are a
+    hero image and a closing row with the body between them, so their relative
+    order in the editor cannot mean anything; iterating positionally would let
+    a drag put the related row above the article.
+  endcomment
+  assign img_block = nil
+  assign rel_block = nil
+  for block in section.blocks
+    case block.type
+      when 'image'
+        assign img_block = block
+      when 'related'
+        assign rel_block = block
+    endcase
+  endfor
+
+  assign rel_limit = 4
+  if rel_block != nil
+    assign rel_limit = rel_block.settings.limit_related | plus: 0
+    if rel_limit < 1
+      assign rel_limit = 4
+    endif
+  endif
+  assign rel_cols = rel_limit
+  if rel_cols > 4
+    assign rel_cols = 4
+  endif
+  assign rel_pool = rel_limit | plus: 1
+  assign rel_ground = s.rel_ground | default: 'ivory'
+  assign art_alt = article.title | strip_html | escape
+-%}
+
+<section class="art band band--{{ band }}" data-screen-label="Article">
+  <div class="wrap wrap--narrow">
+
+    {%- if s.show_date -%}
+      <p class="art__date">
+        <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+          {{- article.published_at | date: '%-d %B %Y' -}}
+        </time>
+      </p>
+    {%- endif -%}
+
+    {%- if img_block != nil and article.image != blank -%}
+      <figure class="art__hero" {{ img_block.shopify_attributes }}>
+        {{ article.image | image_url: width: 1600 | image_tag:
+           loading: 'eager',
+           widths: '600, 780, 1000, 1300, 1600',
+           sizes: '(max-width: 900px) 100vw, 780px',
+           alt: art_alt }}
+      </figure>
+    {%- endif -%}
+
+    {%- if article.content != blank -%}
+      <div class="prose art__body">{{ article.content }}</div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{%- if rel_block != nil and blog.articles.size > 1 -%}
+  <section class="art-rel band band--{{ rel_ground }}" data-screen-label="Article — latest news" {{ rel_block.shopify_attributes }}>
+    <div class="wrap">
+      {%- if rel_block.settings.hd_related != blank -%}
+        <div class="sect-head">
+          <h2 class="heading-flank">{{ rel_block.settings.hd_related }}</h2>
+        </div>
+      {%- endif -%}
+
+      {%- comment -%}
+        One more than needed is fetched because the current article is still in
+        blog.articles and has to be skipped; `shown` then stops the loop at the
+        requested count whether or not it fell inside the window.
+      {%- endcomment -%}
+      <ul class="agrid" style="--cols: {{ rel_cols }}; --cols-mb: 2;">
+        {%- assign shown = 0 -%}
+        {%- for a in blog.articles limit: rel_pool -%}
+          {%- if a.id == article.id -%}{% continue %}{%- endif -%}
+          {%- if shown >= rel_limit -%}{% break %}{%- endif -%}
+          <li>
+            {%- render 'article-card', article: a, heading: 'h3', show_date: s.show_date, words: 16 -%}
+          </li>
+          {%- assign shown = shown | plus: 1 -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  </section>
+{%- endif -%}
+
+{% stylesheet %}
+.fye .art__date {
+  margin: 0 0 var(--s5);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.fye .art__hero { margin: 0 0 var(--s8); }
+.fye .art__hero :where(img) { width: 100%; }
+
+/* article.content is written in the Shopify admin, so it arrives as bare
+   h2/h3/p/ul/img/blockquote. .prose in fye-core carries the reading rhythm;
+   these are the elements it does not cover. */
+.fye .art__body :where(img) { margin-block: var(--s6); }
+.fye .art__body :where(blockquote) {
+  margin: var(--s7) 0;
+  padding-left: var(--s6);
+  border-left: 1px solid var(--sage);
+  font-size: var(--fs-body-lg);
+  font-style: italic;
+}
+.fye .art__body :where(a) { text-decoration: underline; text-underline-offset: 3px; }
+.fye .art__body :where(table) { width: 100%; border-collapse: collapse; font-size: var(--fs-small); margin-block: var(--s6); }
+.fye .art__body :where(th, td) { padding: var(--s3) var(--s4); border-bottom: var(--hairline); text-align: left; vertical-align: top; }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Article",
+  "settings": [
+    { "type": "checkbox", "id": "show_date", "label": "Show the published date", "default": true },
+    { "type": "header", "content": "Background" },
+    {
+      "type": "select", "id": "ground", "label": "Article background", "default": "white",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Champagne ivory" }
+      ]
+    },
+    {
+      "type": "select", "id": "rel_ground", "label": "Latest news background", "default": "ivory",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Champagne ivory" },
+        { "value": "mist",  "label": "Mist blue" }
+      ]
+    }
+  ],
+  "blocks": [
+    { "type": "image", "name": "Featured image", "limit": 1, "settings": [] },
+    {
+      "type": "related", "name": "Latest news", "limit": 1,
+      "settings": [
+        { "type": "text", "id": "hd_related", "label": "Heading", "default": "Latest news" },
+        { "type": "range", "id": "limit_related", "label": "Articles shown", "min": 2, "max": 8, "step": 1, "default": 4 }
+      ]
+    }
+  ],
+  "default": { "blocks": [{ "type": "image" }, { "type": "related" }] }
+}
+{% endschema %}

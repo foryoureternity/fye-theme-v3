@@ -1080,3 +1080,97 @@ a.visually-hidden:focus-visible {
    square with nothing in it. */
 .fye .hdr__count[hidden],
 .fye [data-fye-wish-count][hidden] { display: none !important; }
+
+
+/* ============================================================================
+   ARTICLE CARD — appended 01/09/2026
+   snippets/article-card.liquid
+
+   In core because TWO sections render the snippet: main-blog's listing grid
+   and main-article's closing "latest news" row. latest-news-EM does NOT use
+   it — that band's lead-plus-three geometry was measured against live and
+   shares nothing with this beyond the idea of an article.
+
+   The card is the product card's sibling: squared 4:3 photograph, a small
+   uppercase date, an Outfit title, an excerpt. No border and no shadow — the
+   image edge and the grid gap do the separating, exactly as .pcard does.
+   ========================================================================== */
+
+.fye .acard { display: flex; flex-direction: column; gap: var(--s4); }
+
+.fye .acard__media {
+  display: block;
+  overflow: hidden;
+  background: var(--ivory);      /* shows through transparent ring PNGs */
+}
+.fye .acard__media :where(img) {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: transform var(--dur) var(--ease);
+}
+.fye .acard:hover .acard__media :where(img) { transform: scale(1.03); }
+.fye .acard__ph {
+  display: block;
+  aspect-ratio: 4 / 3;
+  background: var(--ivory);
+  border: var(--hairline);
+}
+
+.fye .acard__words {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s2);
+}
+.fye .acard__date {
+  margin: 0;
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+/* Outfit, sentence case, 15px: a card title is a label on a tile, not a
+   heading in the page's voice. The element is still an h2/h3 — the outline is
+   correct, only the treatment is quiet. */
+.fye .acard__title {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-regular);
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+.fye .acard__title a { color: var(--ink); }
+.fye .acard__title a:hover { color: var(--sage); }
+.fye .acard__excerpt {
+  margin: 0;
+  font-size: var(--fs-small);
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.fye .acard__more { margin-top: var(--s1); }
+
+/* The grid article cards sit in. Sections set --cols / --cols-mb inline,
+   because the column count is a Liquid-computed value CSS cannot know. */
+.fye .agrid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr));
+  gap: var(--s9) var(--grid-gap);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.fye .agrid > li { margin: 0; }
+
+@media (max-width: 900px) {
+  .fye .agrid { grid-template-columns: repeat(var(--cols-mb, 2), minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .fye .agrid { grid-template-columns: 1fr; gap: var(--s8); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fye .acard:hover .acard__media :where(img) { transform: none; }
+}

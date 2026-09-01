@@ -1,0 +1,444 @@
+{%- comment -%}
+  past-pieces-gallery — the Gallery page's card mosaic. 1 use:
+  page.past-pieces, which is the page handle `jewellery-gallery`.
+
+  PORTED FROM AN FYE-ORIGINAL, NOT FROM T4S. The old file was already written
+  to the brand book, so this is a re-plumbing rather than a redesign. Kept
+  exactly: the card anatomy (monogram + name + category, square media
+  carousel, caption, spec line), the ordering rule, and the masonry mechanic.
+  Changed: palette and type now come from fye-core.css tokens, `{% style %}`
+  became `{% stylesheet %}`, and the inline <script> moved to
+  assets/fye-ui.js.
+
+  DROPPED FROM THE OLD SCHEMA — settings a schema no longer declares are
+  ignored by Shopify, so nothing saved in the theme editor is lost:
+    load_fonts                        layout/theme.liquid loads both faces
+    padding_top, padding_top_mobile   rhythm is --sect-y via .band
+    enquire_label, default_enquire_url  the card footer that used them was
+                                      removed by Ed on 25/08/2026
+  GAINED: bg_color, a palette choice, replacing a hard-coded ivory ground.
+
+  WHERE THE CONTENT COMES FROM
+  One `past_piece` METAOBJECT per commission — Content > Metaobjects > Past
+  Piece. Nothing about a piece is edited in the theme editor; this section
+  carries layout and labels only. Fields read here: name, category, label,
+  media, caption, spec, date, featured.
+
+  `number` is deliberately NOT rendered (Ed, 25/08/2026), and neither is the
+  date. Both fields still exist and must not be deleted — the date orders the
+  grid, the number is an internal reference.
+
+  Order is automatic: featured pieces first, then newest by date completed.
+  Nothing is dragged into place.
+
+  Categories come from the entry's Category field. To add one, add it to the
+  metaobject definition AND to `cat_order` below — the bar renders in that
+  order and hides categories with no pieces. Present at 01/09/2026:
+  Engagement, Wedding, Pendants.
+
+  KNOWN LIMIT (W514): a Liquid loop over `.values` reads at most 50 entries.
+  11 exist today, so the ceiling is years out, but past it the OLDEST pieces
+  vanish silently rather than erroring. The fix is wrapping the grid in a
+  paginate tag, which also moves the filter counts server-side.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.bg_color | default: 'ivory'
+  assign initial = s.items_initial | plus: 0
+
+  assign pieces = metaobjects.past_piece.values
+  assign piece_count = pieces.size
+
+  comment
+    Sort key per entry: featured flag, then date, then the entry's position,
+    sorted descending — so featured pins to the top and the rest run newest
+    first.
+
+    The position travels IN the key and the entry is found by walking the list
+    again below. That looks wasteful and is: `.values` is a collection drop
+    that supports iteration only. values[i] returns nil, which renders a card
+    with every field empty and raises nothing at all. Do NOT "optimise" this
+    into an index lookup. Handles are no good either —
+    metaobjects.TYPE[handle] is capped at 20 lookups per page.
+  endcomment
+  assign sort_keys = ''
+  for p in pieces
+    assign pin = '0'
+    if p.featured.value
+      assign pin = '1'
+    endif
+    assign d = p.date.value | default: '0000-00-00' | date: '%Y-%m-%d'
+    assign sort_keys = sort_keys | append: pin | append: d | append: '~' | append: forloop.index0 | append: ','
+  endfor
+  assign ordered = sort_keys | split: ',' | sort | reverse
+
+  assign cat_order = 'Engagement,Wedding,Eternity Rings,Gemstone,Pendants,Earrings,Bracelets' | split: ','
+  assign present = ''
+  for p in pieces
+    assign c = p.category.value
+    unless present contains c
+      assign present = present | append: c | append: ','
+    endunless
+  endfor
+  assign distinct_count = present | split: ',' | size
+
+  assign show_bar = false
+  if s.show_filters and distinct_count > 1
+    assign show_bar = true
+  endif
+-%}
+
+<section class="ppg band band--{{ band }}" data-screen-label="Gallery — past pieces" data-fye-gallery>
+  <div class="wrap">
+
+    {%- if show_bar -%}
+      <nav class="ppg__filters" data-fye-gallery-filters aria-label="Filter pieces by category">
+        <button class="ppg__filter is-on" type="button" data-fye-gallery-filter="all">
+          {{ s.all_label | default: 'All pieces' }}
+          <span class="ppg__tally" data-fye-gallery-tally aria-hidden="true"></span>
+        </button>
+        {%- for cat in cat_order -%}
+          {%- if present contains cat -%}
+            <button class="ppg__filter" type="button" data-fye-gallery-filter="{{ cat | handleize }}">
+              {{ cat }}
+              <span class="ppg__tally" data-fye-gallery-tally aria-hidden="true"></span>
+            </button>
+          {%- endif -%}
+        {%- endfor -%}
+      </nav>
+    {%- endif -%}
+
+    {%- if piece_count == 0 -%}
+      <p class="lead">No pieces yet. Add one at Content &rsaquo; Metaobjects &rsaquo; Past Piece.</p>
+    {%- else -%}
+
+      <div class="ppg__grid" data-fye-gallery-grid>
+        {%- for key in ordered -%}
+          {%- liquid
+            assign card_index = forloop.index
+            assign pi = key | split: '~' | last | plus: 0
+            assign piece = nil
+            for p in pieces
+              if forloop.index0 == pi
+                assign piece = p
+                break
+              endif
+            endfor
+          -%}
+          {%- if piece == nil -%}{% continue %}{%- endif -%}
+          {%- liquid
+            assign piece_title = piece.name.value | default: 'Untitled piece'
+            assign cat_label = piece.category.value
+            assign media = piece.media.value
+            comment
+              `| default: 0` so an empty media field is 0 rather than nil: nil
+              fails BOTH the "> 1" and the "== 0" test, and the card then
+              renders with no carousel and no placeholder — an empty box.
+            endcomment
+            assign total = media.size | default: 0
+          -%}
+
+          <article class="ppg__card{% if card_index > initial %} is-capped{% endif %}" data-cat="{{ cat_label | handleize }}">
+
+            <div class="ppg__head">
+              <span class="ppg__mono">
+                {%- if s.avatar != blank -%}
+                  {{ s.avatar | image_url: width: 76 | image_tag: loading: 'lazy', alt: '' }}
+                {%- else -%}
+                  <img src="{{ 'fye-icon-teal.svg' | asset_url }}" alt="" width="19" height="26" loading="lazy">
+                {%- endif -%}
+              </span>
+              <span class="ppg__who">
+                <span class="ppg__name">{{ piece_title }}</span>
+                <span class="ppg__meta">
+                  {{- cat_label -}}
+                  {%- if piece.label.value != blank %} &middot; {{ piece.label.value }}{% endif -%}
+                </span>
+              </span>
+            </div>
+
+            <div class="ppg__car"{% if total > 1 %} data-fye-car{% endif %}>
+              {%- if total > 1 -%}
+                <span class="ppg__count" data-fye-car-count>1 / {{ total }}</span>
+              {%- endif -%}
+
+              <div class="ppg__track" data-fye-car-track>
+                {%- if total == 0 -%}
+                  <div class="ppg__slide ppg__ph">
+                    <span class="ppg__ph-note">No photographs on this piece yet</span>
+                  </div>
+                {%- else -%}
+                  {%- for item in media -%}
+                    {%- if item.media_type == 'video' -%}
+                      <div class="ppg__slide">
+                        <span class="ppg__vtag">{% render 'icon', name: 'play', size: 12 %}Video</span>
+                        {%- comment -%}
+                          image_size sets the POSTER resolution. Without it
+                          Shopify serves a small thumbnail, scaled up to fill a
+                          square card, and the first frame looks badly blurred
+                          until the viewer presses play. 1080 is the largest
+                          width this grid ever requests.
+                        {%- endcomment -%}
+                        {{ item | video_tag: image_size: '1080x', playsinline: true, muted: true, controls: true, preload: 'metadata' }}
+                      </div>
+                    {%- else -%}
+                      {%- assign img_alt = item.alt | default: piece_title -%}
+                      <div class="ppg__slide">
+                        {{ item | image_url: width: 1080 | image_tag:
+                           loading: 'lazy',
+                           widths: '420, 640, 840, 1080',
+                           sizes: '(max-width: 560px) 100vw, (max-width: 900px) 50vw, 420px',
+                           alt: img_alt }}
+                      </div>
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endif -%}
+              </div>
+
+              {%- if total > 1 -%}
+                <button class="ppg__arrow ppg__arrow--prev" type="button" data-fye-car-prev aria-label="Previous photograph">
+                  {%- render 'icon', name: 'chevron-left', size: 16 -%}
+                </button>
+                <button class="ppg__arrow ppg__arrow--next" type="button" data-fye-car-next aria-label="Next photograph">
+                  {%- render 'icon', name: 'chevron-right', size: 16 -%}
+                </button>
+              {%- endif -%}
+            </div>
+
+            {%- if total > 1 -%}
+              <div class="ppg__dashes" data-fye-car-dashes aria-hidden="true">
+                {%- for slot in (1..total) -%}
+                  <span class="ppg__dash{% if forloop.first %} is-on{% endif %}"></span>
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+
+            {%- comment -%}
+              Rich text MUST go through metafield_tag. Both obvious alternatives
+              print the raw structure onto the page instead of rendering it, and
+              neither raises an error:
+                {{ piece.caption.value }} -> {"type"=>"root", "children"=>[...]}
+                {{ piece.caption }}       -> {"type":"root","children":[...]}
+              metafield_tag wraps its output in div.metafield-rich_text_field,
+              which is why the caption rules below target descendants.
+            {%- endcomment -%}
+            {%- if piece.caption != blank -%}
+              <div class="ppg__caption">{{ piece.caption | metafield_tag }}</div>
+            {%- endif -%}
+
+            {%- if piece.spec.value != blank -%}
+              <p class="ppg__spec">{{ piece.spec.value }}</p>
+            {%- endif -%}
+
+          </article>
+        {%- endfor -%}
+      </div>
+
+      {%- if piece_count > initial -%}
+        <div class="ppg__more" data-fye-gallery-more-wrap>
+          <button class="btn btn--outline" type="button" data-fye-gallery-more>
+            {{ s.more_label | default: 'Load more pieces' }}
+          </button>
+        </div>
+      {%- endif -%}
+
+    {%- endif -%}
+
+  </div>
+</section>
+
+{% stylesheet %}
+/* ---- filter bar --------------------------------------------------------- */
+.fye .ppg__filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s3) var(--s7);
+  margin-bottom: var(--s9);
+}
+.fye .ppg__filter {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s1);
+  min-height: 44px;
+  padding: 0 0 var(--s1);
+  border: 0;
+  border-bottom: 1px solid transparent;
+  background: none;
+  font-family: var(--font-body);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.fye .ppg__filter:hover { color: var(--sage); }
+.fye .ppg__filter.is-on { color: var(--ink); border-bottom-color: var(--line-strong); }
+.fye .ppg__tally { opacity: 0.6; }
+
+/* ---- the mosaic --------------------------------------------------------- */
+/* Default is an even grid, which is what a visitor without JavaScript gets and
+   is perfectly readable. fye-ui.js adds .is-masonry, switching the rows to 1px
+   tracks and giving each card a row span matching its measured height.
+
+   Why not CSS columns: they balance by HEIGHT, which puts card 3 of 3 on the
+   second row and makes cards read DOWN each column instead of across — wrong
+   for a grid whose whole point is newest first. */
+.fye .ppg__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: var(--s7);
+  row-gap: var(--s7);
+  align-items: start;
+}
+.fye .ppg__grid.is-masonry { grid-auto-rows: 1px; row-gap: 0; }
+.fye .ppg__card { min-width: 0; background: var(--white); border: var(--hairline); padding-bottom: var(--s4); align-self: start; }
+.fye .ppg__card.is-capped { display: none; }
+
+/* ---- card head ---------------------------------------------------------- */
+.fye .ppg__head { display: flex; align-items: center; gap: var(--s3); padding: var(--s3) var(--s4); }
+.fye .ppg__mono {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  border: var(--hairline);
+}
+.fye .ppg__mono :where(img) { width: auto; height: 19px; }
+.fye .ppg__who { flex: 1; min-width: 0; }
+.fye .ppg__name { display: block; font-size: var(--fs-small); font-weight: var(--fw-medium); line-height: 1.3; }
+.fye .ppg__meta {
+  display: block;
+  font-size: var(--fs-eyebrow);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* ---- media carousel ----------------------------------------------------- */
+.fye .ppg__car { position: relative; overflow: hidden; border-block: var(--hairline); }
+.fye .ppg__track { display: flex; transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1); }
+.fye .ppg__slide { position: relative; flex: 0 0 100%; min-width: 0; aspect-ratio: 1; }
+.fye .ppg__slide :where(img, video) { width: 100%; height: 100%; object-fit: cover; }
+
+.fye .ppg__ph { display: flex; align-items: center; justify-content: center; background: var(--ivory); }
+.fye .ppg__ph-note { font-size: var(--fs-fine); color: var(--ink-soft); text-align: center; padding: 0 var(--s4); }
+
+.fye .ppg__count,
+.fye .ppg__vtag {
+  position: absolute;
+  z-index: 2;
+  padding: var(--s1) var(--s2);
+  background: var(--scrim);
+  color: var(--on-dark);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.1em;
+  line-height: 1;
+}
+.fye .ppg__count { top: var(--s3); right: var(--s3); }
+.fye .ppg__vtag {
+  top: var(--s3);
+  left: var(--s3);
+  display: flex;
+  align-items: center;
+  gap: var(--s1);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+}
+.fye .ppg__vtag .icon { stroke-width: 1.6; }
+
+.fye .ppg__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: var(--hairline);
+  background: var(--white);
+  color: var(--ink);
+  opacity: 0;
+  transition: opacity var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.fye .ppg__car:hover .ppg__arrow,
+.fye .ppg__car:focus-within .ppg__arrow { opacity: 1; }
+.fye .ppg__arrow:hover { color: var(--sage); }
+.fye .ppg__arrow--prev { left: var(--s3); }
+.fye .ppg__arrow--next { right: var(--s3); }
+
+.fye .ppg__dashes { display: flex; justify-content: center; gap: var(--s2); padding-top: var(--s4); }
+.fye .ppg__dash { width: 16px; height: 2px; background: var(--line); transition: background var(--dur) var(--ease); }
+.fye .ppg__dash.is-on { background: var(--line-strong); }
+
+/* ---- words -------------------------------------------------------------- */
+.fye .ppg__caption { padding: var(--s4) var(--s4) 0; font-size: var(--fs-small); line-height: 1.68; }
+.fye .ppg__caption :where(p:last-child) { margin-bottom: 0; }
+.fye .ppg__caption :where(a) { border-bottom: var(--hairline); }
+.fye .ppg__spec {
+  margin: 0;
+  padding: var(--s3) var(--s4) 0;
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  line-height: 1.7;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.fye .ppg__more { display: flex; justify-content: center; margin-top: var(--s10); }
+
+/* ---- reflow: 900 then 560, the theme's own breakpoints ------------------ */
+@media (max-width: 900px) {
+  .fye .ppg__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* Touch: there is no hover to reveal an arrow, and 34px is under the 44px
+     minimum, so they are always visible and full size here. */
+  .fye .ppg__arrow { opacity: 1; width: 44px; height: 44px; }
+}
+@media (max-width: 560px) {
+  .fye .ppg__grid { grid-template-columns: 1fr; }
+  .fye .ppg__filters { justify-content: flex-start; gap: var(--s2) var(--s5); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fye .ppg__track { transition: none; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Past Pieces gallery",
+  "settings": [
+    { "type": "header", "content": "Filters" },
+    {
+      "type": "checkbox", "id": "show_filters", "label": "Show category filters", "default": true,
+      "info": "Appears only when pieces span more than one category. Counts fill in automatically."
+    },
+    { "type": "text", "id": "all_label", "label": "\"All\" filter label", "default": "All pieces" },
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "items_initial", "label": "Pieces shown before \"Load more\"", "min": 3, "max": 48, "step": 3, "default": 9 },
+    { "type": "text", "id": "more_label", "label": "Load more button label", "default": "Load more pieces" },
+    { "type": "header", "content": "Background" },
+    {
+      "type": "select", "id": "bg_color", "label": "Background", "default": "ivory",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Champagne ivory" },
+        { "value": "mist",  "label": "Mist blue" }
+      ]
+    },
+    { "type": "header", "content": "Advanced" },
+    {
+      "type": "image_picker", "id": "avatar", "label": "Card monogram",
+      "info": "Leave empty to use the theme's own monogram."
+    }
+  ],
+  "presets": [{ "name": "Past Pieces gallery" }]
+}
+{% endschema %}

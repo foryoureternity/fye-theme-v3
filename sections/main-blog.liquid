@@ -1,0 +1,178 @@
+{%- comment -%}
+  main-blog — the blog listing. 1 use: blog (there is one blog, `news`,
+  16 articles at 01/09/2026).
+
+  NEW FILE, not a port of live's 43.7KB T4S section — but every setting ID
+  that survives is live's, so templates/blog.json stays portable.
+
+  KEPT: limit · col_dk · col_mb · show_dt · show_rm
+  DROPPED (37 settings — ignored by Shopify where they remain in a template):
+    layout_des, art_des, date, show_cate, show_tags, show_cnt, show_au,
+    show_cm, show_irm, text_align, col_tb, the four space_* pairs,
+    use_pagination, use_bar_lm, btn_icon, button_style, btn_size, btn_cl,
+    button_effect, btn_pos, image_ratio, image_position, image_size,
+    img_effect, b_effect, source, show_count, layout, cl_bg, cl_bg_gradient
+    and the margin/padding sets.
+  Nine tile designs, the author line, the comment count and the two
+  load-more mechanics all go with them: live had every one of them switched
+  off, so nothing that renders today is lost.
+
+  CHANGED FROM LIVE, deliberately: dates are ON. Live set show_dt false, but
+  this blog is news and a news item with no date reads as undated rather than
+  timeless. It is still a checkbox — switch it off in the theme editor if it
+  looks wrong.
+
+  The card itself is snippets/article-card.liquid, shared with
+  main-article's closing row.
+
+  Tag URLs (/blogs/news/tagged/x) still work without any code here: Shopify
+  pre-filters blog.articles by current_tags. There is no tag UI because no
+  article carries tags.
+
+  Pagination markup is local to this section. main-collection has its own
+  pager; if a third listing appears, the two should merge into fye-core.css
+  rather than a third copy appearing here.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.ground | default: 'white'
+  comment
+    A select setting is a STRING and Liquid raises rather than coercing:
+    `forloop.index <= s.col_dk` renders "comparison of Integer with String
+    failed" on every iteration. Coerce once, here.
+  endcomment
+  assign cols = s.col_dk | plus: 0
+  assign cols_mb = s.col_mb | plus: 0
+  assign per_page = s.limit | plus: 0
+  if per_page < 1
+    assign per_page = 12
+  endif
+-%}
+
+<section class="mblog band band--{{ band }}" data-screen-label="Blog listing">
+  <div class="wrap">
+
+    {%- if blog.articles.size == 0 -%}
+      <p class="lead">No articles yet.</p>
+    {%- else -%}
+
+      {%- paginate blog.articles by per_page -%}
+        <ul class="agrid mblog__grid" style="--cols: {{ cols }}; --cols-mb: {{ cols_mb }};">
+          {%- for article in blog.articles -%}
+            <li>
+              {%- render 'article-card',
+                    article: article,
+                    heading: 'h2',
+                    show_date: s.show_dt,
+                    show_more: s.show_rm,
+                    more_label: s.rm_label -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+
+        {%- if paginate.pages > 1 -%}
+          {%- comment -%}
+            The current page is compared as a STRING. part.title is a string
+            and paginate.current_page is an integer, and `==` across those two
+            types is simply false in Liquid — never an error — so an integer
+            comparison here would quietly mark no page as current. The
+            remaining non-link part is the ellipsis, which prints its own
+            title rather than a hard-coded glyph.
+          {%- endcomment -%}
+          {%- assign cur = paginate.current_page | append: '' -%}
+          <nav class="mblog__pager" aria-label="Blog pages">
+            {%- if paginate.previous -%}
+              <a class="mblog__page" href="{{ paginate.previous.url }}" rel="prev" aria-label="Previous page">
+                {%- render 'icon', name: 'chevron-left', size: 16 -%}
+              </a>
+            {%- endif -%}
+
+            {%- for part in paginate.parts -%}
+              {%- if part.is_link -%}
+                <a class="mblog__page" href="{{ part.url }}">{{ part.title }}</a>
+              {%- elsif part.title == cur -%}
+                <span class="mblog__page is-current" aria-current="page">{{ part.title }}</span>
+              {%- else -%}
+                <span class="mblog__gap">{{ part.title }}</span>
+              {%- endif -%}
+            {%- endfor -%}
+
+            {%- if paginate.next -%}
+              <a class="mblog__page" href="{{ paginate.next.url }}" rel="next" aria-label="Next page">
+                {%- render 'icon', name: 'chevron-right', size: 16 -%}
+              </a>
+            {%- endif -%}
+          </nav>
+        {%- endif -%}
+      {%- endpaginate -%}
+
+    {%- endif -%}
+
+  </div>
+</section>
+
+{% stylesheet %}
+/* The grid and the card are core vocabulary (.agrid, .acard) — two sections
+   render them. Only the pager is this section's own. */
+.fye .mblog__pager {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s2);
+  margin-top: var(--s10);
+}
+.fye .mblog__page {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 var(--s3);
+  border: 1px solid transparent;
+  font-size: var(--fs-fine);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.06em;
+}
+.fye .mblog__page:hover { color: var(--sage); border-color: var(--line); }
+.fye .mblog__page.is-current { border-color: var(--line-strong); }
+.fye .mblog__gap { padding: 0 var(--s2); color: var(--ink-soft); }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Blog listing",
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "range", "id": "limit", "label": "Articles per page", "min": 4, "max": 36, "step": 2, "default": 18 },
+    { "type": "checkbox", "id": "show_dt", "label": "Show the published date", "default": true },
+    { "type": "checkbox", "id": "show_rm", "label": "Show a read more link", "default": true },
+    { "type": "text", "id": "rm_label", "label": "Read more label", "default": "Read more" },
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select", "id": "col_dk", "label": "Columns", "default": "4",
+      "options": [
+        { "value": "2", "label": "Two" },
+        { "value": "3", "label": "Three" },
+        { "value": "4", "label": "Four" }
+      ]
+    },
+    {
+      "type": "select", "id": "col_mb", "label": "Columns on tablet", "default": "2",
+      "info": "Drops to one column below 560px.",
+      "options": [
+        { "value": "1", "label": "One" },
+        { "value": "2", "label": "Two" }
+      ]
+    },
+    { "type": "header", "content": "Background" },
+    {
+      "type": "select", "id": "ground", "label": "Background", "default": "white",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Champagne ivory" }
+      ]
+    }
+  ]
+}
+{% endschema %}

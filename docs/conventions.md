@@ -199,6 +199,24 @@ figures for every existing pairing are in `fye-core.css`.
 - Hooks are `data-fye-*` attributes, never classes, never IDs:
   `data-fye-drawer`, `data-fye-drawer-open`, `data-fye-top`, `data-fye-toggle`.
   CSS classes are for styling; data attributes are for behaviour.
+  **This is not a style preference.** The old theme opened popups from CLASSES
+  (`open-design-your-own`), and `fye-media-text` faithfully ported the setting
+  that carried them. Nothing in v3 listens for a class, so the homepage's
+  "Start a bespoke enquiry" button rendered perfectly and did nothing at all
+  for a week. A ported class hook is a dead hook until something emits the
+  data attribute beside it.
+- **Popups are one section, `fye-popups`, in `footer-group.json`** — so a
+  single copy exists on every page. Anything with `data-fye-popup="<key>"`
+  opens the block whose `key` matches; the trigger and the key must be changed
+  in the same pass or the button silently opens nothing. Add a popup by adding
+  a block in the theme editor, never by adding a section.
+- **A popup is a `<dialog>`, and that is a deliberate exception to the drawer
+  pattern above.** `showModal()` brings a focus trap, an inert background and
+  Escape; hand-rolling those over a form is about forty lines of JS that would
+  need testing. Drawers are unchanged, and this is not a precedent for them.
+- **A trigger keeps its `href`.** The popup JS calls `preventDefault()` only
+  when a matching popup actually exists, so an enquiry button remains an
+  ordinary link when JavaScript fails and when a key drifts.
 - **Drawers are named**: `data-fye-drawer="x"` pairs with
   `data-fye-drawer-open="x"`, matched exactly, so a second drawer on a page
   cannot fight the first for control. The valueless pair still works and

@@ -1230,3 +1230,114 @@ landed. Now a rule in conventions.md §5.
    should merge into fye-core.css rather than a third copy appearing.
 6. **The blog tail is long**: guides, guarantee, trust strip under every
    article, which is live's structure. Worth a look on a short post.
+
+
+---
+
+# Session — 01/09/2026 (evening): the popups
+
+**KLAVIYO IS GONE** (Ed, 01/09/2026). Every popup on the site is now theme
+code, on Shopify's own contact form, and the twelve
+`fye-guide-popups-group.json` sections it replaces can go. Build-state job 7
+is done.
+
+## What was built
+
+| File | Notes |
+|---|---|
+| `sections/fye-popups.liquid` | 18.2KB. One section, one block per popup, in the footer group so it is on every page |
+| `sections/footer-group.json` | +9 popups: six guides, enquiry, consultation, bespoke |
+| `assets/fye-ui.js` | +1 IIFE: open by key, close, backdrop, email-body composer, reopen on success |
+| 7 sections and snippets | enquiry buttons now carry `data-fye-popup="enquire"` beside their href |
+
+Design is the Klaviyo popup Ed signed off — photograph left at a third, form
+right, stacking to photo-on-top under 749px — with its champagne button
+replaced by the brand's teal, and the field set kept exactly.
+
+## THE GUIDE DELIVERY MECHANISM
+
+Klaviyo used to email the PDF. Nothing does now, so **the popup hands the file
+over itself**: the success panel carries `file_url`, opening in a new tab. All
+six PDFs were already in Files and are wired directly to their CDN URLs.
+
+Two consequences, both accepted:
+- **Re-uploading a guide mints a new CDN URL and kills the old link.** The fix
+  is repointing that popup's field in the theme editor. No code.
+- **Nothing is gated.** Anyone with the URL can open a PDF without giving
+  details. That was equally true under Klaviyo and of any Shopify-hosted file.
+
+Marketing consent is recorded as a LINE IN THE MESSAGE, not a subscription —
+there is no list to subscribe anyone to now. If a mailing tool arrives, that
+line is where the answer already is.
+
+## Gotchas earned — three, and two were mine
+
+**`return_to` costs you `form.posted_successfully?`.** Setting it made Shopify
+redirect to our URL, which carries none of Shopify's own `contact_posted`
+marker — and that marker is what drives `posted_successfully?`. So the popup
+reopened on a BLANK FORM instead of the download, and the same override dropped
+`preview_theme_id`, landing preview tests on the live theme. Do not set
+`return_to` on a form whose success state renders in place. Which popup was
+submitted is remembered in sessionStorage instead.
+
+**Custom `contact[Some name]` fields do not show usefully in the notification
+email.** Seven popups, one submission, and no way to tell which had sent it.
+The message BODY always shows, so the body is composed on submit — popup name,
+typed message, journey answer, consent answer, and the page it was sent from.
+Liquid writes a fallback body naming the popup, for JavaScript-off.
+
+**A ported class hook is a dead hook.** See conventions §6.
+
+## The trigger audit — do this after adding any popup
+
+`data-fye-popup` is emitted from five places and the keys have to agree with
+the footer group. An audit script found four faults in one pass:
+
+1. **The care guide could never be downloaded.** `guide-download-block` prefers
+   `file_url` over the popup, and three templates pointed it at
+   `/pages/ring-and-jewellery-care-guide-download` — a page with NO TEMPLATE in
+   v3. The one guide whose PDF was wired was the one you could not get.
+2. **Seven enquiry buttons led to `/pages/contact-us`**, which has no contact
+   section in v3. All now open the enquiry popup.
+3. **`fye-guide-download`'s default trigger** was `open-engagement-ring-guide`,
+   which nothing defines. Not live anywhere (a `link` wins on all three ring
+   pages) but it would have broken the next page to use it.
+4. **`fye-media-text`'s `trigger_class`** emitted a class only. Now emits
+   `data-fye-popup` too, which makes every button on the 13 templates using
+   that section popup-capable from the theme editor alone.
+
+**Dropbox does not index the content of .liquid files**, so a session cannot
+grep the theme. A read-only Node script in `tools/` that prints matches with
+line numbers is how that gets read — that is what found all four.
+
+## A correction worth keeping: Shopify stores JSON templates canonicalised
+
+`templates/index.json` reads 14,040 bytes on the theme against 19,437 in the
+repo, and every other template matches within the em-dash margin. It is NOT
+stale and was NOT rejected — reading the body back showed all 13 sections, the
+right order, and an edit made minutes earlier. Shopify stores its own
+normalised copy with settings the schemas no longer declare stripped out, which
+is why the templates carried over from live differ in size and the ones
+authored fresh in v3 do not.
+
+**So: a size mismatch on a JSON template is not by itself evidence of a
+rejection.** Check `updatedAt`, and read the body before concluding anything.
+The first explanation offered here — that the homepage had been edited in the
+theme editor — was wrong, and Ed was right to question it.
+
+## Outstanding
+
+1. **The v3 contact page still has no form.** `/pages/contact-us` renders a
+   heading and nothing else. Live wraps a Shopify Forms app block in an
+   FYE-original `fye-contact` section; v3 has neither. The popup's own markup
+   is most of a page section — this is the obvious next job.
+2. **All popups share one photograph** (`Ring_211_5.png`) as a stand-in, except
+   consultation and bespoke. Per-popup photography is a theme-editor job.
+3. **The twelve `fye-guide-popups-group.json` sections on live are now
+   superseded** and can be dropped when that group is next touched.
+4. **Popup keys are still the old Klaviyo form IDs** (`V9eDYg`, `XMzNMS`…)
+   because that is what `guide-download-block`'s `klaviyo_form_id` setting
+   still emits. Renaming means changing both sides in one pass across
+   index/blog/article; worth doing, not urgent, and the setting ID itself must
+   not be renamed.
+5. **`fyeSmoke()` still has not been run**, on any page, at any width.

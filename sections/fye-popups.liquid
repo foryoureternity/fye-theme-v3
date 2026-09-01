@@ -13,38 +13,47 @@
   1. NOTHING EMAILS THE GUIDE ANY MORE. Klaviyo used to. So the popup hands
      the file over itself, on the success panel, from `file_url`. A guide with
      no `file_url` says we will email it instead — true, because the
-     submission reaches hello@ either way, but it is a manual send. Five of
-     the six guides have no file yet: that is the open item, not a bug here.
-  2. Marketing consent is recorded as a FIELD on the enquiry, not a list
-     subscription — there is no list to subscribe to now. If a mailing tool
-     arrives later, that field is where the answer already is.
+     submission reaches hello@ either way, but it is a manual send.
+  2. Marketing consent is recorded IN THE MESSAGE, not as a list
+     subscription — there is no list to subscribe to now.
+
+  EVERYTHING IDENTIFYING GOES IN `contact[body]`. READ THIS BEFORE CHANGING
+  ANY FIELD NAME.
+  Custom `contact[Some name]` fields did NOT show usefully in the notification
+  email — tested by Ed on 01/09/2026, who could not tell which of seven
+  popups a submission had come from. The message BODY is always shown, so the
+  body is where the answer belongs:
+
+    - Liquid writes a fallback body naming the popup, so an enquiry is
+      identifiable even with JavaScript off.
+    - On submit, fye-ui.js REWRITES that body to fold in the popup name, the
+      typed message, the journey answer and the consent answer as plain lines.
+
+  The individual named fields are still submitted as well. That is belt and
+  braces, not the mechanism — do not delete the body composition and rely on
+  them again.
 
   HOW A POPUP IS OPENED
   Any element with `data-fye-popup="<key>"` opens the block whose `key`
   matches. `guide-download-block` and `fye-two-ways` already emit that
   attribute, so no template needed editing.
 
-  The keys below are the OLD KLAVIYO FORM IDS (V9eDYg, XMzNMS, …) because
-  that is what those triggers still emit — `guide-download-block`'s setting is
-  still called `klaviyo_form_id`. Renaming a setting ID is not safe (Shopify
-  drops the saved value), so the ID stays and its LABEL now says "Popup key".
-  Change a key here and you must change it on the trigger in the same pass, or
-  the button silently opens nothing.
+  The keys are the OLD KLAVIYO FORM IDS (V9eDYg, XMzNMS, …) because that is
+  what those triggers still emit — `guide-download-block`'s setting is still
+  called `klaviyo_form_id`. Renaming a setting ID is not safe, so the ID stays
+  and its LABEL now says "Popup key". Change a key here and you must change it
+  on the trigger in the same pass, or the button silently opens nothing.
 
   WHY <dialog> AND NOT THE THEME'S DRAWER PATTERN
   The one deliberate exception to §6's `data-fye-drawer` convention. A modal
   over a form needs a focus trap, a background made inert, and Escape — all
   three are free and correct with <dialog> + showModal(), and about forty
-  lines of hand-rolled JS without it. Drawers stay as they are; this is not a
-  precedent for them.
+  lines of hand-rolled JS without it. Drawers stay as they are.
 
   Layout is the Klaviyo popup Ed signed off: photograph left at a third, form
   right, stacking to photo-on-top under 749px. Its champagne button is NOT
   carried over — buttons in this system are teal filled, sage on hover.
 {%- endcomment -%}
-{%- liquid
-  assign s = section.settings
--%}
 
 {%- for block in section.blocks -%}
   {%- liquid
@@ -52,6 +61,15 @@
     assign key = b.key | default: block.id
     assign heading = b.heading | default: 'Get in touch'
     assign btn_label = b.button_label | default: 'Send'
+    assign uid = key | handleize
+
+    comment
+      The line that identifies this popup in the enquiry email. A setting, so
+      the email can read differently from the on-screen heading — "Guide
+      request: The Eternity Ring Guide" rather than just the title.
+    endcomment
+    assign email_line = b.email_subject | default: heading
+
     comment
       return_to brings the visitor back to the page they were on with the
       popup's key in the query string, which is how fye-ui.js knows to reopen
@@ -61,7 +79,10 @@
     assign journey_list = b.journey_options | split: ','
   -%}
 
-  <dialog class="pop" id="fye-popup-{{ key | handleize }}" data-fye-popup-panel="{{ key }}" aria-label="{{ heading | escape }}" {{ block.shopify_attributes }}>
+  <dialog class="pop" id="fye-popup-{{ uid }}"
+          data-fye-popup-panel="{{ key }}"
+          data-fye-popup-label="{{ email_line | escape }}"
+          aria-label="{{ heading | escape }}" {{ block.shopify_attributes }}>
     <div class="pop__in{% if b.image == blank %} pop__in--noimage{% endif %}">
 
       {%- if b.image != blank -%}
@@ -98,8 +119,8 @@
                   {%- render 'icon', name: 'download', size: 18 -%}
                   {{ b.download_label | default: 'Download the guide' }}
                 </a>
-              {%- else -%}
-                <p class="pop__note">{{ b.no_file_note | default: 'We will email it to you shortly.' }}</p>
+              {%- elsif b.no_file_note != blank -%}
+                <p class="pop__note">{{ b.no_file_note }}</p>
               {%- endif -%}
             </div>
 
@@ -119,36 +140,31 @@
               </div>
             {%- endif -%}
 
-            {%- comment -%}
-              Field names are what appears in the enquiry email, so they read
-              as sentences rather than snake_case. `contact[email]` is the one
-              Shopify treats specially — it becomes the reply-to address.
-            {%- endcomment -%}
             <div class="pop__field">
-              <label for="pop-first-{{ key | handleize }}">First name</label>
-              <input id="pop-first-{{ key | handleize }}" type="text" name="contact[First name]" autocomplete="given-name" placeholder="First name">
+              <label for="pop-first-{{ uid }}">First name</label>
+              <input id="pop-first-{{ uid }}" type="text" name="contact[First name]" autocomplete="given-name" placeholder="First name">
             </div>
 
             <div class="pop__field">
-              <label for="pop-last-{{ key | handleize }}">Last name</label>
-              <input id="pop-last-{{ key | handleize }}" type="text" name="contact[Last name]" autocomplete="family-name" placeholder="Last name">
+              <label for="pop-last-{{ uid }}">Last name</label>
+              <input id="pop-last-{{ uid }}" type="text" name="contact[Last name]" autocomplete="family-name" placeholder="Last name">
             </div>
 
             <div class="pop__pair">
               <div class="pop__field">
-                <label for="pop-email-{{ key | handleize }}">Email address</label>
-                <input id="pop-email-{{ key | handleize }}" type="email" name="contact[email]" autocomplete="email" placeholder="you@email.com" required>
+                <label for="pop-email-{{ uid }}">Email address</label>
+                <input id="pop-email-{{ uid }}" type="email" name="contact[email]" autocomplete="email" placeholder="you@email.com" required>
               </div>
               <div class="pop__field">
-                <label for="pop-phone-{{ key | handleize }}">Telephone <span class="pop__opt">(optional)</span></label>
-                <input id="pop-phone-{{ key | handleize }}" type="tel" name="contact[Telephone]" autocomplete="tel" placeholder="For a personal follow-up">
+                <label for="pop-phone-{{ uid }}">Telephone <span class="pop__opt">(optional)</span></label>
+                <input id="pop-phone-{{ uid }}" type="tel" name="contact[Telephone]" autocomplete="tel" placeholder="For a personal follow-up">
               </div>
             </div>
 
             {%- if b.show_journey and journey_list.size > 0 -%}
               <div class="pop__field">
-                <label for="pop-journey-{{ key | handleize }}">{{ b.journey_label | default: 'Where you are in your journey' }}</label>
-                <select id="pop-journey-{{ key | handleize }}" name="contact[Where they are in their journey]">
+                <label for="pop-journey-{{ uid }}">{{ b.journey_label | default: 'Where you are in your journey' }}</label>
+                <select id="pop-journey-{{ uid }}" name="contact[Journey]" data-fye-popup-journey>
                   <option value="">Please choose…</option>
                   {%- for opt in journey_list -%}
                     {%- assign opt_clean = opt | strip -%}
@@ -159,17 +175,35 @@
             {%- endif -%}
 
             {%- comment -%}
-              What the enquiry is FOR. Hidden, because the visitor already knows
-              — they clicked the thing — but the email is useless without it.
+              The message box. On an enquiry it is the whole point; on a guide
+              request it is noise, so it is a per-popup switch.
+
+              It is NOT named contact[body] — the body is composed on submit
+              and would overwrite whatever was typed here. fye-ui.js folds this
+              value into the body instead.
             {%- endcomment -%}
-            <input type="hidden" name="contact[Enquiry about]" value="{{ heading | escape }}">
+            {%- if b.show_message -%}
+              <div class="pop__field">
+                <label for="pop-message-{{ uid }}">{{ b.message_label | default: 'What can we help with?' }}</label>
+                <textarea id="pop-message-{{ uid }}" name="contact[Message]" rows="4" data-fye-popup-message
+                          placeholder="{{ b.message_placeholder | default: 'A piece you have seen, a budget, a date to work to…' | escape }}"></textarea>
+              </div>
+            {%- endif -%}
 
             {%- if b.show_consent -%}
-              <label class="pop__consent" for="pop-consent-{{ key | handleize }}">
-                <input id="pop-consent-{{ key | handleize }}" type="checkbox" name="contact[Happy to be emailed]" value="Yes">
+              <label class="pop__consent" for="pop-consent-{{ uid }}">
+                <input id="pop-consent-{{ uid }}" type="checkbox" name="contact[Happy to be emailed]" value="Yes" data-fye-popup-consent>
                 <span>{{ b.consent_text | default: "Yes, I'm happy for For Your Eternity to email me occasional news. I can unsubscribe anytime." }}</span>
               </label>
             {%- endif -%}
+
+            {%- comment -%}
+              THE field that makes an enquiry identifiable. Liquid writes a
+              usable fallback; fye-ui.js rewrites it on submit with the typed
+              message and the answers folded in. Never remove the value here —
+              it is what a visitor with JavaScript off sends.
+            {%- endcomment -%}
+            <input type="hidden" name="contact[body]" value="{{ email_line | escape }}" data-fye-popup-body>
 
             <button class="btn btn--block pop__submit" type="submit">{{ btn_label }}</button>
 
@@ -199,8 +233,7 @@
   overflow: hidden;
 }
 /* ::backdrop does not reliably inherit custom properties across engines, so
-   the token's value is repeated as a fallback. It is --scrim, one step darker:
-   a modal needs to hold attention where a photo caption does not. */
+   the token's value is repeated as a fallback. */
 .fye .pop::backdrop { background: var(--scrim, rgba(35, 61, 71, 0.42)); }
 .fye dialog.pop:not([open]) { display: none; }
 
@@ -241,12 +274,14 @@
 .fye .pop__intro :where(p:last-child) { margin-bottom: 0; }
 
 /* ---- fields ------------------------------------------------------------- */
-/* Inputs, selects and the 48px minimum come from fye-core's form rules; only
-   the stacking and the pair are this section's business. */
+/* Inputs, selects, textareas and the 48px minimum come from fye-core's form
+   rules; only the stacking and the pair are this section's business. */
 .fye .pop__form { display: flex; flex-direction: column; gap: var(--s4); }
 .fye .pop__field { display: flex; flex-direction: column; }
 .fye .pop__pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s4); }
 .fye .pop__opt { font-weight: var(--fw-light); letter-spacing: 0; text-transform: none; }
+/* Shorter than the site default: a popup has to stay on screen. */
+.fye .pop__field :where(textarea) { min-height: 96px; }
 
 /* The consent line is sentence case and small — the only label in the theme
    that is not an uppercase field label, because it is a sentence the visitor
@@ -310,6 +345,10 @@
           "type": "text", "id": "key", "label": "Popup key",
           "info": "The value the button that opens this popup emits in data-fye-popup. Historically a Klaviyo form ID. Change it here and on the trigger together."
         },
+        {
+          "type": "text", "id": "email_subject", "label": "How this shows in the enquiry email",
+          "info": "The first line of the message we receive, so you can tell which popup it came from. Falls back to the heading."
+        },
         { "type": "header", "content": "Content" },
         { "type": "image_picker", "id": "image", "label": "Photograph", "info": "Leave empty and the popup is the form alone, full width." },
         { "type": "text", "id": "image_alt", "label": "Photograph description" },
@@ -318,6 +357,9 @@
         { "type": "richtext", "id": "intro", "label": "Introduction" },
         { "type": "header", "content": "Form" },
         { "type": "text", "id": "button_label", "label": "Button label", "default": "Send" },
+        { "type": "checkbox", "id": "show_message", "label": "Include a message box", "default": false, "info": "On for enquiries, off for guide requests." },
+        { "type": "text", "id": "message_label", "label": "Message label", "default": "What can we help with?" },
+        { "type": "text", "id": "message_placeholder", "label": "Message placeholder", "default": "A piece you have seen, a budget, a date to work to…" },
         { "type": "checkbox", "id": "show_journey", "label": "Ask where they are in their journey", "default": true },
         { "type": "text", "id": "journey_label", "label": "Question label", "default": "Where you are in your journey" },
         {

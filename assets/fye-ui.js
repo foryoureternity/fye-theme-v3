@@ -2648,6 +2648,52 @@
     }
   });
 
+  /* The enquiry email's whole readability depends on this.
+
+     Shopify's notification email does not surface custom contact[...] fields
+     in any useful way, so on 01/09/2026 a submission arrived with no
+     indication which of seven popups had sent it. The message body IS always
+     shown, so the body is composed here from everything that matters.
+
+     Liquid has already put a usable fallback in the hidden field — the popup's
+     own name — which is what a visitor with JavaScript off sends. This only
+     ever adds to that. */
+  document.addEventListener('submit', function (e) {
+    var form = e.target;
+    if (!form || !form.closest) return;
+
+    var pop = form.closest('[data-fye-popup-panel]');
+    if (!pop) return;
+
+    var body = form.querySelector('[data-fye-popup-body]');
+    if (!body) return;
+
+    var lines = [];
+
+    var label = pop.getAttribute('data-fye-popup-label');
+    if (label) lines.push(label);
+
+    var msg = form.querySelector('[data-fye-popup-message]');
+    if (msg && msg.value && msg.value.trim()) {
+      lines.push('');
+      lines.push(msg.value.trim());
+    }
+
+    var journey = form.querySelector('[data-fye-popup-journey]');
+    if (journey && journey.value) {
+      lines.push('');
+      lines.push('Where they are in their journey: ' + journey.value);
+    }
+
+    var consent = form.querySelector('[data-fye-popup-consent]');
+    if (consent) {
+      if (!journey || !journey.value) lines.push('');
+      lines.push('Happy to be emailed: ' + (consent.checked ? 'Yes' : 'No'));
+    }
+
+    body.value = lines.join('\n');
+  });
+
   /* After a successful send, Shopify returns to ?fyep=<key>. Reopen that one
      popup, which is now rendering its success panel. Liquid cannot read query
      parameters, which is why this happens here and not in the section. */

@@ -1073,3 +1073,10 @@ a.visually-hidden:focus-visible {
   border: 0;
   box-shadow: none;
 }
+
+
+/* A hidden count is hidden — 01/09/2026. .hdr__count sets a display, which
+   out-ranks the browser's [hidden] rule, so an empty wishlist drew a filled
+   square with nothing in it. */
+.fye .hdr__count[hidden],
+.fye [data-fye-wish-count][hidden] { display: none !important; }

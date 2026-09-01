@@ -1025,20 +1025,24 @@ a.visually-hidden:focus-visible {
 
 /* The large overlay heart on the gallery. Ivory ground so it holds up over a
    pale ring shot; squared, like everything else in this system. */
+/* Transparent ground, half again as large — Ed, 01/09/2026. Nothing behind
+   it now, so the stroke carries the whole control; a drop shadow would be the
+   obvious way to keep it legible on a pale ring shot, and the wrong one here
+   (this system has no glows and almost no elevation). */
 .fye .wish--lg {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 52px;
-  height: 52px;
-  background: var(--ivory);
+  width: 78px;
+  height: 78px;
+  background: none;
   border: 0;
   color: var(--ink);
   cursor: pointer;
   transition: color var(--dur, 220ms) ease;
 }
 .fye .wish--lg:hover { color: var(--sage); }
-.fye .wish--lg svg { width: 24px; height: 24px; }
+.fye .wish--lg svg { width: 36px; height: 36px; }
 
 .fye .pdp__wish-over {
   position: absolute;

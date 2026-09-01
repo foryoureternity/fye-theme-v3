@@ -31,8 +31,10 @@
   var root = document.querySelector('[data-fye-wishlist]');
   if (!root) return;
 
-  var store = (window.FYE && window.FYE.wishlist) || null;
-  if (!store) return;
+  /* Resolved in boot(), not here. fye-ui.js defines the store, and nothing
+     guarantees it has run by the time this file is parsed — reading it now and
+     bailing is what left this page blank while the header count rose. */
+  var store = null;
 
   var grid = root.querySelector('[data-wish-grid]');
   var empty = root.querySelector('[data-wish-empty]');
@@ -318,12 +320,34 @@
 
   /* ---- boot -------------------------------------------------------------- */
 
-  var param = new URLSearchParams(window.location.search).get('w');
-  if (param) shared = decode(param);
+  var tries = 0;
 
-  render();
-  if (!shared) paintShare();
-  document.addEventListener('fye:wishlist', function () {
+  function boot() {
+    store = (window.FYE && window.FYE.wishlist) || null;
+
+    if (!store) {
+      /* About five seconds, then stop. A slow connection is worth waiting for;
+         a missing fye-ui.js is not, and an honest message beats a page that
+         sits empty forever pretending the shopper saved nothing. */
+      if (tries++ < 100) { window.setTimeout(boot, 50); return; }
+      show(grid, false);
+      show(summary, true);
+      if (summary) {
+        summary.textContent = 'Your saved rings could not be loaded. Please refresh the page.';
+      }
+      return;
+    }
+
+    var param = new URLSearchParams(window.location.search).get('w');
+    if (param) shared = decode(param);
+
+    render();
     if (!shared) paintShare();
-  });
+    document.addEventListener('fye:wishlist', function () {
+      if (!shared) paintShare();
+      render();
+    });
+  }
+
+  boot();
 })();

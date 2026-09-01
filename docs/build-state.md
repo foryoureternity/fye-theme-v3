@@ -817,3 +817,135 @@ from memory risks reverting hand-applied fixes. The pattern that works:
 8. **45 rings have no `fye.side_stones`** and so render no side panel;
    `trl29775-fy-mt` is null while all six siblings carry `OV-065`, which reads
    as an omission.
+---
+
+# Session — 01/09/2026 (afternoon): loose stones, W803, W831
+
+Product and collection pages are **complete**. All eight product templates
+exist and route correctly. The cart page is the next piece of work.
+
+## What was built
+
+| File | Notes |
+|---|---|
+| `sections/fye-stone-product.liquid` | 26.3KB. Loose diamonds AND gemstones — ~27,000 pages |
+| `templates/product.diamond.json` | Stone page + related row |
+| `snippets/fye-buybox-eternity.liquid` | Rewritten: W803 hide rule, reads selection from `current` |
+| `sections/main-product.liquid` | W831 opening grade, sticky gallery |
+| `assets/fye-ui.js` | Picker opens from the add button; shape filter for fancy feeds |
+| `tools/w920`–`w925` | Six patch scripts, all run clean |
+
+## The loose stone page
+
+One section serves **both** product types — verified that Loose Diamond and
+Loose Gemstone both carry `templateSuffix: diamond`. Named
+`fye-stone-product`, not live's `fye-diamond-product`, because half the pages
+it renders are sapphires, rubies and emeralds.
+
+It is not a branch of `main-product` and should never become one: a stone has
+one variant, one price, no metal, no ring size, no engraving, no surcharge and
+no choosers. Ed, 01/09/2026: **no engraving, no ring size**. The form posts a
+fixed variant id and needs no JavaScript at all.
+
+**`fye.stone_family` is the discriminator** — `Gemstone`, `Fancy Colour
+Diamond`, or absent for a white diamond. Real data, not a `product.type` sniff.
+Gemstones use the same `clarity` field with a different vocabulary ("Eye
+Clean", "Slightly Included"), so one table serves both; every row is
+render-if-present, so a sapphire has no fluorescence line rather than an empty
+one.
+
+### THE TABLE IS AN ALLOW-LIST. NEVER LOOP THE NAMESPACE.
+
+The most important line in that file. `fye` holds commercial data beside the
+display fields — measured 01/09/2026:
+
+    fye.trade_cost       999.54     what we paid
+    fye.price_multiple   1.62       our margin
+    fye.nivoda_id        8186B36A3  supplier reference
+
+`{% for f in product.metafields.fye %}` would publish cost price and markup on
+~27,000 public pages. Every row is named explicitly. If someone "simplifies"
+this into a loop, that is the bug.
+
+**The certificate serial is not shown** (Ed): the lab is the reassurance, the
+serial is a reference the customer cannot use before buying, and on 27,000
+pages it is a machine-readable index of the whole inventory. Where `cert_url`
+exists the lab name becomes the link — "GIA — verify". `cert_lab: "OTHER"`
+prints as "Independent".
+
+Table sits **above** the buttons: a stone is bought on its specification, so
+the facts are read before the commitment. On a ring the options are the
+decision and the button follows them; here the table plays that part.
+
+## W803 — hiding the quality row
+
+On a plain-shouldered solitaire there are no shoulder diamonds, so every
+natural grade costs the same and the selector asks a question with one answer.
+**Two tests must agree**: price flat across natural grades within each metal,
+AND tagged `solitaire` + `plain shoulders`. The price test alone wrongly caught
+four genuinely diamond-set rings on live.
+
+Tags are matched **whole and case-insensitively, never as substrings** — that
+is what keeps "Halo with Plain Shoulders" out, and substring matching is the
+specific mistake the guard exists to prevent.
+
+**Hidden does not mean absent.** `fye-ui.js` builds a variant title by joining
+every `[data-fye-option]` in DOM order; dropping the select would leave it
+matching one value against a two-part title and every price would silently stop
+updating. A hidden input takes its place, in the same position.
+
+Behind `hide_flat_quality`, defaulting on.
+
+## W831 — open on the cheapest natural grade
+
+Shopify's first variant is `D/E VVS`, the dearest, so every ring headlined at
+its top price; on live that read as a ~27% overnight rise on the complete
+trilogies. Two guards: `p.selected_variant` preserves `?variant=` deep links
+and back-from-cart, and `is_plain` keeps plain wedding rings out — their
+variants are ring SIZES, so "cheapest" would open every one on size A.
+
+`fye-buybox-eternity` now reads its selected state from `current` rather than
+Shopify's option defaults, or the highlighted tile and the displayed price
+would describe different rings.
+
+## Gotchas earned
+
+**A guard that greps a whole file for a human phrase trips over prose.** The
+w924 patch refused on its own final check: it searched for "Certificate number"
+and found it in a CSS comment, not the markup, which had patched correctly.
+Assert on the markup you removed, not on words that also appear in comments.
+
+**A stale compiled stylesheet is indistinguishable from a broken rule.** The
+button gap "not working" was the bundle. `getComputedStyle(...).rowGap`
+returning `normal` versus a px value is the thirty-second test; a screenshot
+proves nothing.
+
+**Fancy colour collections are mixed-shape** — `fancy-yellow-natural-diamonds`
+holds Asscher, Emerald, Heart, Trapezoid. Any picker pointed at one must filter
+by shape itself. `-FY-` in a SKU is the only colour code in use today; adding
+another is one line in `COLOUR_CODES`, and codes are never invented.
+
+**Patch scripts are now the default for large files**, not a fallback. Literal
+find/replace pairs, each anchor asserted to match exactly once, refuses
+otherwise, checks the file grew, idempotent. Six ran clean this session.
+
+## Outstanding
+
+1. **The cart page** — the next piece. Must group and reconcile up to five
+   lines per ring. Live's `fye-ui.js` has a fee reconciler that counts the
+   centre fee by variant id; read it first.
+2. **"Set this stone in a ring"** has no destination, so the button does not
+   render. One setting when Ed decides.
+3. **Stone inventory** — every stone sampled reports quantity 0 / policy DENY.
+   If inventory is TRACKED, "Add to bag" is disabled on all ~27,000 stone
+   pages. The ring picker filters on availability and shows stones, so tracking
+   is probably off; confirm before launch.
+4. **`engraving_variant_id`** is live's default and unverified on this store. A
+   wrong id fails at add-to-cart and nothing on the page can detect it.
+5. **W918 `fye.family_carat`** was unpopulated when last checked — the carat
+   stepper renders directions without weights until it lands.
+   `trl29775-fy-mt` has no `fye.side_stones` while all six siblings carry
+   `OV-065`.
+6. **Side-stone property keys** (`Side Diamonds`, `Setting service`) are
+   accepted by Ed but the snippet comment still says UNVERIFIED. Correct it
+   next time that file is open.

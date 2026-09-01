@@ -1,0 +1,210 @@
+{%- comment -%}
+  fye-carat-stepper — step to the next carat up or down in this design family.
+
+  Built 01/09/2026, W916. Rendered INSIDE the buy box by main-product, not as
+  a section: this is a size selector for a choice the shopper has already
+  made, so it belongs with metal and quality, not with the merchandising rows
+  below.
+
+  NOT "ring size". FYE rings already have a finger-size option (A to Z+6) and
+  two scales called the same thing on one page would confuse shoppers and
+  staff alike. The words used here are CARAT and CENTRE STONE, never "size".
+
+  ── THE DATA ──────────────────────────────────────────────────────────────
+
+      fye.family        list.product_reference, plain namespace, so dot
+                        notation is fine here (unlike the Search & Discovery
+                        fields the sibling sections read — those need
+                        brackets; see fye-related-products)
+      fye.family_carat  number_decimal, the label for each entry
+
+  The family list INCLUDES THE CURRENT PRODUCT, deliberately: every member
+  carries an identical list, so this finds its own index and reads off the
+  neighbours rather than reconstructing a ladder. Self is not filtered out
+  before the index is found — doing so would shift every position by one.
+
+  **The label comes from fye.family_carat, never filters.centre_weight.**
+  Measured 01/09/2026: centre_weight is null on 64% of rings, including every
+  eternity ring sampled, and where present it sometimes holds TOTAL diamond
+  weight instead of the centre stone. A stepper labelled from it renders
+  ladders like 0.33 -> 0.95 -> 1.2 -> 0.9, which is neither ascending nor
+  true. family_carat is written from the same Gemex figure the import sorted
+  the ladder by, so the label and the order cannot disagree.
+
+  ── WHAT RENDERS ──────────────────────────────────────────────────────────
+
+    middle of the ladder   both controls
+    smallest in family     larger only
+    largest in family      smaller only
+    no family, or fewer
+    than 2 live members    NOTHING — no shell, no heading, no hidden element
+
+  There is no disabled state and no arrow that goes nowhere. An absent
+  stepper is correct for the ~1,000 one-off rings.
+
+  ── HOLES IN THE LADDER ───────────────────────────────────────────────────
+
+  product_reference keeps pointing at deleted products, so a neighbour can be
+  nil even though the import dropped dead references at generation time. The
+  single pass below therefore takes the NEAREST LIVE entry either side rather
+  than the immediate index — a hole in the middle of a family steps over
+  itself instead of hiding the control.
+
+  ── TIES ──────────────────────────────────────────────────────────────────
+
+  336 families hold two members at the same carat; the import breaks ties by
+  model code so the order is stable, but "Larger 1ct" on a ring that is itself
+  1ct reads as a bug. Where the neighbour's carat equals the current one the
+  control says "Another option" instead of a direction — same two-line shape,
+  so the row does not shift.
+
+  ── NO CHEVRON GLYPHS ─────────────────────────────────────────────────────
+
+  The brief sketches the row with left and right chevrons. The design system
+  permits exactly two Unicode glyphs — the breadcrumb's `›` and the middot —
+  and `‹` is not one of them. Direction is carried by the words and by each
+  control keeping its own side of the row, which is what the acceptance
+  criterion about position actually requires.
+
+  Parameters:
+    product — required
+    scale   — "Centre stone" (default) or "Diamond weight" on eternity
+              templates, where the ladder is total diamond weight
+{%- endcomment -%}
+{%- liquid
+  assign p = product
+  assign scale_label = scale | default: 'Centre stone'
+  assign scale_words = scale_label | downcase
+
+  assign fam = p.metafields.fye.family.value
+
+  comment
+    Find the current product's own index first. Everything else is relative
+    to it, so a product missing from its own list renders nothing rather than
+    guessing a position.
+  endcomment
+  assign idx = -1
+  if fam != blank
+    for m in fam
+      if m != blank and m.handle == p.handle
+        assign idx = forloop.index0
+        break
+      endif
+    endfor
+  endif
+
+  comment
+    One pass for both neighbours. `smaller` keeps being overwritten by later
+    entries below the index, so it ends up holding the NEAREST one; `larger`
+    is only assigned once, so it holds the nearest above.
+  endcomment
+  assign smaller = nil
+  assign larger = nil
+
+  if idx >= 0
+    for m in fam
+      unless m == blank or m.handle == p.handle
+        if forloop.index0 < idx
+          assign smaller = m
+        elsif larger == nil
+          assign larger = m
+        endif
+      endunless
+    endfor
+  endif
+-%}
+
+{%- if smaller != nil or larger != nil -%}
+  {%- liquid
+    capture now_ct
+      render 'fye-carat-label', value: p.metafields.fye.family_carat.value
+    endcapture
+    capture small_ct
+      render 'fye-carat-label', value: smaller.metafields.fye.family_carat.value
+    endcapture
+    capture large_ct
+      render 'fye-carat-label', value: larger.metafields.fye.family_carat.value
+    endcapture
+
+    assign now_ct = now_ct | strip
+    assign small_ct = small_ct | strip
+    assign large_ct = large_ct | strip
+
+    comment
+      A neighbour at the same weight is not "smaller" or "larger".
+    endcomment
+    assign small_tied = false
+    if small_ct != blank and small_ct == now_ct
+      assign small_tied = true
+    endif
+    assign large_tied = false
+    if large_ct != blank and large_ct == now_ct
+      assign large_tied = true
+    endif
+  -%}
+
+  <nav class="pdp__field cstep" aria-label="{{ scale_label | escape }} options">
+    <p class="pdp__label pdp__label--inline">
+      {{ scale_label }}
+      {%- if now_ct != blank -%}
+        <span class="pdp__labelval">{{ now_ct }}ct</span>
+      {%- endif -%}
+    </p>
+
+    <div class="cstep__row">
+      {%- if smaller != nil -%}
+        {%- liquid
+          if small_tied
+            assign small_dir = 'Another option'
+            assign small_aria = 'Another ' | append: scale_words | append: ' at ' | append: small_ct | append: ' carat'
+          elsif small_ct == blank
+            assign small_dir = 'Smaller'
+            assign small_aria = 'Smaller ' | append: scale_words
+          else
+            assign small_dir = 'Smaller'
+            assign small_aria = 'Smaller ' | append: scale_words | append: ', ' | append: small_ct | append: ' carat'
+          endif
+        -%}
+        <a class="cstep__opt cstep__opt--down"
+           href="{{ smaller.url }}"
+           aria-label="{{ small_aria | escape }}">
+          <span class="cstep__dir">{{ small_dir }}</span>
+          {%- if small_ct != blank -%}
+            <span class="cstep__ct">{{ small_ct }}ct</span>
+          {%- endif -%}
+        </a>
+      {%- endif -%}
+
+      {%- comment -%}
+        The current weight, between the two. Static text, never a link — a
+        control that returns you to the page you are on is noise.
+      {%- endcomment -%}
+      {%- if now_ct != blank -%}
+        <span class="cstep__now" aria-hidden="true">{{ now_ct }}ct</span>
+      {%- endif -%}
+
+      {%- if larger != nil -%}
+        {%- liquid
+          if large_tied
+            assign large_dir = 'Another option'
+            assign large_aria = 'Another ' | append: scale_words | append: ' at ' | append: large_ct | append: ' carat'
+          elsif large_ct == blank
+            assign large_dir = 'Larger'
+            assign large_aria = 'Larger ' | append: scale_words
+          else
+            assign large_dir = 'Larger'
+            assign large_aria = 'Larger ' | append: scale_words | append: ', ' | append: large_ct | append: ' carat'
+          endif
+        -%}
+        <a class="cstep__opt cstep__opt--up"
+           href="{{ larger.url }}"
+           aria-label="{{ large_aria | escape }}">
+          <span class="cstep__dir">{{ large_dir }}</span>
+          {%- if large_ct != blank -%}
+            <span class="cstep__ct">{{ large_ct }}ct</span>
+          {%- endif -%}
+        </a>
+      {%- endif -%}
+    </div>
+  </nav>
+{%- endif -%}

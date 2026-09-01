@@ -75,13 +75,34 @@
     · `all_products` is capped at TWENTY unique handles per page. Five colours
       plus three carats is eight. Adding profile or width switchers the same
       way would blow through it — they need a different mechanism. The side-
-      diamond panel spends four more; that is the current total.
+      diamond panel spends four more, and the carat stepper two; that is the
+      current total.
     · a handle that does not exist renders that option disabled rather than as
       a dead link. Platinum and palladium have no carat, so the carat row
       simply does not apply to them.
     · the width slug is irregular: 2.5mm appears in handles as "25mm", so it
       comes from `filters.band_width | remove: '.'`, not from `handle`, which
       would give "2-5mm" and 404.
+
+  ── THE CARAT STEPPER ─────────────────────────────────────────────────────
+
+  Added 01/09/2026, W916. `fye-carat-stepper` renders the next weight up and
+  down within this ring's design family.
+
+  It is a SNIPPET INSIDE THE BUY BOX, not a section, for two reasons: the
+  brief requires it beneath the metal and quality selectors and above the
+  price, which a section cannot reach; and it is a choice about the ring
+  itself, the same class of decision as metal — not merchandising like the
+  rows below.
+
+  Its CSS lives in this stylesheet rather than core because this is its only
+  consumer (conventions §2), and a snippet cannot carry a {% stylesheet %}
+  block of its own.
+
+  `carat_scale` is a per-template setting, not a detection: eternity families
+  ladder by TOTAL diamond weight rather than a centre stone, so
+  product.gemset.json says "Diamond weight". Sniffing product.type for this
+  has caused bugs in this catalogue before.
 
   ── ENGRAVING ─────────────────────────────────────────────────────────────
 
@@ -447,8 +468,22 @@
               </div>
             {%- endfor -%}
           {%- endif -%}
+
+            {%- comment -%}
+              Plain wedding rings are Hockley Mint and carry no fye.family
+              today, so this renders nothing — it is here so the rule-based
+              family pass planned for them needs no theme change.
+            {%- endcomment -%}
+            {%- render 'fye-carat-stepper', product: p, scale: s.carat_scale -%}
           {%- else -%}
             {%- render 'fye-buybox-eternity', product: p, settings: s, current: current -%}
+
+            {%- comment -%}
+              Directly beneath metal and quality: stepping to another carat is
+              a choice about the ring itself, so it sits with the other two
+              rather than with the add-ons below.
+            {%- endcomment -%}
+            {%- render 'fye-carat-stepper', product: p, scale: s.carat_scale -%}
 
             {%- comment -%}
               The choosers. AFTER the ordinary buy box, because the metal and
@@ -741,6 +776,75 @@
 
 .fye .pdp__sizelink {
   border-bottom: 1px solid currentColor;
+}
+
+/* --- carat stepper -------------------------------------------------------
+   Three explicit columns — smaller, current, larger. The columns are ASSIGNED
+   rather than auto-placed so a ring at the bottom of its ladder still has its
+   "larger" control on the right: the acceptance criterion is that the two do
+   not move between pages as the shopper steps up. Auto-placement would slide
+   the survivor into column one. */
+
+.fye .cstep__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: var(--s3);
+  align-items: stretch;
+}
+
+.fye .cstep__opt {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  min-height: 44px;
+  padding: var(--s2) var(--s4);
+  border: 1px solid var(--line);
+  background: var(--white);
+  transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+/* Each keeps its own side, and its text points outward — the only direction
+   cue, since `‹` is not one of the two Unicode glyphs the brand permits. */
+.fye .cstep__opt--down {
+  grid-column: 1;
+  text-align: start;
+}
+
+.fye .cstep__opt--up {
+  grid-column: 3;
+  text-align: end;
+}
+
+.fye .cstep__opt:hover {
+  border-color: var(--sage);
+}
+
+.fye .cstep__dir {
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.fye .cstep__opt:hover .cstep__dir {
+  color: var(--sage);
+}
+
+.fye .cstep__ct {
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+  color: var(--ink);
+}
+
+/* Where the shopper is standing. Static text, never a link. */
+.fye .cstep__now {
+  grid-column: 2;
+  align-self: center;
+  padding-inline: var(--s2);
+  font-size: var(--fs-small);
+  color: var(--ink);
 }
 
 /* --- metal: colour dots, then carat --------------------------------------
@@ -1457,6 +1561,17 @@
     margin-bottom: var(--s4);
   }
 
+  /* The stepper keeps all three columns — two tiles and the current weight
+     still fit, and dropping the middle would lose the shopper's place. Only
+     the padding gives way. */
+  .fye .cstep__row {
+    gap: var(--s2);
+  }
+
+  .fye .cstep__opt {
+    padding-inline: var(--s3);
+  }
+
   .fye .pdp__colours {
     gap: var(--s4);
   }
@@ -1527,6 +1642,19 @@
       "id": "reassurance",
       "label": "Reassurance line",
       "default": "Handmade to order in the UK. Free delivery, complimentary resizing for a year."
+    },
+
+    { "type": "header", "content": "Carat stepper" },
+    {
+      "type": "paragraph",
+      "content": "Steps to the next weight up or down within the ring's design family (fye.family). Renders nothing for a ring that is not in a family. Eternity families ladder by total diamond weight rather than a centre stone, so those templates say \"Diamond weight\"."
+    },
+    {
+      "type": "text",
+      "id": "carat_scale",
+      "label": "What the ladder measures",
+      "default": "Centre stone",
+      "info": "\"Centre stone\" or \"Diamond weight\". Used as the heading and in each link's spoken label."
     },
 
     { "type": "header", "content": "Stone choosers" },

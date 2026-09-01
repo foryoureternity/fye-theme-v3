@@ -1,0 +1,32 @@
+{%- comment -%}
+  fye-carat-label — format a carat weight for display.
+
+  Built 01/09/2026, W916. One rule, one place: the stepper prints three of
+  these per page (smaller, current, larger) and they must agree.
+
+  THE RULE: trim trailing zeros, never pad.
+
+      0.50  ->  0.5
+      1.00  ->  1
+      1.5   ->  1.5
+      0.33  ->  0.33
+
+  Liquid renders a decimal's own string form, so 1.0 prints as "1.0" and
+  0.50 as "0.5" — the first is wrong and the second is right, which is why
+  this cannot just be `{{ value }}`. A whole number is emitted as an integer;
+  anything else is rounded to two places, which Ruby already renders without
+  trailing zeros.
+
+  Parameters:
+    value — a number. Blank or non-numeric renders nothing, so the caller can
+            test the captured string for emptiness rather than duplicating
+            this guard.
+{%- endcomment -%}
+{%- liquid
+  assign n = value | plus: 0
+  assign whole = n | floor
+-%}
+{%- if value == blank -%}
+{%- elsif n == whole -%}{{ whole }}
+{%- else -%}{{ n | round: 2 }}
+{%- endif -%}

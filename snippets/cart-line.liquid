@@ -1,0 +1,97 @@
+{%- comment -%}
+  cart-line — one basket line.
+
+  Rendered twice by main-cart: once for a standalone line, once for each line
+  inside a grouped ring set. Two calls in one section rather than a copy of the
+  markup, because the two differ only in whether the quantity is editable.
+
+  Parameters:
+    item      the line_item
+    line      its 1-based line number, for /cart/change
+    locked    true inside a group — quantity is fixed (Ed, 01/09/2026)
+    label     role within a group ("Setting", "Centre diamond") or blank
+    set_keys  comma-joined line keys of the whole set, or blank
+
+  NO JAVASCRIPT IS REQUIRED BY THIS FILE. Quantity and removal are ordinary
+  links to /cart/change, which Shopify answers with a redirect back to the
+  basket. fye-ui.js upgrades removal inside a group to take the whole set with
+  a confirmation; without it, a companion line can be removed on its own. That
+  is the documented degradation, and the reconciler in main-cart is what
+  eventually tidies up after it.
+{%- endcomment -%}
+{%- liquid
+  assign qty_down = item.quantity | minus: 1
+  assign qty_up = item.quantity | plus: 1
+  assign remove_url = routes.cart_change_url | append: '?line=' | append: line | append: '&quantity=0'
+-%}
+
+<div class="cart__line">
+  <a class="cart__media" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
+    {%- if item.image -%}
+      {{ item.image | image_url: width: 200 | image_tag: loading: 'lazy', widths: '100, 200', class: 'cart__img', alt: '' }}
+    {%- else -%}
+      <span class="cart__img cart__img--ph"></span>
+    {%- endif -%}
+  </a>
+
+  <div class="cart__body">
+    {%- if label != blank -%}
+      <p class="cart__role">{{ label }}</p>
+    {%- endif -%}
+
+    <a class="cart__name" href="{{ item.url }}">{{ item.product.title }}</a>
+
+    {%- unless item.variant.title contains 'Default' -%}
+      <p class="cart__variant">{{ item.variant.title }}</p>
+    {%- endunless -%}
+
+    {%- if item.properties.size > 0 -%}
+      <ul class="cart__props" role="list">
+        {%- for p in item.properties -%}
+          {%- liquid
+            assign pkey = p.first
+            assign pval = p.last
+            assign lead = pkey | slice: 0
+          -%}
+          {%- comment -%}
+            A property whose name begins with an underscore is machine data —
+            the link that ties this line to its ring. Shopify hides those from
+            the customer everywhere else; the basket must not be the one place
+            they surface.
+          {%- endcomment -%}
+          {%- if pval != blank and lead != '_' -%}
+            <li><span class="cart__propkey">{{ pkey }}:</span> {{ pval }}</li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+
+  <div class="cart__qty">
+    {%- if locked -%}
+      <p class="cart__qtyfixed">Qty {{ item.quantity }}</p>
+    {%- else -%}
+      <div class="cart__stepper">
+        <a class="cart__step"
+           href="{{ routes.cart_change_url }}?line={{ line }}&amp;quantity={{ qty_down }}"
+           aria-label="Reduce quantity of {{ item.product.title | escape }}">
+          {%- render 'icon', name: 'minus', class: 'icon--sm' -%}
+        </a>
+        <span class="cart__qtynum">{{ item.quantity }}</span>
+        <a class="cart__step"
+           href="{{ routes.cart_change_url }}?line={{ line }}&amp;quantity={{ qty_up }}"
+           aria-label="Increase quantity of {{ item.product.title | escape }}">
+          {%- render 'icon', name: 'plus', class: 'icon--sm' -%}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+
+  <p class="cart__price">{{ item.final_line_price | money }}</p>
+
+  <a class="cart__remove"
+     href="{{ remove_url }}"
+     {% if set_keys != blank %}data-fye-cart-remove-set="{{ set_keys }}"{% endif %}>
+    Remove<span class="visually-hidden"> {{ item.product.title }}</span>
+  </a>
+</div>

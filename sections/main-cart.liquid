@@ -1,0 +1,543 @@
+{%- comment -%}
+  main-cart — the basket.
+
+  New in v3: live's cart.json names this type but v3 had neither the section
+  nor templates/cart.json, so every /cart URL 404'd. Same pre-flight failure as
+  the collection page (docs/build-state.md).
+
+  Ported from live's 49.9KB T4S section, which exposed six settings of which
+  ONE was on. Dropped with the rest: the shipping calculator, order notes,
+  live rates, gift wrap and the default-country picker — all `false` on live,
+  and a control nobody has ever switched on is not a feature. Dropping a
+  setting is safe; the five IDs simply stop being declared.
+
+  Block types are frozen: price / btn / tax / agree / btnck, exactly live's
+  names, so templates/cart.json keeps working. `guarantee` is new.
+
+  ── THE GROUPED RING SET ──────────────────────────────────────────────────
+
+  A configured ring reaches the basket as up to FIVE lines: the setting, the
+  centre stone (or its setting fee), the side pair (or its fee), and the
+  engraving fee. They are separate lines because their prices are independent
+  — see docs/build-state.md, 01/09/2026.
+
+  Presented as one block with a combined total, Ed 01/09/2026. The link is a
+  property on each COMPANION line whose value is the SETTING line's SKU; live
+  calls it "Ring SKU". It is named ONCE, below, so the day the key changes this
+  file changes in one place.
+
+  Quantity inside a group is fixed (Ed): these are one-off rings, and a set
+  whose five lines could drift out of step with each other is a fulfilment
+  problem, not a convenience.
+
+  ── WHAT NEEDS JAVASCRIPT, AND WHAT DOES NOT ──────────────────────────────
+
+  Nothing here needs it to RENDER. Quantity and removal are plain links to
+  /cart/change; the discount field is Shopify's own `name="discount"` input,
+  which carries to checkout through the ordinary cart POST. fye-ui.js adds two
+  behaviours on top:
+
+    · removing any line in a group asks first, then takes the whole set —
+      otherwise a setting reaches checkout with no stone, or the reverse;
+    · the centre-fee reconciler (below) corrects the fee line quietly and in
+      place, without reloading (Ed, 01/09/2026).
+
+  Without JavaScript both degrade to "the shopper can still fix it by hand",
+  which is a degraded basket rather than a wrong order.
+
+  ── THE CENTRE-FEE RECONCILER ─────────────────────────────────────────────
+
+  When a customer supplies their own centre diamond we sell no stone, we
+  charge to set one — and Shopify cannot attach a fee to an existing line, so
+  the fee travels as its own line. The two can drift apart in an abandoned
+  basket. `centre_fee_variant_id` tells fye-ui.js which line is the fee; the
+  ring lines are the ones whose "Centre Diamond" property says the customer is
+  supplying it. Ed, 01/09/2026: correct it quietly, in place, and ADD THE FEE
+  BACK if it was deleted while the ring stayed. Live only ever corrected a fee
+  line that was still present, so a deleted one meant free setting.
+
+  The default id is live's and is UNVERIFIED on this store — see
+  docs/build-state.md. Blank switches the whole behaviour off.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'white'
+
+  comment
+    THE LINK PROPERTY. One assign, one place to change.
+  endcomment
+  assign link_key = '_Ring'
+
+  comment
+    Every link value in the basket, delimited on BOTH sides so a lookup cannot
+    match a partial SKU: '|ENG123|' can never be found inside '|ENG1234|'.
+  endcomment
+  assign links = ''
+  for item in cart.items
+    assign lv = item.properties[link_key]
+    if lv != blank
+      assign links = links | append: '|' | append: lv | append: '|'
+    endif
+  endfor
+-%}
+
+<section class="fye-cart band band--{{ band }}"
+         data-screen-label="Cart"
+         data-fye-cart
+         data-fee-variant="{{ s.centre_fee_variant_id }}"
+         data-link-key="{{ link_key }}">
+  <div class="wrap">
+
+    {%- if cart.item_count == 0 -%}
+
+      <div class="cart__empty">
+        <h2 class="cart__emptyhead">{{ s.empty_heading | default: 'Your basket is empty' }}</h2>
+        {%- if s.empty_copy != blank -%}
+          <p class="lead cart__emptycopy">{{ s.empty_copy }}</p>
+        {%- endif -%}
+        <a class="btn" href="{{ s.empty_link | default: '/collections/all' }}">
+          {{ s.empty_label | default: 'Start browsing' }}
+        </a>
+      </div>
+
+    {%- else -%}
+
+      <div class="cart__layout">
+
+        <div class="cart__items">
+          <ul class="cart__list" role="list">
+            {%- for item in cart.items -%}
+              {%- liquid
+                assign is_companion = false
+                if item.properties[link_key] != blank
+                  assign is_companion = true
+                endif
+
+                assign is_parent = false
+                if is_companion == false and item.sku != blank
+                  assign needle = '|' | append: item.sku | append: '|'
+                  if links contains needle
+                    assign is_parent = true
+                  endif
+                endif
+              -%}
+
+              {%- comment -%}
+                Companions render inside their setting's group, never on their
+                own. A companion whose setting is no longer in the basket falls
+                through to the standalone branch below, so an orphan is visible
+                rather than silently missing.
+              {%- endcomment -%}
+              {%- if is_companion -%}
+                {%- assign orphan = true -%}
+                {%- for parent in cart.items -%}
+                  {%- if parent.sku == item.properties[link_key] -%}
+                    {%- assign orphan = false -%}
+                    {%- break -%}
+                  {%- endif -%}
+                {%- endfor -%}
+                {%- unless orphan -%}
+                  {%- continue -%}
+                {%- endunless -%}
+              {%- endif -%}
+
+              {%- if is_parent -%}
+                {%- liquid
+                  assign combined = item.final_line_price
+                  assign set_keys = item.key
+                  for c in cart.items
+                    if c.properties[link_key] == item.sku
+                      assign combined = combined | plus: c.final_line_price
+                      assign set_keys = set_keys | append: ',' | append: c.key
+                    endif
+                  endfor
+                -%}
+                <li class="cart__group">
+                  <p class="cart__grouphead">{{ s.group_title | default: 'Your complete ring' }}</p>
+
+                  {%- render 'cart-line',
+                        item: item,
+                        line: forloop.index,
+                        locked: true,
+                        label: 'Setting',
+                        set_keys: set_keys -%}
+
+                  {%- for c in cart.items -%}
+                    {%- if c.properties[link_key] == item.sku -%}
+                      {%- liquid
+                        assign ct = c.product.title | downcase
+                        if ct contains 'side diamond'
+                          assign clabel = 'Side diamonds'
+                        elsif ct contains 'engraving'
+                          assign clabel = 'Engraving'
+                        elsif ct contains 'setting fee' or c.properties['Setting service'] != blank
+                          assign clabel = 'Setting service'
+                        else
+                          assign clabel = 'Centre diamond'
+                        endif
+                      -%}
+                      {%- render 'cart-line',
+                            item: c,
+                            line: forloop.index,
+                            locked: true,
+                            label: clabel,
+                            set_keys: set_keys -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+
+                  <p class="cart__grouptotal">
+                    <span>Combined total</span>
+                    <strong>{{ combined | money }}</strong>
+                  </p>
+                </li>
+              {%- else -%}
+                <li class="cart__row">
+                  {%- render 'cart-line',
+                        item: item,
+                        line: forloop.index,
+                        locked: false,
+                        label: '',
+                        set_keys: '' -%}
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </div>
+
+        <aside class="cart__side">
+          <form action="{{ routes.cart_url }}" method="post" novalidate class="cart__form">
+            {%- for block in section.blocks -%}
+              {%- case block.type -%}
+
+                {%- when 'price' -%}
+                  <div class="cart__sub" {{ block.shopify_attributes }}>
+                    <span>Subtotal</span>
+                    <strong>{{ cart.total_price | money }}</strong>
+                  </div>
+
+                {%- when 'tax' -%}
+                  <p class="fine cart__tax" {{ block.shopify_attributes }}>
+                    {{ block.settings.note | default: 'Taxes and delivery are calculated at checkout.' }}
+                  </p>
+
+                {%- when 'agree' -%}
+                  <label class="cart__agree" {{ block.shopify_attributes }}>
+                    <input type="checkbox" required>
+                    <span>{{ block.settings.text | default: 'I have read and accept the terms and conditions.' }}</span>
+                  </label>
+
+                {%- when 'btnck' -%}
+                  <button type="submit" name="checkout" class="btn btn--block cart__checkout" {{ block.shopify_attributes }}>
+                    {{ block.settings.label | default: 'Checkout' }}
+                  </button>
+
+                {%- when 'btn' -%}
+                  <a class="btn btn--outline btn--block"
+                     href="{{ block.settings.url | default: '/collections/all' }}"
+                     {{ block.shopify_attributes }}>
+                    {{ block.settings.title | default: 'Continue shopping' }}
+                  </a>
+
+              {%- endcase -%}
+            {%- endfor -%}
+
+            {%- comment -%}
+              Shopify's own field. Posted with the cart form it travels through
+              to checkout and is applied there — no JavaScript, and no second
+              request. It cannot show the shopper the value of the code before
+              checkout; nothing on the cart page can.
+            {%- endcomment -%}
+            {%- if s.enable_discount -%}
+              <div class="cart__discount">
+                <label for="cart-discount">Discount code</label>
+                <input type="text" id="cart-discount" name="discount" autocomplete="off">
+              </div>
+            {%- endif -%}
+          </form>
+
+          {%- if s.delivery_note != blank -%}
+            <p class="fine cart__delivery">{{ s.delivery_note }}</p>
+          {%- endif -%}
+
+          {%- assign guarantees = section.blocks | where: 'type', 'guarantee' -%}
+          {%- if guarantees.size > 0 -%}
+            <div class="panel cart__guarantee">
+              <p class="eyebrow">{{ s.guarantee_title | default: 'The For Your Eternity guarantee' }}</p>
+              <ul class="cart__glist" role="list">
+                {%- for block in guarantees -%}
+                  <li {{ block.shopify_attributes }}>
+                    {%- render 'icon', name: block.settings.icon, class: 'icon--sm' -%}
+                    <span>{{ block.settings.text }}</span>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- endif -%}
+        </aside>
+
+      </div>
+
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .cart__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: var(--s10);
+  align-items: start;
+}
+
+.fye .cart__list { list-style: none; margin: 0; padding: 0; }
+.fye .cart__list > li { margin: 0; }
+.fye .cart__row { border-bottom: var(--hairline); }
+.fye .cart__row:first-child { border-top: var(--hairline); }
+
+/* A group is a single surface: one hairline around the set, none between the
+   lines inside it, so the block reads as one purchase rather than four. */
+.fye .cart__group {
+  border: var(--hairline);
+  margin-bottom: var(--s6);
+  background: var(--white);
+}
+.fye .cart__grouphead {
+  margin: 0;
+  padding: var(--s4) var(--s5);
+  background: var(--ivory);
+  border-bottom: var(--hairline);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.fye .cart__grouptotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--s4);
+  margin: 0;
+  padding: var(--s4) var(--s5);
+  border-top: var(--hairline);
+  background: var(--ivory);
+  font-size: var(--fs-small);
+}
+.fye .cart__grouptotal strong { font-weight: var(--fw-medium); }
+
+/* ---- one line ---------------------------------------------------------- */
+.fye .cart__line {
+  display: grid;
+  grid-template-columns: 100px minmax(0, 1fr) auto auto;
+  grid-template-areas: 'media body qty price' 'media body remove remove';
+  gap: var(--s2) var(--s5);
+  align-items: start;
+  padding: var(--s5);
+}
+.fye .cart__group .cart__line + .cart__line { border-top: var(--hairline); }
+
+.fye .cart__media { grid-area: media; display: block; }
+.fye .cart__img { width: 100%; aspect-ratio: 1; object-fit: cover; background: var(--ivory); }
+.fye .cart__img--ph { display: block; }
+
+.fye .cart__body { grid-area: body; display: flex; flex-direction: column; gap: var(--s2); }
+.fye .cart__role {
+  margin: 0;
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.fye .cart__name { font-size: var(--fs-small); line-height: 1.35; }
+.fye .cart__name:hover { color: var(--sage); }
+.fye .cart__variant { margin: 0; font-size: var(--fs-fine); color: var(--ink-soft); }
+
+.fye .cart__props { list-style: none; margin: 0; padding: 0; font-size: var(--fs-fine); color: var(--ink-soft); }
+.fye .cart__props > li { margin: 0; }
+.fye .cart__propkey { font-weight: var(--fw-medium); }
+
+.fye .cart__qty { grid-area: qty; }
+.fye .cart__qtyfixed { margin: 0; font-size: var(--fs-fine); color: var(--ink-soft); white-space: nowrap; }
+.fye .cart__stepper { display: flex; align-items: center; border: var(--hairline); }
+.fye .cart__step {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  min-height: 44px;
+  color: var(--ink);
+}
+.fye .cart__step:hover { background: var(--ivory); color: var(--sage); }
+.fye .cart__qtynum { min-width: 32px; text-align: center; font-size: var(--fs-small); }
+
+.fye .cart__price { grid-area: price; margin: 0; font-size: var(--fs-small); font-weight: var(--fw-medium); white-space: nowrap; }
+
+.fye .cart__remove {
+  grid-area: remove;
+  justify-self: end;
+  font-size: var(--fs-fine);
+  color: var(--ink-soft);
+  border-bottom: 1px solid currentColor;
+  line-height: 1.2;
+}
+.fye .cart__remove:hover { color: var(--sage); }
+
+/* ---- summary ----------------------------------------------------------- */
+.fye .cart__side { display: flex; flex-direction: column; gap: var(--s6); position: sticky; top: var(--s6); }
+.fye .cart__form { display: flex; flex-direction: column; gap: var(--s4); border: var(--hairline); padding: var(--s6); }
+
+.fye .cart__sub {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--s4);
+  padding-bottom: var(--s4);
+  border-bottom: var(--hairline);
+  font-size: var(--fs-body-lg);
+}
+.fye .cart__sub strong { font-weight: var(--fw-medium); }
+.fye .cart__tax { margin: 0; }
+
+.fye .cart__agree { display: flex; align-items: flex-start; gap: var(--s3); margin: 0; text-transform: none; letter-spacing: 0; font-size: var(--fs-fine); font-weight: var(--fw-light); color: var(--ink); }
+.fye .cart__agree input { width: 18px; min-height: 18px; height: 18px; flex: 0 0 auto; margin-top: 3px; }
+
+.fye .cart__discount { display: flex; flex-direction: column; }
+.fye .cart__delivery { margin: 0; }
+
+.fye .cart__guarantee { display: flex; flex-direction: column; gap: var(--s4); }
+.fye .cart__glist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--s3); font-size: var(--fs-fine); }
+.fye .cart__glist > li { display: flex; align-items: flex-start; gap: var(--s3); margin: 0; }
+.fye .cart__glist .icon { margin-top: 1px; }
+
+/* ---- empty ------------------------------------------------------------- */
+.fye .cart__empty { display: flex; flex-direction: column; align-items: center; gap: var(--s5); text-align: center; }
+.fye .cart__emptycopy { max-width: 46ch; }
+
+/* ---- 900: the summary stops being a column ----------------------------- */
+@media (max-width: 900px) {
+  .fye .cart__layout { grid-template-columns: 1fr; gap: var(--s8); }
+  .fye .cart__side { position: static; }
+}
+
+/* ---- 560: the line stacks --------------------------------------------- */
+@media (max-width: 560px) {
+  .fye .cart__line {
+    grid-template-columns: 76px minmax(0, 1fr);
+    grid-template-areas: 'media body' 'media price' 'qty remove';
+    gap: var(--s3) var(--s4);
+  }
+  .fye .cart__remove { align-self: center; }
+  .fye .cart__qty { justify-self: start; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Cart",
+  "tag": "section",
+  "settings": [
+    { "type": "header", "content": "Basket" },
+    {
+      "type": "text",
+      "id": "group_title",
+      "label": "Grouped ring heading",
+      "default": "Your complete ring",
+      "info": "Shown above a setting and the stones bought with it."
+    },
+    { "type": "checkbox", "id": "enable_discount", "label": "Show discount code field", "default": true },
+    {
+      "type": "text",
+      "id": "centre_fee_variant_id",
+      "label": "Centre setting fee variant ID",
+      "default": "58461224927616",
+      "info": "Used to keep the fee line in step with the rings that need it. Leave blank to switch that off."
+    },
+
+    { "type": "header", "content": "Reassurance" },
+    {
+      "type": "text",
+      "id": "delivery_note",
+      "label": "Delivery note",
+      "default": "Each ring is made to order. We will confirm your delivery date by email."
+    },
+    { "type": "text", "id": "guarantee_title", "label": "Guarantee heading", "default": "The For Your Eternity guarantee" },
+
+    { "type": "header", "content": "Empty basket" },
+    { "type": "text", "id": "empty_heading", "label": "Heading", "default": "Your basket is empty" },
+    { "type": "text", "id": "empty_copy", "label": "Text", "default": "When you find a ring you love, it will appear here." },
+    { "type": "text", "id": "empty_label", "label": "Button label", "default": "Start browsing" },
+    { "type": "url", "id": "empty_link", "label": "Button link" },
+
+    { "type": "header", "content": "Background" },
+    {
+      "type": "select",
+      "id": "band",
+      "label": "Band colour",
+      "default": "white",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Ivory" }
+      ]
+    }
+  ],
+  "blocks": [
+    { "type": "price", "name": "Subtotal", "limit": 1, "settings": [] },
+    {
+      "type": "tax",
+      "name": "Tax and delivery note",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "note", "label": "Note", "default": "Taxes and delivery are calculated at checkout." }
+      ]
+    },
+    {
+      "type": "agree",
+      "name": "Terms checkbox",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "I have read and accept the terms and conditions." }
+      ]
+    },
+    {
+      "type": "btnck",
+      "name": "Checkout button",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Checkout" }
+      ]
+    },
+    {
+      "type": "btn",
+      "name": "Secondary button",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Label", "default": "Continue shopping" },
+        { "type": "url", "id": "url", "label": "Link" }
+      ]
+    },
+    {
+      "type": "guarantee",
+      "name": "Guarantee line",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "shipping",
+          "options": [
+            { "value": "shipping", "label": "Delivery" },
+            { "value": "resize", "label": "Resizing" },
+            { "value": "warranty", "label": "Warranty" },
+            { "value": "ethical", "label": "Ethical sourcing" },
+            { "value": "certificate", "label": "Certification" },
+            { "value": "scales", "label": "Fair pricing" },
+            { "value": "guidance", "label": "Personal guidance" }
+          ]
+        },
+        { "type": "text", "id": "text", "label": "Text", "default": "Free insured UK delivery" }
+      ]
+    }
+  ]
+}
+{% endschema %}

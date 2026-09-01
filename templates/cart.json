@@ -1,0 +1,96 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Shopping cart"
+          }
+        },
+        "intro": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Please do contact us before purchasing if you have any questions, or need a customisation to your ring or diamonds. Once you order we will be in touch to check your delivery instructions and give you an estimated delivery date.</p>"
+          }
+        }
+      },
+      "block_order": ["title", "intro"],
+      "settings": {}
+    },
+    "main": {
+      "type": "main-cart",
+      "blocks": {
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "tax": {
+          "type": "tax",
+          "settings": {
+            "note": "Taxes and delivery are calculated at checkout."
+          }
+        },
+        "checkout": {
+          "type": "btnck",
+          "settings": {
+            "label": "Checkout"
+          }
+        },
+        "keep-shopping": {
+          "type": "btn",
+          "settings": {
+            "title": "Continue shopping",
+            "url": "/collections/all"
+          }
+        },
+        "g-delivery": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "shipping",
+            "text": "Free insured UK delivery"
+          }
+        },
+        "g-resize": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "resize",
+            "text": "Complimentary first resizing"
+          }
+        },
+        "g-warranty": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "warranty",
+            "text": "Lifetime manufacturing warranty"
+          }
+        },
+        "g-ethical": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "ethical",
+            "text": "Ethically sourced, GIA and IGI certified"
+          }
+        }
+      },
+      "block_order": [
+        "price",
+        "tax",
+        "checkout",
+        "keep-shopping",
+        "g-delivery",
+        "g-resize",
+        "g-warranty",
+        "g-ethical"
+      ],
+      "settings": {
+        "group_title": "Your complete ring",
+        "enable_discount": true,
+        "delivery_note": "Each ring is made to order. We will confirm your delivery date by email.",
+        "band": "white"
+      }
+    }
+  },
+  "order": ["heading", "main"]
+}

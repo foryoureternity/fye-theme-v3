@@ -1,0 +1,345 @@
+{%- comment -%}
+  fye-popups — every popup on the site, as blocks. Lives in footer-group.json,
+  so one copy is available on every page.
+
+  REPLACES `fye-guide-popups-group.json`, which was TWELVE sections, each
+  wrapping a Klaviyo embed on Forms defaults (#202020 text, #1878B9 links).
+  Build-state job 7.
+
+  KLAVIYO IS GONE (Ed, 01/09/2026). The form here is Shopify's own
+  `{% form 'contact' %}`, so a submission arrives as a normal store enquiry
+  and no app is involved. Consequences worth knowing:
+
+  1. NOTHING EMAILS THE GUIDE ANY MORE. Klaviyo used to. So the popup hands
+     the file over itself, on the success panel, from `file_url`. A guide with
+     no `file_url` says we will email it instead — true, because the
+     submission reaches hello@ either way, but it is a manual send. Five of
+     the six guides have no file yet: that is the open item, not a bug here.
+  2. Marketing consent is recorded as a FIELD on the enquiry, not a list
+     subscription — there is no list to subscribe to now. If a mailing tool
+     arrives later, that field is where the answer already is.
+
+  HOW A POPUP IS OPENED
+  Any element with `data-fye-popup="<key>"` opens the block whose `key`
+  matches. `guide-download-block` and `fye-two-ways` already emit that
+  attribute, so no template needed editing.
+
+  The keys below are the OLD KLAVIYO FORM IDS (V9eDYg, XMzNMS, …) because
+  that is what those triggers still emit — `guide-download-block`'s setting is
+  still called `klaviyo_form_id`. Renaming a setting ID is not safe (Shopify
+  drops the saved value), so the ID stays and its LABEL now says "Popup key".
+  Change a key here and you must change it on the trigger in the same pass, or
+  the button silently opens nothing.
+
+  WHY <dialog> AND NOT THE THEME'S DRAWER PATTERN
+  The one deliberate exception to §6's `data-fye-drawer` convention. A modal
+  over a form needs a focus trap, a background made inert, and Escape — all
+  three are free and correct with <dialog> + showModal(), and about forty
+  lines of hand-rolled JS without it. Drawers stay as they are; this is not a
+  precedent for them.
+
+  Layout is the Klaviyo popup Ed signed off: photograph left at a third, form
+  right, stacking to photo-on-top under 749px. Its champagne button is NOT
+  carried over — buttons in this system are teal filled, sage on hover.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+-%}
+
+{%- for block in section.blocks -%}
+  {%- liquid
+    assign b = block.settings
+    assign key = b.key | default: block.id
+    assign heading = b.heading | default: 'Get in touch'
+    assign btn_label = b.button_label | default: 'Send'
+    comment
+      return_to brings the visitor back to the page they were on with the
+      popup's key in the query string, which is how fye-ui.js knows to reopen
+      THIS popup on its success panel rather than dumping them on /contact.
+    endcomment
+    assign ret = request.path | append: '?fyep=' | append: key
+    assign journey_list = b.journey_options | split: ','
+  -%}
+
+  <dialog class="pop" id="fye-popup-{{ key | handleize }}" data-fye-popup-panel="{{ key }}" aria-label="{{ heading | escape }}" {{ block.shopify_attributes }}>
+    <div class="pop__in{% if b.image == blank %} pop__in--noimage{% endif %}">
+
+      {%- if b.image != blank -%}
+        <div class="pop__media">
+          {{ b.image | image_url: width: 900 | image_tag:
+             loading: 'lazy',
+             widths: '380, 560, 760, 900',
+             sizes: '(max-width: 749px) 100vw, 260px',
+             alt: b.image_alt }}
+        </div>
+      {%- endif -%}
+
+      <div class="pop__body">
+        <button class="pop__close" type="button" data-fye-popup-close aria-label="Close">
+          {%- render 'icon', name: 'close', size: 18 -%}
+        </button>
+
+        {%- form 'contact', return_to: ret, class: 'pop__form' -%}
+
+          {%- if form.posted_successfully? -%}
+
+            {%- comment -%}
+              Rendered on every popup after any successful contact submission —
+              the flash is not per-form. Harmless: only the popup named in the
+              query string is opened, and the others stay closed.
+            {%- endcomment -%}
+            <div class="pop__done" data-fye-popup-done>
+              <p class="eyebrow">{{ b.eyebrow | default: 'For Your Eternity' }}</p>
+              <h2 class="pop__title">{{ b.success_heading | default: 'Thank you' }}</h2>
+              <div class="pop__intro">{{ b.success_body | default: '<p>We have your details.</p>' }}</div>
+
+              {%- if b.file_url != blank -%}
+                <a class="btn btn--block" href="{{ b.file_url }}">
+                  {%- render 'icon', name: 'download', size: 18 -%}
+                  {{ b.download_label | default: 'Download the guide' }}
+                </a>
+              {%- else -%}
+                <p class="pop__note">{{ b.no_file_note | default: 'We will email it to you shortly.' }}</p>
+              {%- endif -%}
+            </div>
+
+          {%- else -%}
+
+            {%- if b.eyebrow != blank -%}
+              <p class="eyebrow">{{ b.eyebrow }}</p>
+            {%- endif -%}
+            <h2 class="pop__title">{{ heading }}</h2>
+            {%- if b.intro != blank -%}
+              <div class="pop__intro">{{ b.intro }}</div>
+            {%- endif -%}
+
+            {%- if form.errors -%}
+              <div class="pop__errors" role="alert">
+                <p>{{ form.errors | default_errors }}</p>
+              </div>
+            {%- endif -%}
+
+            {%- comment -%}
+              Field names are what appears in the enquiry email, so they read
+              as sentences rather than snake_case. `contact[email]` is the one
+              Shopify treats specially — it becomes the reply-to address.
+            {%- endcomment -%}
+            <div class="pop__field">
+              <label for="pop-first-{{ key | handleize }}">First name</label>
+              <input id="pop-first-{{ key | handleize }}" type="text" name="contact[First name]" autocomplete="given-name" placeholder="First name">
+            </div>
+
+            <div class="pop__field">
+              <label for="pop-last-{{ key | handleize }}">Last name</label>
+              <input id="pop-last-{{ key | handleize }}" type="text" name="contact[Last name]" autocomplete="family-name" placeholder="Last name">
+            </div>
+
+            <div class="pop__pair">
+              <div class="pop__field">
+                <label for="pop-email-{{ key | handleize }}">Email address</label>
+                <input id="pop-email-{{ key | handleize }}" type="email" name="contact[email]" autocomplete="email" placeholder="you@email.com" required>
+              </div>
+              <div class="pop__field">
+                <label for="pop-phone-{{ key | handleize }}">Telephone <span class="pop__opt">(optional)</span></label>
+                <input id="pop-phone-{{ key | handleize }}" type="tel" name="contact[Telephone]" autocomplete="tel" placeholder="For a personal follow-up">
+              </div>
+            </div>
+
+            {%- if b.show_journey and journey_list.size > 0 -%}
+              <div class="pop__field">
+                <label for="pop-journey-{{ key | handleize }}">{{ b.journey_label | default: 'Where you are in your journey' }}</label>
+                <select id="pop-journey-{{ key | handleize }}" name="contact[Where they are in their journey]">
+                  <option value="">Please choose…</option>
+                  {%- for opt in journey_list -%}
+                    {%- assign opt_clean = opt | strip -%}
+                    <option value="{{ opt_clean | escape }}">{{ opt_clean }}</option>
+                  {%- endfor -%}
+                </select>
+              </div>
+            {%- endif -%}
+
+            {%- comment -%}
+              What the enquiry is FOR. Hidden, because the visitor already knows
+              — they clicked the thing — but the email is useless without it.
+            {%- endcomment -%}
+            <input type="hidden" name="contact[Enquiry about]" value="{{ heading | escape }}">
+
+            {%- if b.show_consent -%}
+              <label class="pop__consent" for="pop-consent-{{ key | handleize }}">
+                <input id="pop-consent-{{ key | handleize }}" type="checkbox" name="contact[Happy to be emailed]" value="Yes">
+                <span>{{ b.consent_text | default: "Yes, I'm happy for For Your Eternity to email me occasional news. I can unsubscribe anytime." }}</span>
+              </label>
+            {%- endif -%}
+
+            <button class="btn btn--block pop__submit" type="submit">{{ btn_label }}</button>
+
+            {%- if b.reassurance != blank -%}
+              <p class="pop__note">{{ b.reassurance }}</p>
+            {%- endif -%}
+
+          {%- endif -%}
+
+        {%- endform -%}
+      </div>
+    </div>
+  </dialog>
+{%- endfor -%}
+
+{% stylesheet %}
+/* ---- the dialog itself -------------------------------------------------- */
+.fye .pop {
+  width: min(760px, calc(100vw - (2 * var(--pad-x))));
+  max-width: none;
+  max-height: calc(100vh - (2 * var(--s8)));
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--ink);
+  overflow: hidden;
+}
+/* ::backdrop does not reliably inherit custom properties across engines, so
+   the token's value is repeated as a fallback. It is --scrim, one step darker:
+   a modal needs to hold attention where a photo caption does not. */
+.fye .pop::backdrop { background: var(--scrim, rgba(35, 61, 71, 0.42)); }
+.fye dialog.pop:not([open]) { display: none; }
+
+/* A third to the photograph, as the signed-off design. */
+.fye .pop__in { display: grid; grid-template-columns: 260px 1fr; min-height: 0; }
+.fye .pop__in--noimage { grid-template-columns: 1fr; }
+
+.fye .pop__media { position: relative; background: var(--ivory); }
+.fye .pop__media :where(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+.fye .pop__body {
+  position: relative;
+  padding: var(--s7);
+  overflow-y: auto;
+  max-height: calc(100vh - (2 * var(--s8)));
+}
+
+.fye .pop__close {
+  position: absolute;
+  top: var(--s3);
+  right: var(--s3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  transition: color var(--dur) var(--ease);
+}
+.fye .pop__close:hover { color: var(--sage); }
+
+/* ---- words -------------------------------------------------------------- */
+.fye .pop__title { margin: var(--s2) 0 var(--s3); font-size: var(--fs-h3); }
+.fye .pop__intro { margin-bottom: var(--s5); font-size: var(--fs-small); line-height: 1.6; color: var(--ink-soft); }
+.fye .pop__intro :where(p:last-child) { margin-bottom: 0; }
+
+/* ---- fields ------------------------------------------------------------- */
+/* Inputs, selects and the 48px minimum come from fye-core's form rules; only
+   the stacking and the pair are this section's business. */
+.fye .pop__form { display: flex; flex-direction: column; gap: var(--s4); }
+.fye .pop__field { display: flex; flex-direction: column; }
+.fye .pop__pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s4); }
+.fye .pop__opt { font-weight: var(--fw-light); letter-spacing: 0; text-transform: none; }
+
+/* The consent line is sentence case and small — the only label in the theme
+   that is not an uppercase field label, because it is a sentence the visitor
+   reads, not a name for a box. */
+.fye .pop__consent {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s3);
+  margin: 0;
+  font-size: var(--fs-fine);
+  font-weight: var(--fw-light);
+  letter-spacing: 0;
+  line-height: 1.5;
+  text-transform: none;
+  color: var(--ink-soft);
+}
+.fye .pop__consent input {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  min-height: 0;
+  margin-top: 2px;
+  accent-color: var(--teal);
+}
+
+.fye .pop__submit { margin-top: var(--s2); }
+.fye .pop__note { margin: 0; font-size: var(--fs-fine); line-height: 1.5; color: var(--ink-soft); text-align: center; }
+
+.fye .pop__errors {
+  padding: var(--s3) var(--s4);
+  background: var(--mist);
+  font-size: var(--fs-small);
+}
+.fye .pop__errors :where(p) { margin: 0; }
+
+/* ---- success ------------------------------------------------------------ */
+.fye .pop__done { display: flex; flex-direction: column; gap: var(--s3); }
+.fye .pop__done .btn { margin-top: var(--s3); }
+
+/* ---- reflow: 749, the theme's own middle breakpoint --------------------- */
+@media (max-width: 749px) {
+  .fye .pop__in { grid-template-columns: 1fr; }
+  .fye .pop__media { height: 180px; }
+  .fye .pop__media :where(img) { position: static; height: 180px; }
+  .fye .pop__body { padding: var(--s5); }
+}
+@media (max-width: 560px) {
+  .fye .pop__pair { grid-template-columns: 1fr; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Popups",
+  "blocks": [
+    {
+      "type": "popup",
+      "name": "Popup",
+      "settings": [
+        {
+          "type": "text", "id": "key", "label": "Popup key",
+          "info": "The value the button that opens this popup emits in data-fye-popup. Historically a Klaviyo form ID. Change it here and on the trigger together."
+        },
+        { "type": "header", "content": "Content" },
+        { "type": "image_picker", "id": "image", "label": "Photograph", "info": "Leave empty and the popup is the form alone, full width." },
+        { "type": "text", "id": "image_alt", "label": "Photograph description" },
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "For Your Eternity" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Get in touch" },
+        { "type": "richtext", "id": "intro", "label": "Introduction" },
+        { "type": "header", "content": "Form" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "Send" },
+        { "type": "checkbox", "id": "show_journey", "label": "Ask where they are in their journey", "default": true },
+        { "type": "text", "id": "journey_label", "label": "Question label", "default": "Where you are in your journey" },
+        {
+          "type": "textarea", "id": "journey_options", "label": "Answers",
+          "info": "Comma separated.",
+          "default": "Just starting to look, Ready to choose, We have a date in mind, Looking for inspiration"
+        },
+        { "type": "checkbox", "id": "show_consent", "label": "Show the email consent tickbox", "default": true },
+        { "type": "text", "id": "consent_text", "label": "Consent wording", "default": "Yes, I'm happy for For Your Eternity to email me occasional news. I can unsubscribe anytime." },
+        { "type": "text", "id": "reassurance", "label": "Line under the button", "default": "Your details are kept private and used only to reply to you." },
+        { "type": "header", "content": "After sending" },
+        { "type": "text", "id": "success_heading", "label": "Heading", "default": "Thank you" },
+        { "type": "richtext", "id": "success_body", "label": "Message" },
+        {
+          "type": "url", "id": "file_url", "label": "Guide file or download page",
+          "info": "Handed over immediately on the success panel. Without it the popup says the guide will be emailed."
+        },
+        { "type": "text", "id": "download_label", "label": "Download button label", "default": "Download the guide" },
+        { "type": "text", "id": "no_file_note", "label": "Wording when there is no file", "default": "We will email it to you shortly." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Popups", "blocks": [{ "type": "popup" }] }]
+}
+{% endschema %}

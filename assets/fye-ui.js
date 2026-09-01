@@ -2575,3 +2575,95 @@
   init();
   document.addEventListener('shopify:section:load', function (e) { init(e.target); });
 })();
+
+
+/* ============================================================================
+   POPUPS — appended 01/09/2026
+   sections/fye-popups.liquid
+
+   Any element with data-fye-popup="<key>" opens the <dialog> carrying
+   data-fye-popup-panel="<key>". Klaviyo is gone; the form inside is Shopify's
+   own contact form.
+
+   <dialog> + showModal() is the one deliberate exception to the theme's
+   data-fye-drawer pattern: it brings a focus trap, an inert background and
+   Escape with it, all of which a modal over a form needs and none of which the
+   drawer pattern has. Drawers are unchanged.
+   ========================================================================== */
+(function () {
+  function panel(key) {
+    if (!key) return null;
+    return document.querySelector('[data-fye-popup-panel="' + key.replace(/"/g, '') + '"]');
+  }
+
+  function open(el) {
+    if (!el) return;
+    if (typeof el.showModal === 'function') {
+      if (!el.open) el.showModal();
+    } else {
+      // No <dialog> support: fall back to a plain open attribute so the
+      // content is at least reachable rather than invisible.
+      el.setAttribute('open', '');
+    }
+    var first = el.querySelector('input:not([type="hidden"]), select, textarea, button, a[href]');
+    if (first) {
+      try { first.focus({ preventScroll: true }); } catch (e) { first.focus(); }
+    }
+  }
+
+  function close(el) {
+    if (!el) return;
+    if (typeof el.close === 'function' && el.open) {
+      el.close();
+    } else {
+      el.removeAttribute('open');
+    }
+  }
+
+  document.addEventListener('click', function (e) {
+    if (!e.target || !e.target.closest) return;
+
+    var trigger = e.target.closest('[data-fye-popup]');
+    if (trigger) {
+      var el = panel(trigger.getAttribute('data-fye-popup'));
+      if (el) {
+        // Only swallow the click when there is really a popup to show, so a
+        // trigger whose key has drifted still behaves like whatever it is
+        // (usually a link) instead of doing nothing at all.
+        e.preventDefault();
+        open(el);
+      }
+      return;
+    }
+
+    if (e.target.closest('[data-fye-popup-close]')) {
+      close(e.target.closest('dialog'));
+      return;
+    }
+
+    // Backdrop: a click that lands on the dialog element itself is outside the
+    // panel, because .pop__in covers the whole of the inside.
+    if (e.target.matches && e.target.matches('dialog[data-fye-popup-panel]')) {
+      close(e.target);
+    }
+  });
+
+  /* After a successful send, Shopify returns to ?fyep=<key>. Reopen that one
+     popup, which is now rendering its success panel. Liquid cannot read query
+     parameters, which is why this happens here and not in the section. */
+  function reopenFromUrl() {
+    var match = /[?&]fyep=([^&#]+)/.exec(window.location.search);
+    if (!match) return;
+    var el = panel(decodeURIComponent(match[1]));
+    if (!el) return;
+    open(el);
+    // Leave the URL alone: a refresh should show the same thing, and the
+    // parameter is the only record of which popup was submitted.
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', reopenFromUrl);
+  } else {
+    reopenFromUrl();
+  }
+})();

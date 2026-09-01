@@ -43,6 +43,7 @@
 
   var cache = {};
   var shared = null; /* a list arriving by ?w=, kept apart from the shopper's */
+  var sharedDay = null;
 
   function money(pennies) {
     return '£' + (Number(pennies) / 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -86,8 +87,60 @@
     }
   }
 
+  /* &d= is the day the link was made. A separate parameter rather than part
+     of the payload, so links shared before this existed still open. */
   function shareUrl(list) {
-    return window.location.origin + window.location.pathname + '?w=' + encode(list);
+    return window.location.origin + window.location.pathname +
+           '?w=' + encode(list) + '&d=' + Math.floor(Date.now() / 86400000);
+  }
+
+  function sharedOnText(days) {
+    if (!days) return '';
+    var d = new Date(Number(days) * 86400000);
+    if (isNaN(d.getTime())) return '';
+    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long' });
+  }
+
+  /* ---- the info box ----------------------------------------------------
+     A quiet panel at the foot of the screen rather than a browser alert: it
+     has two things to say, and the second one matters more than the first. */
+  var toastEl = null;
+  var toastTimer = null;
+
+  function toast(head, body) {
+    if (!toastEl) {
+      toastEl = document.createElement('div');
+      toastEl.className = 'wish-toast';
+      toastEl.setAttribute('role', 'status');
+      document.body.appendChild(toastEl);
+    }
+    toastEl.innerHTML = '<strong>' + esc(head) + '</strong>' +
+                        (body ? '<span>' + esc(body) + '</span>' : '');
+    toastEl.classList.add('is-on');
+    window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(function () {
+      toastEl.classList.remove('is-on');
+    }, 6000);
+  }
+
+  function copy(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text);
+    }
+    /* Older browsers, and any page not served over https. */
+    return new Promise(function (resolve, reject) {
+      var box = document.createElement('textarea');
+      box.value = text;
+      box.setAttribute('readonly', '');
+      box.style.position = 'fixed';
+      box.style.opacity = '0';
+      document.body.appendChild(box);
+      box.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(box);
+      ok ? resolve() : reject();
+    });
   }
 
   /* ---- live product data ------------------------------------------------ */
@@ -217,8 +270,11 @@
     /* "item", not "ring" — the site sells loose diamonds today and will sell
        other jewellery soon. Ed, 01/09/2026. */
     var noun = list.length === 1 ? ' item' : ' items';
+    var when = readOnly ? sharedOnText(sharedDay) : '';
     summary.textContent = readOnly
-      ? 'A list someone shared with you — ' + list.length + noun + '.'
+      ? 'A list someone shared with you' + (when ? ' on ' + when : '') +
+        ' — ' + list.length + noun + '. It is a snapshot, so it will not change ' +
+        'if they update their wishlist.'
       : list.length + noun + ' saved.';
 
     Promise.all(list.map(function (it) { return load(it.handle); }))
@@ -302,14 +358,13 @@
 
     var share = t.closest('[data-wish-share]');
     if (share && share.getAttribute('data-wish-share') === 'copy') {
-      var url = shareUrl(store.all());
-      var label = share.querySelector('span');
-      navigator.clipboard.writeText(url).then(function () {
-        if (label) {
-          var was = label.textContent;
-          label.textContent = 'Link copied';
-          setTimeout(function () { label.textContent = was; }, 2000);
-        }
+      copy(shareUrl(store.all())).then(function () {
+        toast('Link copied',
+              'It shows your wishlist as it is right now. If you add or remove ' +
+              'anything, send a new link.');
+      }).catch(function () {
+        toast('Could not copy the link',
+              'Your browser blocked it. Copy the address bar instead.');
       });
     }
   });
@@ -355,8 +410,12 @@
       return;
     }
 
-    var param = new URLSearchParams(window.location.search).get('w');
-    if (param) shared = decode(param);
+    var qs = new URLSearchParams(window.location.search);
+    var param = qs.get('w');
+    if (param) {
+      shared = decode(param);
+      sharedDay = qs.get('d');
+    }
 
     render();
     if (!shared) paintShare();

@@ -1,0 +1,709 @@
+{%- comment -%}
+  fye-stone-product — the product page for a LOOSE STONE.
+
+  Built 01/09/2026. Serves BOTH loose diamonds (~14,200) and loose gemstones
+  (~13,200): verified that both product types carry templateSuffix "diamond",
+  so one template and one section cover about 27,000 pages.
+
+  Named fye-STONE-product, not fye-diamond-product as live has it, because
+  half the pages it renders are sapphires, rubies and emeralds.
+
+  ── WHY THIS IS NOT A BRANCH OF main-product ──────────────────────────────
+
+  Every other product on this store is a ring. A loose stone shares almost
+  nothing with one:
+
+      rings                        a loose stone
+      metal / carat / quality      ONE variant, one price
+      ring size                    none
+      engraving at £55             none
+      oversize surcharge           none
+      centre / side choosers       none
+
+  Ed, 01/09/2026: no engraving and no ring size on this page. So there is no
+  <form> full of options — the buy box is a price, a button, and the facts.
+  The page's substance is the CHARACTERISTICS TABLE and the certificate.
+
+  ── THE TABLE IS AN ALLOW-LIST. NEVER LOOP THE NAMESPACE. ─────────────────
+
+  **This is the most important line in the file.** The `fye` namespace holds
+  commercial data next to the display fields. Measured 01/09/2026 on
+  old-miner-fancy-yellow-natural-diamond-1-29ct-si2:
+
+      fye.trade_cost       999.54     <- what we paid
+      fye.price_multiple   1.62       <- our margin
+      fye.nivoda_id        8186B36A3  <- supplier reference
+
+  A table built with `for f in product.metafields.fye` would publish our cost
+  price and markup on 27,000 public pages. Every row below is named
+  explicitly, and a new metafield appears on the page only when someone adds
+  it here on purpose. If you are tempted to "simplify" this into a loop: that
+  is the bug.
+
+  ── WHAT DISTINGUISHES A STONE ────────────────────────────────────────────
+
+  `fye.stone_family` is the discriminator, and it is real data rather than a
+  guess from product.type (which has caused this class of bug here before):
+
+      "Gemstone"              sapphire, ruby, emerald…
+      "Fancy Colour Diamond"  graded by hue, not by the D–J scale
+      absent                  a white diamond
+
+  Gemstones use the SAME clarity field with a different vocabulary — "Eye
+  Clean", "Slightly Included" rather than VS1 — so one row serves both. What
+  differs is which rows exist at all, and every row is render-if-present, so
+  a sapphire simply has no fluorescence line rather than an empty one.
+
+  ── AVAILABILITY ──────────────────────────────────────────────────────────
+
+  Every stone sampled reports inventory 0 with policy DENY. Whether that makes
+  `available` false depends on whether inventory is TRACKED, which the admin
+  API did not expose in the same query — and the ring picker, which filters on
+  availability, demonstrably shows stones. So the page follows main-product's
+  pattern: add to bag when available, the enquiry label when not. Correct
+  either way, and worth confirming before launch.
+
+  ── UNANSWERED, AND WHY THE PAGE STILL WORKS ──────────────────────────────
+
+  Ed has not yet said what "set this in a ring" should do, or whether a stone
+  can be bought on its own. Both are section SETTINGS with no default link, so
+  the secondary button does not render until one is supplied — rather than
+  shipping a guess as a live button on 27,000 pages.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign p = product
+  assign mf = p.metafields.fye
+  assign v = p.selected_or_first_available_variant
+
+  assign family = mf.stone_family
+  assign is_gem = false
+  assign is_fancy = false
+  if family == 'Gemstone'
+    assign is_gem = true
+  elsif family == 'Fancy Colour Diamond'
+    assign is_fancy = true
+  endif
+
+  comment
+    The fancy grading phrase, in trade order: intensity, overtone, hue —
+    "Fancy Intense Brownish Yellow". Built from whatever exists; a stone with
+    only a hue reads simply "Yellow".
+  endcomment
+  capture fancy_phrase
+    if mf.fancy_intensity != blank
+      echo mf.fancy_intensity
+      echo ' '
+    endif
+    if mf.fancy_overtone != blank
+      echo mf.fancy_overtone
+      echo ' '
+    endif
+    echo mf.fancy_hue
+  endcapture
+  assign fancy_phrase = fancy_phrase | strip
+
+  comment
+    Carat is formatted by the same snippet the ring pages use, so 0.50 reads
+    "0.5" here exactly as it does in the picker. It also renders NOTHING for
+    zero, which in Liquid is not blank — see fye-carat-label.
+  endcomment
+  capture ct
+    render 'fye-carat-label', value: mf.carat.value
+  endcapture
+  assign ct = ct | strip
+
+  comment
+    Breadcrumb collection: the route actually taken, else the first real
+    collection. Same rule as main-product.
+  endcomment
+  assign crumb_col = collection
+  unless crumb_col
+    for c in p.collections
+      unless c.handle == 'all'
+        assign crumb_col = c
+        break
+      endunless
+    endfor
+  endunless
+
+  comment
+    The one-line identity, in the SAME word order the diamond picker uses for
+    its cards (stoneTitle in fye-ui.js: shape, carat, colour, clarity). A
+    shopper meets a stone as a card and then as a page; if the two disagree
+    the stone appears to change.
+  endcomment
+  capture identity
+    echo mf.shape
+    if ct != blank
+      echo ' · '
+      echo ct
+      echo 'ct'
+    endif
+    if is_fancy and fancy_phrase != blank
+      echo ' · '
+      echo fancy_phrase
+    elsif mf.colour != blank
+      echo ' · '
+      echo mf.colour
+    endif
+    if mf.clarity != blank
+      echo ' · '
+      echo mf.clarity
+    endif
+  endcapture
+
+  assign spin = mf.video_url
+-%}
+
+<section class="band band--white stone" data-screen-label="Loose stone">
+  <div class="wrap">
+
+    <nav class="stone__crumbs" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="{{ routes.root_url }}">Home</a></li>
+        {%- if crumb_col -%}
+          <li><a href="{{ crumb_col.url }}">{{ crumb_col.title }}</a></li>
+        {%- endif -%}
+        <li><span aria-current="page">{{ p.title }}</span></li>
+      </ol>
+    </nav>
+
+    <div class="stone__top">
+
+      {%- comment -%} ---- Media ---- {%- endcomment -%}
+      <div class="stone__gallery" data-fye-gallery>
+        <div class="stone__stage">
+          {%- if p.media.size > 0 -%}
+            {%- for media in p.media limit: 6 -%}
+              <div class="stone__panel{% if forloop.first %} is-on{% endif %}" data-fye-panel="{{ forloop.index0 }}">
+                {{ media | image_url: width: 1200 | image_tag:
+                   loading: forloop.first | default: false | replace: true, 'eager' | default: 'lazy',
+                   widths: '400,600,900,1200',
+                   sizes: '(max-width: 900px) 100vw, 50vw',
+                   alt: media.alt | default: p.title,
+                   class: 'stone__img' }}
+              </div>
+            {%- endfor -%}
+          {%- else -%}
+            <div class="stone__panel is-on stone__panel--empty"></div>
+          {%- endif -%}
+
+          {%- comment -%}
+            The supplier's 360 viewer. An IFRAME rather than a script embed:
+            it is a third-party page (loupe360.com) and giving it its own
+            document keeps its CSS and JS out of ours.
+
+            `loading="lazy"` matters here — this panel is hidden until asked
+            for, and 27,000 pages should not each open a connection to a
+            viewer nobody has clicked.
+          {%- endcomment -%}
+          {%- if spin != blank -%}
+            <div class="stone__panel stone__panel--spin" data-fye-panel="spin">
+              <iframe class="stone__spin"
+                      src="{{ spin }}"
+                      title="360° view of {{ p.title | escape }}"
+                      loading="lazy"
+                      frameborder="0"
+                      allowfullscreen></iframe>
+            </div>
+          {%- endif -%}
+        </div>
+
+        {%- if p.media.size > 1 or spin != blank -%}
+          <ul class="stone__thumbs">
+            {%- for media in p.media limit: 6 -%}
+              <li>
+                <button class="stone__thumb{% if forloop.first %} is-on{% endif %}"
+                        type="button"
+                        data-fye-thumb="{{ forloop.index0 }}"
+                        aria-label="View image {{ forloop.index }}">
+                  {{ media | image_url: width: 200 | image_tag:
+                     loading: 'lazy', widths: '100,200', sizes: '88px', alt: '' }}
+                </button>
+              </li>
+            {%- endfor -%}
+
+            {%- if spin != blank -%}
+              <li>
+                <button class="stone__thumb stone__thumb--spin"
+                        type="button"
+                        data-fye-thumb="spin"
+                        aria-label="View in 360 degrees">
+                  {%- if p.featured_image != blank -%}
+                    {{ p.featured_image | image_url: width: 200 | image_tag:
+                       loading: 'lazy', widths: '100,200', sizes: '88px', alt: '' }}
+                  {%- endif -%}
+                  <span class="stone__spinbadge" aria-hidden="true">360°</span>
+                </button>
+              </li>
+            {%- endif -%}
+          </ul>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} ---- Buy box ---- {%- endcomment -%}
+      <div class="stone__buy">
+        {%- if mf.origin != blank -%}
+          <p class="stone__eyebrow">
+            {{ mf.origin }}
+            {%- if is_gem and mf.gem_type != blank %} {{ mf.gem_type }}{% elsif is_fancy %} fancy colour diamond{% elsif is_gem == false %} diamond{% endif -%}
+          </p>
+        {%- endif -%}
+
+        <h1 class="stone__title">{{ p.title }}</h1>
+
+        {%- if identity != blank -%}
+          <p class="stone__identity">{{ identity }}</p>
+        {%- endif -%}
+
+        <p class="stone__price">{{ v.price | money }}</p>
+
+        {%- comment -%}
+          One variant, no options, nothing to configure — so this form posts a
+          fixed id and needs no JavaScript at all. No engraving, no size.
+          Ed, 01/09/2026.
+        {%- endcomment -%}
+        {%- form 'product', p, class: 'stone__form' -%}
+          <input type="hidden" name="id" value="{{ v.id }}">
+          <button class="btn btn--block" type="submit" name="add"{% unless v.available %} disabled{% endunless %}>
+            {%- if v.available -%}
+              {{ s.atc_label | default: 'Add to bag' }}
+            {%- else -%}
+              {{ s.mto_label | default: 'Reserved — ask about similar stones' }}
+            {%- endif -%}
+          </button>
+        {%- endform -%}
+
+        {%- comment -%}
+          "Set this in a ring" and the enquiry route. Both render only when a
+          link is configured: what this button should DO is an open question
+          with Ed, and a guessed destination on 27,000 pages is worse than no
+          button.
+        {%- endcomment -%}
+        {%- if s.setting_label != blank and s.setting_link != blank -%}
+          <a class="btn btn--outline btn--block" href="{{ s.setting_link }}">{{ s.setting_label }}</a>
+        {%- endif -%}
+
+        {%- if s.enquire_label != blank and s.enquire_link != blank -%}
+          <a class="stone__enquire" href="{{ s.enquire_link }}">{{ s.enquire_label }}</a>
+        {%- endif -%}
+
+        {%- comment -%}
+          ---- The characteristics table ----
+          EXPLICIT ROWS ONLY. See the header: fye.trade_cost and
+          fye.price_multiple live in this namespace. Never loop it.
+
+          A <table> and not a definition list, per Ed: this is tabular data
+          with a consistent shape across stones, and it should read as a
+          specification. Row headers are <th scope="row"> so a screen reader
+          announces the field name with every value.
+        {%- endcomment -%}
+        <table class="stone__spec">
+          <caption class="stone__speccap">{{ s.spec_heading | default: 'Stone characteristics' }}</caption>
+          <tbody>
+            {%- if mf.shape != blank -%}
+              <tr><th scope="row">Shape</th><td>{{ mf.shape }}</td></tr>
+            {%- endif -%}
+
+            {%- if ct != blank -%}
+              <tr><th scope="row">Carat</th><td>{{ ct }}ct</td></tr>
+            {%- endif -%}
+
+            {%- comment -%}
+              A fancy coloured diamond is graded by hue and intensity, so the
+              D–J letter is meaningless on it — the ring picker drops the same
+              field for the same reason. One row or the other, never both.
+            {%- endcomment -%}
+            {%- if is_fancy -%}
+              {%- if fancy_phrase != blank -%}
+                <tr><th scope="row">Colour</th><td>{{ fancy_phrase }}</td></tr>
+              {%- endif -%}
+            {%- elsif mf.colour != blank -%}
+              <tr>
+                <th scope="row">Colour</th>
+                <td>
+                  {{ mf.colour }}
+                  {%- if mf.colour_shade != blank %} · {{ mf.colour_shade }}{% endif -%}
+                </td>
+              </tr>
+            {%- endif -%}
+
+            {%- if mf.clarity != blank -%}
+              <tr><th scope="row">Clarity</th><td>{{ mf.clarity }}</td></tr>
+            {%- endif -%}
+
+            {%- if mf.cut != blank -%}
+              <tr><th scope="row">Cut</th><td>{{ mf.cut }}</td></tr>
+            {%- endif -%}
+
+            {%- if mf.polish != blank -%}
+              <tr><th scope="row">Polish</th><td>{{ mf.polish }}</td></tr>
+            {%- endif -%}
+
+            {%- if mf.symmetry != blank -%}
+              <tr><th scope="row">Symmetry</th><td>{{ mf.symmetry }}</td></tr>
+            {%- endif -%}
+
+            {%- if mf.fluorescence != blank -%}
+              <tr><th scope="row">Fluorescence</th><td>{{ mf.fluorescence }}</td></tr>
+            {%- endif -%}
+
+            {%- comment -%} Gemstone-only rows. Absent on a diamond, so absent from its table. {%- endcomment -%}
+            {%- if mf.gem_type != blank -%}
+              <tr><th scope="row">Gemstone</th><td>{{ mf.gem_type }}</td></tr>
+            {%- endif -%}
+
+            {%- if mf.treatment != blank -%}
+              <tr><th scope="row">Treatment</th><td>{{ mf.treatment }}</td></tr>
+            {%- endif -%}
+
+            {%- if mf.mine_origin != blank -%}
+              <tr><th scope="row">Mine origin</th><td>{{ mf.mine_origin }}</td></tr>
+            {%- endif -%}
+
+            {%- if mf.origin != blank -%}
+              <tr><th scope="row">Origin</th><td>{{ mf.origin }}</td></tr>
+            {%- endif -%}
+
+            {%- comment -%}
+              Certificate. "OTHER" appears as a lab name on some gemstones and
+              tells a customer nothing, so it is shown as "Independent" rather
+              than printed raw.
+
+              cert_url exists on some stones and not others — where it does,
+              the number becomes a link to the issuing lab's verification page,
+              which is the whole point of a certificate.
+            {%- endcomment -%}
+            {%- if mf.cert_lab != blank -%}
+              <tr>
+                <th scope="row">Certificate</th>
+                <td>{% if mf.cert_lab == 'OTHER' %}Independent{% else %}{{ mf.cert_lab }}{% endif %}</td>
+              </tr>
+            {%- endif -%}
+
+            {%- if mf.cert_number != blank -%}
+              <tr>
+                <th scope="row">Certificate number</th>
+                <td>
+                  {%- if mf.cert_url != blank -%}
+                    <a href="{{ mf.cert_url }}" rel="nofollow noopener" target="_blank">{{ mf.cert_number }}</a>
+                  {%- else -%}
+                    {{ mf.cert_number }}
+                  {%- endif -%}
+                </td>
+              </tr>
+            {%- endif -%}
+
+            {%- if v.sku != blank -%}
+              <tr><th scope="row">Reference</th><td>{{ v.sku }}</td></tr>
+            {%- endif -%}
+          </tbody>
+        </table>
+
+        {%- if s.reassurance != blank -%}
+          <p class="stone__reassure fine">{{ s.reassurance }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- if p.description != blank -%}
+      <div class="stone__desc rte">{{ p.description }}</div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .stone__top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s10);
+  align-items: start;
+}
+
+/* --- breadcrumb ----------------------------------------------------------
+   Same treatment as main-product's. Both will move to core as `.crumbs` when
+   a third consumer appears (conventions §2) — two is the threshold, and this
+   is the second, so the NEXT one triggers the move. */
+
+.fye .stone__crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  margin: 0 0 var(--s5);
+  padding: 0;
+  list-style: none;
+  font-size: var(--fs-fine);
+  color: var(--ink-soft);
+}
+
+.fye .stone__crumbs li { margin: 0; }
+
+.fye .stone__crumbs li + li::before {
+  content: '\203A';
+  padding-inline: var(--s2);
+  color: var(--ink-soft);
+}
+
+.fye .stone__crumbs a { color: var(--ink-soft); }
+.fye .stone__crumbs a:hover { color: var(--sage); }
+.fye .stone__crumbs [aria-current] { color: var(--ink); }
+
+/* --- media --------------------------------------------------------------
+   Sticky, as the ring page's gallery is: the table is long and the stone
+   should stay in view while it is read. Bounded by .stone__top, so it stops
+   at the foot of the block rather than riding over anything below. */
+
+.fye .stone__gallery {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+.fye .stone__stage {
+  position: relative;
+  background: var(--ivory);
+}
+
+.fye .stone__panel { display: none; }
+.fye .stone__panel.is-on { display: block; }
+
+.fye .stone__img,
+.fye .stone__panel--empty {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+/* The supplier's viewer is square, and its own page handles the interaction. */
+.fye .stone__spin {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  border: 0;
+  background: var(--white);
+}
+
+.fye .stone__thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fye .stone__thumbs > li { margin: 0; }
+
+.fye .stone__thumb {
+  position: relative;
+  display: block;
+  width: 88px;
+  padding: 0;
+  border: 1px solid transparent;
+  background: var(--ivory);
+}
+
+.fye .stone__thumb:hover { border-color: var(--sage); }
+.fye .stone__thumb.is-on { border-color: var(--line-strong); }
+
+.fye .stone__spinbadge {
+  position: absolute;
+  inset-block-end: var(--s1);
+  inset-inline-end: var(--s1);
+  padding: 2px 6px;
+  background: var(--white);
+  color: var(--teal);
+  font-size: 10px;
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.08em;
+}
+
+/* --- buy box ------------------------------------------------------------- */
+
+.fye .stone__buy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+}
+
+.fye .stone__eyebrow {
+  margin: 0;
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.fye .stone__title {
+  margin: 0;
+  font-size: var(--fs-h3);
+}
+
+/* The same words, in the same order, as the picker's stone cards. */
+.fye .stone__identity {
+  margin: 0;
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+}
+
+.fye .stone__price {
+  margin: var(--s2) 0 0;
+  font-size: var(--fs-h4);
+  color: var(--ink);
+}
+
+.fye .stone__form { margin: 0; }
+
+.fye .stone__enquire {
+  align-self: flex-start;
+  font-size: var(--fs-fine);
+  color: var(--ink-soft);
+  border-bottom: 1px solid currentColor;
+}
+
+.fye .stone__enquire:hover { color: var(--sage); }
+
+/* --- the characteristics table ------------------------------------------
+   A specification, so it is laid out as one: fixed label column, hairline
+   between rows, no zebra striping — the brand's structure is thin lines, and
+   alternating fills would be the loudest thing on a quiet page. */
+
+.fye .stone__spec {
+  width: 100%;
+  margin-top: var(--s3);
+  border-collapse: collapse;
+  border-top: var(--hairline);
+  font-size: var(--fs-small);
+  text-align: start;
+}
+
+.fye .stone__speccap {
+  padding-block: var(--s4) var(--s3);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-align: start;
+  caption-side: top;
+}
+
+.fye .stone__spec th,
+.fye .stone__spec td {
+  padding: var(--s3) 0;
+  border-bottom: var(--hairline);
+  vertical-align: baseline;
+  text-align: start;
+}
+
+/* The label column is sized so the longest field name ("Certificate number")
+   does not wrap, which would break the row rhythm on a page whose whole job
+   is legibility. */
+.fye .stone__spec th {
+  width: 44%;
+  padding-inline-end: var(--s4);
+  font-weight: var(--fw-light);
+  color: var(--ink-soft);
+}
+
+.fye .stone__spec td {
+  font-weight: var(--fw-medium);
+  color: var(--ink);
+}
+
+.fye .stone__spec a {
+  color: var(--teal);
+  border-bottom: 1px solid currentColor;
+}
+
+.fye .stone__spec a:hover { color: var(--sage); }
+
+.fye .stone__reassure { margin: var(--s2) 0 0; }
+
+.fye .stone__desc {
+  max-width: 68ch;
+  margin-top: var(--s9);
+  font-size: var(--fs-small);
+}
+
+/* --- breakpoints. Media queries LAST, always. ---------------------------- */
+
+@media (min-width: 901px) {
+  /* Sticky needs a top-aligned grid item: the default `stretch` makes the
+     column as tall as the buy box, leaving nothing to slide within. */
+  .fye .stone__gallery {
+    position: sticky;
+    top: var(--s5);
+    max-width: calc(100vh - 180px);
+  }
+}
+
+@media (max-width: 900px) {
+  .fye .stone__top {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s7);
+  }
+}
+
+@media (max-width: 560px) {
+  /* The label column stops being a fixed share: at this width 44% leaves the
+     value column too narrow for "Fancy Intense Brownish Yellow". */
+  .fye .stone__spec th {
+    width: 50%;
+  }
+
+  .fye .stone__crumbs ol {
+    margin-bottom: var(--s4);
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Loose stone",
+  "tag": "section",
+  "class": "fye-stone-product",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "The product page for a loose diamond or gemstone. One SKU, one price — no metal, no ring size, no engraving. The characteristics table is an explicit list of fields in the section's code, deliberately not every fye metafield: that namespace also holds trade cost and margin."
+    },
+
+    { "type": "header", "content": "Buying" },
+    { "type": "text", "id": "atc_label", "label": "Add to bag label", "default": "Add to bag" },
+    {
+      "type": "text",
+      "id": "mto_label",
+      "label": "Unavailable label",
+      "default": "Reserved — ask about similar stones"
+    },
+    {
+      "type": "text",
+      "id": "setting_label",
+      "label": "\"Set this in a ring\" label",
+      "default": "Set this stone in a ring"
+    },
+    {
+      "type": "url",
+      "id": "setting_link",
+      "label": "\"Set this in a ring\" link",
+      "info": "The button does not appear until this is set — an unanswered destination is worse than no button."
+    },
+    { "type": "text", "id": "enquire_label", "label": "Enquiry link label", "default": "Ask us about this stone" },
+    { "type": "url", "id": "enquire_link", "label": "Enquiry link" },
+
+    { "type": "header", "content": "Details" },
+    { "type": "text", "id": "spec_heading", "label": "Table heading", "default": "Stone characteristics" },
+    {
+      "type": "textarea",
+      "id": "reassurance",
+      "label": "Reassurance line",
+      "default": "Every stone is supplied with its certificate. Free insured UK delivery."
+    }
+  ],
+  "presets": [{ "name": "Loose stone" }]
+}
+{% endschema %}

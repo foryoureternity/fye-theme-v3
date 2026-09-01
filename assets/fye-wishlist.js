@@ -60,7 +60,7 @@
 
   function encode(list) {
     var slim = list.map(function (it) {
-      return { h: it.handle, v: it.variant, p: it.props, l: it.lines, n: it.note || '' };
+      return { h: it.handle, v: it.variant, p: it.props, l: it.lines, n: it.note || '', c: it.cfg || null };
     });
     var json = JSON.stringify(slim);
     var b64 = window.btoa(unescape(encodeURIComponent(json)));
@@ -76,7 +76,7 @@
       return slim.map(function (o) {
         var item = {
           handle: o.h, variant: String(o.v), props: o.p || {}, lines: o.l || [],
-          note: o.n || '', title: '', image: '', added: Date.now()
+          cfg: o.c || null, note: o.n || '', title: '', image: '', added: Date.now()
         };
         item.id = store.identify(item);
         return item;
@@ -125,7 +125,19 @@
 
     var gone = !product;
     var title = product ? product.title : (item.title || 'This ring');
-    var url = product ? '/products/' + product.handle + '?variant=' + item.variant : null;
+    /* ?fyec= rebuilds the whole buy box on arrival — see CONFIGURED LINKS in
+       fye-ui.js. ?variant= alone restores nothing: the product page does not
+       read it. */
+    var url = null;
+    if (product) {
+      url = '/products/' + product.handle + '?variant=' + item.variant;
+      if (item.cfg) {
+        try {
+          var raw = window.btoa(unescape(encodeURIComponent(JSON.stringify(item.cfg))));
+          url += '&fyec=' + raw.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+        } catch (e) {}
+      }
+    }
     var img = product
       ? (variant && variant.featured_image ? variant.featured_image.src : product.featured_image)
       : item.image;
@@ -171,7 +183,7 @@
           '<textarea class="wcard__note" data-wish-note rows="1" ' +
           'placeholder="Note to self">' + esc(item.note || '') + '</textarea>') +
         '<div class="wcard__actions">' +
-          (variant && variant.available && !readOnly
+          (variant && variant.available
             ? '<button type="button" class="btn btn--sm" data-wish-add>Add to basket</button>'
             : '') +
           (readOnly ? '' :

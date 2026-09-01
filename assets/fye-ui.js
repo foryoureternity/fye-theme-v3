@@ -1578,6 +1578,94 @@
     return { variant: v, props: ringProps(form), lines: addOnLines(form, v) };
   };
 
+  /* ---- read and re-apply a whole configuration -------------------------
+     For the wishlist, and for a link a shopper sends to their partner. The
+     page currently reads nothing from the URL at all — not even ?variant= —
+     so a shared ring opens blank no matter how it was configured.
+
+     Everything here goes through the SAME functions a click would: setMode,
+     paintStone, render, and for the engraving and the side chips an actual
+     dispatched click, so their existing handlers do the work. Re-implementing
+     those side effects here is how the two would drift apart. */
+
+  function optionSelects(form) {
+    return Array.prototype.slice.call(form.querySelectorAll('[data-fye-option]'));
+  }
+
+  window.FYE.readConfig = function (form) {
+    var centre = centreOf(form);
+    var sides = sidesOf(form);
+    var eng = form.querySelector('[data-fye-engrave]');
+
+    var fields = {};
+    if (eng) {
+      eng.querySelectorAll('[name^="properties["]').forEach(function (f) {
+        if (!f.disabled && f.value) fields[f.getAttribute('name')] = f.value;
+      });
+    }
+
+    var chip = chosenChip(sides);
+    var cw = waiverOf(centre, 'centre');
+    var sw = waiverOf(sides, 'sides');
+
+    return {
+      options: optionSelects(form).map(function (s) { return s.value; }),
+      centre: centre ? { mode: modeOf(centre), stone: stoneOf(centre) } : null,
+      sides: sides
+        ? { mode: modeOf(sides), chip: chip ? chip.getAttribute('data-fye-side-variant') : '' }
+        : null,
+      engrave: eng ? { on: eng.getAttribute('data-on') || 'no', fields: fields } : null,
+      waiver: { centre: !!(cw && cw.checked), sides: !!(sw && sw.checked) }
+    };
+  };
+
+  window.FYE.applyConfig = function (form, cfg) {
+    if (!form || !cfg) return;
+
+    /* Variant first: everything else prices against it. */
+    if (cfg.options) {
+      optionSelects(form).forEach(function (sel, i) {
+        if (cfg.options[i] != null) sel.value = cfg.options[i];
+      });
+    }
+
+    var centre = centreOf(form);
+    if (centre && cfg.centre) {
+      if (cfg.centre.stone) centre.setAttribute('data-stone', JSON.stringify(cfg.centre.stone));
+      if (cfg.centre.mode) setMode(centre, 'centre', cfg.centre.mode);
+      paintStone(centre);
+    }
+
+    var sides = sidesOf(form);
+    if (sides && cfg.sides) {
+      if (cfg.sides.mode) setMode(sides, 'sides', cfg.sides.mode);
+      if (cfg.sides.chip) {
+        var chip = sides.querySelector('[data-fye-side-variant="' + cfg.sides.chip + '"]');
+        /* A click, not a class toggle: the chip's handler also prices it. */
+        if (chip) chip.click();
+      }
+    }
+
+    var eng = form.querySelector('[data-fye-engrave]');
+    if (eng && cfg.engrave) {
+      var seg = eng.querySelector('[data-fye-engrave-set="' + cfg.engrave.on + '"]');
+      if (seg) seg.click();
+      Object.keys(cfg.engrave.fields || {}).forEach(function (name) {
+        var f = eng.querySelector('[name="' + name + '"]');
+        if (f) f.value = cfg.engrave.fields[name];
+      });
+    }
+
+    if (cfg.waiver) {
+      var cw2 = waiverOf(centre, 'centre');
+      var sw2 = waiverOf(sides, 'sides');
+      if (cw2 && !cw2.disabled) cw2.checked = !!cfg.waiver.centre;
+      if (sw2 && !sw2.disabled) sw2.checked = !!cfg.waiver.sides;
+    }
+
+    render(form);
+  };
+
   document.addEventListener('submit', function (e) {
     var form = e.target;
     if (!form.querySelector || !form.querySelector('[data-fye-variants]')) return;
@@ -2172,6 +2260,10 @@
       image: imgEl ? imgEl.getAttribute('src') : '',
       props: box.props || {},
       lines: box.lines || [],
+      /* The choosers in full, including the stone's own JSON. props and lines
+         are enough to BUY the ring again; only this is enough to SHOW it
+         configured on the product page. */
+      cfg: window.FYE.readConfig ? window.FYE.readConfig(form) : null,
       note: '', added: Date.now()
     };
   }
@@ -2241,4 +2333,53 @@
     paintAll();
   }
   document.addEventListener('shopify:section:load', paintAll);
+})();
+
+
+
+/* ============================================================================
+   CONFIGURED LINKS — 01/09/2026
+   ----------------------------------------------------------------------------
+   ?fyec= carries a whole buy box: metal, quality, centre stone, side pair,
+   engraving, waivers. Written by the wishlist when it links to a product, so a
+   ring shared with a partner opens as the sender left it rather than as a bare
+   product page.
+
+   Before this, NOTHING on a product page read the URL — not even ?variant= —
+   so every shared configuration was lost on arrival.
+
+   The payload is trusted only as far as it goes: applyConfig sets controls
+   that exist and ignores anything else, prices are recomputed by render(), and
+   the add-to-cart requirement check still runs. A tampered link cannot produce
+   a cheap ring, only a confused-looking one.
+   ========================================================================== */
+(function configuredLink() {
+  var param;
+  try {
+    param = new URLSearchParams(window.location.search).get('fyec');
+  } catch (e) {
+    return;
+  }
+  if (!param) return;
+
+  var cfg;
+  try {
+    var b64 = param.replace(/-/g, '+').replace(/_/g, '/');
+    cfg = JSON.parse(decodeURIComponent(escape(window.atob(b64))));
+  } catch (e) {
+    return; /* a mangled link is just a normal product page */
+  }
+
+  function apply() {
+    var island = document.querySelector('form [data-fye-variants]');
+    var form = island ? island.closest('form') : null;
+    if (!form || !window.FYE || !window.FYE.applyConfig) return;
+    window.FYE.applyConfig(form, cfg);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', apply);
+  } else {
+    apply();
+  }
 })();

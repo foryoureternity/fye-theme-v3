@@ -72,9 +72,15 @@
       </div>
     </div>
 
-    {%- if s.share_note != blank -%}
-      <p class="fine wish-page__note" data-wish-tools hidden>{{ s.share_note }}</p>
-    {%- endif -%}
+{%- comment -%}
+      Sits directly under the share buttons and stays there. The copy
+      confirmation writes into it rather than floating over the page, so the
+      caveat about snapshots is on screen when someone is deciding to send the
+      link — not for six seconds after they already have.
+    {%- endcomment -%}
+    <div class="wish-notice" data-wish-tools data-wish-notice hidden>
+      <span>{{ s.share_note | default: 'Your list is saved on this device. Share the link to show someone else — it is a snapshot, so send a new one if you change your wishlist.' }}</span>
+    </div>
 
     <div class="wish-page__grid" data-wish-grid hidden></div>
 
@@ -224,33 +230,26 @@
 }
 .fye .wish-page__clear:hover { color: var(--sage); }
 
-/* The copy confirmation. Teal ground, squared, no shadow — it is a panel
-   that happens to be fixed, not a floating card. */
-.fye .wish-toast {
-  position: fixed;
-  left: var(--s5);
-  bottom: var(--s5);
-  z-index: 60;
-  max-width: 34ch;
+/* The sharing notice, under the buttons and always present. Mist blue is
+   the design system's information ground; it goes teal once something has
+   actually happened, so a confirmation reads as a change without moving. */
+.fye .wish-notice {
   display: flex;
   flex-direction: column;
   gap: var(--s2);
+  margin-top: var(--s4);
   padding: var(--s4) var(--s5);
-  background: var(--ink);
-  color: var(--ivory);
-  opacity: 0;
-  transform: translateY(6px);
-  pointer-events: none;
-  transition: opacity var(--dur, 220ms) ease, transform var(--dur, 220ms) ease;
+  background: var(--mist, #DCEFEF);
+  color: var(--ink);
 }
-.fye .wish-toast.is-on { opacity: 1; transform: none; }
-.fye .wish-toast strong {
+.fye .wish-notice.is-said { background: var(--ink); color: var(--ivory); }
+.fye .wish-notice strong {
   font-size: var(--fs-eyebrow);
   font-weight: var(--fw-medium);
   letter-spacing: var(--tr-eyebrow);
   text-transform: uppercase;
 }
-.fye .wish-toast span { font-size: var(--fs-fine); line-height: 1.5; }
+.fye .wish-notice span { font-size: var(--fs-fine); line-height: 1.5; }
 
 .fye .wish-page__empty {
   display: flex;

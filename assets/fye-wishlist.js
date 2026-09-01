@@ -104,23 +104,14 @@
   /* ---- the info box ----------------------------------------------------
      A quiet panel at the foot of the screen rather than a browser alert: it
      has two things to say, and the second one matters more than the first. */
-  var toastEl = null;
-  var toastTimer = null;
-
   function toast(head, body) {
-    if (!toastEl) {
-      toastEl = document.createElement('div');
-      toastEl.className = 'wish-toast';
-      toastEl.setAttribute('role', 'status');
-      document.body.appendChild(toastEl);
-    }
-    toastEl.innerHTML = '<strong>' + esc(head) + '</strong>' +
-                        (body ? '<span>' + esc(body) + '</span>' : '');
-    toastEl.classList.add('is-on');
-    window.clearTimeout(toastTimer);
-    toastTimer = window.setTimeout(function () {
-      toastEl.classList.remove('is-on');
-    }, 6000);
+    var el = root.querySelector('[data-wish-notice]');
+    if (!el) return;
+    /* Permanent, not a flash. The heading changes; the explanation below it
+       is the same sentence the shopper was already reading. */
+    el.innerHTML = (head ? '<strong>' + esc(head) + '</strong>' : '') +
+                   '<span>' + esc(body) + '</span>';
+    el.classList.add('is-said');
   }
 
   function copy(text) {

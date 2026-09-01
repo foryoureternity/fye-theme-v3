@@ -78,7 +78,16 @@
         <div class="hdr__icons">
           <a class="hdr__icon" href="{{ routes.search_url }}" aria-label="{{ 'general.search' | t }}">{% render 'icon', name: 'search' %}</a>
           <a class="hdr__icon" href="{{ routes.account_url }}" aria-label="{{ 'general.account' | t }}">{% render 'icon', name: 'account' %}</a>
-          <a class="hdr__icon" href="/a/wishlist" aria-label="{{ 'general.wishlist' | t }}">{% render 'icon', name: 'heart' %}</a>
+          {%- comment -%}
+            Was "/a/wishlist" — the T4S app proxy, which does not exist in v3.
+            The count is written by fye-ui.js from localStorage, so it cannot
+            be rendered here: Liquid has no idea what this shopper saved. It
+            starts hidden and stays hidden at zero.
+          {%- endcomment -%}
+          <a class="hdr__icon" href="/pages/wishlist" aria-label="{{ 'general.wishlist' | t }}">
+            {% render 'icon', name: 'heart' %}
+            <span class="hdr__count" data-fye-wish-count hidden></span>
+          </a>
           <a class="hdr__icon" href="{{ routes.cart_url }}" aria-label="{{ 'general.cart' | t }}">
             {% render 'icon', name: 'bag' %}
             {%- if cart.item_count > 0 -%}<span class="hdr__count">{{ cart.item_count }}</span>{%- endif -%}

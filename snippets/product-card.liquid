@@ -138,4 +138,17 @@
       </span>
     </span>
   </a>
+
+  {%- comment -%}
+    The heart is a sibling of the link, not a child of it: a <button> inside an
+    <a> is invalid HTML and browsers recover from it in their own ways. It is
+    positioned over the image instead, so it reads as part of the tile while
+    staying a separate control for both the mouse and the keyboard.
+
+    A card heart saves the product at its default variant — nothing is
+    configured here. The product page's heart saves the configuration.
+  {%- endcomment -%}
+  <span class="pcard__wish">
+    {%- render 'fye-wishlist-button', product: product, context: 'card' -%}
+  </span>
 </div>

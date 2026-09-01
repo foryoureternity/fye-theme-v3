@@ -1,27 +1,56 @@
 {%- comment -%}
-  fye-wishlist-button — the heart. Markup only; NOT WIRED UP YET.
+  fye-wishlist-button — the heart.
 
-  Added 31/08/2026. The real wishlist is its own session: live runs the T4S app
-  wishlist (t4s_wis_cp, interactable.min.js, templates/search.wishlist.liquid)
-  with fye-wishlist-share layered on top, and v3 carries none of it.
+  Rewired 01/09/2026. Two contexts, because a heart means two different things
+  depending on where it is pressed:
 
-  This exists so the product page is visually complete and so there is exactly
-  ONE place to wire when the store behind it is built — the same button will go
-  on product cards, which is why it is a snippet and not inline markup.
+    context: 'form'   the product page. The shopper may have chosen a metal, a
+                      quality, a centre stone, a side pair and an engraving,
+                      and NONE of that exists in Liquid — it lives in the buy
+                      box, in the DOM, at the moment of the click. So the
+                      button carries no payload; fye-ui.js reads the form.
 
-  It is a real <button> with `aria-pressed`, not a link or a div, so the
-  pressed state is already correct for a toggle once JS arrives. Until then it
-  does nothing on click. That is deliberate and visible in the DOM
-  (data-fye-wishlist has no handler) rather than hidden behind a dead href.
+    context: 'card'   a grid tile, a related row, a search result. Nothing is
+                      configured, so the payload IS the product: handle,
+                      default variant, title, image. Static, known at render.
+
+  Ed, 01/09/2026: the heart saves THE WHOLE CONFIGURATION, and the wishlist
+  card shows the configured price. That is the whole reason for the split
+  above — live saves a bare product id, so a shopper who spent ten minutes
+  configuring a trilogy gets back an unconfigured product page.
+
+  ── PRICE IS NEVER SAVED ──────────────────────────────────────────────────
+
+  Only what identifies the ring is stored. Money and availability are read
+  LIVE when the wishlist renders. A ring saved in March and opened in
+  September must not quote March's price — metal moves, and a stale figure in
+  a list shared with a partner is a promise we did not make.
 
   Parameters:
-    product — required for the id the eventual store will key on
-    label   — override the default wording
+    product   required
+    variant   optional; defaults to the product's selected-or-first
+    context   'form' | 'card'   (default 'card')
+    label     optional visible text; icon-only when blank
 {%- endcomment -%}
-<button class="wish"
-        type="button"
-        data-fye-wishlist="{{ product.id }}"
-        aria-pressed="false">
+{%- liquid
+  assign ctx = context | default: 'card'
+  assign v = variant | default: product.selected_or_first_available_variant
+  assign img = product.featured_image | default: v.image
+-%}
+
+<button type="button"
+        class="wish{% if label == blank %} wish--icon{% endif %}"
+        data-fye-wish="{{ ctx }}"
+        aria-pressed="false"
+        {%- if ctx == 'card' %}
+          data-wish-handle="{{ product.handle }}"
+          data-wish-variant="{{ v.id }}"
+          data-wish-title="{{ product.title | escape }}"
+          data-wish-image="{{ img | image_url: width: 300 }}"
+        {%- endif %}
+        aria-label="{{ label | default: 'Save' }} {{ product.title | escape }}">
   {%- render 'icon', name: 'heart', class: 'icon--sm' -%}
-  <span>{{ label | default: 'Add to wishlist' }}</span>
+  {%- if label != blank -%}
+    <span class="wish__label">{{ label }}</span>
+  {%- endif -%}
 </button>

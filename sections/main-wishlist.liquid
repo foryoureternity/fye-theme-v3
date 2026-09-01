@@ -1,0 +1,257 @@
+{%- comment -%}
+  main-wishlist — the saved list.
+
+  New in v3. Live had no real wishlist page: templates/search.wishlist.liquid
+  ran a SEARCH for the product ids T4S kept in the browser, so the "wishlist"
+  was a search results page wearing a different heading. Nothing was stored
+  against a customer, and nothing is here either — Ed, 01/09/2026: device
+  only, no account, and it exists so partners can send each other rings.
+
+  ── WHY THE GRID IS EMPTY IN THIS FILE ────────────────────────────────────
+
+  Because the list lives in localStorage, which Liquid cannot see. The server
+  has no idea what this shopper saved, so the section renders the furniture —
+  heading, share bar, enquiry, empty state — and assets/fye-wishlist.js fills
+  the grid on load.
+
+  WITHOUT JAVASCRIPT this page shows the empty state. That is not a graceful
+  degradation so much as an honest one: there is no server-side list to fall
+  back to, and pretending otherwise would mean showing a shopper someone
+  else's rings. The empty copy is written so it reads sensibly either way.
+
+  ── PRICES ARE READ LIVE ──────────────────────────────────────────────────
+
+  Never from the saved copy. A ring saved in March and opened in September
+  must not quote March's price; metal moves, and a stale figure in a list
+  shared with a partner is a promise we did not make. See fye-wishlist.js for
+  what is fetched and what the one honest limitation is.
+
+  ── SHARING ───────────────────────────────────────────────────────────────
+
+  The whole list is encoded into the URL, because there is nowhere else to put
+  it: no account, no metaobject, nothing server-side. A shortlist of three or
+  four configured rings makes a long link — fine for WhatsApp and email, ugly
+  read aloud. Ed knows; short links would need somewhere to store the list.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'white'
+-%}
+
+<section class="fye-wish band band--{{ band }}"
+         data-screen-label="Wishlist"
+         data-fye-wishlist
+         data-enquiry-url="{{ s.enquiry_url }}">
+  <div class="wrap">
+
+    {%- comment -%}
+      Everything below is hidden until the script knows which state applies, so
+      the page cannot flash an empty message at somebody who has ten rings
+      saved. The script removes `hidden` from exactly one of them.
+    {%- endcomment -%}
+
+    <div class="wish-page__head">
+      <div class="wish-page__headings">
+        {%- if s.eyebrow != blank -%}
+          <p class="eyebrow">{{ s.eyebrow }}</p>
+        {%- endif -%}
+        <h1 class="wish-page__title">{{ s.heading | default: 'Your saved rings' }}</h1>
+        <p class="lead wish-page__count" data-wish-summary hidden></p>
+      </div>
+
+      <div class="wish-page__tools" data-wish-tools hidden>
+        <button type="button" class="btn btn--outline" data-wish-share="copy">
+          <span>Copy link</span>
+        </button>
+        <a class="btn btn--outline" data-wish-share="whatsapp" href="#" target="_blank" rel="noopener">
+          <span>WhatsApp</span>
+        </a>
+        <a class="btn btn--outline" data-wish-share="email" href="#">
+          <span>Email</span>
+        </a>
+      </div>
+    </div>
+
+    {%- if s.share_note != blank -%}
+      <p class="fine wish-page__note" data-wish-tools hidden>{{ s.share_note }}</p>
+    {%- endif -%}
+
+    <div class="wish-page__grid" data-wish-grid hidden></div>
+
+    <div class="wish-page__foot" data-wish-tools hidden>
+      {%- if s.enquiry_url != blank -%}
+        <a class="btn" href="{{ s.enquiry_url }}" data-wish-enquire>
+          {{ s.enquiry_label | default: 'Ask us about these' }}
+        </a>
+      {%- endif -%}
+      <button type="button" class="wish-page__clear" data-wish-clear>Clear the list</button>
+    </div>
+
+    <div class="wish-page__empty" data-wish-empty hidden>
+      <h2 class="wish-page__emptyhead">{{ s.empty_heading | default: 'Nothing saved yet' }}</h2>
+      {%- if s.empty_copy != blank -%}
+        <p class="lead wish-page__emptycopy">{{ s.empty_copy }}</p>
+      {%- endif -%}
+      <a class="btn" href="{{ s.empty_link | default: '/collections/all' }}">
+        {{ s.empty_label | default: 'Start browsing' }}
+      </a>
+    </div>
+
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .wish-page__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--s6);
+  flex-wrap: wrap;
+  padding-bottom: var(--s6);
+  border-bottom: var(--hairline);
+}
+.fye .wish-page__headings { display: flex; flex-direction: column; gap: var(--s2); }
+.fye .wish-page__title { margin: 0; }
+.fye .wish-page__count { margin: 0; }
+.fye .wish-page__tools { display: flex; flex-wrap: wrap; gap: var(--s3); }
+.fye .wish-page__tools .btn { display: inline-flex; align-items: center; gap: var(--s2); }
+.fye .wish-page__note { margin: var(--s4) 0 0; }
+
+.fye .wish-page__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--s8) var(--s6);
+  margin-top: var(--s8);
+}
+
+/* ---- one saved ring ---------------------------------------------------- */
+.fye .wcard { display: flex; flex-direction: column; gap: var(--s3); }
+.fye .wcard__media { position: relative; display: block; }
+.fye .wcard__img { width: 100%; aspect-ratio: 1; object-fit: cover; background: var(--ivory); }
+.fye .wcard__drop {
+  position: absolute;
+  top: var(--s3);
+  right: var(--s3);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ivory);
+  color: var(--ink);
+  border: 0;
+  cursor: pointer;
+}
+.fye .wcard__drop:hover { color: var(--sage); }
+
+.fye .wcard__name { font-size: var(--fs-small); line-height: 1.35; }
+.fye .wcard__name:hover { color: var(--sage); }
+.fye .wcard__price { margin: 0; font-size: var(--fs-small); font-weight: var(--fw-medium); }
+
+/* The configuration, as a plain list. This is the whole point of saving more
+   than a product id, so it is not hidden behind a disclosure. */
+.fye .wcard__spec { list-style: none; margin: 0; padding: 0; font-size: var(--fs-fine); color: var(--ink-soft); }
+.fye .wcard__spec > li { margin: 0; }
+.fye .wcard__spec b { font-weight: var(--fw-medium); }
+
+.fye .wcard__stale { margin: 0; font-size: var(--fs-fine); color: var(--ink-soft); }
+.fye .wcard__gone { margin: 0; font-size: var(--fs-fine); }
+
+.fye .wcard__note {
+  width: 100%;
+  min-height: 44px;
+  padding: var(--s3);
+  border: var(--hairline);
+  background: var(--white);
+  font: inherit;
+  font-size: var(--fs-fine);
+  color: var(--ink);
+  resize: vertical;
+}
+.fye .wcard__note::placeholder { color: var(--ink-soft); }
+
+.fye .wcard__actions { display: flex; flex-wrap: wrap; gap: var(--s2); margin-top: var(--s1); }
+
+/* ---- foot & empty ------------------------------------------------------ */
+.fye .wish-page__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s5);
+  flex-wrap: wrap;
+  margin-top: var(--s10);
+  padding-top: var(--s6);
+  border-top: var(--hairline);
+}
+.fye .wish-page__clear {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  font-size: var(--fs-fine);
+  color: var(--ink-soft);
+  border-bottom: 1px solid currentColor;
+  cursor: pointer;
+}
+.fye .wish-page__clear:hover { color: var(--sage); }
+
+.fye .wish-page__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s5);
+  text-align: center;
+  padding: var(--s10) 0;
+}
+.fye .wish-page__emptycopy { max-width: 46ch; }
+
+@media (max-width: 700px) {
+  .fye .wish-page__head { align-items: flex-start; }
+  .fye .wish-page__grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--s6) var(--s4); }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Wishlist",
+  "tag": "section",
+  "settings": [
+    { "type": "header", "content": "Heading" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "SAVED" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Your saved rings" },
+    {
+      "type": "text",
+      "id": "share_note",
+      "label": "Sharing note",
+      "default": "Your list is saved on this device. Share the link to show someone else — they will see exactly what you saved."
+    },
+
+    { "type": "header", "content": "Enquiry" },
+    { "type": "text", "id": "enquiry_label", "label": "Button label", "default": "Ask us about these" },
+    { "type": "url", "id": "enquiry_url", "label": "Contact page" },
+
+    { "type": "header", "content": "Empty state" },
+    { "type": "text", "id": "empty_heading", "label": "Heading", "default": "Nothing saved yet" },
+    {
+      "type": "text",
+      "id": "empty_copy",
+      "label": "Text",
+      "default": "Tap the heart on any ring and it will appear here, exactly as you configured it."
+    },
+    { "type": "text", "id": "empty_label", "label": "Button label", "default": "Start browsing" },
+    { "type": "url", "id": "empty_link", "label": "Button link" },
+
+    { "type": "header", "content": "Background" },
+    {
+      "type": "select",
+      "id": "band",
+      "label": "Band colour",
+      "default": "white",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Ivory" }
+      ]
+    }
+  ]
+}
+{% endschema %}

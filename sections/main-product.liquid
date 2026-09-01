@@ -597,7 +597,15 @@
           <a class="btn btn--outline btn--block" href="{{ s.enquire_link | default: '/pages/contact-us' }}">{{ s.enquire_label }}</a>
         {%- endif -%}
 
-        {%- render 'fye-wishlist-button', product: p -%}
+        {%- comment -%}
+              context: 'form' — on a product page the heart saves what the
+              shopper has actually chosen (metal, quality, centre stone, side
+              pair, engraving), read from the buy box at the moment of the
+              click. Without it the snippet defaults to 'card' and saves the
+              bare product, which is what live did and the reason a shopper
+              could lose ten minutes of configuring.
+            {%- endcomment -%}
+            {%- render 'fye-wishlist-button', product: p, context: 'form' -%}
 
         {%- comment -%}
           The carat stepper, at the foot of the buy box — Ed, 01/09/2026.

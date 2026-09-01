@@ -942,3 +942,55 @@ a.visually-hidden:focus-visible {
 .fye .wish[aria-pressed='true'] .icon {
   fill: currentColor;
 }
+
+
+/* ============================================================================
+   WISHLIST — 01/09/2026
+   ========================================================================== */
+
+/* A saved heart is filled. The outline icon carries no fill of its own, so
+   the fill is set here rather than by swapping in a second icon. */
+.fye .wish.is-on { color: var(--ink); }
+.fye .wish.is-on svg { fill: currentColor; }
+.fye .wish:hover { color: var(--sage); }
+
+/* Header count. Hidden at zero — an empty wishlist should not advertise
+   itself, and [hidden] keeps it out of the accessibility tree too. */
+.fye .wish-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  background: var(--ink);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: var(--fw-medium);
+  line-height: 1;
+}
+.fye .wish-count[hidden] { display: none; }
+
+
+/* ---- wishlist heart on a product tile — 01/09/2026 --------------------- */
+.fye .pcard { position: relative; }
+.fye .pcard__wish {
+  position: absolute;
+  top: var(--s3);
+  right: var(--s3);
+  z-index: 1;
+}
+/* Squared, per the design system — the only curves in this theme are the logo
+   and the monogram. Ivory rather than white so it reads on a pale ring shot. */
+.fye .pcard__wish .wish {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--ivory);
+  color: var(--ink);
+  border: 0;
+  cursor: pointer;
+}
+.fye .pcard__wish .wish:hover { color: var(--sage); }

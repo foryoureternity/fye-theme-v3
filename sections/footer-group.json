@@ -65,9 +65,154 @@
         "legal": "<p>© 2026 For Your Eternity Ltd - Company No. 16261484 - VAT No. 486 8865 12. A London jeweller offering in-person and online consultations across the London area. GIA & IGI certified stones.</p>",
         "policy_menu": ""
       }
+    },
+
+    "popups": {
+      "type": "fye-popups",
+      "name": "Popups",
+      "blocks": {
+        "pop_engagement": {
+          "type": "popup",
+          "settings": {
+            "key": "V9eDYg",
+            "image": "shopify://shop_images/Ring_211_5.png",
+            "image_alt": "Hand wearing a For Your Eternity engagement ring",
+            "eyebrow": "For Your Eternity · Free guide",
+            "heading": "The Engagement Ring Guide",
+            "intro": "<p>Budget, the Four Cs, diamond shapes, settings, sizing and bespoke design — everything you need to choose with confidence. Tell us where to send your copy.</p>",
+            "button_label": "Send me the guide",
+            "show_journey": true,
+            "show_consent": true,
+            "reassurance": "Your details are kept private and used only to send your guide.",
+            "success_heading": "Thank you",
+            "success_body": "<p>Your guide is on its way. If anything in it raises a question, reply to us — we would rather talk it through than have you guess.</p>",
+            "download_label": "Download the guide"
+          }
+        },
+        "pop_plain": {
+          "type": "popup",
+          "settings": {
+            "key": "XMzNMS",
+            "image": "shopify://shop_images/Ring_211_5.png",
+            "image_alt": "Plain wedding rings by For Your Eternity",
+            "eyebrow": "For Your Eternity · Free guide",
+            "heading": "The Plain Wedding Ring Guide",
+            "intro": "<p>Profiles, metals, finishes, shaped-to-fit bands and matched pairs — how to choose a ring you will wear every day for the rest of your life. Tell us where to send your copy.</p>",
+            "button_label": "Send me the guide",
+            "show_journey": true,
+            "show_consent": true,
+            "reassurance": "Your details are kept private and used only to send your guide.",
+            "success_heading": "Thank you",
+            "success_body": "<p>Your guide is on its way.</p>",
+            "download_label": "Download the guide"
+          }
+        },
+        "pop_diamond_wedding": {
+          "type": "popup",
+          "settings": {
+            "key": "Rch5bG",
+            "image": "shopify://shop_images/Ring_211_5.png",
+            "image_alt": "Diamond wedding ring by For Your Eternity",
+            "eyebrow": "For Your Eternity · Free guide",
+            "heading": "The Diamond Wedding Ring Guide",
+            "intro": "<p>Eternity rings, setting styles, shaped-to-fit bands and everyday wear — what holds up, what sparkles, and what suits the ring it sits beside. Tell us where to send your copy.</p>",
+            "button_label": "Send me the guide",
+            "show_journey": true,
+            "show_consent": true,
+            "reassurance": "Your details are kept private and used only to send your guide.",
+            "success_heading": "Thank you",
+            "success_body": "<p>Your guide is on its way.</p>",
+            "download_label": "Download the guide"
+          }
+        },
+        "pop_eternity": {
+          "type": "popup",
+          "settings": {
+            "key": "TNb26i",
+            "image": "shopify://shop_images/Ring_211_5.png",
+            "image_alt": "Eternity ring by For Your Eternity",
+            "eyebrow": "For Your Eternity · Free guide",
+            "heading": "The Eternity Ring Guide",
+            "intro": "<p>Full, half or three-quarter styles, diamond settings, stacking and wearing it alongside your other rings — everything you need to choose with confidence. Tell us where to send your copy.</p>",
+            "button_label": "Send me the guide",
+            "show_journey": true,
+            "show_consent": true,
+            "reassurance": "Your details are kept private and used only to send your guide.",
+            "success_heading": "Thank you",
+            "success_body": "<p>Your guide is on its way.</p>",
+            "download_label": "Download the guide"
+          }
+        },
+        "pop_stones": {
+          "type": "popup",
+          "settings": {
+            "key": "UbTxH7",
+            "image": "shopify://shop_images/Ring_211_5.png",
+            "image_alt": "Loose diamonds and coloured gemstones",
+            "eyebrow": "For Your Eternity · Free guide",
+            "heading": "The Diamond & Gemstone Guide",
+            "intro": "<p>Diamonds, coloured gemstones, lab-grown stones and how to choose the right stone for your ring — including what is worth paying for and what is not. Tell us where to send your copy.</p>",
+            "button_label": "Send me the guide",
+            "show_journey": true,
+            "show_consent": true,
+            "reassurance": "Your details are kept private and used only to send your guide.",
+            "success_heading": "Thank you",
+            "success_body": "<p>Your guide is on its way.</p>",
+            "download_label": "Download the guide"
+          }
+        },
+        "pop_care": {
+          "type": "popup",
+          "settings": {
+            "key": "RINGCARE",
+            "image": "shopify://shop_images/Ring_211_5.png",
+            "image_alt": "Ring being cleaned and inspected",
+            "eyebrow": "For Your Eternity · Free guide",
+            "heading": "The Ring & Jewellery Care Guide",
+            "intro": "<p>Cleaning, safe storage, claw and setting checks, replating and when to have a ring serviced. Tell us where to send your copy.</p>",
+            "button_label": "Send me the guide",
+            "show_journey": false,
+            "show_consent": true,
+            "reassurance": "Your details are kept private and used only to send your guide.",
+            "success_heading": "Thank you",
+            "success_body": "<p>Your guide is ready to download now.</p>",
+            "file_url": "/pages/ring-and-jewellery-care-guide-download",
+            "download_label": "Download the guide"
+          }
+        },
+        "pop_enquire": {
+          "type": "popup",
+          "settings": {
+            "key": "enquire",
+            "image": "shopify://shop_images/Ring_211_5.png",
+            "image_alt": "Hand wearing a For Your Eternity ring",
+            "eyebrow": "For Your Eternity",
+            "heading": "Make an enquiry",
+            "intro": "<p>Tell us what you have in mind — a piece you have seen, a budget to work to, a date to hit — and we will come back to you personally.</p>",
+            "button_label": "Send enquiry",
+            "show_journey": true,
+            "show_consent": true,
+            "reassurance": "Your details are kept private. We reply to every enquiry ourselves.",
+            "success_heading": "Thank you",
+            "success_body": "<p>We have your enquiry and will come back to you personally, usually within one working day.</p>",
+            "no_file_note": ""
+          }
+        }
+      },
+      "block_order": [
+        "pop_engagement",
+        "pop_plain",
+        "pop_diamond_wedding",
+        "pop_eternity",
+        "pop_stones",
+        "pop_care",
+        "pop_enquire"
+      ],
+      "settings": {}
     }
   },
   "order": [
-    "footer"
+    "footer",
+    "popups"
   ]
 }

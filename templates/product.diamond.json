@@ -1,0 +1,38 @@
+{
+  "sections": {
+    "main": {
+      "type": "fye-stone-product",
+      "settings": {
+        "atc_label": "Add to bag",
+        "mto_label": "Reserved — ask about similar stones",
+        "setting_label": "Set this stone in a ring",
+        "setting_link": "",
+        "enquire_label": "Ask us about this stone",
+        "enquire_link": "",
+        "spec_heading": "Stone characteristics",
+        "reassurance": "Every stone is supplied with its certificate. Free insured UK delivery."
+      }
+    },
+    "related": {
+      "type": "fye-related-products",
+      "settings": {
+        "source": "related",
+        "fallback": true,
+        "count": 4,
+        "eyebrow": "You may also like",
+        "heading": "Similar Rings",
+        "heading_fallback": "More stones like this",
+        "intro": "",
+        "align": "center",
+        "flank": true,
+        "ground": "ivory",
+        "link_label": "",
+        "link_url": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "related"
+  ]
+}

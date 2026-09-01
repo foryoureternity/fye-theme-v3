@@ -2700,24 +2700,44 @@
     lines.push('Sent from: ' + document.title + ' (' + window.location.pathname + ')');
 
     body.value = lines.join('\n');
+
+    /* Shopify's redirect carries no popup key, so the answer is kept here for
+       the next page load. sessionStorage rather than a query parameter: the
+       parameter would survive sharing and reopen a stranger's "thank you". */
+    try {
+      sessionStorage.setItem('fye_popup_sent', pop.getAttribute('data-fye-popup-panel') || '');
+    } catch (err) {}
   });
 
-  /* After a successful send, Shopify returns to ?fyep=<key>. Reopen that one
-     popup, which is now rendering its success panel. Liquid cannot read query
-     parameters, which is why this happens here and not in the section. */
-  function reopenFromUrl() {
-    var match = /[?&]fyep=([^&#]+)/.exec(window.location.search);
-    if (!match) return;
-    var el = panel(decodeURIComponent(match[1]));
+  /* Reopen the popup that was just submitted, so the visitor lands on its
+     success panel and its download rather than on the page they started from
+     with no acknowledgement at all. */
+  function reopenAfterSend() {
+    var key = null;
+    try { key = sessionStorage.getItem('fye_popup_sent'); } catch (err) {}
+    try { sessionStorage.removeItem('fye_popup_sent'); } catch (err) {}
+
+    // ?fyep= is honoured as a fallback: older links and manual tests use it.
+    if (!key) {
+      var match = /[?&]fyep=([^&#]+)/.exec(window.location.search);
+      if (match) key = decodeURIComponent(match[1]);
+    }
+    if (!key) return;
+
+    var el = panel(key);
     if (!el) return;
+
+    /* Only reopen when this popup is ACTUALLY showing its success panel.
+       Without this test a stale key reopens an empty form in the visitor's
+       face, which is exactly the bug this patch exists to fix. */
+    if (!el.querySelector('[data-fye-popup-done]')) return;
+
     open(el);
-    // Leave the URL alone: a refresh should show the same thing, and the
-    // parameter is the only record of which popup was submitted.
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', reopenFromUrl);
+    document.addEventListener('DOMContentLoaded', reopenAfterSend);
   } else {
-    reopenFromUrl();
+    reopenAfterSend();
   }
 })();

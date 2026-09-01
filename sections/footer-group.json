@@ -86,9 +86,10 @@
             "show_journey": true,
             "show_consent": true,
             "reassurance": "Your details are kept private and used only to send your guide.",
-            "success_heading": "Thank you",
-            "success_body": "<p>Your guide is on its way. If anything in it raises a question, reply to us — we would rather talk it through than have you guess.</p>",
-            "download_label": "Download the guide"
+            "success_heading": "Your guide is ready",
+            "success_body": "<p>Open it below — and we have your details, so reply to us if anything in it raises a question. We would rather talk it through than have you guess.</p>",
+            "file_url": "https://cdn.shopify.com/s/files/1/0972/5391/7056/files/The_Engagement_Ring_Guide_v2.pdf?v=1788123078",
+            "download_label": "Open the guide"
           }
         },
         "pop_plain": {
@@ -106,9 +107,10 @@
             "show_journey": true,
             "show_consent": true,
             "reassurance": "Your details are kept private and used only to send your guide.",
-            "success_heading": "Thank you",
-            "success_body": "<p>Your guide is on its way.</p>",
-            "download_label": "Download the guide"
+            "success_heading": "Your guide is ready",
+            "success_body": "<p>Open it below. We have your details too, so do reply if you would like us to talk you through the profiles.</p>",
+            "file_url": "https://cdn.shopify.com/s/files/1/0972/5391/7056/files/The_Plain_Wedding_Ring_Guide_v2.pdf?v=1788123078",
+            "download_label": "Open the guide"
           }
         },
         "pop_diamond_wedding": {
@@ -126,9 +128,10 @@
             "show_journey": true,
             "show_consent": true,
             "reassurance": "Your details are kept private and used only to send your guide.",
-            "success_heading": "Thank you",
-            "success_body": "<p>Your guide is on its way.</p>",
-            "download_label": "Download the guide"
+            "success_heading": "Your guide is ready",
+            "success_body": "<p>Open it below. If you already have an engagement ring to match, send us a photograph and we will tell you what will sit flush against it.</p>",
+            "file_url": "https://cdn.shopify.com/s/files/1/0972/5391/7056/files/The_Diamonds_Gemstone_Wedding_Ring_Guide_v2.pdf?v=1788123078",
+            "download_label": "Open the guide"
           }
         },
         "pop_eternity": {
@@ -146,9 +149,10 @@
             "show_journey": true,
             "show_consent": true,
             "reassurance": "Your details are kept private and used only to send your guide.",
-            "success_heading": "Thank you",
-            "success_body": "<p>Your guide is on its way.</p>",
-            "download_label": "Download the guide"
+            "success_heading": "Your guide is ready",
+            "success_body": "<p>Open it below. We have your details too, so tell us the anniversary you are marking and we will help you choose.</p>",
+            "file_url": "https://cdn.shopify.com/s/files/1/0972/5391/7056/files/The_Eternity_Ring_Guide_v2.pdf?v=1788133157",
+            "download_label": "Open the guide"
           }
         },
         "pop_stones": {
@@ -166,9 +170,10 @@
             "show_journey": true,
             "show_consent": true,
             "reassurance": "Your details are kept private and used only to send your guide.",
-            "success_heading": "Thank you",
-            "success_body": "<p>Your guide is on its way.</p>",
-            "download_label": "Download the guide"
+            "success_heading": "Your guide is ready",
+            "success_body": "<p>Open it below. If you have a stone in mind already, reply to us and we will look for it.</p>",
+            "file_url": "https://cdn.shopify.com/s/files/1/0972/5391/7056/files/The_Diamond_Gemstone_Guide.pdf?v=1788140543",
+            "download_label": "Open the guide"
           }
         },
         "pop_care": {
@@ -186,10 +191,10 @@
             "show_journey": false,
             "show_consent": true,
             "reassurance": "Your details are kept private and used only to send your guide.",
-            "success_heading": "Thank you",
-            "success_body": "<p>Your guide is ready to download now.</p>",
-            "file_url": "/pages/ring-and-jewellery-care-guide-download",
-            "download_label": "Download the guide"
+            "success_heading": "Your guide is ready",
+            "success_body": "<p>Open it below. Cleaning and inspection is complimentary for life on anything we have made — book that any time.</p>",
+            "file_url": "https://cdn.shopify.com/s/files/1/0972/5391/7056/files/The_Ring_and_Jewellery_Care_Guide.pdf?v=1788140543",
+            "download_label": "Open the guide"
           }
         },
         "pop_enquire": {

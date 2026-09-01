@@ -115,7 +115,7 @@
               <div class="pop__intro">{{ b.success_body | default: '<p>We have your details.</p>' }}</div>
 
               {%- if b.file_url != blank -%}
-                <a class="btn btn--block" href="{{ b.file_url }}">
+                <a class="btn btn--block" href="{{ b.file_url }}" target="_blank" rel="noopener">
                   {%- render 'icon', name: 'download', size: 18 -%}
                   {{ b.download_label | default: 'Download the guide' }}
                 </a>

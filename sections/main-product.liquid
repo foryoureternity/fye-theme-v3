@@ -1365,6 +1365,24 @@
   color: var(--sage);
 }
 
+/* The origin toggle sits in the modal HEAD, not in the filter block — Ed,
+   01/09/2026. Natural vs lab-grown is the first question a shopper answers and
+   it changes every price in the grid, so it must not be behind a collapsed
+   <details> on a phone.
+
+   It takes a full-width row of its own rather than sharing the title's line:
+   three 72px buttons beside a title and a close button do not fit 375px, and
+   a toggle that wraps unpredictably is worse than one that always sits in the
+   same place. */
+.fye .pdp__modalhead {
+  flex-wrap: wrap;
+}
+
+.fye .pdp__modalorigin {
+  order: 3;
+  flex: 1 0 100%;
+}
+
 .fye .pdp__filters {
   border-bottom: var(--hairline);
 }

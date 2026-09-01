@@ -903,6 +903,11 @@
            and the button stays hidden rather than opening onto nothing. */
         if (state) state.textContent = 'We have no matching stones in stock at the moment.';
         if (help) help.hidden = false;
+        var emptyResults = panel.querySelector('[data-fye-picker-results]');
+        if (panel.querySelector('[data-fye-picker]:not([hidden])') && emptyResults) {
+          emptyResults.innerHTML = '<p class="pdp__stoneempty">We have no matching stones in stock ' +
+            'at the moment. <a href="/pages/contact-us">Ask us to source one</a>.</p>';
+        }
         return;
       }
 
@@ -914,6 +919,9 @@
       if (btn) btn.hidden = false;
       if (help) help.hidden = false;
       initRanges(panel, all);
+
+      /* Opened before the feed landed: replace the loading line. */
+      if (panel.querySelector('[data-fye-picker]:not([hidden])')) paintPicker(panel);
     });
   }
 
@@ -1120,7 +1128,18 @@
     pk(panel).sel = null;
     modal.hidden = false;
     document.documentElement.style.overflow = 'hidden';
-    paintPicker(panel);
+
+    /* The modal can be opened straight from the add button, before the
+       feed has been asked for. An empty grid would read as "no stones". */
+    if (!panel.__fyeStones) {
+      var waiting = panel.querySelector('[data-fye-picker-results]');
+      if (waiting) {
+        waiting.innerHTML = '<p class="pdp__stoneempty">Finding diamonds that suit this setting…</p>';
+      }
+      ensureStones(panel);
+    } else {
+      paintPicker(panel);
+    }
     var close = modal.querySelector('[data-fye-picker-close]');
     if (close) close.focus();
   }
@@ -1147,7 +1166,9 @@
 
     if (centre) {
       var cm = modeOf(centre);
-      if (!cm) return { label: 'Choose your centre diamond option', block: true };
+      /* NOT blocked: this button is how the shopper gets into the picker.
+         `mode` is applied on the way in — see the submit handler. */
+      if (!cm) return { label: 'Choose your centre diamond option', open: centre, mode: 'required' };
       if (cm === 'required' && !stoneOf(centre)) {
         return { label: 'Choose centre diamond', open: centre };
       }
@@ -1529,7 +1550,17 @@
     var need = requirement(form);
     if (need) {
       e.preventDefault();
-      if (need.open) openPicker(need.open);
+      if (need.open) {
+        /* Opening the picker IS choosing the we-supply-the-stone route, so
+           the mode is set on the way in rather than asked for twice.
+           setMode also starts the feed load. */
+        if (need.mode) {
+          setMode(need.open, 'centre', need.mode);
+          paintStone(need.open);
+          render(form);
+        }
+        openPicker(need.open);
+      }
       return;
     }
 

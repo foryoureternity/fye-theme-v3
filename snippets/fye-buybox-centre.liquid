@@ -20,7 +20,7 @@
   The picker is driven by THESE THREE FIELDS ONLY. fye.family_carat belongs to
   the carat stepper and is no part of this — Ed, 01/09/2026.
 
-  ── FANCY COLOURED CENTRE STONES — added 01/09/2026 ───────────────────────
+  ── FANCY COLOURED CENTRE STONES ──────────────────────────────────────────
 
   A semi-mount whose SKU carries a colour code takes a FANCY COLOURED diamond,
   not a white one, and the picker must offer those instead. Ed, 01/09/2026.
@@ -34,25 +34,22 @@
   unrecognised code falls through to the white-diamond feed, which is the
   behaviour before this change and no worse.
 
-  The colour collections exist already and are large:
+  **The colour collections are MIXED-SHAPE.** Unlike `round-natural-diamonds`,
+  a fancy colour collection holds every cut — a sample returned Asscher,
+  Emerald, Heart, Oval, Marquise, Princess, Tapered Baguette and Trapezoid. So
+  the panel sets `data-shape-filter="1"` and fye-ui.js drops anything whose
+  shape is not this ring's. Verified 01/09/2026 that fye.shape on those stones
+  uses the same vocabulary as fye.centre_shape ("Radiant", "Oval", "Asscher").
 
-      fancy-yellow-natural-diamonds        1,000
-      fancy-yellow-lab-grown-diamonds      1,000
+  ── THE ORIGIN TOGGLE LIVES IN THE MODAL HEAD ─────────────────────────────
 
-  Same natural / lab-grown asymmetry as the shape collections, so the two
-  origins are fetched exactly as before.
+  Ed, 01/09/2026. It was inside the filter block, which is a collapsed
+  <details> on a phone — so the single question that changes every price in
+  the grid was hidden behind a tap. It is now a row of the header, beneath the
+  title, visible at every width.
 
-  **THEY ARE MIXED-SHAPE.** Unlike `round-natural-diamonds`, a fancy colour
-  collection holds every cut — a sample returned Asscher, Emerald, Heart, Oval,
-  Marquise, Princess, Tapered Baguette and Trapezoid. So the panel sets
-  `data-shape-filter="1"` and fye-ui.js drops anything whose shape is not this
-  ring's. Verified 01/09/2026 that fye.shape on those stones uses the same
-  vocabulary as fye.centre_shape ("Radiant", "Oval", "Asscher"), which is what
-  makes the comparison safe.
-
-  The flag is per-panel rather than always-on deliberately: on the shape
-  collections the filter would be a no-op, and a no-op that could empty the
-  picker if the two vocabularies ever drift is not worth having.
+  Natural opens first: these rings sell mainly as natural, and opening on
+  lab-grown prices would misrepresent them.
 
   ── NOTHING IS SELECTED ON LOAD ───────────────────────────────────────────
 
@@ -61,9 +58,10 @@
   most expensive route the default and means a shopper can reach the basket
   without ever having made the decision.
 
-  The consequence is a hard requirement on fye-ui.js: ADD TO CART MUST BE
-  BLOCKED until a mode is chosen. An unselected chooser is not a neutral
-  state — it is an incomplete order.
+  The consequence is a requirement on fye-ui.js: add to cart is BLOCKED until
+  a mode is chosen — except that the button itself is now the way in. It reads
+  "Choose your centre diamond option" and OPENS THE PICKER when pressed (Ed,
+  01/09/2026), setting the mode on the way. So the choice is never a dead end.
 
   Each card carries a real radio mark (`.pdp__radio`) — Ed, 31/08/2026: it is
   the signpost that says "pick one of these". The cards are `role="radio"`
@@ -291,8 +289,9 @@
 
     Rendered inert — no stones, no ranges. fye-ui.js fills the results, sets
     the slider bounds from the stones actually returned, and only then reveals
-    the open button. A modal that opens onto "0 stones" is worse than a button
-    that has not appeared yet.
+    the open button in the buy box. The modal can also be opened straight from
+    "Add to bag" before the feed has landed, which is why fye-ui.js shows a
+    loading line in the results area rather than an empty grid.
   {%- endcomment -%}
   <div class="pdp__modal" data-fye-picker hidden>
     <div class="pdp__modalscrim" data-fye-picker-close></div>
@@ -303,9 +302,22 @@
           <h2 class="pdp__modaltitle" id="pdp-picker-title">Choose your {{ stone_words }} diamond</h2>
           <p class="pdp__modalsub">{{ ct_min }}–{{ ct_max }}ct suits this setting. Every stone is supplied with its certificate.</p>
         </div>
+
         <button type="button" class="pdp__modalx" data-fye-picker-close aria-label="Close">
           {%- render 'icon', name: 'close' -%}
         </button>
+
+        {%- comment -%}
+          Natural / Lab-grown, in the head rather than the filter block — Ed,
+          01/09/2026. It is the first question and it changes every price on
+          screen, so it must not sit behind a collapsed <details> on a phone.
+          Both origins are already in memory, so switching costs no request.
+        {%- endcomment -%}
+        <div class="pdp__seg pdp__modalorigin" role="radiogroup" aria-label="Stone type">
+          <button type="button" role="radio" aria-checked="true" class="is-on" data-fye-stone-type="natural">Natural</button>
+          <button type="button" role="radio" aria-checked="false" data-fye-stone-type="lab">Lab-grown</button>
+          <button type="button" role="radio" aria-checked="false" data-fye-stone-type="all">Both</button>
+        </div>
       </div>
 
       <details class="pdp__filters" data-fye-picker-filters>
@@ -325,20 +337,6 @@
             <div class="pdp__range" data-fye-range="price">
               <input type="range" data-fye-range-min aria-label="Minimum price">
               <input type="range" data-fye-range-max aria-label="Maximum price">
-            </div>
-          </div>
-
-          {%- comment -%}
-            Natural opens first — Ed, 31/08/2026. These rings are sold mainly
-            as natural, and opening on lab-grown prices would misrepresent
-            them.
-          {%- endcomment -%}
-          <div class="pdp__filter">
-            <span class="pdp__filterlbl">Stone type</span>
-            <div class="pdp__seg" role="radiogroup" aria-label="Stone type">
-              <button type="button" role="radio" aria-checked="true" class="is-on" data-fye-stone-type="natural">Natural</button>
-              <button type="button" role="radio" aria-checked="false" data-fye-stone-type="lab">Lab-grown</button>
-              <button type="button" role="radio" aria-checked="false" data-fye-stone-type="all">Both</button>
             </div>
           </div>
 

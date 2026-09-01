@@ -1,6 +1,6 @@
 # FYE v3 — build state
 
-Last updated: 27/08/2026
+Last updated: 01/09/2026
 
 ## Read first
 
@@ -682,3 +682,138 @@ carousel and loads the script **on demand** when the 360 panel is first opened.
    a sibling product at its default size. Live has the same behaviour; worth
    fixing with a `?variant=` handoff once sizes are confirmed identical across
    siblings.
+---
+
+# Session — 01/09/2026: engagement rings, related products, the carat stepper
+
+The engagement-ring product page is complete. Seven product templates exist and
+route correctly. Everything below is on `main`.
+
+## What was built
+
+| File | Notes |
+|---|---|
+| `templates/product.{engagement,complete,gemset,gents,diamond-ring,plain}.json` | Five new + plain. All render `main-product` → `fye-related-products` → `fye-matching-band` |
+| `templates/collection.cdc-json.liquid` | 3.7KB. The diamond feed. Collection-agnostic |
+| `snippets/fye-buybox-centre.liquid` | 18.8KB. Centre-stone chooser + picker modal |
+| `snippets/fye-buybox-sides.liquid` | 10.7KB. Trilogy side stones |
+| `snippets/fye-carat-stepper.liquid` | 11.2KB. Next model up/down in the design family |
+| `snippets/fye-carat-label.liquid` | 1.4KB. One carat-formatting rule, used three times a page |
+| `sections/fye-related-products.liquid` | 10.6KB. Similar rings, with a collection fallback |
+| `sections/fye-matching-band.liquid` | 14.2KB. The band cut for this ring |
+| `assets/fye-ui.js` | ~64KB. Choosers, picker, multi-line cart, requirement gate |
+| `snippets/icon.liquid` | +`arrow-up`, `arrow-down` |
+| `sections/main-product.liquid` | ~55KB. Breadcrumb, stepper, chooser CSS, sticky gallery |
+
+## THE THREE STONE CHOICES ARE INDEPENDENT — Ed, 31/08/2026
+
+The single most important thing on this page, and live's code implies the
+opposite. On a trilogy with diamond-set shoulders a customer picks:
+
+| Choice | How it is priced |
+|---|---|
+| **Diamond Quality** — the SHOULDER diamonds | a variant axis, with Metal |
+| **Centre diamond** | its own cart line, its own price |
+| **Side diamond pair** | its own cart line, its own price |
+
+Nothing is charged twice. Live hides the quality row on any trilogy carrying a
+`side_stones` metafield (its W333) and locks the ring to its cheapest grade —
+**deliberately not ported**, because on a set-shoulder ring that removes a real
+choice. Live's other rule, hiding the row on PLAIN-shouldered rings where the
+grade buys nothing, is fair and is still outstanding.
+
+**This surfaced as a bug that was not one.** `trl6462-smt` showed no shoulder
+quality selector; live showed none either, at the same £1,932. The products had
+one variant axis. 8 diamond-shouldered trilogies were missing the option
+entirely — a data gap from when side stones moved to their own cart line. Fixed
+by import (200 variants, D/E VVS anchored at today's price so nothing rose).
+
+## Decisions taken
+
+- **Nothing is selected by default** in either chooser. Live preselects the
+  dearest route, which lets a shopper reach the basket without deciding. The
+  cost is a hard requirement in `fye-ui.js`: add to cart is blocked until every
+  rendered panel has a mode, a stone where needed, and a ticked waiver where
+  needed. `requirement()` is the single place that decides, and its message IS
+  the button label — nobody meets a dead control with no explanation.
+- **The add button is the way in.** Before a stone is chosen it reads "Choose
+  your centre diamond option", and pressing it sets the mode and opens the
+  picker.
+- **Square mode tiles, circular radio marks.** The circle is a documented
+  departure from `--radius: 0`: it is the only shape that reads as "pick one"
+  without a label. Selected = ivory ground + `--line-strong` edge, never a teal
+  fill — these tiles carry two levels of type and a fill drops the second below
+  AA.
+- **Carat stepper wording is the supplier's** — "Next size model up/down",
+  under the heading "Alternative size models", below the wishlist button. Note
+  this overrides W916's own rule against the word "size"; what keeps it clear
+  of FINGER size is that every control carries a carat.
+- **Side-stone property keys accepted by Ed, 01/09/2026** — `Side Diamonds` and
+  `Setting service`. They were flagged UNVERIFIED against live (live's are past
+  the readable limit in `product-block.js`); Ed has signed them off. The file
+  comment still says unverified — correct that when next in there.
+- **Related products fall back to collection siblings** with different wording
+  ("More from this collection"), because "Similar Rings" is a promise a
+  fallback cannot keep. After W918, 1,623 products have curated relations and
+  1,549 do not; the fallback carries the rest, which is intended.
+- **The matching band is its own section, not a second related row.** 1,184 of
+  1,214 have exactly one band, and a four-across grid holding one card is three
+  empty columns. It shows both rings side by side, which a grid tile cannot.
+- **Direction is a setting, never `product.type`.** The band relationship is
+  mirrored, so a band's page shows its ring; `product.gemset.json` and
+  `product.plain.json` carry the reversed wording. Type-sniffing has caused
+  this class of bug here before.
+
+## Gotchas earned — these cost real time
+
+**`0 == blank` is FALSE in Liquid, but `nil == blank` is true.** An unwritten
+`fye.family_carat` rendered "0ct" on every stepper control, and because all
+three matched, the tie rule then labelled both "Another option". Any metafield
+that can be missing needs a zero guard as well as a blank one.
+
+**Browsers validate before firing `submit`.** Opening the picker from the form's
+submit event never ran: with no ring size chosen the event was never fired, and
+the shopper got a native bubble about a field they had not reached. Anything
+that must happen INSTEAD of submitting has to be handled on `click`.
+
+**Fancy colour collections are mixed-shape.** `fancy-yellow-natural-diamonds`
+holds Asscher, Emerald, Heart, Trapezoid — unlike `round-natural-diamonds`,
+which is shape-pure. A picker pointed at one must filter by shape itself.
+
+**Search & Discovery metafields need bracket syntax.** The namespace contains
+hyphens, so `product.metafields.shopify--discovery--product_recommendation`
+returns nil SILENTLY — it looks exactly like data that never imported. Two
+sections read it; both document the trap. Do not "tidy" either to dots.
+
+**`fye-ui.js` is now past the size a session can read back whole.** Rewriting it
+from memory risks reverting hand-applied fixes. The pattern that works:
+
+> **A Node script in `tools/` with literal find/replace pairs that asserts each
+> anchor matches exactly once, refuses otherwise, checks the file grew, and is
+> idempotent.** Four ran clean this session (`w920`–`w923`). It is now the
+> default way to change a large file, not a fallback.
+
+## Outstanding
+
+1. **`product.diamond.json` — loose diamonds and gemstones.** The last product
+   template, and the biggest by page count: ~14,200 diamonds and ~13,200
+   gemstones. Needs a new section; live's is `fye-diamond-product`. See
+   `docs/prompts/loose-stone-pdp-prompt.md`.
+2. **W918 import.** `fye.family_carat` was not populated when last checked —
+   the stepper renders directions without weights until it lands.
+3. **Side setting fee price** is unset, so that card prints no "+£x". The fee
+   VARIANT exists, so the option is offered; only the preview figure is missing.
+4. **`engraving_variant_id` still unverified on this store.** Default is live's.
+   A wrong id fails at add-to-cart, and nothing on the page can detect it.
+5. **The cart page** must group and reconcile up to five lines per ring. Live's
+   `fye-ui.js` has a fee reconciler that counts the centre fee by variant id —
+   read it before building v3's cart.
+6. **Hide the quality row on plain-shouldered rings** (live's W803): two tests
+   must agree — price flat across natural grades within a metal, AND tagged
+   `solitaire` + `plain shoulders`. The price test alone wrongly caught four
+   diamond-set rings.
+7. **Open on the cheapest NATURAL grade** (live's W831), only when the shopper
+   has not deep-linked a variant. Not ported.
+8. **45 rings have no `fye.side_stones`** and so render no side panel;
+   `trl29775-fy-mt` is null while all six siblings carry `OV-065`, which reads
+   as an omission.

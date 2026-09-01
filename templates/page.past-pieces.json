@@ -16,7 +16,7 @@
       "settings": {
         "image": "shopify://shop_images/Untitled_design_-_2026-03-31T154948.747_1.jpg",
         "use_specify_image": true,
-        "overlay": 45,
+        "overlay": 44,
         "content_align": "t4s-text-center",
         "heading_fullwidth": false
       }
@@ -36,4 +36,3 @@
   },
   "order": ["heading", "gallery"]
 }
-

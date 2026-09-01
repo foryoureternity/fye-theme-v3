@@ -1247,6 +1247,34 @@
   document.addEventListener('click', function (e) {
     if (!e.target.closest) return;
 
+    /* ---- the add button, when it is not an add button ----------------
+       Before a centre stone is chosen this button reads "Choose your centre
+       diamond option" and its job is to open the picker.
+
+       This is handled on CLICK rather than on submit because the browser
+       validates required fields BEFORE firing submit: with an unchosen ring
+       size the submit event never arrives, and the shopper gets a bubble
+       about a field that is not what is missing. Cancelling the click means
+       no submit, so no validation, so no wrong message.
+
+       Any other state falls through untouched and the form validates as
+       normal — a real add to bag still demands a size. */
+    var atcBtn = e.target.closest('[data-fye-atc]');
+    if (atcBtn) {
+      var atcForm = atcBtn.closest('form');
+      var atcNeed = requirement(atcForm);
+      if (atcForm && atcNeed && atcNeed.open) {
+        e.preventDefault();
+        if (atcNeed.mode) {
+          setMode(atcNeed.open, 'centre', atcNeed.mode);
+          paintStone(atcNeed.open);
+          render(atcForm);
+        }
+        openPicker(atcNeed.open);
+        return;
+      }
+    }
+
     /* gallery */
     var thumb = e.target.closest('[data-fye-thumb]');
     if (thumb) {

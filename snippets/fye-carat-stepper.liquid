@@ -2,7 +2,8 @@
   fye-carat-stepper — step to the next model up or down in this design family.
 
   Built 01/09/2026, W916. Revised the same day: moved BELOW the wishlist
-  button and reworded to match the supplier's own control — Ed.
+  button, reworded to match the supplier's own control, and retitled
+  "Alternative size models" — Ed.
 
   ── WHERE IT SITS ─────────────────────────────────────────────────────────
 
@@ -18,16 +19,26 @@
 
   ── WORDING ───────────────────────────────────────────────────────────────
 
-  "Next size model up" / "Next size model down", the supplier's phrasing, so
-  the site and the trade paperwork say the same thing — Ed, 01/09/2026.
+  Heading: "Alternative size models". Controls: "Next size model up" and
+  "Next size model down" — the supplier's phrasing, so the site and the trade
+  paperwork say the same thing. Ed, 01/09/2026.
+
+  THE HEADING NO LONGER CARRIES THE CURRENT WEIGHT. It used to read
+  "Centre stone · 1ct", which was true of the ring. Under the new title
+  "Alternative size models · 1ct" would say the opposite — that the
+  ALTERNATIVES are 1ct — so it is dropped. Nothing is lost: every model's
+  title ends in its carat, and each control states the weight it leads to.
 
   Note for anyone reading W916: the brief says never to use the word "size"
   unqualified, because FYE rings already have a FINGER size (A to Z+6) and two
   scales sharing a name confuses shoppers and staff. Ed's wording is a
-  deliberate override of his own rule in favour of supplier consistency. The
-  heading above the row still names the scale ("Centre stone" / "Diamond
-  weight") and every control still carries its carat, which is what keeps the
-  two apart.
+  deliberate override of his own rule in favour of supplier consistency. What
+  keeps the two apart is that every control carries a CARAT — a finger size is
+  never expressed that way.
+
+  `scale` survives as the SPOKEN noun only ("centre stone" / "diamond
+  weight"), so a screen reader still hears which scale is moving even though
+  the visible heading is now generic.
 
   ── THE DATA ──────────────────────────────────────────────────────────────
 
@@ -58,8 +69,8 @@
   ── WHAT RENDERS ──────────────────────────────────────────────────────────
 
     middle of the ladder   both controls
-    smallest in family     larger only
-    largest in family      smaller only
+    smallest in family     up only
+    largest in family      down only
     no family, or fewer
     than 2 live members    NOTHING — no shell, no heading, no hidden element
 
@@ -96,13 +107,15 @@
 
   Parameters:
     product — required
-    scale   — "Centre stone" (default) or "Diamond weight" on eternity
-              templates, where the ladder is total diamond weight
+    scale   — the SPOKEN scale noun: "Centre stone" (default), or
+              "Diamond weight" on eternity templates. Not shown on screen.
+    heading — the visible title. Defaults to "Alternative size models".
 {%- endcomment -%}
 {%- liquid
   assign p = product
   assign scale_label = scale | default: 'Centre stone'
   assign scale_words = scale_label | downcase
+  assign head = heading | default: 'Alternative size models'
 
   assign fam = p.metafields.fye.family.value
 
@@ -172,13 +185,8 @@
     endif
   -%}
 
-  <nav class="pdp__field cstep" aria-label="{{ scale_label | escape }} options">
-    <p class="pdp__label pdp__label--inline">
-      {{ scale_label }}
-      {%- if now_ct != blank -%}
-        <span class="pdp__labelval">{{ now_ct }}ct</span>
-      {%- endif -%}
-    </p>
+  <nav class="pdp__field cstep" aria-label="{{ head | escape }}">
+    <p class="pdp__label pdp__label--inline">{{ head }}</p>
 
     <div class="cstep__row">
       {%- if smaller != nil -%}

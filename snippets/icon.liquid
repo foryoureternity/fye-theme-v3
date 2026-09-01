@@ -46,6 +46,15 @@
       <path d="M5 12h14M12 5l7 7-7 7"></path>
     {%- when 'arrow-left' -%}
       <path d="M19 12H5M12 19l-7-7 7-7"></path>
+    {%- comment -%}
+      Vertical arrows, added 01/09/2026 for the carat stepper. A scale runs up
+      and down, not left and right — "larger" is up whichever side of the row
+      the control sits on.
+    {%- endcomment -%}
+    {%- when 'arrow-up' -%}
+      <path d="M12 19V5M5 12l7-7 7 7"></path>
+    {%- when 'arrow-down' -%}
+      <path d="M12 5v14M19 12l-7 7-7-7"></path>
 
     {%- comment -%} ---- Affordances ---- {%- endcomment -%}
     {%- when 'plus' -%}

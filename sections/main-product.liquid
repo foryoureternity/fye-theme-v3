@@ -794,9 +794,8 @@
 
 .fye .cstep__opt {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 2px;
+  align-items: center;
+  gap: var(--s3);
   min-height: 44px;
   padding: var(--s2) var(--s4);
   border: 1px solid var(--line);
@@ -804,20 +803,49 @@
   transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
 }
 
-/* Each keeps its own side, and its text points outward — the only direction
-   cue, since `‹` is not one of the two Unicode glyphs the brand permits. */
+.fye .cstep__opt:hover {
+  border-color: var(--sage);
+}
+
+/* Each control keeps its own column, and its arrow sits on the OUTER edge, so
+   the pair points away from the current weight between them. row-reverse
+   rather than a second markup order — one snippet output, mirrored. */
 .fye .cstep__opt--down {
   grid-column: 1;
-  text-align: start;
 }
 
 .fye .cstep__opt--up {
   grid-column: 3;
-  text-align: end;
+  flex-direction: row-reverse;
 }
 
-.fye .cstep__opt:hover {
-  border-color: var(--sage);
+/* Vertical arrows, per Ed 01/09/2026: a carat ladder is a scale, so larger is
+   up whichever side the control is on. They also stay clear of the browser's
+   own back/forward sense, which left/right would borrow — and every one of
+   these controls is a real page navigation. */
+.fye .cstep__opt .icon {
+  flex: 0 0 auto;
+  color: var(--ink-soft);
+  transition: color var(--dur) var(--ease);
+}
+
+.fye .cstep__opt:hover .icon {
+  color: var(--sage);
+}
+
+.fye .cstep__txt {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.fye .cstep__opt--down .cstep__txt {
+  align-items: flex-start;
+}
+
+.fye .cstep__opt--up .cstep__txt {
+  align-items: flex-end;
 }
 
 .fye .cstep__dir {
@@ -1562,13 +1590,14 @@
   }
 
   /* The stepper keeps all three columns — two tiles and the current weight
-     still fit, and dropping the middle would lose the shopper's place. Only
-     the padding gives way. */
+     still fit, and dropping the middle would lose the shopper's place. The
+     padding and the gap between arrow and words give way instead. */
   .fye .cstep__row {
     gap: var(--s2);
   }
 
   .fye .cstep__opt {
+    gap: var(--s2);
     padding-inline: var(--s3);
   }
 

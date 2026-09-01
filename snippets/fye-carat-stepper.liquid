@@ -55,16 +55,25 @@
   336 families hold two members at the same carat; the import breaks ties by
   model code so the order is stable, but "Larger 1ct" on a ring that is itself
   1ct reads as a bug. Where the neighbour's carat equals the current one the
-  control says "Another option" instead of a direction — same two-line shape,
-  so the row does not shift.
+  control says "Another option" instead of a direction — same shape, so the
+  row does not shift. Its arrow is dropped too: there is no direction to point
+  in when the weight is identical.
 
-  ── NO CHEVRON GLYPHS ─────────────────────────────────────────────────────
+  ── ARROWS, NOT CHEVRONS ──────────────────────────────────────────────────
 
-  The brief sketches the row with left and right chevrons. The design system
-  permits exactly two Unicode glyphs — the breadcrumb's `›` and the middot —
-  and `‹` is not one of them. Direction is carried by the words and by each
-  control keeping its own side of the row, which is what the acceptance
-  criterion about position actually requires.
+  Ed, 01/09/2026. UP AND DOWN rather than left and right, because a carat
+  ladder is a scale rather than a sequence: "larger" is up whichever side of
+  the row the control happens to sit on. Left/right would also collide with
+  the browser's own back/forward sense, and every one of these controls is a
+  real page navigation.
+
+  They come from the icon snippet (`arrow-up` / `arrow-down`, added to it in
+  the same change) rather than inline SVG or a Unicode glyph — the brand
+  permits only two glyphs, `›` and the middot, and the theme already has one
+  icon system that owns stroke weight and caps.
+
+  Each arrow sits on the OUTER edge of its control, so the pair points away
+  from the current weight in the middle.
 
   Parameters:
     product — required
@@ -168,10 +177,15 @@
         <a class="cstep__opt cstep__opt--down"
            href="{{ smaller.url }}"
            aria-label="{{ small_aria | escape }}">
-          <span class="cstep__dir">{{ small_dir }}</span>
-          {%- if small_ct != blank -%}
-            <span class="cstep__ct">{{ small_ct }}ct</span>
-          {%- endif -%}
+          {%- unless small_tied -%}
+            {%- render 'icon', name: 'arrow-down', size: 16 -%}
+          {%- endunless -%}
+          <span class="cstep__txt">
+            <span class="cstep__dir">{{ small_dir }}</span>
+            {%- if small_ct != blank -%}
+              <span class="cstep__ct">{{ small_ct }}ct</span>
+            {%- endif -%}
+          </span>
         </a>
       {%- endif -%}
 
@@ -199,10 +213,15 @@
         <a class="cstep__opt cstep__opt--up"
            href="{{ larger.url }}"
            aria-label="{{ large_aria | escape }}">
-          <span class="cstep__dir">{{ large_dir }}</span>
-          {%- if large_ct != blank -%}
-            <span class="cstep__ct">{{ large_ct }}ct</span>
-          {%- endif -%}
+          {%- unless large_tied -%}
+            {%- render 'icon', name: 'arrow-up', size: 16 -%}
+          {%- endunless -%}
+          <span class="cstep__txt">
+            <span class="cstep__dir">{{ large_dir }}</span>
+            {%- if large_ct != blank -%}
+              <span class="cstep__ct">{{ large_ct }}ct</span>
+            {%- endif -%}
+          </span>
         </a>
       {%- endif -%}
     </div>

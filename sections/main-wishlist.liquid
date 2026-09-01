@@ -100,6 +100,14 @@
   </div>
 </section>
 
+{%- comment -%}
+  Page-only. The store lives in fye-ui.js because the hearts are on every page;
+  only this page needs the renderer, the share encoding and the price fetches.
+  No defer: the script waits for the store itself, so load order cannot leave
+  the grid blank again.
+{%- endcomment -%}
+<script src="{{ 'fye-wishlist.js' | asset_url }}"></script>
+
 {% stylesheet %}
 .fye .wish-page__head {
   display: flex;

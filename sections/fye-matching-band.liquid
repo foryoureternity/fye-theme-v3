@@ -1,0 +1,405 @@
+{%- comment -%}
+  fye-matching-band — the wedding band cut to sit against this ring.
+
+  Built 01/09/2026, W917. Sits directly below fye-related-products.
+
+  ── WHY THIS IS NOT fye-related-products WITH A SETTING ───────────────────
+
+  It could have been: that section already reads this exact field and has a
+  `source` toggle for it (Route A in the brief). It is a separate section for
+  one measured reason — 1,184 of the 1,214 products with a band have EXACTLY
+  ONE. A four-across product grid holding a single card is three empty columns
+  of whitespace, which reads as a bug rather than as a recommendation.
+
+  More importantly the claim is different. The related row says "you may also
+  like"; this says "this is THE band for this ring" — Gemex cuts it to sit
+  flush against that specific head. A grid tile cannot say that. So the card
+  shows the two rings TOGETHER, which is the one thing a grid cannot do.
+
+  ── THE DATA ──────────────────────────────────────────────────────────────
+
+      shopify--discovery--product_recommendation.complementary_products
+      list.product_reference, capped at 10 by the Shopify definition
+      1 entry for 1,184 products, 2–3 for 30
+
+  **THE NAMESPACE MUST BE READ WITH BRACKETS.** It contains hyphens, which
+  Liquid cannot parse in dot notation:
+
+      product.metafields.shopify--discovery--product_recommendation   ✗ nil
+      product.metafields['shopify--discovery--product_recommendation'] ✓
+
+  The dotted form does not error — it silently returns nil, so the section
+  looks permanently empty and the data looks like it never imported. Same trap
+  documented in fye-related-products. Do not "tidy" either file to dots.
+
+  ── MADE TO ORDER IS NOT UNAVAILABLE ──────────────────────────────────────
+
+  Deliberate difference from fye-related-products, which skips products whose
+  `available` is false. This section does NOT, because a made-to-order band is
+  still THE band for this ring; hiding it would leave the pairing invisible
+  for the sake of a stock flag that does not mean out of stock here. An
+  unavailable band shows "Made to order" in place of the price and still links
+  to its page, which is where the enquiry route lives.
+
+  ── DIRECTION IS A SETTING, NOT A DETECTION ───────────────────────────────
+
+  The import mirrors this relationship, so the band's own page shows the ring
+  it belongs to — and "The matching band" is wrong wording there. The heading,
+  note and link label are therefore per-template settings.
+
+  It is NOT derived from product.type in Liquid. Per the brief: type is
+  unreliable across this catalogue and has caused exactly this class of bug
+  before. product.gemset.json (the eternity templates, where the bands live)
+  carries the reversed wording.
+
+  ── WHAT RENDERS NOTHING ──────────────────────────────────────────────────
+
+  No entries, every entry nil or self-referential → no heading, no shell, no
+  markup at all. 1,958 products have no band. product_reference keeps pointing
+  at deleted products, so the nil guard is load-bearing.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign p = product
+
+  assign ns = 'shopify--discovery--product_recommendation'
+  assign bands = p.metafields[ns]['complementary_products'].value
+
+  comment
+    Collect handles rather than drops, so the render loop can re-resolve them
+    and a nil entry cannot reach the card. Self-references are dropped: the
+    mirror step in W918 should prevent them, but a product pointing at itself
+    would render a ring paired with itself.
+  endcomment
+  assign picks = ''
+  assign found = 0
+
+  if bands != blank
+    for item in bands
+      if found >= s.count
+        break
+      endif
+      unless item == blank or item.handle == p.handle
+        assign picks = picks | append: item.handle | append: ','
+        assign found = found | plus: 1
+      endunless
+    endfor
+  endif
+
+  assign handles = picks | split: ','
+
+  comment
+    The paired image — this ring beside the band — is what makes the block read
+    as a pair. It only makes sense for a single band: repeating the same ring
+    image down a list of three would say nothing and cost three renders.
+  endcomment
+  assign pair_media = false
+  if s.show_pair and handles.size == 1 and p.featured_image != blank
+    assign pair_media = true
+  endif
+-%}
+
+{%- if handles.size > 0 -%}
+  <section class="band band--{{ s.ground }} mband" data-screen-label="Matching band">
+    <div class="wrap">
+      {%- render 'sect-head',
+            show: true,
+            eyebrow: s.eyebrow,
+            heading: s.heading,
+            intro: s.note,
+            align: s.align,
+            flank: s.flank -%}
+
+      <div class="mband__list">
+        {%- for handle in handles -%}
+          {%- assign item = all_products[handle] -%}
+          {%- if item != blank -%}
+            {%- liquid
+              assign band_alt = item.featured_image.alt | default: item.title
+              assign on_sale = false
+              if item.compare_at_price > item.price
+                assign on_sale = true
+              endif
+            -%}
+            <a class="mband__card" href="{{ item.url }}">
+              <span class="mband__media{% if pair_media %} mband__media--pair{% endif %}">
+                {%- if pair_media -%}
+                  {%- comment -%}
+                    This ring first, the band second — left to right in the
+                    order they are worn, and the order the shopper is thinking
+                    in. aria-hidden: the ring is already the page's subject and
+                    naming it again inside the band's link would mislead.
+                  {%- endcomment -%}
+                  <span class="mband__shot mband__shot--this" aria-hidden="true">
+                    {{ p.featured_image | image_url: width: 700 | image_tag:
+                       loading: 'lazy',
+                       widths: '240,360,480,700',
+                       sizes: '(max-width: 749px) 45vw, 22vw',
+                       alt: '',
+                       class: 'mband__img' }}
+                    <span class="mband__shotlbl">This ring</span>
+                  </span>
+                {%- endif -%}
+
+                <span class="mband__shot">
+                  {%- if item.featured_image != blank -%}
+                    {{ item.featured_image | image_url: width: 700 | image_tag:
+                       loading: 'lazy',
+                       widths: '240,360,480,700',
+                       sizes: '(max-width: 749px) 45vw, 22vw',
+                       alt: band_alt,
+                       class: 'mband__img' }}
+                  {%- else -%}
+                    <span class="mband__ph"></span>
+                  {%- endif -%}
+                  {%- if pair_media -%}
+                    <span class="mband__shotlbl">The band</span>
+                  {%- endif -%}
+                </span>
+              </span>
+
+              <span class="mband__words">
+                {%- if item.type != blank -%}
+                  <span class="mband__type">{{ item.type }}</span>
+                {%- endif -%}
+
+                <span class="mband__name">{{ item.title }}</span>
+
+                <span class="mband__price">
+                  {%- if item.available == false -%}
+                    Made to order
+                  {%- elsif on_sale -%}
+                    {{ item.price | money }}
+                    <s class="mband__was">{{ item.compare_at_price | money }}</s>
+                  {%- elsif item.price_varies -%}
+                    From {{ item.price_min | money }}
+                  {%- else -%}
+                    {{ item.price | money }}
+                  {%- endif -%}
+                </span>
+
+                {%- if s.cta_label != blank -%}
+                  {%- comment -%}
+                    Styled as a button but it is a span inside the card's own
+                    anchor — a nested <a> would be invalid and would give
+                    screen readers two links to the same place. The card is the
+                    link; this is its affordance.
+
+                    NOT an add-to-basket: the band needs its own metal, quality
+                    and finger size chosen, so its product page is the only
+                    honest destination.
+                  {%- endcomment -%}
+                  <span class="btn btn--outline mband__cta">{{ s.cta_label }}</span>
+                {%- endif -%}
+              </span>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+{% stylesheet %}
+/* One wide card per band, stacked. No carousel for three items, and no
+   two-across: a full-width card is what makes this read as a pairing rather
+   than as another grid. */
+.fye .mband__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s5);
+}
+
+.fye .mband .sect-head {
+  margin-bottom: var(--s7);
+}
+
+/* Media beside words. The media column is the larger share because the
+   pairing is the argument — the shopper decides from the two images. */
+.fye .mband__card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: var(--s7);
+  align-items: center;
+  padding: var(--s5);
+  background: var(--white);
+  border: 1px solid var(--line);
+  transition: border-color var(--dur) var(--ease);
+}
+
+.fye .mband__card:hover {
+  border-color: var(--sage);
+}
+
+.fye .mband__media {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--s4);
+}
+
+/* Two shots side by side, in the order the rings are worn. */
+.fye .mband__media--pair {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.fye .mband__shot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+.fye .mband__img,
+.fye .mband__ph {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  background: var(--ivory);
+  transition: transform var(--dur) var(--ease);
+}
+
+.fye .mband__card:hover .mband__img {
+  transform: scale(1.02);
+}
+
+/* Clipped so the hover scale cannot bleed past the square edge. */
+.fye .mband__shot {
+  overflow: hidden;
+}
+
+.fye .mband__shotlbl {
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* The current ring is context, not the offer, so its shot is quieter. */
+.fye .mband__shot--this .mband__img {
+  opacity: 0.82;
+}
+
+.fye .mband__words {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s2);
+}
+
+.fye .mband__type {
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.fye .mband__name {
+  font-size: var(--fs-h5);
+  color: var(--ink);
+  text-wrap: pretty;
+  transition: color var(--dur) var(--ease);
+}
+
+.fye .mband__card:hover .mband__name {
+  color: var(--sage);
+}
+
+.fye .mband__price {
+  font-size: var(--fs-small);
+  color: var(--ink);
+}
+
+.fye .mband__was {
+  margin-inline-start: var(--s2);
+  color: var(--ink-soft);
+}
+
+.fye .mband__cta {
+  margin-top: var(--s3);
+}
+
+@media (max-width: 749px) {
+  /* Media above words. The pair stays side by side within it — shrinking two
+     squares is better than losing the comparison that is the whole point. */
+  .fye .mband__card {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s5);
+    padding: var(--s4);
+  }
+
+  .fye .mband__cta {
+    width: 100%;
+    text-align: center;
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Matching band",
+  "tag": "section",
+  "class": "fye-matching-band",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Reads the product's Search & Discovery complementary products — the band Gemex cuts to sit against this ring. Renders nothing when the product has none. The relationship is mirrored, so a band's own page shows its ring: set the wording per template rather than expecting one heading to work both ways."
+    },
+    {
+      "type": "range",
+      "id": "count",
+      "label": "Maximum to show",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 3,
+      "info": "1,184 products have exactly one; 30 have two or three."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pair",
+      "label": "Show this ring beside the band",
+      "info": "Only when there is a single band — repeating the ring image down a list says nothing.",
+      "default": true
+    },
+
+    { "type": "header", "content": "Wording" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Wear them together" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The matching band" },
+    {
+      "type": "textarea",
+      "id": "note",
+      "label": "Note",
+      "default": "Shaped to sit flush against this ring.",
+      "info": "One line. This is the sentence that makes it a service rather than a cross-sell."
+    },
+    { "type": "text", "id": "cta_label", "label": "Link label", "default": "View the matching band" },
+    {
+      "type": "select",
+      "id": "align",
+      "label": "Alignment",
+      "options": [
+        { "value": "center", "label": "Centred" },
+        { "value": "left", "label": "Left" }
+      ],
+      "default": "center"
+    },
+    { "type": "checkbox", "id": "flank", "label": "Hairlines either side of the heading", "default": true },
+
+    { "type": "header", "content": "Band" },
+    {
+      "type": "select",
+      "id": "ground",
+      "label": "Background",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Champagne ivory" }
+      ],
+      "default": "white",
+      "info": "The related products row above is ivory, so white keeps the two blocks apart."
+    }
+  ],
+  "presets": [{ "name": "Matching band" }]
+}
+{% endschema %}

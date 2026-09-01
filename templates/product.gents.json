@@ -35,10 +35,25 @@
         "link_label": "",
         "link_url": ""
       }
+    },
+    "band": {
+      "type": "fye-matching-band",
+      "settings": {
+        "count": 3,
+        "show_pair": true,
+        "eyebrow": "Wear them together",
+        "heading": "The matching band",
+        "note": "Shaped to sit flush against this ring.",
+        "cta_label": "View the matching band",
+        "align": "center",
+        "flank": true,
+        "ground": "white"
+      }
     }
   },
   "order": [
     "main",
-    "related"
+    "related",
+    "band"
   ]
 }

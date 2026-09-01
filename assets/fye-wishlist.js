@@ -159,9 +159,9 @@
             ? '<img class="wcard__img" src="' + esc(img) + '" alt="" loading="lazy">'
             : '<span class="wcard__img"></span>') +
         (url ? '</a>' : '</span>') +
-        (readOnly ? '' :
-          '<button type="button" class="wcard__drop" data-wish-remove aria-label="Remove ' +
-          esc(title) + '">&times;</button>') +
+        /* The remove control used to be a small cross over the corner of the
+           image. It was there and nobody found it, so it is a labelled button
+           in the row below now — the same word the cart uses. */
         (url
           ? '<a class="wcard__name" href="' + esc(url) + '">' + esc(title) + '</a>'
           : '<span class="wcard__name">' + esc(title) + '</span>') +
@@ -174,6 +174,9 @@
           (variant && variant.available && !readOnly
             ? '<button type="button" class="btn btn--sm" data-wish-add>Add to basket</button>'
             : '') +
+          (readOnly ? '' :
+            '<button type="button" class="wcard__remove" data-wish-remove>Remove' +
+            '<span class="visually-hidden"> ' + esc(title) + '</span></button>') +
         '</div>' +
       '</article>';
   }

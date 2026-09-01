@@ -178,7 +178,28 @@
 }
 .fye .wcard__note::placeholder { color: var(--ink-soft); }
 
-.fye .wcard__actions { display: flex; flex-wrap: wrap; gap: var(--s2); margin-top: var(--s1); }
+.fye .wcard__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s4);
+  margin-top: var(--s1);
+}
+
+/* Underlined text, not a second button: removing is destructive and should
+   not compete with Add to basket for the eye. Matches the cart's Remove. */
+.fye .wcard__remove {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  font-size: var(--fs-fine);
+  color: var(--ink-soft);
+  border-bottom: 1px solid currentColor;
+  line-height: 1.2;
+  cursor: pointer;
+}
+.fye .wcard__remove:hover { color: var(--sage); }
 
 /* ---- foot & empty ------------------------------------------------------ */
 .fye .wish-page__foot {

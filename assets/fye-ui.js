@@ -2691,6 +2691,14 @@
       lines.push('Happy to be emailed: ' + (consent.checked ? 'Yes' : 'No'));
     }
 
+    /* Where they were when they asked. On a guide popup this is the useful
+       part — the same popup opens from the blog, the ring pages and the
+       guides index, and the answer changes what you say back. The title
+       reads better than the path; both go in, because a title can be
+       ambiguous across near-identical pages and a path never is. */
+    lines.push('');
+    lines.push('Sent from: ' + document.title + ' (' + window.location.pathname + ')');
+
     body.value = lines.join('\n');
   });
 

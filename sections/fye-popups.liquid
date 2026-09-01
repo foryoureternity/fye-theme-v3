@@ -203,7 +203,7 @@
               message and the answers folded in. Never remove the value here —
               it is what a visitor with JavaScript off sends.
             {%- endcomment -%}
-            <input type="hidden" name="contact[body]" value="{{ email_line | escape }}" data-fye-popup-body>
+            <input type="hidden" name="contact[body]" value="{{ email_line | escape }} (sent from {{ request.path }})" data-fye-popup-body>
 
             <button class="btn btn--block pop__submit" type="submit">{{ btn_label }}</button>
 

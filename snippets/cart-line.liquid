@@ -11,6 +11,23 @@
     locked    true inside a group — quantity is fixed (Ed, 01/09/2026)
     label     role within a group ("Setting", "Centre diamond") or blank
     set_keys  comma-joined line keys of the whole set, or blank
+    link_key  the property that ties a companion to its ring; hidden from view
+
+  ── WHICH PROPERTIES A SHOPPER SEES ───────────────────────────────────────
+
+  Three kinds reach the basket and only one of them is for reading:
+
+    Engraving, Ring Size, Centre Diamond …   the order. Shown.
+    Ring SKU                                 the machine link. Never shown —
+                                             it is how this line found its
+                                             ring, not information.
+    For ring                                 the ring's title, carried on every
+                                             companion. Useful on an orphaned
+                                             line, redundant inside a group
+                                             whose header already names it.
+    _size_surcharge and anything _-prefixed  Shopify hides these everywhere
+                                             else; the basket must not be the
+                                             one place they surface.
 
   NO JAVASCRIPT IS REQUIRED BY THIS FILE. Quantity and removal are ordinary
   links to /cart/change, which Shopify answers with a redirect back to the
@@ -20,6 +37,7 @@
   eventually tidies up after it.
 {%- endcomment -%}
 {%- liquid
+  assign lk = link_key | default: 'Ring SKU'
   assign qty_down = item.quantity | minus: 1
   assign qty_up = item.quantity | plus: 1
   assign remove_url = routes.cart_change_url | append: '?line=' | append: line | append: '&quantity=0'
@@ -52,16 +70,21 @@
             assign pkey = p.first
             assign pval = p.last
             assign lead = pkey | slice: 0
+
+            assign hide = false
+            if lead == '_'
+              assign hide = true
+            endif
+            if pkey == lk
+              assign hide = true
+            endif
+            if pkey == 'For ring' and label != blank
+              assign hide = true
+            endif
           -%}
-          {%- comment -%}
-            A property whose name begins with an underscore is machine data —
-            the link that ties this line to its ring. Shopify hides those from
-            the customer everywhere else; the basket must not be the one place
-            they surface.
-          {%- endcomment -%}
-          {%- if pval != blank and lead != '_' -%}
+          {%- unless hide or pval == blank -%}
             <li><span class="cart__propkey">{{ pkey }}:</span> {{ pval }}</li>
-          {%- endif -%}
+          {%- endunless -%}
         {%- endfor -%}
       </ul>
     {%- endif -%}

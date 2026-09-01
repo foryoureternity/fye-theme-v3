@@ -21,10 +21,28 @@
   engraving fee. They are separate lines because their prices are independent
   — see docs/build-state.md, 01/09/2026.
 
-  Presented as one block with a combined total, Ed 01/09/2026. The link is a
-  property on each COMPANION line whose value is the SETTING line's SKU; live
-  calls it "Ring SKU". It is named ONCE, below, so the day the key changes this
-  file changes in one place.
+  Presented as one block with a combined total, Ed 01/09/2026.
+
+  THE LINK IS `Ring SKU`, and it already exists. Verified 01/09/2026 by reading
+  addOnLines() in assets/fye-ui.js, which tags every companion line:
+
+      var tag = { 'For ring': ring.title, 'Ring SKU': ring.sku || '' };
+
+  So the value is the SETTING line's variant SKU and this page needs no change
+  to fye-ui.js to group. The key is named ONCE below. Live uses the same key,
+  which is where v3 took it from — do not "tidy" it to an underscore-prefixed
+  name without changing addOnLines() in the same commit.
+
+  A ring variant with no SKU tags its companions with an empty string. Those
+  companions simply do not group and render as ordinary lines, which is the
+  right failure: visible, and priced correctly.
+
+  ── ONE SETTING CLAIMS A SKU ONCE ─────────────────────────────────────────
+
+  Two of the same setting in one basket share a SKU, so a naive match would
+  hang the same stones under both and count them twice in both combined
+  totals. The first setting claims the SKU; a second identical setting renders
+  as an ordinary line. Live has this bug; it is cheap to not have.
 
   Quantity inside a group is fixed (Ed): these are one-off rings, and a set
   whose five lines could drift out of step with each other is a fulfilment
@@ -64,9 +82,10 @@
   assign band = s.band | default: 'white'
 
   comment
-    THE LINK PROPERTY. One assign, one place to change.
+    THE LINK PROPERTY. One assign, one place to change. Must stay in step with
+    addOnLines() in assets/fye-ui.js.
   endcomment
-  assign link_key = '_Ring'
+  assign link_key = 'Ring SKU'
 
   comment
     Every link value in the basket, delimited on BOTH sides so a lookup cannot
@@ -79,6 +98,12 @@
       assign links = links | append: '|' | append: lv | append: '|'
     endif
   endfor
+
+  comment
+    SKUs already grouped, so a second identical setting cannot claim the same
+    companions. See the header.
+  endcomment
+  assign claimed = ''
 -%}
 
 <section class="fye-cart band band--{{ band }}"
@@ -117,7 +142,15 @@
                 if is_companion == false and item.sku != blank
                   assign needle = '|' | append: item.sku | append: '|'
                   if links contains needle
-                    assign is_parent = true
+                    if claimed contains needle
+                      comment
+                        A second setting with the same SKU. Its companions are
+                        already shown under the first, so this renders plain.
+                      endcomment
+                    else
+                      assign is_parent = true
+                      assign claimed = claimed | append: needle
+                    endif
                   endif
                 endif
               -%}
@@ -126,7 +159,8 @@
                 Companions render inside their setting's group, never on their
                 own. A companion whose setting is no longer in the basket falls
                 through to the standalone branch below, so an orphan is visible
-                rather than silently missing.
+                rather than silently missing — and its "For ring" property then
+                shows, which is exactly when that property earns its place.
               {%- endcomment -%}
               {%- if is_companion -%}
                 {%- assign orphan = true -%}
@@ -160,7 +194,8 @@
                         line: forloop.index,
                         locked: true,
                         label: 'Setting',
-                        set_keys: set_keys -%}
+                        set_keys: set_keys,
+                        link_key: link_key -%}
 
                   {%- for c in cart.items -%}
                     {%- if c.properties[link_key] == item.sku -%}
@@ -181,7 +216,8 @@
                             line: forloop.index,
                             locked: true,
                             label: clabel,
-                            set_keys: set_keys -%}
+                            set_keys: set_keys,
+                            link_key: link_key -%}
                     {%- endif -%}
                   {%- endfor -%}
 
@@ -197,7 +233,8 @@
                         line: forloop.index,
                         locked: false,
                         label: '',
-                        set_keys: '' -%}
+                        set_keys: '',
+                        link_key: link_key -%}
                 </li>
               {%- endif -%}
             {%- endfor -%}

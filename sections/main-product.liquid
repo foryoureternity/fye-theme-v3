@@ -86,14 +86,21 @@
 
   ── THE CARAT STEPPER ─────────────────────────────────────────────────────
 
-  Added 01/09/2026, W916. `fye-carat-stepper` renders the next weight up and
-  down within this ring's design family.
+  Added 01/09/2026, W916; moved 01/09/2026. `fye-carat-stepper` renders the
+  next model up and down within this ring's design family.
 
-  It is a SNIPPET INSIDE THE BUY BOX, not a section, for two reasons: the
-  brief requires it beneath the metal and quality selectors and above the
-  price, which a section cannot reach; and it is a choice about the ring
-  itself, the same class of decision as metal — not merchandising like the
-  rows below.
+  IT SITS BELOW THE WISHLIST BUTTON, at the foot of the buy box — Ed. The
+  first build put it between the metal selector and the stone choosers, on the
+  reasoning that it is a choice about the ring. On the page it read as a third
+  variant control competing with metal and quality, and it pushed the stone
+  choosers below the fold. At the foot it reads as what it is: a way out of
+  this page to a neighbouring one.
+
+  It is rendered ONCE, outside the <form> and outside the plain/set branch,
+  because it is a set of plain links that must post nothing and it applies to
+  every ring type equally. Plain wedding rings are Hockley Mint and carry no
+  fye.family today, so it renders nothing for them — the planned rule-based
+  family pass for those will need no theme change.
 
   Its CSS lives in this stylesheet rather than core because this is its only
   consumer (conventions §2), and a snippet cannot carry a {% stylesheet %}
@@ -451,39 +458,25 @@
           </script>
 
           {%- if is_plain -%}
-          {%- if p.has_only_default_variant == false -%}
-            {%- for option in p.options_with_values -%}
-              <div class="pdp__field">
-                <label class="pdp__label" for="pdp-opt-{{ forloop.index }}">
-                  {{ option.name }}
-                  {%- if option.name == 'Ring Size' and s.size_guide_url != blank -%}
-                    <a class="pdp__sizelink" href="{{ s.size_guide_url }}">Find my size</a>
-                  {%- endif -%}
-                </label>
-                <select class="pdp__select" id="pdp-opt-{{ forloop.index }}" name="options[{{ option.name | escape }}]" data-fye-option>
-                  {%- for value in option.values -%}
-                    <option value="{{ value | escape }}"{% if option.selected_value == value %} selected{% endif %}>{{ value }}</option>
-                  {%- endfor -%}
-                </select>
-              </div>
-            {%- endfor -%}
-          {%- endif -%}
-
-            {%- comment -%}
-              Plain wedding rings are Hockley Mint and carry no fye.family
-              today, so this renders nothing — it is here so the rule-based
-              family pass planned for them needs no theme change.
-            {%- endcomment -%}
-            {%- render 'fye-carat-stepper', product: p, scale: s.carat_scale -%}
+            {%- if p.has_only_default_variant == false -%}
+              {%- for option in p.options_with_values -%}
+                <div class="pdp__field">
+                  <label class="pdp__label" for="pdp-opt-{{ forloop.index }}">
+                    {{ option.name }}
+                    {%- if option.name == 'Ring Size' and s.size_guide_url != blank -%}
+                      <a class="pdp__sizelink" href="{{ s.size_guide_url }}">Find my size</a>
+                    {%- endif -%}
+                  </label>
+                  <select class="pdp__select" id="pdp-opt-{{ forloop.index }}" name="options[{{ option.name | escape }}]" data-fye-option>
+                    {%- for value in option.values -%}
+                      <option value="{{ value | escape }}"{% if option.selected_value == value %} selected{% endif %}>{{ value }}</option>
+                    {%- endfor -%}
+                  </select>
+                </div>
+              {%- endfor -%}
+            {%- endif -%}
           {%- else -%}
             {%- render 'fye-buybox-eternity', product: p, settings: s, current: current -%}
-
-            {%- comment -%}
-              Directly beneath metal and quality: stepping to another carat is
-              a choice about the ring itself, so it sits with the other two
-              rather than with the add-ons below.
-            {%- endcomment -%}
-            {%- render 'fye-carat-stepper', product: p, scale: s.carat_scale -%}
 
             {%- comment -%}
               The choosers. AFTER the ordinary buy box, because the metal and
@@ -559,6 +552,14 @@
         {%- endif -%}
 
         {%- render 'fye-wishlist-button', product: p -%}
+
+        {%- comment -%}
+          The carat stepper, at the foot of the buy box — Ed, 01/09/2026.
+          Deliberately OUTSIDE the form: these are plain links and must post
+          nothing. Rendered once for every ring type; it produces no markup
+          for a ring that is not in a design family.
+        {%- endcomment -%}
+        {%- render 'fye-carat-stepper', product: p, scale: s.carat_scale -%}
 
         {%- if s.reassurance != blank -%}
           <p class="pdp__reassure fine">{{ s.reassurance }}</p>
@@ -779,19 +780,29 @@
 }
 
 /* --- carat stepper -------------------------------------------------------
-   Three explicit columns — smaller, current, larger. The columns are ASSIGNED
-   rather than auto-placed so a ring at the bottom of its ladder still has its
-   "larger" control on the right: the acceptance criterion is that the two do
-   not move between pages as the shopper steps up. Auto-placement would slide
-   the survivor into column one. */
+   Two explicit columns — down on the left, up on the right. The columns are
+   ASSIGNED rather than auto-placed so a ring at the bottom of its ladder
+   still has its "up" control on the right: the acceptance criterion is that
+   the pair does not move between pages as the shopper steps. Auto-placement
+   would slide the survivor into column one.
+
+   It sits at the foot of the buy box, so a hairline above separates it from
+   the wishlist button — it is navigation away from this page, not another
+   thing to buy on it. */
+
+.fye .cstep {
+  padding-top: var(--s5);
+  border-top: var(--hairline);
+}
 
 .fye .cstep__row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--s3);
   align-items: stretch;
 }
 
+/* Words then arrow, matching the supplier's control — Ed, 01/09/2026. */
 .fye .cstep__opt {
   display: flex;
   align-items: center;
@@ -807,24 +818,19 @@
   border-color: var(--sage);
 }
 
-/* Each control keeps its own column, and its arrow sits on the OUTER edge, so
-   the pair points away from the current weight between them. row-reverse
-   rather than a second markup order — one snippet output, mirrored. */
 .fye .cstep__opt--down {
   grid-column: 1;
 }
 
 .fye .cstep__opt--up {
-  grid-column: 3;
-  flex-direction: row-reverse;
+  grid-column: 2;
 }
 
-/* Vertical arrows, per Ed 01/09/2026: a carat ladder is a scale, so larger is
-   up whichever side the control is on. They also stay clear of the browser's
-   own back/forward sense, which left/right would borrow — and every one of
-   these controls is a real page navigation. */
+/* Pinned to the trailing edge, so both arrows line up however long the words
+   run and whether or not a carat is known. */
 .fye .cstep__opt .icon {
   flex: 0 0 auto;
+  margin-inline-start: auto;
   color: var(--ink-soft);
   transition: color var(--dur) var(--ease);
 }
@@ -840,20 +846,13 @@
   min-width: 0;
 }
 
-.fye .cstep__opt--down .cstep__txt {
-  align-items: flex-start;
-}
-
-.fye .cstep__opt--up .cstep__txt {
-  align-items: flex-end;
-}
-
 .fye .cstep__dir {
   font-size: var(--fs-eyebrow);
   font-weight: var(--fw-medium);
   letter-spacing: var(--tr-eyebrow);
   text-transform: uppercase;
   color: var(--ink-soft);
+  text-wrap: pretty;
 }
 
 .fye .cstep__opt:hover .cstep__dir {
@@ -863,15 +862,6 @@
 .fye .cstep__ct {
   font-size: var(--fs-small);
   font-weight: var(--fw-medium);
-  color: var(--ink);
-}
-
-/* Where the shopper is standing. Static text, never a link. */
-.fye .cstep__now {
-  grid-column: 2;
-  align-self: center;
-  padding-inline: var(--s2);
-  font-size: var(--fs-small);
   color: var(--ink);
 }
 
@@ -1589,16 +1579,17 @@
     margin-bottom: var(--s4);
   }
 
-  /* The stepper keeps all three columns — two tiles and the current weight
-     still fit, and dropping the middle would lose the shopper's place. The
-     padding and the gap between arrow and words give way instead. */
+  /* One control per row. "Next size model down" over two lines beside an
+     arrow leaves about 90px for the words at this width, which breaks the
+     phrase across three lines and makes the two tiles different heights. */
   .fye .cstep__row {
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--s2);
   }
 
-  .fye .cstep__opt {
-    gap: var(--s2);
-    padding-inline: var(--s3);
+  .fye .cstep__opt--down,
+  .fye .cstep__opt--up {
+    grid-column: 1;
   }
 
   .fye .pdp__colours {
@@ -1676,7 +1667,7 @@
     { "type": "header", "content": "Carat stepper" },
     {
       "type": "paragraph",
-      "content": "Steps to the next weight up or down within the ring's design family (fye.family). Renders nothing for a ring that is not in a family. Eternity families ladder by total diamond weight rather than a centre stone, so those templates say \"Diamond weight\"."
+      "content": "Sits under the wishlist button and steps to the next model up or down within the ring's design family (fye.family). Renders nothing for a ring that is not in a family. Eternity families ladder by total diamond weight rather than a centre stone, so those templates say \"Diamond weight\"."
     },
     {
       "type": "text",

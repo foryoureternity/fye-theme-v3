@@ -1,14 +1,33 @@
 {%- comment -%}
-  fye-carat-stepper — step to the next carat up or down in this design family.
+  fye-carat-stepper — step to the next model up or down in this design family.
 
-  Built 01/09/2026, W916. Rendered INSIDE the buy box by main-product, not as
-  a section: this is a size selector for a choice the shopper has already
-  made, so it belongs with metal and quality, not with the merchandising rows
-  below.
+  Built 01/09/2026, W916. Revised the same day: moved BELOW the wishlist
+  button and reworded to match the supplier's own control — Ed.
 
-  NOT "ring size". FYE rings already have a finger-size option (A to Z+6) and
-  two scales called the same thing on one page would confuse shoppers and
-  staff alike. The words used here are CARAT and CENTRE STONE, never "size".
+  ── WHERE IT SITS ─────────────────────────────────────────────────────────
+
+  Under the wishlist button, at the foot of the buy box. The first build put
+  it between the metal selector and the stone choosers, on the reasoning that
+  it is a choice about the ring; on the page that read as a third variant
+  control competing with metal and quality, and it pushed the choosers below
+  the fold. Ed moved it. It is now the last thing in the column: a way OUT of
+  this page to a neighbouring one, which is what it actually is.
+
+  Being outside the <form> is correct and deliberate — these are plain links,
+  never inputs, and they must not post anything.
+
+  ── WORDING ───────────────────────────────────────────────────────────────
+
+  "Next size model up" / "Next size model down", the supplier's phrasing, so
+  the site and the trade paperwork say the same thing — Ed, 01/09/2026.
+
+  Note for anyone reading W916: the brief says never to use the word "size"
+  unqualified, because FYE rings already have a FINGER size (A to Z+6) and two
+  scales sharing a name confuses shoppers and staff. Ed's wording is a
+  deliberate override of his own rule in favour of supplier consistency. The
+  heading above the row still names the scale ("Centre stone" / "Diamond
+  weight") and every control still carries its carat, which is what keeps the
+  two apart.
 
   ── THE DATA ──────────────────────────────────────────────────────────────
 
@@ -30,6 +49,11 @@
   ladders like 0.33 -> 0.95 -> 1.2 -> 0.9, which is neither ascending nor
   true. family_carat is written from the same Gemex figure the import sorted
   the ladder by, so the label and the order cannot disagree.
+
+  A MISSING family_carat IS NOT AN ERROR HERE. The control keeps its direction
+  and drops its weight, so a ring whose ladder has landed but whose weights
+  have not still steps correctly. See fye-carat-label for why zero counts as
+  missing.
 
   ── WHAT RENDERS ──────────────────────────────────────────────────────────
 
@@ -53,27 +77,22 @@
   ── TIES ──────────────────────────────────────────────────────────────────
 
   336 families hold two members at the same carat; the import breaks ties by
-  model code so the order is stable, but "Larger 1ct" on a ring that is itself
-  1ct reads as a bug. Where the neighbour's carat equals the current one the
-  control says "Another option" instead of a direction — same shape, so the
-  row does not shift. Its arrow is dropped too: there is no direction to point
-  in when the weight is identical.
+  model code so the order is stable, but "up" to an identical weight reads as
+  a bug. Where the neighbour's carat equals the current one the control says
+  "Another model" and drops its arrow — there is no direction to point in when
+  the weights match.
 
-  ── ARROWS, NOT CHEVRONS ──────────────────────────────────────────────────
+  ── ARROWS ────────────────────────────────────────────────────────────────
 
-  Ed, 01/09/2026. UP AND DOWN rather than left and right, because a carat
-  ladder is a scale rather than a sequence: "larger" is up whichever side of
-  the row the control happens to sit on. Left/right would also collide with
-  the browser's own back/forward sense, and every one of these controls is a
-  real page navigation.
+  UP AND DOWN, after the words — Ed, 01/09/2026, matching the supplier. A
+  carat ladder is a scale rather than a sequence, so "up" holds whichever side
+  of the row the control sits on; left and right would also borrow the
+  browser's back/forward sense, and every one of these is a real navigation.
 
-  They come from the icon snippet (`arrow-up` / `arrow-down`, added to it in
-  the same change) rather than inline SVG or a Unicode glyph — the brand
-  permits only two glyphs, `›` and the middot, and the theme already has one
-  icon system that owns stroke weight and caps.
-
-  Each arrow sits on the OUTER edge of its control, so the pair points away
-  from the current weight in the middle.
+  They come from the icon snippet (`arrow-up` / `arrow-down`) rather than
+  inline SVG or a Unicode glyph — the brand permits only two glyphs, `›` and
+  the middot, and the theme already has one icon system that owns stroke
+  weight and caps.
 
   Parameters:
     product — required
@@ -140,7 +159,8 @@
     assign large_ct = large_ct | strip
 
     comment
-      A neighbour at the same weight is not "smaller" or "larger".
+      A neighbour at the same weight is not up or down. Only a tie between two
+      KNOWN weights counts — two blanks are not evidence of anything.
     endcomment
     assign small_tied = false
     if small_ct != blank and small_ct == now_ct
@@ -164,64 +184,56 @@
       {%- if smaller != nil -%}
         {%- liquid
           if small_tied
-            assign small_dir = 'Another option'
+            assign small_dir = 'Another model'
             assign small_aria = 'Another ' | append: scale_words | append: ' at ' | append: small_ct | append: ' carat'
           elsif small_ct == blank
-            assign small_dir = 'Smaller'
-            assign small_aria = 'Smaller ' | append: scale_words
+            assign small_dir = 'Next size model down'
+            assign small_aria = 'Next size model down'
           else
-            assign small_dir = 'Smaller'
-            assign small_aria = 'Smaller ' | append: scale_words | append: ', ' | append: small_ct | append: ' carat'
+            assign small_dir = 'Next size model down'
+            assign small_aria = 'Next size model down, ' | append: small_ct | append: ' carat ' | append: scale_words
           endif
         -%}
         <a class="cstep__opt cstep__opt--down"
            href="{{ smaller.url }}"
            aria-label="{{ small_aria | escape }}">
-          {%- unless small_tied -%}
-            {%- render 'icon', name: 'arrow-down', size: 16 -%}
-          {%- endunless -%}
           <span class="cstep__txt">
             <span class="cstep__dir">{{ small_dir }}</span>
             {%- if small_ct != blank -%}
               <span class="cstep__ct">{{ small_ct }}ct</span>
             {%- endif -%}
           </span>
+          {%- unless small_tied -%}
+            {%- render 'icon', name: 'arrow-down', size: 16 -%}
+          {%- endunless -%}
         </a>
-      {%- endif -%}
-
-      {%- comment -%}
-        The current weight, between the two. Static text, never a link — a
-        control that returns you to the page you are on is noise.
-      {%- endcomment -%}
-      {%- if now_ct != blank -%}
-        <span class="cstep__now" aria-hidden="true">{{ now_ct }}ct</span>
       {%- endif -%}
 
       {%- if larger != nil -%}
         {%- liquid
           if large_tied
-            assign large_dir = 'Another option'
+            assign large_dir = 'Another model'
             assign large_aria = 'Another ' | append: scale_words | append: ' at ' | append: large_ct | append: ' carat'
           elsif large_ct == blank
-            assign large_dir = 'Larger'
-            assign large_aria = 'Larger ' | append: scale_words
+            assign large_dir = 'Next size model up'
+            assign large_aria = 'Next size model up'
           else
-            assign large_dir = 'Larger'
-            assign large_aria = 'Larger ' | append: scale_words | append: ', ' | append: large_ct | append: ' carat'
+            assign large_dir = 'Next size model up'
+            assign large_aria = 'Next size model up, ' | append: large_ct | append: ' carat ' | append: scale_words
           endif
         -%}
         <a class="cstep__opt cstep__opt--up"
            href="{{ larger.url }}"
            aria-label="{{ large_aria | escape }}">
-          {%- unless large_tied -%}
-            {%- render 'icon', name: 'arrow-up', size: 16 -%}
-          {%- endunless -%}
           <span class="cstep__txt">
             <span class="cstep__dir">{{ large_dir }}</span>
             {%- if large_ct != blank -%}
               <span class="cstep__ct">{{ large_ct }}ct</span>
             {%- endif -%}
           </span>
+          {%- unless large_tied -%}
+            {%- render 'icon', name: 'arrow-up', size: 16 -%}
+          {%- endunless -%}
         </a>
       {%- endif -%}
     </div>

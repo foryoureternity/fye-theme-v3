@@ -17,16 +17,24 @@
   anything else is rounded to two places, which Ruby already renders without
   trailing zeros.
 
+  ZERO AND NIL BOTH RENDER NOTHING. Added 01/09/2026 after the stepper showed
+  "0ct" on every control: `nil == blank` is true in Liquid but `0 == blank` is
+  FALSE, so an unwritten or zeroed metafield printed a real-looking weight. No
+  ring weighs nothing, so zero can only mean missing data — and a wrong number
+  is worse than no number, because the shopper cannot tell it is wrong.
+
+  Callers therefore test the captured string for emptiness rather than
+  repeating this guard.
+
   Parameters:
-    value — a number. Blank or non-numeric renders nothing, so the caller can
-            test the captured string for emptiness rather than duplicating
-            this guard.
+    value — a number
 {%- endcomment -%}
 {%- liquid
   assign n = value | plus: 0
   assign whole = n | floor
 -%}
 {%- if value == blank -%}
+{%- elsif n <= 0 -%}
 {%- elsif n == whole -%}{{ whole }}
 {%- else -%}{{ n | round: 2 }}
 {%- endif -%}

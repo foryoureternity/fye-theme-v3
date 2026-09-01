@@ -1,0 +1,383 @@
+{%- comment -%}
+  fye-contact — the contact page. 1 use: page.contact (handle contact-us).
+
+  PORTED FROM LIVE'S `fye-contact`, which wrapped a SHOPIFY FORMS APP BLOCK
+  (form id 1113897) on the app's factory colours — #202020 text, #1878B9
+  links, black button. That app block is not carried over: the popups built on
+  01/09/2026 use Shopify's own contact form, and a page that submits
+  differently from every popup on the site is a second system to maintain.
+
+  Setting IDs kept from live so nothing has to be re-entered:
+    photo, photo_alt, eyebrow, heading, heading_tag, intro, panel_heading,
+    phone_label, phone_display, phone_tel, wa_label, wa_display, wa_number,
+    wa_chip_label, email_label, email, appt_label, appt_url,
+    instagram_url, linkedin_url, trustpilot_url
+
+  Dropped (Shopify ignores settings a schema no longer declares):
+    klaviyo_form_id      no Klaviyo (Ed, 01/09/2026)
+    callback_label, callback_url   live's "request call back" opened a second
+      modal. One enquiry route is enough, and this form asks for a phone
+      number — say so if a dedicated callback is genuinely wanted.
+
+  THE EMAIL BODY IS COMPOSED BY THE POPUP SCRIPT, DELIBERATELY.
+  This section carries `data-fye-popup-panel` and `data-fye-popup-label` even
+  though it is not a popup, because the composer in fye-ui.js is scoped to
+  those attributes. That gives the contact page the same readable enquiry email
+  as every popup — first line naming the source, then the message, the journey
+  answer, the consent answer and the page. Without it the email would be worse
+  here than in a popup, for no reason. The dialog-only paths in that script are
+  inert on a plain element.
+
+  Field names match the popups exactly, so every enquiry from the site reads
+  the same in the inbox whichever route it came in by.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'ivory'
+  assign tag = s.heading_tag | default: 'h2'
+  assign journey_list = s.journey_options | split: ','
+  assign has_panel = false
+  if s.phone_display != blank or s.email != blank or s.wa_display != blank or s.appt_url != blank
+    assign has_panel = true
+  endif
+  assign has_social = false
+  if s.instagram_url != blank or s.linkedin_url != blank or s.trustpilot_url != blank
+    assign has_social = true
+  endif
+-%}
+
+<section class="fcon band band--{{ band }}" data-screen-label="Contact"
+         data-fye-popup-panel="contact-page"
+         data-fye-popup-label="Contact page enquiry">
+  <div class="wrap fcon__grid">
+
+    <div class="fcon__main">
+      {%- if s.eyebrow != blank -%}
+        <p class="eyebrow">{{ s.eyebrow }}</p>
+      {%- endif -%}
+      {%- if s.heading != blank -%}
+        <{{ tag }} class="fcon__heading">{{ s.heading }}</{{ tag }}>
+      {%- endif -%}
+      {%- if s.intro != blank -%}
+        <div class="lead fcon__intro">{{ s.intro }}</div>
+      {%- endif -%}
+
+      {%- form 'contact', class: 'fcon__form' -%}
+
+        {%- if form.posted_successfully? -%}
+          <div class="fcon__done panel" data-fye-popup-done>
+            <h3 class="fcon__done-head">{{ s.success_heading | default: 'Thank you' }}</h3>
+            <div>{{ s.success_body | default: '<p>We have your message and will come back to you personally, usually within one working day.</p>' }}</div>
+          </div>
+        {%- else -%}
+
+          {%- if form.errors -%}
+            <div class="fcon__errors" role="alert">
+              <p>{{ form.errors | default_errors }}</p>
+            </div>
+          {%- endif -%}
+
+          <div class="fcon__pair">
+            <div class="fcon__field">
+              <label for="fcon-first">First name</label>
+              <input id="fcon-first" type="text" name="contact[First name]" autocomplete="given-name" placeholder="First name">
+            </div>
+            <div class="fcon__field">
+              <label for="fcon-last">Last name</label>
+              <input id="fcon-last" type="text" name="contact[Last name]" autocomplete="family-name" placeholder="Last name">
+            </div>
+          </div>
+
+          <div class="fcon__pair">
+            <div class="fcon__field">
+              <label for="fcon-email">Email address</label>
+              <input id="fcon-email" type="email" name="contact[email]" autocomplete="email" placeholder="you@email.com" required>
+            </div>
+            <div class="fcon__field">
+              <label for="fcon-phone">Telephone <span class="fcon__opt">(optional)</span></label>
+              <input id="fcon-phone" type="tel" name="contact[Telephone]" autocomplete="tel" placeholder="For a personal follow-up">
+            </div>
+          </div>
+
+          {%- if s.show_journey and journey_list.size > 0 -%}
+            <div class="fcon__field">
+              <label for="fcon-journey">{{ s.journey_label | default: 'Where you are in your journey' }}</label>
+              <select id="fcon-journey" name="contact[Journey]" data-fye-popup-journey>
+                <option value="">Please choose…</option>
+                {%- for opt in journey_list -%}
+                  {%- assign opt_clean = opt | strip -%}
+                  <option value="{{ opt_clean | escape }}">{{ opt_clean }}</option>
+                {%- endfor -%}
+              </select>
+            </div>
+          {%- endif -%}
+
+          <div class="fcon__field">
+            <label for="fcon-message">{{ s.message_label | default: 'How can we help?' }}</label>
+            <textarea id="fcon-message" name="contact[Message]" rows="6" data-fye-popup-message required
+                      placeholder="{{ s.message_placeholder | default: 'A ring you have seen, a stone you are curious about, a date you are working to…' | escape }}"></textarea>
+          </div>
+
+          <label class="fcon__consent" for="fcon-consent">
+            <input id="fcon-consent" type="checkbox" name="contact[Happy to be emailed]" value="Yes" data-fye-popup-consent>
+            <span>{{ s.consent_text | default: "Yes, I'm happy for For Your Eternity to email me occasional news. I can unsubscribe anytime." }}</span>
+          </label>
+
+          {%- comment -%}
+            Liquid's fallback body, for JavaScript off. fye-ui.js rewrites this
+            on submit with the message and answers folded in — see the note at
+            the top of this file.
+          {%- endcomment -%}
+          <input type="hidden" name="contact[body]" value="Contact page enquiry (sent from {{ request.path }})" data-fye-popup-body>
+
+          <div class="fcon__actions">
+            <button class="btn" type="submit">{{ s.button_label | default: 'Send message' }}</button>
+            {%- if s.reassurance != blank -%}
+              <p class="fine fcon__note">{{ s.reassurance }}</p>
+            {%- endif -%}
+          </div>
+
+        {%- endif -%}
+
+      {%- endform -%}
+    </div>
+
+    <aside class="fcon__side">
+      {%- if s.photo != blank -%}
+        <div class="fcon__photo">
+          {{ s.photo | image_url: width: 900 | image_tag:
+             loading: 'lazy',
+             widths: '380, 560, 760, 900',
+             sizes: '(max-width: 900px) 100vw, 420px',
+             alt: s.photo_alt }}
+        </div>
+      {%- endif -%}
+
+      {%- if has_panel -%}
+        <div class="panel fcon__panel">
+          {%- if s.panel_heading != blank -%}
+            <h3 class="fcon__panel-head">{{ s.panel_heading }}</h3>
+          {%- endif -%}
+
+          <ul class="fcon__rows">
+            {%- if s.phone_display != blank -%}
+              <li class="fcon__row">
+                {%- render 'icon', name: 'phone', size: 20 -%}
+                <span>
+                  <span class="fcon__row-label">{{ s.phone_label | default: 'Office' }}</span>
+                  <a href="tel:{{ s.phone_tel | default: s.phone_display | remove: ' ' }}">{{ s.phone_display }}</a>
+                </span>
+              </li>
+            {%- endif -%}
+
+            {%- if s.wa_display != blank and s.wa_number != blank -%}
+              <li class="fcon__row">
+                {%- render 'icon', name: 'message', size: 20 -%}
+                <span>
+                  <span class="fcon__row-label">{{ s.wa_label | default: 'WhatsApp' }}</span>
+                  <a href="https://wa.me/{{ s.wa_number }}">{{ s.wa_display }}</a>
+                </span>
+              </li>
+            {%- endif -%}
+
+            {%- if s.email != blank -%}
+              <li class="fcon__row">
+                {%- render 'icon', name: 'mail', size: 20 -%}
+                <span>
+                  <span class="fcon__row-label">{{ s.email_label | default: 'Email' }}</span>
+                  <a href="mailto:{{ s.email }}">{{ s.email }}</a>
+                </span>
+              </li>
+            {%- endif -%}
+
+            {%- if s.appt_url != blank -%}
+              <li class="fcon__row">
+                {%- render 'icon', name: 'calendar', size: 20 -%}
+                <span>
+                  <span class="fcon__row-label">{{ s.appt_label | default: 'Book an appointment' }}</span>
+                  <a href="{{ s.appt_url }}">Pick a time</a>
+                </span>
+              </li>
+            {%- endif -%}
+          </ul>
+
+          {%- if s.hours != blank -%}
+            <p class="fine fcon__hours">{{ s.hours }}</p>
+          {%- endif -%}
+
+          {%- if has_social -%}
+            {%- comment -%}
+              Text links, not logos. Brand rule: thin outline line-art only, and
+              a third-party brand mark is neither that nor ours to restyle.
+            {%- endcomment -%}
+            <div class="fcon__social">
+              <span class="fcon__row-label">{{ s.social_heading | default: 'Stay connected' }}</span>
+              <div class="row fcon__social-links">
+                {%- if s.instagram_url != blank -%}<a href="{{ s.instagram_url }}">Instagram</a>{%- endif -%}
+                {%- if s.linkedin_url != blank -%}<a href="{{ s.linkedin_url }}">LinkedIn</a>{%- endif -%}
+                {%- if s.trustpilot_url != blank -%}<a href="{{ s.trustpilot_url }}">Trustpilot</a>{%- endif -%}
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </aside>
+
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .fcon__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: var(--s10);
+  align-items: start;
+}
+
+.fye .fcon__heading { margin-bottom: var(--s4); }
+.fye .fcon__intro { margin-bottom: var(--s8); max-width: 56ch; }
+.fye .fcon__intro :where(p:last-child) { margin-bottom: 0; }
+
+/* ---- form --------------------------------------------------------------- */
+/* Inputs, labels, selects, textareas and the 48px minimum all come from
+   fye-core's form rules. Only the arrangement is here. */
+.fye .fcon__form { display: flex; flex-direction: column; gap: var(--s5); }
+.fye .fcon__field { display: flex; flex-direction: column; }
+.fye .fcon__pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s5); }
+.fye .fcon__opt { font-weight: var(--fw-light); letter-spacing: 0; text-transform: none; }
+
+.fye .fcon__consent {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s3);
+  margin: 0;
+  font-size: var(--fs-small);
+  font-weight: var(--fw-light);
+  letter-spacing: 0;
+  line-height: 1.5;
+  text-transform: none;
+  color: var(--ink-soft);
+}
+.fye .fcon__consent input {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  min-height: 0;
+  margin-top: 2px;
+  accent-color: var(--teal);
+}
+
+.fye .fcon__actions { display: flex; flex-direction: column; align-items: flex-start; gap: var(--s3); }
+.fye .fcon__note { margin: 0; }
+
+.fye .fcon__errors { padding: var(--s3) var(--s4); background: var(--mist); font-size: var(--fs-small); }
+.fye .fcon__errors :where(p) { margin: 0; }
+
+.fye .fcon__done { display: flex; flex-direction: column; gap: var(--s3); }
+.fye .fcon__done-head { font-size: var(--fs-h3); }
+
+/* ---- the side ----------------------------------------------------------- */
+.fye .fcon__side { display: flex; flex-direction: column; gap: var(--s7); }
+.fye .fcon__photo :where(img) { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+
+.fye .fcon__panel { display: flex; flex-direction: column; gap: var(--s5); }
+.fye .fcon__panel-head { font-size: var(--fs-h4); }
+
+.fye .fcon__rows { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--s5); }
+.fye .fcon__row { display: flex; align-items: flex-start; gap: var(--s4); margin: 0; }
+.fye .fcon__row .icon { margin-top: 2px; }
+.fye .fcon__row-label {
+  display: block;
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+/* 44px on a touch target, without pushing the rows apart on desktop. */
+.fye .fcon__row a { display: inline-block; padding-block: var(--s1); }
+
+.fye .fcon__hours { margin: 0; }
+.fye .fcon__social { display: flex; flex-direction: column; gap: var(--s2); }
+.fye .fcon__social-links { gap: var(--s5); }
+.fye .fcon__social-links a { font-size: var(--fs-small); border-bottom: 1px solid currentColor; }
+
+/* ---- reflow ------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .fye .fcon__grid { grid-template-columns: 1fr; gap: var(--s9); }
+  /* The panel first on a phone: someone who wants to phone should not scroll
+     past a whole form to find the number. */
+  .fye .fcon__side { order: -1; }
+  .fye .fcon__photo { display: none; }
+}
+@media (max-width: 560px) {
+  .fye .fcon__pair { grid-template-columns: 1fr; }
+  .fye .fcon__actions { align-items: stretch; }
+  .fye .fcon__note { text-align: center; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Contact",
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "We'd love to hear from you" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Get in touch" },
+    {
+      "type": "select", "id": "heading_tag", "label": "Heading level", "default": "h2",
+      "info": "h2 when the page banner above already carries the h1.",
+      "options": [
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" }
+      ]
+    },
+    { "type": "richtext", "id": "intro", "label": "Introduction" },
+    { "type": "image_picker", "id": "photo", "label": "Photograph" },
+    { "type": "text", "id": "photo_alt", "label": "Photograph description" },
+    { "type": "header", "content": "Form" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Send message" },
+    { "type": "text", "id": "message_label", "label": "Message label", "default": "How can we help?" },
+    { "type": "text", "id": "message_placeholder", "label": "Message placeholder", "default": "A ring you have seen, a stone you are curious about, a date you are working to…" },
+    { "type": "checkbox", "id": "show_journey", "label": "Ask where they are in their journey", "default": true },
+    { "type": "text", "id": "journey_label", "label": "Question label", "default": "Where you are in your journey" },
+    {
+      "type": "textarea", "id": "journey_options", "label": "Answers", "info": "Comma separated.",
+      "default": "Just starting to look, Ready to choose, We have a date in mind, Looking for inspiration"
+    },
+    { "type": "text", "id": "consent_text", "label": "Consent wording", "default": "Yes, I'm happy for For Your Eternity to email me occasional news. I can unsubscribe anytime." },
+    { "type": "text", "id": "reassurance", "label": "Line under the button", "default": "We reply to every message ourselves, usually within one working day." },
+    { "type": "header", "content": "After sending" },
+    { "type": "text", "id": "success_heading", "label": "Heading", "default": "Thank you" },
+    { "type": "richtext", "id": "success_body", "label": "Message" },
+    { "type": "header", "content": "Reach us directly" },
+    { "type": "text", "id": "panel_heading", "label": "Panel heading", "default": "Reach us directly" },
+    { "type": "text", "id": "phone_label", "label": "Phone label", "default": "Office" },
+    { "type": "text", "id": "phone_display", "label": "Phone number" },
+    { "type": "text", "id": "phone_tel", "label": "Phone number, dialled", "info": "International format, e.g. +442081786687." },
+    { "type": "text", "id": "wa_label", "label": "WhatsApp label", "default": "WhatsApp" },
+    { "type": "text", "id": "wa_display", "label": "WhatsApp number" },
+    { "type": "text", "id": "wa_number", "label": "WhatsApp number, dialled", "info": "Digits only, e.g. 447840042922." },
+    { "type": "text", "id": "email_label", "label": "Email label", "default": "Email" },
+    { "type": "text", "id": "email", "label": "Email address" },
+    { "type": "text", "id": "appt_label", "label": "Appointment label", "default": "Book an appointment" },
+    { "type": "url", "id": "appt_url", "label": "Appointment link" },
+    { "type": "text", "id": "hours", "label": "Opening hours" },
+    { "type": "header", "content": "Stay connected" },
+    { "type": "text", "id": "social_heading", "label": "Heading", "default": "Stay connected" },
+    { "type": "url", "id": "instagram_url", "label": "Instagram" },
+    { "type": "url", "id": "linkedin_url", "label": "LinkedIn" },
+    { "type": "url", "id": "trustpilot_url", "label": "Trustpilot" },
+    { "type": "header", "content": "Background" },
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "ivory",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Champagne ivory" },
+        { "value": "mist",  "label": "Mist blue" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Contact" }]
+}
+{% endschema %}

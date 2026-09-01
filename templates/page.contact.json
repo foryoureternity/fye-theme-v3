@@ -1,0 +1,107 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": { "type": "3", "settings": {} },
+        "title": { "type": "1", "settings": { "heading": "Contact us" } }
+      },
+      "block_order": ["crumbs", "title"],
+      "settings": {
+        "image": "shopify://shop_images/page-title-default-background-image.webp",
+        "use_specify_image": true,
+        "overlay": 60,
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false
+      }
+    },
+
+    "contact": {
+      "type": "fye-contact",
+      "name": "Contact",
+      "settings": {
+        "eyebrow": "We'd love to hear from you",
+        "heading": "Get in touch",
+        "heading_tag": "h2",
+        "intro": "<p>Tell us a little about what you are looking for and we will come back to you personally. If you would rather talk it through, the phone and WhatsApp are answered by us, not a call centre.</p>",
+        "photo": "shopify://shop_images/Ring_21.jpg",
+        "photo_alt": "A For Your Eternity ring held for a client",
+        "button_label": "Send message",
+        "message_label": "How can we help?",
+        "message_placeholder": "A ring you have seen, a stone you are curious about, a date you are working to…",
+        "show_journey": true,
+        "journey_label": "Where you are in your journey",
+        "journey_options": "Just starting to look, Ready to choose, We have a date in mind, Looking for inspiration",
+        "reassurance": "We reply to every message ourselves, usually within one working day.",
+        "success_heading": "Thank you",
+        "success_body": "<p>We have your message and will come back to you personally, usually within one working day. If it is urgent, do phone — we would rather talk than keep you waiting.</p>",
+        "panel_heading": "Reach us directly",
+        "phone_label": "Office",
+        "phone_display": "0208 178 6687",
+        "phone_tel": "+442081786687",
+        "wa_label": "WhatsApp",
+        "wa_display": "07840 042 922",
+        "wa_number": "447840042922",
+        "email_label": "Email",
+        "email": "hello@foryoureternity.com",
+        "appt_label": "Book an appointment",
+        "appt_url": "https://calendar.app.google/UKFkGvMLzAYEviqy8",
+        "hours": "Mon–Fri, 9am–6pm",
+        "social_heading": "Stay connected",
+        "instagram_url": "https://www.instagram.com/foryoureternityjewellery/",
+        "linkedin_url": "https://www.linkedin.com/company/for-your-eternity",
+        "trustpilot_url": "https://uk.trustpilot.com/review/foryoureternity.com",
+        "band": "ivory"
+      }
+    },
+
+    "guarantee": {
+      "type": "fye-media-text",
+      "settings": {
+        "band": "mist",
+        "full_bleed": true,
+        "image": "shopify://shop_images/Ring_211_5.png",
+        "image_alt": "Hand wearing a For Your Eternity ring",
+        "placeholder": "Hand with ring",
+        "heading": "The For Your Eternity guarantee",
+        "body": "<ul><li>GIA & IGI certified diamonds</li><li>Ethical, conflict free gemstones & precious metals</li><li>10% discount on your wedding ring for returning customers</li><li>Free insured delivery</li><li>Free cleaning & inspection for life</li><li>Free resizing for one year</li></ul>"
+      }
+    },
+
+    "trust": {
+      "type": "shipping",
+      "name": "Trust strip",
+      "blocks": {
+        "trust_pricing": {
+          "type": "shipping",
+          "settings": { "illustration": "pricing", "text": "<p>Competitive pricing</p>" }
+        },
+        "trust_shipping": {
+          "type": "shipping",
+          "settings": { "illustration": "shipping", "text": "<p>Free, insured shipping</p>" }
+        },
+        "trust_resize": {
+          "type": "shipping",
+          "settings": { "illustration": "resize", "text": "<p>Free resizing for one year</p>" }
+        },
+        "trust_warranty": {
+          "type": "shipping",
+          "settings": { "illustration": "warranty", "text": "<p>Lifetime warranty*</p>" }
+        },
+        "trust_ethical": {
+          "type": "shipping",
+          "settings": { "illustration": "diamond", "text": "<p>Ethically sourced diamonds and materials</p>" }
+        }
+      },
+      "block_order": [
+        "trust_pricing",
+        "trust_shipping",
+        "trust_resize",
+        "trust_warranty",
+        "trust_ethical"
+      ],
+      "settings": { "col_dk": "5", "band": "white" }
+    }
+  },
+  "order": ["heading", "contact", "guarantee", "trust"]
+}

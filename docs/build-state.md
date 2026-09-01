@@ -1205,10 +1205,20 @@ quieter: `<` and `>` raise, `==` just lies.)
 default: 0` matters because a nil size fails BOTH the `> 1` and the `== 0`
 test, and the card then renders with no carousel and no placeholder.
 
+**A range value off the step grid kills the whole template, silently.**
+`overlay` on `heading-template` is `"step": 2`; `"overlay": 45` made Shopify
+refuse `blog.json` and `page.past-pieces.json` outright while every section
+around them synced. It looked exactly like the known "template and section
+change together, expect two passes" behaviour, so the first fix attempt was a
+blank-line nudge, which of course changed nothing. `article.json` was the
+tell: the only one of the three with no `overlay` line, and the only one that
+landed. Now a rule in conventions.md §5.
+
 ## Outstanding
 
-1. **Not yet previewed.** Written and pushed; no page has been looked at, and
-   `fyeSmoke()` has not been run at 1440 / 899 / 748 / 559.
+1. **Reviewed on first preview and signed off by Ed, 01/09/2026** — the
+   gallery and the blog both. `fyeSmoke()` has still NOT been run at
+   1440 / 899 / 748 / 559, and no mobile width has been looked at.
 2. **Two test pieces are live in the gallery data** — `zz-test-entry-delete-me`
    and `test-piece`. They will render on the page. Store data, Ed's call.
 3. **`platinum-sea-turtle-pendant` has no media**, so it renders the "no

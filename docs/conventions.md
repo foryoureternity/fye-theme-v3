@@ -176,6 +176,15 @@ figures for every existing pairing are in `fye-core.css`.
 - No custom-CSS textarea. No custom-HTML box.
 - Every section that can be added freely gets a `presets` entry.
 - Ranges: sensible `step`, always a `unit`.
+- **A range value in a JSON template MUST sit on the step grid.** A `range`
+  with `"step": 2` accepts 44 and rejects 45, and the rejection takes the
+  WHOLE TEMPLATE with it — silently, with the file simply staying at its
+  previous version. `templates/blog.json` and `templates/page.past-pieces.json`
+  were both refused twice on 01/09/2026 for a single `"overlay": 45`, which
+  read exactly like the two-pass template/section ordering problem and is not
+  it. When a template is refused and its sections are present, check every
+  range value against its schema's step before assuming anything about
+  ordering. Same class of fault as a `unit` longer than three characters.
 
 ## 6. JavaScript
 

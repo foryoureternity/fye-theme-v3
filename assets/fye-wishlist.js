@@ -199,10 +199,12 @@
     show(summary, true);
     tools.forEach(function (el) { show(el, !readOnly); });
 
+    /* "item", not "ring" — the site sells loose diamonds today and will sell
+       other jewellery soon. Ed, 01/09/2026. */
+    var noun = list.length === 1 ? ' item' : ' items';
     summary.textContent = readOnly
-      ? 'A list someone shared with you — ' + list.length +
-        (list.length === 1 ? ' ring.' : ' rings.')
-      : list.length + (list.length === 1 ? ' ring saved.' : ' rings saved.');
+      ? 'A list someone shared with you — ' + list.length + noun + '.'
+      : list.length + noun + ' saved.';
 
     Promise.all(list.map(function (it) { return load(it.handle); }))
       .then(function (products) {
@@ -276,7 +278,7 @@
 
     var clear = t.closest('[data-wish-clear]');
     if (clear) {
-      if (window.confirm('Remove every saved ring from this device?')) {
+      if (window.confirm('Remove everything saved on this device?')) {
         store.replace([]);
         render();
       }
@@ -308,7 +310,7 @@
      middle-click behaves like an ordinary link. */
   function paintShare() {
     var url = shareUrl(store.all());
-    var text = 'Rings I have saved at For Your Eternity';
+    var text = 'What I have saved at For Your Eternity';
     var wa = root.querySelector('[data-wish-share="whatsapp"]');
     var em = root.querySelector('[data-wish-share="email"]');
     if (wa) wa.href = 'https://wa.me/?text=' + encodeURIComponent(text + ' — ' + url);

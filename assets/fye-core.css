@@ -1056,3 +1056,20 @@ a.visually-hidden:focus-visible {
    than assumed — the panels stack, and a missing positioning context would
    send the heart to the top of the page. 01/09/2026. */
 .fye .pdp__stage { position: relative; }
+
+
+/* ---- wishlist page: make [hidden] mean hidden — 01/09/2026 -------------
+   The panels declare display:flex and display:grid, and a class rule with a
+   display beats the browser's own [hidden] { display: none }. Without this the
+   empty state sits under a full grid of saved items, which is exactly what it
+   did. !important because the point is to out-rank the layout rules above. */
+.fye .fye-wish [hidden] { display: none !important; }
+
+/* The gallery heart's ground, at a specificity that survives a section
+   stylesheet loading after this file. */
+.fye .pdp__wish-over .wish--lg,
+.fye .pdp__stage .wish--lg {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}

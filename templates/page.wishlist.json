@@ -4,12 +4,12 @@
       "type": "main-wishlist",
       "settings": {
         "eyebrow": "SAVED",
-        "heading": "Your saved rings",
+        "heading": "Your wishlist",
         "share_note": "Your list is saved on this device. Share the link to show someone else — they will see exactly what you saved, stones and all.",
         "enquiry_label": "Ask us about these",
         "enquiry_url": "/pages/contact-us",
         "empty_heading": "Nothing saved yet",
-        "empty_copy": "Tap the heart on any ring and it will appear here, exactly as you configured it.",
+        "empty_copy": "Tap the heart on anything you love and it will appear here, exactly as you set it up.",
         "empty_label": "Start browsing",
         "empty_link": "/collections/engagement-rings",
         "band": "white"

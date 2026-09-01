@@ -169,7 +169,53 @@
     assign is_plain = true
   endif
 
+  comment
+    ── W831: open on the cheapest NATURAL grade ──
+    Shopify's first variant is "D/E VVS", the dearest, so leading with it
+    headlines every ring at its highest price — on live that read as a ~27%
+    overnight rise on the complete trilogies.
+
+    Natural only: a lab-grown opening price would misrepresent rings sold
+    mainly as natural.
+
+    ONLY when the shopper has not chosen for themselves. selected_variant is
+    nil unless ?variant= is in the URL, so deep links, shared links and the
+    back-from-cart journey keep the variant they asked for.
+
+    NOT on plain wedding rings: their variants are ring SIZES, so "cheapest"
+    would open every one of them on size A.
+
+    fye-buybox-eternity reads its selected state from this same variant, so
+    the highlighted tile and the price always describe the same ring.
+  endcomment
   assign current = p.selected_or_first_available_variant
+
+  unless is_plain or p.selected_variant
+    assign cheapest_natural = nil
+
+    for var in p.variants
+      if var.available
+        assign grade = var.title | split: ' / ' | last | downcase
+
+        unless grade contains 'lab'
+          comment
+            Nested rather than `a == nil or b < a.price`: Liquid evaluates
+            `or` RIGHT TO LEFT, so the comparison against a nil variant would
+            run first. This is the same trap documented in the chooser gates.
+          endcomment
+          if cheapest_natural == nil
+            assign cheapest_natural = var
+          elsif var.price < cheapest_natural.price
+            assign cheapest_natural = var
+          endif
+        endunless
+      endif
+    endfor
+
+    if cheapest_natural != nil
+      assign current = cheapest_natural
+    endif
+  endunless
 
   comment
     Breadcrumb collection: the route the shopper actually took, if Shopify

@@ -12,6 +12,11 @@
   Both are variant options — 25 variants on a typical eternity ring — and both
   change the price. Gold COLOUR does not, so it is a line-item property.
 
+  "Diamond Quality" grades the SHOULDER diamonds. It always has. On a trilogy
+  the centre stone and the side pair are separate cart lines with their own
+  prices, so all three choices are independent and nothing is charged twice
+  (Ed, 31/08/2026).
+
   ── EVERYTHING IS A BUTTON. NOTHING NAVIGATES. ────────────────────────────
 
   Copied from live's product-block, which does this correctly:
@@ -25,14 +30,42 @@
     · platinum and palladium set the METAL, and the carat row hides itself.
     · carat tiles set the metal within the golds, keeping colour and quality.
 
-  An earlier pass made these links carrying ?variant= and ?gold=, which worked
-  but reloaded the page on every colour change. Ed: live does it without that.
-  It does, because the state lives in JS and the variant is resolved from
-  metal x quality on the fly. So: buttons, and fye-ui.js keeps the hidden
-  inputs in step.
-
   Both rows render for EVERY metal — the carat row is hidden, not absent, so
   the script can reveal it without a page load.
+
+  ── THE SELECTED STATE COMES FROM `current`, NOT FROM THE OPTIONS ─────────
+
+  Changed 01/09/2026 for W831. It used to read `option.selected_value`, which
+  is Shopify's idea of the current variant. main-product now chooses the
+  opening variant itself — the cheapest natural grade — so this snippet has to
+  read the SAME variant or the highlighted tile and the displayed price would
+  describe different rings.
+
+  ── HIDING THE QUALITY ROW (live's W803) — added 01/09/2026 ───────────────
+
+  On a plain-shouldered solitaire there are no shoulder diamonds, so every
+  natural grade costs exactly the same and the selector asks a question with
+  one answer. Live hides it, and so does this.
+
+  TWO TESTS MUST AGREE, and that is the whole point:
+
+    1. the price never moves across natural grades within a single metal —
+       the ground truth, but on its own it wrongly caught four genuinely
+       diamond-set rings whose prices were flat through a data error;
+    2. the ring is tagged `solitaire` AND `plain shoulders`.
+
+  Tags are matched WHOLE and case-insensitively, never as a substring, so
+  "Halo with Plain Shoulders" does not qualify — that ring has shoulder
+  diamonds and must keep its selector. Substring matching is the specific
+  mistake this guard exists to avoid.
+
+  A single-value option hides on its own merit; no test needed for that.
+
+  **WHEN IT IS HIDDEN THE VALUE STILL POSTS.** fye-ui.js builds a variant
+  title by joining every [data-fye-option] control in DOM order, so removing
+  the select would leave it joining one value against a two-part title and
+  every price would silently stop updating. Hidden means a hidden INPUT in the
+  same position, not an absent control.
 
   ── PROPERTY NAMES ARE A CONTRACT ─────────────────────────────────────────
 
@@ -47,7 +80,7 @@
 
   fye-ui.js builds a variant title by joining every [data-fye-option] control
   in DOM order. Shopify's titles are "Metal / Quality", so the hidden metal
-  input MUST come before the quality select. It shipped after it once and the
+  input MUST come before the quality control. It shipped after it once and the
   price silently stopped updating, because "G Si / 18k Gold" matches nothing.
 
   Parameters: product, settings (the section's), current (chosen variant)
@@ -58,16 +91,32 @@
 
   assign metal_opt = nil
   assign quality_opt = nil
+  assign metal_idx = -1
+  assign quality_idx = -1
   for option in p.options_with_values
     if option.name == 'Metal'
       assign metal_opt = option
+      assign metal_idx = forloop.index0
     elsif option.name contains 'Quality'
       assign quality_opt = option
+      assign quality_idx = forloop.index0
     endif
   endfor
 
+  comment
+    Read the selected state off `current` — the variant main-product actually
+    chose — falling back to Shopify's own idea only if it was not passed.
+  endcomment
   assign metal_now = metal_opt.selected_value
   assign quality_now = quality_opt.selected_value
+  if current != blank
+    if metal_idx >= 0
+      assign metal_now = current.options[metal_idx]
+    endif
+    if quality_idx >= 0
+      assign quality_now = current.options[quality_idx]
+    endif
+  endif
 
   assign is_gold = false
   if metal_now contains 'Gold'
@@ -90,6 +139,69 @@
       break
     endif
   endfor
+
+  comment
+    ── W803: does the quality selector do anything? ──
+    See the header. Two tests must agree, and tags are matched whole.
+  endcomment
+  assign hide_quality = false
+
+  if quality_opt != nil and s.hide_flat_quality
+    if quality_opt.values.size < 2
+      comment
+        One value is not a choice. No further test earns its keep.
+      endcomment
+      assign hide_quality = true
+    else
+      assign tag_solitaire = false
+      assign tag_plain = false
+      for t in p.tags
+        assign tl = t | downcase | strip
+        if tl == 'solitaire'
+          assign tag_solitaire = true
+        elsif tl == 'plain shoulders'
+          assign tag_plain = true
+        endif
+      endfor
+
+      if tag_solitaire and tag_plain
+        comment
+          The price test. Within EACH metal, every natural grade must cost the
+          same. Lab-grown is excluded deliberately: it is priced differently by
+          nature and would make every ring look varied.
+
+          About 125 iterations on a 25-variant ring, once per page.
+        endcomment
+        assign flat = true
+
+        for m in metal_opt.values
+          assign first_price = -1
+
+          for var in p.variants
+            if var.options[metal_idx] == m
+              assign q = var.options[quality_idx] | downcase
+              unless q contains 'lab'
+                if first_price == -1
+                  assign first_price = var.price
+                elsif var.price != first_price
+                  assign flat = false
+                  break
+                endif
+              endunless
+            endif
+          endfor
+
+          unless flat
+            break
+          endunless
+        endfor
+
+        if flat
+          assign hide_quality = true
+        endif
+      endif
+    endif
+  endif
 -%}
 
 {%- if metal_opt != nil -%}
@@ -164,24 +276,38 @@
          data-fye-gold-input
          {% unless is_gold %}disabled{% endunless %}>
 
-  {%- comment -%} MUST precede the quality select. See the header. {%- endcomment -%}
+  {%- comment -%} MUST precede the quality control. See the header. {%- endcomment -%}
   <input type="hidden" value="{{ metal_now | escape }}" data-fye-option data-fye-metal-input>
 {%- endif -%}
 
 {%- if quality_opt != nil -%}
-  <div class="pdp__field">
-    <label class="pdp__label" for="pdp-quality">
-      {{ quality_opt.name }}
-      {%- if s.quality_help_url != blank -%}
-        <a class="pdp__sizelink" href="{{ s.quality_help_url }}">What do these mean?</a>
-      {%- endif -%}
-    </label>
-    <select class="pdp__select" id="pdp-quality" name="options[{{ quality_opt.name | escape }}]" data-fye-option data-fye-quality>
-      {%- for value in quality_opt.values -%}
-        <option value="{{ value | escape }}"{% if quality_now == value %} selected{% endif %}>{{ value }}</option>
-      {%- endfor -%}
-    </select>
-  </div>
+  {%- if hide_quality -%}
+    {%- comment -%}
+      The grade buys nothing on this ring, so the shopper is not asked. The
+      VALUE still has to reach fye-ui.js in DOM order, or the variant title it
+      builds has one part where Shopify has two and the price stops updating —
+      so this is a hidden input, never an omission.
+    {%- endcomment -%}
+    <input type="hidden"
+           name="options[{{ quality_opt.name | escape }}]"
+           value="{{ quality_now | escape }}"
+           data-fye-option
+           data-fye-quality>
+  {%- else -%}
+    <div class="pdp__field">
+      <label class="pdp__label" for="pdp-quality">
+        {{ quality_opt.name }}
+        {%- if s.quality_help_url != blank -%}
+          <a class="pdp__sizelink" href="{{ s.quality_help_url }}">What do these mean?</a>
+        {%- endif -%}
+      </label>
+      <select class="pdp__select" id="pdp-quality" name="options[{{ quality_opt.name | escape }}]" data-fye-option data-fye-quality>
+        {%- for value in quality_opt.values -%}
+          <option value="{{ value | escape }}"{% if quality_now == value %} selected{% endif %}>{{ value }}</option>
+        {%- endfor -%}
+      </select>
+    </div>
+  {%- endif -%}
 {%- endif -%}
 
 {%- if sizes.size > 0 -%}

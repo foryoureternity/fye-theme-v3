@@ -86,7 +86,7 @@
 
     <div class="wish-page__foot" data-wish-tools hidden>
       {%- if s.enquiry_url != blank -%}
-        <a class="btn" href="{{ s.enquiry_url }}" data-wish-enquire>
+        <a class="btn" href="{{ s.enquiry_url }}" data-wish-enquire data-fye-popup="enquire">
           {{ s.enquiry_label | default: 'Ask us about these' }}
         </a>
       {%- endif -%}

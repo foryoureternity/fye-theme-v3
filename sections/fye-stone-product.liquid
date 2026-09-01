@@ -427,7 +427,7 @@
             {%- endif -%}
           {%- endcapture -%}
           <a class="btn btn--outline btn--block"
-             href="{{ s.enquire_link | default: '/pages/contact-us' }}">{{ enquire_text | strip }}</a>
+             href="{{ s.enquire_link | default: '/pages/contact-us' }}" data-fye-popup="enquire">{{ enquire_text | strip }}</a>
 
           {%- comment -%}
             "Set this in a ring" still waits on a destination: a guessed link on

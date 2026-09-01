@@ -96,8 +96,7 @@
             "cover": "shopify://shop_images/ring-care-guide-cover.png",
             "title": "The Ring & Jewellery Care Guide",
             "blurb": "Cleaning, safe storage, claw and setting checks, replating and when to have a ring serviced.",
-            "klaviyo_form_id": "RINGCARE",
-            "file_url": "/pages/ring-and-jewellery-care-guide-download"
+            "klaviyo_form_id": "RINGCARE"
           }
         }
       },

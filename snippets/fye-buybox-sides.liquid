@@ -203,7 +203,7 @@
     {%- if rendered == 0 -%}
       <p class="pdp__hint fine">
         We do not currently hold a matched pair for this ring.
-        <a href="{{ s.enquire_link | default: '/pages/contact-us' }}">Ask us to source one</a>.
+        <a href="{{ s.enquire_link | default: '/pages/contact-us' }}" data-fye-popup="enquire">Ask us to source one</a>.
       </p>
     {%- endif -%}
   </div>

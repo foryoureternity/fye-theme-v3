@@ -607,7 +607,7 @@
         {%- endform -%}
 
         {%- if s.enquire_label != blank -%}
-          <a class="btn btn--outline btn--block" href="{{ s.enquire_link | default: '/pages/contact-us' }}">{{ s.enquire_label }}</a>
+          <a class="btn btn--outline btn--block" href="{{ s.enquire_link | default: '/pages/contact-us' }}" data-fye-popup="enquire">{{ s.enquire_label }}</a>
         {%- endif -%}
 
         {%- comment -%}

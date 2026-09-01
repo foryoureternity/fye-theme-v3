@@ -197,6 +197,28 @@
             "download_label": "Open the guide"
           }
         },
+        "pop_consultation": {
+          "type": "popup",
+          "settings": {
+            "key": "consultation",
+            "email_subject": "Consultation request",
+            "image": "shopify://shop_images/fffg1_1.png",
+            "image_alt": "Ring presented during a consultation",
+            "eyebrow": "For Your Eternity",
+            "heading": "Book a consultation",
+            "intro": "<p>An hour with us, in person, by phone or over video — no obligation and nothing to bring. We will talk through styles, stones and what your budget really buys.</p>",
+            "button_label": "Request a consultation",
+            "show_message": true,
+            "message_label": "Anything you would like us to prepare?",
+            "message_placeholder": "A style you have seen, a stone you are curious about, a date you are working to…",
+            "show_journey": true,
+            "show_consent": true,
+            "reassurance": "Your details are kept private. We will suggest times that suit you.",
+            "success_heading": "Thank you",
+            "success_body": "<p>We will be in touch to arrange a time that suits you. If you would rather pick a slot yourself, <a href=\"https://calendar.app.google/UKFkGvMLzAYEviqy8\">our diary is here</a>.</p>",
+            "no_file_note": ""
+          }
+        },
         "pop_enquire": {
           "type": "popup",
           "settings": {
@@ -227,6 +249,7 @@
         "pop_eternity",
         "pop_stones",
         "pop_care",
+        "pop_consultation",
         "pop_enquire"
       ],
       "settings": {}

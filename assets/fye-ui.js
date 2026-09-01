@@ -2140,7 +2140,15 @@
   }
 
   function fromForm(btn) {
+    /* The gallery heart lives outside the buy-box form, so closest() finds
+       nothing. A product page has exactly one buy box, so falling back to it
+       is unambiguous — and without this the overlay heart would look correct
+       and do nothing at all. */
     var form = btn.closest('form');
+    if (!form) {
+      var island = document.querySelector('form [data-fye-variants]');
+      form = island ? island.closest('form') : null;
+    }
     var box = form && window.FYE.buyBox ? window.FYE.buyBox(form) : null;
     if (!box) return null;
 

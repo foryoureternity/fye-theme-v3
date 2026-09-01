@@ -39,7 +39,7 @@
 -%}
 
 <button type="button"
-        class="wish{% if label == blank %} wish--icon{% endif %}"
+        class="wish{% if label == blank %} wish--icon{% else %} wish--labelled{% endif %}{% if size == 'lg' %} wish--lg{% endif %}"
         data-fye-wish="{{ ctx }}"
         aria-pressed="false"
         {%- if ctx == 'card' %}

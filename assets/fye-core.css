@@ -994,3 +994,61 @@ a.visually-hidden:focus-visible {
   cursor: pointer;
 }
 .fye .pcard__wish .wish:hover { color: var(--sage); }
+
+
+/* ---- wishlist button variants — 01/09/2026 ----------------------------- */
+
+/* Labelled: heart plus words, under Add to bag. Uppercase with the button
+   tracking, because the design system reserves that casing for buttons and
+   this is one. Not a filled button — it must not compete with Add to bag. */
+.fye .wish--labelled {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s2);
+  width: 100%;
+  min-height: 44px;
+  padding: var(--s3) var(--s4);
+  background: none;
+  border: var(--hairline);
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--fs-fine);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-button, 0.2em);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color var(--dur, 220ms) ease, border-color var(--dur, 220ms) ease;
+}
+.fye .wish--labelled:hover { color: var(--sage); border-color: var(--sage); }
+.fye .wish--labelled.is-on { color: var(--ink); border-color: var(--ink); }
+
+/* The large overlay heart on the gallery. Ivory ground so it holds up over a
+   pale ring shot; squared, like everything else in this system. */
+.fye .wish--lg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  background: var(--ivory);
+  border: 0;
+  color: var(--ink);
+  cursor: pointer;
+  transition: color var(--dur, 220ms) ease;
+}
+.fye .wish--lg:hover { color: var(--sage); }
+.fye .wish--lg svg { width: 24px; height: 24px; }
+
+.fye .pdp__wish-over {
+  position: absolute;
+  top: var(--s4);
+  right: var(--s4);
+  z-index: 2;
+}
+
+
+/* The gallery heart is positioned against the stage. Declared here rather
+   than assumed — the panels stack, and a missing positioning context would
+   send the heart to the top of the page. 01/09/2026. */
+.fye .pdp__stage { position: relative; }

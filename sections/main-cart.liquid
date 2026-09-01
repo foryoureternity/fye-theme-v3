@@ -326,16 +326,25 @@
   align-items: start;
 }
 
-.fye .cart__list { list-style: none; margin: 0; padding: 0; }
+/* Every top-level item is a peer — a grouped ring set, or a single line —
+   so they are separated by GAP, not margins. A margin-bottom on .cart__group
+   lost to `.fye .cart__list > li { margin: 0 }`, which carries one more
+   element of specificity, and two ring sets rendered flush together. */
+.fye .cart__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s6);
+}
 .fye .cart__list > li { margin: 0; }
-.fye .cart__row { border-bottom: var(--hairline); }
-.fye .cart__row:first-child { border-top: var(--hairline); }
+.fye .cart__row { border: var(--hairline); background: var(--white); }
 
 /* A group is a single surface: one hairline around the set, none between the
    lines inside it, so the block reads as one purchase rather than four. */
 .fye .cart__group {
   border: var(--hairline);
-  margin-bottom: var(--s6);
   background: var(--white);
 }
 .fye .cart__grouphead {

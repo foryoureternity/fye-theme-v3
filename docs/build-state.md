@@ -1082,3 +1082,25 @@ for real sync — which needs somewhere server-side to store lists (a small
 hosted endpoint, or customer accounts). Both were considered and deferred;
 neither is possible from the storefront alone, because Shopify lets no
 shopper's browser write to metaobjects or customer metafields.
+
+
+## Session close — 01/09/2026
+
+Cart and wishlist both complete and pushed. **Next job: the gallery section and
+the blog.**
+
+`docs/handover-brief.md` is the starting point for the next session — it holds
+the three working channels (Dropbox + terminal for theme code, patch scripts
+for anything over ~50KB, the Shopify MCP for store data), the theme ids, the
+pre-flight that has now caught two pages, and the open items.
+
+### Late fix
+
+The header wishlist badge drew a filled square at zero: `.hdr__count` sets a
+display, which out-ranks the browser's `[hidden]`. Second time that trap has
+bitten in one day — the first was the wishlist empty state. Both are listed in
+the handover brief.
+
+The basket badge never showed it because Liquid omits the element entirely at
+zero. The wishlist count cannot: the server has no idea what is on the device,
+so the element must exist and be hidden.

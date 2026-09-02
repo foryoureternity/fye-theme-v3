@@ -337,6 +337,26 @@
 @media (max-width: 560px) {
   .fye .pop__pair { grid-template-columns: 1fr; }
 }
+
+/* ----------------------------------------------------------------------------
+   TOUCH TARGETS AND MINIMUM TYPE — 02/09/2026, from the first smoke run with
+   a dialog open. Both faults were fixed on the contact page a few hours
+   earlier; the two forms share markup by descent but not CSS, so neither fix
+   travelled.
+   -------------------------------------------------------------------------- */
+
+/* An 18px checkbox is correct — the LABEL is the tap target, so it carries the
+   44px minimum. */
+.fye .pop__consent {
+  min-height: 44px;
+  padding-block: var(--s1);
+}
+
+/* Sentence case inside an uppercase label, so it does not get the 11px
+   micro-label allowance — 12px is the floor for anything read as words. */
+.fye .pop__opt {
+  font-size: 12px;
+}
 {% endstylesheet %}
 
 {% schema %}

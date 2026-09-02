@@ -1,0 +1,66 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": { "type": "3", "settings": {} },
+        "title": { "type": "1", "settings": { "heading": "Search" } }
+      },
+      "block_order": ["crumbs", "title"],
+      "settings": {
+        "ground": "teal",
+        "use_specify_image": false,
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false
+      }
+    },
+
+    "main": {
+      "type": "main-search",
+      "blocks": {
+        "sugg_engagement": {
+          "type": "suggestion",
+          "settings": { "label": "Engagement rings", "url": "shopify://collections/engagement-rings" }
+        },
+        "sugg_wedding": {
+          "type": "suggestion",
+          "settings": { "label": "Wedding rings", "url": "shopify://collections/wedding-rings" }
+        },
+        "sugg_eternity": {
+          "type": "suggestion",
+          "settings": { "label": "Eternity rings", "url": "shopify://collections/eternity-rings" }
+        },
+        "sugg_gallery": {
+          "type": "suggestion",
+          "settings": { "label": "The gallery", "url": "shopify://pages/jewellery-gallery" }
+        },
+        "sugg_contact": {
+          "type": "suggestion",
+          "settings": { "label": "Talk to us", "url": "shopify://pages/contact-us" }
+        }
+      },
+      "block_order": [
+        "sugg_engagement",
+        "sugg_wedding",
+        "sugg_eternity",
+        "sugg_gallery",
+        "sugg_contact"
+      ],
+      "settings": {
+        "field_label": "Search",
+        "placeholder": "Rings, stones, guides…",
+        "button_label": "Search",
+        "limit": 24,
+        "include_reading": true,
+        "reading_heading": "Guides and articles",
+        "col_dk": "4",
+        "col_mb": "2",
+        "none_label": "Nothing found for",
+        "empty_note": "<p>Try a shorter phrase, or tell us what you are looking for and we will find it.</p>",
+        "idle_note": "<p>Search the collections, the loose stones, or any of our guides.</p>",
+        "band": "white"
+      }
+    }
+  },
+  "order": ["heading", "main"]
+}

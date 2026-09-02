@@ -1,0 +1,367 @@
+{%- comment -%}
+  main-search — the search results page. 1 use: search.
+
+  NEW FILE. Live runs T4S's `main-search` here with ~40 settings, of which the
+  only ones that mattered were `limit`, `col_dk`, `col_mb` and the disabled
+  sidebar. Those IDs are kept; the rest (image_ratio, layout_des, btn_*,
+  space_*, the margin/padding sets, enable_listing, use_pagination) are gone —
+  Shopify ignores settings a schema no longer declares, so nothing saved is
+  lost.
+
+  WHY THIS EXISTS AT ALL: v3 had no search template, so the search box in the
+  header — which is on every page of the site — led to an unstyled page.
+
+  PRODUCTS AND READING ARE SEPARATED, deliberately. Shopify returns products,
+  pages and articles in one relevance-ordered list; rendering that as a single
+  grid puts a ring tile next to a care guide. This splits the current page of
+  results into a product grid and a short "guides and articles" list beneath
+  it. The site has ~60 education pages, so a search for "sapphire" should find
+  the sapphire guide as well as sapphire rings.
+
+  A CONSEQUENCE, stated: because the split happens within each page of
+  results, a query with many products can push articles onto page 2. That is
+  the trade for keeping one relevance order rather than running two searches.
+
+  THE PAGER IS THIS SECTION'S THIRD COPY IN THE THEME — main-collection and
+  main-blog each have one. That is now overdue for a move into fye-core.css;
+  it was left local here rather than growing this job into a refactor of two
+  working pages.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'white'
+  assign cols = s.col_dk | plus: 0
+  assign cols_mb = s.col_mb | plus: 0
+  assign per_page = s.limit | plus: 0
+  if per_page < 1
+    assign per_page = 24
+  endif
+
+  comment
+    The types requested. Products always; pages and articles only when the
+    setting is on, because the form has to ask for exactly what the results
+    loop is prepared to render.
+  endcomment
+  assign want_types = 'product'
+  if s.include_reading
+    assign want_types = 'product,page,article'
+  endif
+-%}
+
+<section class="srch band band--{{ band }}" data-screen-label="Search">
+  <div class="wrap">
+
+    <form class="srch__form" action="{{ routes.search_url }}" method="get" role="search">
+      <label class="visually-hidden" for="srch-q">{{ s.field_label | default: 'Search' }}</label>
+      <input id="srch-q" type="search" name="q" value="{{ search.terms | escape }}"
+             placeholder="{{ s.placeholder | default: 'Rings, stones, guides…' | escape }}"
+             autocomplete="off">
+      <input type="hidden" name="type" value="{{ want_types }}">
+      <input type="hidden" name="options[prefix]" value="last">
+      <button class="btn" type="submit">{{ s.button_label | default: 'Search' }}</button>
+    </form>
+
+    {%- if search.performed -%}
+
+      {%- paginate search.results by per_page -%}
+        {%- liquid
+          comment
+            Counted from what is actually on this page, not from
+            search.results_count — that is the total across all types and all
+            pages, so using it for a heading above a grid of 24 states a
+            number the page does not show.
+          endcomment
+          assign product_count = 0
+          for item in search.results
+            if item.object_type == 'product'
+              assign product_count = product_count | plus: 1
+            endif
+          endfor
+          assign reading_count = paginate.page_size | minus: product_count
+        -%}
+
+        <p class="srch__count">
+          {%- if search.results_count == 0 -%}
+            {{ s.none_label | default: 'Nothing found for' }} &ldquo;{{ search.terms }}&rdquo;
+          {%- else -%}
+            {{ search.results_count }}
+            {%- if search.results_count == 1 %} result{% else %} results{% endif %}
+            for &ldquo;{{ search.terms }}&rdquo;
+          {%- endif -%}
+        </p>
+
+        {%- if product_count > 0 -%}
+          <ul class="srch__grid" style="--cols: {{ cols }}; --cols-mb: {{ cols_mb }};">
+            {%- for item in search.results -%}
+              {%- if item.object_type != 'product' -%}{% continue %}{%- endif -%}
+              <li>
+                {%- render 'product-card',
+                      product: item,
+                      loading: 'lazy',
+                      sizes: '(max-width: 560px) 50vw, (max-width: 900px) 33vw, 25vw' -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        {%- if s.include_reading -%}
+          {%- assign has_reading = false -%}
+          {%- for item in search.results -%}
+            {%- if item.object_type == 'page' or item.object_type == 'article' -%}
+              {%- assign has_reading = true -%}
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
+
+          {%- if has_reading -%}
+            <div class="srch__reading">
+              <h2 class="srch__rh">{{ s.reading_heading | default: 'Guides and articles' }}</h2>
+              <ul class="srch__list">
+                {%- for item in search.results -%}
+                  {%- if item.object_type != 'page' and item.object_type != 'article' -%}{% continue %}{%- endif -%}
+                  <li>
+                    <a href="{{ item.url }}">
+                      <span class="srch__kind">
+                        {%- if item.object_type == 'article' -%}Article{%- else -%}Guide{%- endif -%}
+                      </span>
+                      <span class="srch__title">{{ item.title }}</span>
+                    </a>
+                    {%- comment -%}
+                      `| strip_html` before truncating: an excerpt is rich text,
+                      and truncating the markup itself cuts a tag in half.
+                    {%- endcomment -%}
+                    {%- assign blurb = item.content | default: item.excerpt | strip_html | truncatewords: 24, '…' -%}
+                    {%- if blurb != blank -%}
+                      <p class="srch__blurb">{{ blurb }}</p>
+                    {%- endif -%}
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+
+        {%- if search.results_count == 0 -%}
+          <div class="srch__empty">
+            {%- if s.empty_note != blank -%}
+              <div class="lead">{{ s.empty_note }}</div>
+            {%- endif -%}
+            {%- if section.blocks.size > 0 -%}
+              <div class="row srch__sugg">
+                {%- for block in section.blocks -%}
+                  {%- if block.settings.label != blank -%}
+                    <a class="btn btn--outline" href="{{ block.settings.url | default: '/' }}" {{ block.shopify_attributes }}>
+                      {{- block.settings.label -}}
+                    </a>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- if paginate.pages > 1 -%}
+          {%- assign cur = paginate.current_page | append: '' -%}
+          <nav class="srch__pager" aria-label="Search result pages">
+            {%- if paginate.previous -%}
+              <a class="srch__page" href="{{ paginate.previous.url }}" rel="prev" aria-label="Previous page">
+                {%- render 'icon', name: 'chevron-left', size: 16 -%}
+              </a>
+            {%- endif -%}
+            {%- for part in paginate.parts -%}
+              {%- if part.is_link -%}
+                <a class="srch__page" href="{{ part.url }}">{{ part.title }}</a>
+              {%- elsif part.title == cur -%}
+                <span class="srch__page is-current" aria-current="page">{{ part.title }}</span>
+              {%- else -%}
+                <span class="srch__gap">{{ part.title }}</span>
+              {%- endif -%}
+            {%- endfor -%}
+            {%- if paginate.next -%}
+              <a class="srch__page" href="{{ paginate.next.url }}" rel="next" aria-label="Next page">
+                {%- render 'icon', name: 'chevron-right', size: 16 -%}
+              </a>
+            {%- endif -%}
+          </nav>
+        {%- endif -%}
+      {%- endpaginate -%}
+
+    {%- else -%}
+
+      {%- comment -%}
+        No query yet — someone reached /search directly. The suggestion blocks
+        are the whole point of the state, so it is not an empty page.
+      {%- endcomment -%}
+      <div class="srch__empty">
+        {%- if s.idle_note != blank -%}
+          <div class="lead">{{ s.idle_note }}</div>
+        {%- endif -%}
+        {%- if section.blocks.size > 0 -%}
+          <div class="row srch__sugg">
+            {%- for block in section.blocks -%}
+              {%- if block.settings.label != blank -%}
+                <a class="btn btn--outline" href="{{ block.settings.url | default: '/' }}" {{ block.shopify_attributes }}>
+                  {{- block.settings.label -}}
+                </a>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+    {%- endif -%}
+
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .srch__form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s3);
+  align-items: stretch;
+  max-width: 640px;
+  margin-bottom: var(--s7);
+}
+.fye .srch__form input[type="search"] {
+  flex: 1 1 260px;
+  min-width: 0;
+  min-height: 48px;
+}
+.fye .srch__form .btn { flex: 0 0 auto; }
+
+.fye .srch__count {
+  margin: 0 0 var(--s8);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.fye .srch__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr));
+  gap: var(--s9) var(--grid-gap);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.fye .srch__grid > li { margin: 0; }
+
+/* Reading results: a list, not tiles. They are text, and a text result does
+   not need a 4:3 image slot to look like a card. */
+.fye .srch__reading { margin-top: var(--s10); padding-top: var(--s8); border-top: var(--hairline); }
+.fye .srch__rh { margin: 0 0 var(--s6); font-size: var(--fs-h4); }
+.fye .srch__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--s6); }
+.fye .srch__list > li { margin: 0; max-width: 70ch; }
+.fye .srch__list a { display: flex; flex-direction: column; gap: var(--s1); }
+.fye .srch__kind {
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.fye .srch__title { font-size: var(--fs-body); line-height: 1.4; }
+.fye .srch__list a:hover .srch__title { color: var(--sage); }
+.fye .srch__blurb { margin: var(--s2) 0 0; font-size: var(--fs-small); line-height: 1.6; color: var(--ink-soft); }
+
+.fye .srch__empty { display: flex; flex-direction: column; gap: var(--s6); max-width: 60ch; }
+.fye .srch__sugg { flex-wrap: wrap; gap: var(--s3); }
+
+/* Third copy of this pager in the theme — see the note at the top of the file. */
+.fye .srch__pager {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s2);
+  margin-top: var(--s10);
+}
+.fye .srch__page {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 var(--s3);
+  border: 1px solid transparent;
+  font-size: var(--fs-fine);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.06em;
+}
+.fye .srch__page:hover { color: var(--sage); border-color: var(--line); }
+.fye .srch__page.is-current { border-color: var(--line-strong); }
+.fye .srch__gap { padding: 0 var(--s2); color: var(--ink-soft); }
+
+@media (max-width: 900px) {
+  .fye .srch__grid { grid-template-columns: repeat(var(--cols-mb, 2), minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .fye .srch__form { max-width: none; }
+  .fye .srch__form .btn { width: 100%; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Search results",
+  "settings": [
+    { "type": "header", "content": "The field" },
+    { "type": "text", "id": "field_label", "label": "Field label", "default": "Search" },
+    { "type": "text", "id": "placeholder", "label": "Placeholder", "default": "Rings, stones, guides…" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Search" },
+    { "type": "header", "content": "Results" },
+    { "type": "range", "id": "limit", "label": "Results per page", "min": 8, "max": 48, "step": 4, "default": 24 },
+    {
+      "type": "checkbox", "id": "include_reading", "label": "Also search guides and articles", "default": true,
+      "info": "Shown as a list beneath the products."
+    },
+    { "type": "text", "id": "reading_heading", "label": "Heading for that list", "default": "Guides and articles" },
+    {
+      "type": "select", "id": "col_dk", "label": "Columns", "default": "4",
+      "options": [
+        { "value": "3", "label": "Three" },
+        { "value": "4", "label": "Four" }
+      ]
+    },
+    {
+      "type": "select", "id": "col_mb", "label": "Columns on tablet", "default": "2",
+      "options": [
+        { "value": "2", "label": "Two" },
+        { "value": "3", "label": "Three" }
+      ]
+    },
+    { "type": "header", "content": "When there is nothing to show" },
+    { "type": "text", "id": "none_label", "label": "No-results wording", "default": "Nothing found for" },
+    {
+      "type": "richtext", "id": "empty_note", "label": "No-results note",
+      "default": "<p>Try a shorter phrase, or tell us what you are looking for and we will find it.</p>"
+    },
+    {
+      "type": "richtext", "id": "idle_note", "label": "Note before a search is made",
+      "default": "<p>Search the collections, the loose stones, or any of our guides.</p>"
+    },
+    { "type": "header", "content": "Background" },
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "white",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Champagne ivory" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "suggestion",
+      "name": "Suggested link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "url", "id": "url", "label": "Link" }
+      ]
+    }
+  ],
+  "max_blocks": 6
+}
+{% endschema %}

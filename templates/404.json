@@ -1,0 +1,51 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-404",
+      "blocks": {
+        "l_engagement": {
+          "type": "link",
+          "settings": { "label": "Engagement rings", "url": "shopify://pages/engagement-rings" }
+        },
+        "l_wedding": {
+          "type": "link",
+          "settings": { "label": "Wedding rings", "url": "shopify://pages/wedding-rings" }
+        },
+        "l_eternity": {
+          "type": "link",
+          "settings": { "label": "Eternity rings", "url": "shopify://pages/eternity-rings" }
+        },
+        "l_gallery": {
+          "type": "link",
+          "settings": { "label": "The gallery", "url": "shopify://pages/jewellery-gallery" }
+        },
+        "l_guides": {
+          "type": "link",
+          "settings": { "label": "Free guides", "url": "shopify://pages/downloadable-guides" }
+        },
+        "l_contact": {
+          "type": "link",
+          "settings": { "label": "Contact us", "url": "shopify://pages/contact-us" }
+        }
+      },
+      "block_order": [
+        "l_engagement",
+        "l_wedding",
+        "l_eternity",
+        "l_gallery",
+        "l_guides",
+        "l_contact"
+      ],
+      "settings": {
+        "eyebrow": "Page not found",
+        "heading": "We cannot find that page",
+        "body": "<p>The link may be out of date, or the address slightly off. Search below, or start from one of these.</p>",
+        "placeholder": "Rings, stones, guides…",
+        "button_label": "Search",
+        "links_heading": "Or go to",
+        "band": "ivory"
+      }
+    }
+  },
+  "order": ["main"]
+}

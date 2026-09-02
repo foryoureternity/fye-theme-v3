@@ -1,0 +1,65 @@
+{%- comment -%}
+  product-img — a compatibility shim for the SEARCH APP, not theme vocabulary.
+
+  DO NOT USE THIS IN v3 SECTIONS. The theme's own product tile is
+  `snippets/product-card.liquid`; this exists for one reason only.
+
+  WHY IT EXISTS
+  The header's search box goes to /a/search — an APP PROXY served by the
+  cloud-search app, not by templates/search.json. The app returns Liquid that
+  Shopify renders inside the theme, and that Liquid calls
+  `{% render 'product-img' %}`, a snippet the old T4S theme provided. On v3 it
+  did not exist, so every result on the page printed:
+
+      Liquid error (line 353): Could not find asset snippets/product-img.liquid
+
+  Reported 02/09/2026, one line per result, with the images missing entirely.
+
+  WHAT CHANGED FROM LIVE'S VERSION
+  Live's is T4S: `t4s-product-img`, `lazyloadt4s`, `data-src`/`data-widths`
+  driven by the lazysizes library, and a `lazyloadt4s-loader` span. None of
+  that exists in v3 — there is no lazysizes, and the t4s classes have no rules
+  behind them. So this renders a plain responsive <img> with native lazy
+  loading and keeps only the interface the app depends on:
+
+      image     the image object (required)
+      eager     load immediately — the app passes this for the first row
+      lcp       high fetch priority for the single top-left image
+      imgatt    extra attributes the app injects on the wrapper
+
+  The aspect-ratio custom property is kept because the app's own stylesheet
+  reads it to size the cell before the image lands.
+
+  IF THE APP EVER STOPS CALLING THIS, delete it. It is dead weight otherwise.
+{%- endcomment -%}
+{%- liquid
+  assign img_eager = eager | default: false
+  assign img_lcp = lcp | default: false
+  assign img_loading = 'lazy'
+  if img_eager
+    assign img_loading = 'eager'
+  endif
+  assign img_alt = image.alt | default: ''
+-%}
+<div class="pimg" {{ imgatt }} style="--aspect-ratioapt: {{ image.aspect_ratio | default: 1 }}">
+  {{ image | image_url: width: 600 | image_tag:
+     loading: img_loading,
+     fetchpriority: img_lcp | default: 'auto',
+     widths: '180, 220, 280, 360, 440, 600',
+     sizes: '(max-width: 560px) 50vw, (max-width: 900px) 33vw, 240px',
+     alt: img_alt,
+     class: 'pimg__img' }}
+</div>
+
+{%- comment -%}
+  Styling lives here rather than in fye-core because this is app scaffolding,
+  not part of the design system. A snippet cannot carry {% stylesheet %}, so
+  the two rules it genuinely needs are inline on the elements above and here:
+  square ratio and cover. Anything more would be styling the app's page, which
+  is a separate decision — see the note in build-state about whether search
+  should be the app proxy or the theme's own /search page at all.
+{%- endcomment -%}
+<style>
+  .pimg { position: relative; overflow: hidden; }
+  .pimg__img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; }
+</style>

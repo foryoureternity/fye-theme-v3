@@ -2776,6 +2776,10 @@
     on = /[?&]fyedebug=1/.test(location.search);
   }
 
+  /* The gate now lives inline in layout/theme.liquid, where it cannot go
+     stale — see the comment there. This block stays only so an old cached
+     copy of THIS file does not load a second one. */
+  if (window.__fyeDebugGate) return;
   if (!on || window.fyeSmoke) return;
 
   var el = document.createElement('script');

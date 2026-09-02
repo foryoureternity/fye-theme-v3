@@ -87,6 +87,48 @@ fye fye-tpl-{{ fye_page_type }}
 
   {%- sections 'footer-group' -%}
 
+  {%- comment -%}
+    THE SMOKE TEST GATE. Loads assets/fye-debug.js, which defines
+    window.fyeSmoke(), only when the URL carries ?fyedebug=1 — remembered in
+    sessionStorage for the rest of the tab, cleared with ?fyedebug=0. Visitors
+    download nothing.
+
+    THIS MUST STAY INLINE AND IN THE LAYOUT. It used to live inside
+    fye-ui.js, deriving the debug URL by string-replacing the filename in its
+    own <script src> — which inherited fye-ui.js's ?v= hash. Editing
+    fye-debug.js then left the URL unchanged and the browser served its cached
+    copy indefinitely: on 02/09/2026 two consecutive rounds of fixes appeared
+    to do nothing, and the check running in the browser was two patches behind
+    the theme. A cache-buster inside fye-ui.js cannot help, because the stale
+    file IS fye-ui.js.
+
+    Inline script is part of the HTML response, so it can never be stale, and
+    asset_url stamps fye-debug.js with ITS OWN version hash.
+  {%- endcomment -%}
+  <script>
+    (function () {
+      var KEY = 'fye_debug', on = false;
+      try {
+        var m = /[?&]fyedebug=([^&#]*)/.exec(location.search);
+        if (m) {
+          on = m[1] !== '0' && m[1] !== 'false';
+          if (on) sessionStorage.setItem(KEY, '1');
+          else sessionStorage.removeItem(KEY);
+        } else {
+          on = sessionStorage.getItem(KEY) === '1';
+        }
+      } catch (err) {
+        on = /[?&]fyedebug=1/.test(location.search);
+      }
+      if (!on) return;
+      window.__fyeDebugGate = true;   // fye-ui.js's older loader stands down
+      var s = document.createElement('script');
+      s.src = "{{ 'fye-debug.js' | asset_url }}";
+      s.onerror = function () { console.warn('fyeSmoke: assets/fye-debug.js did not load.'); };
+      document.head.appendChild(s);
+    })();
+  </script>
+
   <script src="{{ 'fye-ui.js' | asset_url }}" defer></script>
 </body>
 </html>

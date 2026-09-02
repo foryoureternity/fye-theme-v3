@@ -890,6 +890,20 @@
     padding: var(--s6);
   }
 }
+
+/* ----------------------------------------------------------------------------
+   TOUCH TARGETS — 02/09/2026, from the first collection smoke run.
+   "Clear all" measured 48×21 and "Ask an expert" 129×24. Both are controls in
+   their own right rather than words in a sentence, so both take the 44px
+   minimum. inline-flex keeps them on their existing baseline; the extra
+   height is padding, so nothing around them moves.
+   -------------------------------------------------------------------------- */
+.fye .coll__clear,
+.fye .coll__promolink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
 {% endstylesheet %}
 
 {% schema %}

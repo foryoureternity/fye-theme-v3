@@ -27,7 +27,15 @@
 {%- liquid
   assign s = section.settings
   assign band = s.band | default: 'white'
+  assign focal = s.image_position | default: 'center center'
 -%}
+{%- comment -%}
+  Built here, not inline in image_tag. Filters cannot be chained inside a
+  filter argument: passing "style: s.image_position | append" applies append to
+  image_tag's OUTPUT, which printed "object-position:" and ";" as text around
+  the photograph on 02/09/2026.
+{%- endcomment -%}
+{%- capture img_style -%}object-position: {{ focal }};{%- endcapture -%}
 
 <section class="fnd-sect band band--{{ band }}" data-screen-label="About — {{ s.heading | default: 'story' }}">
   <div class="wrap">
@@ -41,7 +49,7 @@
              sizes: '(max-width: 900px) 92vw, 42vw',
              class: 'fnd__img',
              alt: s.image_alt,
-             style: s.image_position | default: 'center center' | prepend: 'object-position:' | append: ';' }}
+             style: img_style }}
         {%- else -%}
           <div class="fnd__ph" role="presentation">
             <span>{{ s.placeholder | default: 'Photograph to be added' }}</span>

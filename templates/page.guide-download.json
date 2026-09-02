@@ -1,0 +1,33 @@
+{
+  "sections": {
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+
+    "main": {
+      "type": "guide-download",
+      "settings": {
+        "show_logo": true,
+        "body": "<p>Your download should begin automatically in a moment. If it does not, use the button below.</p>",
+        "back_link": "/pages/downloadable-guides",
+        "back_label": "Back to the guides",
+        "fallback_link": "/pages/downloadable-guides"
+      }
+    },
+
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "white",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    }
+  },
+  "order": ["nav_top", "main", "nav_bottom"]
+}

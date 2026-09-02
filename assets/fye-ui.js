@@ -2803,3 +2803,58 @@
   };
   document.head.appendChild(el);
 })();
+
+
+/* ============================================================================
+   GUIDE DOWNLOAD PAGE — appended 02/09/2026
+   sections/guide-download.liquid
+
+   Sends the browser to the PDF after a delay, once per session per guide, and
+   reports the download to gtag/fbq if either is present. Ported from live's
+   inline script; the numbers and the sessionStorage key semantics are
+   unchanged.
+
+   WHY THE GUARDS: a bfcache restore (back button) or a backgrounded tab both
+   fire timers, and without the checks someone returning to this page gets a
+   second unexpected download. Live worked that out and it is kept.
+   ========================================================================== */
+(function () {
+  var el = document.querySelector('[data-fye-guide-dl]');
+  if (!el) return;
+
+  var pdf = el.getAttribute('data-pdf');
+  if (!pdf) return;
+  var name = el.getAttribute('data-name') || 'guide';
+  var delay = parseInt(el.getAttribute('data-delay') || '1200', 10);
+  var key = 'fye_guide_' + name;
+
+  function track(method) {
+    try {
+      if (typeof gtag === 'function') {
+        gtag('event', 'guide_download', { guide_name: name, guide_url: pdf, method: method });
+      }
+      if (typeof fbq === 'function') {
+        fbq('trackCustom', 'GuideDownload', { guide_name: name, method: method });
+      }
+    } catch (err) {}
+  }
+
+  var btn = el.querySelector('[data-fye-guide-btn]');
+  if (btn) {
+    btn.addEventListener('click', function () { track('manual'); });
+  }
+
+  var restored = false;
+  window.addEventListener('pageshow', function (e) { if (e.persisted) restored = true; });
+
+  var already = false;
+  try { already = sessionStorage.getItem(key) === '1'; } catch (err) {}
+  if (already) return;
+
+  window.setTimeout(function () {
+    if (restored || document.visibilityState !== 'visible') return;
+    try { sessionStorage.setItem(key, '1'); } catch (err) {}
+    track('automatic');
+    window.location.href = pdf;
+  }, delay);
+})();

@@ -1,5 +1,27 @@
 # FYE v3 — code conventions
 
+## NEVER ADD A SHIM TO SATISFY AN APP THAT STILL SPEAKS T4S
+
+The whole point of v3 is to be free of T4S. An app that renders Liquid into
+the theme can still reference T4S furniture, because its template was
+configured against the old theme — and when it does, the temptation is to add
+the missing snippet to v3 so the app stops erroring.
+
+**Don't.** That drags the old theme's shape back in through the side door, and
+the shim then has to be maintained forever with nothing in v3 using it.
+
+Happened on 02/09/2026: the cloud-search app's results page at `/a/search`
+called `snippets/product-img.liquid` and emitted `t4s-*` classes. A shim
+snippet and a set of `search.*` locale keys were added to make it render,
+then both were **deleted the same day** once Ed pointed out the obvious. The
+right answer was that nothing in v3 links to that page.
+
+The order to try, when an app wants T4S:
+1. Does anything in v3 actually route to it? Often not — check first.
+2. Can the app be reconfigured to render our markup, in its own admin?
+3. Can the feature be switched off and the app kept for what it is good at?
+4. Only then, and with a reason written down, a shim.
+
 **Read this before writing a single line in this theme.** It exists so that a
 section written in six months' time is indistinguishable from one written on day
 one. Where this document and a personal preference disagree, this document wins.

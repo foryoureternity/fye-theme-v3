@@ -1637,3 +1637,49 @@ being the YMQ app images. The 404 returns a real 404 status, not a 200.
    notes that `request.page_type` is blank on proxy pages, so the plumbing for
    that exists — worth knowing which one the header's search box points at.
 3. The pager merge above.
+
+
+---
+
+## Search: the route decision, 02/09/2026
+
+The header's search icon links to `{{ routes.search_url }}` — i.e. **/search,
+the theme's own page**. Confirmed by grep, not assumed. Nothing in v3 routes to
+the search app's `/a/search` proxy.
+
+That was worth establishing, because a test of `/a/search` on the preview
+theme produced a page full of
+
+    Liquid error (line 353): Could not find asset snippets/product-img.liquid
+    TRANSLATION MISSING: EN.SEARCH.RESULTS_WITH_TERM
+
+and, once shimmed, a page of full-bleed unstyled images. The cause is not in
+this repo: **cloud-search holds its own results template app-side, configured
+against the old T4S theme.** It calls T4S's `product-img` snippet and emits
+`t4s-row` / `t4s-col` classes, and v3 deleted all of that CSS deliberately.
+
+### What was done, then undone
+
+`snippets/product-img.liquid` and a set of `search.*` locale keys were added
+to make the app's page render, and **both were deleted the same day.** Ed's
+objection was the right one: the point of the rebuild is to shed T4S, not to
+teach v3 to answer to it. The locale file is back to its original nine
+`general` keys, four `products` keys and two `footer` keys.
+
+Now a rule in conventions.md, at the top.
+
+### Where search stands
+
+- **/search** — the theme's own `main-search`, on brand, products grid plus a
+  guides-and-articles list, smoke tested clean at 559 and 1440. This is what
+  the header goes to and what customers get.
+- **/a/search** — the app's proxy. Reachable only by typing it. Renders badly
+  on v3 and **that is expected and accepted**, not a bug to fix.
+- **cloud-search stays installed for COLLECTION FILTERS**, which it is very
+  good at across 3,000+ rings, and whose markup v3 now styles deliberately
+  (see the filter rules in `main-collection.liquid`).
+
+The cost, stated honestly: Shopify's own search relevance is weaker on
+misspellings and synonyms than the app's engine. If that proves a problem in
+use, the fix is a search app that renders through OUR markup — not a shim that
+makes v3 look like T4S.

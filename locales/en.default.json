@@ -18,23 +18,6 @@
       "enquire": "Enquire"
     }
   },
-  "search": {
-    "heading": "Search",
-    "title": "Search",
-    "placeholder": "Rings, stones, guides…",
-    "submit": "Search",
-    "results_with_term": "Results for \"{{ terms }}\"",
-    "results_for": "Results for \"{{ terms }}\"",
-    "no_results_html": "Nothing found for \"{{ terms }}\". Try a shorter phrase.",
-    "no_results": "Nothing found. Try a shorter phrase.",
-    "results_count": "{{ count }} results",
-    "results_pages_with_count": {
-      "one": "{{ count }} result",
-      "other": "{{ count }} results"
-    },
-    "reset": "Clear",
-    "view_all": "View all results"
-  },
   "footer": {
     "newsletter": "Stay in touch",
     "copyright": "All rights reserved"

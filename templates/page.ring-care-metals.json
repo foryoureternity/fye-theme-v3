@@ -1,0 +1,492 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Caring for Different Metals"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Chapter four of The Ring and Jewellery Care Guide</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/engagement-wedding-ring-stack-gold-rose-gold.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Every Metal Ages",
+        "heading": "None of This Is a Fault",
+        "body": "<p>Precious metals are chosen for their beauty, rarity and workability. None of them is scratch-proof. A newly finished ring can pick up fine marks within its first days of wear, usually on the underside of the band where it meets desks, door handles, keys and other jewellery.</p><p>After that, each metal ages in its own way. Platinum takes on a soft patina. White gold warms in tone as its rhodium wears. Yellow gold softens and collects fine marks without changing colour at all. Silver tarnishes. Not one of these is a defect, and none of them means your ring is wearing unusually fast.</p><p>What follows is what each metal actually needs, and what it never needs. Where a job is chargeable rather than part of your complimentary annual service, we have said so.</p>"
+      }
+    },
+    "table": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Platinum 950 | Scratches displace metal rather than remove it, and the surface settles into an even grey-white patina, usually within months | Nothing routine. Polish only when you want the original brightness back. Never needs plating"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "White gold | The rhodium plating wears from the underside and the high-contact points first, revealing the warmer natural alloy beneath | Rhodium replating roughly every two to five years, depending on wear. Chargeable, and quick"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Yellow gold | Softens and picks up fine marks. The colour itself does not change. Higher carats are richer and slightly softer | Cleaning, and occasional polishing at service. No plating"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Rose gold | Very stable in colour. Hardness depends on the full alloy, not the copper content alone | Cleaning, and occasional polishing. No plating"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Palladium | Naturally white, with a quieter grey than platinum, and develops a light patina of its own | Nothing routine. Never needs plating"
+          }
+        },
+        "r6": {
+          "type": "row",
+          "settings": {
+            "cells": "Silver | Tarnishes on exposure to air and sulphur compounds | A proper silver cloth, and storage in a closed box or an anti-tarnish pouch"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Six Metals",
+        "heading": "How Each One Ages",
+        "intro": "The third column is the one worth remembering. Only two of these metals ask anything of you. The rest simply need wearing.",
+        "headers": "Metal | How it ages | What it needs",
+        "first_col_bold": true,
+        "narrow": false,
+        "col1_width": 18,
+        "note": ""
+      }
+    },
+    "platinum": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Platinum and Palladium",
+        "heading": "Patina, Not Damage",
+        "body": "<p>Platinum behaves differently from gold under a scratch. The metal is displaced rather than lost, so the surface takes on a fine texture rather than wearing thin. Within a few months of daily wear it develops an even grey-white patina.</p><p>Some owners love that patina, because it gives the ring depth and character. Others prefer a bright, freshly polished finish. Neither is more correct. Professional refinishing will restore the original appearance whenever you want it back.</p><p>What platinum never needs is plating. Its colour runs all the way through. Palladium is the same in this respect: naturally white, a quieter grey than platinum, and it settles into a light patina of its own.</p><p>One caution. Repeated heavy polishing removes a little metal each time, so refinish when you want to refresh the piece, not on a schedule.</p>"
+      }
+    },
+    "whitegold": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Where it wears first",
+            "body": "<p>The underside of the band and the high-contact points go first, because that is where the ring meets everything else. The warmer natural alloy shows through underneath.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "How long it lasts",
+            "body": "<p>Expect replating roughly every two to five years. The range is wide because it depends on how the ring is worn rather than on the quality of the plating.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "It is not a fault",
+            "body": "<p>A white gold ring turning slightly warmer in tone is the plating doing exactly what plating does. It is one of the most common questions we are asked, and the answer is always the same.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "What we will tell you",
+            "body": "<p>Replating is chargeable and quick. We quote it before any work begins, and we will happily tell you when we think the ring does not need it yet.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "The Rhodium Question",
+        "heading": "Why White Gold Warms Up",
+        "intro": "White gold is a yellow-based alloy plated with rhodium to give it a bright, cool white. The plating is a surface layer, and surface layers wear.",
+        "note": ""
+      }
+    },
+    "replating": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Replating Expectations",
+        "heading": "Chargeable, Quick, and Not Every Year",
+        "body": "<p>Rhodium replating is not part of the complimentary annual service. It sits alongside polishing, satin refinishing, claw repair and stone tightening on the chargeable list, and the cost is always explained and approved before any work starts.</p><p>If you would rather never think about replating at all, platinum and palladium give you a white metal with no plated layer to lose.</p>"
+      }
+    },
+    "yellowrose": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Yellow gold",
+            "body": "<p>Softens with wear and picks up fine marks, but the colour does not change. Higher carats are richer in tone and slightly softer, so an 18ct band will mark a little sooner than a 9ct one.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Rose gold",
+            "body": "<p>Very stable in colour. Hardness depends on the full alloy rather than the copper content alone, so do not assume rose gold is harder or softer than its yellow equivalent.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "What they need",
+            "body": "<p>Cleaning, and occasional polishing at service. No plating, ever. A gentle clean at home between services is usually all that is required.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "If gold looks dull",
+            "body": "<p>It is rarely the metal. Moisturiser, soap and hand sanitiser collect around and beneath a setting and take the life out of a piece. Clean it before you assume the finish has gone.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Yellow and Rose Gold",
+        "heading": "Colour Stays, Surface Softens",
+        "intro": "Neither yellow nor rose gold is plated, so the colour you see on day one is the colour you will see in year twenty. What changes is the surface.",
+        "note": ""
+      }
+    },
+    "silver": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Silver, and Everything Else",
+        "heading": "Tarnish Is a Storage Problem",
+        "body": "<p>Silver tarnishes on exposure to air and sulphur compounds. That is chemistry rather than neglect, and it is reversible. A proper silver cloth will bring the surface back, and storage does most of the work: a closed box or an anti-tarnish pouch keeps air away from the metal between wears.</p><p>Silver is also softer than the metals above it in the table, so it marks more readily. Store it in its own compartment or pouch rather than loose in a shared dish with harder pieces.</p><h3>Alternative metals</h3><p>Some alternative metals cannot be resized, repaired or refinished in the way precious metals can, and certain designs have limited options or none at all. If your piece is not platinum, palladium, gold or silver, ask us before assuming any of that work is possible. A message costs nothing, and we would always rather answer than repair.</p>"
+      }
+    },
+    "finishes": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Polished",
+            "body": "<p>Collects fine scratches early, then settles into a softer, more lived-in sheen. It shows marks soonest and is also the easiest finish to restore.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Satin and brushed",
+            "body": "<p>Gradually smooth and brighten at the points of daily contact, because wear burnishes a textured surface. Both can be reapplied whenever you want them refreshed.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Hammered",
+            "body": "<p>Stays visible, because the texture is structural rather than a surface treatment. It cannot wear off in the way a brushed line can.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Milgrain and engraving",
+            "body": "<p>Milgrain is long-lasting when it has been well made, and it should only ever be worked on by a skilled workshop. Engraving softens in the same slow way after many years of daily contact.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Finishes",
+        "heading": "How Each Surface Ages",
+        "intro": "A finish is a surface treatment, and every surface treatment changes with wear. All of these can be professionally refreshed at service. None of them needs to be.",
+        "note": "Polishing and satin refinishing are chargeable, and can be done at your complimentary annual inspection."
+      }
+    },
+    "mixing": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "default",
+        "narrow": true,
+        "eyebrow": "Stacking",
+        "heading": "Mixing Metals on One Finger",
+        "body": "<p>A softer band worn tight against a harder one will wear faster, and the wear falls on the softer ring. Stack an 18ct band against a platinum ring and expect the gold to show it first.</p><p>This is normal, and it is worth knowing before you assume something is wrong with the softer ring.</p>"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Why has my white gold ring turned yellow?",
+            "a": "<p>The rhodium plating is wearing and the warmer natural alloy underneath is showing through. It is entirely normal and it is not a fault. Replating restores the bright white. It is chargeable and quick, and we quote it before doing anything.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "How often does white gold need replating?",
+            "a": "<p>Roughly every two to five years. The range is wide because it depends on how much and how hard the ring is worn rather than on the quality of the plating. We will tell you at your annual inspection whether it is due.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "My platinum ring is scratched. Is that normal?",
+            "a": "<p>Yes. Platinum develops a patina relatively quickly, and scratches displace metal rather than remove it. It can be professionally polished, but it does not need refinishing for every mark. Many owners prefer it once it settles.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Does platinum ever need plating?",
+            "a": "<p>No. Platinum is white all the way through, so its colour cannot wear off. The same is true of palladium. If you would rather never think about replating, those are the two metals to choose.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "My satin finish is going shiny. Can it be put back?",
+            "a": "<p>Yes. Daily contact burnishes textured surfaces, and a satin or brushed finish can be professionally reapplied whenever you want to refresh it. It is chargeable, and it can be done at the same visit as your annual inspection.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "Should I have my ring polished every year?",
+            "a": "<p>No. Repeated heavy polishing removes a little metal each time. Refinish when you genuinely want to refresh the piece, not on a schedule. A ring does not need polishing every time a small scratch appears.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "q": "How do I stop my silver tarnishing?",
+            "a": "<p>Store it in a closed box or an anti-tarnish pouch so that as little air reaches it as possible, and use a proper silver cloth to bring the surface back when it dulls. Tarnish is a reaction with air and sulphur compounds, not a sign of poor quality.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7"
+      ],
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Metal Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "white",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "/pages/ring-and-jewellery-care-guide-download",
+            "style": "btn--primary",
+            "klaviyo_form": ""
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/ring-care-guide-cover.png",
+        "cover_alt": "The Ring and Jewellery Care Guide",
+        "cover_caption": "The Ring and Jewellery Care Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Ring and Jewellery Care Guide",
+        "body": "<p>Wearing, cleaning, storing and protecting fine jewellery, from the first week to the twentieth year. Free to download and keep.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Care Guide",
+            "title": "Caring for Gemstones",
+            "desc": "What each stone will take, and what it will not.",
+            "cta": "Read more",
+            "link": "/pages/ring-care-gemstones"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Care Guide",
+            "title": "Settings, Claws and Warning Signs",
+            "desc": "The fabric test, and when to stop wearing a ring.",
+            "cta": "Read more",
+            "link": "/pages/ring-care-settings"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Care Guide",
+            "title": "Servicing and the Annual Check-Up",
+            "desc": "Where replating, polishing and refinishing happen, and what they cost.",
+            "cta": "Read more",
+            "link": "/pages/ring-care-servicing"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Full Guide",
+            "title": "The Ring and Jewellery Care Guide",
+            "desc": "Every chapter, from the first week to the annual check-up.",
+            "cta": "Start here",
+            "link": "/pages/ring-and-jewellery-care-guide"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Chapters"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "table",
+    "platinum",
+    "whitegold",
+    "replating",
+    "yellowrose",
+    "silver",
+    "finishes",
+    "mixing",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

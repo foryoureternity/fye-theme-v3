@@ -1,0 +1,605 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "When to Take It Off"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Chapter two of The Ring and Jewellery Care Guide</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/engagement-wedding-ring-stack-gold-rose-gold.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Made for Daily Life",
+        "heading": "But Not for Every Task in It",
+        "body": "<p>Fine jewellery is made to be lived in. It is not made for every job that daily life contains, and almost all avoidable damage comes from a short list of situations.</p><p>Once you know the list, the decision takes a second. Taking a ring off for ten minutes is far easier than repairing impact damage or replacing a lost stone, and if you are ever unsure, remove it and put it somewhere secure.</p>"
+      }
+    },
+    "risks": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "number": "",
+            "heading": "Direct impact",
+            "body": "<p>A sharp knock against a hard surface. It dents metal and can chip a stone at the girdle, and it does not take as much force as people assume.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "number": "",
+            "heading": "Pressure that bends the band",
+            "body": "<p>Gripping, lifting and carrying. Once a band is out of round, the setting is under a load it was never designed to carry, and stones loosen.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "number": "",
+            "heading": "Abrasion",
+            "body": "<p>Sand, grit, stone and paving wear metal away steadily. Sanding, drilling and power tools do the same thing far faster.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "number": "",
+            "heading": "Chemical exposure",
+            "body": "<p>Bleach, chlorine, solvents, hair dye and oven cleaner. Some affect gold alloys directly, and all of them leave residue behind in the setting.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "number": "",
+            "heading": "Catching or trapping",
+            "body": "<p>Any situation where the ring can snag, be pulled or be crushed. This is the risk that injures fingers as well as jewellery.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "3",
+        "numbering": "numbers",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "What Actually Causes Damage",
+        "heading": "The Five Real Risks",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "remove": {
+      "type": "fye-checklist",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "label": "Weight training and gym sessions",
+            "note": "Metal equipment combines grip and impact, which is the worst pairing there is."
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "label": "Climbing, bouldering and contact sports",
+            "note": ""
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "label": "Gardening, digging, or carrying stone and paving",
+            "note": ""
+          }
+        },
+        "i4": {
+          "type": "item",
+          "settings": {
+            "label": "DIY, decorating, sanding, drilling and power tools",
+            "note": ""
+          }
+        },
+        "i5": {
+          "type": "item",
+          "settings": {
+            "label": "Cleaning with bleach, chlorine, solvents or strong chemicals",
+            "note": ""
+          }
+        },
+        "i6": {
+          "type": "item",
+          "settings": {
+            "label": "Hair dye, oven cleaner and swimming pool chemicals",
+            "note": ""
+          }
+        },
+        "i7": {
+          "type": "item",
+          "settings": {
+            "label": "Paint, adhesives, oils and dough",
+            "note": "Anything that packs itself beneath a setting."
+          }
+        },
+        "i8": {
+          "type": "item",
+          "settings": {
+            "label": "Moving furniture or lifting heavy boxes",
+            "note": ""
+          }
+        },
+        "i9": {
+          "type": "item",
+          "settings": {
+            "label": "Carrying heavy bags by narrow handles",
+            "note": "A thin handle across a band is enough to pull it out of round."
+          }
+        },
+        "i10": {
+          "type": "item",
+          "settings": {
+            "label": "Swimming, or getting into a hot tub",
+            "note": "The most important line on this page. See below."
+          }
+        },
+        "i11": {
+          "type": "item",
+          "settings": {
+            "label": "Any task where the ring could be crushed, snagged or forced out of shape",
+            "note": ""
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6",
+        "i7",
+        "i8",
+        "i9",
+        "i10",
+        "i11"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "The List",
+        "heading": "Remove Your Ring Before",
+        "intro": "None of this is about being precious with a ring. It is about the handful of moments where a second of thought saves a repair.",
+        "note": ""
+      }
+    },
+    "safety": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Safety Matters Too",
+        "heading": "This Protects Your Hand as Well",
+        "body": "<p>A ring can seriously injure a finger if it catches on machinery, gym equipment, ropes or a falling load. Ring avulsion injury is a genuine risk in climbing and heavy lifting.</p><p>Removing the ring protects your hand as much as it protects your jewellery.</p>"
+      }
+    },
+    "washing": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "number": "",
+            "heading": "Hand washing",
+            "body": "<p>Generally fine for robust rings, though soap residue will gradually dull gemstones. It is the single most common reason a diamond stops sparkling.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "number": "",
+            "heading": "Showering",
+            "body": "<p>Unlikely to damage a durable diamond ring, but repeated soap and hair product causes build up around the setting. If your stone looks permanently cloudy, this is usually why.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "number": "",
+            "heading": "Sleeping",
+            "body": "<p>Generally fine for plain bands and robust settings. Very delicate claws, high settings and fine pavé may catch on bedding. If your ring regularly snags at night, store it overnight and arrange an inspection.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "3",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Everyday Water",
+        "heading": "Washing, Showering and Sleeping",
+        "intro": "These three come up more than anything else, and none of them is a simple yes or no.",
+        "note": ""
+      }
+    },
+    "swimming": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "The One Rule That Matters Most",
+        "heading": "Never Wear Your Ring While Swimming",
+        "body": "<p>Cold water makes fingers shrink quickly. A ring that feels secure on land can slide off unnoticed, especially when hands are wet and moving through water.</p><p>Once a ring is lost in the sea, a lake or a river, recovery is usually impossible. There is no version of this story that ends well, so treat it as a rule rather than a judgement call.</p>"
+      }
+    },
+    "water": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Sea, lake or river | Cold water shrinks the finger and the ring slides off unnoticed. It is almost never recovered. | Leave it in the room safe or a rigid case before you go near the water."
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Chlorinated pool | Repeated exposure to strong pool chemicals can affect some gold alloys and accelerate deterioration in areas that are already worn. | Take it off before you get in, every single time."
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Hot tub | The same chemicals at a higher temperature, in a setting where rings are easily put down and forgotten. | Take it off in the room, not at the tub."
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Sand | Sand is abrasive. It scratches metal and works its way underneath settings. | Keep the ring off the beach altogether where you can."
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Sun cream and salt | Both leave residue that collects around the setting and dulls the stones. | Clean the piece gently once you are home. Chapter three sets out how."
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Water, Sand and Chemicals",
+        "heading": "What Each One Actually Does",
+        "intro": "Water is rarely the thing that damages a ring. Losing it is.",
+        "headers": "Where | What happens | What to do",
+        "first_col_bold": true,
+        "narrow": false,
+        "col1_width": 22,
+        "note": ""
+      }
+    },
+    "honeymoon": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "ivory",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Especially on Honeymoon",
+        "heading": "Take the Photograph on Dry Land",
+        "body": "<p>It is completely natural to want photographs of a new ring beside the pool or on the beach. Take them on dry land, then return the ring to a case or the room safe before going into the water.</p><p>The two minutes this costs is the single most effective thing in this guide. More rings are lost in the first year than at any other point, usually on a trip, usually within sight of the sea.</p>"
+      }
+    },
+    "beach": {
+      "type": "fye-steps",
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "number": "01",
+            "heading": "Decide in the room",
+            "body": "<p>Choose before you leave whether the ring is staying in the safe. Deciding at the waterline is how rings end up in someone else's hand.</p>"
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "number": "02",
+            "heading": "Do not hand it to anyone",
+            "body": "<p>Not at the water's edge, not for a moment. A ring nobody has clearly taken responsibility for is a ring at risk.</p>"
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "number": "03",
+            "heading": "Do not hide it",
+            "body": "<p>Not in a shoe, a towel, a pocket or a beach bag. Hidden jewellery is forgotten jewellery, and beach bags get moved.</p>"
+          }
+        },
+        "s4": {
+          "type": "step",
+          "settings": {
+            "number": "04",
+            "heading": "Use a rigid case",
+            "body": "<p>If the ring must travel with you, put it in a small closed case that will not spring open at the bottom of a bag.</p>"
+          }
+        },
+        "s5": {
+          "type": "step",
+          "settings": {
+            "number": "05",
+            "heading": "Check the cover",
+            "body": "<p>Confirm your insurance covers the ring away from home and abroad, and for the length of the trip. Do it before you fly, not after.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "3",
+        "show_head": true,
+        "eyebrow": "A Safer Beach Routine",
+        "heading": "Five Decisions, Made in Advance",
+        "intro": "The safest option is also the simplest: leave valuable jewellery securely stored whenever you are swimming, snorkelling, paddleboarding, sailing, or spending an active day beside water."
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I wear my ring in the shower?",
+            "a": "<p>It is unlikely to damage a durable diamond ring, but soap and hair product build up around the setting and dull the stone. If your diamond looks permanently cloudy, the shower is usually the reason.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "My ring fits tightly. Can I swim in it?",
+            "a": "<p>No. Cold water makes fingers shrink quickly, so a ring that feels completely secure on land can slide off in the water without you noticing. Fit is not the safeguard people think it is.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Is chlorine actually bad for gold?",
+            "a": "<p>Repeated exposure to strong pool chemicals can affect some gold alloys and speed up deterioration in areas that are already worn. It is a slower risk than losing the ring, but it is a real one.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Should I take my ring off at the gym?",
+            "a": "<p>Yes. Weight training and metal equipment combine grip, pressure and impact, and that is the combination that bends bands and chips stones. It also protects your finger, because a ring caught on equipment can cause a serious injury.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I sleep in my engagement ring?",
+            "a": "<p>Plain bands and robust settings are generally fine. Delicate claws, high settings and fine pavé can catch on bedding. If the ring snags at night, store it overnight and arrange an inspection.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "Do I need to remove my ring for airport security?",
+            "a": "<p>Fine rings do not normally need removing during routine screening. If you are specifically asked to take one off, put it into a closed inner compartment of your hand luggage rather than loose in a tray.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "q": "Where should I put my ring when I take it off?",
+            "a": "<p>In the same secure place every time: a closed box, a zipped pouch, a rigid travel case, or a dish kept away from sinks and drains. Never loose in a pocket, on a bathroom ledge, or beside the kitchen sink. Most rings are lost in the gap between taking them off and putting them away.</p>"
+          }
+        },
+        "q8": {
+          "type": "qa",
+          "settings": {
+            "q": "What if my ring will not come off?",
+            "a": "<p>Do not force a swollen finger. Raise the hand above your head for a few minutes, cool it, and use soap or hand cream. If the finger is painful, discoloured or numb, seek medical help rather than persisting. A ring can be cut off safely and, in most cases, repaired invisibly afterwards. Damaged metal is a far smaller problem than a damaged finger.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8"
+      ],
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Questions About Taking It Off",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "white",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "/pages/ring-and-jewellery-care-guide-download",
+            "style": "btn--primary",
+            "klaviyo_form": ""
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/ring-care-guide-cover.png",
+        "cover_alt": "The Ring and Jewellery Care Guide",
+        "cover_caption": "The Ring and Jewellery Care Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Ring and Jewellery Care Guide",
+        "body": "<p>Wearing, cleaning, storing and protecting fine jewellery, in one printable PDF. Written for owners of engagement rings, wedding and eternity rings, gemstone pieces and everyday precious metal jewellery.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Care Guide",
+            "title": "Everyday Wear and Habits",
+            "desc": "What normal wear looks like, and the four habits that protect a ring.",
+            "cta": "Read more",
+            "link": "/pages/ring-care-everyday"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Care Guide",
+            "title": "Cleaning at Home",
+            "desc": "The four step method, and what should never go near a ring.",
+            "cta": "Read more",
+            "link": "/pages/ring-care-cleaning"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Care Guide",
+            "title": "The Ring and Jewellery Care Guide",
+            "desc": "Every chapter, from the first week to the annual check.",
+            "cta": "Start here",
+            "link": "/pages/ring-and-jewellery-care-guide"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Getting the Size Right",
+            "desc": "A ring that fits properly is a ring that stays on.",
+            "cta": "Read more",
+            "link": "/pages/find-your-ring-size"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Chapters"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "risks",
+    "remove",
+    "safety",
+    "washing",
+    "swimming",
+    "water",
+    "honeymoon",
+    "beach",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

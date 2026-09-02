@@ -1,0 +1,342 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Engraving and Personalisation"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>The most private surface in jewellery</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/jeweller-showing-engagement-ring-design-sketches.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Hidden, But Not From the Wearer",
+        "heading": "The Inside of a Ring",
+        "body": "<p>The inside of a wedding ring is one of the most personal surfaces in jewellery: hidden from the world, but visible to the wearer every time the ring comes off. Engraving can be simple, private and deeply meaningful without changing the outward design at all.</p><p>Dates, initials, short phrases, coordinates, Roman numerals, handwriting and small symbols all engrave well. Handwriting in particular, traced from an actual note or card, is the one people are most glad they asked for.</p>"
+      }
+    },
+    "options": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Inside engraving | Names, initials, dates, coordinates, Roman numerals or a short phrase | Almost every band with enough internal space"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Outside engraving | A restrained line of text, motif or family detail on the visible surface | Wider flat, edged or architectural profiles"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Texture | Hand-hammered, brushed, sandblasted or milgrain detail | Wearers who want personality without stones"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Mixed metal | A contrasting inner lining, centre line or layered construction | A ring that should feel personal but stay restrained"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Heirloom reference | Family metal where suitable, or echoing an inherited design | Sentimental pieces where the story matters as much as the surface"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "first_col_bold": true,
+        "note": "",
+        "intro": "",
+        "eyebrow": "Five Routes",
+        "heading": "Ways to Personalise a Ring",
+        "headers": "Personal detail | How it works | Best suited to"
+      }
+    },
+    "constraints": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Stone-set bands have less room",
+            "body": "<p>Half and quarter designs usually provide the easiest plain area. Full and three-quarter eternity rings may have limited internal depth or no uninterrupted space at all.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "It must not weaken the ring",
+            "body": "<p>Engraving should never remove metal needed for stone security, and it should not make a future repair harder. Where the space is tight we will say so.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Approve against the actual ring",
+            "body": "<p>Engraving has to be checked against the real construction, not promised from a photograph. We provide a proof where it needs approval before cutting.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "There are alternatives when space is short",
+            "body": "<p>An outer flank, a spacer ring, or the inside of a partner band. If the ring you want cannot carry the words you want, there is almost always another surface.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "intro": "",
+        "note": "",
+        "eyebrow": "The Practical Limits",
+        "heading": "What Constrains Engraving"
+      }
+    },
+    "timing": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "default",
+        "narrow": true,
+        "eyebrow": "When to Ask",
+        "heading": "Easiest Before the Ring Is Finished",
+        "body": "<p>Engraving can usually be added at the making stage or later, though it is simplest and cheapest to include before final delivery, when the ring can be engraved before its final polish.</p><p>Adding it afterwards is generally possible on plain bands. On stone-set, shaped or already-hallmarked rings it becomes more involved, so it is worth deciding early even if you are unsure of the words.</p>"
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "eyebrow": "A Plain Ring Can Still Be Personal",
+        "heading": "Without Becoming Ornate",
+        "body": "<p>A shaped contour, an unusual width, mixed-metal construction, hand-hammered texture, heirloom metal or a precise profile that sits perfectly beside an engagement ring. None of it is decoration, and all of it is personal.</p>",
+        "link": "/pages/ring-finishes",
+        "link_label": "Read about finishes"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "What should I engrave inside a wedding ring?",
+            "a": "<p>The most common are the wedding date, initials, or a short phrase. The ones people are gladdest about are usually more specific: handwriting traced from a note, coordinates of where you met, or a phrase only the two of you would understand.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "How many characters will fit?",
+            "a": "<p>It depends on width, profile and internal circumference. A 4mm band in a middling size will usually take around 30 characters comfortably. We will confirm against your actual ring and provide a proof before cutting.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I engrave handwriting?",
+            "a": "<p>Yes, and it is one of the nicest things we do. Send a clear photograph or scan of the writing. We convert it and provide a proof so you can see exactly how it will sit before anything is cut.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Can a ring be engraved after it is made?",
+            "a": "<p>Usually, on plain bands. It becomes more involved on stone-set, shaped or hallmarked rings, and on a full eternity there may simply be no uninterrupted surface. It is always easier before final polish.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Will engraving wear away?",
+            "a": "<p>Inside engraving wears very slowly, because the inner surface has less contact than the outside. Over many decades it softens, and it can be recut. Outside engraving wears faster and should be cut deeper for that reason.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true,
+        "heading": "Engraving Questions"
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "XMzNMS"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/Plain_Wedding_Cover.png",
+        "cover_alt": "The Plain Wedding Ring Guide",
+        "cover_caption": "The Plain Wedding Ring Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Plain Wedding Ring Guide",
+        "body": "<p>Engraving, finishes, profiles, widths, metals, pairing and sizing. As a printable PDF.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Finishes and How They Age",
+            "desc": "Polished, satin, brushed, hammered and milgrain.",
+            "cta": "Read more",
+            "link": "/pages/ring-finishes"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Heirloom and Reused Stones",
+            "desc": "Using family metal and stones in a new piece.",
+            "cta": "Read more",
+            "link": "/pages/heirloom-stones"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "The Bespoke Process",
+            "desc": "How a commission runs, from enquiry to handover.",
+            "cta": "Read more",
+            "link": "/pages/create-your-own-ring"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Wedding Rings",
+            "desc": "Plain and stone-set bands, ready to personalise.",
+            "cta": "Browse rings",
+            "link": "/collections/wedding-rings"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "options",
+    "constraints",
+    "timing",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

@@ -1,0 +1,1088 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Other Gemstones"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Garnet, spinel, tourmaline, amethyst, citrine, peridot, topaz and moonstone</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 36,
+        "image": "shopify://shop_images/loose-diamonds-coloured-gemstones-sapphire-emerald.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true,
+        "show_contents": true,
+        "contents_label": "On this page"
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Gemstone Education",
+        "heading": "The Wider World of Coloured Stone",
+        "body": "<p>There are perhaps thirty coloured stones you will meet regularly in fine jewellery, and only a handful of them get talked about. Sapphire, ruby and emerald absorb most of the attention, and each has a guide of its own here. This page is for everything else: the stones that come up when someone describes a colour rather than a name.</p><p>Some of them are genuinely rare. Fine Paraiba tourmaline and good red spinel outrun most sapphire per carat. Others are the best value in the whole gem trade. Price in coloured stone follows the rarity of that colour within that species rather than the fame of the name, which is why the two ends of this page sit further apart than most people expect.</p><p>We source stones to your specification rather than selling from a case, so the useful question is rarely what we happen to have. It is which species will give you the colour you are picturing, at a hardness that suits the piece, within the budget you have in mind. Those three pull against each other more often than not.</p><p>What follows is stone by stone: hardness, colour, origin, what is routinely done to the material, and an honest note on whether it belongs in a ring worn every day. Where a treatment changes how a stone should be cleaned, we say so.</p>"
+      }
+    },
+    "dedicated": {
+      "type": "fye-chips",
+      "blocks": {
+        "c1": {
+          "type": "chip",
+          "settings": {
+            "name": "Sapphire",
+            "sub": "Corundum in every colour but red",
+            "colour": "#2A4A8C",
+            "link": "/pages/sapphire-guide"
+          }
+        },
+        "c2": {
+          "type": "chip",
+          "settings": {
+            "name": "Ruby",
+            "sub": "Corundum, red only",
+            "colour": "#9B2233",
+            "link": "/pages/ruby-guide"
+          }
+        },
+        "c3": {
+          "type": "chip",
+          "settings": {
+            "name": "Emerald",
+            "sub": "Green beryl, included by nature",
+            "colour": "#2E7D5B",
+            "link": "/pages/emerald-guide"
+          }
+        },
+        "c4": {
+          "type": "chip",
+          "settings": {
+            "name": "Aquamarine",
+            "sub": "Pale blue to blue-green beryl",
+            "colour": "#9CC7D3",
+            "link": "/pages/aquamarine-guide"
+          }
+        },
+        "c5": {
+          "type": "chip",
+          "settings": {
+            "name": "Morganite",
+            "sub": "Peach to pink beryl",
+            "colour": "#E7B9A8",
+            "link": "/pages/morganite-guide"
+          }
+        },
+        "c6": {
+          "type": "chip",
+          "settings": {
+            "name": "Tanzanite",
+            "sub": "Violet-blue, from one deposit",
+            "colour": "#4B4A9B",
+            "link": "/pages/tanzanite-guide"
+          }
+        },
+        "c7": {
+          "type": "chip",
+          "settings": {
+            "name": "Opal",
+            "sub": "Play-of-colour, and real care",
+            "colour": "#7FA9B8",
+            "link": "/pages/opal-guide"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7"
+      ],
+      "settings": {
+        "band": "ivory",
+        "align": "centre",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Covered Elsewhere",
+        "heading": "Seven Stones With Their Own Guide",
+        "intro": "If you are already set on one of these, start with its own page. Everything below is the rest of the field.",
+        "note": "Each guide covers colour, origin, treatment and durability in full."
+      }
+    },
+    "choose": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Start with the colour",
+            "body": "<p>Not the species. Describe the colour you are picturing as precisely as you can: a warm raspberry rather than a red, a grey-blue rather than a blue. Several unrelated stones will land in that range, differing in hardness and price by a factor of ten.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Then the life it will lead",
+            "body": "<p>An engagement ring worn on a working hand every day rules out a good deal of this page. A pendant, a pair of earrings or a ring worn in the evening rules out almost nothing. Be honest about which you are buying, because the answer decides the shortlist.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Then the budget",
+            "body": "<p>Within one colour there is nearly always a hard option and an affordable one. Green can be tsavorite garnet, chrome tourmaline or peridot, at three very different prices and three different hardnesses.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Ask what has been done to it",
+            "body": "<p>Most coloured stone is treated in some way, and most of those treatments are stable and long accepted. Knowing which one applies still matters, because a few change how a stone should be cleaned.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Be realistic about size",
+            "body": "<p>Some species are cheap small and steep above five carats. Others barely change. If you want a large stone, that will narrow the list faster than colour does.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "See it before you commit",
+            "body": "<p>Coloured stone photographs badly and reads differently in daylight, lamplight and shade. We show you the actual stone rather than have you meet the colour for the first time on delivery.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "3",
+        "numbering": "steps",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Where to Start",
+        "heading": "Choosing When the Field Is This Wide",
+        "intro": "Starting from a stone name usually leads nowhere when the field is this wide. Working in this order narrows it quickly, and it is what we do in a consultation.",
+        "note": ""
+      }
+    },
+    "tourmaline": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "ivory",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "The Widest Palette in Gemmology",
+        "heading": "Tourmaline",
+        "body": "<p>Tourmaline is not one mineral but a family of closely related ones, and between them they produce a broader colour range than any other gem species. Pink, red, green, blue, teal, yellow, brown, black, colourless, and single crystals carrying two or three of those at once. If you can describe a colour, there is a tourmaline somewhere in it.</p><p>At Mohs 7 to 7.5, with fair toughness and no troublesome cleavage, tourmaline sits in the sensible middle of the durability range. It holds up in a ring worn regularly and does better still in a bezel. Its crystals grow long and thin, so it is often cut as an elongated emerald cut or baguette, which suits some designs and constrains others.</p><p>Brazil, Nigeria, Mozambique, Madagascar, Afghanistan and Pakistan all produce it, with Maine and California historically important for pink material. Heat treatment is routine: it lightens over-dark green and red stones and improves blue. Some material is irradiated to deepen pink and red. Both are permanent and neither changes how the stone is cared for. Heavily included rubellite is occasionally clarity enhanced with resin, and that material should be kept out of ultrasonic cleaners.</p><p>Ordinary green and pink tourmaline is among the better value stones in the trade and stays reasonable in large sizes. Fine rubellite and indicolite cost several times that, and Paraiba sits in a category of its own.</p>"
+      }
+    },
+    "tourtypes": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Paraiba",
+            "body": "<p>Copper-bearing tourmaline in an electric neon blue to green, found first in Paraiba in Brazil and later in Nigeria and Mozambique. Brazilian material carries a substantial premium over African, and the finest stones are among the most expensive coloured gems there are.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Rubellite",
+            "body": "<p>The pink to red end. The name properly belongs to stones that hold their colour under artificial light rather than going brown. Often quite included, which is accepted in rubellite in a way it would not be in most species.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Indicolite",
+            "body": "<p>Blue to blue-green, usually with a slight teal cast. Genuinely scarce clean and above two carats, and priced accordingly. Most is heated to lift the colour.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Chrome tourmaline",
+            "body": "<p>Vivid green coloured by chromium and vanadium, from Tanzania and Kenya. Far more saturated than ordinary green tourmaline, and much closer to tsavorite in appearance than the price suggests.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Watermelon",
+            "body": "<p>A single crystal that is pink at the core and green at the rim, usually cut as a slice to show both. Charming, and best set protectively, since the slices are often thin.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Verdelite and the rest",
+            "body": "<p>Green tourmaline is verdelite, colourless is achroite and black is schorl. Bi-colour and tri-colour stones carry no special name at all. The trade uses colour names loosely, so ask what the stone actually is.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "3",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "The Varieties",
+        "heading": "Tourmaline by Name",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "spinel": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "ivory",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Mistaken for Ruby for Six Centuries",
+        "heading": "Spinel",
+        "body": "<p>Spinel is the stone the trade rates far more highly than the public does, and the reason is historical. Until the late eighteenth century nobody distinguished it from ruby, and by the time the two were separated spinel had been quietly relabelled as the lesser stone. The Black Prince's Ruby, set at the front of the Imperial State Crown, is a spinel, and so is the Timur Ruby. Both were catalogued as rubies for centuries.</p><p>It runs from vivid red through hot pink, orange-pink, purple, mauve, grey and steel blue, and at its rarest the cobalt blue found in Vietnam and Sri Lanka. Hardness is 7.5 to 8, with good toughness and no cleavage, which puts it in the small group of coloured stones we are comfortable recommending for an engagement ring worn every day.</p><p>Burma has produced the finest red and pink material for centuries, from the same Mogok valley as the best ruby. Tanzania, Sri Lanka, Tajikistan and Vietnam all contribute. The great practical virtue of spinel is that it is almost always untreated, which is unusual enough in coloured stone to be worth stating plainly.</p><p>Grey, mauve and pale material remains very reasonably priced. Fine red and hot pink spinel has risen sharply over the past fifteen years and now sits within reach of comparable ruby, and cobalt blue is rarer still. Lab-grown spinel has existed since the 1920s, mostly in colours nature does not offer.</p>"
+      }
+    },
+    "garnet": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Almandine",
+            "meta": "Mohs 7 to 7.5",
+            "body": "<p>The deep brownish to purplish red most people picture when they hear the word garnet. Abundant, inexpensive and hard, though often cut too deep, which darkens it. India, Brazil and Madagascar.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Pyrope",
+            "meta": "Mohs 7 to 7.5",
+            "body": "<p>Brighter and more purely red than almandine, and the Bohemian garnet of Victorian jewellery. Small stones are the norm, and large clean pyrope is much scarcer than the price of small ones suggests.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Rhodolite",
+            "meta": "Mohs 7 to 7.5",
+            "body": "<p>A natural blend of pyrope and almandine in a raspberry to purple-pink far livelier than either parent. Tanzania, Mozambique and Sri Lanka. One of the best value stones we know for a ring worn regularly.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Spessartine",
+            "meta": "Mohs 7 to 7.5",
+            "body": "<p>Orange to reddish-orange, at its best a pure mandarin from Namibia and Nigeria. Vivid, and considerably dearer than the red garnets. Usually carries some inclusions, which is characteristic.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Tsavorite",
+            "meta": "Mohs 7 to 7.5",
+            "body": "<p>Chrome and vanadium green, from Kenya and Tanzania alone. It reads very close to fine emerald but is tougher, usually cleaner and untreated. Rare above three carats and priced like the serious gemstone it is.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Demantoid",
+            "meta": "Mohs 6.5 to 7",
+            "body": "<p>Green andradite with more dispersion than diamond, from Russia, Namibia and Madagascar. Russian material shows horsetail inclusions, which are prized rather than penalised. The softest of the family, so it wants a protected setting.</p>"
+          }
+        },
+        "t7": {
+          "type": "term",
+          "settings": {
+            "heading": "Colour-change and malaia",
+            "meta": "Mohs 7 to 7.5",
+            "body": "<p>Some pyrope-spessartine garnet shifts from blue-green or grey-green in daylight to red or purple under lamplight, a change as strong as alexandrite's and a fraction of the price. Malaia is the pinkish-orange member of the same group.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6",
+        "t7"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "One Name, Several Minerals",
+        "heading": "The Garnet Family",
+        "intro": "Garnet is a group of related minerals sharing a crystal structure rather than a single stone. Between them they cover every colour except blue, span Mohs 6.5 to 7.5, and run from the cheapest stone on this page to one of the dearest.",
+        "note": "Almost all garnet reaches the market untreated, which is a genuine advantage."
+      }
+    },
+    "quartz": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "ivory",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "The Quartz Pair",
+        "heading": "Amethyst and Citrine",
+        "body": "<p>Amethyst and citrine are the same mineral, quartz, in different colours, and a great deal of citrine began life as amethyst. Both sit at Mohs 7 with fair toughness and no cleavage. That is hard enough to shrug off most household knocks and soft enough that a ring worn every day for a decade will lose its polish and pick up fine scratches on the table facet. In pendants, earrings and dress rings neither gives any trouble at all.</p><p>Amethyst runs from pale lilac to the deep reddish purple traditionally called Siberian. Brazil, Uruguay, Zambia and Bolivia are the main sources, with Uruguayan material generally the most saturated. It was once valued alongside ruby, and stopped being so the moment large Brazilian deposits were found in the nineteenth century. Prolonged strong sunlight can fade it, which is the one real care point.</p><p>Citrine runs from pale lemon to a deep madeira brown-orange. Natural citrine is uncommon. Most commercial material is amethyst that has been heated to convert the colour, a permanent and long-accepted treatment that asks nothing extra of you. Ametrine, the bicolour purple and gold stone from Bolivia, is the same mineral showing both zones in one crystal.</p><p>Both are among the least expensive coloured stones available, and both stay affordable in very large sizes. They are the obvious answer when someone wants presence rather than rarity.</p>"
+      }
+    },
+    "topaz": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Hard, Which Is Not the Same as Tough",
+        "heading": "Topaz",
+        "body": "<p>Topaz shows better than anything else here why hardness and toughness are separate properties. At Mohs 8 it resists scratching better than almost every stone on this page, but it has perfect basal cleavage, so a single sharp knock in the wrong direction can split it cleanly. It makes a good ring stone provided the setting protects the girdle and the wearer understands that its strength is scratch resistance rather than impact resistance.</p><p>Colourless, pale blue, yellow, brown, pink and the sherry to orange-pink imperial topaz make up the range. Imperial topaz, classically from Ouro Preto in Brazil, is the variety carrying real value, particularly stones with a pink cast. Much pink topaz is heated imperial material. Brazil, Nigeria, Pakistan, Russia and Sri Lanka all produce topaz.</p><p>The blue topaz sold everywhere is worth explaining plainly, because almost none of it is naturally blue. It is colourless topaz that has been irradiated and then heated, giving the trade colours sky blue, Swiss blue and London blue. The treatment is permanent, and the material is held until residual activity has decayed to the levels the law requires. It is simply why a large blue topaz costs so little, and why blue topaz and aquamarine should not be compared on price alone.</p><p>Because of the cleavage, topaz should be kept out of ultrasonic cleaners, and some brown and yellow material fades in strong light.</p>"
+      }
+    },
+    "further": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Peridot",
+            "meta": "Mohs 6.5 to 7 · occasional wear",
+            "body": "<p>The only common gemstone that comes in essentially one colour: yellow-green to olive, always with a faint yellow cast, because the colour comes from iron in the mineral itself rather than a trace impurity. Burma, Pakistan, Arizona and the Egyptian island of Zabargad, plus a little found in meteorites. Almost never treated. It abrades at the facet edges over years of daily wear and it dislikes acids, so a bezel and occasional wear suit it best. Inexpensive small, noticeably dearer above ten carats.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Zircon",
+            "meta": "Mohs 6 to 7.5 · occasional wear",
+            "body": "<p>The natural mineral, and one of the liveliest stones in existence: dispersion close to diamond, and a doubling of the back facets visible through a loupe. Blue, golden, white, green and brown, from Cambodia, Sri Lanka, Tanzania and Australia. Blue and colourless zircon is almost always heated, which is stable. It is brittle, and the facet edges abrade sooner than the hardness suggests, so it belongs in a bezel or in earrings. Modest prices for a great deal of brilliance.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Alexandrite",
+            "meta": "Mohs 8.5 · daily wear",
+            "body": "<p>Colour-change chrysoberyl: green to blue-green in daylight, raspberry to purplish red under incandescent light, and the best examples switch completely. Originally Russian, now mostly Brazilian, Sri Lankan and East African. With excellent toughness and no significant cleavage it is the most durable stone on this page. Fine natural alexandrite is among the most expensive gemstones there is, and lab-grown material is a genuinely sensible alternative.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Kunzite",
+            "meta": "Mohs 6.5 to 7 · gentle wear",
+            "body": "<p>Pink to lilac spodumene, from Afghanistan, Pakistan, Brazil and Madagascar, available clean and very large for comparatively little. It is also the most demanding stone here: perfect cleavage in two directions, and colour that can fade in sunlight. Much of it is irradiated to deepen the pink, and that colour is the least stable of any treatment on this page. A lovely evening stone.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Iolite",
+            "meta": "Mohs 7 to 7.5 · with care",
+            "body": "<p>Violet-blue cordierite, sometimes sold as water sapphire. It is strongly pleochroic, showing violet-blue, pale blue and near-yellow down different crystal directions, so how the cutter orients the rough decides everything. Usually untreated and inexpensive, which makes it one of the better ways to reach a sapphire-adjacent blue on a modest budget. It has a cleavage direction, so it wants a protective setting.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Further Afield",
+        "heading": "Five More Worth Knowing",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "zirconcz": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Worth Saying Plainly",
+        "heading": "Zircon Is Not Cubic Zirconia",
+        "body": "<p>They share three letters and nothing else. Zircon is a natural mineral, zirconium silicate, mined and cut as a gemstone for two thousand years and among the oldest materials on earth: the oldest dated fragments of the planet's crust are zircon crystals. Cubic zirconia is a synthetic, zirconium dioxide, made in laboratories from the 1970s onwards as an inexpensive diamond simulant. The confusion is a naming accident, and it costs natural zircon much of the reputation it deserves.</p>"
+      }
+    },
+    "opaque": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Moonstone",
+            "meta": "Mohs 6 to 6.5 · gentle wear",
+            "body": "<p>Feldspar showing adularescence, the soft blue-white light that seems to float below the surface and moves as the stone turns. White, peach, grey and rainbow, mostly from Sri Lanka, India and Madagascar. Nearly always untreated and cut as a cabochon. The hardness is workable, but cleavage is the real issue: moonstone splits readily on a knock. Lovely in earrings and pendants, possible in a bezel-set ring worn gently, and poor for daily wear.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Labradorite",
+            "meta": "Mohs 6 to 6.5 · gentle wear",
+            "body": "<p>The same mineral family showing labradorescence instead: broad flashes of blue, green, gold and occasionally violet across a dark grey body. Spectrolite is the Finnish material showing the full range. Same cleavage caution as moonstone. Inexpensive, dramatic, and best in pieces that do not take knocks.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Lapis lazuli",
+            "meta": "Mohs 5 to 6 · occasional wear",
+            "body": "<p>A rock rather than a single mineral: deep ultramarine blue from lazurite, with pyrite flecks and white calcite veining. The finest still comes from Badakhshan in Afghanistan, mined there for six thousand years. It is porous, and commonly waxed or resin impregnated to improve the polish. That changes the care: no ultrasonics, no steam, no solvents and no long soaking. Rubover set, and worn gently.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Turquoise",
+            "meta": "Mohs 5 to 6 · occasional wear",
+            "body": "<p>Opaque sky blue to green, from Iran, the American southwest and China, prized either for an even blue or for dark matrix webbing. It is genuinely porous, and most on the market is stabilised with resin, which is what allows it to be cut and polished at all. Keep it away from oils, cosmetics, perfume, heat and ultrasonic cleaners, any of which can discolour it over time.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Sheen and Body Colour",
+        "heading": "Moonstone, Labradorite, Lapis and Turquoise",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "pearl": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "The Exception to Everything",
+        "heading": "Pearl, Briefly",
+        "body": "<p>Pearl is the one gem here that is not a mineral. It is grown by a living mollusc in layers of nacre laid down around an irritant, and almost every pearl sold today is cultured, meaning that irritant was introduced deliberately. Natural pearls are rare and trade largely as antiques.</p><p>It behaves unlike any other gem material, and every rule on this page has to be rewritten for it. Hardness is 2.5 to 4.5, softer than a steel key, so pearls scratch against nearly anything they share a drawer with. Nacre is dissolved by acid, which means perfume, hairspray, vinegar, lemon juice and ordinary perspiration all attack it. The old advice to put pearls on last and take them off first is not etiquette, it is the whole care instruction.</p><p>Akoya, freshwater, Tahitian and South Sea are the four main types, and lustre matters more than size in all of them. Pearls are graded on lustre, surface, shape, colour, nacre thickness and size rather than on any of the criteria used for a faceted stone. Most are bleached, and many are dyed or irradiated, both long-established practices. In a ring a pearl is a considered decision: earrings, a pendant or a necklace are the sensible default.</p>"
+      }
+    },
+    "hardness": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Diamond | 10 | Yes | The benchmark, included here for comparison"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Sapphire and ruby | 9 | Yes | Corundum; each has its own guide"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Alexandrite | 8.5 | Yes | Excellent toughness, the most durable stone on this page"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Topaz | 8 | With care | Perfect cleavage; protect the girdle, no ultrasonics"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Spinel | 7.5 to 8 | Yes | No cleavage and usually untreated; our first suggestion"
+          }
+        },
+        "r6": {
+          "type": "row",
+          "settings": {
+            "cells": "Emerald | 7.5 to 8 | With care | Included by nature and usually oiled; see its guide"
+          }
+        },
+        "r7": {
+          "type": "row",
+          "settings": {
+            "cells": "Aquamarine and morganite | 7.5 to 8 | Yes | Beryl, with a cleavage direction; see their guides"
+          }
+        },
+        "r8": {
+          "type": "row",
+          "settings": {
+            "cells": "Tourmaline | 7 to 7.5 | Yes, set sensibly | Fair toughness; suits a bezel or a low profile"
+          }
+        },
+        "r9": {
+          "type": "row",
+          "settings": {
+            "cells": "Tsavorite garnet | 7 to 7.5 | Yes | Tougher and cleaner than emerald of similar colour"
+          }
+        },
+        "r10": {
+          "type": "row",
+          "settings": {
+            "cells": "Rhodolite garnet | 7 to 7.5 | Yes | Good colour, good hardness, modest price"
+          }
+        },
+        "r11": {
+          "type": "row",
+          "settings": {
+            "cells": "Almandine garnet | 7 to 7.5 | Yes | Abundant and inexpensive; often cut too deep"
+          }
+        },
+        "r12": {
+          "type": "row",
+          "settings": {
+            "cells": "Spessartine garnet | 7 to 7.5 | Yes | Vivid orange; usually lightly included"
+          }
+        },
+        "r13": {
+          "type": "row",
+          "settings": {
+            "cells": "Iolite | 7 to 7.5 | With care | Has a cleavage direction; protective setting"
+          }
+        },
+        "r14": {
+          "type": "row",
+          "settings": {
+            "cells": "Amethyst | 7 | Occasional | Loses polish over years of daily wear; fades in strong sun"
+          }
+        },
+        "r15": {
+          "type": "row",
+          "settings": {
+            "cells": "Citrine | 7 | Occasional | As amethyst; most is heat-converted material"
+          }
+        },
+        "r16": {
+          "type": "row",
+          "settings": {
+            "cells": "Demantoid garnet | 6.5 to 7 | With care | The softest garnet; bezel it"
+          }
+        },
+        "r17": {
+          "type": "row",
+          "settings": {
+            "cells": "Peridot | 6.5 to 7 | Occasional | Abrades at facet edges and dislikes acids"
+          }
+        },
+        "r18": {
+          "type": "row",
+          "settings": {
+            "cells": "Kunzite | 6.5 to 7 | No | Cleavage in two directions and colour that can fade"
+          }
+        },
+        "r19": {
+          "type": "row",
+          "settings": {
+            "cells": "Zircon | 6 to 7.5 | Occasional | Brittle; the facet edges go before the surface does"
+          }
+        },
+        "r20": {
+          "type": "row",
+          "settings": {
+            "cells": "Tanzanite | 6 to 7 | Occasional | Cleavage and heat sensitivity; see its own guide"
+          }
+        },
+        "r21": {
+          "type": "row",
+          "settings": {
+            "cells": "Moonstone | 6 to 6.5 | Occasional at most | Cleavage is the risk, not the hardness"
+          }
+        },
+        "r22": {
+          "type": "row",
+          "settings": {
+            "cells": "Labradorite | 6 to 6.5 | Occasional at most | As moonstone; dramatic and fragile"
+          }
+        },
+        "r23": {
+          "type": "row",
+          "settings": {
+            "cells": "Opal | 5.5 to 6.5 | Occasional, bezel set | Contains water and can craze; see its own guide"
+          }
+        },
+        "r24": {
+          "type": "row",
+          "settings": {
+            "cells": "Turquoise | 5 to 6 | Occasional, bezel set | Porous and usually stabilised; keep from oils"
+          }
+        },
+        "r25": {
+          "type": "row",
+          "settings": {
+            "cells": "Lapis lazuli | 5 to 6 | Occasional, bezel set | Usually waxed or resin treated; no ultrasonics"
+          }
+        },
+        "r26": {
+          "type": "row",
+          "settings": {
+            "cells": "Pearl | 2.5 to 4.5 | No | Dissolved by acid; earrings, pendants and necklaces"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7",
+        "r8",
+        "r9",
+        "r10",
+        "r11",
+        "r12",
+        "r13",
+        "r14",
+        "r15",
+        "r16",
+        "r17",
+        "r18",
+        "r19",
+        "r20",
+        "r21",
+        "r22",
+        "r23",
+        "r24",
+        "r25",
+        "r26"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "The Comparison",
+        "heading": "Hardness and Daily Wear",
+        "intro": "Mohs hardness measures scratch resistance only. Toughness, which is resistance to chipping and breaking, is separate, and a stone can score well on one and badly on the other. Where a stone has cleavage, that matters more than its number.",
+        "headers": "Stone | Mohs | Ring worn daily | Worth knowing",
+        "first_col_bold": true,
+        "narrow": false,
+        "col1_width": 24,
+        "note": "Daily wear here means a ring worn continuously on a working hand. Almost everything on this list is perfectly happy in earrings, a pendant or a ring worn in the evening."
+      }
+    },
+    "labgrown": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Grown Rather Than Mined",
+        "heading": "Where a Lab-Grown Stone Makes Sense",
+        "body": "<p>We supply lab-grown coloured stones as well as natural ones, and there are places where they are the sensible answer rather than the compromise. A laboratory-grown stone is the same material as its natural counterpart, with the same hardness and the same optical properties. What it does not have is the geology.</p><p>The case is strongest where the natural stone is very expensive and the colour is the whole point. Fine alexandrite with a full colour change runs into serious money, and a grown alexandrite gives you that change for a small fraction of it. The same argument applies at the top of ruby, sapphire and emerald, each covered in its own guide. Lab-grown spinel has been made since the 1920s and comes in colours nature rarely offers.</p><p>The case is weakest where the natural stone is already affordable. There is little point in a grown amethyst, citrine or garnet, because clean natural material is inexpensive in almost any size. Some species, tourmaline and tanzanite among them, are barely grown commercially.</p><p>Whichever you choose, it should be described as laboratory-grown in writing, on the invoice and on any valuation, and resale value is lower than for natural material. If the colour matters more to you than the origin, a grown stone is a perfectly good decision and we will say so.</p>"
+      }
+    },
+    "treatments": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Heat",
+            "body": "<p>The oldest and by far the most common treatment, used on tourmaline, citrine, zircon, aquamarine, tanzanite and much else. It lightens, deepens or clears colour by finishing what the ground started. Permanent, and it changes nothing about how a stone is cleaned.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Irradiation",
+            "body": "<p>Used on blue topaz, some pink tourmaline and most kunzite. Pale or colourless material is exposed to radiation and usually then heated. Topaz is held until residual activity meets the legal limits. The colour is permanent in topaz and less so in kunzite, which can fade in sunlight.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Waxing and impregnation",
+            "body": "<p>Porous materials such as turquoise and lapis lazuli are filled with wax or resin to improve the polish and stabilise the surface, which is what makes much turquoise workable at all. It rules out ultrasonic cleaners, steam and solvents for the life of the piece.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Dyeing",
+            "body": "<p>Applied to lapis, turquoise, some agate and many pearls. Stable in some materials and less so in others, and best kept away from heat, solvents and long soaking.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Clarity enhancement",
+            "body": "<p>Resin or oil in surface-reaching fissures, most familiar in emerald and occasionally seen in heavily included rubellite. It can dry or discolour over decades, and it rules out ultrasonic cleaning and hot water.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Nothing at all",
+            "body": "<p>Spinel, garnet, peridot, iolite and most moonstone typically reach the market exactly as they came out of the ground. It is one of the quieter arguments for choosing them.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "What Is Routinely Done",
+        "heading": "Treatments, Described Plainly",
+        "intro": "Most coloured stone is treated in some way. Nearly all of these processes are long established, stable and reflected in the price. Knowing which one applies still matters, because a few change the care.",
+        "note": "Our treatments guide covers each of these in more depth, stone by stone."
+      }
+    },
+    "design": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Design Note",
+        "heading": "Setting a Coloured Stone Well",
+        "body": "<p>Almost everything on this page benefits from the same three decisions. A bezel or rubover setting, which covers the girdle where chips begin. A low profile, which keeps the stone clear of door frames and worktops. And a metal chosen to flatter the colour: cool stones generally read better against white metal, warm ones against yellow or rose.</p><p>Ask about the depth of the stone as well as its face-up size, because a shallow stone in an exposed claw setting is the most common way a coloured stone comes to grief. Everything we make is made in a London workshop, and if the design and the stone are pulling in opposite directions we will say so before we start.</p>"
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "eyebrow": "Before You Choose",
+        "heading": "Check It Against the Life It Will Lead",
+        "body": "<p>Hardness is not toughness, and the difference decides more on this page than anywhere else on the site. Our durability guide sets out which of these stones survive daily wear, which need protecting, and which belong in a pendant rather than a ring.</p>",
+        "link": "/pages/gemstone-durability",
+        "link_label": "Read the durability guide"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Which of these is the best choice for an engagement ring?",
+            "a": "<p>Spinel, comfortably. At Mohs 7.5 to 8, with no cleavage and almost always untreated, it stands up to daily wear as well as anything short of sapphire, and it comes in red, pink, mauve, grey and blue. Alexandrite is harder still, but the price puts it out of reach for most. After spinel, the harder garnets are the most practical option.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Is tourmaline hard enough for a ring worn every day?",
+            "a": "<p>Generally yes, with sensible design. At Mohs 7 to 7.5 it will hold up, and a bezel or a low profile that shields the girdle makes a real difference. We would think twice about a very large elongated stone standing proud on a working hand.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "What is Paraiba tourmaline, and why does it cost so much?",
+            "a": "<p>It is tourmaline coloured by copper, which produces a neon blue to green no other tourmaline reaches. It was found in Paraiba in Brazil in the late 1980s and later in Nigeria and Mozambique, with Brazilian material carrying a substantial premium. The deposits are small, the stones usually are too, and the colour is unlike anything else.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Why is spinel not better known?",
+            "a": "<p>Largely historical accident. For centuries it was sold as ruby, including in more than one crown jewel, and once the two were properly separated spinel was treated as the imitation rather than the gemstone it is. Fine red spinel is rarer than a good deal of sapphire, and it has been climbing in price for years.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Is garnet only red?",
+            "a": "<p>No. Garnet is a family of minerals covering everything except blue. Tsavorite is chrome green, spessartine mandarin orange, rhodolite raspberry-pink, and some pyrope-spessartine changes colour between daylight and lamplight. The deep red almandine is simply the most abundant member.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "Is amethyst too soft for a ring?",
+            "a": "<p>For a ring worn every day we would usually steer you elsewhere. At Mohs 7 it will scuff and lose its polish over years of wear, and it can fade in prolonged strong sun. For a dress ring, a pendant or earrings it is lovely, available in very large clean sizes, and inexpensive.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "q": "Why is blue topaz so cheap?",
+            "a": "<p>Because almost all of it starts as colourless topaz, which is abundant, and is then irradiated and heated to produce the blue. The colour is permanent, and the material is held until residual activity has decayed to the levels the law requires. It explains why a large blue topaz and a large aquamarine are not comparable on price.</p>"
+          }
+        },
+        "q8": {
+          "type": "qa",
+          "settings": {
+            "q": "What is the difference between zircon and cubic zirconia?",
+            "a": "<p>They are unrelated. Zircon is a natural mineral, zirconium silicate, cut as a gemstone for two thousand years and prized for brilliance and dispersion close to diamond. Cubic zirconia is a laboratory-made material, zirconium dioxide, produced from the 1970s as an inexpensive diamond simulant. The similar names cause endless confusion and do natural zircon no favours.</p>"
+          }
+        },
+        "q9": {
+          "type": "qa",
+          "settings": {
+            "q": "Which of these gives the best green?",
+            "a": "<p>It depends on budget. Tsavorite garnet gives the most emerald-like green, is tougher than emerald and is untreated, but it is expensive above three carats. Chrome tourmaline gets close for considerably less. Peridot is the affordable option, and always carries a yellow cast.</p>"
+          }
+        },
+        "q10": {
+          "type": "qa",
+          "settings": {
+            "q": "Is alexandrite's colour change always dramatic?",
+            "a": "<p>No. Alexandrite is green to blue-green in daylight and raspberry to purplish red under incandescent light, but the strength of the change varies enormously. A complete, clean switch is what commands the price, and a stone described as showing a slight change is a different proposition altogether.</p>"
+          }
+        },
+        "q11": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I have a pearl, moonstone or opal ring?",
+            "a": "<p>You can, and we make them. All three are soft, all three have particular vulnerabilities, and all three want a bezel and a gentle life. We would suggest them as occasional or dress rings rather than as something worn every day, and we would rather say so before you commit.</p>"
+          }
+        },
+        "q12": {
+          "type": "qa",
+          "settings": {
+            "q": "Do you supply lab-grown coloured stones?",
+            "a": "<p>Yes. They make most sense where the natural stone is expensive and the colour is the point, alexandrite being the clearest example. They make least sense where natural material is already cheap. Whatever you choose, it will be described as laboratory-grown in writing.</p>"
+          }
+        },
+        "q13": {
+          "type": "qa",
+          "settings": {
+            "q": "How should I clean a coloured stone ring?",
+            "a": "<p>Warm water, a drop of washing-up liquid, a soft brush and a dry cloth suits almost everything here. Ultrasonic cleaners and steamers are the ones to avoid: they are unsafe for anything with cleavage, anything porous or treated, and anything organic.</p>"
+          }
+        },
+        "q14": {
+          "type": "qa",
+          "settings": {
+            "q": "Can you source a stone that is not listed here?",
+            "a": "<p>Almost certainly. Tell us the colour you are picturing, the piece it is going into and the budget, and we will work back from there. We source to specification rather than selling from stock, so an unusual stone is a good reason to commission something bespoke.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8",
+        "q9",
+        "q10",
+        "q11",
+        "q12",
+        "q13",
+        "q14"
+      ],
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Questions About These Stones",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "UbTxH7"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/diamond-and-gemstone-guide-cover.png",
+        "cover_alt": "The Diamond and Gemstone Guide",
+        "cover_caption": "The Diamond and Gemstone Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Diamond and Gemstone Guide",
+        "body": "<p>Every gemstone stone by stone, plus durability, treatments, ethical sourcing and grading reports.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Gemstone Education",
+            "title": "Gemstone Durability",
+            "desc": "Mohs hardness, toughness and what suits which piece.",
+            "cta": "Read more",
+            "link": "/pages/gemstone-durability"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Gemstone Education",
+            "title": "Gemstone Treatments",
+            "desc": "Heat, oiling, diffusion and filling explained.",
+            "cta": "Read more",
+            "link": "/pages/gemstone-treatments"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Section Hub",
+            "title": "Gemstone Education",
+            "desc": "Every gemstone guide in one place.",
+            "cta": "Back to the hub",
+            "link": "/pages/gemstone-education"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Coloured Stone Rings",
+            "desc": "Every coloured stone ring we hold.",
+            "cta": "Browse rings",
+            "link": "/collections/coloured-stone-rings"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "dedicated",
+    "choose",
+    "tourmaline",
+    "tourtypes",
+    "spinel",
+    "garnet",
+    "quartz",
+    "topaz",
+    "further",
+    "zirconcz",
+    "opaque",
+    "pearl",
+    "hardness",
+    "labgrown",
+    "treatments",
+    "design",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

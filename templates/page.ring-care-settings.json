@@ -1,0 +1,610 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Settings, Claws and Warning Signs"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Chapter six of The Ring and Jewellery Care Guide</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/engagement-wedding-ring-stack-gold-rose-gold.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "The Warning Comes First",
+        "heading": "Stones Are Rarely Lost Without Notice",
+        "body": "<p>Stones are almost never lost without warning. They are lost because the warning was missed, or because it was worn through before anyone looked.</p><p>A claw thins gradually. A bezel edge lifts after a knock. A pavé bead wears until it no longer holds its stone. Every one of those changes can be seen or felt weeks before a stone goes. This chapter is about learning to notice them.</p><p>Chains, clasps and earring fittings fail in their own way, and they have their own section further down.</p>"
+      }
+    },
+    "settings": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Claw or prong | The tip thins with abrasion until it no longer holds the stone | Claws that catch on knitwear, feel sharp, or look flattened or shortened"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Rub-over or bezel | The metal edge lifts or thins after impact | A visible gap at the rim, or a stone that has shifted within it"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Pavé and micro-pavé | Individual beads wear, or a bead is knocked off | A dark or dull spot in a line of stones, or a stone sitting lower than its neighbours"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Channel | The channel wall spreads after impact and releases stones | Movement in the line, or a wall that no longer looks parallel"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Tension and open settings | Distortion of the band changes the grip on the stone | Any change in the ring's roundness at all"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Five Settings",
+        "heading": "How Each One Fails",
+        "intro": "Find your setting in the first column, then learn the third. That is the one you are looking for at home.",
+        "headers": "Setting | How it fails | What to watch",
+        "first_col_bold": true,
+        "narrow": false,
+        "col1_width": 22,
+        "note": ""
+      }
+    },
+    "checks": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "The fabric test",
+            "body": "<p>Pass the ring gently over fine knitwear or a microfibre cloth. A claw that has begun to lift will snag before it is visible to the eye. This is the single most reliable home check for claw wear.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "The thirty-second evening check",
+            "body": "<p>Under good light: is the centre stone still sitting level? Is any claw visibly raised or displaced? Does a soft cloth catch on anything that it did not before? Is the band still circular?</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Every few weeks is enough",
+            "body": "<p>Once a fortnight suits a ring in daily wear. The point is to notice a change, which only works if you have looked recently enough to remember how it looked.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Handle the ring by its band",
+            "body": "<p>Picking a ring up by the band rather than pressing over the centre stone keeps fingerprints off and avoids repeated pressure on fine claws and delicate settings.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Two Home Checks",
+        "heading": "Thirty Seconds, and a Piece of Knitwear",
+        "intro": "Neither of these replaces a workshop inspection. Both catch sudden damage early, which is when it is cheapest to fix.",
+        "note": ""
+      }
+    },
+    "stopwearing": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "If a Stone Moves",
+        "heading": "Stop Wearing It, and Stop Testing It",
+        "body": "<p>Do not keep testing a loose stone. Every movement enlarges the seat inside the setting and turns a small repair into a lost stone.</p><p>Put the ring in its box and contact us the same day. A claw retip is a small, inexpensive job. Sourcing a matching replacement stone is neither.</p>"
+      }
+    },
+    "attention": {
+      "type": "fye-checklist",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "label": "A stone that moves, clicks or rattles",
+            "note": "Stop wearing the ring and contact us the same day."
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "label": "A claw that repeatedly catches, or feels sharp",
+            "note": "Catching on knitwear usually means a claw has lifted or worn thin."
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "label": "A visible gap around a gemstone",
+            "note": "Most common on a rub-over setting after an impact."
+          }
+        },
+        "i4": {
+          "type": "item",
+          "settings": {
+            "label": "A bent, uneven or distorted setting",
+            "note": "Pressure has moved metal that is holding a stone in place."
+          }
+        },
+        "i5": {
+          "type": "item",
+          "settings": {
+            "label": "A band that is no longer circular",
+            "note": "A change in shape transfers pressure through the setting and loosens stones."
+          }
+        },
+        "i6": {
+          "type": "item",
+          "settings": {
+            "label": "A crack, deep dent or sudden change after an impact",
+            "note": "Have it looked at straight away, whenever the last inspection was."
+          }
+        },
+        "i7": {
+          "type": "item",
+          "settings": {
+            "label": "An unexpected and persistent change in fit",
+            "note": "Worth a conversation before it becomes a resize."
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6",
+        "i7"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Deserves Attention",
+        "heading": "Seven Signs Worth a Message",
+        "intro": "Fine scratches, a polish softening and platinum taking on a patina are all normal. These are not.",
+        "note": ""
+      }
+    },
+    "howoften": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Daily wear, pavé or claw-set | Annually"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Daily wear, plain or rub-over set | Annually, or every two years"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Occasional wear | Every two years"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Chains and pendants worn daily | Annually, checking the bail and the link beneath it"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "After any significant impact | Immediately, regardless of the last check"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "How Often",
+        "heading": "When Settings Should Be Checked",
+        "intro": "The annual condition inspection and standard professional clean are complimentary for the life of every piece we supply.",
+        "headers": "Wear pattern | Suggested inspection",
+        "first_col_bold": true,
+        "narrow": false,
+        "col1_width": 40,
+        "note": "Do not wait for the annual date if a stone moves, a claw catches, the ring changes shape or it takes a significant impact. Contact us the same week."
+      }
+    },
+    "fittings_intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Chains, Clasps and Fittings",
+        "heading": "A Pendant Is Lost at the Fitting",
+        "body": "<p>A pendant is rarely lost because the chain broke in the middle. It is lost at a fitting: the bail, a jump ring, or the clasp. Almost always after weeks of small warnings that were easy to miss.</p><p>Fittings are the parts that move, and anything that moves against metal wears. The useful news is that a worn clasp or a thinning bail is a straightforward workshop job, provided it is caught while it is still a repair.</p>"
+      }
+    },
+    "fittings_table": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Chain links | Links thin where they rub, particularly at the back of the neck and either side of the clasp | Kinking, a section that hangs differently, or a link stretched into an oval"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Bail | Constant movement wears both the bail and the link running through it | A bail worn thin underneath, or a pendant that has begun to tilt forward"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Clasps | The spring tires, or the catch wears until it no longer closes fully | A clasp that opens under light pressure, feels slack, or needs a second attempt to close"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Jump rings | Soldered rings open under load, and unsoldered rings simply pull apart | A visible gap, or an end that no longer sits flush against its neighbour"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Posts and butterflies | Posts bend and thin at the base, and butterfly backs lose their grip | A post that flexes easily, or a back that slides off without resistance"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Five Fittings",
+        "heading": "How Fittings Wear",
+        "intro": "",
+        "headers": "Fitting | How it fails | What to watch",
+        "first_col_bold": true,
+        "narrow": false,
+        "col1_width": 22,
+        "note": ""
+      }
+    },
+    "pulltest": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "How to do it",
+            "body": "<p>Hold the chain either side of the clasp and pull gently, firmly enough to feel resistance but not hard enough to strain it. Do the same either side of the bail, and flex an earring post lightly between finger and thumb.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "What a failure looks like",
+            "body": "<p>Anything that gives, clicks or opens has been telling you so for some time. Stop wearing the piece and contact us the same week.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Repair it before it fails",
+            "body": "<p>A worn clasp or a thinning bail is a straightforward workshop job. A pendant lost in the street is not recoverable at any price.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Storing chains",
+            "body": "<p>Chains tangle and kink when they are stored loose, and a kinked link is a weak link. Fasten the clasp before putting a chain away, then lay it flat or hang it rather than dropping it into a dish.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Keep chains away from rings",
+            "body": "<p>A claw setting will always find a chain in a shared box. Use individual compartments or soft pouches so that settings and stones cannot rub against one another.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "The Pull Test",
+        "heading": "Once a Month, and Store Them Properly",
+        "intro": "The fittings equivalent of the fabric test. It takes less than a minute for a whole jewellery box.",
+        "note": ""
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "How often should my ring be inspected?",
+            "a": "<p>Annually for anything worn daily, and every two years for occasional wear. Immediately after any significant impact, whenever the last check was. The condition inspection and standard professional clean are complimentary for the life of the piece.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "What exactly is the fabric test?",
+            "a": "<p>Pass the ring gently over fine knitwear or a microfibre cloth. A claw that has started to lift will snag before you can see it. It is the most reliable home check for claw wear, and it takes seconds.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "A claw has started catching. What should I do?",
+            "a": "<p>Stop wearing the ring and contact us. A new catch usually means movement, damage or worn metal, and a claw retip is small and inexpensive compared with replacing a stone.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "I can hear a rattle in my ring.",
+            "a": "<p>Stop testing it. Every movement enlarges the seat inside the setting. Put the ring in its box and contact us the same day.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "My band looks oval rather than round.",
+            "a": "<p>It has been compressed or distorted. Stop wearing it, because a change in shape transfers pressure through the setting and loosens stones. Do not try to bend it back either: metal work-hardens, and a second bend is where it cracks.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "Is a rub-over setting safer than claws?",
+            "a": "<p>They fail differently rather than one being universally safer. A claw thins at the tip until it no longer holds the stone, while a rub-over edge lifts or thins after an impact and leaves a visible gap at the rim.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "q": "How should I store chains?",
+            "a": "<p>Fasten the clasp first, then lay the chain flat or hang it rather than dropping it into a dish, and keep chains apart from rings. Chains kink when stored loose, and a kinked link is a weak link.</p>"
+          }
+        },
+        "q8": {
+          "type": "qa",
+          "settings": {
+            "q": "A stone has fallen out. What happens now?",
+            "a": "<p>Stop wearing the ring and do not test the setting any further. Search carefully before moving around: clothing turn-ups, pockets, the sink trap if it happened near water, and the floor along your route. Put the ring, and the stone if you find it, into a box, then send us photographs of the setting. We will tell you whether it is a repair, a reset or an insurance matter, and what it is likely to cost, before you send anything.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8"
+      ],
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Setting and Fitting Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "white",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "/pages/ring-and-jewellery-care-guide-download",
+            "style": "btn--primary",
+            "klaviyo_form": ""
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/ring-care-guide-cover.png",
+        "cover_alt": "The Ring and Jewellery Care Guide",
+        "cover_caption": "The Ring and Jewellery Care Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Ring and Jewellery Care Guide",
+        "body": "<p>Wearing, cleaning, storing and protecting fine jewellery, from the first week to the twentieth year. Free to download and keep.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Care Guide",
+            "title": "Caring for Different Metals",
+            "desc": "Patina, replating and what each metal needs.",
+            "cta": "Read more",
+            "link": "/pages/ring-care-metals"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Care Guide",
+            "title": "Caring for Gemstones",
+            "desc": "What each stone will take, and what it will not.",
+            "cta": "Read more",
+            "link": "/pages/ring-care-gemstones"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Care Guide",
+            "title": "Servicing and the Annual Check-Up",
+            "desc": "How the annual inspection works, and what it covers.",
+            "cta": "Read more",
+            "link": "/pages/ring-care-servicing"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Full Guide",
+            "title": "The Ring and Jewellery Care Guide",
+            "desc": "Every chapter, from the first week to the annual check-up.",
+            "cta": "Start here",
+            "link": "/pages/ring-and-jewellery-care-guide"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Chapters"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "settings",
+    "checks",
+    "stopwearing",
+    "attention",
+    "howoften",
+    "fittings_intro",
+    "fittings_table",
+    "pulltest",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

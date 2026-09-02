@@ -1,0 +1,579 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Caring for Gemstones"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Chapter five of The Ring and Jewellery Care Guide</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/engagement-wedding-ring-stack-gold-rose-gold.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Hardness Is Not Toughness",
+        "heading": "A Hard Stone Can Still Chip",
+        "body": "<p>Hardness describes how well a stone resists scratching. Toughness describes how well it survives a knock. They are not the same thing, and the difference matters more than anything else in this chapter.</p><p>A diamond is the hardest thing in your jewellery box and can still chip after a sharp impact on the girdle. Topaz can cleave despite feeling hard. Tanzanite cleaves readily. Treat every stone as something that can be damaged by the right knock in the wrong place.</p><p>The tables below sort the stones we commonly supply by what they will tolerate. Find yours before you clean anything at home. If your stone is not listed, or you are not certain what it is, ask us first. A message costs nothing and we would always rather answer than repair.</p>"
+      }
+    },
+    "durable": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Natural diamond | Warm soapy water and a soft brush | Resists scratching, but can chip after a sharp impact on the girdle"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Lab-grown diamond | Exactly as natural diamond | Keep oils from collecting beneath the stone, and avoid heavy knocks"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Ruby | Warm soapy water and a soft brush | Ask us first if the treatment is unknown"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Sapphire | Warm soapy water and a soft brush | Very durable, but still avoid significant impact"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Durable",
+        "heading": "Generally Safe for Gentle Home Cleaning",
+        "intro": "Warm water, a few drops of mild washing-up liquid and a soft brush kept only for jewellery. These stones tolerate that, provided the setting is sound.",
+        "headers": "Gemstone | Cleaning | Key precaution",
+        "first_col_bold": true,
+        "narrow": false,
+        "col1_width": 20,
+        "note": ""
+      }
+    },
+    "moderate": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Aquamarine | Mild warm soapy water and a soft brush | Avoid sharp knocks and sudden temperature change"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Topaz | Gentle hand cleaning | Can cleave on impact despite feeling hard"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Quartz and amethyst | Mild soap and lukewarm water | Avoid heat and prolonged strong sunlight, as amethyst can fade"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Garnet | Mild soapy water | Avoid steam and unverified ultrasonic cleaning"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Peridot | Gentle hand cleaning only | Protect from scratching, heat and temperature shock"
+          }
+        },
+        "r6": {
+          "type": "row",
+          "settings": {
+            "cells": "Morganite | Mild soapy water and a soft brush | Marks easily, so keep it away from abrasive surfaces"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Moderate",
+        "heading": "Gentle Hand Cleaning Only",
+        "intro": "Robust enough for regular wear, but these want a lighter touch and no shortcuts.",
+        "headers": "Gemstone | Cleaning | Key precaution",
+        "first_col_bold": true,
+        "narrow": false,
+        "col1_width": 20,
+        "note": ""
+      }
+    },
+    "delicate": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Emerald | Brief, gentle hand cleaning only | Never steam or ultrasonic. Avoid heat and chemicals. Most emeralds are oiled, and oil can be stripped"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Opal | Wipe with a soft, barely damp cloth | Avoid heat, prolonged soaking and temperature change. Opal can craze"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Pearl | Wipe with a soft cloth after every wear | Put on last, take off first. Never soak, never ultrasonic. Perfume and hairspray are the main enemy"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Turquoise | Wipe with a soft, slightly damp cloth | Porous. Avoid cosmetics, oils, solvents, steam and ultrasonic"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Tanzanite | Gentle lukewarm soapy water only | Protect from knocks and temperature shock, as it cleaves readily"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Delicate",
+        "heading": "Ask Us Before Cleaning",
+        "intro": "If your piece contains one of these, message us before it goes anywhere near water. These are the stones where a well-meant clean does the damage.",
+        "headers": "Gemstone | Cleaning | Key precaution",
+        "first_col_bold": true,
+        "narrow": false,
+        "col1_width": 20,
+        "note": ""
+      }
+    },
+    "ultrasonic": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Home Ultrasonic Cleaners",
+        "heading": "Vibration Does Not Create Weakness. It Finds It.",
+        "body": "<p>Do not use a home ultrasonic cleaner on emeralds, opals, pearls, turquoise, fracture-filled or treated gemstones, antique jewellery, micro-pavé or delicate settings, or on any ring with a stone you suspect is loose.</p><p>A stone that was merely loose can be gone in seconds. Professional ultrasonic equipment is only ever used after a piece has been inspected, and that inspection is the whole difference.</p>"
+      }
+    },
+    "treatments": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "ivory",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "A Note on Treatments",
+        "heading": "Treatment Changes the Cleaning",
+        "body": "<p>Many coloured gemstones are treated. Treatment is normal, it is disclosed in the trade, and on its own it is not a reason to think less of a stone.</p><p>It does change how a stone should be cleaned. Fracture-filled, oiled, dyed, coated and heat-treated stones each behave differently, and a method that is perfectly safe for one can ruin another. Emerald is the clearest example: most emeralds are oiled, and that oil can be stripped.</p><p>Your gemstone report or invoice will state any treatment. If you are unsure, send us the certificate number and we will tell you exactly what your stone will and will not tolerate. We keep the specification of every piece we supply, so we can look it up even if your paperwork has gone astray.</p>"
+      }
+    },
+    "before": {
+      "type": "fye-checklist",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "label": "Know what the stone is",
+            "note": "If you cannot identify it, ask us before soaking anything. Your invoice and gemstone report will say."
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "label": "Check for a treatment",
+            "note": "The report or invoice states it. A treated stone needs a different method, not a gentler version of the same one."
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "label": "Inspect the setting first",
+            "note": "If a stone moves, a claw catches or the setting looks bent, stop. Cleaning a compromised setting can finish the job."
+          }
+        },
+        "i4": {
+          "type": "item",
+          "settings": {
+            "label": "Put the plug in",
+            "note": "Never clean jewellery over an open plughole, and never rinse beneath a running tap. Use a second bowl of clean lukewarm water."
+          }
+        },
+        "i5": {
+          "type": "item",
+          "settings": {
+            "label": "Keep the brush soft, and keep it for jewellery",
+            "note": "A clean, very soft toothbrush used for nothing else. Do not force bristles beneath delicate claws."
+          }
+        },
+        "i6": {
+          "type": "item",
+          "settings": {
+            "label": "Leave the household cupboard alone",
+            "note": "No bleach, chlorine, toothpaste, bicarbonate of soda, abrasive powder or household cleaner. Mild washing-up liquid and warm water only."
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Before You Clean",
+        "heading": "Six Checks Before the Bowl Comes Out",
+        "intro": "Two minutes here prevents the two most common home-cleaning accidents: cleaning a setting that was already compromised, and using a robust method on a delicate stone.",
+        "note": ""
+      }
+    },
+    "doless": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "default",
+        "narrow": true,
+        "eyebrow": "A Rule for Everything Else",
+        "heading": "When in Doubt, Do Less",
+        "body": "<p>Nothing in a jewellery box is improved by aggressive cleaning. A soft dry cloth and a professional clean once a year will keep almost any piece looking well.</p><p>Every For Your Eternity ring includes free professional inspection for life, with a standard professional clean at the same time. If a stone has you guessing, that is the safest place for it.</p>"
+      }
+    },
+    "habits": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Pearls go on last and come off first",
+            "body": "<p>Perfume and hairspray are the main enemy. Wipe with a soft cloth after every wear. Never soak a pearl, and never put one in an ultrasonic cleaner.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Keep amethyst out of strong sun",
+            "body": "<p>Prolonged strong sunlight and heat can fade amethyst. Store quartz and amethyst pieces away from sunny window ledges and out of direct heat.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Opals dislike change",
+            "body": "<p>Avoid heat, prolonged soaking and sudden temperature change, because opal can craze. A soft, barely damp cloth is the entire cleaning method.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Emeralds avoid heat and chemicals",
+            "body": "<p>Brief, gentle hand cleaning only. No steam and no ultrasonic. Take the ring off before cleaning products, hand gel and very hot water.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Tanzanite fears the knock, not the scratch",
+            "body": "<p>It cleaves readily, so protect it from impact and from temperature shock. Handle the ring by its band rather than pressing on the stone.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Turquoise is porous",
+            "body": "<p>Cosmetics, oils and solvents soak in rather than sitting on the surface. Put jewellery on after creams and perfume have settled, and wipe with a soft, slightly damp cloth.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Habits, Not Just Cleaning",
+        "heading": "Six Stones That Need a Routine",
+        "intro": "For some stones the daily habit matters far more than the annual clean.",
+        "note": ""
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Why does my diamond look dull?",
+            "a": "<p>Skin oils, moisturiser, soap and hand sanitiser collect beneath the stone, which is exactly where the sparkle comes from. Alcohol hand gel builds up faster than most people expect. Gentle home cleaning usually fixes it. If it stays dull the residue is compacted and it needs a professional clean.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I put my ring in an ultrasonic cleaner at home?",
+            "a": "<p>Not unless you are certain of the stone, the treatment and the condition of the setting. Treatments, natural fractures and delicate settings can all make ultrasonic cleaning unsuitable regardless of how hard the gemstone is.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Are lab-grown diamonds cared for differently?",
+            "a": "<p>No. A lab-grown diamond is cleaned and protected exactly as a natural one. Keep oils from collecting beneath the stone and avoid heavy knocks.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Is it true that diamonds cannot be damaged?",
+            "a": "<p>No. Diamonds resist scratching exceptionally well, but they can chip or cleave after a sharp impact, particularly on the girdle. Hardness is not toughness.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I clean my emerald ring at home?",
+            "a": "<p>Only briefly and gently, by hand. Most emeralds are oiled and the oil can be stripped by heat, steam, solvents or ultrasonic cleaning. If you are at all unsure, send us the certificate number and we will tell you what your stone will tolerate.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "How do I look after a pearl?",
+            "a": "<p>Put it on last and take it off first, and wipe it with a soft cloth after every wear. Never soak a pearl and never use an ultrasonic cleaner. Perfume and hairspray do the most damage.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "q": "Does a treated gemstone need special care?",
+            "a": "<p>Yes, and the care depends on the treatment. Fracture-filled, oiled, dyed, coated and heat-treated stones all behave differently. Your report or invoice states the treatment, and we will translate it into a method if you send us the certificate number.</p>"
+          }
+        },
+        "q8": {
+          "type": "qa",
+          "settings": {
+            "q": "Can sunlight harm a gemstone?",
+            "a": "<p>It can. Prolonged strong sunlight and heat can fade amethyst, and heat is a risk for emerald, opal and peridot. Keep coloured stone jewellery off sunny window ledges and away from direct heat.</p>"
+          }
+        },
+        "q9": {
+          "type": "qa",
+          "settings": {
+            "q": "Does a gemstone ring still need an annual inspection?",
+            "a": "<p>Yes. The security of the setting matters as much as the stone itself, and a claw that has begun to lift is far easier to deal with than a missing gemstone. The condition inspection and standard professional clean are complimentary for the life of the piece.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8",
+        "q9"
+      ],
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Gemstone Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "white",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "/pages/ring-and-jewellery-care-guide-download",
+            "style": "btn--primary",
+            "klaviyo_form": ""
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/ring-care-guide-cover.png",
+        "cover_alt": "The Ring and Jewellery Care Guide",
+        "cover_caption": "The Ring and Jewellery Care Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Ring and Jewellery Care Guide",
+        "body": "<p>Wearing, cleaning, storing and protecting fine jewellery, from the first week to the twentieth year. Free to download and keep.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Care Guide",
+            "title": "Caring for Different Metals",
+            "desc": "Patina, replating and what each metal needs.",
+            "cta": "Read more",
+            "link": "/pages/ring-care-metals"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Care Guide",
+            "title": "Settings, Claws and Warning Signs",
+            "desc": "How a stone is lost, and the checks that stop it.",
+            "cta": "Read more",
+            "link": "/pages/ring-care-settings"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Stones",
+            "title": "Gemstone Durability",
+            "desc": "Hardness, toughness and everyday wear, stone by stone.",
+            "cta": "Read more",
+            "link": "/pages/gemstone-durability"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Full Guide",
+            "title": "The Ring and Jewellery Care Guide",
+            "desc": "Every chapter, from the first week to the annual check-up.",
+            "cta": "Start here",
+            "link": "/pages/ring-and-jewellery-care-guide"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Chapters"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "durable",
+    "moderate",
+    "delicate",
+    "ultrasonic",
+    "treatments",
+    "before",
+    "doless",
+    "habits",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

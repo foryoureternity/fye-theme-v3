@@ -1,0 +1,569 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Fit, Resizing and Changing Fingers"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Chapter seven of The Ring and Jewellery Care Guide</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/engagement-wedding-ring-stack-gold-rose-gold.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Start Here",
+        "heading": "A Ring That Comes Off Is a Ring at Risk",
+        "body": "<p>A ring that fits badly is a ring that gets taken off. It ends up on a bathroom ledge, in a pocket, or pushed onto a different finger. That is where rings are lost, which is why fit is worth getting right rather than living with.</p><p>Fit is also the thing owners worry about most in the first year, usually without cause. Fingers are not a fixed size, and a ring that feels different from one week to the next is almost always behaving exactly as it should.</p><p>This chapter covers what changes a finger, when a resize is genuinely the answer, what limits resizing, and what to do if a ring will not come off. If you are still choosing a size, start with <a href=\"/pages/find-your-ring-size\">Getting the Size Right</a>.</p>"
+      }
+    },
+    "changes": {
+      "type": "fye-checklist",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "label": "Temperature",
+            "note": "Cold shrinks a finger quickly and heat swells it. The same ring can feel like two different rings in a single day."
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "label": "Time of day",
+            "note": "Fingers are smallest first thing in the morning and largest by the evening."
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "label": "Hydration and salt",
+            "note": "A salty meal or a long day without much water is enough to change how a ring passes the knuckle."
+          }
+        },
+        "i4": {
+          "type": "item",
+          "settings": {
+            "label": "Exercise",
+            "note": "Hands swell during and after exercise, which is one of several reasons rings should come off at the gym."
+          }
+        },
+        "i5": {
+          "type": "item",
+          "settings": {
+            "label": "Altitude and flying",
+            "note": "Both cause temporary swelling that settles within a day or two of landing."
+          }
+        },
+        "i6": {
+          "type": "item",
+          "settings": {
+            "label": "Pregnancy",
+            "note": "Fit can change considerably and then return. Wearing the ring on a chain is usually better than resizing twice."
+          }
+        },
+        "i7": {
+          "type": "item",
+          "settings": {
+            "label": "Medication",
+            "note": "Some medication causes fluid retention, and fit follows it."
+          }
+        },
+        "i8": {
+          "type": "item",
+          "settings": {
+            "label": "Age",
+            "note": "Fingers change slowly across decades. A ring sized at thirty may need attention at sixty, and that is normal."
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6",
+        "i7",
+        "i8"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Perfectly Normal",
+        "heading": "Eight Things That Change Your Finger Size",
+        "intro": "Finger size varies constantly. A ring that feels loose on a cold morning and snug on a summer evening is doing what it is supposed to do.",
+        "note": "Observe the fit across two to four weeks, at different times of day, before deciding anything is wrong."
+      }
+    },
+    "observe": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Before You Ask for a Resize",
+        "heading": "Give It Two to Four Weeks",
+        "body": "<p>Wear the ring across different times of day, different temperatures and an ordinary working week before you conclude that the size is wrong. Many rings that feel wrong for a week are simply being worn in an unusual month.</p><p>Resizing is permanent work on a finished piece. It is worth being sure.</p>"
+      }
+    },
+    "yes": {
+      "type": "fye-checklist",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "label": "The ring will not pass the knuckle, or passes it far too easily",
+            "note": "A ring you have to fight on, or one that slides over the knuckle with no resistance at all."
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "label": "It has spun persistently for months",
+            "note": "Months, across seasons and temperatures, rather than on a few cold mornings."
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "label": "It leaves a deep or uncomfortable mark after normal wear",
+            "note": "Ordinary wear, not a hot afternoon or a heavy gym session."
+          }
+        },
+        "i4": {
+          "type": "item",
+          "settings": {
+            "label": "A permanent change in finger size has settled",
+            "note": "Weight change, age or a medical change that has been stable for a while."
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "1",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "The Clear Cases",
+        "heading": "When a Resize Is the Right Answer",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "alts": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "The ring spins",
+            "body": "<p>On a top-heavy design this is usually a weight-distribution problem rather than a size problem. Sizing beads or a small shank adjustment can hold the ring upright without altering the size at all.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Loose only in winter",
+            "body": "<p>A sizing insert or beads can be added, and taken out again when the seasons change. That is a far smaller intervention than permanently reducing the band.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "A temporary change in pregnancy",
+            "body": "<p>Wear the ring on a chain rather than resizing it twice. Fit usually returns, and two resizes take more out of a band than one.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "3",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Often Better",
+        "heading": "When Something Else Solves It",
+        "intro": "",
+        "note": "Tell us what the ring is doing rather than what size you think you need, and we will suggest the smallest fix that works."
+      }
+    },
+    "limits": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "ivory",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "The Honest Limits",
+        "heading": "What Limits Resizing",
+        "body": "<p>Not every ring can be resized, and no amount of skill changes that. Full eternity rings, rings set most of the way round, shaped-to-fit bands, engraved bands, mixed-metal construction, milgrain detail and certain alternative metals may resize only within a narrow range, or not at all.</p><h3>Down is easier than up</h3><p>Resizing down is generally simpler: metal is removed and the band is closed. Sizing up either stretches the band, which thins it, or adds new metal, which then has to be matched and finished invisibly. Stone-set shoulders make both harder.</p><h3>Sometimes remaking is the safer answer</h3><p>Where altering a ring would compromise its structure, its stones or its finish, we will say so and explain what remaking would involve. We would far rather tell you that before any work begins than hand back a weakened ring.</p>"
+      }
+    },
+    "costs": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "One resize in the first year, non-gemstone-set rings, where the design allows | Complimentary"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Advice, sizing guidance and assessment from photographs | Complimentary"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Annual condition inspection and standard professional clean | Complimentary, for life"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Further resizes | Chargeable"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Resizing a gemstone-set ring | Chargeable"
+          }
+        },
+        "r6": {
+          "type": "row",
+          "settings": {
+            "cells": "Sizing beads, inserts and shank adjustments | Quoted before any work starts"
+          }
+        },
+        "r7": {
+          "type": "row",
+          "settings": {
+            "cells": "Postage and insured return carriage | Chargeable"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Sizing Work",
+        "heading": "What Is Complimentary, and What Is Not",
+        "intro": "Costs are always explained and approved before any chargeable work begins.",
+        "headers": "Work | Cost",
+        "first_col_bold": true,
+        "narrow": true,
+        "col1_width": 56,
+        "note": "The full list of complimentary and chargeable work is in the servicing chapter."
+      }
+    },
+    "process": {
+      "type": "fye-steps",
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "number": "01",
+            "heading": "Tell us how it fits",
+            "body": "<p>Describe what the ring is doing and when. Where it helps we will ask for photographs, a short video, or a professional local measurement.</p>"
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "number": "02",
+            "heading": "We agree the right fix",
+            "body": "<p>A resize, sizing beads, an insert, or leaving it alone for now. We will tell you the limits of your design before anything is decided.</p>"
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "number": "03",
+            "heading": "Secure sending instructions",
+            "body": "<p>We confirm the workshop address, the packaging, the insured postal method and the return arrangements. Please never post jewellery without arranging it first.</p>"
+          }
+        },
+        "s4": {
+          "type": "step",
+          "settings": {
+            "number": "04",
+            "heading": "Work, then secure return",
+            "body": "<p>Anything chargeable is quoted and approved before it starts. The ring is then packed carefully and returned by the agreed insured method.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "4",
+        "show_head": true,
+        "eyebrow": "How It Works",
+        "heading": "Arranging a Resize",
+        "intro": "Contact us before sending anything. Jewellery must never arrive at the workshop unannounced."
+      }
+    },
+    "stuck": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "default",
+        "narrow": true,
+        "eyebrow": "If It Will Not Come Off",
+        "heading": "Do Not Force a Swollen Finger",
+        "body": "<p>Raise the hand above your head for a few minutes, cool it, and use soap or hand cream. Most rings come off with patience.</p><p>If the finger is painful, discoloured or numb, seek medical help rather than persisting. A ring can be cut off safely and, in most cases, repaired invisibly afterwards. Damaged metal is a far smaller problem than a damaged finger.</p>"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "My ring feels tighter in the evening. Is something wrong?",
+            "a": "<p>No. Fingers are smallest first thing and largest by the evening, and temperature, salt, hydration, exercise and altitude all move the number. Watch the fit over a few weeks before treating it as a sizing problem.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "How long should I wait before asking for a resize?",
+            "a": "<p>Two to four weeks, worn across different times of day and different temperatures. Many rings that feel wrong for a week are simply being worn in an unusual month.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Do you offer a free resize?",
+            "a": "<p>One complimentary resize within the first year of delivery on non-gemstone-set rings, where the design allows. Further resizes, and resizing of gemstone-set rings, are chargeable. Any cost is explained and approved before work begins.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Can a full eternity ring be resized?",
+            "a": "<p>Generally not. The stones run the whole way round, so there is nowhere to cut. Rings set most of the way round, shaped-to-fit bands, engraved bands and certain alternative metals are similarly limited. We will always explain the options before any work starts, including when remaking is the better answer.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "My engagement ring spins. Should I size it down?",
+            "a": "<p>Not necessarily. A top-heavy ring that spins usually has a weight-distribution problem rather than a size problem, and sizing beads or a small shank adjustment often fix it without altering the size. Send us a photograph and tell us when it spins.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "Should I resize my ring during pregnancy?",
+            "a": "<p>Usually not. Fit typically returns afterwards, and two resizes take more out of a band than one. Wearing the ring on a chain is the simpler answer for the months in between.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "q": "My ring is stuck and will not come off. What do I do?",
+            "a": "<p>Do not force it. Raise the hand above your head, cool the finger and use soap or hand cream. If the finger is painful, discoloured or numb, seek medical help. A ring can be cut off safely and usually repaired invisibly afterwards.</p>"
+          }
+        },
+        "q8": {
+          "type": "qa",
+          "settings": {
+            "q": "How do I work out the right size in the first place?",
+            "a": "<p>Our sizing chapter covers every method, including how to do it in secret. We also post a free ring sizer to any UK address. See <a href=\"/pages/find-your-ring-size\">Getting the Size Right</a>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8"
+      ],
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Fit and Resizing Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "white",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "/pages/ring-and-jewellery-care-guide-download",
+            "style": "btn--primary",
+            "klaviyo_form": ""
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/ring-care-guide-cover.png",
+        "cover_alt": "The Ring and Jewellery Care Guide",
+        "cover_caption": "The Ring and Jewellery Care Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Ring and Jewellery Care Guide",
+        "body": "<p>The complete care guide in one PDF: wearing, cleaning, storing, insuring and servicing fine jewellery, with the annual check-up explained.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "c1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Sizing",
+            "title": "Getting the Size Right",
+            "desc": "How to find the size in the first place, plus a free UK ring sizer.",
+            "cta": "Read more",
+            "link": "/pages/find-your-ring-size"
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Care Guide",
+            "title": "Servicing and the Annual Check-Up",
+            "desc": "What is free, what is not, and how the mail-in service works.",
+            "cta": "Read more",
+            "link": "/pages/ring-care-servicing"
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Care Guide",
+            "title": "Storage, Travel and Insurance",
+            "desc": "Where to keep it, how to travel with it, and what to insure.",
+            "cta": "Read more",
+            "link": "/pages/ring-care-storage"
+          }
+        },
+        "c4": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Full Guide",
+            "title": "The Ring and Jewellery Care Guide",
+            "desc": "Every chapter, from everyday wear and cleaning to the annual check-up.",
+            "cta": "Start here",
+            "link": "/pages/ring-and-jewellery-care-guide"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Chapters"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "changes",
+    "observe",
+    "yes",
+    "alts",
+    "limits",
+    "costs",
+    "process",
+    "stuck",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

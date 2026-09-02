@@ -1,0 +1,481 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Total Carat Weight and Stone Layout"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>The number most often quoted, and most often misread</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/engagement-wedding-ring-stack-gold-rose-gold.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "One Figure, Two Very Different Rings",
+        "heading": "Total Carat Weight Is a Total, Not a Stone Size",
+        "body": "<p>Total carat weight is the combined weight of every stone in the ring. It is the single figure most likely to make two completely different rings look comparable on paper, and it is the number to be most sceptical of.</p><p>It does not tell you how many stones there are, how large each one looks, how far they continue around the finger, or how well they are cut. A one-carat band of ten stones and a one-carat band of twenty are not the same ring at all.</p>"
+      }
+    },
+    "compare": {
+      "type": "fye-cards",
+      "blocks": {
+        "c1": {
+          "type": "card",
+          "settings": {
+            "heading": "One carat as ten stones",
+            "body": "<p>Each stone roughly 3.0mm across, covering about 47% of a size M band. Fewer, larger stones give a bolder row with more individual sparkle.</p>",
+            "label": "Bolder"
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "heading": "One carat as twenty stones",
+            "body": "<p>Each stone roughly 2.4mm across, covering about 77% of the same band. More, smaller stones give a finer, more continuous line.</p>",
+            "label": "Finer"
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "heading": "Neither is better value",
+            "body": "<p>They are different designs at the same weight. Which is right depends on the band width, the finger and the engagement ring beside it.</p>",
+            "label": "The point"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "3",
+        "show_head": true,
+        "intro": "Illustrative figures. Actual face-up diameter depends on cut proportions, so treat these as relative comparisons rather than exact measurements.",
+        "eyebrow": "The Same Number",
+        "heading": "What a Carat Actually Buys"
+      }
+    },
+    "ask": {
+      "type": "fye-checklist",
+      "blocks": {
+        "w1": {
+          "type": "item",
+          "settings": {
+            "label": "Ask for the stone count",
+            "note": "Or the approximate weight of each stone, not only the total."
+          }
+        },
+        "w2": {
+          "type": "item",
+          "settings": {
+            "label": "Compare face-up dimensions",
+            "note": "And the finished band width, which together determine how the ring reads on the hand."
+          }
+        },
+        "w3": {
+          "type": "item",
+          "settings": {
+            "label": "Remember size changes the total",
+            "note": "On full-eternity rings, finger size changes the number of stones and therefore the final carat weight."
+          }
+        },
+        "w4": {
+          "type": "item",
+          "settings": {
+            "label": "Treat quoted totals as approximate",
+            "note": "Where the exact count varies by size, the product carat weight can only ever be indicative."
+          }
+        },
+        "w5": {
+          "type": "item",
+          "settings": {
+            "label": "Never compare on carat alone",
+            "note": "Shape, setting, origin, quality and coverage all move the price more than the total weight does."
+          }
+        },
+        "w6": {
+          "type": "item",
+          "settings": {
+            "label": "Check proportion against the band",
+            "note": "A smaller, better-proportioned stone is more elegant than a larger one forced into the wrong band."
+          }
+        }
+      },
+      "block_order": [
+        "w1",
+        "w2",
+        "w3",
+        "w4",
+        "w5",
+        "w6"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "intro": "If a jeweller will only quote total carat weight, that tells you something in itself.",
+        "note": "",
+        "eyebrow": "What to Ask Instead",
+        "heading": "Six Better Questions"
+      }
+    },
+    "sizes": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Small stones",
+            "body": "<p>Very small diamonds create a refined shimmer rather than obvious individual flashes. They suit slim bands, pavé and delicate half-eternity designs. The delicacy requires precise setting, and resizing is more limited where the setting runs across much of the band.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Medium stones",
+            "body": "<p>Often the most versatile for a wedding band. Visible enough to read as individual diamonds, not so large that they overpower the ring. Channel, shared claw, bezel and bar settings all work well at this scale.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Larger stones",
+            "body": "<p>A stronger eternity-ring look, beautiful standalone or beside a substantial engagement ring. They need enough metal and finger space, sit higher, feel more noticeable between the fingers and ask for more care.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "3",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "intro": "The stones must suit the width and depth of the band, the finger size and the engagement ring beside it.",
+        "note": "",
+        "eyebrow": "Stone Size",
+        "heading": "Bigger Is Not Simply Better"
+      }
+    },
+    "layouts": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Continuous matched row | Formal, even and classic | The most demanding on stone matching, because any variation repeats around the band"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Graduated | Larger near the centre, smaller towards the sides | Useful for a shaped or softer design, and kinder to a tight curve"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Alternating | Diamond and sapphire, two shapes, or a repeating colour rhythm | The pattern must resolve neatly at both ends"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Scattered or multi-row | Contemporary and individual | Relies on the metal and negative space as much as on the stones"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "first_col_bold": true,
+        "note": "",
+        "intro": "Layout is what turns a set of stones into a design. It decides where the eye lands and how gracefully the row begins and ends.",
+        "eyebrow": "Four Layouts",
+        "heading": "How the Row Is Arranged",
+        "headers": "Layout | Character | What to watch"
+      }
+    },
+    "practical": {
+      "type": "fye-checklist",
+      "blocks": {
+        "w1": {
+          "type": "item",
+          "settings": {
+            "label": "Centre the pattern on the hand",
+            "note": "Not on the bench. A row centred flat can sit off-centre once the ring is worn."
+          }
+        },
+        "w2": {
+          "type": "item",
+          "settings": {
+            "label": "Check how the row ends",
+            "note": "On partial coverage, an abrupt stop reads as unfinished. The termination is a design decision."
+          }
+        },
+        "w3": {
+          "type": "item",
+          "settings": {
+            "label": "Avoid a stone where fingers rub",
+            "note": "The last stone sitting exactly at the contact point will loosen first."
+          }
+        },
+        "w4": {
+          "type": "item",
+          "settings": {
+            "label": "Keep enough metal around every stone",
+            "note": "Even where a finer look is wanted. Security beats delicacy on a ring worn daily."
+          }
+        },
+        "w5": {
+          "type": "item",
+          "settings": {
+            "label": "Think about replacement now",
+            "note": "Consider how a lost coloured or fancy-cut stone could be matched years later."
+          }
+        }
+      },
+      "block_order": [
+        "w1",
+        "w2",
+        "w3",
+        "w4",
+        "w5"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "intro": "",
+        "note": "",
+        "eyebrow": "Practical Points",
+        "heading": "Five Things to Check Before Approval"
+      }
+    },
+    "flat": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "The Single Most Useful Request",
+        "heading": "Ask to See It Drawn Flat",
+        "body": "<p>A layout drawing of the band opened out flat is the quickest way to judge spacing, symmetry and where the row ends. All three are considerably harder to assess on a curved photograph, which is how most people are asked to approve a design.</p><p>We can send one before anything is made, and we would rather you spotted something at that stage than after casting.</p>"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Is a higher total carat weight always better?",
+            "a": "<p>No, and it is often the wrong question. A one-carat band of twenty small stones and a one-carat band of ten larger ones are entirely different rings. Ask for stone count and individual size before comparing anything on total weight.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Why does the carat weight change with ring size?",
+            "a": "<p>On a full-eternity ring a larger size needs more stones, or larger ones, to complete the circle. The total weight therefore rises with size, which is why quoted weights on these rings are approximate.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Which layout is most forgiving?",
+            "a": "<p>Graduated. Because the stones change size deliberately, small variations read as intentional rather than as errors. A continuous matched row is the least forgiving, since any inconsistency repeats around the band.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Can a single lost stone be replaced?",
+            "a": "<p>On a diamond band, usually straightforwardly. On coloured stones or fancy cuts it is harder, because matching colour and outline years later is genuinely difficult. It is worth considering at the design stage rather than after.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Should the stones match the engagement ring?",
+            "a": "<p>Not necessarily in size, but ideally in colour and quality, since they will sit side by side in the same light. A band noticeably whiter or warmer than the engagement ring is one of the few mismatches that is obvious to everyone.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true,
+        "heading": "Carat Weight and Layout Questions"
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "TNb26i"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/Eternity_Ring_Guide_Cover_v3.png",
+        "cover_alt": "The Eternity Ring Guide",
+        "cover_caption": "The Eternity Ring Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Eternity Ring Guide",
+        "body": "<p>Total carat weight, stone layout, coverage, stacking, setting styles and sizing. As a printable PDF.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Eternity Rings",
+            "title": "Understanding Stone Coverage",
+            "desc": "Quarter to full, and what each commits you to.",
+            "cta": "Read more",
+            "link": "/pages/eternity-ring-coverage"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Stone Settings",
+            "desc": "How each setting holds a row of stones.",
+            "cta": "Read more",
+            "link": "/pages/stone-settings"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Diamond Education",
+            "title": "The Four Cs",
+            "desc": "Why cut matters more than carat, even here.",
+            "cta": "Read more",
+            "link": "/pages/diamond-4cs"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Diamond Wedding Rings",
+            "desc": "Stone-set bands in every layout and coverage.",
+            "cta": "Browse rings",
+            "link": "/collections/diamond-wedding-rings"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "compare",
+    "ask",
+    "sizes",
+    "layouts",
+    "practical",
+    "flat",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

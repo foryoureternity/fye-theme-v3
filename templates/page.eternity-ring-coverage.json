@@ -1,0 +1,408 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Understanding Stone Coverage"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Quarter, half, three-quarter or full, and what each commits you to</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/engagement-wedding-ring-stack-gold-rose-gold.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "The Decision That Changes Everything Else",
+        "heading": "Settle Coverage First",
+        "body": "<p>Coverage is the single decision that changes an eternity ring most: how much sparkle you see, how the ring feels, what it costs, and how much can be altered later. Everything else is easier to decide once coverage is settled.</p><p>One thing to know before the table below. Coverage names are useful descriptions rather than a guarantee of an exact visual result. Stone diameter, finger size, setting and stone count all affect how far the set section appears to travel around the finger.</p>"
+      }
+    },
+    "table": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Quarter, around 25% | A light accent | Plain metal beneath | Usually possible within limits | Lowest"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Third, around 33% | A clear line | Plain metal beneath | Usually possible within limits | Low to middle"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Half, around 50% | Reads as covered from above | Smooth plain underside | Often possible, setting dependent | Middle"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Three-quarter, around 75% | Sparkle from most angles | Small plain section remains | More limited | Higher"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Full, 100% | Uninterrupted, every angle | Stones and settings beneath | Usually not possible | Highest"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "first_col_bold": true,
+        "note": "Partial-coverage rings can rotate. A correct fit, balanced construction and enough side coverage all help, but no partial ring is completely immune to movement.",
+        "intro": "",
+        "eyebrow": "Five Levels",
+        "heading": "Coverage Compared",
+        "headers": "Coverage | Visible sparkle | Comfort beneath | Conventional resizing | Relative cost"
+      }
+    },
+    "half": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "The Point Most People Miss",
+        "heading": "Half Is Not a Compromise",
+        "body": "<p>The arc you actually see is roughly the top 120 degrees of the band, viewed from above at arm's length. A half-eternity sets 180 degrees of stones, which comfortably exceeds that visible arc. This is why half coverage reads as covered.</p><p>From ordinary viewing angles a well-proportioned half-eternity can look remarkably similar to a full one, for a lower price, a smoother underside and far more future flexibility. It is the practical sweet spot for most wearers, not the budget option.</p>"
+      }
+    },
+    "partial": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Check it on a hand, not a stand",
+            "body": "<p>Ask for a photograph of the ring worn rather than shot on a stand. A set section that looks wide enough in a product image may expose plain metal once the ring rotates.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Finger size changes the maths",
+            "body": "<p>On a larger finger the same 180 degrees of stones covers proportionally less of the hand's silhouette. Check coverage against the actual size rather than the product photograph.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Plain metal is useful",
+            "body": "<p>The underside gives a jeweller somewhere to adjust, engrave or repair. Extensive settings still limit what is safe, but some plain metal is always better than none.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Rotation is a fit problem first",
+            "body": "<p>A ring that spins is often a weight-distribution issue rather than a coverage one. Sizing beads frequently solve it without changing the design at all.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "intro": "",
+        "note": "",
+        "eyebrow": "Partial Coverage",
+        "heading": "Quarter, Third and Half in Practice"
+      }
+    },
+    "full": {
+      "type": "fye-checklist",
+      "blocks": {
+        "w1": {
+          "type": "item",
+          "settings": {
+            "label": "Sizing is usually permanent",
+            "note": "A significant size change may require partial rebuilding or remaking entirely."
+          }
+        },
+        "w2": {
+          "type": "item",
+          "settings": {
+            "label": "Specification changes with size",
+            "note": "Exact carat weight and stone count differ between sizes, so two sizes of the same design are not identical rings."
+          }
+        },
+        "w3": {
+          "type": "item",
+          "settings": {
+            "label": "Stones sit beneath the finger",
+            "note": "They meet keys, handles and work surfaces, and collect more dirt than an open plain underside."
+          }
+        },
+        "w4": {
+          "type": "item",
+          "settings": {
+            "label": "Maintenance is higher",
+            "note": "Fine or exposed settings need regular inspection, and engraving space may be limited or absent."
+          }
+        },
+        "w5": {
+          "type": "item",
+          "settings": {
+            "label": "Records matter more",
+            "note": "The specification is harder to reconstruct after a loss, so insurance detail and photographs are worth keeping."
+          }
+        },
+        "w6": {
+          "type": "item",
+          "settings": {
+            "label": "Choose it for the right reason",
+            "note": "Because you value the uninterrupted design, not because it is assumed to be the best version."
+          }
+        }
+      },
+      "block_order": [
+        "w1",
+        "w2",
+        "w3",
+        "w4",
+        "w5",
+        "w6"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "intro": "A full-eternity ring is beautiful and looks finished from every angle. It also asks for more certainty than any other band we make.",
+        "note": "",
+        "eyebrow": "Before You Commit",
+        "heading": "The Full-Eternity Commitment"
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "eyebrow": "Get This Right First",
+        "heading": "Size Certainty Comes Before Full Coverage",
+        "body": "<p>If there is any doubt about the finger size, a half or three-quarter eternity is the calmer route. We will only recommend a full eternity when we are confident in the size, and we would rather say so than sell you something that cannot be adjusted.</p>",
+        "link": "/pages/find-your-ring-size",
+        "link_label": "Read the sizing guide"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Is a half-eternity ring worth it compared with a full one?",
+            "a": "<p>For most people, yes. The visible arc of a ring viewed normally is around the top 120 degrees, and a half-eternity sets 180 degrees, so it reads as covered from ordinary angles. You get a smoother underside, a lower price and the ability to resize later.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Can a full-eternity ring be resized?",
+            "a": "<p>Usually not in the conventional way. There is nowhere to cut and no plain metal to add or remove. A significant size change means partial rebuilding or remaking, which is why we insist on size certainty before making one.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Why does my eternity ring keep spinning?",
+            "a": "<p>Usually fit or weight distribution rather than coverage. If the stones are all on top, the ring is top-heavy and will rotate. Sizing beads or a small shank adjustment normally solve it without altering the design.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Do two sizes of the same full-eternity ring have the same carat weight?",
+            "a": "<p>No. A larger size needs more stones, or larger ones, so the total carat weight and stone count both change. This is why quoted carat weights on full-eternity rings are often approximate.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Is it uncomfortable having stones under the finger?",
+            "a": "<p>Most people adjust quickly, but it is a real difference. Stones and settings beneath the finger meet keys, handles and work surfaces, and collect more dirt than plain metal. If you work with your hands, three-quarter coverage is the sensible compromise.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true,
+        "heading": "Coverage Questions We Are Asked Most"
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "TNb26i"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/Eternity_Ring_Guide_Cover_v3.png",
+        "cover_alt": "The Eternity Ring Guide",
+        "cover_caption": "The Eternity Ring Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Eternity Ring Guide",
+        "body": "<p>Coverage from quarter to full, stacking, setting styles, total carat weight, stone layout and sizing. As a printable PDF.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Eternity Rings",
+            "title": "Wearing It in a Stack",
+            "desc": "Four common arrangements, and the fit checks before ordering.",
+            "cta": "Read more",
+            "link": "/pages/eternity-ring-stacking"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Eternity Rings",
+            "title": "Total Carat Weight and Layout",
+            "desc": "Why the same carat weight makes two very different rings.",
+            "cta": "Read more",
+            "link": "/pages/stone-layout"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Stone Settings",
+            "desc": "How each setting affects security and resizing.",
+            "cta": "Read more",
+            "link": "/pages/stone-settings"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Half Eternity Rings",
+            "desc": "Our largest eternity collection, over 1,200 rings.",
+            "cta": "Browse rings",
+            "link": "/collections/half-eternity"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "table",
+    "half",
+    "partial",
+    "full",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

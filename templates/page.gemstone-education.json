@@ -1,0 +1,296 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Gemstone Education"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Coloured stones, one at a time, with honest advice on what each can take</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 36,
+        "image": "shopify://shop_images/loose-diamonds-coloured-gemstones-sapphire-emerald.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Start Here",
+        "heading": "Chosen With the Heart as Much as the Eye",
+        "body": "<p>A coloured stone says something a diamond cannot. It signals personality, taste and choice: a stone selected for the wearer rather than for the wedding industry.</p><p>Coloured gemstones are described by three qualities of colour rather than the <a href=\"/pages/diamond-4cs\">Four Cs</a>. <strong>Hue</strong> is the colour family, <strong>tone</strong> is how light or dark it appears, and <strong>saturation</strong> is how vivid or muted it is. Strong, evenly distributed colour at a medium tone almost always looks more beautiful than a darker but patchy stone, and clarity standards are looser: most coloured stones contain visible inclusions, and that is entirely normal.</p><p>The most valuable colour is not always the best colour for the wearer. A dark sapphire may be technically impressive and still look heavy on the hand. Colour also shifts between daylight, office light and candlelight, which is why we always show stones in more than one light.</p>"
+      }
+    },
+    "stones": {
+      "type": "fye-cards",
+      "blocks": {
+        "c1": {
+          "type": "card",
+          "settings": {
+            "heading": "Sapphire",
+            "body": "<p>Mohs 9, eleven colours, and the best all-round coloured gemstone for daily wear. <a href=\"/pages/sapphire-guide\">Read the guide</a>.</p>",
+            "label": "Daily wear"
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "heading": "Ruby",
+            "body": "<p>Red corundum, Mohs 9, and one of the few stones that can outprice diamond. <a href=\"/pages/ruby-guide\">Read the guide</a>.</p>",
+            "label": "Daily wear"
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "heading": "Emerald",
+            "body": "<p>An unmatched green with a jardin, low toughness and a need for protection. <a href=\"/pages/emerald-guide\">Read the guide</a>.</p>",
+            "label": "With care"
+          }
+        },
+        "c4": {
+          "type": "card",
+          "settings": {
+            "heading": "Aquamarine",
+            "body": "<p>Soft sea-blue beryl, clean and affordable at larger sizes. <a href=\"/pages/aquamarine-guide\">Read the guide</a>.</p>",
+            "label": "With care"
+          }
+        },
+        "c5": {
+          "type": "card",
+          "settings": {
+            "heading": "Morganite",
+            "body": "<p>Peach-pink beryl, and the rose gold pairing everyone asks for. <a href=\"/pages/morganite-guide\">Read the guide</a>.</p>",
+            "label": "With care"
+          }
+        },
+        "c6": {
+          "type": "card",
+          "settings": {
+            "heading": "Tanzanite",
+            "body": "<p>Violet-blue, single-source, and more delicate than it looks. <a href=\"/pages/tanzanite-guide\">Read the guide</a>.</p>",
+            "label": "Occasional"
+          }
+        },
+        "c7": {
+          "type": "card",
+          "settings": {
+            "heading": "Opal and Fire Opal",
+            "body": "<p>Play-of-colour like nothing else, and the care it genuinely needs. <a href=\"/pages/opal-guide\">Read the guide</a>.</p>",
+            "label": "Occasional"
+          }
+        },
+        "c8": {
+          "type": "card",
+          "settings": {
+            "heading": "Other Gemstones",
+            "body": "<p>Garnet, spinel, tourmaline, amethyst, citrine, peridot, topaz and moonstone. <a href=\"/pages/other-gemstones\">Read the guide</a>.</p>",
+            "label": "Mixed"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "4",
+        "show_head": true,
+        "intro": "Each page covers colour range, hardness, treatments, what to watch and how to set it.",
+        "eyebrow": "Stone by Stone",
+        "heading": "Eight Gemstone Guides"
+      }
+    },
+    "metal": {
+      "type": "fye-cards",
+      "blocks": {
+        "c1": {
+          "type": "card",
+          "settings": {
+            "heading": "Platinum and White Gold",
+            "body": "<p>Cooler and cleaner. White metals let a stone's own colour read accurately, and suit blues, greens and icy pastels.</p>"
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "heading": "Yellow Gold",
+            "body": "<p>Warms a stone. Blues, greens and warm-toned stones feel richer against yellow gold, and it flatters antique cuts.</p>"
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "heading": "Rose Gold",
+            "body": "<p>Softens pink, peach, champagne and purple tones. Morganite in rose gold is the most requested combination we make.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "3",
+        "show_head": true,
+        "intro": "The same stone reads differently depending on what surrounds it. Choose the pairing, not just the stone.",
+        "eyebrow": "Setting the Stone",
+        "heading": "The Metal Changes the Colour"
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "eyebrow": "Before Anything Else",
+        "heading": "Match the Stone to the Life It Will Lead",
+        "body": "<p>Hardness resists scratching. Toughness resists chipping. They are different properties and the two are constantly confused, which is how people end up with an opal engagement ring they have to take off to do the washing up.</p>",
+        "link": "/pages/gemstone-durability",
+        "link_label": "Read the durability guide"
+      }
+    },
+    "more": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Reference",
+            "title": "Gemstone Durability",
+            "desc": "Mohs hardness, toughness and what suits which piece.",
+            "cta": "Read more",
+            "link": "/pages/gemstone-durability"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Reference",
+            "title": "Gemstone Treatments",
+            "desc": "Heat, oiling, diffusion and filling, explained plainly.",
+            "cta": "Read more",
+            "link": "/pages/gemstone-treatments"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Reference",
+            "title": "Birthstones",
+            "desc": "Twelve months, with a hardier alternative for each.",
+            "cta": "Read more",
+            "link": "/pages/birthstones"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Sister Section",
+            "title": "Diamond Education",
+            "desc": "The Four Cs, shapes, lab-grown and fancy colour.",
+            "cta": "Explore diamonds",
+            "link": "/pages/diamond-education"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Reference Guides"
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "UbTxH7"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/diamond-and-gemstone-guide-cover.png",
+        "cover_alt": "The Diamond and Gemstone Guide",
+        "cover_caption": "The Diamond and Gemstone Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Diamond and Gemstone Guide",
+        "body": "<p>Every gemstone stone by stone, plus durability, treatments, ethical sourcing and grading reports.</p>"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "stones",
+    "metal",
+    "xref",
+    "more",
+    "nav_bottom",
+    "guide"
+  ]
+}

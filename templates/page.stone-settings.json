@@ -1,0 +1,495 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Stone Settings Explained"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>How each stone is held, and what it costs you in sparkle, security and upkeep</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 30,
+        "image": "shopify://shop_images/engagement-wedding-ring-stack-gold-rose-gold.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "The Metal Around the Stone",
+        "heading": "There Is No Single Best Setting",
+        "body": "<p>The setting is the metal structure that holds each stone. It decides how much light reaches the stones, how protected they are, how the ring feels between the fingers, how much maintenance it will ask for, and how much room a jeweller has to work with if it ever needs resizing.</p><p>This matters most on bands where stones repeat around the finger. A wedding or eternity ring is not an occasional dress ring: it has to survive daily life, and the more exposed the stones, the more important regular inspection becomes.</p><p>One distinction to get straight early. <strong>Coverage is not a setting.</strong> Half eternity and full eternity describe how far the stones travel around the band. Any setting below can be used at any coverage, and the two decisions combine: a channel-set half-eternity, a French pavé full-eternity.</p>"
+      }
+    },
+    "methods": {
+      "type": "fye-table",
+      "blocks": {
+        "m1": {
+          "type": "row",
+          "settings": {
+            "cells": "Channel set | A continuous row held between two metal walls | Highly secure and smooth, ideal for active daily wear"
+          }
+        },
+        "m2": {
+          "type": "row",
+          "settings": {
+            "cells": "Bezel / rubover | A protective metal rim framing each stone | Maximum protection, low-profile and snag-free"
+          }
+        },
+        "m3": {
+          "type": "row",
+          "settings": {
+            "cells": "Flush / gypsy set | Stones sunk level into the band metal | Exceptionally practical, smooth surface for hands-on work"
+          }
+        },
+        "m4": {
+          "type": "row",
+          "settings": {
+            "cells": "Grain / pavé | Tiny beads of metal holding closely set stones | A continuous shimmer, needs periodic inspection"
+          }
+        },
+        "m5": {
+          "type": "row",
+          "settings": {
+            "cells": "French pavé | V-shaped cuts beneath each stone reduce visible metal | Brighter than grain pavé, a finer structure"
+          }
+        },
+        "m6": {
+          "type": "row",
+          "settings": {
+            "cells": "Shared claw / prong | Adjacent stones share claws, minimal metal between | Maximum brightness, open sides need careful wear"
+          }
+        },
+        "m7": {
+          "type": "row",
+          "settings": {
+            "cells": "Micro-claw / U-set | Open side profile with individual scalloped supports | Airy and bright, requires frequent inspection"
+          }
+        },
+        "m8": {
+          "type": "row",
+          "settings": {
+            "cells": "Bar set | Stones separated by slim bars of metal | Geometric and art-deco in feel, light enters the sides"
+          }
+        },
+        "m9": {
+          "type": "row",
+          "settings": {
+            "cells": "Scattered / starlight | Small stones placed at irregular intervals | Modern and characterful against matte or brushed metal"
+          }
+        }
+      },
+      "block_order": [
+        "m1",
+        "m2",
+        "m3",
+        "m4",
+        "m5",
+        "m6",
+        "m7",
+        "m8",
+        "m9"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Setting Methods",
+        "heading": "How Stones Are Actually Held",
+        "intro": "These are distinct settings, not interchangeable names. Shared claw, French pavé and grain-set pavé are often confused; they hold stones in genuinely different ways and they wear differently.",
+        "headers": "Setting | Visual profile | Practical and daily wear",
+        "first_col_bold": true,
+        "note": ""
+      }
+    },
+    "tradeoff": {
+      "type": "fye-table",
+      "blocks": {
+        "t1": {
+          "type": "row",
+          "settings": {
+            "cells": "Flush / gypsy | Low to medium | Very high | Low | High"
+          }
+        },
+        "t2": {
+          "type": "row",
+          "settings": {
+            "cells": "Bezel / rubover | Medium | Very high | Low | Moderate"
+          }
+        },
+        "t3": {
+          "type": "row",
+          "settings": {
+            "cells": "Channel | Medium | High | Low to medium | Moderate"
+          }
+        },
+        "t4": {
+          "type": "row",
+          "settings": {
+            "cells": "Bar set | High | Moderate to high | Low to moderate | Moderate"
+          }
+        },
+        "t5": {
+          "type": "row",
+          "settings": {
+            "cells": "Grain / pavé | High | Moderate | Medium to high | Limited"
+          }
+        },
+        "t6": {
+          "type": "row",
+          "settings": {
+            "cells": "French pavé | Very high | Moderate | Higher | Limited"
+          }
+        },
+        "t7": {
+          "type": "row",
+          "settings": {
+            "cells": "Shared claw | Very high | Moderate, claws exposed | Higher | Limited"
+          }
+        },
+        "t8": {
+          "type": "row",
+          "settings": {
+            "cells": "Micro-claw / U-set | Very high | Moderate | Higher | Limited"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6",
+        "t7",
+        "t8"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "The Honest Trade-Off",
+        "heading": "Sparkle, Security and Upkeep",
+        "intro": "The things that matter after the first month: light, protection, feel, upkeep and how much room a jeweller has to work with later. Nothing scores highest on everything, and anyone who tells you otherwise is selling.",
+        "headers": "Setting | Sparkle | Security | Maintenance | Resizing flexibility",
+        "first_col_bold": true,
+        "note": "Broad tendencies only. Stone size, metal thickness, craftsmanship, wear and coverage all change the result."
+      }
+    },
+    "feel": {
+      "type": "fye-terms",
+      "blocks": {
+        "f1": {
+          "type": "term",
+          "settings": {
+            "heading": "Bezel and rubover",
+            "body": "<p>The smoothest against neighbouring fingers and the lowest upkeep of any setting. A metal rim frames each stone, which softens its sparkle slightly in exchange for the best protection available.</p>"
+          }
+        },
+        "f2": {
+          "type": "term",
+          "settings": {
+            "heading": "Channel",
+            "body": "<p>Smooth-edged and secure, with metal walls framing the row. Keep the channel clean and it asks very little of you. The most sensible choice for a stone-set band worn every day.</p>"
+          }
+        },
+        "f3": {
+          "type": "term",
+          "settings": {
+            "heading": "Shared claw and micro-claw",
+            "body": "<p>Stones read large and bright because so little metal is in the way, but the claws are exposed and can be felt at the edges. Check them regularly, and expect to.</p>"
+          }
+        },
+        "f4": {
+          "type": "term",
+          "settings": {
+            "heading": "Grain and French pavé",
+            "body": "<p>A fine, slightly textured surface of continuous sparkle. The tiny grains holding each stone are the parts that loosen, so regular checks matter more here than anywhere else.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "How It Feels to Wear",
+        "heading": "Between the Fingers",
+        "intro": "The thing nobody mentions in a showroom, and the first thing you notice a week in.",
+        "note": ""
+      }
+    },
+    "coverage": {
+      "type": "fye-table",
+      "blocks": {
+        "c1": {
+          "type": "row",
+          "settings": {
+            "cells": "Single accent | One stone or a small cluster | Maximum resizing potential, plain metal underside"
+          }
+        },
+        "c2": {
+          "type": "row",
+          "settings": {
+            "cells": "Half eternity | Around 50%, across the top of the band | Excellent balance of sparkle, comfort and future resizing"
+          }
+        },
+        "c3": {
+          "type": "row",
+          "settings": {
+            "cells": "Three-quarter | Around 75% around the finger | High visual coverage, resizing highly constrained"
+          }
+        },
+        "c4": {
+          "type": "row",
+          "settings": {
+            "cells": "Full eternity | 100% continuous coverage | Uninterrupted sparkle, generally not conventionally resizable"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "A Separate Decision",
+        "heading": "Coverage and What It Costs You",
+        "intro": "How far the stones travel around the band is independent of how they are held, but it has the single biggest effect on whether the ring can be adjusted later.",
+        "headers": "Coverage | Proportion set | Sizing and comfort",
+        "first_col_bold": true,
+        "note": "A half-eternity leaves plain metal at the back for comfort and future adjustment. Get the size right first time on a full eternity."
+      }
+    },
+    "protect": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "For Softer Stones",
+        "heading": "Protective Setting Design",
+        "body": "<p>For emerald, aquamarine, tourmaline, opal, tanzanite and other more delicate stones, protection is not optional. Corners, edges and high settings are where damage begins, and a full band of exposed soft stones is asking for trouble.</p><p>A bezel, a lower profile, or a design that shields vulnerable corners can be the difference between a stone that lasts a lifetime and one that chips in its first year. Before choosing a delicate gemstone for a band, ask us which settings will protect it properly. The stone and the design are one decision, not two.</p>"
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "eyebrow": "Before You Choose a Setting",
+        "heading": "Check What the Stone Can Take",
+        "body": "<p>Hardness is not toughness, and the two are constantly confused. Our durability guide covers the Mohs scale, which stones survive daily wear, and which need protecting.</p>",
+        "link": "/pages/gemstone-durability",
+        "link_label": "Read about stone durability"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Which setting is the most secure?",
+            "a": "<p>Bezel, also called rubover, where a rim of metal surrounds the whole stone. Flush or gypsy setting is close behind, with the stone sunk level into the band. Both are the sensible choice for hands-on work.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Which setting gives the most sparkle?",
+            "a": "<p>Shared claw, micro-claw and French pavé, because they use the least metal and let the most light in. The trade is exposure: open sides mean more careful wear and more frequent inspection.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Can a pavé or eternity ring be resized?",
+            "a": "<p>Sometimes, but the more the stones travel around the band the less room there is to work. Half eternity resizes reasonably well, three-quarter is constrained, and full eternity is generally not conventionally resizable. Get the size right first time on those.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "What is the difference between pavé and French pavé?",
+            "a": "<p>Grain or bead pavé holds stones with tiny metal beads, giving a continuous shimmer. French pavé cuts a V shape beneath each stone, reducing visible metal and letting more light in. They look similar in photographs and behave differently in wear.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "How often should a pavé or claw-set band be checked?",
+            "a": "<p>Annually, and it is free for the life of the ring. Claws and pavé grains are the parts that loosen. Catching one early costs nothing; catching it late can mean a lost stone.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "Is channel setting better than pavé for everyday wear?",
+            "a": "<p>Generally yes. Channel walls shield the stones and there is nothing to snag, so it needs less upkeep. Pavé is brighter but the grains are small and exposed. If the ring will be worn while working with your hands, channel or flush is the safer answer.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I mix settings in one ring?",
+            "a": "<p>Yes. A channel-set band with a bezel-set centre, or French pavé shoulders against a flush-set underside, are both common. Every bespoke design goes through a 3D CAD render so you can see how the combination reads before we cast.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7"
+      ],
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Setting Questions We Are Asked Most",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "white",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "TNb26i"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/Eternity_Ring_Guide_Cover_v3.png",
+        "cover_alt": "The Eternity Ring Guide",
+        "cover_caption": "The Eternity Ring Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Eternity Ring Guide",
+        "body": "<p>Coverage from quarter to full, stacking, setting styles, fancy cut layouts, total carat weight against per-stone size, and sizing. As a printable PDF.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Engagement Ring Styles",
+            "desc": "Solitaire, halo, trilogy and the rest, for rings built around a centre stone.",
+            "cta": "Read more",
+            "link": "/pages/engagement-ring-styles"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Find the Right Metal",
+            "desc": "Platinum, white, yellow and rose gold, and how each wears.",
+            "cta": "Read more",
+            "link": "/pages/find-the-right-metal"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Eternity Rings",
+            "desc": "Half and full eternity, by shape, metal and stone.",
+            "cta": "Browse rings",
+            "link": "/collections/eternity-rings"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "methods",
+    "tradeoff",
+    "feel",
+    "coverage",
+    "protect",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

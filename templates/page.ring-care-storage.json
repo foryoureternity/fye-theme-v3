@@ -1,0 +1,560 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Storage, Travel and Insurance"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Chapter eight of The Ring and Jewellery Care Guide</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/engagement-wedding-ring-stack-gold-rose-gold.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Start Here",
+        "heading": "The Risk Is in the Space Between",
+        "body": "<p>The most common way a ring is lost is not a dramatic accident. It is being taken off and put down somewhere unfamiliar: a hotel bathroom, a kitchen windowsill, a coat pocket, a folded square of tissue.</p><p>Wear it, or store it properly. The risk lives in the space between the two, and most of it disappears with one consistent habit.</p><p>This chapter covers storing jewellery at home, insuring it properly, travelling with it, and what to do in the first hour if a piece is lost or stolen.</p>"
+      }
+    },
+    "athome": {
+      "type": "fye-checklist",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "label": "Away from sinks and drains",
+            "note": "A ring dish beside an open plughole is the classic loss. Move the dish rather than trusting yourself."
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "label": "Away from children and pets",
+            "note": "Both are quick, and neither gives things back."
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "label": "Away from open windows and busy work surfaces",
+            "note": "Anywhere a ring can be knocked, swept or blown off is the wrong place for it."
+          }
+        },
+        "i4": {
+          "type": "item",
+          "settings": {
+            "label": "Away from direct heat and sunlight",
+            "note": "Heat and strong light are hard on several gemstones, and on stored pieces generally."
+          }
+        },
+        "i5": {
+          "type": "item",
+          "settings": {
+            "label": "A closed, fabric-lined box",
+            "note": "With individual compartments or soft pouches, so settings and stones cannot rub against one another."
+          }
+        },
+        "i6": {
+          "type": "item",
+          "settings": {
+            "label": "Not the bathroom",
+            "note": "Humidity and swinging temperature make bathrooms and window ledges poor long-term storage."
+          }
+        },
+        "i7": {
+          "type": "item",
+          "settings": {
+            "label": "Chains kept apart from rings",
+            "note": "A claw setting will always find a chain in a shared box. Fasten the clasp first, then lay the chain flat or hang it."
+          }
+        },
+        "i8": {
+          "type": "item",
+          "settings": {
+            "label": "A rigid case for anything that travels",
+            "note": "Even between rooms, and certainly between buildings."
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6",
+        "i7",
+        "i8"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "At Home",
+        "heading": "One Place, Every Single Time",
+        "intro": "Choose one consistent place for each piece and use it without exception. A habit protects a ring far better than a rule you have to remember.",
+        "note": ""
+      }
+    },
+    "tissue": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "The One That Costs People Rings",
+        "heading": "Never Wrap Jewellery in Tissue",
+        "body": "<p>A surprising number of rings are thrown away because they were wrapped in tissue or kitchen roll just for a moment, and then cleared away with everything else on the worktop.</p><p>Use a proper box or a closed pouch every time, even when carrying a ring from one room to the next.</p>"
+      }
+    },
+    "insure": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "ivory",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Insurance",
+        "heading": "Insure It the Week It Arrives",
+        "body": "<p>Add a new piece to your home contents policy, or to a specialist jewellery policy, as soon as it arrives. Do not let it sit uninsured for a few weeks while you get round to it.</p><p>Most losses happen early, while the routine is still unfamiliar and the ring is still a novelty on the hand. The uninsured window is exactly the risky one.</p><p>It is also worth knowing that a manufacturing warranty and an insurance policy are not the same thing. A warranty covers how the ring was made. Insurance covers what life does to it. Both are worth having, and they do different jobs.</p>"
+      }
+    },
+    "policy": {
+      "type": "fye-checklist",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "label": "The single-item limit",
+            "note": "And whether your piece exceeds it. This is the most common gap of all."
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "label": "The policy excess",
+            "note": "It decides whether a smaller repair is ever worth claiming for."
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "label": "Accidental damage, not only loss",
+            "note": "They are frequently separate covers, and only one of them may be included."
+          }
+        },
+        "i4": {
+          "type": "item",
+          "settings": {
+            "label": "Loss away from home",
+            "note": "Cover inside the house is not the same as cover in a car park or a restaurant."
+          }
+        },
+        "i5": {
+          "type": "item",
+          "settings": {
+            "label": "Cover abroad, and territorial limits",
+            "note": "Including any limit on the length of a single trip."
+          }
+        },
+        "i6": {
+          "type": "item",
+          "settings": {
+            "label": "Conditions on wear or storage",
+            "note": "Some policies require a safe, or exclude items left in a vehicle."
+          }
+        },
+        "i7": {
+          "type": "item",
+          "settings": {
+            "label": "Whether valuations must be updated",
+            "note": "Values move, and an out-of-date valuation can reduce a settlement."
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6",
+        "i7"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Read the Policy",
+        "heading": "Seven Things Worth Checking",
+        "intro": "",
+        "note": "Keep your invoice, valuation, gemstone report and photographs together, digitally and in print."
+      }
+    },
+    "travel": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Check the cover before you pack",
+            "body": "<p>Confirm your policy covers the destination and the length of the trip. Territorial limits and trip-length limits are easy to miss and awkward to discover afterwards.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Use a rigid, discreet case",
+            "body": "<p>Rigid so nothing is crushed in a bag, and discreet so it does not announce itself in a hotel room.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Hand luggage, never checked baggage",
+            "body": "<p>Checked bags leave your sight and are handled roughly, and most policies take a dim view of valuables inside them.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Keep your routine at home",
+            "body": "<p>One place, every time, in the hotel room as much as in the kitchen. Improvised storage is where holiday losses come from.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Use the room safe properly",
+            "body": "<p>Put the ring in the safe inside its case rather than loose, so it is not left behind in a corner of the shelf.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Airport security",
+            "body": "<p>Fine rings do not normally need removing during routine screening. If you are specifically asked to remove one, put it into a closed inner compartment of your hand luggage rather than loose in a tray.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Travel",
+        "heading": "Taking Jewellery Away With You",
+        "intro": "Decide in advance which pieces you genuinely need to take, and how each one will be secured.",
+        "note": "Leave the ring stored before swimming. Cold water shrinks fingers quickly, and a ring lost in the sea is not recoverable."
+      }
+    },
+    "hotel": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "default",
+        "narrow": true,
+        "eyebrow": "Before You Check Out",
+        "heading": "Five Places to Check in a Hotel Room",
+        "body": "<p>The room safe, the bathroom, bedside surfaces, the jewellery case itself, and the inner compartments of your hand luggage.</p><p>Check them on the last morning as well as the first. Almost every holiday loss is a piece that was put somewhere sensible and then left there.</p>"
+      }
+    },
+    "lost": {
+      "type": "fye-steps",
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "number": "01",
+            "heading": "Report it",
+            "body": "<p>For theft, report it to the police and obtain a crime reference number, which most insurers require. Report a loss to the venue, airline or hotel where relevant.</p>"
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "number": "02",
+            "heading": "Notify your insurer promptly",
+            "body": "<p>Many policies have a short notification window, and missing it can cost you the claim.</p>"
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "number": "03",
+            "heading": "Contact us",
+            "body": "<p>We hold your original specification and can supply a written description and, where applicable, the gemstone report details. That is normally what an insurer needs to settle.</p>"
+          }
+        },
+        "s4": {
+          "type": "step",
+          "settings": {
+            "number": "04",
+            "heading": "Ask before accepting a replacement",
+            "body": "<p>Some insurers settle in cash, some insist on their own supplier. If you would like the piece remade by us to the original specification, say so early. It is much harder to arrange once a claim has been settled.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "4",
+        "show_head": true,
+        "eyebrow": "If the Worst Happens",
+        "heading": "If a Piece Is Lost or Stolen",
+        "intro": "Most owners never need this. Keep it anyway, because the first hour after a loss is when useful action is still possible."
+      }
+    },
+    "records": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Paperwork",
+        "heading": "What an Insurer Will Ask For",
+        "body": "<p>Insurers ask for the same things every time: what the piece is, what it cost, what the stones are, and photographs that show it. Almost nobody has all four to hand when they need them.</p><p>Take four photographs in daylight this week: from directly above, from the side, at a slight angle, and one on the hand. Keep them with your invoice, your valuation and your gemstone report in one clearly named folder, backed up somewhere that is not only your phone.</p><p>We keep your specification on our records too, so a lost invoice is not the end of the world. The full list of what to file, and how to ask us for a copy, is in <a href=\"/pages/ring-care-servicing\">Servicing and the Annual Check-Up</a>.</p>"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Where is the safest place to keep my ring at home?",
+            "a": "<p>One consistent place, used every single time: a closed, fabric-lined box with compartments or soft pouches, kept away from sinks, drains, children, pets, open windows, direct heat and busy work surfaces. Consistency matters more than the box.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Is it safe to keep my ring in the bathroom?",
+            "a": "<p>It is the worst room in the house for it. Humidity and temperature swing constantly, drains are close by, and surfaces are wet and crowded. Store the ring elsewhere and bring it to the bathroom only when you are putting it on.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Should my ring go on my home contents policy or a specialist one?",
+            "a": "<p>Either can work. What matters is the detail: the single-item limit, the excess, whether accidental damage is covered as well as loss, whether you are covered away from home and abroad, and any conditions on how the piece must be worn or stored.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "How soon should I insure a new piece?",
+            "a": "<p>The week it arrives. Most losses happen early, while the routine is unfamiliar, so the gap between delivery and cover is the riskiest period the ring will have.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I take my engagement ring on holiday?",
+            "a": "<p>Yes, with a little planning. Confirm your cover includes the destination and the trip length, pack it in a rigid discreet case, carry it in hand luggage, keep your home storage routine in the room, and use the safe with the ring inside its case.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "Should jewellery go in hand luggage or checked baggage?",
+            "a": "<p>Hand luggage, always. Never checked baggage.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "q": "Do I have to take my ring off at airport security?",
+            "a": "<p>Fine rings do not normally need removing for routine screening. If you are asked to remove one, put it into a closed inner compartment of your hand luggage rather than loose in a tray, where it is easily left behind.</p>"
+          }
+        },
+        "q8": {
+          "type": "qa",
+          "settings": {
+            "q": "My ring has been stolen. What should I do first?",
+            "a": "<p>Report it to the police and get a crime reference number, then notify your insurer promptly, because notification windows are often short. Then contact us: we hold your original specification and can give your insurer the written description and gemstone report details they will ask for.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8"
+      ],
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Storage, Travel and Insurance Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "white",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "/pages/ring-and-jewellery-care-guide-download",
+            "style": "btn--primary",
+            "klaviyo_form": ""
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/ring-care-guide-cover.png",
+        "cover_alt": "The Ring and Jewellery Care Guide",
+        "cover_caption": "The Ring and Jewellery Care Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Ring and Jewellery Care Guide",
+        "body": "<p>The complete care guide in one PDF: wearing, cleaning, storing, insuring and servicing fine jewellery, with the annual check-up explained.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "c1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Care Guide",
+            "title": "Servicing and the Annual Check-Up",
+            "desc": "What is free, what is not, and how the mail-in service works.",
+            "cta": "Read more",
+            "link": "/pages/ring-care-servicing"
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Care Guide",
+            "title": "Fit, Resizing and Changing Fingers",
+            "desc": "Why fingers change, and when a resize is genuinely the answer.",
+            "cta": "Read more",
+            "link": "/pages/ring-care-fit"
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Full Guide",
+            "title": "The Ring and Jewellery Care Guide",
+            "desc": "Every chapter, from everyday wear and cleaning to the annual check-up.",
+            "cta": "Start here",
+            "link": "/pages/ring-and-jewellery-care-guide"
+          }
+        },
+        "c4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Sizing",
+            "title": "Getting the Size Right",
+            "desc": "How to find the size in the first place, plus a free UK ring sizer.",
+            "cta": "Read more",
+            "link": "/pages/find-your-ring-size"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Chapters"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "athome",
+    "tissue",
+    "insure",
+    "policy",
+    "travel",
+    "hotel",
+    "lost",
+    "records",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

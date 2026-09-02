@@ -1,0 +1,368 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Gemstone Treatments"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Treatment is not the problem. Surprise is.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 36,
+        "image": "shopify://shop_images/loose-diamonds-coloured-gemstones-sapphire-emerald.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Gemstone Education",
+        "heading": "Most Gemstones Are Treated",
+        "body": "<p>Many gemstones are treated, and treatment is not automatically bad. Heat treatment of sapphire and ruby has been practised for centuries and is accepted throughout the trade. Oiling of emerald is so standard that an unoiled emerald is the exception.</p><p>What matters is whether a treatment is stable, suitable for the piece, disclosed in writing, and reflected in the price. An undisclosed treatment is a problem regardless of what it is. A disclosed one almost never is.</p>"
+      }
+    },
+    "types": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Heat",
+            "body": "<p>Common for sapphire and ruby, improving colour and clarity. Stable, permanent and widely accepted when disclosed. Fine untreated stones command a substantial premium.</p>",
+            "meta": "Stable · accepted"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Oiling",
+            "body": "<p>Common for emerald. Oil fills surface-reaching fissures and improves appearance. Not permanent, so it may need renewing over decades, and it rules out ultrasonic cleaning.</p>",
+            "meta": "Not permanent · expected"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Resin filling",
+            "body": "<p>Used in some emeralds and other stones. More significant than traditional oiling and should be understood clearly, as it affects both value and repair options.</p>",
+            "meta": "Significant · disclose"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Diffusion",
+            "body": "<p>Introduces colour into the surface or near-surface of a stone. Because the colour is not throughout, recutting or heavy repolishing can remove it. Must always be disclosed.</p>",
+            "meta": "Surface only · disclose"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Irradiation",
+            "body": "<p>Used to alter or enhance colour, most familiarly on blue topaz, where nearly all material is irradiated. Stable and safe, but disclosure matters.</p>",
+            "meta": "Stable · common on topaz"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Dyeing",
+            "body": "<p>Adds or improves colour, often in porous materials. Generally less desirable for fine jewellery unless clearly understood and priced accordingly.</p>",
+            "meta": "Less desirable"
+          }
+        },
+        "t7": {
+          "type": "term",
+          "settings": {
+            "heading": "Coating",
+            "body": "<p>A surface treatment that changes appearance but can wear or be damaged. It will not survive repolishing and may not survive normal wear.</p>",
+            "meta": "Can wear off"
+          }
+        },
+        "t8": {
+          "type": "term",
+          "settings": {
+            "heading": "Fracture filling",
+            "body": "<p>Improves visible clarity by filling breaks, most significantly in ruby and diamond. It affects durability and restricts cleaning and repair, and should be reflected in a much lower price.</p>",
+            "meta": "Affects durability"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6",
+        "t7",
+        "t8"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "intro": "",
+        "note": "",
+        "eyebrow": "Eight Treatments",
+        "heading": "What Each One Does"
+      }
+    },
+    "questions": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Is the treatment disclosed? | In writing, on the invoice or report"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Is it stable? | Will it survive normal wear and time"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Is it suitable for the piece? | A coated stone in a daily ring is a poor match"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Does it affect cleaning or repair? | Oiled and filled stones rule out ultrasonics and heat"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Is the price appropriate? | A heavily treated stone should cost meaningfully less"
+          }
+        },
+        "r6": {
+          "type": "row",
+          "settings": {
+            "cells": "Does the report describe it? | Independent confirmation beats a verbal assurance"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "first_col_bold": true,
+        "note": "We will always explain what is known about a stone, and what is not, before you commit.",
+        "intro": "",
+        "eyebrow": "Six Questions",
+        "heading": "What to Ask About Any Stone",
+        "headers": "Question|Why it matters",
+        "narrow": true,
+        "col1_width": 42
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "eyebrow": "Independent Confirmation",
+        "heading": "When a Report Is Worth It",
+        "body": "<p>For a significant sapphire, ruby or emerald, a report from a respected laboratory will confirm treatments as well as identity and origin. For small accent stones it is rarely worth the cost. Our certification guide sets out where the line sits.</p>",
+        "link": "/pages/diamond-certification",
+        "link_label": "Read about grading reports"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Is a treated gemstone worth less?",
+            "a": "<p>Usually, yes, and appropriately so. An untreated fine sapphire can cost several times a heated one of identical appearance. That premium is for rarity rather than beauty, which is worth remembering if beauty is what you are buying.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Should I avoid treated stones?",
+            "a": "<p>Not at all. If you avoided every treated stone you would rule out the large majority of sapphire, ruby, emerald, tanzanite and blue topaz on the market. The distinction that matters is disclosed against undisclosed, not treated against untreated.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "How can I tell if a stone has been treated?",
+            "a": "<p>Frequently you cannot by eye, which is precisely why reports exist. A respected laboratory report will state treatments. Anyone selling a significant coloured stone without being able to speak to its treatment is either uninformed or evasive.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Do treatments wear off?",
+            "a": "<p>Some can. Oiling is not permanent and may need renewing over decades. Coating can wear or scratch away. Heat and irradiation are permanent. Diffusion is permanent unless the stone is recut. It is a fair question to ask about any specific stone.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Does treatment affect how I clean my ring?",
+            "a": "<p>Yes, sometimes significantly. Oiled emeralds, fracture-filled rubies and coated stones should never go in an ultrasonic cleaner or be exposed to heat. Warm soapy water and a soft brush is safe for almost everything.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true,
+        "heading": "Treatment Questions"
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "UbTxH7"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/diamond-and-gemstone-guide-cover.png",
+        "cover_alt": "The Diamond and Gemstone Guide",
+        "cover_caption": "The Diamond and Gemstone Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Diamond and Gemstone Guide",
+        "body": "<p>Every gemstone stone by stone, plus durability, treatments, ethical sourcing and grading reports.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Gemstone Education",
+            "title": "Gemstone Durability",
+            "desc": "Hardness, toughness and what suits which piece.",
+            "cta": "Read more",
+            "link": "/pages/gemstone-durability"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Diamond Education",
+            "title": "Certificates and Reports",
+            "desc": "What a report confirms, and what it cannot.",
+            "cta": "Read more",
+            "link": "/pages/diamond-certification"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Section Hub",
+            "title": "Gemstone Education",
+            "desc": "Every gemstone guide in one place.",
+            "cta": "Back to the hub",
+            "link": "/pages/gemstone-education"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "types",
+    "questions",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

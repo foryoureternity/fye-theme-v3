@@ -1,0 +1,356 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Finishes and How They Age"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>On a plain ring the surface is the design</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/engagement-and-wedding.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "The Surface Is the Character",
+        "heading": "Every Finish Changes With Wear",
+        "body": "<p>On a plain ring, the finish is one of the main design decisions. Without stones, the surface of the metal becomes the character of the ring, and the same profile can read formal, modern, rustic or soft depending entirely on how it is finished.</p><p>Every finish changes with wear. Polished rings collect scratches, matte rings become smoother at the contact points, brushed lines soften. That is not failure. It is the record of a ring being worn, and most of it can be refreshed at service if you would rather it were not.</p>"
+      }
+    },
+    "table": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Polished | Bright, reflective and traditional | Shows fine scratches first, then softens into patina. Can be re-polished"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Satin or matte | Soft low sheen, understated and contemporary | Gradually becomes smoother and brighter on contact points"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Brushed | Directional fine lines, modern and slightly industrial | Lines soften over time and can be refreshed at service"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Hammered | Dimpled hand-worked surface, characterful and individual | Texture remains visible because it is structural rather than surface"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Sandblasted | Even matte texture, quiet and modern | Good at disguising daily wear, but can smooth with friction"
+          }
+        },
+        "r6": {
+          "type": "row",
+          "settings": {
+            "cells": "Milgrain | Tiny beaded edge detail, vintage and delicate | Long-lasting when well made; needs a skilled workshop"
+          }
+        },
+        "r7": {
+          "type": "row",
+          "settings": {
+            "cells": "Mixed finishes | Different surfaces on bevels, channels or inner sections | Contrast softens with wear but can often be refreshed"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "first_col_bold": true,
+        "note": "",
+        "intro": "The second column is the one worth reading. Choose the finish you want to live with, not the one that photographs best in a showroom.",
+        "eyebrow": "Seven Finishes",
+        "heading": "Day One, and Ten Years In",
+        "headers": "Finish | Day one | After wear"
+      }
+    },
+    "detail": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Restraint Works",
+        "heading": "Decorative Does Not Mean Elaborate",
+        "body": "<p>A polished bevel on a brushed flat court band, a hammered surface in yellow gold, or a milgrain edge on a slim platinum band gives a plain ring its own identity without compromising its timelessness.</p><p>The most personal plain rings we make are rarely the most decorated ones. They are the ones where a single considered detail has been done properly.</p>"
+      }
+    },
+    "stoneset": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Less room on a stone-set band",
+            "body": "<p>Detail on an eternity or wedding band lives in the small amount of metal left visible. A little goes a long way, and anything added has to leave the settings alone.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Polished suits narrow, satin suits wide",
+            "body": "<p>Polished reads best on narrow bands where there is little surface to scratch. Satin hides fine scratches on wider ones, where a polished face shows every mark.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Milgrain earns its place near stones",
+            "body": "<p>A fine beaded edge around channels or bezels adds antique softness and usefully disguises the metal edge where it meets the stones.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Refinishing near settings needs care",
+            "body": "<p>Repeated polishing can thin grains and claws over many years. This is a reason to choose a finish that ages the way you want rather than one you will keep correcting.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "intro": "",
+        "note": "",
+        "eyebrow": "On Stone-Set Bands",
+        "heading": "Where the Rules Change"
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "eyebrow": "The Other Half",
+        "heading": "Profile and Width Come First",
+        "body": "<p>Finish is the surface. Profile is the shape underneath it, and it decides how the ring feels and whether it will be worn at all. Get that right before choosing a finish.</p>",
+        "link": "/pages/ring-profiles-and-widths",
+        "link_label": "Read about profiles"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Which wedding ring finish lasts best?",
+            "a": "<p>Hammered, because the texture is structural rather than a surface treatment, so it cannot wear off. Sandblasted also hides daily wear well. Polished shows scratches soonest, though it is also the easiest to restore.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Can a finish be changed later?",
+            "a": "<p>Usually yes. Most finishes can be reworked at service: a polished ring can be brushed, a brushed one polished. Hammering is harder to add or remove afterwards because it deforms the metal, so it is better decided at the start.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Will a matte ring stay matte?",
+            "a": "<p>Not entirely. Satin and brushed surfaces gradually become smoother and brighter at the contact points, particularly on the underside. It can be refreshed at any service, which is free for the life of the ring.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Is milgrain durable?",
+            "a": "<p>When well made, yes, and it lasts decades. Poorly executed milgrain wears flat quickly. It is one of the details where workshop quality shows most clearly, which is why we would rather do it ourselves than subcontract it.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Should both wedding rings have the same finish?",
+            "a": "<p>Not necessarily, and matched pairs often look better with a shared profile and metal but different finishes. What tends not to work is two nearly-identical finishes, which reads accidental rather than deliberate.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true,
+        "heading": "Finish Questions"
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "XMzNMS"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/Plain_Wedding_Cover.png",
+        "cover_alt": "The Plain Wedding Ring Guide",
+        "cover_caption": "The Plain Wedding Ring Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Plain Wedding Ring Guide",
+        "body": "<p>Finishes, profiles, widths, metals, engraving, pairing and sizing. Everything about a plain band, as a printable PDF.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Engraving and Personalisation",
+            "desc": "Inside, outside, texture and heirloom metal.",
+            "cta": "Read more",
+            "link": "/pages/ring-engraving"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Profiles, Width and Feel",
+            "desc": "The shape underneath the finish.",
+            "cta": "Read more",
+            "link": "/pages/ring-profiles-and-widths"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Choosing the Metal",
+            "desc": "How each metal takes and holds a finish.",
+            "cta": "Read more",
+            "link": "/pages/find-the-right-metal"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Plain Wedding Rings",
+            "desc": "Every profile, width and finish.",
+            "cta": "Browse rings",
+            "link": "/collections/plain-wedding-rings"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "table",
+    "detail",
+    "stoneset",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

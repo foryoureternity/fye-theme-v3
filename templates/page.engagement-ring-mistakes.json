@@ -1,0 +1,337 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Engagement Ring Mistakes to Avoid"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Ten regrets we hear again and again, and how to sidestep each</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/couple-engagement-ring-consultation-showroom.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Learn From Other People",
+        "heading": "Avoiding Them Is Easier Than Fixing Them",
+        "body": "<p>After years of conversations with couples, the same handful of regrets surface again and again. None of them are exotic and none require expertise to avoid. They just require knowing about them before you commit rather than afterwards.</p>"
+      }
+    },
+    "list": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Choosing for yourself, not for them",
+            "body": "<p>The ring is for the person who will wear it every day for decades. Their taste is the only one that matters, and this is comfortably the most common regret. <a href=\"/pages/engagement-ring-style\">Read their style properly</a> before deciding anything.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Overspending and regretting it",
+            "body": "<p>No carat weight is worth the stress of debt. We would always rather build a beautiful smaller ring within budget than a larger one you will resent paying off.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Skipping insurance",
+            "body": "<p>Home policies often cover rings only to a low limit, frequently around £1,500. Add it as a named item or take a specialist policy. A ring left uninsured is a ring you can lose twice.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "A setting that fights their lifestyle",
+            "body": "<p>A surgeon, a climber and a graphic designer all need different settings. A delicate vintage halo on a hands-on hand will catch, snag and eventually break.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Buying finished, under pressure",
+            "body": "<p>Walk-in shopping creates urgency that rarely leads to the best decision. A piece made to fit the wearer is usually more meaningful and better value than whatever happened to be in the case.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Forgetting the wedding band",
+            "body": "<p>A spectacular engagement ring that will not sit flush with any straight band is a costly oversight. <a href=\"/pages/wedding-band-pairing\">Think about the pair</a> from the very start.</p>"
+          }
+        },
+        "t7": {
+          "type": "term",
+          "settings": {
+            "heading": "Guessing the size badly",
+            "body": "<p>Too small means an awkward moment. Wildly too large means the ring spins and is harder to resize on some settings. <a href=\"/pages/find-your-ring-size\">There are better options than guessing</a>, including a free sizer by post.</p>"
+          }
+        },
+        "t8": {
+          "type": "term",
+          "settings": {
+            "heading": "Believing every deal",
+            "body": "<p>If a diamond looks thirty per cent cheaper than equivalents, something has been compromised: cut, fluorescence, or a hidden inclusion. Insist on an independent GIA or IGI report and compare like with like.</p>"
+          }
+        },
+        "t9": {
+          "type": "term",
+          "settings": {
+            "heading": "Proposing with no ring when you wanted one",
+            "body": "<p>If choosing is paralysing you, propose with a beautiful temporary band or a family ring, then design the real ring together. We offer this routinely and credit the placeholder against the final purchase.</p>"
+          }
+        },
+        "t10": {
+          "type": "term",
+          "settings": {
+            "heading": "Telling everyone before they know",
+            "body": "<p>It feels harmless to ask a friend's opinion, but engagement ring conversations travel remarkably fast. Keep your circle small until the proposal is done.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6",
+        "t7",
+        "t8",
+        "t9",
+        "t10"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "numbers",
+        "narrow": false,
+        "show_head": true,
+        "intro": "",
+        "note": "",
+        "eyebrow": "Ten Regrets",
+        "heading": "What We See Most"
+      }
+    },
+    "worst": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "If You Only Avoid One",
+        "heading": "Choose for Them, Not for You",
+        "body": "<p>Every other mistake on this list is recoverable. A ring can be resized, insured, reset or remade. A ring chosen for the wrong person's taste is the one that quietly stops being worn, and no amount of workmanship fixes it.</p><p>If you are torn between what you love and what they would choose, choose theirs. If you genuinely cannot tell, propose with a placeholder and design it together. There is no shame in that at all.</p>"
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "eyebrow": "The Best Insurance Against All Ten",
+        "heading": "Talk to Someone Before You Buy",
+        "body": "<p>A free 20-minute call costs nothing and heads off most of this list. Tell us the budget, the hand, the lifestyle and what they already wear, and we will tell you honestly what makes sense, including when the answer is to spend less.</p>",
+        "link": "/pages/contact-us",
+        "link_label": "Book a free consultation"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "What is the most common engagement ring mistake?",
+            "a": "<p>Choosing for your own taste rather than theirs. It is the only one on the list that cannot really be fixed afterwards, because the ring is technically perfect and simply not what they would have picked.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "How much should I insure the ring for?",
+            "a": "<p>For its replacement value, not what you paid, and as a specifically named item rather than under general contents. We provide a valuation on headed paper with every ring, which is what most insurers want.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Is it bad to propose without a ring?",
+            "a": "<p>Not at all, and it is often the better decision. Propose with a temporary band and design the real ring together afterwards. We do it constantly and credit the placeholder against the final piece.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "How do I know if a deal is too good?",
+            "a": "<p>Ask what specifically has changed. On a like-for-like specification, a large price gap means something was compromised: cut grade, fluorescence, an inclusion in a visible position, or a report from a laboratory that grades generously. Ask for the report and compare properly.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "What if I have already made one of these mistakes?",
+            "a": "<p>Most are fixable. Rings can be resized, insured retrospectively, reset into a different design or remade. Tell us what happened and we will give you the honest options, including doing nothing.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true,
+        "heading": "Questions About Getting It Wrong"
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "V9eDYg"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/Engagement_Ring_Cover.png",
+        "cover_alt": "The Engagement Ring Guide",
+        "cover_caption": "The Engagement Ring Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Engagement Ring Guide",
+        "body": "<p>All ten mistakes in full, plus budget, the Four Cs, shapes, settings, sizing in secret and the bespoke process.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Engagement",
+            "title": "Understanding Their Style",
+            "desc": "How to work out what they actually want.",
+            "cta": "Read more",
+            "link": "/pages/engagement-ring-style"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Engagement",
+            "title": "Setting a Budget",
+            "desc": "What different budgets buy, and the costs people forget.",
+            "cta": "Read more",
+            "link": "/pages/engagement-ring-budget"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Getting the Size Right",
+            "desc": "Including how to find it in secret.",
+            "cta": "Read more",
+            "link": "/pages/find-your-ring-size"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Engagement Rings",
+            "desc": "Browse by style, shape and stone.",
+            "cta": "Browse rings",
+            "link": "/collections/engagement-rings"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "list",
+    "worst",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

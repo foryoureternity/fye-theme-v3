@@ -1,0 +1,652 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Servicing and the Annual Check-Up"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Chapter nine of The Ring and Jewellery Care Guide</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/engagement-wedding-ring-stack-gold-rose-gold.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Our Promise",
+        "heading": "The Relationship Does Not End at Delivery",
+        "body": "<p>For Your Eternity is an online jeweller, so our aftercare is built around clear advice, secure mail-in arrangements and direct access to our London workshop.</p><p>Every ring we supply includes free professional inspection for the life of the piece, with a standard professional clean at the same time. Non-gemstone-set rings also include one complimentary resize within the first year of delivery, where the design allows.</p><p>The rest of this chapter is the practical detail: what is free and what is not, how the annual check-up works, what to do the day something goes wrong, and what to keep on file.</p>"
+      }
+    },
+    "costs": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Annual condition inspection | Complimentary, for the life of the piece"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Standard professional clean at inspection | Complimentary"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Advice, sizing guidance and assessment from photographs | Complimentary"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "One resize in the first year, non-gemstone-set rings, where the design allows | Complimentary"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Postage and insured return carriage | Chargeable"
+          }
+        },
+        "r6": {
+          "type": "row",
+          "settings": {
+            "cells": "Rhodium replating for white gold | Chargeable"
+          }
+        },
+        "r7": {
+          "type": "row",
+          "settings": {
+            "cells": "Polishing and satin refinishing | Chargeable"
+          }
+        },
+        "r8": {
+          "type": "row",
+          "settings": {
+            "cells": "Claw repair, stone tightening and replacement stones | Chargeable"
+          }
+        },
+        "r9": {
+          "type": "row",
+          "settings": {
+            "cells": "Further resizes, and resizing of gemstone-set rings | Chargeable"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7",
+        "r8",
+        "r9"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "No Surprises",
+        "heading": "What Is Free, and What Is Not",
+        "intro": "This is the whole list. Costs are always explained and approved before any chargeable work begins.",
+        "headers": "Work | Cost",
+        "first_col_bold": true,
+        "narrow": false,
+        "col1_width": 56,
+        "note": "Nothing chargeable ever happens without a yes from you first."
+      }
+    },
+    "faults": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Faults",
+        "heading": "If Something Is Wrong With Your Piece",
+        "body": "<p>If a fault appears after delivery, send us photographs and we will inspect the ring. Any confirmed manufacturing issue is put right.</p><p>Wear, impact, accidental damage and work carried out by another jeweller are treated separately, and may be chargeable. We will tell you which category we think it falls into, and why, before any work begins.</p><p>A manufacturing warranty is not accidental-damage insurance. The two do different jobs and both are worth having. Nothing here affects your statutory rights.</p>"
+      }
+    },
+    "checkup": {
+      "type": "fye-steps",
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "number": "01",
+            "heading": "Contact us",
+            "body": "<p>Tell us which piece you would like inspected, and mention anything you have noticed: an impact, a catch, a visible change, a change in fit.</p>"
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "number": "02",
+            "heading": "Receive sending instructions",
+            "body": "<p>We confirm the correct workshop address, how to package the ring, the appropriate insured postal method, any reference to include, and the return arrangements.</p>"
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "number": "03",
+            "heading": "Workshop inspection",
+            "body": "<p>We go through the piece properly, and suitable items are then professionally cleaned.</p>"
+          }
+        },
+        "s4": {
+          "type": "step",
+          "settings": {
+            "number": "04",
+            "heading": "Approval before any paid work",
+            "body": "<p>If we find repair, replating, refinishing or replacement work outside the complimentary service, we explain the options and the cost and wait for your answer.</p>"
+          }
+        },
+        "s5": {
+          "type": "step",
+          "settings": {
+            "number": "05",
+            "heading": "Secure return",
+            "body": "<p>The ring is carefully packed and returned by the agreed insured method.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "3",
+        "show_head": true,
+        "eyebrow": "Once a Year",
+        "heading": "How the Annual Check-Up Works",
+        "intro": "An annual inspection is the simplest way to protect a ring that is worn regularly. Small changes in claws, settings and shape are far easier to address before a stone loosens."
+      }
+    },
+    "inspect": {
+      "type": "fye-checklist",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "label": "Ring shape",
+            "note": "Whether the band is still truly circular, which is the first sign of compression."
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "label": "Stone security",
+            "note": "Every stone tested for movement, including the small ones."
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "label": "Claws and setting edges",
+            "note": "Thinning tips, lifted claws, sharp edges and worn bezel rims."
+          }
+        },
+        "i4": {
+          "type": "item",
+          "settings": {
+            "label": "Pave and channel settings",
+            "note": "Beads, channel walls, and any stone sitting lower than its neighbours."
+          }
+        },
+        "i5": {
+          "type": "item",
+          "settings": {
+            "label": "Visible wear",
+            "note": "Where metal has thinned, particularly on the underside of the band."
+          }
+        },
+        "i6": {
+          "type": "item",
+          "settings": {
+            "label": "Previous repairs and alterations",
+            "note": "Including work carried out elsewhere, which we will always flag rather than quietly work around."
+          }
+        },
+        "i7": {
+          "type": "item",
+          "settings": {
+            "label": "The condition of the finish",
+            "note": "So we can tell you honestly whether refinishing is worth doing, or not yet."
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6",
+        "i7"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "In the Workshop",
+        "heading": "What We Check",
+        "intro": "",
+        "note": "Suitable pieces are then given a standard professional clean before they are returned."
+      }
+    },
+    "post": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Please Read Before Posting",
+        "heading": "Never Send Jewellery Without Arranging It First",
+        "body": "<p>Contact the workshop before posting any item. We need to confirm the correct address, the packaging, the insured shipping method and the return arrangements.</p><p>Unarranged packages may arrive uninsured, untracked or unidentifiable, and there is very little anyone can do about that afterwards.</p>"
+      }
+    },
+    "dontwait": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "default",
+        "narrow": true,
+        "eyebrow": "Do Not Wait for the Annual Date",
+        "heading": "Some Things Need Us the Same Week",
+        "body": "<p>If a stone moves, a claw catches, the band changes shape, or the ring takes a significant impact, contact us straight away rather than waiting for the next inspection.</p><p>A claw retip is a small, inexpensive job. Sourcing a matching replacement stone is neither.</p>"
+      }
+    },
+    "stone": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "number": "01",
+            "heading": "Stop wearing the ring",
+            "body": "<p>And stop testing the setting. Every movement enlarges the seat inside the setting and turns a small repair into a lost stone.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "number": "02",
+            "heading": "Search before you move around",
+            "body": "<p>If a stone has fallen out, check clothing turn-ups, pockets, the sink trap if you were near water, and the floor along your route.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "number": "03",
+            "heading": "Box everything",
+            "body": "<p>Put the ring into its box, and the stone, if you find it, into a separate small container so the two cannot rub together.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "number": "04",
+            "heading": "Send us photographs",
+            "body": "<p>We will tell you whether it is a reset, a repair or an insurance matter, and what it is likely to cost, before you send anything.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "steps",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "If Something Goes Wrong",
+        "heading": "A Loose or Lost Stone",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "damage": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Accidents",
+        "heading": "If the Ring Is Damaged",
+        "body": "<p>Photograph it before anything else, from several angles. Those photographs matter a great deal if this becomes a claim.</p><p>Do not try to bend a distorted band back into shape. Metal work-hardens as it is bent, and the second bend is where it cracks. A band that has merely gone oval is usually straightforward to correct in a workshop. A cracked one is a much larger job.</p><p>Send us the photographs and we will assess whether it is repairable, and whether it is likely to be an insurance matter or a straightforward workshop job. Sometimes a repair costs less than the policy excess, and claiming would raise your premium for years to gain nothing. We will say so.</p>"
+      }
+    },
+    "record": {
+      "type": "fye-checklist",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "label": "What the piece is",
+            "note": "Metal, gemstones and carat weight."
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "label": "Your order or invoice reference",
+            "note": "Together with the delivery date."
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "label": "The setting type and finger size supplied",
+            "note": "Useful for resizing as well as for a claim."
+          }
+        },
+        "i4": {
+          "type": "item",
+          "settings": {
+            "label": "The gemstone report or certificate number",
+            "note": "Where one applies to your piece."
+          }
+        },
+        "i5": {
+          "type": "item",
+          "settings": {
+            "label": "Your valuation",
+            "note": "If you have had one prepared."
+          }
+        },
+        "i6": {
+          "type": "item",
+          "settings": {
+            "label": "The insurance policy and named-item reference",
+            "note": "Added as soon as the piece is covered."
+          }
+        },
+        "i7": {
+          "type": "item",
+          "settings": {
+            "label": "Four photographs in daylight",
+            "note": "From directly above, from the side, at a slight angle, and one on the hand."
+          }
+        },
+        "i8": {
+          "type": "item",
+          "settings": {
+            "label": "One clearly named folder",
+            "note": "Holding all of it, backed up somewhere that is not only your phone."
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6",
+        "i7",
+        "i8"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Your Ownership Record",
+        "heading": "What to Keep on File",
+        "intro": "Set this up once, in the first week, and you will never have to reconstruct it under pressure. Most of it is already on your invoice and, where relevant, your gemstone report.",
+        "note": ""
+      }
+    },
+    "spec": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "default",
+        "narrow": true,
+        "eyebrow": "If You Lose the Paperwork",
+        "heading": "We Hold Your Specification Too",
+        "body": "<p>Every piece we supply stays on our records. If your paperwork is lost, if the piece was a gift or a surprise, or if an insurer asks for something you cannot find, contact us with the recipient's name, the delivery address or the order reference.</p><p>We will send the full specification back to you.</p>"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "How often should my ring be inspected?",
+            "a": "<p>Annually for anything worn daily, and every two years for occasional wear. After any significant impact, have it checked straight away regardless of when the last inspection was.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Is the annual inspection really free?",
+            "a": "<p>Yes. The condition inspection and a standard professional clean are complimentary for the life of the piece. Postage and insured return carriage are chargeable, as are replating, polishing, refinishing, repairs, replacement stones and specialist work.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "What does the inspection actually cover?",
+            "a": "<p>Ring shape, stone security, claws and setting edges, pave and channel settings, visible wear, any previous repairs or alterations, and the condition of the finish. Suitable pieces are then professionally cleaned.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I just post my ring to you?",
+            "a": "<p>Please do not. Contact us first so we can confirm the correct address, the packaging, the insured postal method and the return arrangements. Unarranged packages may arrive uninsured, untracked or unidentifiable.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "My white gold has gone slightly yellow. Is that covered?",
+            "a": "<p>That is the rhodium plating wearing and the warmer natural alloy showing through, which is entirely normal rather than a fault. Replating restores the bright white and is quick. It is chargeable, and we will quote it before doing it.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "A stone in my ring feels loose. What should I do?",
+            "a": "<p>Stop wearing the ring and stop testing the stone, because every movement enlarges the seat inside the setting. Put the ring in its box and contact us the same day with photographs.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "q": "Should I claim on my insurance for a repair?",
+            "a": "<p>Not always. Sometimes a repair costs less than the policy excess, and claiming would raise your premium for years to gain nothing. Send us photographs and we will tell you what we think, including when we think you should not claim.</p>"
+          }
+        },
+        "q8": {
+          "type": "qa",
+          "settings": {
+            "q": "I have lost my invoice and certificate. Can you help?",
+            "a": "<p>Yes. Every piece we supply stays on our records. Contact us with the recipient's name, the delivery address or the order reference and we will send the full specification back to you.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8"
+      ],
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Servicing and Aftercare Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "white",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "/pages/ring-and-jewellery-care-guide-download",
+            "style": "btn--primary",
+            "klaviyo_form": ""
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/ring-care-guide-cover.png",
+        "cover_alt": "The Ring and Jewellery Care Guide",
+        "cover_caption": "The Ring and Jewellery Care Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Ring and Jewellery Care Guide",
+        "body": "<p>The complete care guide in one PDF: wearing, cleaning, storing, insuring and servicing fine jewellery, with the annual check-up explained.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "c1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Care Guide",
+            "title": "Fit, Resizing and Changing Fingers",
+            "desc": "Why fingers change, and when a resize is genuinely the answer.",
+            "cta": "Read more",
+            "link": "/pages/ring-care-fit"
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Care Guide",
+            "title": "Storage, Travel and Insurance",
+            "desc": "Where to keep it, how to travel with it, and what to insure.",
+            "cta": "Read more",
+            "link": "/pages/ring-care-storage"
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Full Guide",
+            "title": "The Ring and Jewellery Care Guide",
+            "desc": "Every chapter, from everyday wear and cleaning to the annual check-up.",
+            "cta": "Start here",
+            "link": "/pages/ring-and-jewellery-care-guide"
+          }
+        },
+        "c4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Sizing",
+            "title": "Getting the Size Right",
+            "desc": "How to find the size in the first place, plus a free UK ring sizer.",
+            "cta": "Read more",
+            "link": "/pages/find-your-ring-size"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Chapters"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "costs",
+    "faults",
+    "checkup",
+    "inspect",
+    "post",
+    "dontwait",
+    "stone",
+    "damage",
+    "record",
+    "spec",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

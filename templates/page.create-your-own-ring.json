@@ -1,0 +1,439 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "The Bespoke Process"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>From first message to the moment you collect it</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/couple-engagement-ring-consultation-showroom.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Two Routes",
+        "heading": "Already Designed, or Made With You",
+        "body": "<p>You can choose an already-designed ring through the website when the design, size and fit are straightforward. Or you can work with us on a bespoke piece when the stone, setting, shape or proportions need more thought.</p><p>Both routes are made to order and hand-finished in our London workshop. What follows is what happens on the bespoke route, in order, with honest timings.</p>"
+      }
+    },
+    "steps": {
+      "type": "fye-terms",
+      "blocks": {
+        "s1": {
+          "type": "term",
+          "settings": {
+            "heading": "Enquiry",
+            "body": "<p>Tell us what you are thinking, by email, WhatsApp, phone or in person. Share saved images, photographs of jewellery they already love, sketches, or just a few descriptive words.</p>",
+            "number": "01",
+            "meta": "Typically same day"
+          }
+        },
+        "s2": {
+          "type": "term",
+          "settings": {
+            "heading": "Consultation",
+            "body": "<p>A free 20-minute call or message exchange about budget, stone preferences, setting, metal and timeline. If the project needs deeper design, sizing or stone advice, we arrange a longer consultation with no time limit and no pressure.</p>",
+            "number": "02",
+            "meta": "From 20 minutes"
+          }
+        },
+        "s3": {
+          "type": "term",
+          "settings": {
+            "heading": "Stone sourcing",
+            "body": "<p>We search our network for the exact stone that fits your specification: cut, colour, clarity, carat, certification and ethics. We typically send three to five options with images, video and reports.</p>",
+            "number": "03",
+            "meta": "3 to 10 working days"
+          }
+        },
+        "s4": {
+          "type": "term",
+          "settings": {
+            "heading": "Design and CAD",
+            "body": "<p>Our designers prepare a 3D render so you can see exactly how the ring will look from every angle. Edits are free, and we work through them until the design is right.</p>",
+            "number": "04",
+            "meta": "5 to 10 working days"
+          }
+        },
+        "s5": {
+          "type": "term",
+          "settings": {
+            "heading": "Casting and setting",
+            "body": "<p>Once you approve the design, the ring is cast in your chosen metal, hand-finished by our setters in our London workshop, and the stone is set.</p>",
+            "number": "05",
+            "meta": "2 to 3 weeks"
+          }
+        },
+        "s6": {
+          "type": "term",
+          "settings": {
+            "heading": "Hallmarking and engraving",
+            "body": "<p>Hallmarked where required, engraved if requested, and checked carefully before the final polish.</p>",
+            "number": "06"
+          }
+        },
+        "s7": {
+          "type": "term",
+          "settings": {
+            "heading": "Final inspection",
+            "body": "<p>Every ring is inspected against its grading report and photographed. You receive the ring, the report, an insurance valuation and a personalised maintenance schedule.</p>",
+            "number": "07"
+          }
+        },
+        "s8": {
+          "type": "term",
+          "settings": {
+            "heading": "Delivery or handover",
+            "body": "<p>By fully insured courier with signature on delivery, beautifully presented. Or, by arrangement, we hand it to you in person.</p>",
+            "number": "08"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "1",
+        "numbering": "steps",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Eight Stages",
+        "heading": "How a Bespoke Ring Is Made",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "timing": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "At least five weeks | Ideal for most rings | Room for sourcing, sizing, samples and a considered finish"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Up to two months | Sensible where possible | Complex designs, shaping, engraving, hallmarking and delivery"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Two to three weeks | Sometimes possible | Simpler designs only, and it should never be the plan"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "first_col_bold": true,
+        "note": "We would far rather make a beautiful simple ring well than rush a complex design badly. If the date is tight we will say which options are realistic.",
+        "intro": "Tell us your date on first contact and we will be honest about what is achievable.",
+        "eyebrow": "Timings",
+        "heading": "When to Order",
+        "headers": "Lead time | How calm it feels | What it allows"
+      }
+    },
+    "routes": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Choosing online",
+            "body": "<p>Browse the collection, choose design, metal, width, size and finish, and order directly if you are confident in the size and fit. Contact us first if you would like us to check the engagement-ring fit, metal match or proportions before you commit.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Bespoke from scratch",
+            "body": "<p>Where nothing standard is quite right: an unusual stone, a shaped band, mixed-metal construction, a heirloom reset, or proportions that need to suit one specific hand.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Somewhere in between",
+            "body": "<p>The most common route, in truth. An existing design adjusted: a different width, a lower profile, a substituted stone or a modified setting. Cheaper and faster than full bespoke.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Propose first, design together",
+            "body": "<p>If choosing alone is paralysing, propose with a temporary band and design the real ring together afterwards. We do this routinely and credit the placeholder against the final purchase.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "intro": "",
+        "note": "",
+        "eyebrow": "Which Route",
+        "heading": "Not Everything Needs to Be Bespoke"
+      }
+    },
+    "included": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "What Comes With It",
+        "heading": "Beyond the Ring Itself",
+        "body": "<p>Every ring arrives with its grading report where applicable, an insurance valuation on headed paper, and a personalised maintenance schedule.</p><p>Afterwards you have free professional inspection for the life of the ring, and one complimentary resize within the first year on non-gemstone-set rings where the design allows. We are here for the long arc of the ring, not the moment of sale.</p>"
+      }
+    },
+    "edits": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "default",
+        "narrow": true,
+        "eyebrow": "No Charge for Getting It Right",
+        "heading": "Design Iterations Are Free",
+        "body": "<p>We create design iterations at no cost, working through the CAD render with you until you are completely happy, before anything is cast. There is no limit and no pressure, and nobody is counting revisions.</p><p>The one thing we cannot do is recreate trademarked, copyrighted or signature registered designs. We can absolutely work from reference images to understand the features you love, the profile, the proportions, the way a halo sits, and craft something original from them.</p>"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "How long does a bespoke ring take?",
+            "a": "<p>At least five weeks is ideal, and up to two months is sensible for more complex work. Two to three weeks may be possible for simpler designs but it should not be the plan. Tell us your date at first contact and we will be honest about what is achievable.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Do you charge for design changes?",
+            "a": "<p>No. We create design iterations for free, working through the CAD render until you are completely happy, before anything is cast.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I see the design before it is made?",
+            "a": "<p>Yes. Every bespoke ring goes through a 3D CAD render stage so you can see exactly how it will look from every angle. We can also produce a wax model if you would rather handle the design in person before we cast in precious metal.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Can you recreate a ring I have seen elsewhere?",
+            "a": "<p>Not if it is a trademarked, copyrighted or signature registered design. We do welcome reference images to understand the features you love, and we use them as inspiration to craft an original ring in your chosen stone, metal and size.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "What if they do not like it?",
+            "a": "<p>The surest way to avoid it is to propose with a temporary ring and design the real one together. If a finished ring is not loved, we will advise on reselling and help you redesign and remake it at cost price.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I cancel or return a made-to-order ring?",
+            "a": "<p>Because most of our rings are made to order, bespoke or personalised, cancellation and return rights may be limited once work has begun. Check the website terms before ordering and ask us if anything is unclear.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "q": "Do you ship internationally?",
+            "a": "<p>Yes, by fully insured courier with signature on delivery. There may be additional costs for customs duty, import taxes or handling depending on the country, and we will guide you through the paperwork.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7"
+      ],
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true,
+        "heading": "Process Questions We Are Asked Most"
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "V9eDYg"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/Engagement_Ring_Cover.png",
+        "cover_alt": "The Engagement Ring Guide",
+        "cover_caption": "The Engagement Ring Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Engagement Ring Guide",
+        "body": "<p>The bespoke process in full, plus budget, the Four Cs, shapes, settings, sizing in secret and aftercare.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Heirlooms and Reused Stones",
+            "desc": "Resetting a family stone into something new.",
+            "cta": "Read more",
+            "link": "/pages/heirloom-stones"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Engraving and Personalisation",
+            "desc": "The details that make a ring specifically theirs.",
+            "cta": "Read more",
+            "link": "/pages/ring-engraving"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Getting the Size Right",
+            "desc": "Including how to find it in secret.",
+            "cta": "Read more",
+            "link": "/pages/find-your-ring-size"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Talk to Us",
+            "title": "Book a Consultation",
+            "desc": "A free 20-minute call, online or in London.",
+            "cta": "Get in touch",
+            "link": "/pages/contact-us"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "steps",
+    "timing",
+    "routes",
+    "included",
+    "edits",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

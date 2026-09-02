@@ -1,0 +1,669 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Ring Settings Explained"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>How the stone is held, and what that changes</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 30,
+        "image": "shopify://shop_images/oval-solitaire-pave-band-engagement-ring-hand.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "The Structure That Holds the Stone",
+        "heading": "There Is No Single Best Setting",
+        "body": "<p>The setting is the metal structure that holds each stone. It decides how much light reaches the stone, how protected it is, how the ring feels between the fingers, how much maintenance it will ask for, and how much room a jeweller has to work with if it ever needs resizing.</p><p>There is no single best setting. There is only the setting that suits the stone, the wearer and the way the ring will actually be used. A beautiful gemstone in the wrong setting is a risk; a more delicate stone in a thoughtful setting can be wonderful.</p><p>One distinction worth getting straight early: <strong>coverage is not a setting</strong>. Half eternity and full eternity describe how far the stones travel around the band. Any of the settings below can be used at any coverage.</p>"
+      }
+    },
+    "styles": {
+      "type": "fye-cards",
+      "blocks": {
+        "s1": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/solitaire-plain-band-engagement-ring.png",
+            "label": "Solitaire",
+            "heading": "Solitaire, Plain Shoulders",
+            "body": "<p>The timeless single-stone silhouette. Puts almost the entire budget into the stone and suits every hand. <a href=\"/collections/solitaire\">Browse solitaires</a>.</p>"
+          }
+        },
+        "s2": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/solitaire-diamond-set-shoulders-engagement-ring.png",
+            "label": "Solitaire",
+            "heading": "Solitaire, Diamond Shoulders",
+            "body": "<p>A classic solitaire with brilliant shoulders. More sparkle across the finger without enlarging the centre stone.</p>"
+          }
+        },
+        "s3": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/halo-plain-band-engagement-ring.png",
+            "label": "Halo",
+            "heading": "Halo, Plain Shoulders",
+            "body": "<p>Haloed presence on a clean band. A halo makes a centre stone read noticeably larger for the money. <a href=\"/collections/halo-1\">Browse halos</a>.</p>"
+          }
+        },
+        "s4": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/halo-diamond-set-shoulders-engagement-ring.png",
+            "label": "Halo",
+            "heading": "Halo, Diamond Shoulders",
+            "body": "<p>Halo and pavé shoulders together, for maximum sparkle. The brightest of the classic silhouettes.</p>"
+          }
+        },
+        "s5": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/hidden-halo-engagement-ring.png",
+            "label": "Halo",
+            "heading": "Hidden Halo",
+            "body": "<p>A secret halo seen only from the side. Clean from above, a surprise in profile. <a href=\"/collections/hidden-halo\">Browse hidden halos</a>.</p>"
+          }
+        },
+        "s6": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/trilogy-three-stone-engagement-ring.png",
+            "label": "Multi-stone",
+            "heading": "Trilogy",
+            "body": "<p>Three stones for past, present and future. Reads wider on the finger than a solitaire of the same total weight. <a href=\"/collections/trilogy\">Browse trilogy rings</a>.</p>"
+          }
+        },
+        "s7": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/split-shoulder-engagement-ring.png",
+            "label": "Shoulders",
+            "heading": "Split Shoulders",
+            "body": "<p>A divided band lifts and frames the stone, adding presence without adding carat weight.</p>"
+          }
+        },
+        "s8": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/multistone-invisible-set-engagement-ring.png",
+            "label": "Multi-stone",
+            "heading": "Multistone Invisible",
+            "body": "<p>Edge-to-edge stones with no visible metal between them. Modern and unusually bright. <a href=\"/collections/multistone-invisible\">Browse invisible-set rings</a>.</p>"
+          }
+        },
+        "s9": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/oyster-deluxe-engagement-ring.png",
+            "label": "Openwork",
+            "heading": "Oyster Deluxe",
+            "body": "<p>An openwork basket cradles the stone, letting light in from beneath and lightening the whole design.</p>"
+          }
+        },
+        "s10": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/bezel-set-solitaire-engagement-ring.png",
+            "label": "Protective",
+            "heading": "Bezel",
+            "body": "<p>A full metal rim, sleek and secure. The most protective setting there is, and the most snag-free.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "show_head": true,
+        "eyebrow": "Popular Styles",
+        "heading": "Ten Settings, Compared",
+        "intro": "Illustrated at a consistent scale so the silhouettes can be judged honestly against each other."
+      }
+    },
+    "priority": {
+      "type": "fye-chips",
+      "blocks": {
+        "p1": {
+          "type": "chip",
+          "settings": {
+            "name": "Most secure",
+            "sub": "Bezel or rubover"
+          }
+        },
+        "p2": {
+          "type": "chip",
+          "settings": {
+            "name": "Most sparkle",
+            "sub": "Halo and pavé"
+          }
+        },
+        "p3": {
+          "type": "chip",
+          "settings": {
+            "name": "Active lifestyle",
+            "sub": "Low-profile or flush"
+          }
+        },
+        "p4": {
+          "type": "chip",
+          "settings": {
+            "name": "Vintage style",
+            "sub": "Cluster and milgrain"
+          }
+        },
+        "p5": {
+          "type": "chip",
+          "settings": {
+            "name": "Best band fit",
+            "sub": "Low solitaire or shaped"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4",
+        "p5"
+      ],
+      "settings": {
+        "band": "white",
+        "align": "centre",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Start Here",
+        "heading": "Find Your Setting by Priority",
+        "intro": "If you only know one thing about what matters most, start from that and work back.",
+        "note": ""
+      }
+    },
+    "methods": {
+      "type": "fye-table",
+      "blocks": {
+        "m1": {
+          "type": "row",
+          "settings": {
+            "cells": "Claw or prong | Classic and open, light reaches the stone from all sides | Claws need inspection over time"
+          }
+        },
+        "m2": {
+          "type": "row",
+          "settings": {
+            "cells": "Bezel / rubover | A protective metal rim framing each stone | Maximum protection, low-profile and snag-free"
+          }
+        },
+        "m3": {
+          "type": "row",
+          "settings": {
+            "cells": "Half bezel | Partly surrounds the stone, leaving more of it visible | A balance of protection and light"
+          }
+        },
+        "m4": {
+          "type": "row",
+          "settings": {
+            "cells": "Channel set | A continuous row held between metal walls | Highly secure and smooth, ideal for active daily wear"
+          }
+        },
+        "m5": {
+          "type": "row",
+          "settings": {
+            "cells": "Flush / gypsy set | Stones sunk level into the band metal | Exceptionally practical, smooth surface for hands-on work"
+          }
+        },
+        "m6": {
+          "type": "row",
+          "settings": {
+            "cells": "Pavé / micro-pavé | Tiny beads of metal holding closely set stones | High sparkle, periodic inspection, limited resizing"
+          }
+        },
+        "m7": {
+          "type": "row",
+          "settings": {
+            "cells": "Shared claw / French pavé | Minimal metal between stones for maximum light | Maximum brightness, open sides need careful wear"
+          }
+        },
+        "m8": {
+          "type": "row",
+          "settings": {
+            "cells": "Bar set | Stones separated by slim bars of metal | Geometric and art-deco in feel, good stone visibility"
+          }
+        },
+        "m9": {
+          "type": "row",
+          "settings": {
+            "cells": "Scattered / starlight | Small stones placed at irregular intervals | Modern and characterful against matte or brushed metal"
+          }
+        }
+      },
+      "block_order": [
+        "m1",
+        "m2",
+        "m3",
+        "m4",
+        "m5",
+        "m6",
+        "m7",
+        "m8",
+        "m9"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Setting Methods",
+        "heading": "How Stones Are Actually Held",
+        "intro": "These are distinct settings, not interchangeable names. Shared claw, French pavé and grain-set pavé are often confused; they hold stones in genuinely different ways and they wear differently.",
+        "headers": "Setting | Visual profile | Practical and daily wear",
+        "first_col_bold": true,
+        "note": ""
+      }
+    },
+    "tradeoff": {
+      "type": "fye-table",
+      "blocks": {
+        "t1": {
+          "type": "row",
+          "settings": {
+            "cells": "Flush / gypsy | Low to medium | Very high | Low | High"
+          }
+        },
+        "t2": {
+          "type": "row",
+          "settings": {
+            "cells": "Bezel / rubover | Medium | Very high | Low | Moderate"
+          }
+        },
+        "t3": {
+          "type": "row",
+          "settings": {
+            "cells": "Channel | Medium | High | Low to medium | Moderate"
+          }
+        },
+        "t4": {
+          "type": "row",
+          "settings": {
+            "cells": "Bar set | High | Moderate to high | Low to moderate | Moderate"
+          }
+        },
+        "t5": {
+          "type": "row",
+          "settings": {
+            "cells": "Grain / pavé | High | Moderate | Medium to high | Limited"
+          }
+        },
+        "t6": {
+          "type": "row",
+          "settings": {
+            "cells": "Shared claw / French pavé | Very high | Moderate | Higher | Limited"
+          }
+        },
+        "t7": {
+          "type": "row",
+          "settings": {
+            "cells": "Full eternity | Very high | Depends on setting | Higher | Very low"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6",
+        "t7"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "The Honest Trade-Off",
+        "heading": "Sparkle, Security and Upkeep",
+        "intro": "The things that matter after the first month. Nothing scores highest on everything, and anyone who tells you otherwise is selling.",
+        "headers": "Setting | Sparkle | Security | Maintenance | Resizing flexibility",
+        "first_col_bold": true,
+        "note": "Broad tendencies only. Stone size, metal thickness, craftsmanship and coverage all change the result."
+      }
+    },
+    "hidden": {
+      "type": "fye-terms",
+      "blocks": {
+        "h1": {
+          "type": "term",
+          "settings": {
+            "heading": "Hidden halo",
+            "body": "<p>Tiny diamonds tucked beneath the centre stone, visible only from the side. Clean from above, a private detail in profile.</p>"
+          }
+        },
+        "h2": {
+          "type": "term",
+          "settings": {
+            "heading": "Milgrain edging",
+            "body": "<p>A row of tiny beaded metal dots along an edge. Characteristic of vintage and art-deco design, and it softens a hard line beautifully.</p>"
+          }
+        },
+        "h3": {
+          "type": "term",
+          "settings": {
+            "heading": "Gallery work and filigree",
+            "body": "<p>Intricate metalwork beneath the head of the ring, seen only at close range. The part a jeweller judges another jeweller on.</p>"
+          }
+        },
+        "h4": {
+          "type": "term",
+          "settings": {
+            "heading": "Surprise diamonds",
+            "body": "<p>Small accent stones set inside the band or under the basket, where only the wearer knows they are there.</p>"
+          }
+        },
+        "h5": {
+          "type": "term",
+          "settings": {
+            "heading": "Custom engraving",
+            "body": "<p>A date, initials, a coordinate or a private phrase inside the band. Ask before the ring is finished, since some designs are harder to engrave afterwards.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "The Details Nobody Photographs",
+        "heading": "Hidden Details That Elevate a Ring",
+        "intro": "These cost comparatively little and are what people notice years later.",
+        "note": ""
+      }
+    },
+    "lifestyle": {
+      "type": "fye-table",
+      "blocks": {
+        "l1": {
+          "type": "row",
+          "settings": {
+            "cells": "Hands-on or active | Bezel, low-profile solitaire, flush-set band | Secure and snag-free above all"
+          }
+        },
+        "l2": {
+          "type": "row",
+          "settings": {
+            "cells": "Desk-based or creative | Almost anything | Pavé, halo and three-stone all wear well"
+          }
+        },
+        "l3": {
+          "type": "row",
+          "settings": {
+            "cells": "Hands in water often | Bezel or low-profile platinum | Avoid softer stones entirely"
+          }
+        },
+        "l4": {
+          "type": "row",
+          "settings": {
+            "cells": "Vintage lovers | Cluster, milgrain, filigree, halo or hidden halo | Detail rewards close looking"
+          }
+        },
+        "l5": {
+          "type": "row",
+          "settings": {
+            "cells": "Minimalists | Solitaire, east-west, bezel | A plain band with a stand-out stone"
+          }
+        }
+      },
+      "block_order": [
+        "l1",
+        "l2",
+        "l3",
+        "l4",
+        "l5"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Match It to the Hand",
+        "heading": "Setting by Lifestyle",
+        "intro": "A surgeon, a climber and a graphic designer all need different settings. A delicate vintage halo on a hands-on hand will catch, snag and eventually break.",
+        "headers": "Lifestyle | Best-suited settings | Why",
+        "first_col_bold": true,
+        "note": ""
+      }
+    },
+    "protect": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "For Softer Stones",
+        "heading": "Protective Setting Design",
+        "body": "<p>For emerald, aquamarine, tourmaline, opal, tanzanite and other more delicate stones, protection is not optional. Corners, edges and high settings are where damage begins.</p><p>A bezel, a lower profile, or a design that shields vulnerable corners can be the difference between a stone that lasts a lifetime and one that chips in its first year. Before choosing a delicate gemstone, ask us which settings will protect it properly. The stone and the design are one decision, not two.</p>"
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "eyebrow": "Before You Choose a Setting",
+        "heading": "Check What the Stone Can Take",
+        "body": "<p>Hardness is not toughness, and the two are constantly confused. Our coloured stone guide covers the Mohs scale, which stones survive daily wear, and which need protecting.</p>",
+        "link": "/pages/coloured-stone-guide",
+        "link_label": "Read about stone durability"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Which setting is the most secure?",
+            "a": "<p>Bezel, also called rubover, where a rim of metal surrounds the whole stone. Flush or gypsy setting is close behind, with the stone sunk level into the band. Both are the sensible choice for hands-on work.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Which setting gives the most sparkle?",
+            "a": "<p>Shared claw and French pavé, because they use the least metal and let the most light in. The trade is exposure: open sides mean more careful wear and more frequent inspection.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Can a pavé or eternity ring be resized?",
+            "a": "<p>Sometimes, but the more stones travel around the band the less room there is to work. Half eternity resizes reasonably well, three-quarter is constrained, and full eternity is generally not conventionally resizable. Get the size right first time on those.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "What is the difference between pavé and French pavé?",
+            "a": "<p>Grain or bead pavé holds stones with tiny metal beads, giving a continuous shimmer. French pavé cuts a V shape beneath each stone, reducing visible metal and letting more light in. They look similar in photographs and behave differently in wear.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "How often should a claw-set ring be checked?",
+            "a": "<p>We recommend annually, and it is free for the life of the ring. Claws and pavé grains are the parts that loosen, and catching one early costs nothing while catching it late can mean a lost stone.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I see the setting before it is made?",
+            "a": "<p>Yes. Every bespoke ring goes through a 3D CAD render so you can see it from every angle, and we can produce a wax model if you would rather handle the design before we cast in precious metal. Edits are free.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Setting Questions We Are Asked Most",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "white",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "V9eDYg"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/Engagement_Ring_Cover.png",
+        "cover_alt": "The Engagement Ring Guide",
+        "cover_caption": "The Engagement Ring Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Engagement Ring Guide",
+        "body": "<p>Settings, the Four Cs, diamond shapes, coloured stones, budget, sizing in secret and the bespoke process. The whole thing, as a printable PDF.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Find the Right Metal",
+            "desc": "Platinum, white, yellow and rose gold, and how each wears.",
+            "cta": "Read more",
+            "link": "/pages/find-the-right-metal"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Stone",
+            "title": "The Four Cs",
+            "desc": "Cut, colour, clarity and carat, and where to spend first.",
+            "cta": "Read more",
+            "link": "/pages/diamond-4cs"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Engagement Rings",
+            "desc": "Browse by setting style, shape and stone, with live pricing.",
+            "cta": "Browse rings",
+            "link": "/collections/engagement-rings"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "styles",
+    "priority",
+    "methods",
+    "tradeoff",
+    "hidden",
+    "lifestyle",
+    "protect",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

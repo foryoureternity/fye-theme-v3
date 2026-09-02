@@ -1,0 +1,548 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Profiles, Width and Feel"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>The cross-section decides whether a ring is worn or taken off</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/engagement-and-wedding.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "The Shape You Cannot See",
+        "heading": "The Profile Is the Cross-Section",
+        "body": "<p>The profile is the cross-section of the band: the shape you would see if the ring were sliced cleanly in half. It determines how the ring feels, how it catches light and how it sits beside an engagement ring.</p><p>It is also the single most under-considered decision in buying a wedding ring. A ring with the wrong profile is often quietly taken off and left in a drawer. The right one becomes almost invisible in daily wear, which is exactly what you want from something worn for fifty years.</p>"
+      }
+    },
+    "profiles": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Traditional court | Domed outside and domed inside; soft and classic | Most hands, daily comfort, traditional bands"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Slight court | A lower, gentler dome with a refined silhouette | Delicate engagement rings; softness without height"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Engagement match | A court-related profile shaped to pair cleanly | Straight bands beside solitaires and low settings"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "D-shape | Domed outside and flat inside; traditional and substantial | Classic British bands and heavier plain rings"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Flat | Flat outside and flat inside; clean and architectural | Modern wider bands and design-led wearers"
+          }
+        },
+        "r6": {
+          "type": "row",
+          "settings": {
+            "cells": "Flat court | Flat outside with a curved comfort interior | A modern look with easier daily wear"
+          }
+        },
+        "r7": {
+          "type": "row",
+          "settings": {
+            "cells": "Edged flat court | Flat court with bevelled edges that catch light | Crisp contemporary bands and mixed finishes"
+          }
+        },
+        "r8": {
+          "type": "row",
+          "settings": {
+            "cells": "Edged court | Court band with defined bevelled edges | Refined classic bands with subtle detail"
+          }
+        },
+        "r9": {
+          "type": "row",
+          "settings": {
+            "cells": "Concave | Outer face curves inward for a distinctive look | Minimalist and contemporary designs"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7",
+        "r8",
+        "r9"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "first_col_bold": true,
+        "note": "Photographs show shape but not feel. We keep a full range of sample rings you can try, in person or sent to your home.",
+        "intro": "Every profile below is one we make, and each links through to what we currently hold in it.",
+        "eyebrow": "Nine Profiles",
+        "heading": "Cross-Sections Explained",
+        "headers": "Profile | Visual feel | Best for"
+      }
+    },
+    "profile_links": {
+      "type": "fye-chips",
+      "blocks": {
+        "p1": {
+          "type": "chip",
+          "settings": {
+            "name": "Traditional Court",
+            "sub": "Domed inside and out",
+            "link": "/collections/traditional-court"
+          }
+        },
+        "p2": {
+          "type": "chip",
+          "settings": {
+            "name": "Slight Court",
+            "sub": "A lower, gentler dome",
+            "link": "/collections/slight-court"
+          }
+        },
+        "p3": {
+          "type": "chip",
+          "settings": {
+            "name": "Engagement Match",
+            "sub": "Shaped to pair cleanly",
+            "link": "/collections/engagement-match"
+          }
+        },
+        "p4": {
+          "type": "chip",
+          "settings": {
+            "name": "D-Shape",
+            "sub": "Domed outside, flat inside",
+            "link": "/collections/d-shape"
+          }
+        },
+        "p5": {
+          "type": "chip",
+          "settings": {
+            "name": "Flat",
+            "sub": "Clean and architectural",
+            "link": "/collections/flat"
+          }
+        },
+        "p6": {
+          "type": "chip",
+          "settings": {
+            "name": "Flat Court",
+            "sub": "Flat face, curved interior",
+            "link": "/collections/flat-court-cut"
+          }
+        },
+        "p7": {
+          "type": "chip",
+          "settings": {
+            "name": "Edged Flat Court",
+            "sub": "Bevelled edges that catch light",
+            "link": "/collections/edged-flat-court"
+          }
+        },
+        "p8": {
+          "type": "chip",
+          "settings": {
+            "name": "Edged Court",
+            "sub": "Court with defined bevels",
+            "link": "/collections/edged-court"
+          }
+        },
+        "p9": {
+          "type": "chip",
+          "settings": {
+            "name": "Concave",
+            "sub": "Outer face curves inward",
+            "link": "/collections/concave"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4",
+        "p5",
+        "p6",
+        "p7",
+        "p8",
+        "p9"
+      ],
+      "settings": {
+        "band": "white",
+        "align": "centre",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Browse by Profile",
+        "heading": "See Each Profile in the Metal",
+        "intro": "Every profile above links through to the bands we currently hold in it.",
+        "note": ""
+      }
+    },
+    "widths": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "1.5mm | The finest band we offer, barely-there and very delicate | Slender fingers, fine engagement rings, understated wearers"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "2 to 2.5mm | Delicate, minimal and quiet | Fine engagement rings or understated wearers"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "2.5 to 3mm | A common slim range with enough presence | Most fine plain bands and many pairings"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "3 to 4mm | More confident while still versatile | Standalone bands or stronger pairings"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "4 to 5mm | Balanced and substantial without becoming heavy | A classic wider band range"
+          }
+        },
+        "r6": {
+          "type": "row",
+          "settings": {
+            "cells": "5 to 7mm | Bold, traditional and more noticeable in daily wear | Larger hands, stronger proportions, a deliberate statement"
+          }
+        },
+        "r7": {
+          "type": "row",
+          "settings": {
+            "cells": "Beyond 7mm | Specialist and physically more demanding | Only after trying a similar width"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "first_col_bold": true,
+        "note": "",
+        "intro": "Width is measured across the top of the band, the part you see looking down at the hand.",
+        "eyebrow": "Width",
+        "heading": "How Wide, and What It Does",
+        "headers": "Width|Typical effect|Good starting point"
+      }
+    },
+    "thin": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Worth Knowing",
+        "heading": "A Note on 1.5mm Bands",
+        "body": "<p>A 1.5mm band is delicate and minimal, and that is precisely its appeal. But bands at or below 1.5mm carry a higher risk of bending or distorting under heavy impact, depending on alloy purity and lifestyle.</p><p>For active daily wear, a minimum of 2.0 to 2.5mm offers significantly greater structural strength. If you love the look of the finest band, we would rather tell you this now than reshape it for you in two years.</p>"
+      }
+    },
+    "depth": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Depth is the other half",
+            "body": "<p>Depth is the thickness from the inside of the finger to the outer surface, typically around 1.5 to 2mm. Deeper bands feel more substantial and wear longer before losing definition, but sit higher off the finger.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Shallower sits closer",
+            "body": "<p>A shallower band sits nearer the hand and pairs more easily with an engagement ring, but it should never feel flimsy. On a stone-set band, depth also determines whether the stones can be held securely.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Proportion is personal",
+            "body": "<p>The same width looks different on different hands. A narrow band lengthens the finger; a wider band balances long fingers and makes a stronger statement.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Balance against the engagement ring",
+            "body": "<p>A slim solitaire can be overwhelmed by a heavy band, while a larger or architectural engagement ring may need more width to look balanced beside it.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "intro": "",
+        "note": "",
+        "eyebrow": "Depth and Proportion",
+        "heading": "The Dimensions Nobody Mentions"
+      }
+    },
+    "comfort": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "default",
+        "narrow": true,
+        "eyebrow": "Comfort Fit",
+        "heading": "When to Consider a Domed Interior",
+        "body": "<p>A comfort-fit band has a gently domed inner surface, so it slides over the knuckle more easily and contacts the finger along a slightly narrower area. It is especially useful for wider bands, prominent knuckles, and wearers whose fingers change size during the day.</p><p>For bands above around 4mm, comfort fit is usually worth considering. Note that a comfort-fit ring often fits a half size differently from a flat-interior one, which is why we size against the actual profile rather than a generic gauge.</p>"
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "eyebrow": "Before You Order",
+        "heading": "Get the Size Right for the Profile",
+        "body": "<p>Profile changes fit. A comfort-fit 6mm band and a flat-interior 2mm band in the same nominal size feel quite different on the same finger. We size against the profile you have actually chosen, not a generic gauge.</p>",
+        "link": "/pages/find-your-ring-size",
+        "link_label": "Read the sizing guide"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "What is the most comfortable wedding ring profile?",
+            "a": "<p>Traditional court for most people. It is domed inside and out, so there are no edges against the finger and nothing to catch on the adjacent one. Flat court is the modern alternative: a flat outer face with the same curved interior.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "What width wedding ring should a man wear?",
+            "a": "<p>There is no rule, but 4 to 6mm covers most preferences. Larger hands generally carry more width comfortably. The stronger determinant is what they are used to: someone who has never worn a ring will notice 6mm considerably more than someone who has.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Should the wedding band match the engagement ring's width?",
+            "a": "<p>Same or very close usually looks most intentional beside a solitaire. If you want contrast, make it obvious. The one thing to avoid is the almost-match, where a band is only slightly different and reads as accidental.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I try profiles before ordering?",
+            "a": "<p>Yes, and we would encourage it above 4mm or for anyone who has not worn a ring before. We keep a full range of sample rings which we can show you in person or send to your home.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Is a thicker ring more durable?",
+            "a": "<p>Generally yes. Depth does more for durability than width. A narrow but deep band will hold its shape better than a wide but shallow one, which is why we would rather add depth than width on a fine ring.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true,
+        "heading": "Profile and Width Questions"
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "XMzNMS"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/Plain_Wedding_Cover.png",
+        "cover_alt": "The Plain Wedding Ring Guide",
+        "cover_caption": "The Plain Wedding Ring Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Plain Wedding Ring Guide",
+        "body": "<p>Profiles, widths, metals, finishes, pairing and sizing. Everything about a plain band, as a printable PDF.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Choosing the Metal",
+            "desc": "Five metals compared on colour, weight and upkeep.",
+            "cta": "Read more",
+            "link": "/pages/find-the-right-metal"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Pairing with the Engagement Ring",
+            "desc": "Straight, shaped and fitted bands.",
+            "cta": "Read more",
+            "link": "/pages/wedding-band-pairing"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Getting the Size Right",
+            "desc": "Including how profile changes fit.",
+            "cta": "Read more",
+            "link": "/pages/find-your-ring-size"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Plain Wedding Rings",
+            "desc": "Every profile and width, in all five metals.",
+            "cta": "Browse rings",
+            "link": "/collections/plain-wedding-rings"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "profiles",
+    "profile_links",
+    "widths",
+    "thin",
+    "depth",
+    "comfort",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

@@ -1,0 +1,470 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Certificates and Grading Reports"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>What a report tells you, and the four things it cannot</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/diamond-grading-report-certificate-loupe.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Diamond Education",
+        "heading": "A Report Describes. It Does Not Guarantee.",
+        "body": "<p>A grading report is an independent document describing a stone. It may confirm identity, measurements, weight, colour, clarity, treatments and sometimes origin. It is not a romantic document, but for important stones it is extremely useful.</p><p>One point of language worth getting right: laboratories issue <strong>grading reports and assessments</strong> rather than certificates. A GIA grading report describes the stone. It does not certify its value, and anyone presenting it as a valuation is overstating what it is.</p><p>For diamonds, reports matter most on centre stones, because they let you compare fairly and insure the ring afterwards. For coloured gemstones they matter when a stone is valuable, rare, untreated, origin-specific or being sold with a significant claim attached.</p>"
+      }
+    },
+    "labs": {
+      "type": "fye-chips",
+      "blocks": {
+        "l1": {
+          "type": "chip",
+          "settings": {
+            "name": "GIA",
+            "sub": "Gemological Institute of America"
+          }
+        },
+        "l2": {
+          "type": "chip",
+          "settings": {
+            "name": "IGI",
+            "sub": "International Gemological Institute"
+          }
+        },
+        "l3": {
+          "type": "chip",
+          "settings": {
+            "name": "GCAL",
+            "sub": "Also seen on lab-grown stones"
+          }
+        },
+        "l4": {
+          "type": "chip",
+          "settings": {
+            "name": "AGL",
+            "sub": "Important coloured gemstones"
+          }
+        },
+        "l5": {
+          "type": "chip",
+          "settings": {
+            "name": "GRS",
+            "sub": "Important coloured gemstones"
+          }
+        },
+        "l6": {
+          "type": "chip",
+          "settings": {
+            "name": "SSEF",
+            "sub": "Important coloured gemstones"
+          }
+        }
+      },
+      "block_order": [
+        "l1",
+        "l2",
+        "l3",
+        "l4",
+        "l5",
+        "l6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "align": "centre",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Independent Laboratories",
+        "heading": "The Ones We Trust",
+        "intro": "For diamonds we rely on GIA and IGI. For important coloured gemstones, AGL, GRS and SSEF are the respected names.",
+        "note": "Not every laboratory grades to the same standard. A report from an unfamiliar lab claiming grades two steps better than the stone deserves is a well-established trick."
+      }
+    },
+    "confirms": {
+      "type": "fye-checklist",
+      "blocks": {
+        "c1": {
+          "type": "item",
+          "settings": {
+            "label": "Stone identity",
+            "note": "What the material actually is."
+          }
+        },
+        "c2": {
+          "type": "item",
+          "settings": {
+            "label": "Natural or lab-grown status",
+            "note": "The single most important line on a modern report."
+          }
+        },
+        "c3": {
+          "type": "item",
+          "settings": {
+            "label": "Carat weight and measurements",
+            "note": "Exact, to two decimal places."
+          }
+        },
+        "c4": {
+          "type": "item",
+          "settings": {
+            "label": "Colour and clarity grades",
+            "note": "Assessed under controlled lighting by trained graders."
+          }
+        },
+        "c5": {
+          "type": "item",
+          "settings": {
+            "label": "Treatments",
+            "note": "Heat, oiling, fracture filling, irradiation and the rest."
+          }
+        },
+        "c6": {
+          "type": "item",
+          "settings": {
+            "label": "Sometimes geographic origin",
+            "note": "More common and more meaningful on coloured gemstones."
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "What It Confirms",
+        "heading": "A Report May Tell You",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "cannot": {
+      "type": "fye-terms",
+      "blocks": {
+        "n1": {
+          "type": "term",
+          "settings": {
+            "number": "01",
+            "heading": "That the stone is beautiful to your eye",
+            "body": "<p>Two diamonds with identical paperwork can look quite different. A dark bowtie across an oval appears on no report anywhere, and it is the first thing you will notice on the hand.</p>"
+          }
+        },
+        "n2": {
+          "type": "term",
+          "settings": {
+            "number": "02",
+            "heading": "That the stone suits the design",
+            "body": "<p>Grades say nothing about proportion, spread, or whether the stone will sit properly in the setting you have in mind.</p>"
+          }
+        },
+        "n3": {
+          "type": "term",
+          "settings": {
+            "number": "03",
+            "heading": "That the price is fair",
+            "body": "<p>A report is not a valuation. Two stones with the same report can be priced very differently, and the report will not tell you which is the better buy.</p>"
+          }
+        },
+        "n4": {
+          "type": "term",
+          "settings": {
+            "number": "04",
+            "heading": "That the stone cannot be damaged",
+            "body": "<p>Grading describes the stone as it is today. It says nothing about how a pear's point or a princess's corners will fare in the setting you choose.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "n1",
+        "n2",
+        "n3",
+        "n4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "numbers",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "The Limits",
+        "heading": "Four Things a Report Cannot Do",
+        "intro": "This is why we always show a stone rather than sending you a PDF and asking for a decision.",
+        "note": ""
+      }
+    },
+    "when": {
+      "type": "fye-table",
+      "blocks": {
+        "w1": {
+          "type": "row",
+          "settings": {
+            "cells": "Diamond centre stone | Yes, always | Lets you compare fairly and insure the ring"
+          }
+        },
+        "w2": {
+          "type": "row",
+          "settings": {
+            "cells": "Lab-grown centre stone | Yes, always | Confirms grown origin in writing"
+          }
+        },
+        "w3": {
+          "type": "row",
+          "settings": {
+            "cells": "Significant sapphire, ruby or emerald | Usually | Especially where untreated or origin-specific"
+          }
+        },
+        "w4": {
+          "type": "row",
+          "settings": {
+            "cells": "Small accent diamonds | No | Specified by quality rather than certified individually"
+          }
+        },
+        "w5": {
+          "type": "row",
+          "settings": {
+            "cells": "Full eternity band | No | Normally specified as a whole, not stone by stone"
+          }
+        },
+        "w6": {
+          "type": "row",
+          "settings": {
+            "cells": "Modest coloured gemstone | Rarely | Cost of the report can approach the cost of the stone"
+          }
+        }
+      },
+      "block_order": [
+        "w1",
+        "w2",
+        "w3",
+        "w4",
+        "w5",
+        "w6"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "When It Is Worth It",
+        "heading": "Which Stones Need a Report",
+        "intro": "Not everything does, and a jeweller insisting otherwise on a row of tiny accent stones is selling paperwork rather than stones.",
+        "headers": "Stone | Report needed | Why",
+        "first_col_bold": true,
+        "note": "Every individual lab-grown centre stone we supply comes with its own grading report as standard."
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "eyebrow": "Already Have a Report",
+        "heading": "Send It Before You Buy",
+        "body": "<p>If you are considering a stone elsewhere, send us the report and the images. We will translate the parts that matter into plain English, tell you what the report does not cover, and say honestly whether the stone looks like a sensible option at that price. No obligation either way.</p>",
+        "link": "/pages/contact-us",
+        "link_label": "Send us a report"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "What is the difference between a certificate and a grading report?",
+            "a": "<p>Mostly language, but the distinction matters. Laboratories issue grading reports that describe a stone's characteristics. They do not certify value. The word certificate implies a guarantee that no laboratory actually offers.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Which laboratory is best?",
+            "a": "<p>GIA is the most consistent and the most widely trusted for diamonds, with IGI close behind and very common on lab-grown stones. For important coloured gemstones, AGL, GRS and SSEF are the respected names. Reports from unfamiliar laboratories should be treated with caution.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Do lab-grown diamonds come with reports?",
+            "a": "<p>Yes, and they should. Every individual lab-grown centre stone we supply comes with its own report. Note that GIA changed its lab-grown reporting framework in October 2025, so you will see both the new Premium and Standard wording and older Four Cs wording in circulation.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Does a report increase a stone's value?",
+            "a": "<p>Not in itself, but its absence can reduce it. An uncertified stone of any significance is harder to sell, harder to insure and harder to value, so the report protects the value rather than creating it.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Do I need a separate valuation for insurance?",
+            "a": "<p>Usually yes. A grading report describes the stone; an insurance valuation states a replacement figure. We can provide a valuation on headed paper with your ring, which is what most insurers want, and it is essential if you are travelling with the ring.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "Can a report be faked?",
+            "a": "<p>Reports can be forged, and stones can be swapped after grading. GIA and IGI both publish free online report look-up, so you can check the number against the laboratory's own record. We do this as a matter of course on any stone we source.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6"
+      ],
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Certification Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "UbTxH7"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/diamond-and-gemstone-guide-cover.png",
+        "cover_alt": "The Diamond and Gemstone Guide",
+        "cover_caption": "The Diamond and Gemstone Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Diamond and Gemstone Guide",
+        "body": "<p>Reports and provenance in full, plus the Four Cs, shapes, natural against lab-grown, fancy colour, coloured gemstones, treatments and durability.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Diamond Education",
+            "title": "The Four Cs",
+            "desc": "What the grades on the report actually mean.",
+            "cta": "Read more",
+            "link": "/pages/diamond-4cs"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Diamond Education",
+            "title": "Ethical Sourcing",
+            "desc": "Traceability, the Kimberley Process and recycled metals.",
+            "cta": "Read more",
+            "link": "/pages/ethical-sourcing"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Section Hub",
+            "title": "Diamond Education",
+            "desc": "All eight diamond guides in one place.",
+            "cta": "Back to the hub",
+            "link": "/pages/diamond-education"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "labs",
+    "confirms",
+    "cannot",
+    "when",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

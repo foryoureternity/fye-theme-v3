@@ -1,0 +1,629 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Everyday Wear and Habits"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Chapter one of The Ring and Jewellery Care Guide</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/engagement-wedding-ring-stack-gold-rose-gold.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Made to Be Worn",
+        "heading": "Your Ring Was Made for Ordinary Days",
+        "body": "<p>Fine jewellery should not spend its life hidden away. Whether it marks an engagement, a wedding, an anniversary, or is simply a piece you fell in love with, it was made to become part of your everyday life.</p><p>Jewellery changes as it is worn. A polished surface picks up fine marks. A satin finish gradually becomes smoother. Platinum takes on a soft patina. None of that means the ring is failing. It is the natural result of a precious object sharing your life.</p><p>Our approach is reassuring rather than restrictive. We do not think your ring belongs in a box for most of its life. We do think a little knowledge prevents the large majority of avoidable damage.</p><h3>One rule worth remembering</h3><p>When you are unsure whether an activity is safe, take the ring off and put it somewhere secure. Ten minutes without it is far easier than repairing impact damage or replacing a lost stone.</p>"
+      }
+    },
+    "principles": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "number": "",
+            "heading": "Wear it confidently",
+            "body": "<p>Through ordinary daily life. This is what the ring was made for, and a piece that is genuinely worn tends to be the piece that is genuinely looked after.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "number": "",
+            "heading": "Remove it thoughtfully",
+            "body": "<p>Before impact, pressure, chemicals, water, or any real risk of loss. The list of situations is shorter than most people expect, and chapter two sets it out in full.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "number": "",
+            "heading": "Have it checked regularly",
+            "body": "<p>So small signs of wear are dealt with before they become larger problems. Professional inspection is free for the life of every ring we supply.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "3",
+        "numbering": "numbers",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "The Foundation",
+        "heading": "The Three Principles of Good Care",
+        "intro": "Almost everything in this guide comes back to these three.",
+        "note": ""
+      }
+    },
+    "normal": {
+      "type": "fye-checklist",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "label": "Fine surface scratches and scuffs",
+            "note": "Most collect on the underside of the band."
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "label": "A polished finish softening",
+            "note": "It settles into a more lived in sheen."
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "label": "A satin or brushed finish smoothing",
+            "note": "High contact points brighten first."
+          }
+        },
+        "i4": {
+          "type": "item",
+          "settings": {
+            "label": "Platinum developing a patina",
+            "note": "An even grey white surface, usually within months."
+          }
+        },
+        "i5": {
+          "type": "item",
+          "settings": {
+            "label": "White gold looking warmer",
+            "note": "The rhodium plating is wearing. Replating restores it."
+          }
+        },
+        "i6": {
+          "type": "item",
+          "settings": {
+            "label": "Engraving softening",
+            "note": "After many years of daily contact."
+          }
+        },
+        "i7": {
+          "type": "item",
+          "settings": {
+            "label": "Residue dulling the sparkle",
+            "note": "It gathers beneath the stones. Cleaning brings it back."
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6",
+        "i7"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "What to Expect",
+        "heading": "Normal Wear, No Action Needed",
+        "intro": "Precious metals are chosen for their beauty, rarity and workability. They are not scratch proof. Even a newly finished ring can pick up fine marks in its first days of wear, usually on the underside of the band where it meets desks, door handles, cutlery and keys.",
+        "note": "These changes are expected. They do not mean the ring is defective or wearing unusually fast."
+      }
+    },
+    "attention": {
+      "type": "fye-checklist",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "label": "A stone that moves, clicks or rattles",
+            "note": "Stop wearing the ring and do not test it further."
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "label": "A claw that catches or feels sharp",
+            "note": "The tip has usually thinned or lifted."
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "label": "A visible gap around a gemstone",
+            "note": "The stone has shifted in its setting."
+          }
+        },
+        "i4": {
+          "type": "item",
+          "settings": {
+            "label": "A bent, uneven or distorted setting",
+            "note": "Do not try to bend anything back."
+          }
+        },
+        "i5": {
+          "type": "item",
+          "settings": {
+            "label": "A band that is no longer circular",
+            "note": "A change in shape pushes pressure through the setting."
+          }
+        },
+        "i6": {
+          "type": "item",
+          "settings": {
+            "label": "A crack or deep dent after an impact",
+            "note": "Have it looked at straight away, whatever the date."
+          }
+        },
+        "i7": {
+          "type": "item",
+          "settings": {
+            "label": "An unexpected and persistent change in fit",
+            "note": "Watch it for a few weeks, then tell us."
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6",
+        "i7"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Worth a Message",
+        "heading": "Signs That Deserve Attention",
+        "intro": "These are different. Each one says that the setting or the band has changed, and each is far cheaper to deal with early than late. Contact us the same week.",
+        "note": "A claw retip is a small, inexpensive job. Sourcing a matching replacement stone is neither."
+      }
+    },
+    "patina": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "default",
+        "narrow": true,
+        "eyebrow": "A Fair Question",
+        "heading": "Patina or Polish?",
+        "body": "<p>Some owners love the soft patina platinum develops, because it gives the ring depth and character. Others prefer a bright, freshly polished finish. Neither is more correct.</p><p>Professional refinishing can restore the original appearance, but your ring does not need polishing every time a small scratch appears. Frequent heavy polishing removes a little metal each time. Refinish when you genuinely want to refresh the piece, not on a schedule.</p>"
+      }
+    },
+    "habits": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "number": "",
+            "heading": "Put jewellery on last",
+            "body": "<p>Let moisturiser, perfume, hairspray, make up, sun cream and hand sanitiser settle before the ring goes on. These rarely harm a diamond, but the residue collects around and beneath the stones, dulls the sparkle, and makes the setting harder to inspect.</p><p>Alcohol hand gel deserves a particular mention. It is used constantly, it dries fast, and it leaves a film under the stone that builds up far more quickly than most people expect.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "number": "",
+            "heading": "Take it off deliberately",
+            "body": "<p>Whenever the ring comes off, put it in the same secure place every time: a closed jewellery box, a zipped pouch, a rigid travel case, or a ring dish kept well away from sinks and drains.</p><p>Never loose in a pocket, on a bathroom ledge, or beside the kitchen sink.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "number": "",
+            "heading": "Handle gemstone rings by the band",
+            "body": "<p>Pick the ring up by its band rather than pressing your fingers over the centre stone. It keeps fingerprints off the stone and avoids repeated pressure on delicate claws and fine settings.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "number": "",
+            "heading": "Do not test a loose stone",
+            "body": "<p>If you suspect movement, stop touching it. Repeated wiggling enlarges the wear inside the setting and turns a small repair into a lost stone. Put the ring in its box and contact us.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Four Habits",
+        "heading": "Small Things That Protect Your Jewellery",
+        "intro": "Most good ring care is not complicated. It comes down to a handful of habits that quickly become automatic.",
+        "note": ""
+      }
+    },
+    "evening": {
+      "type": "fye-checklist",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "label": "Is the centre stone still sitting level?",
+            "note": ""
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "label": "Is any claw visibly raised or displaced?",
+            "note": ""
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "label": "Does a soft cloth catch anywhere it did not before?",
+            "note": "Pass it gently over the setting."
+          }
+        },
+        "i4": {
+          "type": "item",
+          "settings": {
+            "label": "Is the band still circular?",
+            "note": ""
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Thirty Seconds",
+        "heading": "The Evening Check",
+        "intro": "Under good light, every now and then, ask four questions. This is not a substitute for a workshop inspection, but it catches sudden damage early, which is when it is cheapest to fix.",
+        "note": "If the answer to any of them has changed, stop wearing the ring and contact us."
+      }
+    },
+    "myths": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "“Diamonds cannot be damaged.” | Diamonds resist scratching exceptionally well, but they can chip or cleave after a sharp impact. Hardness is not toughness."
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "“Platinum never scratches.” | Platinum scratches and develops a patina. That is a normal wear pattern, not evidence of poor quality."
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "“A lifetime warranty covers every loose or lost stone.” | A manufacturing warranty is not accidental damage insurance. Impact, wear and worn settings are assessed individually. Both are worth having, and they do different jobs."
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "“Jewellery should look new forever.” | Fine jewellery records wear. Good care preserves structure and security. It does not prevent every surface mark."
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "“A professional polish is always beneficial.” | Refinishing restores appearance, but repeated heavy polishing removes metal. Do it when you want to, not on a schedule."
+          }
+        },
+        "r6": {
+          "type": "row",
+          "settings": {
+            "cells": "“I should resize the ring as soon as it feels different.” | Heat, cold, salt and hydration all change finger size. Observe the fit for a few weeks before altering the ring permanently."
+          }
+        },
+        "r7": {
+          "type": "row",
+          "settings": {
+            "cells": "“Taking it off is safer than wearing it.” | The most common way a ring is lost is being removed and put down somewhere unfamiliar. Wear it, or store it properly. The risk lives in the space between."
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Myth Versus Reality",
+        "heading": "What People Get Wrong",
+        "intro": "",
+        "headers": "Myth | Reality",
+        "first_col_bold": true,
+        "narrow": false,
+        "col1_width": 34,
+        "note": ""
+      }
+    },
+    "long_view": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "The Long View",
+        "heading": "Preservation, Not Perfection",
+        "body": "<p>A well cared for ring will still show that it has been worn. Long term care is about secure gemstones, sound settings, a comfortable fit and a finish you enjoy. It is not about keeping the jewellery untouched.</p><p>Every ring we supply includes free professional inspection for life, with a standard professional clean at the same time. Contact us before sending anything and we will arrange it properly.</p>"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I wear my engagement ring every day?",
+            "a": "<p>Yes, and most owners do. Daily wear is what a well made ring is for. The care is in the exceptions: take it off before impact, pressure, strong chemicals and water, and have it inspected once a year.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Will my ring scratch?",
+            "a": "<p>Yes. Precious metals are chosen for beauty, rarity and workability, not hardness, and a new ring can pick up fine marks within days. The underside of the band goes first, where it meets desks, keys and cutlery. It is normal, and it can be refinished whenever you want it refreshed.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Why does my white gold look warmer than it did?",
+            "a": "<p>The rhodium plating wears from the underside and the high contact points first, revealing the warmer natural alloy underneath. It is entirely normal. Replating restores the bright white, and it is quick, though it is chargeable.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Should I take my ring off at night?",
+            "a": "<p>Sleeping in a plain band or a robust setting is generally fine. Very delicate claws, high settings and fine pavé can catch on bedding. If your ring regularly snags at night, store it overnight and arrange an inspection.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I wear hand cream and perfume with my ring on?",
+            "a": "<p>Put the ring on afterwards. Creams, perfume, hairspray, make up and hand sanitiser rarely harm a diamond, but they leave residue under the stone that dulls it and hides the setting. Alcohol hand gel builds up fastest of all.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "My stone feels slightly loose. Can I check it myself?",
+            "a": "<p>No, and this is the one place we would ask you not to be curious. Every wiggle enlarges the seat inside the setting. Stop wearing the ring, put it in its box, and contact us the same day.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "q": "How often should my ring be inspected?",
+            "a": "<p>Once a year for anything worn daily, particularly claw set and pavé rings. Every two years is enough for a piece worn occasionally. After any significant impact, have it checked immediately, regardless of when the last inspection was.</p>"
+          }
+        },
+        "q8": {
+          "type": "qa",
+          "settings": {
+            "q": "Does polishing damage a ring?",
+            "a": "<p>Not once, but repeatedly it does. Each polish removes a small amount of metal, and over decades that matters, particularly around claws and grains. Refinish when you want the piece refreshed rather than on a fixed schedule.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8"
+      ],
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Everyday Wear Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "white",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "/pages/ring-and-jewellery-care-guide-download",
+            "style": "btn--primary",
+            "klaviyo_form": ""
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/ring-care-guide-cover.png",
+        "cover_alt": "The Ring and Jewellery Care Guide",
+        "cover_caption": "The Ring and Jewellery Care Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Ring and Jewellery Care Guide",
+        "body": "<p>Wearing, cleaning, storing and protecting fine jewellery, in one printable PDF. Written for owners of engagement rings, wedding and eternity rings, gemstone pieces and everyday precious metal jewellery.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Care Guide",
+            "title": "When to Take It Off",
+            "desc": "The tasks, the water, and the two minutes that save a ring.",
+            "cta": "Read more",
+            "link": "/pages/ring-care-when-to-remove"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Care Guide",
+            "title": "Cleaning at Home",
+            "desc": "The four step method, and what should never go near a ring.",
+            "cta": "Read more",
+            "link": "/pages/ring-care-cleaning"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Care Guide",
+            "title": "The Ring and Jewellery Care Guide",
+            "desc": "Every chapter, from the first week to the annual check.",
+            "cta": "Start here",
+            "link": "/pages/ring-and-jewellery-care-guide"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Choosing the Metal",
+            "desc": "How platinum, gold and palladium each age in wear.",
+            "cta": "Read more",
+            "link": "/pages/find-the-right-metal"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Chapters"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "principles",
+    "normal",
+    "attention",
+    "patina",
+    "habits",
+    "evening",
+    "myths",
+    "long_view",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

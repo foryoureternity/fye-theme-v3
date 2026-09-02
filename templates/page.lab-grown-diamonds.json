@@ -1,0 +1,496 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Natural vs Lab-Grown"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Both are real diamonds. The differences that matter are origin, rarity and price</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/round-brilliant-diamond-marble.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Diamond Education",
+        "heading": "A Lab-Grown Diamond Is Not a Lesser Diamond",
+        "body": "<p>Lab-grown diamonds are diamonds. They have the same chemical and optical nature as natural diamonds, graded by the same laboratories on the same <a href=\"/pages/diamond-4cs\">Four Cs</a>. They are grown in controlled conditions rather than formed in the earth.</p><p>The advantage is value. For the same budget a lab-grown diamond will usually allow a larger stone, higher colour, higher clarity or a more ambitious design. The trade-off is rarity: a lab-grown diamond does not carry the geological scarcity of a natural one. For some people that matters deeply. For others it does not matter at all.</p><p>Neither answer is wrong. What matters is knowing which of the two you are buying, and why.</p>"
+      }
+    },
+    "comparison": {
+      "type": "fye-table",
+      "blocks": {
+        "c1": {
+          "type": "row",
+          "settings": {
+            "cells": "Appearance | Can be identical to the naked eye when well chosen | Can be identical to the naked eye when well chosen"
+          }
+        },
+        "c2": {
+          "type": "row",
+          "settings": {
+            "cells": "Origin | Formed naturally within the earth | Grown in controlled conditions"
+          }
+        },
+        "c3": {
+          "type": "row",
+          "settings": {
+            "cells": "Price | Higher for equivalent size and quality | Usually considerably lower"
+          }
+        },
+        "c4": {
+          "type": "row",
+          "settings": {
+            "cells": "Rarity | Geologically rare | Not rare in the same way"
+          }
+        },
+        "c5": {
+          "type": "row",
+          "settings": {
+            "cells": "Best for | Tradition, rarity, heirloom feeling | Size, specification and value"
+          }
+        },
+        "c6": {
+          "type": "row",
+          "settings": {
+            "cells": "Grading report | Important for centre stones | Important for centre stones"
+          }
+        },
+        "c7": {
+          "type": "row",
+          "settings": {
+            "cells": "Secondary market | Established and mature | Limited; buy to wear, not to resell"
+          }
+        },
+        "c8": {
+          "type": "row",
+          "settings": {
+            "cells": "Hardness | 10 on the Mohs scale | 10 on the Mohs scale"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Side by Side",
+        "heading": "The Honest Comparison",
+        "intro": "Both are real diamonds and both can be beautiful. The differences that matter are origin, rarity and price, not appearance.",
+        "headers": "Factor | Natural diamond | Lab-grown diamond",
+        "first_col_bold": true,
+        "note": "We are always clear about which a stone is, and we document the specification with your order so the piece is straightforward to insure and identify in future."
+      }
+    },
+    "natural": {
+      "type": "fye-terms",
+      "blocks": {
+        "n1": {
+          "type": "term",
+          "settings": {
+            "heading": "Traditional engagement rings",
+            "body": "<p>Where the story of the stone matters as much as the stone. Natural origin carries weight for many people, and no argument about specification changes that.</p>"
+          }
+        },
+        "n2": {
+          "type": "term",
+          "settings": {
+            "heading": "Heirloom-feeling designs",
+            "body": "<p>A piece intended to be handed down sits more comfortably with a naturally formed stone, particularly alongside antique cuts and vintage settings.</p>"
+          }
+        },
+        "n3": {
+          "type": "term",
+          "settings": {
+            "heading": "Where rarity is the point",
+            "body": "<p>If geological scarcity is what the wearer values, that is a legitimate reason on its own and lab-grown will never satisfy it.</p>"
+          }
+        },
+        "n4": {
+          "type": "term",
+          "settings": {
+            "heading": "Smaller but beautifully chosen stones",
+            "body": "<p>A modest natural diamond chosen well will outperform a larger, compromised one. Natural does not have to mean expensive.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "n1",
+        "n2",
+        "n3",
+        "n4"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "When Natural Makes Sense",
+        "heading": "Natural Diamonds Are Often Best For",
+        "intro": "Do not assume natural automatically means better. A poorly cut natural diamond will not look better than a beautifully cut lab-grown one just because it came out of the ground.",
+        "note": ""
+      }
+    },
+    "lab": {
+      "type": "fye-terms",
+      "blocks": {
+        "l1": {
+          "type": "term",
+          "settings": {
+            "heading": "Larger engagement rings",
+            "body": "<p>The clearest case. Where a natural diamond of the size you want would require too much compromise elsewhere, lab-grown removes the problem entirely.</p>"
+          }
+        },
+        "l2": {
+          "type": "term",
+          "settings": {
+            "heading": "High-specification white stones",
+            "body": "<p>D to F colour and VVS clarity become affordable rather than aspirational, which matters if the wearer particularly wants an icy white stone in platinum.</p>"
+          }
+        },
+        "l3": {
+          "type": "term",
+          "settings": {
+            "heading": "Modern designs",
+            "body": "<p>Contemporary settings with several matched stones, or ambitious bespoke work, where buying natural throughout would push the budget somewhere unreasonable.</p>"
+          }
+        },
+        "l4": {
+          "type": "term",
+          "settings": {
+            "heading": "Stepping around mining questions",
+            "body": "<p>No mining and a clearer chain of custody. Not automatically greener in every respect, since growing diamonds uses energy, but for many people the absence of mining is the deciding factor.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "l1",
+        "l2",
+        "l3",
+        "l4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "When Lab-Grown Makes Sense",
+        "heading": "Lab-Grown Diamonds Are Often Best For",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "watch": {
+      "type": "fye-checklist",
+      "blocks": {
+        "w1": {
+          "type": "item",
+          "settings": {
+            "label": "Cut still matters, on both",
+            "note": "Not all lab-grown diamonds are equally beautiful. A bad cut is a bad cut whatever the origin."
+          }
+        },
+        "w2": {
+          "type": "item",
+          "settings": {
+            "label": "Reports still matter for centre stones",
+            "note": "Both should carry an independent grading report at any meaningful size."
+          }
+        },
+        "w3": {
+          "type": "item",
+          "settings": {
+            "label": "Very high clarity may not be worth paying for",
+            "note": "VVS on a lab-grown stone costs more and looks identical to VS on the hand."
+          }
+        },
+        "w4": {
+          "type": "item",
+          "settings": {
+            "label": "Be realistic about resale",
+            "note": "Lab-grown has no established secondary market. Buy it to wear and enjoy."
+          }
+        },
+        "w5": {
+          "type": "item",
+          "settings": {
+            "label": "Disclosure should always be clear",
+            "note": "Any jeweller who is vague about which you are buying is telling you something."
+          }
+        },
+        "w6": {
+          "type": "item",
+          "settings": {
+            "label": "Watch the price jumps on natural",
+            "note": "Just under a round carat weight often buys a much better stone for the money."
+          }
+        }
+      },
+      "block_order": [
+        "w1",
+        "w2",
+        "w3",
+        "w4",
+        "w5",
+        "w6"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Either Route",
+        "heading": "What to Watch",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "grading_change": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "default",
+        "narrow": true,
+        "eyebrow": "Worth Knowing",
+        "heading": "How Lab-Grown Diamonds Are Graded",
+        "body": "<p>In October 2025 GIA moved lab-grown diamond reporting to a Premium or Standard assessment framework rather than the traditional Four Cs nomenclature.</p><p>Most lab-grown diamonds currently on the market still hold pre-October 2025 reports, or reports from independent laboratories such as IGI or GCAL, using the traditional wording. That means you will see both styles of report in circulation for some time. We provide independent laboratory grading reports with centre stones either way, and will explain which framework a given report uses.</p>"
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "eyebrow": "Not Sure Which Route",
+        "heading": "Compare Them Against Your Actual Budget",
+        "body": "<p>The choice is easier with real numbers in front of you. Tell us your budget, preferred shape and metal, and we will show the best natural stone and the best lab-grown stone available at that figure, side by side, with the trade-offs spelled out.</p>",
+        "link": "/pages/contact-us",
+        "link_label": "Book a free stone call"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Are lab-grown diamonds real diamonds?",
+            "a": "<p>Yes. Lab-grown diamonds are chemically, optically and physically identical to mined diamonds, and are graded by the same independent laboratories on the same criteria. The only difference is origin, and price.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Can anyone tell the difference by looking?",
+            "a": "<p>No. Not a jeweller, not a gemmologist, not with a loupe. Distinguishing them requires specialist laboratory equipment that detects growth patterns invisible to the eye. This is precisely why disclosure and reports matter.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Will a lab-grown diamond hold its value?",
+            "a": "<p>Natural diamonds have a far more established secondary market. Lab-grown prices have fallen as production has scaled, and there is no reliable resale route. Buy lab-grown to wear and enjoy rather than as an investment. That is true of most jewellery, but it is especially true here.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "How much cheaper is lab-grown?",
+            "a": "<p>It varies with size and specification, but the gap is substantial and widens as the stone gets larger. In practice, a budget that buys a well-cut natural diamond will usually buy a considerably larger lab-grown one at a similar or better grade.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Are lab-grown diamonds more ethical?",
+            "a": "<p>They avoid mining entirely, which for many people is the deciding factor. They are not automatically greener in every respect, because growing diamonds uses significant energy. All our natural diamonds are guaranteed conflict-free under the Kimberley Process. It is a personal judgement rather than a simple right answer.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "Do lab-grown diamonds scratch or cloud over time?",
+            "a": "<p>No. They are 10 on the Mohs scale, exactly as natural diamonds are, and they do not cloud, discolour or degrade. A lab-grown diamond will look the same in fifty years as it does today, given the same care.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I mix natural and lab-grown in one ring?",
+            "a": "<p>Technically yes, and some people do use lab-grown accent stones around a natural centre. We would always document exactly which is which, because a future valuer or insurer will need to know.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7"
+      ],
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Natural and Lab-Grown Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "white",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "UbTxH7"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/diamond-and-gemstone-guide-cover.png",
+        "cover_alt": "The Diamond and Gemstone Guide",
+        "cover_caption": "The Diamond and Gemstone Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Diamond and Gemstone Guide",
+        "body": "<p>Natural against lab-grown in full, plus the Four Cs, shapes, fancy colour, coloured gemstones, treatments, durability and grading reports.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Diamond Education",
+            "title": "The Four Cs",
+            "desc": "The grading system both routes share.",
+            "cta": "Read more",
+            "link": "/pages/diamond-4cs"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Diamond Education",
+            "title": "Diamond Alternatives",
+            "desc": "Moissanite and the others, compared honestly.",
+            "cta": "Read more",
+            "link": "/pages/diamond-alternatives"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Natural Diamonds",
+            "desc": "Kimberley Process certified, by shape and grade.",
+            "cta": "Browse natural",
+            "link": "/collections/natural-diamonds"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Lab-Grown Diamonds",
+            "desc": "More size and specification for the budget.",
+            "cta": "Browse lab-grown",
+            "link": "/collections/lab-diamonds"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "comparison",
+    "natural",
+    "lab",
+    "watch",
+    "grading_change",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

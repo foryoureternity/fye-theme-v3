@@ -1,0 +1,356 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Wearing an Eternity Ring in a Stack"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Four arrangements, and the fit checks that stop rings damaging each other</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/engagement-wedding-ring-stack-gold-rose-gold.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Options, Not Rules",
+        "heading": "Most Eternity Rings Are Worn Alongside Something",
+        "body": "<p>Very few eternity rings are worn alone, and how they sit against the existing pair matters more than most people expect. Two diamond bands rubbing directly against each other will damage both, slowly and invisibly, over years.</p><p>What follows are the common arrangements. They are options rather than rules, and no order is more correct than another whatever anyone tells you.</p>"
+      }
+    },
+    "options": {
+      "type": "fye-cards",
+      "blocks": {
+        "c1": {
+          "type": "card",
+          "settings": {
+            "heading": "Worn alone",
+            "body": "<p>On its own finger or its own hand. No compromises on width, height or presence, and nothing to rub against.</p>",
+            "label": "Option one"
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "heading": "Above the engagement ring",
+            "body": "<p>Wedding ring closest to the hand, engagement ring above it, eternity ring outermost. The most common arrangement.</p>",
+            "label": "Option two"
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "heading": "In the middle",
+            "body": "<p>Eternity ring between the wedding and engagement rings, which frames the engagement ring and keeps the wedding band closest to the heart.</p>",
+            "label": "Option three"
+          }
+        },
+        "c4": {
+          "type": "card",
+          "settings": {
+            "heading": "On the other hand",
+            "body": "<p>Keeps the eternity ring entirely clear of the existing pair. Worth considering if the stack is becoming tight or the rings do not sit well together.</p>",
+            "label": "Option four"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "4",
+        "show_head": true,
+        "intro": "No order is more correct than another. Choose the one that sits comfortably and looks right to you.",
+        "eyebrow": "Four Arrangements",
+        "heading": "Where It Can Sit"
+      }
+    },
+    "checks": {
+      "type": "fye-checklist",
+      "blocks": {
+        "w1": {
+          "type": "item",
+          "settings": {
+            "label": "Match or deliberately contrast the metal",
+            "note": "A near-match reads as a mistake. Identical or obviously different both work."
+          }
+        },
+        "w2": {
+          "type": "item",
+          "settings": {
+            "label": "Compare profile height, not only width",
+            "note": "Two rings of the same width can sit at quite different heights and refuse to sit flush."
+          }
+        },
+        "w3": {
+          "type": "item",
+          "settings": {
+            "label": "Check what touches what",
+            "note": "Exposed diamond girdles, claws and channel edges against an adjacent ring will wear both."
+          }
+        },
+        "w4": {
+          "type": "item",
+          "settings": {
+            "label": "Look for obstructions",
+            "note": "A low basket, halo, trilogy side stones or shoulders can prevent a straight band sitting close."
+          }
+        },
+        "w5": {
+          "type": "item",
+          "settings": {
+            "label": "Check with fingers closed",
+            "note": "Rings that sit beautifully with the hand open can press uncomfortably when the fingers are together."
+          }
+        },
+        "w6": {
+          "type": "item",
+          "settings": {
+            "label": "Consider the combined width",
+            "note": "Several individually comfortable rings can feel tight as a stack, particularly in warm weather."
+          }
+        }
+      },
+      "block_order": [
+        "w1",
+        "w2",
+        "w3",
+        "w4",
+        "w5",
+        "w6"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "intro": "Most stacking problems are predictable, and all six of these can be checked before anything is made.",
+        "note": "",
+        "eyebrow": "Before You Order",
+        "heading": "Six Fit Checks"
+      }
+    },
+    "spacer": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Not an Admission of Failure",
+        "heading": "Spacers Are a Design Choice",
+        "body": "<p>A slim plain spacer ring prevents direct contact where an eternity setting would otherwise rub an engagement ring basket or another diamond band. It protects both rings, and it can be finished to disappear almost entirely between them.</p><p>People sometimes resist the idea because it feels like an extra ring solving a problem. In practice it is cheaper than repairing two damaged bands, and it often improves how the stack sits.</p>"
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "eyebrow": "If the Rings Will Not Sit Together",
+        "heading": "Shaping Is the Other Answer",
+        "body": "<p>Where a spacer will not solve it, a shaped or fitted band made to follow the engagement ring's outline usually will. It is more work than a straight band but it is the difference between a stack that is worn and one that is not.</p>",
+        "link": "/pages/shaped-to-fit-rings",
+        "link_label": "Read about shaped bands"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "What order should I wear my rings in?",
+            "a": "<p>Tradition puts the wedding band closest to the heart, so wedding ring first, then engagement ring, then eternity ring outermost. Plenty of people wear them differently and it makes no practical difference unless a band is shaped, in which case it only works one way.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Will my rings damage each other?",
+            "a": "<p>They can, particularly where exposed diamond girdles or claws sit against another band. Diamond is hard enough to abrade gold and platinum steadily. A slim spacer between them prevents it, and an annual inspection catches it early.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Should the eternity ring match the wedding band?",
+            "a": "<p>Match it, or contrast it obviously. The combination that rarely works is a near-match, where the metals or widths are only slightly different and the effect reads as accidental rather than deliberate.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "My stack feels tight in summer. Is that normal?",
+            "a": "<p>Yes. Several individually comfortable rings can press together as fingers swell. If it happens regularly, wearing one on the other hand is the simplest fix, and it is worth checking the fit before assuming a resize is needed.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I add an eternity ring years later?",
+            "a": "<p>Of course, and most people do, usually for an anniversary or a birth. It is easier if the wedding band was chosen with a future stack in mind, but we can almost always find something that sits well, including shaping it if needed.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true,
+        "heading": "Stacking Questions"
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "white",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "TNb26i"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/Eternity_Ring_Guide_Cover_v3.png",
+        "cover_alt": "The Eternity Ring Guide",
+        "cover_caption": "The Eternity Ring Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Eternity Ring Guide",
+        "body": "<p>Stacking, coverage from quarter to full, setting styles, total carat weight, stone layout and sizing.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Eternity Rings",
+            "title": "Understanding Stone Coverage",
+            "desc": "Quarter to full, and what each commits you to.",
+            "cta": "Read more",
+            "link": "/pages/eternity-ring-coverage"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Shaped-to-Fit Bands",
+            "desc": "When a straight band will not sit against the pair.",
+            "cta": "Read more",
+            "link": "/pages/shaped-to-fit-rings"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Choosing the Metal",
+            "desc": "Matching metals across a stack, and why near-matches fail.",
+            "cta": "Read more",
+            "link": "/pages/find-the-right-metal"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Eternity Rings",
+            "desc": "Half and full eternity, by shape, metal and stone.",
+            "cta": "Browse rings",
+            "link": "/collections/eternity-rings"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "options",
+    "checks",
+    "spacer",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

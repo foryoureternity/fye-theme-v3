@@ -1,0 +1,347 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Matched, Complementary or Independent"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Two rings, and how closely they need to relate</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/engagement-and-wedding.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Thinking About the Pair",
+        "heading": "Designing Together Does Not Mean Matching",
+        "body": "<p>Most couples buy two wedding rings. Some buy one. Some plan a third later, an eternity ring for an anniversary or a milestone. There is no correct number, but it is worth thinking about the rings together, because the choices made for one influence the others.</p><p>Designing as a pair does not mean the rings must match. It means they are considered together: metal colour, width, finish, hand proportions, engraving and budget. A slim polished platinum band and a wider brushed yellow gold band can feel beautifully linked when the decisions are deliberate.</p>"
+      }
+    },
+    "three": {
+      "type": "fye-cards",
+      "blocks": {
+        "c1": {
+          "type": "card",
+          "settings": {
+            "heading": "Matched",
+            "body": "<p>Same metal, profile, finish and similar proportions, scaled to suit each wearer. Two platinum court bands in different widths, for instance. The most traditional route and the easiest to photograph.</p>",
+            "label": "Closest"
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "heading": "Complementary",
+            "body": "<p>A shared design language, the same metal or finish, but different widths, profiles or details. A slim polished band beside a wider brushed flat court. Our most popular choice by some margin.</p>",
+            "label": "Middle ground"
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "heading": "Independent",
+            "body": "<p>Each wearer chooses exactly what they love, with no obligation to mirror the other. A yellow gold hammered band beside a polished platinum court. Works well when tastes genuinely differ.</p>",
+            "label": "Most freedom"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "3",
+        "show_head": true,
+        "intro": "",
+        "eyebrow": "Three Approaches",
+        "heading": "How Closely to Link Them"
+      }
+    },
+    "decide": {
+      "type": "fye-checklist",
+      "blocks": {
+        "w1": {
+          "type": "item",
+          "settings": {
+            "label": "Do you both actually like the same things?",
+            "note": "If not, independent is honest rather than a failure. A ring worn reluctantly is worse than a mismatched pair."
+          }
+        },
+        "w2": {
+          "type": "item",
+          "settings": {
+            "label": "Will one sit beside an engagement ring?",
+            "note": "That constrains one ring far more than the other, which often points towards complementary."
+          }
+        },
+        "w3": {
+          "type": "item",
+          "settings": {
+            "label": "Are the hands very different?",
+            "note": "The same width reads quite differently at 3mm on a slim finger and 3mm on a broad one. Scale rather than copy."
+          }
+        },
+        "w4": {
+          "type": "item",
+          "settings": {
+            "label": "Do you want them to photograph as a pair?",
+            "note": "If the wedding photographs matter, a shared metal does more work than a shared profile."
+          }
+        },
+        "w5": {
+          "type": "item",
+          "settings": {
+            "label": "Is an eternity ring likely later?",
+            "note": "Mention it now. A band chosen with a future stack in mind sits far more happily than one chosen in isolation."
+          }
+        },
+        "w6": {
+          "type": "item",
+          "settings": {
+            "label": "Is the budget shared or separate?",
+            "note": "Matched pairs are simplest to budget for. Independent choices can differ considerably in cost."
+          }
+        }
+      },
+      "block_order": [
+        "w1",
+        "w2",
+        "w3",
+        "w4",
+        "w5",
+        "w6"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "intro": "There is no wrong answer here, only answers that suit the two of you or do not.",
+        "note": "",
+        "eyebrow": "Six Questions",
+        "heading": "How to Decide Which Route"
+      }
+    },
+    "ahead": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Worth Saying Early",
+        "heading": "Plan for the Third Ring",
+        "body": "<p>If you expect to add an eternity ring later, for an anniversary or a birth, tell us now rather than in five years. A wedding band chosen with a future stack in mind will sit more happily on the hand than one chosen in isolation, and it costs nothing to plan for.</p><p>It affects profile height, width and whether the eventual stack will sit flush. Retro-fitting a third ring to a pair that never anticipated it is possible but rarely as neat.</p>"
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "eyebrow": "The Other Pairing Question",
+        "heading": "How the Band Meets the Engagement Ring",
+        "body": "<p>Whether a straight band will sit flush depends on under-gallery clearance rather than setting height, and it is worth settling before either ring is made.</p>",
+        "link": "/pages/wedding-band-pairing",
+        "link_label": "Read about pairing"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Do wedding rings have to match?",
+            "a": "<p>Not at all, and most of the pairs we make do not. Complementary is the most popular route: a shared metal or finish, with different widths and profiles suited to each hand. Matching is a choice rather than a rule.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Can we have different metals?",
+            "a": "<p>Yes, provided the contrast is deliberate and obvious. Yellow gold beside platinum reads as a considered pairing. Two slightly different whites read as an accident, which is the one combination worth avoiding.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Should the rings be the same width?",
+            "a": "<p>Rarely. The same width looks quite different on different hands. Scaling the proportions, so each ring suits its wearer, usually looks more considered than copying the measurement exactly.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "What if we disagree?",
+            "a": "<p>Go independent. A ring worn happily for fifty years beats a matched pair where one person compromised. You can still link them with a shared engraving or a common finish if you want a thread between them.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Can we add a matching eternity ring years later?",
+            "a": "<p>Usually yes, and it is easier if you mention the possibility now. We keep records of every ring we make, so matching the metal, profile and finish years later is straightforward if we made the original.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true,
+        "heading": "Questions About Choosing as a Pair"
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "white",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "XMzNMS"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/Plain_Wedding_Cover.png",
+        "cover_alt": "The Plain Wedding Ring Guide",
+        "cover_caption": "The Plain Wedding Ring Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Plain Wedding Ring Guide",
+        "body": "<p>Choosing as a pair, plus profiles, widths, metals, finishes, engraving, pairing and sizing.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Profiles, Width and Feel",
+            "desc": "Scaling proportions to suit each hand.",
+            "cta": "Read more",
+            "link": "/pages/ring-profiles-and-widths"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Choosing the Metal",
+            "desc": "Matching exactly, or contrasting deliberately.",
+            "cta": "Read more",
+            "link": "/pages/find-the-right-metal"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Finishes and How They Age",
+            "desc": "A shared finish across two different profiles.",
+            "cta": "Read more",
+            "link": "/pages/ring-finishes"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Wedding Rings",
+            "desc": "Plain and stone-set bands for both wearers.",
+            "cta": "Browse rings",
+            "link": "/collections/wedding-rings"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "three",
+    "decide",
+    "ahead",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

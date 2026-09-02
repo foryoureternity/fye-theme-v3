@@ -1,0 +1,534 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Fancy Coloured Diamonds"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Yellow, champagne, cognac, pink, blue, grey and black</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/loose-diamonds-coloured-gemstones-sapphire-emerald.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Diamond Education",
+        "heading": "Not All Diamonds Are White",
+        "body": "<p>Fancy coloured diamonds are real diamonds that absorbed trace elements as they formed, or that contain visible natural inclusions which become the aesthetic in their own right. All of them share diamond's hardness of 10, so all of them suit daily wear without compromise.</p><p>Colour changes the buying conversation entirely. The question stops being <em>how white is it</em> and becomes <em>is the colour beautiful, stable, disclosed and right for the design</em>. The <a href=\"/pages/diamond-4cs\">Four Cs</a> still apply, but colour moves from a thing you minimise to the thing you are actually buying.</p>"
+      }
+    },
+    "palette": {
+      "type": "fye-chips",
+      "blocks": {
+        "c1": {
+          "type": "chip",
+          "settings": {
+            "name": "Yellow",
+            "sub": "Fancy Light to Fancy Vivid",
+            "colour": "#E8C25A",
+            "link": "/collections/fancy-yellow-diamonds"
+          }
+        },
+        "c2": {
+          "type": "chip",
+          "settings": {
+            "name": "Champagne",
+            "sub": "Soft warm brown",
+            "colour": "#D9C0A3",
+            "link": "/collections/fancy-champagne-diamonds"
+          }
+        },
+        "c3": {
+          "type": "chip",
+          "settings": {
+            "name": "Cognac",
+            "sub": "Rich amber brown",
+            "colour": "#A9744F",
+            "link": "/collections/fancy-cognac-diamonds"
+          }
+        },
+        "c4": {
+          "type": "chip",
+          "settings": {
+            "name": "Pink",
+            "sub": "Among the rarest on earth",
+            "colour": "#E8A9BE",
+            "link": "/collections/fancy-pink-diamonds"
+          }
+        },
+        "c5": {
+          "type": "chip",
+          "settings": {
+            "name": "Blue",
+            "sub": "Exceptionally rare in nature",
+            "colour": "#8FB3D9",
+            "link": "/collections/fancy-blue-diamonds"
+          }
+        },
+        "c6": {
+          "type": "chip",
+          "settings": {
+            "name": "Green",
+            "sub": "Rare and subtle",
+            "colour": "#9FBF9F",
+            "link": "/collections/fancy-green-diamonds"
+          }
+        },
+        "c7": {
+          "type": "chip",
+          "settings": {
+            "name": "Grey",
+            "sub": "Cool and understated",
+            "colour": "#A8A8A5",
+            "link": "/collections/fancy-gray-diamonds"
+          }
+        },
+        "c8": {
+          "type": "chip",
+          "settings": {
+            "name": "Black",
+            "sub": "Opaque and graphic",
+            "colour": "#2B2B2B",
+            "link": "/collections/black-diamonds"
+          }
+        },
+        "c9": {
+          "type": "chip",
+          "settings": {
+            "name": "Salt and pepper",
+            "sub": "Organic, galaxy-like",
+            "colour": "#C9C6BE",
+            "colour_2": "#4A4A48",
+            "link": "/collections/salt-and-pepper-diamonds"
+          }
+        },
+        "c10": {
+          "type": "chip",
+          "settings": {
+            "name": "Orange",
+            "sub": "Warm and uncommon",
+            "colour": "#D98E4A",
+            "link": "/collections/fancy-orange-diamonds"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8",
+        "c9",
+        "c10"
+      ],
+      "settings": {
+        "band": "ivory",
+        "align": "centre",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "The Palette",
+        "heading": "Ten Colours We Source",
+        "intro": "Tap a colour to see what we currently have available.",
+        "note": "Swatches are indicative. Colour in diamond is highly individual and should always be judged on the actual stone."
+      }
+    },
+    "character": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Yellow and champagne",
+            "body": "<p>Warm, joyful and luxurious. Yellow diamonds run from Fancy Light to Fancy Vivid and look brilliant in white settings, which push the colour forward by contrast. Champagne is softer and sits beautifully in rose and yellow gold.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Pink and blue",
+            "body": "<p>Among the rarest and most expensive stones on earth in natural form, which puts them beyond most budgets. Natural pinks, notably from the now-closed Argyle mine, are heirloom purchases. <a href=\"/pages/fancy-lab-diamonds\">Lab-grown fancy colour</a> is the affordable route into these colours.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Black",
+            "body": "<p>Opaque rather than transparent, and dramatic for it. Often paired with white-diamond pavé so the contrast does the work. A genuinely modern look with no vintage baggage.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Salt and pepper",
+            "body": "<p>Visible inclusions become the aesthetic: an organic, galaxy-like scatter through a translucent stone. Every one is unique, which is exactly the appeal. Nothing else looks like it.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Grey and cognac",
+            "body": "<p>The understated end of the palette. Grey reads cool and contemporary, cognac warm and antique. Both are considerably more affordable than the vivid colours and both photograph beautifully.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Green and orange",
+            "body": "<p>The least common of the colours we source. Natural green diamonds get their colour from millions of years of natural radiation in the ground, which makes provenance and disclosure especially important.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "3",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Character",
+        "heading": "What Each Colour Feels Like",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "uses": {
+      "type": "fye-cards",
+      "blocks": {
+        "u1": {
+          "type": "card",
+          "settings": {
+            "heading": "Yellow Diamond Engagement Rings",
+            "body": "<p>The most established coloured diamond choice. A vivid yellow centre in a white setting reads unmistakably as a deliberate decision. <a href=\"/collections/fancy-yellow-diamonds\">Browse yellow</a>.</p>"
+          }
+        },
+        "u2": {
+          "type": "card",
+          "settings": {
+            "heading": "Champagne Vintage-Style Rings",
+            "body": "<p>Warm brown diamonds suit milgrain, filigree and antique cuts perfectly, and cost a fraction of an equivalent white stone.</p>"
+          }
+        },
+        "u3": {
+          "type": "card",
+          "settings": {
+            "heading": "Black Accents and Salt-and-Pepper Centres",
+            "body": "<p>Graphic contrast against white pavé, or a one-of-a-kind translucent centre stone. Both work particularly well in bespoke commissions.</p>"
+          }
+        },
+        "u4": {
+          "type": "card",
+          "settings": {
+            "heading": "Mixed Diamond Bands",
+            "body": "<p>Alternating white and champagne, or a graduated run of greys, turns an eternity band into something considerably more personal. See <a href=\"/pages/stone-settings\">stone settings</a>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "u1",
+        "u2",
+        "u3",
+        "u4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "4",
+        "show_head": true,
+        "eyebrow": "Where They Work",
+        "heading": "Good Uses for Coloured Diamonds",
+        "intro": ""
+      }
+    },
+    "ask": {
+      "type": "fye-checklist",
+      "blocks": {
+        "a1": {
+          "type": "item",
+          "settings": {
+            "label": "Is the colour natural, treated or lab-grown?",
+            "note": "All three are legitimate. Only undisclosed treatment is not."
+          }
+        },
+        "a2": {
+          "type": "item",
+          "settings": {
+            "label": "Is any treatment permanent and disclosed?",
+            "note": "Ask for it in writing, not just verbally."
+          }
+        },
+        "a3": {
+          "type": "item",
+          "settings": {
+            "label": "Does the stone have a report?",
+            "note": "For coloured diamonds a report should state whether colour is natural in origin."
+          }
+        },
+        "a4": {
+          "type": "item",
+          "settings": {
+            "label": "Does the setting metal improve the colour?",
+            "note": "White metal intensifies yellow by contrast; yellow gold warms it further."
+          }
+        },
+        "a5": {
+          "type": "item",
+          "settings": {
+            "label": "Is the stone suitable for daily wear?",
+            "note": "All fancy diamonds are Mohs 10, so yes, but heavily included stones want more care."
+          }
+        },
+        "a6": {
+          "type": "item",
+          "settings": {
+            "label": "Have you seen it in more than one light?",
+            "note": "Colour shifts noticeably between daylight, office light and candlelight."
+          }
+        }
+      },
+      "block_order": [
+        "a1",
+        "a2",
+        "a3",
+        "a4",
+        "a5",
+        "a6"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Before You Commit",
+        "heading": "What to Ask",
+        "intro": "",
+        "note": "Colour is highly individual. Send us the tone you like, whether that is pale champagne, deep cognac, vivid yellow, grey or black, and we will source around the feeling rather than the name."
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "eyebrow": "The Affordable Route Into Colour",
+        "heading": "Lab-Grown Fancy Colour",
+        "body": "<p>Natural pink and blue diamonds are among the rarest stones on earth and priced accordingly. Lab-grown coloured diamonds are genuine diamonds in vivid pink or blue for a fraction of the natural price, with the same hardness and the same everyday durability.</p>",
+        "link": "/pages/fancy-lab-diamonds",
+        "link_label": "See lab-grown fancy colour"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Are coloured diamonds real diamonds?",
+            "a": "<p>Yes. They are diamonds that absorbed trace elements while forming, or that contain natural inclusions producing the colour. Chemically they are the same material as a white diamond and just as hard.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Which coloured diamonds are the most affordable?",
+            "a": "<p>Champagne, cognac, grey, black and salt-and-pepper are all considerably cheaper than white diamonds of equivalent size, because they are far less in demand. Yellow sits close to white. Pink, blue and green are the expensive end.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Why are pink diamonds so expensive?",
+            "a": "<p>Extreme rarity, compounded by the closure of the Argyle mine in Western Australia, which produced the majority of the world's pink diamonds. Natural pinks are heirloom-tier purchases. Lab-grown pink offers the colour at an accessible price.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Do coloured diamonds get graded on the Four Cs?",
+            "a": "<p>Partly. Cut, clarity and carat still apply, but colour is graded on an entirely separate scale describing hue, tone and saturation, from Faint through to Fancy Vivid. For a coloured diamond, colour intensity drives the price far more than clarity does.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Are salt-and-pepper diamonds durable?",
+            "a": "<p>They are Mohs 10 like any diamond, so they do not scratch. Heavily included stones can be marginally more vulnerable to a hard knock along an inclusion, so we would generally recommend a bezel or a protective setting for a salt-and-pepper centre stone.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "Will a coloured diamond suit any metal?",
+            "a": "<p>The metal changes the reading considerably. White metals intensify a colour by contrast, which suits yellow and pink. Yellow gold warms a stone further, which flatters champagne and cognac. Rose gold softens pinks and warm browns. It is worth seeing the pairing before deciding.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6"
+      ],
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Coloured Diamond Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "UbTxH7"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/diamond-and-gemstone-guide-cover.png",
+        "cover_alt": "The Diamond and Gemstone Guide",
+        "cover_caption": "The Diamond and Gemstone Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Diamond and Gemstone Guide",
+        "body": "<p>Fancy colour in full, plus the Four Cs, shapes, natural against lab-grown, coloured gemstones, treatments, durability and grading reports.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Diamond Education",
+            "title": "Lab-Grown Fancy Colour",
+            "desc": "Vivid pink and blue at a fraction of the natural price.",
+            "cta": "Read more",
+            "link": "/pages/fancy-lab-diamonds"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Gemstone Education",
+            "title": "Coloured Gemstones",
+            "desc": "Sapphire, ruby, emerald and the rest, stone by stone.",
+            "cta": "Read more",
+            "link": "/pages/gemstone-education"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Section Hub",
+            "title": "Diamond Education",
+            "desc": "All eight diamond guides in one place.",
+            "cta": "Back to the hub",
+            "link": "/pages/diamond-education"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Coloured Diamonds",
+            "desc": "Every fancy coloured diamond we currently hold.",
+            "cta": "Browse diamonds",
+            "link": "/collections/fancy-diamonds"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "palette",
+    "character",
+    "uses",
+    "ask",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

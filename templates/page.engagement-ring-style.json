@@ -1,0 +1,406 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Understanding Their Style"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>How to work out what they actually want, without asking</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 30,
+        "image": "shopify://shop_images/oval-solitaire-pave-band-engagement-ring-hand.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Where to Begin",
+        "heading": "Their Taste Is the Only One That Matters",
+        "body": "<p>The ring is for the person who will wear it every day for decades. Their taste is the only one that counts, and the single most common regret we hear is from people who chose what they liked rather than what their partner would have chosen.</p><p>The good news is that most people broadcast their taste constantly without realising. You do not need to ask, and you do not need to guess. You need to look properly at what is already there.</p>"
+      }
+    },
+    "read": {
+      "type": "fye-cards",
+      "blocks": {
+        "b1": {
+          "type": "card",
+          "settings": {
+            "heading": "Observe their jewellery",
+            "body": "<p>Gold, silver or rose-toned? Minimal and modern, or ornate and vintage? Delicate pieces or bolder statements? Slim bands or chunkier designs? Their existing jewellery tells you more than any questionnaire could.</p>"
+          }
+        },
+        "b2": {
+          "type": "card",
+          "settings": {
+            "heading": "Consider their wider aesthetic",
+            "body": "<p>Their wardrobe, their home, their saved images, the people whose style they admire. Tailored neutrals suggest a different ring from flowing florals and antiques.</p>"
+          }
+        },
+        "b3": {
+          "type": "card",
+          "settings": {
+            "heading": "Lifestyle matters",
+            "body": "<p>Are they hands-on at work or in their hobbies? A raised, delicate setting will snag with heavy use, while a low-profile bezel wears beautifully through an active life.</p>"
+          }
+        },
+        "b4": {
+          "type": "card",
+          "settings": {
+            "heading": "Enlist help",
+            "body": "<p>Their closest friend, sibling or parent almost always has a clearer picture than has ever been said out loud. And if they have shown you a ring they love, take it entirely seriously.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "4",
+        "show_head": true,
+        "eyebrow": "Four Places to Look",
+        "heading": "Reading Their Style",
+        "intro": ""
+      }
+    },
+    "signals": {
+      "type": "fye-terms",
+      "blocks": {
+        "s1": {
+          "type": "term",
+          "settings": {
+            "heading": "Metal tone is the strongest signal",
+            "body": "<p>Almost nobody wears white and yellow metal interchangeably. Look at what is actually on them day to day, not what is in the jewellery box. If everything is warm-toned, a platinum ring will feel like someone else's.</p>"
+          }
+        },
+        "s2": {
+          "type": "term",
+          "settings": {
+            "heading": "Scale tells you more than shape",
+            "body": "<p>Someone who wears fine chains and small studs will find a large centre stone uncomfortable in a way that has nothing to do with taste. Someone who wears bold pieces will find a delicate ring disappears on them.</p>"
+          }
+        },
+        "s3": {
+          "type": "term",
+          "settings": {
+            "heading": "Watch what they never wear",
+            "body": "<p>The pieces sitting untouched in the box are as informative as the ones in daily rotation. There is usually a reason, and it is often comfort rather than looks.</p>"
+          }
+        },
+        "s4": {
+          "type": "term",
+          "settings": {
+            "heading": "Vintage or modern is a real divide",
+            "body": "<p>People rarely sit in the middle. Milgrain, filigree and cluster designs speak to one sensibility; clean bezels and solitaires to another. Getting this wrong is more noticeable than getting the stone wrong.</p>"
+          }
+        },
+        "s5": {
+          "type": "term",
+          "settings": {
+            "heading": "Ask about other people's rings",
+            "body": "<p>A friend's engagement is the most natural possible opening. What they say about someone else's ring is usually a direct statement about their own preferences.</p>"
+          }
+        },
+        "s6": {
+          "type": "term",
+          "settings": {
+            "heading": "Take photographs",
+            "body": "<p>Of their hand, of jewellery they wear, of anything they have pointed at. Send them to us. We can read a great deal from a few images that is difficult to put into words.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "3",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "What to Notice",
+        "heading": "The Signals Worth Reading",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "mistake": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "The Mistake We See Most",
+        "heading": "Choosing for Yourself, Not for Them",
+        "body": "<p>After years of these conversations, this is the regret that surfaces most often. It rarely looks like a mistake at the time: you choose the ring you find most beautiful, and it is beautiful. It is simply not theirs.</p><p>If you are torn between what you love and what they would choose, choose theirs. And if choosing is paralysing you entirely, propose with a temporary band and design the real ring together afterwards. We do this routinely and credit the placeholder against the final piece.</p>"
+      }
+    },
+    "lifestyle": {
+      "type": "fye-table",
+      "blocks": {
+        "l1": {
+          "type": "row",
+          "settings": {
+            "cells": "Hands-on or active | Bezel, low-profile solitaire, flush-set | Secure and snag-free above all"
+          }
+        },
+        "l2": {
+          "type": "row",
+          "settings": {
+            "cells": "Desk-based or creative | Almost anything | Pavé, halo and three-stone all wear well"
+          }
+        },
+        "l3": {
+          "type": "row",
+          "settings": {
+            "cells": "Hands in water often | Bezel or low-profile platinum | Avoid softer stones entirely"
+          }
+        },
+        "l4": {
+          "type": "row",
+          "settings": {
+            "cells": "Vintage lovers | Cluster, milgrain, filigree, hidden halo | Detail rewards close looking"
+          }
+        },
+        "l5": {
+          "type": "row",
+          "settings": {
+            "cells": "Minimalists | Solitaire, east-west, bezel | A plain band with a stand-out stone"
+          }
+        }
+      },
+      "block_order": [
+        "l1",
+        "l2",
+        "l3",
+        "l4",
+        "l5"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Match It to the Hand",
+        "heading": "Style by Lifestyle",
+        "intro": "Taste tells you what they would choose. Lifestyle tells you what will still look good in ten years.",
+        "headers": "Lifestyle | Best-suited styles | Why",
+        "first_col_bold": true,
+        "note": ""
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "eyebrow": "Once You Know Their Taste",
+        "heading": "See the Silhouettes Side by Side",
+        "body": "<p>Solitaire, halo, hidden halo, trilogy, split shoulders and bezel, all illustrated at the same scale so the outlines can be compared honestly, with the hidden details that lift a design.</p>",
+        "link": "/pages/engagement-ring-styles?guide=engagement",
+        "link_label": "Compare ring styles"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "How do I find out what ring they want without giving it away?",
+            "a": "<p>Look at the jewellery they already wear, particularly the metal tone and the scale. Ask what they think of a friend's ring. Involve their closest friend or sibling, who almost always knows. Photographs of their hand and their existing pieces tell us a great deal.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "What if I get it wrong?",
+            "a": "<p>The surest way to avoid it is to propose with a temporary ring, then design the real one together. If a finished ring is not loved, we will advise on reselling and help you redesign and remake it at cost price.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Should I ask their friends?",
+            "a": "<p>Yes, but keep the circle small. Engagement ring conversations travel fast, and telling several people before your partner knows is one of the most common ways a surprise is spoiled.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "They wear both gold and silver. What do I do?",
+            "a": "<p>Look at what is on them right now rather than what they own. Most people who claim to wear both have a clear daily default. If they genuinely alternate, a two-tone design or a white metal setting on a yellow band solves it.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I send you photographs and let you advise?",
+            "a": "<p>Please do, it is the fastest route to the right ring. Send images of jewellery they already wear, anything they have pointed at, their rough finger size, your budget and your timeline. We never share details with anyone but you.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Questions About Choosing in Secret",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "V9eDYg"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/Engagement_Ring_Cover.png",
+        "cover_alt": "The Engagement Ring Guide",
+        "cover_caption": "The Engagement Ring Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Engagement Ring Guide",
+        "body": "<p>Understanding their style, settings, the Four Cs, budget, sizing in secret and the bespoke process. The whole picture, as a printable PDF.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Next Step",
+            "title": "Engagement Ring Styles",
+            "desc": "Ten silhouettes compared, and the details that lift them.",
+            "cta": "Read more",
+            "link": "/pages/engagement-ring-styles?guide=engagement"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Find the Right Metal",
+            "desc": "Platinum, white, yellow and rose gold, and how each wears.",
+            "cta": "Read more",
+            "link": "/pages/find-the-right-metal"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Find Your Ring Size",
+            "desc": "How to find the right size, even in secret.",
+            "cta": "Read more",
+            "link": "/pages/find-your-ring-size"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Engagement Rings",
+            "desc": "Browse by style, shape and stone, with live pricing.",
+            "cta": "Browse rings",
+            "link": "/collections/engagement-rings"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "read",
+    "signals",
+    "mistake",
+    "lifestyle",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

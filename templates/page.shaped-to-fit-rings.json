@@ -1,0 +1,404 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Shaped-to-Fit Bands"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>When a straight band will not do, and what shaping actually involves</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/jeweller-showing-engagement-ring-design-sketches.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Beyond a Straight Band",
+        "heading": "Made to Follow a Specific Ring",
+        "body": "<p>A shaped band is cut, curved or contoured so it follows the line of a particular engagement ring rather than running straight across the finger. A fitted band goes further still, designed around that ring's exact geometry.</p><p>Shaping is not a compromise or a repair. On a low-set solitaire, a trilogy, or an east-west stone, a well-shaped band is the only way the pair will ever sit properly, and done well it looks entirely deliberate.</p>"
+      }
+    },
+    "when": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Low-profile baskets",
+            "body": "<p>Where the setting sits directly on the finger, a straight band cannot slide underneath and leaves a wedge-shaped gap. This is the most common reason for shaping.</p>",
+            "meta": "Most common"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Halos and clusters",
+            "body": "<p>The surrounding stones project outwards at finger level, so a straight band meets the halo rather than the shank.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Trilogy and multi-stone",
+            "body": "<p>Side stones extend along the finger in both directions, so the band has to step around a longer footprint.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Split shoulders and cathedrals",
+            "body": "<p>Where the band divides or sweeps upward, a straight band meets it at an awkward angle rather than flush.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "East-west and unusual orientations",
+            "body": "<p>A stone set across the finger rather than along it creates a footprint no standard band accounts for.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Existing heirloom rings",
+            "body": "<p>Older rings frequently have geometry no modern band matches. Shaping is often the only way to pair with an inherited piece.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "3",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "intro": "",
+        "note": "",
+        "eyebrow": "When You Need It",
+        "heading": "Six Situations That Call for Shaping"
+      }
+    },
+    "levels": {
+      "type": "fye-cards",
+      "blocks": {
+        "c1": {
+          "type": "card",
+          "settings": {
+            "heading": "A gentle curve",
+            "body": "<p>A shallow dip across the centre of the band, enough to clear a low basket. Subtle, and often invisible when the rings are worn together.</p>",
+            "label": "Least intervention"
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "heading": "A contoured notch",
+            "body": "<p>A shaped recess following the outline of the setting more closely. Used where the ring's footprint is larger or more irregular.</p>",
+            "label": "Middle ground"
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "heading": "A fully fitted band",
+            "body": "<p>Designed around the exact geometry, sometimes wrapping a low setting or cradling a trilogy. Made from CAD, to that ring only.</p>",
+            "label": "Fully bespoke"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "3",
+        "show_head": true,
+        "intro": "Most rings need less than people expect. We would always try the least intervention that works.",
+        "eyebrow": "Three Degrees",
+        "heading": "How Much Shaping"
+      }
+    },
+    "process": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Photographs first",
+            "body": "<p>From above, from the side and at a slight angle. Between them these show whether the basket protrudes below the shank and how much clearance there is.</p>",
+            "meta": "Step 1"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Measurement or impression",
+            "body": "<p>For complex geometry we may ask to see the ring, or take a wax impression, so the shaping is matched to reality rather than to a photograph.</p>",
+            "meta": "Step 2"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "CAD render",
+            "body": "<p>You see the pair together from every angle before anything is cast. Edits are free, and this is where most refinement happens.</p>",
+            "meta": "Step 3"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Cast, set and fitted",
+            "body": "<p>Made to order in our London workshop, then checked against the engagement ring before it comes to you.</p>",
+            "meta": "Step 4"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "1",
+        "numbering": "steps",
+        "narrow": false,
+        "show_head": true,
+        "intro": "",
+        "note": "",
+        "eyebrow": "The Process",
+        "heading": "How a Shaped Band Is Made"
+      }
+    },
+    "tradeoffs": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Worth Understanding",
+        "heading": "What Shaping Costs You",
+        "body": "<p>A shaped band is harder to resize than a straight one, because altering the size changes the curve and can throw the fit out. If shaping is likely, it is worth being confident about the finger size before committing.</p><p>It also looks odd worn alone, which matters if the engagement ring will sometimes come off. And on a stone-set band, the shaping has to be planned alongside stone placement so no setting is left vulnerable at the narrowest part of the contour.</p><p>None of these is a reason not to do it. They are reasons to decide early rather than late.</p>"
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "eyebrow": "The Cheaper Answer",
+        "heading": "Design the Pair Together From the Start",
+        "body": "<p>Shaping a band to an existing ring is always more work than designing the two together. If you have not yet commissioned the engagement ring and you know a matching band matters, say so now. It costs nothing and saves a great deal.</p>",
+        "link": "/pages/wedding-band-pairing",
+        "link_label": "Read about pairing"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "How much more does a shaped band cost?",
+            "a": "<p>It varies with how much shaping is needed. A gentle curve adds relatively little; a fully fitted band designed from CAD around a complex ring is genuinely bespoke work and priced accordingly. We will always quote before any work begins.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Can you shape a band to a ring you did not make?",
+            "a": "<p>Yes, and we do it regularly, including for inherited and antique rings. Send photographs from above, the side and at an angle to start. For unusual geometry we may want to see the ring itself.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Will a shaped band look strange on its own?",
+            "a": "<p>Somewhat, yes. The curve exists to accommodate another ring, so worn alone it reads as incomplete. If the engagement ring will regularly come off, a straight band with a small gap may be the better compromise.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Can a shaped band be resized?",
+            "a": "<p>With difficulty, because changing the size alters the curve. We would rather get the size right first. If you are between sizes or your fingers change noticeably, tell us and we will factor it into the design.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Is a fitted band the same as a bridal set?",
+            "a": "<p>No. A bridal set is two rings designed and sold together from the start. A fitted band is made afterwards to match a ring that already exists, which is harder work and the more common situation.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true,
+        "heading": "Shaped Band Questions"
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "Rch5bG"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/Diamond_Ring_Guide.png",
+        "cover_alt": "The Diamond and Gemstone Wedding Ring Guide",
+        "cover_caption": "The Diamond and Gemstone Wedding Ring Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Diamond and Gemstone Wedding Ring Guide",
+        "body": "<p>Shaped-to-fit bands in detail, plus setting styles, coverage, stone layout and sizing.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Pairing With the Engagement Ring",
+            "desc": "Straight, shaped or fitted, and how to tell which you need.",
+            "cta": "Read more",
+            "link": "/pages/wedding-band-pairing"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "The Bespoke Process",
+            "desc": "How a commission runs, from enquiry to handover.",
+            "cta": "Read more",
+            "link": "/pages/create-your-own-ring"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Profiles, Width and Feel",
+            "desc": "The cross-sections a shaped band can be made in.",
+            "cta": "Read more",
+            "link": "/pages/ring-profiles-and-widths"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Wedding Rings",
+            "desc": "Plain and stone-set bands in every profile.",
+            "cta": "Browse rings",
+            "link": "/collections/wedding-rings"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "when",
+    "levels",
+    "process",
+    "tradeoffs",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

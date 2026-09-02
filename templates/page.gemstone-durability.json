@@ -1,0 +1,432 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Gemstone Durability"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>What 'hard enough' actually means, and why hardness is only half of it</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 36,
+        "image": "shopify://shop_images/Which_Gemstones_Can_Survive_Everyday_Wear.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Gemstone Education",
+        "heading": "Hardness Is Not Toughness",
+        "body": "<p>The Mohs scale measures resistance to scratching. It says nothing about whether a stone will chip, crack or react badly to heat and chemicals. A stone can be hard and still vulnerable if it has cleavage, brittleness, surface-reaching inclusions or sensitivity to light and cleaning.</p><p>The clearest example: emerald, at Mohs 7.5 to 8, out-scratches tsavorite garnet at 7 to 7.5. Yet tsavorite is structurally tougher and chips far less readily, because emerald's natural inclusions weaken it. Topaz is hard at 8 and will split cleanly if struck along its cleavage plane.</p><p>So we think about four things rather than one.</p>"
+      }
+    },
+    "four": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Hardness",
+            "body": "<p>How easily the surface scratches. This is what the Mohs number tells you, and it is the only one of the four that appears on a specification.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Toughness",
+            "body": "<p>How well the stone resists chipping or breaking. Independent of hardness, and usually the property that actually ends a stone's life in a ring.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Stability",
+            "body": "<p>How it reacts to light, heat, chemicals and cleaning. Opal crazes when dry, emerald loses its oil in an ultrasonic, pearl dissolves in acid.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Setting protection",
+            "body": "<p>How exposed the stone will be in real life. A bezel can move a stone up a category; an exposed claw on a busy hand moves it down one.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "intro": "",
+        "note": "",
+        "eyebrow": "Four Properties",
+        "heading": "What Actually Determines Survival"
+      }
+    },
+    "scale": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "10 | Diamond | The hardest commonly used gemstone"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "9.25 | Moissanite | Between sapphire and diamond"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "9 | Sapphire, ruby | The best coloured stones for daily wear"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "8.5 | Chrysoberyl | Includes colour-change alexandrite"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "8 | Topaz, spinel | Topaz is hard but has perfect cleavage"
+          }
+        },
+        "r6": {
+          "type": "row",
+          "settings": {
+            "cells": "7.5–8 | Emerald, aquamarine, morganite | All beryl; hard but not tough"
+          }
+        },
+        "r7": {
+          "type": "row",
+          "settings": {
+            "cells": "7–7.5 | Tourmaline, tsavorite | Tougher than emerald despite being softer"
+          }
+        },
+        "r8": {
+          "type": "row",
+          "settings": {
+            "cells": "7 | Amethyst, citrine, quartz | Fine for pendants, marginal for daily rings"
+          }
+        },
+        "r9": {
+          "type": "row",
+          "settings": {
+            "cells": "6.5–7 | Peridot, garnet, zircon | Occasional wear, protective settings"
+          }
+        },
+        "r10": {
+          "type": "row",
+          "settings": {
+            "cells": "6–7 | Tanzanite, moonstone | Delicate; pendants and earrings preferred"
+          }
+        },
+        "r11": {
+          "type": "row",
+          "settings": {
+            "cells": "5.5–6.5 | Opal | Soft and water-bearing; the most care-dependent"
+          }
+        },
+        "r12": {
+          "type": "row",
+          "settings": {
+            "cells": "2.5–4.5 | Pearl | Organic; damaged by acids and cosmetics"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7",
+        "r8",
+        "r9",
+        "r10",
+        "r11",
+        "r12"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "first_col_bold": true,
+        "note": "Everyday reference point: household dust contains quartz at Mohs 7, which is why anything below 7 dulls over time simply from being worn.",
+        "intro": "Higher numbers resist scratching better. Remember that scratch hardness is not fracture toughness.",
+        "eyebrow": "The Mohs Scale",
+        "heading": "Where Each Stone Sits",
+        "headers": "Mohs|Stone|Note"
+      }
+    },
+    "bypiece": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Daily engagement ring | Diamond, sapphire, ruby, spinel, chrysoberyl | Emerald, some garnets | Opal, pearl, moonstone, tanzanite"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Wedding or eternity ring | Diamond, sapphire, ruby | Some spinel or garnet designs | Emerald, opal, pearl, tanzanite"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Pendant | Almost any jewellery stone | More delicate stones possible | Very soft stones still need care"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Earrings | Almost any jewellery stone | Weight and comfort matter | Very fragile stones in exposed settings"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Occasional dress ring | Wide choice | Protective settings advised | Avoid heavy daily use"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "first_col_bold": true,
+        "note": "Read this with the setting in mind. A protective bezel, a lower profile or a sheltered position can move a stone up a category.",
+        "intro": "Durability only matters in context. The same stone can be a poor choice for an eternity ring and a wonderful choice for a pendant. Start from the piece, not the stone.",
+        "eyebrow": "In Context",
+        "heading": "Best Stones by Piece",
+        "headers": "Piece|Good choices|Use with care|Avoid for hard daily wear"
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "eyebrow": "Fallen for a Delicate Stone",
+        "heading": "It May Still Be Possible",
+        "body": "<p>The question is rarely whether a stone can be used, but which piece it belongs in. An opal that would not survive an engagement ring is perfect in a pendant. A tanzanite that is risky in a claw setting is fine in a bezel worn occasionally. Tell us the stone and how it will be worn and we will tell you honestly whether the two belong together.</p>",
+        "link": "/pages/contact-us",
+        "link_label": "Ask us about a stone"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "What is the softest stone you would put in an engagement ring?",
+            "a": "<p>It depends far more on the wearer than the stone. For someone hard on their hands we would not go below Mohs 9. For someone gentle, with a bezel setting and realistic expectations, we have made beautiful rings at 7.5. Below 7 we would want a long conversation first.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Why does my gemstone look duller than when I bought it?",
+            "a": "<p>Usually microscopic surface scratches from ordinary dust, which contains quartz at Mohs 7. Anything softer than that gradually loses polish. It is repolishable on most stones, and it is one of the things our free annual inspection picks up.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I clean any gemstone in an ultrasonic?",
+            "a": "<p>No. Ultrasonic cleaning is unsafe for emerald, opal, pearl, tanzanite, moonstone and any fracture-filled or heavily included stone. Warm soapy water and a soft brush is safe for almost everything. If in doubt, ask before you clean.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Which gemstone is toughest, rather than hardest?",
+            "a": "<p>Jade is famously the toughest of all, though we rarely work with it. Among stones we commonly set, sapphire and ruby combine high hardness with excellent toughness, which is exactly why they are the go-to coloured stones for daily rings.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Does a bigger stone break more easily?",
+            "a": "<p>Not inherently, but it protrudes further and catches more, so it takes more knocks. A large stone in a high setting is genuinely more at risk than the same stone set low. This is why setting choice matters as much as stone choice.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true,
+        "heading": "Durability Questions"
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "UbTxH7"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/diamond-and-gemstone-guide-cover.png",
+        "cover_alt": "The Diamond and Gemstone Guide",
+        "cover_caption": "The Diamond and Gemstone Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Diamond and Gemstone Guide",
+        "body": "<p>Every gemstone stone by stone, plus durability, treatments, ethical sourcing and grading reports.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Gemstone Education",
+            "title": "Gemstone Treatments",
+            "desc": "Heat, oiling, diffusion and filling explained.",
+            "cta": "Read more",
+            "link": "/pages/gemstone-treatments"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Stone Settings",
+            "desc": "How settings protect, or fail to protect, a stone.",
+            "cta": "Read more",
+            "link": "/pages/stone-settings"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Section Hub",
+            "title": "Gemstone Education",
+            "desc": "Every gemstone guide in one place.",
+            "cta": "Back to the hub",
+            "link": "/pages/gemstone-education"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Aftercare",
+            "title": "Ring Care",
+            "desc": "Cleaning, storage and the annual check-up.",
+            "cta": "Read more",
+            "link": "/pages/ring-and-jewellery-care-guide"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "four",
+    "scale",
+    "bypiece",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

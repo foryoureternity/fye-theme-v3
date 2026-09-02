@@ -1,0 +1,350 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Diamond Education"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Everything worth knowing before you choose a diamond</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/jewellers-loupe-loose-round-diamonds.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Start Here",
+        "heading": "Diamonds Explained Without the Jargon",
+        "body": "<p>Diamond is the classic choice for engagement rings and many wedding bands because it combines brilliance, durability and symbolism. It is hard, bright, versatile, and suited to everyday jewellery when set well.</p><p>But diamond is not one single look. A round brilliant feels crisp and bright. An emerald cut feels elegant and architectural. An old mine cut feels romantic and antique. A salt-and-pepper diamond feels earthy and distinctive. A yellow diamond feels warm and joyful. A lab-grown diamond can offer impressive size and specification within a more accessible budget.</p><p>The single most useful thing to understand is that <strong>diamonds should not be judged by carat weight alone</strong>. Two diamonds of the same carat can look entirely different in size, sparkle, colour and beauty. Cut, proportions and shape often matter more than the number printed on the report.</p>"
+      }
+    },
+    "routes": {
+      "type": "fye-cards",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "heading": "Natural White Diamonds",
+            "body": "<p>Traditional, rare and geologically formed. The classic route when rarity and tradition matter most, with an established secondary market. <a href=\"/collections/natural-diamonds\">Browse natural diamonds</a>.</p>"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "heading": "Lab-Grown Diamonds",
+            "body": "<p>Real diamonds grown in a controlled environment, chemically and optically identical to mined stones. Often considerably more size for the budget. <a href=\"/collections/lab-diamonds\">Browse lab-grown</a>.</p>"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "heading": "Fancy Coloured Diamonds",
+            "body": "<p>Diamonds with noticeable colour: yellow, champagne, cognac, pink, blue, green or black. All share diamond's hardness. <a href=\"/collections/fancy-diamonds\">Browse coloured diamonds</a>.</p>"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "heading": "Character Diamonds",
+            "body": "<p>Salt-and-pepper, included, antique-cut or unusual diamonds chosen for individuality rather than grading. Every one is unique. <a href=\"/collections/salt-and-pepper-diamonds\">Browse salt and pepper</a>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "4",
+        "show_head": true,
+        "eyebrow": "Four Routes",
+        "heading": "The Main Diamond Choices",
+        "intro": "None is more correct than the others. Which one suits depends on whether you value rarity, size, colour or character most."
+      }
+    },
+    "index": {
+      "type": "fye-cards",
+      "blocks": {
+        "i1": {
+          "type": "card",
+          "settings": {
+            "label": "The grading",
+            "heading": "The Four Cs",
+            "body": "<p>Cut, colour, clarity and carat, and which of them you can compromise on without anyone noticing. <a href=\"/pages/diamond-4cs\">Read the guide</a>.</p>"
+          }
+        },
+        "i2": {
+          "type": "card",
+          "settings": {
+            "label": "The look",
+            "heading": "Diamond Shapes",
+            "body": "<p>Round, oval, emerald, pear and the rest, and how shape changes both spread and price. <a href=\"/pages/diamond-shapes\">Read the guide</a>.</p>"
+          }
+        },
+        "i3": {
+          "type": "card",
+          "settings": {
+            "label": "The origin",
+            "heading": "Natural vs Lab-Grown",
+            "body": "<p>What is actually different, what is identical, and the honest position on value. <a href=\"/pages/lab-grown-diamonds\">Read the guide</a>.</p>"
+          }
+        },
+        "i4": {
+          "type": "card",
+          "settings": {
+            "label": "Colour",
+            "heading": "Fancy Coloured Diamonds",
+            "body": "<p>Yellow, champagne, cognac, pink, blue and black, and what drives their rarity. <a href=\"/pages/fancy-diamonds\">Read the guide</a>.</p>"
+          }
+        },
+        "i5": {
+          "type": "card",
+          "settings": {
+            "label": "Colour",
+            "heading": "Lab-Grown Fancy Colour",
+            "body": "<p>Vivid colour at a fraction of the natural price, and where it makes most sense. <a href=\"/pages/fancy-lab-diamonds\">Read the guide</a>.</p>"
+          }
+        },
+        "i6": {
+          "type": "card",
+          "settings": {
+            "label": "Alternatives",
+            "heading": "Diamond Alternatives",
+            "body": "<p>Moissanite, white sapphire and the others, compared honestly on hardness and look. <a href=\"/pages/diamond-alternatives\">Read the guide</a>.</p>"
+          }
+        },
+        "i7": {
+          "type": "card",
+          "settings": {
+            "label": "Paperwork",
+            "heading": "Certificates and Reports",
+            "body": "<p>What a grading report does and does not tell you, and which laboratories to trust. <a href=\"/pages/diamond-certification\">Read the guide</a>.</p>"
+          }
+        },
+        "i8": {
+          "type": "card",
+          "settings": {
+            "label": "Provenance",
+            "heading": "Ethical and Responsible Sourcing",
+            "body": "<p>The Kimberley Process, recycled metals, and what we can and cannot document. <a href=\"/pages/ethical-sourcing\">Read the guide</a>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6",
+        "i7",
+        "i8"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "4",
+        "show_head": true,
+        "eyebrow": "The Section",
+        "heading": "Eight Guides to Diamonds",
+        "intro": "Read them in order, or jump to whichever question you actually have."
+      }
+    },
+    "labs": {
+      "type": "fye-chips",
+      "blocks": {
+        "l1": {
+          "type": "chip",
+          "settings": {
+            "name": "GIA",
+            "sub": "Gemological Institute of America"
+          }
+        },
+        "l2": {
+          "type": "chip",
+          "settings": {
+            "name": "IGI",
+            "sub": "International Gemological Institute"
+          }
+        },
+        "l3": {
+          "type": "chip",
+          "settings": {
+            "name": "AGL",
+            "sub": "For important coloured stones"
+          }
+        },
+        "l4": {
+          "type": "chip",
+          "settings": {
+            "name": "GRS",
+            "sub": "For important coloured stones"
+          }
+        },
+        "l5": {
+          "type": "chip",
+          "settings": {
+            "name": "SSEF",
+            "sub": "For important coloured stones"
+          }
+        }
+      },
+      "block_order": [
+        "l1",
+        "l2",
+        "l3",
+        "l4",
+        "l5"
+      ],
+      "settings": {
+        "band": "ivory",
+        "align": "centre",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Independent Grading",
+        "heading": "The Laboratories We Trust",
+        "intro": "Strictly speaking, laboratories issue grading reports rather than certificates. A report describes the stone; it does not guarantee its value.",
+        "note": "Every individual lab-grown centre stone we supply comes with its own grading report."
+      }
+    },
+    "conflict_free": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Our Commitment",
+        "heading": "Guaranteed Conflict-Free",
+        "body": "<p>All natural diamonds supplied by For Your Eternity are guaranteed conflict-free, adhering strictly to the Kimberley Process certification scheme and to ethical supply-chain standards. We use recycled and responsibly sourced precious metals as our standard approach.</p><p>Every stone is sourced after you have told us cut, colour, clarity, carat, report and origin. Nothing is bought in bulk to clear, which means we can almost always find a better stone for your budget than a stock-led retailer.</p>"
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "white",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "UbTxH7"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/diamond-and-gemstone-guide-cover.png",
+        "cover_alt": "The Diamond and Gemstone Guide",
+        "cover_caption": "The Diamond and Gemstone Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Diamond and Gemstone Guide",
+        "body": "<p>Our long-form reference for stones: the Four Cs properly explained, shapes, natural against lab-grown, fancy colour, coloured gemstones stone by stone, treatments, durability and grading reports.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Sister Section",
+            "title": "Gemstone Education",
+            "desc": "Sapphire, ruby, emerald and the rest, stone by stone.",
+            "cta": "Explore gemstones",
+            "link": "/pages/gemstone-education"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Loose Diamonds",
+            "desc": "Natural and lab-grown, by shape, carat and grade.",
+            "cta": "Browse diamonds",
+            "link": "/collections/loose-diamonds"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Diamond Engagement Rings",
+            "desc": "Every diamond engagement ring we currently offer.",
+            "cta": "Browse rings",
+            "link": "/collections/diamond-engagement-rings"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Where to Next"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "routes",
+    "index",
+    "labs",
+    "conflict_free",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

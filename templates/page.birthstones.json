@@ -1,0 +1,320 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Birthstones"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Twelve months, and a hardier alternative for each</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 36,
+        "image": "shopify://shop_images/loose-diamonds-coloured-gemstones-sapphire-emerald.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Gemstone Education",
+        "heading": "A Good Place to Start",
+        "body": "<p>Birthstones are one of the loveliest reasons to choose a coloured stone. They make a piece personal, and they give an easy starting point when you have no idea where to begin.</p><p>Several months have more than one traditional option, which is useful, because some of the classic birthstones are genuinely delicate. Where the traditional stone is soft, there is almost always a hardier alternative in a similar colour. Both are listed below.</p>"
+      }
+    },
+    "table": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "January | Garnet | Deep red to raspberry | Wearable in rings when set well | Ruby or red spinel"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "February | Amethyst | Purple | Softer; pendants and occasional wear | Purple sapphire or lavender spinel"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "March | Aquamarine | Pale blue | Elegant; protective settings for rings | Light blue sapphire"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "April | Diamond | Colourless and beyond | The classic everyday stone | Moissanite or white sapphire"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "May | Emerald | Green | Stunning; design with protection in mind | Green sapphire or tsavorite"
+          }
+        },
+        "r6": {
+          "type": "row",
+          "settings": {
+            "cells": "June | Pearl or moonstone | White, cream, soft sheen | Delicate; earrings and pendants | White sapphire or grey spinel"
+          }
+        },
+        "r7": {
+          "type": "row",
+          "settings": {
+            "cells": "July | Ruby | Red | Durable and symbolic; excellent for rings | No alternative needed"
+          }
+        },
+        "r8": {
+          "type": "row",
+          "settings": {
+            "cells": "August | Peridot | Yellow-green | Better for occasional rings and pendants | Green sapphire or chrysoberyl"
+          }
+        },
+        "r9": {
+          "type": "row",
+          "settings": {
+            "cells": "September | Sapphire | Blue and many others | One of the best all-round stones | No alternative needed"
+          }
+        },
+        "r10": {
+          "type": "row",
+          "settings": {
+            "cells": "October | Opal or tourmaline | Play-of-colour or many hues | Opal is delicate; tourmaline hardier | Pink or teal sapphire"
+          }
+        },
+        "r11": {
+          "type": "row",
+          "settings": {
+            "cells": "November | Topaz or citrine | Yellow, orange, blue | Warm and affordable; lower-knock pieces | Yellow or orange sapphire"
+          }
+        },
+        "r12": {
+          "type": "row",
+          "settings": {
+            "cells": "December | Tanzanite, turquoise or zircon | Blue to violet-blue | Striking; most suit pendants | Blue or violet sapphire"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7",
+        "r8",
+        "r9",
+        "r10",
+        "r11",
+        "r12"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "first_col_bold": true,
+        "note": "Sapphire appears as the alternative for six months because it occurs in almost every colour at Mohs 9. It is the most useful gemstone there is.",
+        "intro": "Where the traditional stone is delicate, the final column gives a stone in a similar colour that will take daily wear.",
+        "eyebrow": "The Twelve",
+        "heading": "Birthstones at a Glance",
+        "headers": "Month|Traditional stone|Colour|Wear note|Hardier alternative"
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "eyebrow": "Buying for a Particular Month",
+        "heading": "Tell Us the Month and the Piece",
+        "body": "<p>Send us the birth month and what you have in mind, a ring, a pendant, earrings, and how often it will be worn. We will suggest the birthstone option that suits the job, including a hardier alternative in the same colour where the classic stone is delicate.</p>",
+        "link": "/pages/contact-us",
+        "link_label": "Ask us about a birthstone"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Are birthstones the same everywhere?",
+            "a": "<p>No. The list most people use in Britain and America is a twentieth-century standardisation, and other traditions differ. Several months have multiple accepted options, which is why the table above lists more than one for some.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "My birthstone is too soft for a ring. What now?",
+            "a": "<p>Either put it somewhere gentler, a pendant or earrings, or choose a hardier stone in the same colour. Sapphire occurs in almost every colour at Mohs 9, so there is usually a durable version of the shade you want.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I combine several birthstones in one piece?",
+            "a": "<p>Yes, and family rings with a stone for each child are among the nicer things we make. The practical constraint is durability: mixing a pearl with a sapphire in one ring means the whole piece has to be treated as gently as the pearl.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Is a birthstone engagement ring a good idea?",
+            "a": "<p>It can be lovely and very personal, provided the stone suits daily wear. July and September are ideal, since ruby and sapphire are both excellent. June and October are the difficult ones, and we would usually suggest the alternative.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true,
+        "heading": "Birthstone Questions"
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "white",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "UbTxH7"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/diamond-and-gemstone-guide-cover.png",
+        "cover_alt": "The Diamond and Gemstone Guide",
+        "cover_caption": "The Diamond and Gemstone Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Diamond and Gemstone Guide",
+        "body": "<p>Every gemstone stone by stone, plus durability, treatments, ethical sourcing and grading reports.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Gemstone Education",
+            "title": "Gemstone Durability",
+            "desc": "Which stones survive daily wear, and which do not.",
+            "cta": "Read more",
+            "link": "/pages/gemstone-durability"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Gemstone Education",
+            "title": "Sapphire",
+            "desc": "Eleven colours at Mohs 9, and why it substitutes for so much.",
+            "cta": "Read more",
+            "link": "/pages/sapphire-guide"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Section Hub",
+            "title": "Gemstone Education",
+            "desc": "Every gemstone guide in one place.",
+            "cta": "Back to the hub",
+            "link": "/pages/gemstone-education"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Coloured Stone Rings",
+            "desc": "Every coloured stone ring we hold.",
+            "cta": "Browse rings",
+            "link": "/collections/coloured-stone-rings"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "table",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

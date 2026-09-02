@@ -1,0 +1,379 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Heirlooms and Reused Stones"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Family stones carry a different kind of value</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/jewellers-loupe-loose-round-diamonds.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Sentiment and Practicality",
+        "heading": "Irreplaceable, But Not Always Perfect",
+        "body": "<p>Family stones may not be perfect by modern grading standards, and it rarely matters. A stone that belonged to someone carries a value no report describes.</p><p>What does matter is that an older stone is checked properly before it is reset. Antique stones may have chips, worn facet edges, old repairs, abrasions, or settings that have been quietly hiding damage for fifty years. Some can be reset safely. Others should be preserved, repolished, recut, or moved into a less exposed piece.</p><p>Heirloom work should honour the family piece without creating a weaker new one, and we will always be clear about what we would avoid.</p>"
+      }
+    },
+    "questions": {
+      "type": "fye-checklist",
+      "blocks": {
+        "w1": {
+          "type": "item",
+          "settings": {
+            "label": "What is the stone, actually?",
+            "note": "Natural, synthetic or imitation. Older family pieces contain all three, and the answer is not always what the family believes."
+          }
+        },
+        "w2": {
+          "type": "item",
+          "settings": {
+            "label": "Is it chipped or abraded?",
+            "note": "Facet edges and girdles take the most damage, and a setting can hide a great deal."
+          }
+        },
+        "w3": {
+          "type": "item",
+          "settings": {
+            "label": "Has it been treated?",
+            "note": "Older treatments are not always stable, and some rule out heat during setting."
+          }
+        },
+        "w4": {
+          "type": "item",
+          "settings": {
+            "label": "Is it suitable for the new design?",
+            "note": "A stone that survived fifty years in a pendant may not survive a daily ring."
+          }
+        },
+        "w5": {
+          "type": "item",
+          "settings": {
+            "label": "Does sentiment outweigh material value?",
+            "note": "Usually yes, and that changes what we would recommend doing with it."
+          }
+        },
+        "w6": {
+          "type": "item",
+          "settings": {
+            "label": "Would preserving the original be better?",
+            "note": "Sometimes the right answer is not to dismantle it at all."
+          }
+        }
+      },
+      "block_order": [
+        "w1",
+        "w2",
+        "w3",
+        "w4",
+        "w5",
+        "w6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "intro": "Send clear photographs from several angles and we will tell you whether a stone is likely to be suitable before you commit to remodelling.",
+        "note": "",
+        "eyebrow": "Six Questions",
+        "heading": "What We Check First"
+      }
+    },
+    "routes": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Reset the stone",
+            "body": "<p>The most common route. The original stone moves into a new design built around it, sized and set for the person who will actually wear it.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Recut or repolish",
+            "body": "<p>Where facet edges are worn or a chip needs removing. It costs a little weight but transforms how the stone performs, and on an old cut it can be done sympathetically.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Move to a safer piece",
+            "body": "<p>A stone too fragile for a daily ring is often perfect in a pendant or earrings, where it is protected and still worn.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Echo rather than dismantle",
+            "body": "<p>Where the original should stay intact, a new ring can reference its profile, its milgrain, its setting style or its metal without taking it apart.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Reuse the metal",
+            "body": "<p>Family gold or platinum can sometimes be reused, though it is not always technically or economically sensible. Where it cannot be used directly, it can often be incorporated symbolically.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Preserve as it is",
+            "body": "<p>Occasionally the honest advice is to leave a piece alone and make something new alongside it. We would rather say that than take apart something that should not be.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "3",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "intro": "",
+        "note": "",
+        "eyebrow": "Six Routes",
+        "heading": "What Can Be Done With a Family Piece"
+      }
+    },
+    "metal": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Reusing Family Metal",
+        "heading": "Possible, But Not Always Sensible",
+        "body": "<p>Old gold carries the wear, solder repairs and alloy inconsistencies of its whole life. Melting and reworking it can produce porosity and weak points that will not show until the ring is years old.</p><p>Where the metal can be used safely we will use it. Where it cannot, we will say so, and there are good alternatives: incorporating a small amount symbolically, or trading it against the new piece so it still contributes.</p>"
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "eyebrow": "Before Anything Is Dismantled",
+        "heading": "Have the Stone Assessed",
+        "body": "<p>Send clear photographs from several angles, and out of the setting if that is possible without risk. We will tell you honestly what the stone is, what condition it is in, and whether the design you have in mind is realistic for it.</p>",
+        "link": "/pages/contact-us",
+        "link_label": "Ask us about a family stone"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Can you reset a stone from my grandmother's ring?",
+            "a": "<p>Very often, yes, and it is some of the most satisfying work we do. The stone needs assessing first for chips, abrasion and old repairs. Send photographs from several angles and we will give you an honest view before you commit to anything.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Will resetting damage the stone?",
+            "a": "<p>There is always some risk in removing a stone from an old setting, particularly where the metal has been worked repeatedly or the stone is already chipped. We assess that risk before starting and will tell you if we think it is too high.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Can you use my old gold in the new ring?",
+            "a": "<p>Sometimes. Old gold carries wear, solder and alloy inconsistencies, and reworking it can create weak points. Where it is not safe to use directly, we can incorporate a small amount symbolically or trade it against the new piece.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "My stone is not certified. Does that matter?",
+            "a": "<p>Not for sentiment, and not for setting it. It matters for insurance and for knowing what you actually have. For a stone of any significance we would suggest a report, which also confirms whether it is natural.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "What if the stone turns out not to be what we thought?",
+            "a": "<p>It happens more often than you might expect, particularly with older pieces where a stone was replaced at some point. We will always tell you, and it rarely changes what people want to do. The stone still came from the person it came from.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "Can you match a stone to complete a set?",
+            "a": "<p>Usually. Matching an antique cut takes longer because modern cutting is different, but we can source old cuts. Send the piece and we will search for something that sits properly beside it rather than merely near it.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true,
+        "heading": "Heirloom Questions"
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "white",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "UbTxH7"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/diamond-and-gemstone-guide-cover.png",
+        "cover_alt": "The Diamond and Gemstone Guide",
+        "cover_caption": "The Diamond and Gemstone Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Diamond and Gemstone Guide",
+        "body": "<p>Heirloom and reused stones, plus the Four Cs, shapes, coloured gemstones, durability, treatments and grading reports.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "The Bespoke Process",
+            "desc": "How a commission runs, from enquiry to handover.",
+            "cta": "Read more",
+            "link": "/pages/create-your-own-ring"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Gemstone Education",
+            "title": "Gemstone Durability",
+            "desc": "Whether an old stone will survive its new setting.",
+            "cta": "Read more",
+            "link": "/pages/gemstone-durability"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Diamond Education",
+            "title": "Certificates and Reports",
+            "desc": "What a report confirms about an unidentified stone.",
+            "cta": "Read more",
+            "link": "/pages/diamond-certification"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Sourcing",
+            "title": "Ethical Sourcing",
+            "desc": "Why reusing what you own is the most sustainable option.",
+            "cta": "Read more",
+            "link": "/pages/ethical-sourcing"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "questions",
+    "routes",
+    "metal",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

@@ -1,0 +1,327 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Lab-Grown Fancy Colour"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Vivid pink, blue and yellow, at a fraction of the natural price</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/round-brilliant-diamond-marble.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Diamond Education",
+        "heading": "The Affordable Route Into Colour",
+        "body": "<p>Natural pink and blue diamonds are among the rarest stones on earth. The Argyle mine that produced most of the world's pink diamonds closed in 2020, and prices have moved accordingly. For most people a natural vivid pink is simply not a realistic purchase.</p><p>Lab-grown coloured diamonds solve that. They are <a href=\"/pages/lab-grown-diamonds\">genuine diamonds</a>, grown in controlled conditions and given their colour by the same trace elements that colour natural stones, at a fraction of the price. Same hardness of 10, same everyday durability, same grading laboratories.</p><p>The only requirement, exactly as with natural colour, is clear disclosure. We state on every order whether a stone is natural, treated or grown.</p>"
+      }
+    },
+    "why": {
+      "type": "fye-cards",
+      "blocks": {
+        "w1": {
+          "type": "card",
+          "settings": {
+            "heading": "Colour You Could Not Otherwise Have",
+            "body": "<p>A vivid pink or blue centre stone at a price that makes sense. This is the single clearest case for lab-grown anything.</p>"
+          }
+        },
+        "w2": {
+          "type": "card",
+          "settings": {
+            "heading": "Consistency Across Several Stones",
+            "body": "<p>Matching four natural fancy yellows is difficult and expensive. Matching four lab-grown ones is straightforward, which matters for bands and trilogies.</p>"
+          }
+        },
+        "w3": {
+          "type": "card",
+          "settings": {
+            "heading": "Full Daily-Wear Durability",
+            "body": "<p>Mohs 10, identical to any other diamond. Unlike softer coloured gemstones there is no compromise on wear, which makes it a genuine engagement ring option.</p>"
+          }
+        },
+        "w4": {
+          "type": "card",
+          "settings": {
+            "heading": "No Mining",
+            "body": "<p>Grown rather than extracted, with a clear chain of custody. Worth noting that growing diamonds uses energy, so this is a considered choice rather than an automatic one.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "w1",
+        "w2",
+        "w3",
+        "w4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "4",
+        "show_head": true,
+        "eyebrow": "The Case For",
+        "heading": "Where Lab-Grown Colour Makes Most Sense",
+        "intro": ""
+      }
+    },
+    "palette": {
+      "type": "fye-chips",
+      "blocks": {
+        "c1": {
+          "type": "chip",
+          "settings": {
+            "name": "Pink",
+            "sub": "The most requested",
+            "colour": "#E8A9BE"
+          }
+        },
+        "c2": {
+          "type": "chip",
+          "settings": {
+            "name": "Blue",
+            "sub": "Cool and striking",
+            "colour": "#8FB3D9"
+          }
+        },
+        "c3": {
+          "type": "chip",
+          "settings": {
+            "name": "Yellow",
+            "sub": "Warm and classic",
+            "colour": "#E8C25A"
+          }
+        },
+        "c4": {
+          "type": "chip",
+          "settings": {
+            "name": "Green",
+            "sub": "Subtle and unusual",
+            "colour": "#9FBF9F"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "settings": {
+        "band": "white",
+        "align": "centre",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Available Colours",
+        "heading": "What We Can Source",
+        "intro": "Lab-grown colour reaches saturations that are vanishingly rare in nature, so a Fancy Vivid is achievable rather than aspirational.",
+        "note": "Swatches are indicative. We will always show you the actual stone in more than one light before you commit."
+      }
+    },
+    "honest": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "The Honest Position",
+        "heading": "What You Are Trading Away",
+        "body": "<p>Rarity, and with it any realistic secondary market. A natural Fancy Vivid pink is a genuinely scarce object and behaves like one. A lab-grown one is a beautiful stone that can be produced again tomorrow.</p><p>If the colour is what you love, that is a good reason to buy it and it will look identical on the hand. If the scarcity is what you love, lab-grown will never give you that, and we would rather say so now than after you have bought.</p>"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Is a lab-grown pink diamond a real diamond?",
+            "a": "<p>Yes. It is chemically, optically and physically identical to a natural pink diamond, graded by the same laboratories. The difference is that it was grown rather than mined, and priced accordingly.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "How much cheaper is lab-grown fancy colour?",
+            "a": "<p>Dramatically, and the gap is widest exactly where natural colour is rarest. Natural vivid pinks and blues are among the most expensive stones on earth by carat; the lab-grown equivalents are a small fraction of that.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Will the colour fade?",
+            "a": "<p>No. The colour comes from the diamond's atomic structure, not from a surface treatment, so it is permanent. It will not fade, shift or wash out with cleaning or wear.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Can you tell it apart from a natural coloured diamond?",
+            "a": "<p>Not by eye, and not with a loupe. It takes specialist laboratory equipment. This is exactly why every stone should carry a report stating its origin, and why we document it on your order.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Is it suitable for an engagement ring?",
+            "a": "<p>Entirely. At Mohs 10 it is as hard as any diamond, which puts it well ahead of every coloured gemstone for daily wear. If you want colour in a ring worn every day without worrying about it, this is the most practical answer there is.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Lab-Grown Colour Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "UbTxH7"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/diamond-and-gemstone-guide-cover.png",
+        "cover_alt": "The Diamond and Gemstone Guide",
+        "cover_caption": "The Diamond and Gemstone Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Diamond and Gemstone Guide",
+        "body": "<p>Fancy colour, natural and grown, plus the Four Cs, shapes, coloured gemstones, treatments, durability and grading reports.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Diamond Education",
+            "title": "Natural Fancy Colour",
+            "desc": "Yellow, champagne, cognac, black and salt-and-pepper.",
+            "cta": "Read more",
+            "link": "/pages/fancy-diamonds"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Diamond Education",
+            "title": "Natural vs Lab-Grown",
+            "desc": "The full comparison, for white diamonds too.",
+            "cta": "Read more",
+            "link": "/pages/lab-grown-diamonds"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Section Hub",
+            "title": "Diamond Education",
+            "desc": "All eight diamond guides in one place.",
+            "cta": "Back to the hub",
+            "link": "/pages/diamond-education"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Lab-Grown Fancy Colour",
+            "desc": "Every lab-grown coloured diamond we hold.",
+            "cta": "Browse diamonds",
+            "link": "/collections/fancy-lab-grown-diamonds"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "why",
+    "palette",
+    "honest",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

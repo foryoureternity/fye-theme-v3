@@ -1,0 +1,482 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Choosing the Metal"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Platinum, white, yellow and rose gold, and palladium, compared honestly</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/engagement-wedding-ring-stack-gold-rose-gold.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "The Body of the Ring",
+        "heading": "Colour, Weight, Upkeep and How It Ages",
+        "body": "<p>The metal is the body of the ring. It determines colour, weight, maintenance, durability and how the piece sits beside other jewellery. It is also the decision people most often make on price alone and regret on feel.</p><p>If a band will be worn beside an engagement ring, the metals should usually match exactly, unless contrast is a deliberate design choice. White gold and platinum look near-identical in photographs and wear and age quite differently, which is where most mismatches come from.</p><p>Entry-level plain bands start from around £250 in 9ct gold, scaling with purity, width and depth.</p>"
+      }
+    },
+    "swatches": {
+      "type": "fye-chips",
+      "blocks": {
+        "c1": {
+          "type": "chip",
+          "settings": {
+            "name": "Platinum",
+            "sub": "Naturally white, dense",
+            "colour": "#E3E5E6",
+            "colour_2": "#C4C9CC",
+            "link": "/collections/platinum"
+          }
+        },
+        "c2": {
+          "type": "chip",
+          "settings": {
+            "name": "White Gold",
+            "sub": "Rhodium-plated bright white",
+            "colour": "#E8E8E6",
+            "colour_2": "#CFCFCB",
+            "link": "/collections/wedding-rings-white-gold"
+          }
+        },
+        "c3": {
+          "type": "chip",
+          "settings": {
+            "name": "Yellow Gold",
+            "sub": "Warm and traditional",
+            "colour": "#E6C15C",
+            "colour_2": "#C9A038",
+            "link": "/collections/wedding-rings-yellow-gold"
+          }
+        },
+        "c4": {
+          "type": "chip",
+          "settings": {
+            "name": "Rose Gold",
+            "sub": "Soft pink from copper",
+            "colour": "#E0AC94",
+            "colour_2": "#C98570",
+            "link": "/collections/wedding-rings-rose-gold"
+          }
+        },
+        "c5": {
+          "type": "chip",
+          "settings": {
+            "name": "Palladium",
+            "sub": "Naturally white, lighter",
+            "colour": "#DCDCDA",
+            "colour_2": "#B8B8B4"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5"
+      ],
+      "settings": {
+        "band": "ivory",
+        "align": "centre",
+        "narrow": false,
+        "show_head": true,
+        "intro": "Tap a metal to see the bands we currently hold in it.",
+        "note": "Swatch colours are indicative. We keep samples you can see and handle before committing.",
+        "eyebrow": "Five Metals",
+        "heading": "The Metals We Work In"
+      }
+    },
+    "table": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Platinum | Naturally white and cool-toned, dense and substantial; develops a soft patina | Hypoallergenic and the heaviest option. Never needs plating"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "White gold | Bright white when rhodium-plated; noticeably lighter than platinum | Re-plate roughly every 2 to 5 years. A warm tinge shows as plating wears"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Yellow gold | Rich, warm and traditional; the classic fine-jewellery gold | No plating. Fine scratches read as warm patina; polished bright at service"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Rose gold | Soft pink from copper in the alloy; flattering on most skin tones | No plating. The copper makes it a touch harder-wearing than yellow"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Palladium | Naturally white like platinum but lighter, with a quieter grey | Hypoallergenic. Never needs plating; light on the finger, rarer in supply"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "first_col_bold": true,
+        "note": "",
+        "intro": "",
+        "eyebrow": "Side by Side",
+        "heading": "Character and Practical Notes",
+        "headers": "Metal|Character and colour|Practical notes"
+      }
+    },
+    "purity": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Platinum 950 | 950 | 95% platinum. Dense, naturally white, hypoallergenic; develops a soft sheen patina"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "18ct gold | 750 | 75% gold. The standard for fine jewellery: rich colour, excellent balance of durability and purity"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "14ct gold | 585 | 58.5% gold. More affordable, paler than 18ct and generally harder-wearing, less rich in colour"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "9ct gold | 375 | 37.5% gold. The most affordable option. Paler colour, lighter weight, can tarnish slightly over many years"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "first_col_bold": true,
+        "note": "Hardness depends on the full alloy formulation, not on colour alone. A 9ct white gold is not automatically harder than an 18ct yellow.",
+        "intro": "Every piece we make is hallmarked. The number stamped inside the band tells you exactly what it is.",
+        "eyebrow": "Hallmarks",
+        "heading": "Purity, and What the Numbers Mean",
+        "headers": "Metal|Hallmark|What it means"
+      }
+    },
+    "matching": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "The Mistake to Avoid",
+        "heading": "Match It, or Make the Contrast Obvious",
+        "body": "<p>If the engagement ring is platinum, a platinum band is the cleanest match. If it is 18ct yellow gold, the band should usually be 18ct yellow in the same tone. The problem case is the near-match: a white gold band beside a platinum engagement ring looks identical on day one and visibly different in three years, as the plating wears and the platinum develops its patina.</p><p>If you want contrast, make it unmistakable. A yellow gold band against a platinum engagement ring reads as a deliberate decision. A slightly different white does not.</p>"
+      }
+    },
+    "choosing": {
+      "type": "fye-checklist",
+      "blocks": {
+        "w1": {
+          "type": "item",
+          "settings": {
+            "label": "Match the engagement ring exactly",
+            "note": "Unless contrast is deliberate and obvious."
+          }
+        },
+        "w2": {
+          "type": "item",
+          "settings": {
+            "label": "Consider weight, not just colour",
+            "note": "Platinum is noticeably heavier. Some people love it; some find it constant."
+          }
+        },
+        "w3": {
+          "type": "item",
+          "settings": {
+            "label": "Factor in re-plating",
+            "note": "White gold needs rhodium every 2 to 5 years. Everything else does not."
+          }
+        },
+        "w4": {
+          "type": "item",
+          "settings": {
+            "label": "Check for metal sensitivity",
+            "note": "Platinum and palladium are hypoallergenic. Nickel in some white gold alloys can irritate."
+          }
+        },
+        "w5": {
+          "type": "item",
+          "settings": {
+            "label": "Think about the wearer's work",
+            "note": "Softer alloys mark faster. Patina is not damage, but some people mind it."
+          }
+        },
+        "w6": {
+          "type": "item",
+          "settings": {
+            "label": "Try before deciding",
+            "note": "We keep samples. Photographs cannot tell you what a metal feels like at 5mm."
+          }
+        }
+      },
+      "block_order": [
+        "w1",
+        "w2",
+        "w3",
+        "w4",
+        "w5",
+        "w6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "intro": "",
+        "note": "",
+        "eyebrow": "Before You Decide",
+        "heading": "Six Things to Weigh Up"
+      }
+    },
+    "patina": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "default",
+        "narrow": true,
+        "eyebrow": "Not a Fault",
+        "heading": "Patina Is Not Damage",
+        "body": "<p>Fine scratches and a softening of the surface are part of a ring becoming yours. Platinum in particular develops a distinct satiny patina that many people prefer to the original polish, and the metal is displaced rather than lost.</p><p>Any of these metals can be brought back to a bright polish at service, which is free for the life of the ring. But a ring does not need to remain factory-perfect to be beautiful.</p>"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Platinum or white gold?",
+            "a": "<p>Platinum if you want a metal that stays white permanently, feels substantial and never needs re-plating. White gold if you want the same look for less and do not mind re-plating every few years. Platinum costs more up front and less over a lifetime.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Does rose gold wear better than yellow?",
+            "a": "<p>Slightly, yes. The copper that gives rose gold its colour also makes the alloy a little harder than an equivalent yellow gold. The difference is real but modest, and it should not be the deciding factor.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Is 9ct gold worth it to save money?",
+            "a": "<p>It is a legitimate choice and we make plenty of it. Be aware that the colour is noticeably paler than 18ct, it is lighter in the hand, and it can tarnish slightly over decades. If the ring will sit beside an 18ct engagement ring, the colour difference will show.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Will my white gold ring turn yellow?",
+            "a": "<p>Not the gold itself, but the rhodium plating that makes it bright white does wear, revealing the slightly warmer white of the underlying alloy. Re-plating restores it, and we do this as part of servicing.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I mix metals between the engagement ring and band?",
+            "a": "<p>Yes, and it looks excellent when it is clearly intentional. Yellow gold against platinum, or rose against white, reads as a considered pairing. Two similar whites read as a mistake.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "Which metal is best for sensitive skin?",
+            "a": "<p>Platinum or palladium. Both are hypoallergenic and neither is plated. Some white gold alloys contain nickel, which is the most common cause of jewellery reactions.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6"
+      ],
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true,
+        "heading": "Metal Questions We Are Asked Most"
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "XMzNMS"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/Plain_Wedding_Cover.png",
+        "cover_alt": "The Plain Wedding Ring Guide",
+        "cover_caption": "The Plain Wedding Ring Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Plain Wedding Ring Guide",
+        "body": "<p>Profiles, widths, metals, finishes, pairing with the engagement ring and sizing. The full picture, as a printable PDF.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Profiles, Width and Feel",
+            "desc": "Cross-sections, widths and how a band actually wears.",
+            "cta": "Read more",
+            "link": "/pages/ring-profiles-and-widths"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Pairing with the Engagement Ring",
+            "desc": "Straight, shaped and fitted bands, and how to tell which you need.",
+            "cta": "Read more",
+            "link": "/pages/wedding-band-pairing"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Stone Settings",
+            "desc": "How stones are held, and what each setting costs in upkeep.",
+            "cta": "Read more",
+            "link": "/pages/stone-settings"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Plain Wedding Rings",
+            "desc": "Every profile and width, in all five metals.",
+            "cta": "Browse rings",
+            "link": "/collections/plain-wedding-rings"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "swatches",
+    "table",
+    "purity",
+    "matching",
+    "choosing",
+    "patina",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

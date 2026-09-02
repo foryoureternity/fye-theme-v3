@@ -1,0 +1,346 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Ethical and Responsible Sourcing"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>What an honest jeweller can promise, and what nobody can</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/Diamond_Tracibility.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Diamond and Gemstone Education",
+        "heading": "Where a Stone Comes From",
+        "body": "<p>For many people, where a stone comes from matters as much as how it looks. Fine jewellery should be something you feel good about wearing, not only something beautiful to look at.</p><p>This page explains what responsible sourcing means in practice, and it is deliberately careful about the difference between what can be documented and what cannot. A jeweller who promises complete traceability on every stone is overstating what the industry can currently deliver.</p>"
+      }
+    },
+    "pillars": {
+      "type": "fye-terms",
+      "blocks": {
+        "p1": {
+          "type": "term",
+          "settings": {
+            "number": "01",
+            "heading": "Natural diamonds and the question of origin",
+            "body": "<p>The concern most people have is avoiding stones connected to conflict or exploitation. All natural diamonds we supply are guaranteed conflict-free, adhering strictly to the Kimberley Process certification scheme, the international framework that keeps conflict diamonds out of the legitimate supply chain, and to ethical supply-chain standards.</p><p>Beyond that baseline, some diamonds now come with stronger traceability, allowing their journey to be followed more closely from source to setting. Where that level of provenance matters to you it is worth asking for specifically, because it is not automatic for every stone.</p>"
+          }
+        },
+        "p2": {
+          "type": "term",
+          "settings": {
+            "number": "02",
+            "heading": "Why many people choose lab-grown",
+            "body": "<p>Lab-grown diamonds appeal to people who want to step around mining questions altogether. Because they are created in controlled conditions there is no mining, no extraction and a clearer chain of custody.</p><p>They are not automatically greener in every respect, since growing diamonds uses significant energy. For many buyers the absence of mining is nonetheless the deciding factor. It is a personal judgement rather than a simple right answer, and we will not pretend otherwise.</p>"
+          }
+        },
+        "p3": {
+          "type": "term",
+          "settings": {
+            "number": "03",
+            "heading": "Coloured gemstones",
+            "body": "<p>Coloured gemstones are often mined on a smaller scale, sometimes by individual miners and small communities. This makes the supply chain harder to trace than diamonds, but it also means responsible buying can genuinely support the people who found the stone.</p><p>Where origin, fair sourcing or traceability matters to you, we will tell you honestly what is known about a stone and what is not.</p>"
+          }
+        },
+        "p4": {
+          "type": "term",
+          "settings": {
+            "number": "04",
+            "heading": "Recycled and reclaimed metals",
+            "body": "<p>Sourcing is not only about the stone. Precious metals can be recycled and reclaimed rather than newly mined, and we use recycled and responsibly sourced precious metals as our standard approach.</p><p>Reusing gold or platinum from an existing piece is one of the most sustainable choices available, and it is often the most meaningful one too. See our <a href=\"/pages/heirloom-stones\">heirloom and reused stones</a> guide.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "numbers",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Four Parts to It",
+        "heading": "What Responsible Sourcing Actually Means",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "promise": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Our Commitment",
+        "heading": "Sourced to Your Specification, Documented",
+        "body": "<p>Every stone is sourced after you have told us cut, colour, clarity, carat, report and origin. Nothing is bought in bulk to clear, which is why we can almost always find a better stone for your budget than a stock-led retailer, and why we can source to an origin requirement rather than offering whatever happens to be in the case.</p><p>Natural diamonds come with clear stone information. Every lab-grown centre stone comes with its own grading report. Precious metals are recycled and responsibly sourced as standard. Every ring is hand-finished in our London workshop and built to order.</p>"
+      }
+    },
+    "ask": {
+      "type": "fye-checklist",
+      "blocks": {
+        "a1": {
+          "type": "item",
+          "settings": {
+            "label": "Where did this stone come from, and can I see it in writing?",
+            "note": "Most retailers cannot answer this. The answer, or the hesitation, tells you a great deal."
+          }
+        },
+        "a2": {
+          "type": "item",
+          "settings": {
+            "label": "Is this Kimberley Process compliant?",
+            "note": "The baseline for any natural diamond. It should be a yes without qualification."
+          }
+        },
+        "a3": {
+          "type": "item",
+          "settings": {
+            "label": "Can you source to a specific origin?",
+            "note": "Some stones carry stronger traceability. It is not automatic and has to be asked for."
+          }
+        },
+        "a4": {
+          "type": "item",
+          "settings": {
+            "label": "Are the metals recycled or newly mined?",
+            "note": "Rarely volunteered, easily answered by anyone who actually knows."
+          }
+        },
+        "a5": {
+          "type": "item",
+          "settings": {
+            "label": "Could I use metal or stones I already own?",
+            "note": "The most sustainable option available, and often the most meaningful."
+          }
+        },
+        "a6": {
+          "type": "item",
+          "settings": {
+            "label": "What is known about this coloured gemstone's origin?",
+            "note": "Honest answer: sometimes a lot, sometimes very little. Both are acceptable; pretending is not."
+          }
+        }
+      },
+      "block_order": [
+        "a1",
+        "a2",
+        "a3",
+        "a4",
+        "a5",
+        "a6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Questions Worth Asking",
+        "heading": "Ask Us, and Ask Anyone Else",
+        "intro": "Every question here is one we are glad to answer in writing. If another jeweller's answer is hesitant, the answer is hesitant for a reason.",
+        "note": ""
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "What is the Kimberley Process?",
+            "a": "<p>An international certification scheme, established in 2003, that keeps conflict diamonds out of the legitimate supply chain by requiring shipments of rough diamonds to be certified as conflict-free. All natural diamonds we supply comply with it. It is the industry baseline rather than the ceiling.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Are lab-grown diamonds more ethical than natural ones?",
+            "a": "<p>They avoid mining entirely, which for many people settles it. They are not automatically better on every measure, because growing diamonds is energy-intensive and that energy is not always renewable. Responsible natural diamond mining also supports livelihoods in producing countries. It is a genuine judgement call rather than a clear answer.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Can you tell me exactly which mine a diamond came from?",
+            "a": "<p>Sometimes. Some diamonds now carry stronger traceability that follows the stone from source to setting, and where that matters to you we can source specifically for it. For many stones the honest answer is that the supply chain does not support that level of detail, and we would rather say so than guess.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Are your metals recycled?",
+            "a": "<p>We use recycled and responsibly sourced precious metals as our standard approach. If you would like your ring made specifically from reclaimed metal, or from gold you already own, tell us and we will do exactly that.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Is it better to reuse an old ring than buy new?",
+            "a": "<p>From a sustainability point of view, almost certainly. Reworking existing gold or platinum and resetting stones you already own avoids new extraction entirely. It is also frequently the more meaningful option, which is why we do a great deal of it.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Sourcing Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "UbTxH7"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/diamond-and-gemstone-guide-cover.png",
+        "cover_alt": "The Diamond and Gemstone Guide",
+        "cover_caption": "The Diamond and Gemstone Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Diamond and Gemstone Guide",
+        "body": "<p>Ethical sourcing in full, plus the Four Cs, shapes, natural against lab-grown, fancy colour, coloured gemstones, treatments, durability and grading reports.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Diamond Education",
+            "title": "Certificates and Reports",
+            "desc": "What a grading report confirms, and what it cannot.",
+            "cta": "Read more",
+            "link": "/pages/diamond-certification"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Diamond Education",
+            "title": "Natural vs Lab-Grown",
+            "desc": "The origin question, set out honestly.",
+            "cta": "Read more",
+            "link": "/pages/lab-grown-diamonds"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "About Us",
+            "title": "The For Your Eternity Difference",
+            "desc": "How we source, and what to ask anyone else.",
+            "cta": "Read more",
+            "link": "/pages/about-us"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Section Hub",
+            "title": "Diamond Education",
+            "desc": "All eight diamond guides in one place.",
+            "cta": "Back to the hub",
+            "link": "/pages/diamond-education"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "pillars",
+    "promise",
+    "ask",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

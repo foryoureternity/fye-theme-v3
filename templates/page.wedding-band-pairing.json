@@ -1,0 +1,418 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Pairing With the Engagement Ring"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Straight, shaped or fitted, and the measurement that decides</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/engagement-wedding-ring-stack-gold-rose-gold.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Two Rings, One Decision",
+        "heading": "A Band That Sits Badly Gets Taken Off",
+        "body": "<p>For most wearers the wedding band lives beside the engagement ring for the rest of its life, so the relationship between the two matters more than either ring alone.</p><p>A band that sits awkwardly, rubs against settings, or leaves an unexpected wedge-shaped gap will be taken off, however beautiful it looked on its own. This is one of the most common and most expensive oversights in buying an engagement ring, and it is entirely avoidable if you think about the pair from the start.</p>"
+      }
+    },
+    "three": {
+      "type": "fye-cards",
+      "blocks": {
+        "c1": {
+          "type": "card",
+          "settings": {
+            "heading": "Straight",
+            "body": "<p>The simplest and most flexible option. Sits flush against many solitaires, raised settings and modern designs where the basket does not protrude below the shank. Easier to resize and to wear alone.</p>",
+            "label": "Most flexible"
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "heading": "Shaped",
+            "body": "<p>A gentle curve, contour or notch so the band follows the line of the engagement ring. Needed when a basket, halo, side stones or shoulders prevent a straight band sitting close.</p>",
+            "label": "Most common fix"
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "heading": "Fitted",
+            "body": "<p>Designed around the exact geometry of the engagement ring, sometimes wrapping a low setting, a trilogy arrangement or an unusual stone orientation. The most bespoke answer.</p>",
+            "label": "Complex designs"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "3",
+        "show_head": true,
+        "intro": "With a plain band, shaping can be wonderfully subtle. It should look deliberate, never like an afterthought.",
+        "eyebrow": "Three Routes",
+        "heading": "How a Band Can Meet a Ring"
+      }
+    },
+    "clearance": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "The Measurement That Decides",
+        "heading": "Under-Gallery Clearance, Not Setting Height",
+        "body": "<p>Whether a straight band sits flush depends on <strong>under-gallery clearance</strong>, the space beneath the centre-stone basket, rather than the overall height of the setting. This distinction catches people out constantly.</p><p><strong>Low-profile baskets</strong> sit directly on the finger and block a straight band, creating a wedge-shaped gap. These need a curved, contoured or fitted band.</p><p><strong>High-profile and cathedral settings</strong> lift the basket off the finger, creating the clearance a straight band needs to slide underneath and sit flush. A tall ring is often easier to pair than a low one, which is the opposite of what most people assume.</p>"
+      }
+    },
+    "assess": {
+      "type": "fye-checklist",
+      "blocks": {
+        "w1": {
+          "type": "item",
+          "settings": {
+            "label": "A photograph from directly above",
+            "note": "Shows whether side stones or shoulders will block the band."
+          }
+        },
+        "w2": {
+          "type": "item",
+          "settings": {
+            "label": "A photograph from the side",
+            "note": "The important one. Shows whether the basket protrudes below the shank."
+          }
+        },
+        "w3": {
+          "type": "item",
+          "settings": {
+            "label": "A photograph at a slight angle",
+            "note": "Reveals the true gallery shape and how much clearance there is."
+          }
+        },
+        "w4": {
+          "type": "item",
+          "settings": {
+            "label": "The engagement ring's width",
+            "note": "So the band can match it, or contrast deliberately."
+          }
+        },
+        "w5": {
+          "type": "item",
+          "settings": {
+            "label": "Whether it will be worn alone sometimes",
+            "note": "A shaped band looks odd on its own; a straight one does not."
+          }
+        },
+        "w6": {
+          "type": "item",
+          "settings": {
+            "label": "Whether resizing may be needed later",
+            "note": "Fitted bands are the hardest to adjust afterwards."
+          }
+        }
+      },
+      "block_order": [
+        "w1",
+        "w2",
+        "w3",
+        "w4",
+        "w5",
+        "w6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "intro": "Send us these and we will tell you honestly whether a straight band will work or whether shaping is worth considering.",
+        "note": "For more complex designs we may recommend an appointment, measurements or CAD work before committing.",
+        "eyebrow": "What We Need",
+        "heading": "How We Assess Fit"
+      }
+    },
+    "stoneset": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "default",
+        "narrow": true,
+        "eyebrow": "For Stone-Set Bands",
+        "heading": "Shaping and Stone Placement Are One Job",
+        "body": "<p>On a diamond or gemstone band, shaping has to be planned alongside stone placement rather than after it. The curve must stay balanced, the stones must stay secure, and no setting can be left vulnerable at the narrowest part of the contour.</p><p>This is why a shaped stone-set band is genuinely bespoke work rather than an adjustment, and why it is far cheaper to design the pair together than to shape a finished band later.</p>"
+      }
+    },
+    "width": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Match the width for a calm pair",
+            "body": "<p>The same width, or very close, usually looks most intentional beside a solitaire or fine engagement ring.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Or contrast obviously",
+            "body": "<p>A noticeably slimmer band looks delicate beside a stronger ring; a bolder eternity band becomes a separate statement. Either works if the difference is clear.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Avoid the almost-match",
+            "body": "<p>A band only slightly different in width looks accidental, especially when the metals, stone sizes and setting heights are also nearly the same.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Match the metal exactly",
+            "body": "<p>Or contrast it deliberately. White gold beside platinum is the classic near-miss: identical at first, visibly different in three years.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "intro": "",
+        "note": "",
+        "eyebrow": "Proportion",
+        "heading": "Getting the Widths Right"
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "eyebrow": "Think About It Early",
+        "heading": "Design the Pair From the Start",
+        "body": "<p>A spectacular engagement ring that will not sit flush with any straight band is a costly oversight, and we see it regularly. If a matching band matters, tell us before the engagement ring is made and we will design for the pair.</p>",
+        "link": "/pages/engagement-ring-styles",
+        "link_label": "See which styles pair easily"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Will a straight wedding band fit my engagement ring?",
+            "a": "<p>It depends on under-gallery clearance, the gap beneath the centre-stone basket. If the basket sits directly on your finger, a straight band will leave a wedge-shaped gap. If the setting is raised or cathedral-style, a straight band usually slides underneath and sits flush. Send us a side-on photograph and we will tell you.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "What is the difference between a shaped and a fitted band?",
+            "a": "<p>A shaped band has a gentle curve or notch following the general line of the engagement ring. A fitted band is designed around that specific ring's exact geometry, sometimes wrapping a low setting entirely. Shaped is a modification; fitted is bespoke.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I get a shaped band for a ring bought elsewhere?",
+            "a": "<p>Yes, we do this often. Send photographs from above, from the side and at an angle. For complex geometry we may ask to see the ring, or take a wax impression, before committing to a design.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Should the wedding band go on before or after the engagement ring?",
+            "a": "<p>Tradition puts the wedding band closest to the heart, so it goes on first at the ceremony and the engagement ring sits outside it. Plenty of people wear them the other way round, and it makes no practical difference unless the band is shaped, in which case it only works one way.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Can a fitted band be resized later?",
+            "a": "<p>With difficulty. Because the shaping is matched to the engagement ring, altering the size changes the curve and can throw the fit out. If a fitted band is likely, it is worth being confident about the size first. Straight bands are far more forgiving.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "Do I have to buy both rings from you?",
+            "a": "<p>Not at all. We shape bands to engagement rings from anywhere, and we regularly make wedding bands for rings we did not supply. It is easier if we can see the ring, but photographs are usually enough to start.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6"
+      ],
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true,
+        "heading": "Pairing Questions We Are Asked Most"
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "Rch5bG"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/Diamond_Ring_Guide.png",
+        "cover_alt": "The Diamond and Gemstone Wedding Ring Guide",
+        "cover_caption": "The Diamond and Gemstone Wedding Ring Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Diamond and Gemstone Wedding Ring Guide",
+        "body": "<p>Setting styles, coverage, shaped-to-fit bands, stone layout, widths and sizing. As a printable PDF.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Shaped-to-Fit Bands",
+            "desc": "When a curve is not enough, and what fitted really means.",
+            "cta": "Read more",
+            "link": "/pages/shaped-to-fit-rings"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Profiles, Width and Feel",
+            "desc": "Cross-sections and how they affect pairing.",
+            "cta": "Read more",
+            "link": "/pages/ring-profiles-and-widths"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Engagement Ring Styles",
+            "desc": "Which silhouettes pair easily with a straight band.",
+            "cta": "Read more",
+            "link": "/pages/engagement-ring-styles"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Wedding Rings",
+            "desc": "Plain and stone-set bands in every profile.",
+            "cta": "Browse rings",
+            "link": "/collections/wedding-rings"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "three",
+    "clearance",
+    "assess",
+    "stoneset",
+    "width",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

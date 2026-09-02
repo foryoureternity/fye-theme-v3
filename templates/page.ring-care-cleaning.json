@@ -1,0 +1,545 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Cleaning at Home"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Chapter three of The Ring and Jewellery Care Guide</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/engagement-wedding-ring-stack-gold-rose-gold.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Gentle Is Enough",
+        "heading": "What Home Cleaning Can and Cannot Do",
+        "body": "<p>For most robust diamond, ruby and sapphire rings, gentle hand cleaning safely restores the sparkle. Nearly all dullness is skin oil, soap, moisturiser and hand sanitiser collecting beneath the stone, and warm soapy water lifts it.</p><p>If your ring contains an emerald, opal, pearl, turquoise, a treated gemstone, an antique setting, or a stone you cannot identify, do not soak it. Send us the report number or a photograph and we will tell you exactly what your piece will and will not tolerate.</p><p>A message costs nothing, and we would always rather answer a question early than assess a problem late.</p>"
+      }
+    },
+    "before": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Before You Start",
+        "heading": "Inspect the Ring First",
+        "body": "<p>Stop and contact us if a stone moves, a claw catches, or the setting looks bent. Cleaning a compromised setting can finish the job.</p><p>And never clean jewellery over an open plughole. Work at a clear table with a bowl, or put the plug firmly into the sink before anything gets wet.</p>"
+      }
+    },
+    "steps": {
+      "type": "fye-steps",
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "number": "01",
+            "heading": "Prepare",
+            "body": "<p>Work at a clear table with a bowl, or with the plug firmly in the sink. Inspect the ring under good light first, and stop if anything has moved.</p>"
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "number": "02",
+            "heading": "Soak",
+            "body": "<p>Fill a small bowl with warm, not boiling, water and add a few drops of mild washing up liquid. Soak suitable jewellery for 15 to 20 minutes.</p>"
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "number": "03",
+            "heading": "Brush",
+            "body": "<p>Use a clean, very soft toothbrush kept only for jewellery. Hold the ring by its band and brush gently around the setting, the gallery and the underside of the stones, which is where the dullness lives. Do not force bristles beneath delicate claws.</p>"
+          }
+        },
+        "s4": {
+          "type": "step",
+          "settings": {
+            "number": "04",
+            "heading": "Rinse and dry",
+            "body": "<p>Rinse in a second bowl of clean lukewarm water, never under an open running tap. Pat dry with a clean lint free cloth and let the ring air dry fully before wearing or storing it.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "4",
+        "show_head": true,
+        "eyebrow": "Safe Home Cleaning",
+        "heading": "The Four Step Method",
+        "intro": "About twenty minutes from start to finish, and most of that is waiting."
+      }
+    },
+    "never": {
+      "type": "fye-checklist",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "label": "Bleach and chlorine products",
+            "note": "They can attack gold alloys."
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "label": "Toothpaste",
+            "note": "Abrasive, and it marks precious metal."
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "label": "Bicarbonate of soda and abrasive powders",
+            "note": ""
+          }
+        },
+        "i4": {
+          "type": "item",
+          "settings": {
+            "label": "Household cleaners and solvents",
+            "note": ""
+          }
+        },
+        "i5": {
+          "type": "item",
+          "settings": {
+            "label": "Boiling water",
+            "note": "Warm is enough, and sudden temperature change damages some stones."
+          }
+        },
+        "i6": {
+          "type": "item",
+          "settings": {
+            "label": "An open plughole",
+            "note": "Use a bowl, or put the plug in first."
+          }
+        },
+        "i7": {
+          "type": "item",
+          "settings": {
+            "label": "A running tap",
+            "note": "Rinse in a second bowl instead."
+          }
+        },
+        "i8": {
+          "type": "item",
+          "settings": {
+            "label": "Steam, on anything delicate",
+            "note": "Never on emerald, opal, pearl or turquoise."
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6",
+        "i7",
+        "i8"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Never",
+        "heading": "What Should Not Go Near Your Jewellery",
+        "intro": "Each of these either marks precious metal, attacks an alloy, or strips a treatment out of a stone.",
+        "note": "Mild washing up liquid, warm water and a soft brush are safer than any of them, and they work better."
+      }
+    },
+    "ultrasonic": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "default",
+        "narrow": true,
+        "eyebrow": "Home Ultrasonic Cleaners",
+        "heading": "It Finds Weakness, It Does Not Create It",
+        "body": "<p>Do not use a home ultrasonic cleaner on emeralds, opals, pearls, turquoise, fracture filled or treated gemstones, antique jewellery, micro pavé or delicate settings, or any ring with a stone you suspect is loose.</p><p>Ultrasonic vibration does not create weakness, but it finds it. A stone that was merely loose can be gone in seconds. Professional ultrasonic equipment is only used after a piece has been inspected.</p>"
+      }
+    },
+    "delicate": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Emerald | Brief, gentle hand cleaning only. Never steam or ultrasonic. | Most emeralds are oiled, and the oil can be stripped. Avoid heat and chemicals."
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Opal | Wipe with a soft, barely damp cloth. | Opal can craze. Avoid heat, prolonged soaking and temperature change."
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Pearl | Wipe with a soft cloth after every wear. Never soak, never ultrasonic. | Perfume and hairspray are the main enemy. Put pearls on last and take them off first."
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Turquoise | Wipe with a soft, slightly damp cloth. | Porous. Avoid cosmetics, oils, solvents, steam and ultrasonic."
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Tanzanite | Gentle lukewarm soapy water only. | It cleaves readily, so protect it from knocks and temperature shock."
+          }
+        },
+        "r6": {
+          "type": "row",
+          "settings": {
+            "cells": "Any treated stone | Ask us before cleaning anything. | Fracture filled, oiled, dyed, coated and heat treated stones all behave differently. Your report or invoice states the treatment."
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Ask Us First",
+        "heading": "Stones That Need a Different Approach",
+        "intro": "Hardness is not the same as toughness, and a treatment can change everything about how a stone should be cleaned. If your piece appears here, stop before the bowl of water.",
+        "headers": "Stone | How to clean it | Why",
+        "first_col_bold": true,
+        "narrow": false,
+        "col1_width": 20,
+        "note": ""
+      }
+    },
+    "troubleshooting": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "number": "",
+            "heading": "My diamond looks dull",
+            "body": "<p>Skin oils, moisturiser, soap and hand sanitiser collect beneath the stone. Use the four step method above if your ring is suitable. If it stays dull, the residue has compacted and needs a professional clean.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "number": "",
+            "heading": "My white gold looks yellow",
+            "body": "<p>The rhodium plating is wearing and the warmer natural alloy is showing through. Entirely normal, and no amount of cleaning will change it. Replating restores the bright white. It is quick, and it is chargeable.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "number": "",
+            "heading": "My platinum ring is scratched",
+            "body": "<p>Platinum develops a patina relatively quickly. It can be professionally polished, but it does not need refinishing for every mark, and many owners prefer it once it has settled.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "number": "",
+            "heading": "My satin finish is going shiny",
+            "body": "<p>Daily contact burnishes textured surfaces. The satin or brushed finish can be professionally reapplied whenever you want the piece refreshed.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "number": "",
+            "heading": "My finger is irritated",
+            "body": "<p>Remove the ring and let the skin recover. Trapped soap, moisture or product residue is the usual cause rather than the metal itself. Clean the ring, dry the finger properly, and seek medical advice if it persists.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Common Concerns",
+        "heading": "If It Still Does Not Look Right",
+        "intro": "Cleaning fixes some of these. The rest are finishes doing what finishes do.",
+        "note": ""
+      }
+    },
+    "professional": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "ivory",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "The Annual Clean",
+        "heading": "What a Workshop Clean Adds",
+        "body": "<p>Every ring we supply includes free professional inspection for life, with a standard professional clean at the same time. The inspection is the valuable half. We check the shape of the ring, stone security, claws and setting edges, pavé and channel work, visible wear, any previous repairs, and the condition of the finish.</p><p>Please contact us before posting anything. We will confirm the workshop address, how to package the ring, the right insured postal method and the return arrangements. Unarranged packages can arrive uninsured, untracked or unidentifiable.</p><p>If we find work that falls outside the complimentary service, we explain the options and the cost first. Nothing chargeable happens without a yes from you.</p>"
+      }
+    },
+    "doubt": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "When in Doubt",
+        "heading": "Do Less",
+        "body": "<p>Nothing in a jewellery box is improved by aggressive cleaning. A soft dry cloth, an occasional gentle soak, and a professional clean once a year will keep almost any piece looking well.</p>"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "How often should I clean my ring at home?",
+            "a": "<p>Every few weeks is plenty for a ring worn daily, and sooner if the stone starts to look flat. Cleaning too often does no harm when the method is gentle, but it is rarely necessary.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Is toothpaste safe for cleaning jewellery?",
+            "a": "<p>No. Toothpaste is abrasive and marks precious metal. Mild washing up liquid, warm water and a soft brush are safer and work better.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Why does my diamond go cloudy so quickly?",
+            "a": "<p>Hand sanitiser, soap, moisturiser and sun cream collect underneath the stone, where light enters. Alcohol hand gel is the fastest offender because it is used constantly and dries to a film. Putting the ring on after creams and gels makes the biggest difference.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I use an ultrasonic cleaner at home?",
+            "a": "<p>We would rather you did not. Ultrasonic vibration does not create weakness, but it finds it, and a stone that was merely loose can be gone in seconds. It is unsuitable for emeralds, opals, pearls, turquoise, treated stones, antique jewellery, micro pavé and delicate settings.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "How do I clean a pavé or micro pavé ring?",
+            "a": "<p>Very gently. Soak, then brush lightly around and beneath the stones without forcing bristles under the beads or claws. Do not use an ultrasonic cleaner. If a stone sits lower than its neighbours or looks dark, stop and contact us instead of cleaning it.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "What water temperature is safe?",
+            "a": "<p>Warm, never boiling, and lukewarm for the rinse. Sudden temperature change is a genuine risk for opal, tanzanite, aquamarine and peridot, which can crack or craze rather than simply scratch.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I clean a pearl necklace the same way?",
+            "a": "<p>No. Wipe pearls with a soft cloth after every wear and never soak them. Perfume and hairspray do most of the damage, so put pearls on last and take them off first.</p>"
+          }
+        },
+        "q8": {
+          "type": "qa",
+          "settings": {
+            "q": "Is the professional clean really free?",
+            "a": "<p>Yes. The annual condition inspection and a standard professional clean are complimentary for the life of every piece we supply. Postage and insured return carriage are not, and neither is replating, polishing, refinishing or repair work. All costs are explained and approved before any chargeable work begins.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8"
+      ],
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Cleaning Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "white",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "/pages/ring-and-jewellery-care-guide-download",
+            "style": "btn--primary",
+            "klaviyo_form": ""
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/ring-care-guide-cover.png",
+        "cover_alt": "The Ring and Jewellery Care Guide",
+        "cover_caption": "The Ring and Jewellery Care Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Ring and Jewellery Care Guide",
+        "body": "<p>Wearing, cleaning, storing and protecting fine jewellery, in one printable PDF. Written for owners of engagement rings, wedding and eternity rings, gemstone pieces and everyday precious metal jewellery.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Care Guide",
+            "title": "Everyday Wear and Habits",
+            "desc": "What normal wear looks like, and the four habits that protect a ring.",
+            "cta": "Read more",
+            "link": "/pages/ring-care-everyday"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Care Guide",
+            "title": "When to Take It Off",
+            "desc": "The tasks, the water, and the two minutes that save a ring.",
+            "cta": "Read more",
+            "link": "/pages/ring-care-when-to-remove"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Care Guide",
+            "title": "The Ring and Jewellery Care Guide",
+            "desc": "Every chapter, from the first week to the annual check.",
+            "cta": "Start here",
+            "link": "/pages/ring-and-jewellery-care-guide"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Stones",
+            "title": "Gemstone Durability",
+            "desc": "Which stones tolerate what, before you clean anything.",
+            "cta": "Read more",
+            "link": "/pages/gemstone-durability"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Chapters"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "before",
+    "steps",
+    "never",
+    "ultrasonic",
+    "delicate",
+    "troubleshooting",
+    "professional",
+    "doubt",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

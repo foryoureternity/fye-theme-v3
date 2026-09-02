@@ -1,0 +1,354 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Diamond Alternatives"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Moissanite, white sapphire and the rest, compared honestly</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/jewellers-loupe-loose-round-diamonds.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Diamond Education",
+        "heading": "They Are Not Fake Diamonds",
+        "body": "<p>Diamond alternatives can be beautiful, but they should be chosen honestly. They are not imitation diamonds. They are different stones with different properties, different appearances and different wear expectations.</p><p>An alternative is a good choice when it is chosen as itself, rather than as a secret substitute for something else. If what you actually want is a diamond on a smaller budget, a <a href=\"/pages/lab-grown-diamonds\">lab-grown diamond</a> is usually the better answer than a different mineral.</p><p>What follows is the honest position on each: how hard it is, how it looks, and how it will wear over decades rather than weeks.</p>"
+      }
+    },
+    "stones": {
+      "type": "fye-terms",
+      "blocks": {
+        "s1": {
+          "type": "term",
+          "settings": {
+            "heading": "Moissanite",
+            "body": "<p>A lab-created stone that is bright, durable and very sparkly. At around 9.25 on the Mohs scale it is one of the hardest stones used in jewellery, second only to diamond, so it wears well every day.</p><p>It shows noticeably more rainbow fire than diamond, which some people love and others find too much. Of everything on this page it is the only one we would recommend without hesitation for an engagement ring worn daily.</p>",
+            "meta": "Mohs 9.25 · excellent for daily wear"
+          }
+        },
+        "s2": {
+          "type": "term",
+          "settings": {
+            "heading": "White sapphire",
+            "body": "<p>Durable at Mohs 9, but it does not sparkle like a diamond. It has a softer, glassier appearance and tends to look more muted over time if it is not cleaned regularly, because it shows surface film more readily.</p><p>A reasonable choice for someone who likes an understated, less brilliant look, and a poor one for anyone expecting diamond-like fire.</p>",
+            "meta": "Mohs 9 · durable but muted"
+          }
+        },
+        "s3": {
+          "type": "term",
+          "settings": {
+            "heading": "White topaz",
+            "body": "<p>Affordable and bright when new, but not ideal for long-term daily ring wear. It is reasonably hard at Mohs 8, yet it is brittle and has a natural cleavage plane, so it chips along the edges and loses its crispness with knocks over time.</p><p>Better suited to pendants and earrings than to a ring worn every day.</p>",
+            "meta": "Mohs 8 · brittle, occasional wear"
+          }
+        },
+        "s4": {
+          "type": "term",
+          "settings": {
+            "heading": "Zircon",
+            "body": "<p>Natural zircon has genuinely lively sparkle and high dispersion, but it is more brittle than diamond and abrades at the facet edges over time. Not to be confused with cubic zirconia, which is a synthetic imitation and not something we work with.</p><p>Beautiful in the right design, particularly for occasional wear.</p>",
+            "meta": "Mohs 6–7.5 · occasional wear"
+          }
+        },
+        "s5": {
+          "type": "term",
+          "settings": {
+            "heading": "Colourless spinel",
+            "body": "<p>A less common option with attractive brightness and good durability at Mohs 8. It is not a diamond substitute in the traditional sense, and it is rarely marketed as one, which is rather the point.</p><p>Worth considering if you want something genuinely unusual that still wears well.</p>",
+            "meta": "Mohs 8 · good durability"
+          }
+        },
+        "s6": {
+          "type": "term",
+          "settings": {
+            "heading": "What we would not recommend",
+            "body": "<p>Cubic zirconia is a synthetic imitation with low hardness that clouds and scratches within months of daily wear. It has a legitimate place in a temporary proposal ring, and we routinely make those, but not in a ring meant to last.</p>",
+            "meta": "Temporary rings only"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "3",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Stone by Stone",
+        "heading": "The Realistic Options",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "compare": {
+      "type": "fye-table",
+      "blocks": {
+        "t1": {
+          "type": "row",
+          "settings": {
+            "cells": "Diamond | 10 | Excellent | Balanced white light and fire | Daily wear, indefinitely"
+          }
+        },
+        "t2": {
+          "type": "row",
+          "settings": {
+            "cells": "Moissanite | 9.25 | Excellent | More rainbow fire than diamond | Daily wear, indefinitely"
+          }
+        },
+        "t3": {
+          "type": "row",
+          "settings": {
+            "cells": "White sapphire | 9 | Very good | Softer, glassier, less fire | Daily wear with regular cleaning"
+          }
+        },
+        "t4": {
+          "type": "row",
+          "settings": {
+            "cells": "Colourless spinel | 8 | Good | Bright and clean | Daily wear with care"
+          }
+        },
+        "t5": {
+          "type": "row",
+          "settings": {
+            "cells": "White topaz | 8 | Poor, brittle | Bright when new | Pendants and earrings"
+          }
+        },
+        "t6": {
+          "type": "row",
+          "settings": {
+            "cells": "Natural zircon | 6–7.5 | Poor, abrades | Lively, high dispersion | Occasional wear"
+          }
+        },
+        "t7": {
+          "type": "row",
+          "settings": {
+            "cells": "Cubic zirconia | 8 | Poor, clouds | Bright when new, dulls fast | Temporary rings only"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6",
+        "t7"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "At a Glance",
+        "heading": "How They Actually Compare",
+        "intro": "Hardness resists scratching. Toughness resists chipping. They are not the same thing, and for a ring worn every day toughness matters at least as much.",
+        "headers": "Stone | Mohs | Toughness | Look | Suited to",
+        "first_col_bold": true,
+        "note": "Diamond included at the top for reference."
+      }
+    },
+    "honest": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Our Position",
+        "heading": "Choose It as Itself",
+        "body": "<p>An alternative stone is a good choice when it is chosen deliberately, disclosed openly and set into a design that suits it. It is a bad choice when it is bought hoping nobody will ask.</p><p>If budget is the driver, we would usually point you towards a smaller, well-cut diamond or a lab-grown one before a different mineral. If the look or the ethics are the driver, moissanite is genuinely excellent and we are glad to make it.</p>"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Is moissanite the same as a diamond?",
+            "a": "<p>No. It is silicon carbide rather than carbon, so it is a genuinely different mineral. It is nearly as hard at 9.25 against diamond's 10, and it has higher dispersion, which means noticeably more rainbow flashes. Side by side most people can tell them apart; individually, most people cannot.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Will moissanite last as long as a diamond?",
+            "a": "<p>For practical purposes, yes. At 9.25 on the Mohs scale it resists scratching from almost everything it will encounter in daily life, and it does not cloud or discolour. It is the only alternative on this page we would recommend for an engagement ring worn every day.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Should I buy moissanite or a lab-grown diamond?",
+            "a": "<p>If you want a diamond, buy the lab-grown diamond. If you like moissanite's extra fire, or want the largest possible stone for the money, moissanite goes further. Lab-grown diamond prices have fallen enough that the gap is narrower than it once was.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Why do you not recommend cubic zirconia?",
+            "a": "<p>It clouds and scratches within months of daily wear, and no amount of cleaning restores it. We do make temporary proposal rings in silver set with cubic zirconia, which is a genuinely useful thing when you want to propose and design the real ring together afterwards. It just should not be the final ring.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Can an alternative stone be set in a proper ring?",
+            "a": "<p>Of course. We set moissanite and white sapphire in exactly the same platinum and gold settings as diamonds, with the same workmanship and the same lifetime service. The stone is the only thing that differs.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Alternative Stone Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "UbTxH7"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/diamond-and-gemstone-guide-cover.png",
+        "cover_alt": "The Diamond and Gemstone Guide",
+        "cover_caption": "The Diamond and Gemstone Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Diamond and Gemstone Guide",
+        "body": "<p>Alternatives in full, plus the Four Cs, shapes, natural against lab-grown, fancy colour, coloured gemstones, treatments and durability.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Diamond Education",
+            "title": "Natural vs Lab-Grown",
+            "desc": "Usually the better answer if budget is the driver.",
+            "cta": "Read more",
+            "link": "/pages/lab-grown-diamonds"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Gemstone Education",
+            "title": "Coloured Gemstones",
+            "desc": "If you would rather have colour than a colourless stone.",
+            "cta": "Read more",
+            "link": "/pages/gemstone-education"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Section Hub",
+            "title": "Diamond Education",
+            "desc": "All eight diamond guides in one place.",
+            "cta": "Back to the hub",
+            "link": "/pages/diamond-education"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "stones",
+    "compare",
+    "honest",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

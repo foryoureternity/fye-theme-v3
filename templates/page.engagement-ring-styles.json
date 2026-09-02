@@ -1,0 +1,537 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Engagement Ring Styles"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Ten silhouettes, and the hidden details that lift them</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 30,
+        "image": "shopify://shop_images/oval-solitaire-pave-band-engagement-ring-hand.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "The Shape of the Whole Ring",
+        "heading": "Style Is the Silhouette, Not the Setting",
+        "body": "<p>An engagement ring style describes how the whole ring is composed around its centre stone: whether that stone stands alone, sits inside a halo, is flanked by two others, or is framed by a rim of metal. It is the thing you recognise across a room.</p><p>That is a different question from how each individual stone is held in the metal, which is covered in <a href=\"/pages/stone-settings\">stone settings</a> and matters most on bands where stones repeat around the finger.</p><p>The style you choose changes three things at once: how large the centre stone reads on the hand, how the ring will sit against a future wedding band, and how much day-to-day care it will ask for.</p>"
+      }
+    },
+    "styles": {
+      "type": "fye-cards",
+      "blocks": {
+        "s1": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/solitaire-plain-band-engagement-ring.png",
+            "label": "Solitaire",
+            "heading": "Solitaire, Plain Shoulders",
+            "body": "<p>The timeless single-stone silhouette. Puts almost the entire budget into the stone, sits flush against most wedding bands, and suits every hand. <a href=\"/collections/solitaire\">Browse solitaires</a>.</p>"
+          }
+        },
+        "s2": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/solitaire-diamond-set-shoulders-engagement-ring.png",
+            "label": "Solitaire",
+            "heading": "Solitaire, Diamond Shoulders",
+            "body": "<p>A classic solitaire with brilliant shoulders. More sparkle across the finger without enlarging the centre stone, though it limits future resizing slightly.</p>"
+          }
+        },
+        "s3": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/halo-plain-band-engagement-ring.png",
+            "label": "Halo",
+            "heading": "Halo, Plain Shoulders",
+            "body": "<p>Haloed presence on a clean band. A halo makes a centre stone read noticeably larger for the money, which is why it is the best-value way to buy visual size. <a href=\"/collections/halo-1\">Browse halos</a>.</p>"
+          }
+        },
+        "s4": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/halo-diamond-set-shoulders-engagement-ring.png",
+            "label": "Halo",
+            "heading": "Halo, Diamond Shoulders",
+            "body": "<p>Halo and pavé shoulders together, for maximum sparkle. The brightest of the classic silhouettes, and the one that asks for the most regular inspection.</p>"
+          }
+        },
+        "s5": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/hidden-halo-engagement-ring.png",
+            "label": "Halo",
+            "heading": "Hidden Halo",
+            "body": "<p>A secret halo seen only from the side. Clean from above, a surprise in profile, and a way to add sparkle without changing the ring's outline. <a href=\"/collections/hidden-halo\">Browse hidden halos</a>.</p>"
+          }
+        },
+        "s6": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/trilogy-three-stone-engagement-ring.png",
+            "label": "Multi-stone",
+            "heading": "Trilogy",
+            "body": "<p>Three stones for past, present and future. Reads wider on the finger than a solitaire of the same total weight, and carries obvious meaning. <a href=\"/collections/trilogy\">Browse trilogy rings</a>.</p>"
+          }
+        },
+        "s7": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/split-shoulder-engagement-ring.png",
+            "label": "Shoulders",
+            "heading": "Split Shoulders",
+            "body": "<p>A divided band lifts and frames the stone, adding presence without adding carat weight. Often needs a shaped wedding band to sit flush.</p>"
+          }
+        },
+        "s8": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/multistone-invisible-set-engagement-ring.png",
+            "label": "Multi-stone",
+            "heading": "Multistone Invisible",
+            "body": "<p>Edge-to-edge stones with no visible metal between them. Modern and unusually bright, and quite unlike anything traditional. <a href=\"/collections/multistone-invisible\">Browse invisible-set rings</a>.</p>"
+          }
+        },
+        "s9": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/oyster-deluxe-engagement-ring.png",
+            "label": "Openwork",
+            "heading": "Oyster Deluxe",
+            "body": "<p>An openwork basket cradles the stone, letting light in from beneath and lightening the whole design. Beautiful at close range.</p>"
+          }
+        },
+        "s10": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/bezel-set-solitaire-engagement-ring.png",
+            "label": "Protective",
+            "heading": "Bezel",
+            "body": "<p>A full metal rim, sleek and secure. The most protective silhouette there is and the most snag-free, which makes it the sensible choice for hands-on work.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "show_head": true,
+        "eyebrow": "Popular Styles",
+        "heading": "Ten Silhouettes, Compared",
+        "intro": "Illustrated at a consistent scale so the outlines can be judged honestly against each other."
+      }
+    },
+    "priority": {
+      "type": "fye-chips",
+      "blocks": {
+        "p1": {
+          "type": "chip",
+          "settings": {
+            "name": "Most secure",
+            "sub": "Bezel"
+          }
+        },
+        "p2": {
+          "type": "chip",
+          "settings": {
+            "name": "Most sparkle",
+            "sub": "Halo with diamond shoulders"
+          }
+        },
+        "p3": {
+          "type": "chip",
+          "settings": {
+            "name": "Biggest look for the money",
+            "sub": "Halo"
+          }
+        },
+        "p4": {
+          "type": "chip",
+          "settings": {
+            "name": "Active lifestyle",
+            "sub": "Bezel or low solitaire"
+          }
+        },
+        "p5": {
+          "type": "chip",
+          "settings": {
+            "name": "Best band fit",
+            "sub": "Low solitaire"
+          }
+        },
+        "p6": {
+          "type": "chip",
+          "settings": {
+            "name": "Most meaning",
+            "sub": "Trilogy"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4",
+        "p5",
+        "p6"
+      ],
+      "settings": {
+        "band": "white",
+        "align": "centre",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Start Here",
+        "heading": "Find Your Style by Priority",
+        "intro": "If you only know one thing about what matters most, start from that and work back.",
+        "note": ""
+      }
+    },
+    "hidden": {
+      "type": "fye-terms",
+      "blocks": {
+        "h1": {
+          "type": "term",
+          "settings": {
+            "heading": "Hidden halo",
+            "body": "<p>Tiny diamonds tucked beneath the centre stone, visible only from the side. Clean from above, a private detail in profile.</p>"
+          }
+        },
+        "h2": {
+          "type": "term",
+          "settings": {
+            "heading": "Milgrain edging",
+            "body": "<p>A row of tiny beaded metal dots along an edge. Characteristic of vintage and art-deco design, and it softens a hard line beautifully.</p>"
+          }
+        },
+        "h3": {
+          "type": "term",
+          "settings": {
+            "heading": "Gallery work and filigree",
+            "body": "<p>Intricate metalwork beneath the head of the ring, seen only at close range. The part a jeweller judges another jeweller on.</p>"
+          }
+        },
+        "h4": {
+          "type": "term",
+          "settings": {
+            "heading": "Surprise diamonds",
+            "body": "<p>Small accent stones set inside the band or under the basket, where only the wearer knows they are there.</p>"
+          }
+        },
+        "h5": {
+          "type": "term",
+          "settings": {
+            "heading": "Custom engraving",
+            "body": "<p>A date, initials, a coordinate or a private phrase inside the band. Ask before the ring is finished, since some designs are harder to engrave afterwards.</p>"
+          }
+        },
+        "h6": {
+          "type": "term",
+          "settings": {
+            "heading": "Cathedral shoulders",
+            "body": "<p>The band sweeps upward to meet the setting, lifting the stone and giving the profile an arched line rather than a flat one.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "h6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "The Details Nobody Photographs",
+        "heading": "Hidden Details That Elevate a Ring",
+        "intro": "These cost comparatively little and are what people notice years later.",
+        "note": ""
+      }
+    },
+    "lifestyle": {
+      "type": "fye-table",
+      "blocks": {
+        "l1": {
+          "type": "row",
+          "settings": {
+            "cells": "Hands-on or active | Bezel, low-profile solitaire | Secure and snag-free above all"
+          }
+        },
+        "l2": {
+          "type": "row",
+          "settings": {
+            "cells": "Desk-based or creative | Almost anything | Halo, pavé and trilogy all wear well"
+          }
+        },
+        "l3": {
+          "type": "row",
+          "settings": {
+            "cells": "Hands in water often | Bezel or low-profile platinum | Avoid softer stones entirely"
+          }
+        },
+        "l4": {
+          "type": "row",
+          "settings": {
+            "cells": "Vintage lovers | Halo, hidden halo, milgrain and filigree | Detail rewards close looking"
+          }
+        },
+        "l5": {
+          "type": "row",
+          "settings": {
+            "cells": "Minimalists | Solitaire, east-west, bezel | A plain band with a stand-out stone"
+          }
+        }
+      },
+      "block_order": [
+        "l1",
+        "l2",
+        "l3",
+        "l4",
+        "l5"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Match It to the Hand",
+        "heading": "Style by Lifestyle",
+        "intro": "A surgeon, a climber and a graphic designer all need different rings. A delicate vintage halo on a hands-on hand will catch, snag and eventually break.",
+        "headers": "Lifestyle | Best-suited styles | Why",
+        "first_col_bold": true,
+        "note": ""
+      }
+    },
+    "band_warning": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Think About the Pair",
+        "heading": "Will a Wedding Band Sit Against It?",
+        "body": "<p>A spectacular engagement ring that will not sit flush with any straight band is a costly oversight, and one we see regularly. Low solitaires and bezels pair with almost anything. Split shoulders, cathedral settings and low-set halos often need a shaped or fitted band made to follow their outline.</p><p>It is far cheaper to know this before the engagement ring is made than to discover it a year later. Tell us if a matching band matters and we will design for the pair from the start.</p>"
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "eyebrow": "The Other Half of the Question",
+        "heading": "How the Stones Are Actually Held",
+        "body": "<p>Style is the silhouette. How each individual stone is secured in the metal, claw, pavé, channel, bezel or flush, is a separate decision that governs sparkle, security and whether the ring can ever be resized.</p>",
+        "link": "/pages/stone-settings",
+        "link_label": "Read about stone settings"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Which engagement ring style makes a diamond look biggest?",
+            "a": "<p>A halo, comfortably. Surrounding the centre stone with small diamonds can add the appearance of half a carat or more for a fraction of the cost of buying that weight in the centre stone. A hidden halo does the same job more subtly.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Which style is best if they work with their hands?",
+            "a": "<p>Bezel, or a low-profile solitaire. Both keep the stone close to the finger with nothing to catch. A high claw setting on a busy hand will snag, and eventually a claw will bend or break.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Will a wedding band sit flush against any of these?",
+            "a": "<p>Low solitaires and bezels usually pair with a straight band without a gap. Split shoulders, cathedral settings and some halos leave a gap and want a shaped or fitted band. Decide early, because it is much easier to design the pair together.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "What is the difference between a halo and a hidden halo?",
+            "a": "<p>A visible halo rings the centre stone when seen from above and makes it read larger. A hidden halo sits underneath the centre stone and is only visible from the side, so the ring keeps a clean outline while gaining sparkle in profile.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Is a trilogy ring more expensive than a solitaire?",
+            "a": "<p>Not necessarily. Three smaller stones can cost less than one large one of the same total weight, because price rises steeply with individual stone size. A trilogy often reads wider on the finger for less money.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I combine styles?",
+            "a": "<p>Yes, and most bespoke commissions do. A hidden halo on a cathedral solitaire with milgrain edging is three ideas in one ring. Every design goes through a 3D CAD render first so you can see it before we cast, and edits are free.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Style Questions We Are Asked Most",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "white",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "V9eDYg"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/Engagement_Ring_Cover.png",
+        "cover_alt": "The Engagement Ring Guide",
+        "cover_caption": "The Engagement Ring Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Engagement Ring Guide",
+        "body": "<p>Styles, the Four Cs, diamond shapes, coloured stones, budget, sizing in secret and the bespoke process. The whole thing, as a printable PDF.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Stone Settings",
+            "desc": "Claw, pavé, channel, bezel and flush, and what each one costs you in upkeep.",
+            "cta": "Read more",
+            "link": "/pages/stone-settings"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Find the Right Metal",
+            "desc": "Platinum, white, yellow and rose gold, and how each wears.",
+            "cta": "Read more",
+            "link": "/pages/find-the-right-metal"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Engagement Rings",
+            "desc": "Browse by style, shape and stone, with live pricing.",
+            "cta": "Browse rings",
+            "link": "/collections/engagement-rings"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "styles",
+    "priority",
+    "hidden",
+    "lifestyle",
+    "band_warning",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

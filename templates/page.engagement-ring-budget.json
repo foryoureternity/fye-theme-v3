@@ -1,0 +1,410 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Setting a Budget"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Chapter one of The Engagement Ring Guide</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 30,
+        "image": "shopify://shop_images/couple-engagement-ring-consultation-showroom.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Where the Money Goes",
+        "heading": "Ignore the Three Months' Salary Rule",
+        "body": "<p>Money shapes every decision that follows, so it is worth settling first. You may have heard that an engagement ring should cost three months' salary. Ignore it. That guideline was invented by a diamond marketing campaign in the mid-twentieth century and has no bearing on what you should actually spend.</p><p>A sensible budget is one you can afford comfortably, without debt, and without compromising other plans that matter, whether that is the wedding, a home or a honeymoon. Couples today spend anywhere from a few hundred pounds to tens of thousands. The right figure is entirely personal, and nobody outside the two of you is keeping score.</p><p>Entry-level engagement rings start from around £750 for classic solitaires with thoughtfully specified lab-grown diamonds or gemstones. From there, what changes is not quality of workmanship but the stone.</p>"
+      }
+    },
+    "routes": {
+      "type": "fye-cards",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "label": "Approx. £750 – £1,800",
+            "heading": "Smart Value",
+            "body": "<p>High-carat <a href=\"/pages/lab-grown-diamonds\">lab-grown diamonds</a> or moissanite in platinum or gold solitaire settings. The most carat and sparkle per pound, with no visible compromise once set.</p>"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "label": "Approx. £1,800 – £4,000",
+            "heading": "Balanced Classic",
+            "body": "<p>One carat and above, lab-grown or high-grade natural diamonds, in pavé, halo or trilogy <a href=\"/pages/engagement-ring-styles\">settings</a>. The range most of our commissions sit in.</p>"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "label": "Approx. £4,000+",
+            "heading": "Heritage & High Carat",
+            "body": "<p>Rare natural diamonds, fine sapphires or emeralds, or complex bespoke CAD commissions. Stones sourced individually to your specification.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "3",
+        "show_head": true,
+        "eyebrow": "One Budget, Three Routes",
+        "heading": "What Different Budgets Buy",
+        "intro": "None of these is more correct than the others. Which one suits depends entirely on what your partner values most."
+      }
+    },
+    "pricing_note": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "default",
+        "narrow": true,
+        "eyebrow": "About These Figures",
+        "heading": "Starting Points, Not Quotations",
+        "body": "<p>Precious metal and diamond markets shift daily, so treat the ranges above as baseline starting points rather than prices. Live pricing for every exact specification updates continuously across the site, and we will always quote your actual specification rather than a bracket.</p>"
+      }
+    },
+    "factor_in": {
+      "type": "fye-checklist",
+      "blocks": {
+        "c1": {
+          "type": "item",
+          "settings": {
+            "label": "Insurance",
+            "note": "Home policies often cap rings at around £1,500. Add it as a named item or take a specialist policy."
+          }
+        },
+        "c2": {
+          "type": "item",
+          "settings": {
+            "label": "The wedding band",
+            "note": "Budget for the pair from the start, not as an afterthought a year later."
+          }
+        },
+        "c3": {
+          "type": "item",
+          "settings": {
+            "label": "Resizing",
+            "note": "One complimentary resize within the first year on non-gemstone-set rings where the design allows."
+          }
+        },
+        "c4": {
+          "type": "item",
+          "settings": {
+            "label": "The proposal itself",
+            "note": "Travel, dinner, photographer. It adds up faster than people expect."
+          }
+        },
+        "c5": {
+          "type": "item",
+          "settings": {
+            "label": "Payment options",
+            "note": "We offer transparent, interest-free payment on most rings. Ask before you narrow the budget."
+          }
+        },
+        "c6": {
+          "type": "item",
+          "settings": {
+            "label": "Valuation for travel",
+            "note": "Proposing abroad means a named high-value item on your travel insurance before you fly."
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Beyond the Ring",
+        "heading": "What Else to Factor In",
+        "intro": "The ring is the largest line, but it is not the only one.",
+        "note": "Tell us your total budget rather than your ring budget and we will help you allocate it."
+      }
+    },
+    "mistakes": {
+      "type": "fye-terms",
+      "blocks": {
+        "m1": {
+          "type": "term",
+          "settings": {
+            "number": "01",
+            "heading": "Overspending and regretting it",
+            "body": "<p>No carat weight is worth the stress of debt. We would always rather build a beautiful smaller ring within budget than a larger one you will resent paying off.</p>"
+          }
+        },
+        "m2": {
+          "type": "term",
+          "settings": {
+            "number": "02",
+            "heading": "Believing every deal",
+            "body": "<p>If a diamond looks thirty per cent cheaper than equivalents, something has been compromised: cut, fluorescence, or a hidden inclusion. Insist on an independent GIA or IGI grading report and compare like with like.</p>"
+          }
+        },
+        "m3": {
+          "type": "term",
+          "settings": {
+            "number": "03",
+            "heading": "Paying for what nobody can see",
+            "body": "<p>Flawless clarity and a D colour grade cost a great deal and are invisible on the hand. VS clarity and a G to I colour are our house recommendation for exactly this reason. Spend the difference on <a href=\"/pages/diamond-4cs\">cut</a>, which is where sparkle actually lives.</p>"
+          }
+        },
+        "m4": {
+          "type": "term",
+          "settings": {
+            "number": "04",
+            "heading": "Forgetting it has to be insured",
+            "body": "<p>A ring left uninsured is a ring you can lose twice. Factor the premium in before you commit, not after it arrives.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "m1",
+        "m2",
+        "m3",
+        "m4"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "numbering": "numbers",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Learn From Others",
+        "heading": "Budget Mistakes We See Most",
+        "intro": "After years of conversations with couples, the same regrets surface again and again."
+      }
+    },
+    "reassurance": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "A Note From Us",
+        "heading": "A Modest Budget Does Not Mean a Modest Ring",
+        "body": "<p>Lab-grown diamonds, moissanite and thoughtfully chosen natural stones can all produce breathtaking rings at a fraction of the price. Clever setting design can make a smaller stone appear considerably larger on the hand, and a well-cut stone at a lower carat will outshine a poorly cut larger one every time.</p><p>Whatever you decide to spend, spend it with confidence. They will not be counting the carats. They will be looking at your face.</p>"
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "eyebrow": "Where the Money Actually Goes",
+        "heading": "Understand the Four Cs Before You Commit",
+        "body": "<p>Cut, colour, clarity and carat move the price far more than anything else about the ring. Knowing which of them you can compromise on, and which you cannot, is the single most useful thing you can do for your budget.</p>",
+        "link": "/pages/diamond-4cs?guide=engagement",
+        "link_label": "Read the Four Cs chapter"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "How much should I actually spend on an engagement ring?",
+            "a": "<p>Whatever you can afford comfortably without debt. The three months' salary rule came from a 1930s advertising campaign and has no basis beyond marketing. Our commissions range from around £750 to well into five figures, and the couples at both ends are equally happy.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Do you offer payment plans?",
+            "a": "<p>Yes. We offer transparent, interest-free payment options on most rings. Tell us the budget you are working to and we will show you what is possible across it.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Will a lab-grown diamond hold its value?",
+            "a": "<p>Natural diamonds have a more established secondary market, but jewellery should primarily be chosen to wear and enjoy rather than as an investment. If you want maximum size and sparkle for your budget, lab-grown can be excellent.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "What is the cheapest engagement ring you would be happy to make?",
+            "a": "<p>Around £750 buys a classic solitaire with a well-specified lab-grown diamond or gemstone in gold or platinum. We do not make anything we would not be happy to put our name to, so the floor is set by quality rather than by price.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I spend more on the stone and less on the setting?",
+            "a": "<p>Yes, and many people do. A simple solitaire in a well-made setting puts almost the entire budget into the stone. The reverse also works: a smaller stone in a pavé or halo setting reads much larger on the hand for less money.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "Should I tell you my budget?",
+            "a": "<p>Please do. It is the fastest route to the right ring, and it is not used to push you upwards. Knowing the figure lets us show you the best possible stone within it rather than guessing.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Budget Questions We Are Asked Most",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "white",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "V9eDYg"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/Engagement_Ring_Cover.png",
+        "cover_alt": "The Engagement Ring Guide",
+        "cover_caption": "The Engagement Ring Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Engagement Ring Guide",
+        "body": "<p>Budget, the Four Cs, diamond shapes, coloured stones, settings, sizing in secret, the bespoke process and everyday wear. The whole thing, as a printable PDF.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Next Chapter",
+            "title": "Understanding Their Style",
+            "desc": "Reading what they already wear, and what it tells you.",
+            "cta": "Read more",
+            "link": "/pages/engagement-ring-style?guide=engagement"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Stone",
+            "title": "Lab-Grown vs Natural",
+            "desc": "Where the biggest budget decision of all actually gets made.",
+            "cta": "Read more",
+            "link": "/pages/lab-grown-diamonds?guide=engagement"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Engagement Rings",
+            "desc": "Browse by shape, style and stone, with live pricing.",
+            "cta": "Browse rings",
+            "link": "/collections/engagement-rings"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "routes",
+    "pricing_note",
+    "factor_in",
+    "mistakes",
+    "reassurance",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

@@ -64,14 +64,30 @@
      Without this, every carousel in the theme reads as a layout fault: the
      gallery reported 12 on 02/09/2026 while the document did not scroll at
      all. */
-  function clipper(el) {
+  function clippers(el) {
+    var out = [];
     var node = el.parentElement;
     while (node && node !== document.body) {
       var ox = getComputedStyle(node).overflowX;
-      if (ox && ox !== 'visible') return node;
+      if (ox && ox !== 'visible') out.push(node);
       node = node.parentElement;
     }
-    return null;
+    return out;
+  }
+
+  /* Contained if ANY clipping ancestor is itself on screen.
+     The whole chain matters, not just the nearest: in a carousel the nearest
+     clipper is often an <svg> (overflow hidden by default) inside a slide that
+     is legitimately parked off-screen, inside the element that actually does
+     the clipping. Judging by the nearest one reported every waiting slide —
+     12 of them on the About page. */
+  function contained(el, vw) {
+    var list = clippers(el);
+    for (var i = 0; i < list.length; i++) {
+      var r = list[i].getBoundingClientRect();
+      if (r.right <= vw + 2 && r.left >= -2) return true;
+    }
+    return false;
   }
 
   function visible(el) {
@@ -122,17 +138,7 @@
         var r = el.getBoundingClientRect();
         if (r.right <= vw + 2 && r.left >= -2) continue;
 
-        var clip = clipper(el);
-        if (clip) {
-          var cr = clip.getBoundingClientRect();
-          // The clipping box is itself on screen, so nothing escapes: this is
-          // a carousel slide waiting its turn, not a layout fault.
-          if (cr.right <= vw + 2 && cr.left >= -2) continue;
-          out.push('overflows by ' + Math.round(Math.max(r.right - vw, -r.left)) +
-                   'px: ' + where(el) + '  — clipped by ' + where(clip) + ', which itself overflows');
-          seen++;
-          continue;
-        }
+        if (contained(el, vw)) continue;
 
         out.push('overflows by ' + Math.round(Math.max(r.right - vw, -r.left)) + 'px: ' + where(el));
         seen++;

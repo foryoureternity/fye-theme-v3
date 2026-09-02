@@ -31,7 +31,7 @@
   endif
 -%}
 
-<div class="band band--{{ band }}">
+<div class="band band--{{ band }}" data-screen-label="Consultation CTA">
   <div class="wrap">
     <div class="consult">
 
@@ -151,6 +151,10 @@
   display: inline-flex;
   align-items: center;
   gap: 9px;
+  /* 44px: these measured 21px on 02/09/2026 — 13px type with no vertical
+     padding. The height is padding around live's type size, so the band's
+     measured spacing is unchanged; only the tap area grows. */
+  min-height: 44px;
   font-size: 13px;
   letter-spacing: 0.04em;
   color: var(--ivory);

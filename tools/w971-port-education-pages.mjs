@@ -40,6 +40,20 @@ const WRITE = process.argv.includes('--write');
 // Section types Shopify provides or that are theme-level rather than files.
 const BUILTIN = new Set(['apps', 'custom-liquid']);
 
+// Section types this porter REMOVES rather than requires.
+//   fye-breadcrumb — heading-template carries a crumb block
+//   sidebar-page   — v3 has no sidebars anywhere (Ed, 02/09/2026). Blog and
+//                    collection both had one on live; neither does now, so the
+//                    education pages are single-column to match.
+const DROP_TYPES = new Set(['fye-breadcrumb', 'sidebar-page']);
+
+// Never port these, whatever they contain.
+const EXCLUDE = new Set([
+  'page.zz-form-testing.json',        // internal, marked do-not-link
+  'page.about-us-v2.json',            // duplicate of the About page already built
+  'page.edu-test-page.json'           // internal test page
+]);
+
 if (!existsSync(LIVE)) {
   console.error('MISSING: ' + LIVE);
   console.error('Expects the live repo beside this one: ../fye-shopify-theme');
@@ -76,18 +90,22 @@ function transform(doc) {
   const order = Array.isArray(doc.order) ? doc.order.slice() : Object.keys(sections);
 
   let heroId = null;
-  let crumbId = null;
+  const dropIds = new Set();
+  const droppedTypes = new Set();
   const types = new Set();
 
   for (const [id, sec] of Object.entries(sections)) {
     if (!sec || !sec.type) continue;
     types.add(sec.type);
     if (sec.type === 'fye-hero' && !heroId) heroId = id;
-    if (sec.type === 'fye-breadcrumb' && !crumbId) crumbId = id;
+    if (DROP_TYPES.has(sec.type)) {
+      dropIds.add(id);
+      droppedTypes.add(sec.type);
+    }
   }
 
-  // Types we handle ourselves rather than requiring in v3.
-  const needed = [...types].filter((t) => t !== 'fye-hero' && t !== 'fye-breadcrumb');
+  // Types this porter handles itself rather than requiring in v3.
+  const needed = [...types].filter((t) => t !== 'fye-hero' && !DROP_TYPES.has(t));
   const missing = needed.filter((t) => !v3Sections.has(t) && !BUILTIN.has(t));
   if (missing.length) return { missing };
 
@@ -136,7 +154,7 @@ function transform(doc) {
   const outOrder = [];
   for (const id of order) {
     if (!sections[id]) continue;
-    if (id === crumbId) continue;
+    if (dropIds.has(id)) continue;
     if (id === heroId) {
       const b = { ...banner };
       delete b.__heading;
@@ -162,13 +180,14 @@ function transform(doc) {
     json: json + String.fromCharCode(10),
     heading: banner ? banner.__heading : '(no hero)',
     kept: outOrder.length,
-    droppedCrumb: Boolean(crumbId)
+    dropped: droppedTypes.size ? [...droppedTypes].join(', ') : 'none'
   };
 }
 
 const candidates = readdirSync(LIVE)
   .filter((f) => f.startsWith('page.') && f.endsWith('.json'))
   .filter((f) => !existing.has(f))
+  .filter((f) => !EXCLUDE.has(f))
   .sort();
 
 const ready = [];
@@ -229,7 +248,8 @@ if (!WRITE) {
 
 for (const r of ready) {
   writeFileSync(resolve(V3_TEMPLATES, r.name), r.json, 'utf8');
-  console.log('new   ' + r.name + '  — ' + r.heading.slice(0, 60));
+  console.log('new   ' + r.name + '  — ' + r.heading.slice(0, 60) +
+              (r.dropped && r.dropped !== 'none' ? '   [dropped: ' + r.dropped + ']' : ''));
 }
 console.log('');
 console.log('Done. ' + ready.length + ' template(s) written.');

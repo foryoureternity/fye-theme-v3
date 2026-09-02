@@ -1,0 +1,1335 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Ruby"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>The red corundum, and one of the few gemstones that outprices diamond</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 36,
+        "image": "shopify://shop_images/loose-diamonds-coloured-gemstones-sapphire-emerald.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true,
+        "show_contents": true,
+        "contents_label": "On this page"
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Gemstone Education",
+        "heading": "About Ruby",
+        "body": "<p>Ruby is the red variety of corundum. Sapphire is every other colour of the same mineral, so a ruby and a blue sapphire are the same thing with a different trace element colouring them. In ruby that element is chromium, which gives both the red and the quiet glow the best stones hold onto in daylight.</p><p>Two things follow. At Mohs 9, with excellent toughness and no cleavage plane, ruby is one of a very short list of coloured stones we recommend without hesitation for a ring worn every day. And there is a genuine grey area at the boundary with pink sapphire, worth understanding before you compare prices, because it moves them a long way.</p><p>Colour is what you are buying. Clarity matters far less here than in diamond, and a stone with visible inclusions but a superb red is worth more than a clean one with a dull colour. Fine ruby is also rarer in large clean sizes than diamond, which is why the best stones reach prices per carat no other gemstone approaches.</p><p>We source stones to a customer's specification, so this page is written to help you describe what you want.</p>"
+      }
+    },
+    "colour": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Hue: which red",
+            "body": "<p>Nearly every ruby carries a secondary hue. A little purple is the classic cast and is generally preferred. Orange leans warmer and sits slightly lower in value.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Tone: light or dark",
+            "body": "<p>Fine ruby sits in the medium to medium-dark band. Lighter and it drifts towards pink sapphire; darker and it closes up and loses its life under ordinary lighting.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Saturation: how intense",
+            "body": "<p>The strength of the colour, and the biggest single driver of price. The top grade is called vivid. Saturation separates a ruby that reads across a room from one that only works under a spotlight.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Why the three interact",
+            "body": "<p>Pushing tone darker appears to deepen the colour while killing the saturation, which is why a stone that looks rich in a tray can read almost black on a hand.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Where clarity fits",
+            "body": "<p>Ruby is expected to be included. Judge it by whether anything is visible at arm's length, not by what a loupe finds.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Where the cut fits",
+            "body": "<p>Cutting decides how much colour you see. Too shallow and a pale window opens through the middle; too deep and dark extinction patches spread.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "3",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "The Grading Language",
+        "heading": "Hue, Tone and Saturation",
+        "intro": "There is no international grading scale for ruby the way there is for diamond. The trade uses three descriptions of colour instead, and separating them lets you read almost any offer.",
+        "note": ""
+      }
+    },
+    "palette": {
+      "type": "fye-chips",
+      "blocks": {
+        "c1": {
+          "type": "chip",
+          "settings": {
+            "name": "Vivid red",
+            "sub": "Pure red, medium tone, the benchmark",
+            "colour": "#CE1126"
+          }
+        },
+        "c2": {
+          "type": "chip",
+          "settings": {
+            "name": "Slightly purplish red",
+            "sub": "The classic fine Burmese cast",
+            "colour": "#C1123C"
+          }
+        },
+        "c3": {
+          "type": "chip",
+          "settings": {
+            "name": "Pinkish red",
+            "sub": "Where ruby meets pink sapphire",
+            "colour": "#DB5A72"
+          }
+        },
+        "c4": {
+          "type": "chip",
+          "settings": {
+            "name": "Orangey red",
+            "sub": "Warmer and lighter, often African",
+            "colour": "#C8452A"
+          }
+        },
+        "c5": {
+          "type": "chip",
+          "settings": {
+            "name": "Deep red",
+            "sub": "Dark tone, rich but less lively",
+            "colour": "#7E1220"
+          }
+        },
+        "c6": {
+          "type": "chip",
+          "settings": {
+            "name": "Brownish red",
+            "sub": "Iron-rich material, muted and quiet",
+            "colour": "#8C3A2E"
+          }
+        },
+        "c7": {
+          "type": "chip",
+          "settings": {
+            "name": "Purple red",
+            "sub": "Nearing the purple sapphire boundary",
+            "colour": "#8E2B4D"
+          }
+        },
+        "c8": {
+          "type": "chip",
+          "settings": {
+            "name": "Star ruby",
+            "sub": "Silk-rich, cut as a cabochon",
+            "colour": "#A63A45"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8"
+      ],
+      "settings": {
+        "band": "white",
+        "align": "centre",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Colour",
+        "heading": "The Reds You Will Be Offered",
+        "intro": "Swatches are indicative only, and no screen reproduces a red faithfully. They are here to give the vocabulary a shape rather than to be matched against.",
+        "note": "We will always show you the actual stone in daylight and in warm indoor light."
+      }
+    },
+    "why": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "It genuinely takes daily wear",
+            "body": "<p>Mohs 9, excellent toughness, no cleavage. With sapphire and diamond it is one of only three stones we recommend without qualification for a ring worn on an active hand.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Colour with real tradition behind it",
+            "body": "<p>Ruby has been the principal red gemstone of European, Indian and Burmese jewellery for centuries. Choosing it is not a departure from tradition, it is a different one.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "It suits claws, and it suits pave",
+            "body": "<p>Because it does not need protecting the way a softer stone does, ruby can be set high, in claws or among diamonds without the design being a compromise.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "It reads at a distance",
+            "body": "<p>A well-saturated red is visible across a room in a way pale stones are not. Small rubies do a great deal of work for their size.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "The July birthstone",
+            "body": "<p>And the stone of the fortieth anniversary, which makes it one of the most frequently commissioned gift stones we are asked for.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "A real ceiling, and a real floor",
+            "body": "<p>Fine unheated ruby is among the most expensive material on earth by weight, while heated ruby in small sizes stays affordable.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "The Case For It",
+        "heading": "Why Ruby Works",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "terms_table": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Hue | Red, with any secondary of purple or orange | Pure to slightly purplish red is most sought"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Tone | How light or dark the stone is | Medium to medium-dark is the sweet spot"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Saturation | The intensity of the colour | The largest single driver, up or down"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Vivid | The top saturation grade in trade use | The most valuable word on any offer"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Pigeon's blood | A laboratory appellation for a top red | Adds substantially; criteria vary by lab"
+          }
+        },
+        "r6": {
+          "type": "row",
+          "settings": {
+            "cells": "Brownish | Grey or brown masking the saturation | Reduces value sharply"
+          }
+        },
+        "r7": {
+          "type": "row",
+          "settings": {
+            "cells": "Extinction | Dark patches that move as the stone moves | Cutting-dependent, and dulls a good colour"
+          }
+        },
+        "r8": {
+          "type": "row",
+          "settings": {
+            "cells": "Window | A pale see-through area in a shallow stone | Reduces face-up colour and value"
+          }
+        },
+        "r9": {
+          "type": "row",
+          "settings": {
+            "cells": "Silk | Fine rutile needles inside the stone | A little helps, a lot makes a stone sleepy"
+          }
+        },
+        "r10": {
+          "type": "row",
+          "settings": {
+            "cells": "Fluorescence | A red glow excited by ultraviolet light | Lifts apparent colour in daylight"
+          }
+        },
+        "r11": {
+          "type": "row",
+          "settings": {
+            "cells": "Unheated | No thermal treatment, laboratory confirmed | A large premium at fine quality"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7",
+        "r8",
+        "r9",
+        "r10",
+        "r11"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Reading an Offer",
+        "heading": "What the Colour Words Mean",
+        "intro": "The same terms appear on every dealer's list and most laboratory reports.",
+        "headers": "Term | What it describes | Effect on price",
+        "first_col_bold": true,
+        "narrow": false,
+        "col1_width": 0,
+        "note": "No laboratory grades ruby colour on a fixed numerical scale. An appellation such as pigeon's blood is that laboratory's house standard rather than an industry one."
+      }
+    },
+    "forring": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Buy by millimetre, not by carat",
+            "body": "<p>Ruby is denser than diamond, so a one carat ruby looks smaller than a one carat diamond. Give us the millimetres and we will work back to the weight.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Judge tone on a hand, not in a tray",
+            "body": "<p>Loose stones are shown on white paper under bright light, which flatters darker material. A ruby that will sit against skin under kitchen and restaurant lighting needs to be seen that way first.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Ask what it weighs in the middle",
+            "body": "<p>Native cutting often leaves a deep, heavy pavilion to keep carat weight. The stone costs more and looks no larger.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Matching a set is the expensive part",
+            "body": "<p>An eternity ring or a matched pair of shoulder stones needs rubies that agree on hue, tone and saturation. That takes longer and costs more per carat.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Yellow gold warms it, platinum sharpens it",
+            "body": "<p>Yellow gold pushes a ruby towards the orange end and suits a slightly purplish stone. White metal keeps the red cool, and flatters a lighter or pinker one.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Decide about unheated first",
+            "body": "<p>The premium for a laboratory-confirmed unheated stone is real and large. Decide whether it matters at the outset, because it changes which stones are worth looking at.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "If It Is Going in a Ring",
+        "heading": "Choosing a Ruby to Wear",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "watch": {
+      "type": "fye-checklist",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "label": "Very dark stones lose their life",
+            "note": "A ruby that looks rich under a spotlight can read almost black once set and worn."
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "label": "The pink sapphire boundary is a judgement",
+            "note": "The same stone can honestly be called a light ruby by one dealer and a deep pink sapphire by another."
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "label": "Origin premiums are not always visible",
+            "note": "Burmese material carries a premium the stone may not obviously justify. Origin is a report finding, not something you can see."
+          }
+        },
+        "i4": {
+          "type": "item",
+          "settings": {
+            "label": "Laboratory appellations are house standards",
+            "note": "Pigeon's blood means slightly different things at different laboratories."
+          }
+        },
+        "i5": {
+          "type": "item",
+          "settings": {
+            "label": "Large clean rubies are genuinely rare",
+            "note": "Above about three carats fine material becomes scarce quickly, and price per carat climbs steeply rather than proportionally."
+          }
+        },
+        "i6": {
+          "type": "item",
+          "settings": {
+            "label": "Matched sets take time",
+            "note": "Anything needing several rubies to agree with each other is a sourcing exercise. Allow weeks rather than days."
+          }
+        },
+        "i7": {
+          "type": "item",
+          "settings": {
+            "label": "Treatment belongs on the invoice",
+            "note": "Heat is routine and expected. Anything beyond it should be stated in writing, because some treatments change how a stone is cleaned and repaired."
+          }
+        },
+        "i8": {
+          "type": "item",
+          "settings": {
+            "label": "Photographs oversell red",
+            "note": "Red is the colour cameras and screens handle worst. Never commit to a ruby you have only seen on a screen."
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6",
+        "i7",
+        "i8"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Be Aware",
+        "heading": "What to Watch",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "design": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Design Note",
+        "heading": "Setting It Well",
+        "body": "<p>Ruby is hard enough that the setting can be chosen for looks rather than for protection. Claws, a raised solitaire, a halo and full pave are all sensible on a ring worn every day, which is not true of most coloured stones. A bezel here is a design choice, not a precaution.</p><p>Two practical notes. Silk-rich or heavily included stones benefit from a closed or partly closed back, because a metal reflection behind the stone lifts the colour. And a deeper stone shows more red through the crown than a shallow one of the same face-up size, so ask about depth as well as diameter.</p>"
+      }
+    },
+    "facts": {
+      "type": "fye-facts",
+      "blocks": {
+        "f1": {
+          "type": "fact",
+          "settings": {
+            "label": "Hardness",
+            "value": "<p>9 on the Mohs scale</p>",
+            "show_scale": true,
+            "scale_min": 9,
+            "scale_max": 9,
+            "scale_note": "Only diamond and a few synthetics are harder"
+          }
+        },
+        "f2": {
+          "type": "fact",
+          "settings": {
+            "label": "Toughness",
+            "value": "<p>Excellent, with no cleavage plane</p>"
+          }
+        },
+        "f3": {
+          "type": "fact",
+          "settings": {
+            "label": "Species",
+            "value": "<p>Corundum, coloured by chromium</p>"
+          }
+        },
+        "f4": {
+          "type": "fact",
+          "settings": {
+            "label": "Relation to sapphire",
+            "value": "<p>Identical mineral; only the colour differs</p>"
+          }
+        },
+        "f5": {
+          "type": "fact",
+          "settings": {
+            "label": "Refractive index",
+            "value": "<p>1.762 to 1.770</p>"
+          }
+        },
+        "f6": {
+          "type": "fact",
+          "settings": {
+            "label": "Specific gravity",
+            "value": "<p>About 4.00, denser than diamond</p>"
+          }
+        },
+        "f7": {
+          "type": "fact",
+          "settings": {
+            "label": "Fluorescence",
+            "value": "<p>Red under ultraviolet in low-iron material</p>"
+          }
+        },
+        "f8": {
+          "type": "fact",
+          "settings": {
+            "label": "Usual cut",
+            "value": "<p>Oval and cushion; cabochon for silk-rich stones</p>"
+          }
+        },
+        "f9": {
+          "type": "fact",
+          "settings": {
+            "label": "Suited to",
+            "value": "<p>Engagement rings, eternity rings, everyday wear</p>"
+          }
+        },
+        "f10": {
+          "type": "fact",
+          "settings": {
+            "label": "Common treatment",
+            "value": "<p>Heat, which is routine and accepted</p>"
+          }
+        },
+        "f11": {
+          "type": "fact",
+          "settings": {
+            "label": "Typical sizes",
+            "value": "<p>Melee to about two carats readily; above three is rare</p>"
+          }
+        },
+        "f12": {
+          "type": "fact",
+          "settings": {
+            "label": "Price range",
+            "value": "<p>££ to £££££; fine unheated ruby exceeds diamond</p>"
+          }
+        },
+        "f13": {
+          "type": "fact",
+          "settings": {
+            "label": "Birthstone",
+            "value": "<p>July</p>"
+          }
+        },
+        "f14": {
+          "type": "fact",
+          "settings": {
+            "label": "Anniversary",
+            "value": "<p>The fortieth</p>"
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4",
+        "f5",
+        "f6",
+        "f7",
+        "f8",
+        "f9",
+        "f10",
+        "f11",
+        "f12",
+        "f13",
+        "f14"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "At a Glance",
+        "heading": "The Practical Facts",
+        "intro": "",
+        "note": "Hardness is scratch resistance, toughness is resistance to chipping. Ruby is one of the few gemstones that scores highly on both."
+      }
+    },
+    "refintro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "ivory",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "The Reference",
+        "heading": "A Field Guide to Ruby",
+        "body": "<p>Everything above is what you need to choose a stone. What follows is the fuller picture: where the ruby and sapphire boundary falls, what pigeon's blood means and does not mean, how fluorescence and silk change the way a stone looks, where ruby is mined now rather than historically, and how laboratory-grown material fits in.</p><p>None of it is required reading. It is here because ruby carries more inherited trade language than almost any other stone.</p>",
+        "variant": "divider"
+      }
+    },
+    "corundum": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "The Same Mineral",
+        "heading": "Ruby, Sapphire and the Line Between Them",
+        "body": "<p>Corundum is aluminium oxide, colourless when pure. Every colour it comes in is the work of trace elements: chromium gives red, iron and titanium together give blue. Red corundum is called ruby, and corundum of every other colour, including pink, is called sapphire. That is the whole of the distinction, and it is a naming convention rather than a scientific one.</p><p>Which makes the boundary a real problem, because colour is continuous and the categories are not. No international standard defines how much saturation a stone needs before it stops being pink sapphire and starts being ruby. The American trade has traditionally required a fairly strong red; parts of the Asian trade apply the word more readily to lighter material. Laboratories make their own call, and reputable ones are consistent with themselves without necessarily agreeing with each other.</p><p>The commercial consequence is significant: the same stone can be worth several times more described as a ruby than as a pink sapphire, and the difference is a word on a report rather than anything in the stone. So a light ruby and a deep pink sapphire are worth comparing directly, on price and on how they look, with little regard for which name they carry.</p><h3>What Pigeon's Blood Actually Means</h3><p>Pigeon's blood began as a Burmese trade description for the very finest Mogok reds, passed on by demonstration rather than definition. Several romantic explanations attach to it, none documented well enough to repeat as fact.</p><p>What it reliably points at is a combination rather than one quality: a vivid red of medium to medium-dark tone, usually with a slight purplish cast rather than an orange one, and strong red fluorescence. That last part is why classic Burmese material earned the name. Low-iron marble-hosted corundum fluoresces strongly, so the stone keeps glowing in daylight instead of going flat, and it is that internal fire as much as the hue being described.</p><p>Since the 2000s several laboratories have turned the phrase into a formal colour appellation they will state on a report, which has made it more useful and also more confusing, because each applies its own criteria. It is no longer tied to Burma either: laboratories now grant it to Mozambican material that meets the standard. Read it as strong evidence, worth a substantial premium, and look at the stone anyway.</p>"
+      }
+    },
+    "optical": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Fluorescence, and why it matters",
+            "body": "<p>Chromium makes ruby fluoresce red under ultraviolet light, and daylight contains ultraviolet. A fluorescent ruby is quietly adding red to its own appearance all day, which is why the best stones seem lit from inside.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Iron is the switch",
+            "body": "<p>Iron quenches fluorescence. Marble-hosted material from Burma and much of Mozambique is low in iron and glows strongly. Basalt-related material, classically Thai, carries more iron, does not glow, and reads darker.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Silk: fine rutile needles",
+            "body": "<p>Microscopic needles of rutile that grew inside the crystal in three directions. In modest amounts silk scatters light gently, softens the dark extinction areas and spreads colour across the stone.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Too much silk goes sleepy",
+            "body": "<p>Past a certain density the needles turn transparency into haze, which the trade calls sleepy. It is the main thing heat treatment corrects, because heat dissolves rutile back into the corundum.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Asterism and star ruby",
+            "body": "<p>Where silk is dense and highly ordered, light reflecting off the three sets of needles produces a six-rayed star. It only appears in a cabochon, and needs a single point source such as sunshine.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Judging a star",
+            "body": "<p>A good star is straight, sharp, centred and reaches the edge of the dome. Body colour still counts: a strong star on a grey stone is worth far less than one on a red stone.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Inside the Stone",
+        "heading": "Fluorescence, Silk and Stars",
+        "intro": "Three characteristics explain most of why two rubies of the same described colour can look completely different.",
+        "note": ""
+      }
+    },
+    "origins": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Mogok, Myanmar | Marble-hosted, low iron, fluorescent | The historic benchmark, and the origin of the pigeon's blood description"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Mong Hsu, Myanmar | Small stones with dark cores | Found around 1991; supplied vast volumes of heated calibrated ruby"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Montepuez, Mozambique | Fine red, often clean and unheated | Found in 2009, now the dominant source by volume and value"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Chanthaburi, Thailand | Iron-rich, dark, little fluorescence | Largely worked out, but Thailand is still the cutting centre"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Andilamena, Madagascar | Darker material, usually heated | A major commercial source since the late 1990s"
+          }
+        },
+        "r6": {
+          "type": "row",
+          "settings": {
+            "cells": "Vatomandry, Madagascar | Brighter, more often unheated | Smaller output, and the better Madagascan material"
+          }
+        },
+        "r7": {
+          "type": "row",
+          "settings": {
+            "cells": "Sri Lanka | Lighter and pinker, bright and lively | The classic source of light ruby and of pink sapphire"
+          }
+        },
+        "r8": {
+          "type": "row",
+          "settings": {
+            "cells": "Winza, Tanzania | Strong red, frequently unheated | A short, intense find from 2007; little new material"
+          }
+        },
+        "r9": {
+          "type": "row",
+          "settings": {
+            "cells": "Longido, Tanzania | Opaque ruby in green zoisite | Carving and cabochon material rather than faceting rough"
+          }
+        },
+        "r10": {
+          "type": "row",
+          "settings": {
+            "cells": "Aappaluttoq, Greenland | Pinkish red from very old rock | A small permitted mine, sold on full traceability"
+          }
+        },
+        "r11": {
+          "type": "row",
+          "settings": {
+            "cells": "Elsewhere | Vietnam, Afghanistan, Kenya, India | Smaller outputs; Luc Yen material can be very fine"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7",
+        "r8",
+        "r9",
+        "r10",
+        "r11"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Where It Comes From",
+        "heading": "The Ruby Sources",
+        "intro": "Ruby forms in two broadly different geological settings and the setting shows in the stone. Marble-hosted deposits give low-iron material that fluoresces; basalt-related deposits give iron-rich material that does not.",
+        "headers": "Source | Character | Worth knowing",
+        "first_col_bold": true,
+        "narrow": false,
+        "col1_width": 0,
+        "note": "Origin cannot be read off a stone by eye. A laboratory infers it from trace element chemistry and inclusions, and even then it is an opinion."
+      }
+    },
+    "myanmar": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "On Sourcing",
+        "heading": "The Myanmar Question",
+        "body": "<p>Myanmar produced the stones that defined what ruby is supposed to look like, and Mogok material still sets the standard. It has also been subject to trade restrictions and international sanctions at various points, most recently since the military takeover in 2021, and those measures have differed between the United Kingdom, the European Union and the United States.</p><p>The practical difficulty is traceability: much Burmese rough moves informally and is cut in Thailand, so a stone can be genuinely Burmese by laboratory opinion while its route to market cannot be documented. We will tell you what we know about a stone's origin and paperwork before you buy, and source from elsewhere if you would rather.</p>"
+      }
+    },
+    "treatment": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Heat is routine",
+            "body": "<p>The great majority of ruby on the market has been heated, and has been for a very long time. It is accepted trade practice, permanent and stable, and needs no special care afterwards.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "What heating achieves",
+            "body": "<p>Temperatures well above a thousand degrees dissolve rutile silk back into the stone, lifting transparency, and can improve or even out the colour. In Mong Hsu material it removes the dark core the crystals grow with.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "It is assumed unless stated",
+            "body": "<p>Because it is so common, a ruby offered with no comment on treatment should be taken to be heated. An unheated stone is always sold as unheated.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Only a laboratory can confirm it",
+            "body": "<p>The evidence is in the inclusions and takes a microscope to read. At any serious price the report is part of what you are buying.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "The unheated premium is real",
+            "body": "<p>At fine quality two otherwise comparable stones can differ by a multiple rather than a percentage. At commercial quality the gap is much smaller.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Other treatments change the care",
+            "body": "<p>Beyond simple heat there are treatments that place material in surface-reaching fractures or add colour at the surface. Any of these should be stated on the invoice, and a stone that has had one must be kept away from ultrasonic cleaners, steam and acids, and taken out of its setting before torch work. We will tell you what a stone has had done to it and what that means for looking after it.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Treatment",
+        "heading": "Heat, and What It Does",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "lab": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Grown Stones, and Large Ones",
+        "heading": "Laboratory-Grown Ruby",
+        "body": "<p>Ruby was the first gemstone grown commercially. Auguste Verneuil's flame fusion process was published in 1902 and is still in use, and a rod of synthetic ruby was the working medium of the first laser in 1960.</p><p>Laboratory-grown ruby is corundum coloured by chromium, with the same hardness, refractive index, density and red as a mined stone. It is not an imitation and it is not glass, and it is identified as grown by its inclusions and growth structures rather than by anything you could see. Flame fusion is the cheapest process; flux-grown and hydrothermal material takes months rather than hours and costs more.</p><p>We do supply laboratory-grown coloured stones, and think it a good choice for the right project: a strong even colour in a large size, several matched stones for an eternity ring, or a budget better spent on the metalwork than on rarity. What it does not do is hold value. Grown stones have no meaningful resale market and prices have fallen as production improved, so buy one because you want that stone. It is always described as laboratory-grown on our paperwork.</p><h3>Why Large Rubies Are So Rare</h3><p>Ruby crystals rarely grow large and clean. The chromium that colours them also strains the crystal lattice as it grows, so ruby tends to form small, heavily included and often fractured. Most of what is mined suits melee or cabochons.</p><p>Calibrated goods up to around half a carat are readily available. Between half a carat and two carats supply is reasonable, with price per carat rising steadily as colour improves. Above three carats fine material becomes scarce quickly, and above five an unheated stone of good colour is a serious rarity. This is the opposite of the diamond market, where a five carat stone of good quality is expensive but obtainable.</p><p>Ruby prices therefore do not scale in a straight line: doubling the weight can more than double the price per carat. On a fixed budget, dropping half a millimetre in diameter often buys a disproportionate improvement in colour.</p>"
+      }
+    },
+    "value": {
+      "type": "fye-checklist",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "label": "Colour, ahead of everything else",
+            "note": "Saturation first, then tone, then hue. A vivid medium-red stone with visible inclusions beats a clean stone with a dull colour every time."
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "label": "Whether it has been heated",
+            "note": "At fine quality a confirmed unheated stone can cost several times a comparable heated one. At commercial quality the gap narrows."
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "label": "Origin, where it is documented",
+            "note": "Burmese material carries the largest premium, with fine Mozambican close behind. Both need a laboratory opinion."
+          }
+        },
+        "i4": {
+          "type": "item",
+          "settings": {
+            "label": "Size, and it is not linear",
+            "note": "Price per carat steps up sharply at each size the trade treats as a threshold. Above three carats the curve becomes very steep."
+          }
+        },
+        "i5": {
+          "type": "item",
+          "settings": {
+            "label": "Clarity, judged by eye",
+            "note": "What counts is whether anything is visible without magnification, and whether a fracture reaches the surface."
+          }
+        },
+        "i6": {
+          "type": "item",
+          "settings": {
+            "label": "The quality of the cut",
+            "note": "Windows, off-centre culets and heavy pavilions all reduce value. Weight kept in the belly of a stone is weight you pay for and do not see."
+          }
+        },
+        "i7": {
+          "type": "item",
+          "settings": {
+            "label": "Fluorescence",
+            "note": "Rarely priced separately, but much of what makes a low-iron stone look better than an iron-rich one of the same colour."
+          }
+        },
+        "i8": {
+          "type": "item",
+          "settings": {
+            "label": "What the report says",
+            "note": "At any serious price a report from a recognised laboratory is part of the value, and a colour appellation adds to it directly."
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6",
+        "i7",
+        "i8"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "What You Are Paying For",
+        "heading": "How a Ruby Is Priced",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "care": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Cleaning",
+            "body": "<p>Warm water, a drop of washing-up liquid and a soft brush is all an untreated or simply heated ruby needs. Ultrasonic and steam cleaners are generally safe for those stones, but not for one that has had a fracture treatment.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Wearing",
+            "body": "<p>Ruby is genuinely a wear-it-and-forget-it stone. The sensible cautions concern the setting rather than the stone: claws bend, and a knock can loosen one long before it troubles the ruby.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Storage",
+            "body": "<p>Separately, in a soft pouch. At Mohs 9 a ruby will scratch almost everything else in a jewellery box, and only diamond will scratch it back.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Over the years",
+            "body": "<p>Have the setting checked once a year, which we do free for the life of the piece. Ruby sizes and repairs like any other hard stone, though a fracture-treated stone should come out of the mount before torch work.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "3",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Living With It",
+        "heading": "Looking After a Ruby",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "eyebrow": "Before You Choose",
+        "heading": "Check It Against the Life It Will Lead",
+        "body": "<p>Hardness is not toughness, and the two are constantly confused. Ruby scores well on both, which is exactly why it works where softer coloured stones do not. Our durability guide sets out which stones survive daily wear, which need protecting, and which belong in a pendant rather than a ring.</p>",
+        "link": "/pages/gemstone-durability",
+        "link_label": "Read the durability guide"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Is ruby suitable for an engagement ring?",
+            "a": "<p>Yes, with fewer caveats than almost any other coloured stone. At Mohs 9, with excellent toughness and no cleavage, it is one of only three stones, with diamond and sapphire, that we recommend without qualification for a ring worn every day. It can be claw-set or set high without compromise.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "What is the difference between ruby and pink sapphire?",
+            "a": "<p>Only the colour. Both are corundum, and the red comes from chromium. Where the line falls between a light ruby and a deep pink sapphire is a genuine grey area with no international standard behind it, and different markets and laboratories draw it in different places. Because the word ruby carries a large premium, that judgement moves the price considerably.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "What does pigeon's blood mean?",
+            "a": "<p>A Burmese trade phrase for the finest Mogok reds: a vivid red of medium to medium-dark tone, usually slightly purplish, with strong red fluorescence. Several laboratories now issue it as a formal colour appellation, each to its own criteria, so a stone can earn it from one house and not another. It commands a real premium, but it is not a fixed grade.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Why is fine ruby more expensive than diamond?",
+            "a": "<p>Scarcity at size. Ruby crystals tend to grow small, included and fractured, so large clean stones with good colour are rarer than diamonds of the same size. Prices per carat for the best unheated Burmese material are the highest of any coloured gemstone, and the auction record stands above a million US dollars per carat.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Are rubies heated?",
+            "a": "<p>Most are. Heating dissolves the fine rutile silk inside the stone, lifting transparency, and can improve or even out the colour. It is permanent, stable, accepted throughout the trade and needs no special care. Assume a ruby is heated unless it is sold as unheated with a laboratory report.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "Is unheated ruby worth the premium?",
+            "a": "<p>At fine quality the premium can be a multiple rather than a percentage, and it is bought for rarity and resale rather than appearance, because a well-heated stone can look just as good. At commercial quality the gap is much smaller.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "q": "Where does most ruby come from now?",
+            "a": "<p>Mozambique. The Montepuez deposit, found in 2009, dominates the supply of fine ruby by volume and value, and the best of it competes directly with Burmese material. Myanmar, Madagascar, Thailand, Sri Lanka, Tanzania, Vietnam and Greenland all contribute, and Thailand remains the cutting and trading centre whatever the origin.</p>"
+          }
+        },
+        "q8": {
+          "type": "qa",
+          "settings": {
+            "q": "Is Burmese ruby still the best?",
+            "a": "<p>Burmese material set the standard and the finest examples still are the finest, but the word alone guarantees nothing, because Myanmar produces plenty of ordinary ruby too. Fine Mozambican stones now reach the same colour appellations. Judge the stone first and treat origin as a price factor rather than a quality one.</p>"
+          }
+        },
+        "q9": {
+          "type": "qa",
+          "settings": {
+            "q": "Should I be concerned about where a ruby comes from?",
+            "a": "<p>A fair question, and we would rather answer plainly. Myanmar has been subject to trade restrictions and sanctions at various points, most recently since 2021, and the rules have differed between the United Kingdom, the European Union and the United States. Traceability is genuinely difficult, because much Burmese rough moves informally and is cut elsewhere. Mozambican material is far easier to document.</p>"
+          }
+        },
+        "q10": {
+          "type": "qa",
+          "settings": {
+            "q": "What is silk, and is it a fault?",
+            "a": "<p>Fine needles of rutile that grew inside the crystal. A modest amount is a good thing: it scatters light gently, softens the dark extinction patches and helps spread colour across the stone. Too much makes a ruby hazy, which the trade calls sleepy, and that is what heat treatment corrects.</p>"
+          }
+        },
+        "q11": {
+          "type": "qa",
+          "settings": {
+            "q": "What is a star ruby?",
+            "a": "<p>A ruby with silk dense and ordered enough that light reflecting off the needles forms a six-rayed star. It has to be cut as a cabochon, and shows best under a single point of light. A good star is sharp, straight, centred and reaches the edge of the dome.</p>"
+          }
+        },
+        "q12": {
+          "type": "qa",
+          "settings": {
+            "q": "What size ruby should I be looking at?",
+            "a": "<p>Tell us the millimetres rather than the carats. Ruby is denser than diamond, so a stone matching the spread of a one carat diamond weighs closer to one and a sixth carats. Under two carats supply is reasonable; above three, fine material becomes scarce and price per carat climbs sharply.</p>"
+          }
+        },
+        "q13": {
+          "type": "qa",
+          "settings": {
+            "q": "Is laboratory-grown ruby real ruby?",
+            "a": "<p>Chemically and optically, yes. It is corundum coloured by chromium, with the same hardness, density and colour as a mined stone, distinguishable only under magnification. We do supply laboratory-grown coloured stones and think them sensible when you want strong colour in a large size, several matched stones, or more of the budget in the metalwork. They have no meaningful resale value.</p>"
+          }
+        },
+        "q14": {
+          "type": "qa",
+          "settings": {
+            "q": "Can a ruby ring be resized or repaired normally?",
+            "a": "<p>In most cases yes. Ruby tolerates a jeweller's torch better than most coloured stones, so sizing and repair are straightforward. The exception is a stone that has had a fracture treatment, which needs to come out of the mount first. We include a free UK ring sizer with any enquiry, and a free annual inspection for the life of anything we make.</p>"
+          }
+        },
+        "q15": {
+          "type": "qa",
+          "settings": {
+            "q": "How should I clean a ruby?",
+            "a": "<p>Warm water, a drop of washing-up liquid, a soft brush and a dry cloth. For an untreated or simply heated ruby, ultrasonic and steam cleaners are generally safe too, but they should not be used on a fracture-treated stone. If in doubt, stay with soap and water.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8",
+        "q9",
+        "q10",
+        "q11",
+        "q12",
+        "q13",
+        "q14",
+        "q15"
+      ],
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Ruby Questions We Are Asked Most",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "white",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "UbTxH7"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/diamond-and-gemstone-guide-cover.png",
+        "cover_alt": "The Diamond and Gemstone Guide",
+        "cover_caption": "The Diamond and Gemstone Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Diamond and Gemstone Guide",
+        "body": "<p>Every gemstone stone by stone, plus durability, treatments, ethical sourcing and grading reports.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Ruby Engagement Rings",
+            "desc": "See what we currently have available.",
+            "cta": "Browse",
+            "link": "/collections/ruby-engagement-rings"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Ruby Eternity Rings",
+            "desc": "See what we currently have available.",
+            "cta": "Browse",
+            "link": "/collections/eternity-ruby"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Coloured Stone Rings",
+            "desc": "See what we currently have available.",
+            "cta": "Browse",
+            "link": "/collections/coloured-stone-rings"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Section Hub",
+            "title": "Gemstone Education",
+            "desc": "Every gemstone guide in one place.",
+            "cta": "Back to the hub",
+            "link": "/pages/gemstone-education"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "colour",
+    "palette",
+    "why",
+    "terms_table",
+    "forring",
+    "watch",
+    "design",
+    "facts",
+    "refintro",
+    "corundum",
+    "optical",
+    "origins",
+    "myanmar",
+    "treatment",
+    "lab",
+    "value",
+    "care",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

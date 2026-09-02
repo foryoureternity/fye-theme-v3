@@ -1,0 +1,1393 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Emerald"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>An unmatched green, and the realistic expectations it needs</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 36,
+        "image": "shopify://shop_images/loose-diamonds-coloured-gemstones-sapphire-emerald.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true,
+        "show_contents": true,
+        "contents_label": "On this page"
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Gemstone Education",
+        "heading": "About Emerald",
+        "body": "<p>Emerald is beryl, the same mineral as aquamarine and morganite, and it owes its green to traces of chromium, vanadium, or both. Swap those trace elements for iron or manganese and the identical crystal grows blue or pink instead. Nothing about beryl is inherently green.</p><p>That green is the point of the stone. Green sapphire is far harder and tsavorite garnet is brighter, and neither of them reads as emerald. If emerald green is what you want, emerald is what you need.</p><p>What comes with it is a stone judged by rules that are not the diamond rules. Almost every emerald contains inclusions, known collectively as a jardin, from the French for garden. In a diamond those would be faults. In an emerald they are expected, and colour outranks clarity to a degree that is true of no other gem. A visibly included emerald with superb colour is worth more than a cleaner one with weak colour, and the trade prices them that way.</p><p>The inclusions have a practical consequence too. Emerald resists scratching well at Mohs 7.5 to 8, but the fissures running through it make it far easier to chip than that number suggests, so it wants a protective setting. Most emeralds are also oiled, which is normal and openly disclosed, and which changes how the stone should be cleaned for the rest of its life. None of this is difficult. It is simply better known before you buy than after.</p>"
+      }
+    },
+    "colour": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Chromium and vanadium",
+            "body": "<p>Pure beryl is colourless. Traces of chromium, vanadium or both produce emerald green, and only a few parts per thousand are needed. Chromium tends to give the warm, glowing green associated with Colombia.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Iron sets the temperature",
+            "body": "<p>Where iron is present the green cools and usually darkens, tipping towards blue. Zambian material carries more iron than Colombian and reads cooler because of it. In quantity, iron also brings in grey.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Hue",
+            "body": "<p>Where the colour sits on the spectrum. Emerald runs from slightly yellowish green through pure green to slightly bluish green. Pure to slightly bluish is the most valued range, and everything else costs less.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Tone",
+            "body": "<p>How light or dark the stone reads. The useful window is narrow: medium to medium-dark holds the most colour while staying alive in ordinary light. Too dark and the stone shuts down away from a spotlight.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Saturation",
+            "body": "<p>How pure and intense the green is, and what separates a good emerald from a great one. What limits most stones is grey sitting over the colour like a veil.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Colour outranks clarity",
+            "body": "<p>True of coloured stones generally, and of emerald most of all. Faced with two emeralds at the same money, the one with better colour is almost always the better stone.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "3",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Colour",
+        "heading": "How Emerald Gets Its Green",
+        "intro": "Hue, tone and saturation are what a gemmologist is describing when they talk about an emerald's colour. Together they account for more of the price than everything else combined.",
+        "note": ""
+      }
+    },
+    "palette": {
+      "type": "fye-chips",
+      "blocks": {
+        "c1": {
+          "type": "chip",
+          "settings": {
+            "name": "Vivid green",
+            "sub": "The benchmark, and the most expensive",
+            "colour": "#0F7B4F"
+          }
+        },
+        "c2": {
+          "type": "chip",
+          "settings": {
+            "name": "Slightly bluish green",
+            "sub": "Classic Colombian character",
+            "colour": "#0E7B62"
+          }
+        },
+        "c3": {
+          "type": "chip",
+          "settings": {
+            "name": "Deep bluish green",
+            "sub": "Cooler and darker, often Zambian",
+            "colour": "#0B6068"
+          }
+        },
+        "c4": {
+          "type": "chip",
+          "settings": {
+            "name": "Yellowish green",
+            "sub": "Warmer, frequently Brazilian",
+            "colour": "#4A7C39"
+          }
+        },
+        "c5": {
+          "type": "chip",
+          "settings": {
+            "name": "Soft green",
+            "sub": "Lighter tone, far more affordable",
+            "colour": "#7FA882"
+          }
+        },
+        "c6": {
+          "type": "chip",
+          "settings": {
+            "name": "Greyish green",
+            "sub": "Saturation dulled by grey",
+            "colour": "#6E7F70"
+          }
+        },
+        "c7": {
+          "type": "chip",
+          "settings": {
+            "name": "Green beryl",
+            "sub": "Too pale to be sold as emerald",
+            "colour": "#A9C6A4"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7"
+      ],
+      "settings": {
+        "band": "white",
+        "align": "centre",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "The Palette",
+        "heading": "Emerald Colour at a Glance",
+        "intro": "Seven of the descriptions you are most likely to meet. Swatches are indicative only, because no screen renders emerald honestly.",
+        "note": "We will always show you the actual stone in more than one light."
+      }
+    },
+    "why": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "A green nothing else matches",
+            "body": "<p>Green sapphire, tsavorite and demantoid are excellent stones, and none has emerald's saturated glow. Substitutes are chosen for durability, not resemblance.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Character is expected",
+            "body": "<p>Because a jardin is normal, you are not paying the premium clarity commands in a diamond. More of what you spend goes into colour.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "The May birthstone",
+            "body": "<p>And the stone for the twentieth and thirty-fifth anniversaries, which makes it a common starting point for a commissioned piece.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "It was made for period design",
+            "body": "<p>Emerald and art deco geometry belong together, and the step cut that carries the stone's name was developed for this material. It sits as naturally in a clean modern bezel.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "It faces up larger than a diamond",
+            "body": "<p>Emerald is markedly less dense than diamond, so a one carat emerald covers more of the finger. The broad table of a step cut adds to the impression.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "There is a stone at most budgets",
+            "body": "<p>The range from a soft pale green to fine Colombian material is enormous, and much of the lower end is genuinely lovely.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "The Case For It",
+        "heading": "Why Emerald Works",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "grades": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Vivid green | Strong pure saturation at a medium-dark tone | The top of the market, priced well clear of the rest"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Slightly bluish green | The classic Colombian character, warm and glowing | Highly valued, and for many buyers the hue to aim for"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Bluish green | Cooler, usually carrying more iron | Well regarded; typical of much Zambian material"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Yellowish green | Warmer and generally lighter | Priced below pure green, and often the better value for it"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Light tone | Pale, with the green thinning at the edges | Considerably cheaper, and delicate rather than deficient"
+          }
+        },
+        "r6": {
+          "type": "row",
+          "settings": {
+            "cells": "Very dark tone | Reads almost black indoors and wakes only under a lamp | Discounted, however good it looks in a spotlight"
+          }
+        },
+        "r7": {
+          "type": "row",
+          "settings": {
+            "cells": "Greyish saturation | A veil of grey sitting over the green | The commonest single reason a stone looks flat"
+          }
+        },
+        "r8": {
+          "type": "row",
+          "settings": {
+            "cells": "Even colour | Green consistent across the whole face of the stone | Adds real money; visible banding takes it away"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7",
+        "r8"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Reading a Description",
+        "heading": "What the Colour Words Mean",
+        "intro": "Emerald is not graded on a letter scale. Colour is described in words, and the same handful of terms appear in almost every offer. This is what they point at, and what each one does to the price.",
+        "headers": "Description | What you are looking at | Effect on price",
+        "first_col_bold": true,
+        "narrow": false,
+        "col1_width": 0,
+        "note": "Emerald changes character between daylight, warm indoor light and shade more than most gems. Judge any description against the stone in at least two of them."
+      }
+    },
+    "forring": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Settle the colour first",
+            "body": "<p>Decide what green you want before anything else, because every other decision follows from it. A stone chosen for its report rather than its colour tends to disappoint.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Eye-clean is the standard",
+            "body": "<p>Coloured stones are assessed by eye at normal viewing distance, not under a loupe. An emerald that looks clean at arm's length is doing its job.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Ask where the inclusions sit",
+            "body": "<p>A fissure deep in the pavilion matters little. One reaching the surface at a corner is worth knowing about, because that is where a knock will find it.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Ask what the treatment level is",
+            "body": "<p>Reports describe clarity enhancement as none, minor, moderate or significant. It is a routine question with a routine answer, and it affects both price and appearance.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Look at the cut, not the outline",
+            "body": "<p>Check for a window in the centre and for large dark areas of extinction. Both come from proportions rather than from the rough.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Match the stone to the hand",
+            "body": "<p>An emerald on a hand that gardens or works with tools needs a bezel and a low profile. Otherwise a well-made claw setting with protected corners is fine.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "If It Is Going in a Ring",
+        "heading": "Choosing an Emerald to Wear",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "watch": {
+      "type": "fye-checklist",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "label": "Toughness is the issue, not hardness",
+            "note": "At Mohs 7.5 to 8 emerald shrugs off scratches. The fissures inside it are what make it chip."
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "label": "Corners are the weak point",
+            "note": "On a step cut, the truncated corners are the first thing to meet a door frame."
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "label": "Never use an ultrasonic cleaner",
+            "note": "The vibration can open a fissure, and it draws the oil out of the stone."
+          }
+        },
+        "i4": {
+          "type": "item",
+          "settings": {
+            "label": "No steam, and no direct heat",
+            "note": "That includes saunas, hot tubs, a sunny dashboard and any torch work during a repair."
+          }
+        },
+        "i5": {
+          "type": "item",
+          "settings": {
+            "label": "Keep solvents away from it",
+            "note": "Acetone, nail varnish remover, jewellery dips and strong detergents all strip out the oil."
+          }
+        },
+        "i6": {
+          "type": "item",
+          "settings": {
+            "label": "Re-oiling is routine, not a repair",
+            "note": "Expect the stone to want refreshing at some point. It is maintenance, and it is inexpensive."
+          }
+        },
+        "i7": {
+          "type": "item",
+          "settings": {
+            "label": "Resizing needs the stone out first",
+            "note": "Heat and emerald do not mix, so get the size right at the outset."
+          }
+        },
+        "i8": {
+          "type": "item",
+          "settings": {
+            "label": "Take it off for anything physical",
+            "note": "Gardening, the gym, cleaning, moving furniture. Most emerald damage happens in a handful of predictable situations."
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6",
+        "i7",
+        "i8"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Be Aware",
+        "heading": "What to Watch",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "design": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Design Note",
+        "heading": "Setting It Well",
+        "body": "<p>Emerald wants a setting that looks after its corners. A full bezel is the safest construction, and a half bezel wrapping the two ends of a step cut gives most of the protection with more of the stone on show. Where claws suit the design better, V-claws sitting over the corners do the real work, and a heavier bezel wall on the palm side buys years of life for very little visual cost.</p><p>Metal is a colour decision rather than a default. Yellow gold flatters yellowish green material; platinum and white gold let a bluish green stone read at its cleanest. An emerald engagement ring is entirely workable, and we make them in our London workshop, built around the individual stone rather than squeezed into a stock mount.</p>"
+      }
+    },
+    "facts": {
+      "type": "fye-facts",
+      "blocks": {
+        "f1": {
+          "type": "fact",
+          "settings": {
+            "label": "Hardness",
+            "value": "<p>7.5 to 8 on the Mohs scale</p>",
+            "show_scale": true,
+            "scale_min": 7.5,
+            "scale_max": 8,
+            "scale_note": "Harder than quartz, softer than sapphire"
+          }
+        },
+        "f2": {
+          "type": "fact",
+          "settings": {
+            "label": "Toughness",
+            "value": "<p>Poor to fair; the inclusions are the reason</p>"
+          }
+        },
+        "f3": {
+          "type": "fact",
+          "settings": {
+            "label": "Mineral",
+            "value": "<p>Beryl, the same species as aquamarine and morganite</p>"
+          }
+        },
+        "f4": {
+          "type": "fact",
+          "settings": {
+            "label": "Cause of colour",
+            "value": "<p>Trace chromium and vanadium; iron shifts the tone</p>"
+          }
+        },
+        "f5": {
+          "type": "fact",
+          "settings": {
+            "label": "Clarity type",
+            "value": "<p>Type III: almost always visibly included</p>"
+          }
+        },
+        "f6": {
+          "type": "fact",
+          "settings": {
+            "label": "Usual cut",
+            "value": "<p>The emerald cut; also oval, cushion, pear and cabochon</p>"
+          }
+        },
+        "f7": {
+          "type": "fact",
+          "settings": {
+            "label": "Size for weight",
+            "value": "<p>Less dense than diamond, so a carat faces up larger</p>"
+          }
+        },
+        "f8": {
+          "type": "fact",
+          "settings": {
+            "label": "Common treatment",
+            "value": "<p>Oiling, near universal and long accepted</p>"
+          }
+        },
+        "f9": {
+          "type": "fact",
+          "settings": {
+            "label": "Suited to",
+            "value": "<p>Rings in protective settings, pendants, earrings</p>"
+          }
+        },
+        "f10": {
+          "type": "fact",
+          "settings": {
+            "label": "Laboratory-grown",
+            "value": "<p>Widely available, chemically identical, far less expensive</p>"
+          }
+        },
+        "f11": {
+          "type": "fact",
+          "settings": {
+            "label": "Price range",
+            "value": "<p>&pound;&pound; to &pound;&pound;&pound;&pound;&pound;, driven overwhelmingly by colour</p>"
+          }
+        },
+        "f12": {
+          "type": "fact",
+          "settings": {
+            "label": "Birthstone",
+            "value": "<p>May</p>"
+          }
+        },
+        "f13": {
+          "type": "fact",
+          "settings": {
+            "label": "Anniversary",
+            "value": "<p>The twentieth and the thirty-fifth</p>"
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4",
+        "f5",
+        "f6",
+        "f7",
+        "f8",
+        "f9",
+        "f10",
+        "f11",
+        "f12",
+        "f13"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "At a Glance",
+        "heading": "The Practical Facts",
+        "intro": "",
+        "note": "Hardness describes scratch resistance, not toughness. The two are different and both matter."
+      }
+    },
+    "refintro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "ivory",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "The Reference",
+        "heading": "A Field Guide to Emerald",
+        "body": "<p>Everything above is what you need in order to choose a stone. What follows is the fuller picture: where emerald sits in its mineral family, why its clarity is assessed as it is, how it is cut, where it comes from, what oiling involves, and how laboratory-grown material fits in.</p><p>None of it is required reading. It is here because emerald attracts more vocabulary than almost any other gem.</p>",
+        "variant": "divider"
+      }
+    },
+    "beryl": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Emerald",
+            "body": "<p>Beryl coloured green by chromium or vanadium. Material too pale or too weak in saturation is sold as green beryl instead, at a fraction of the price, and the boundary is a matter of judgement.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Aquamarine",
+            "body": "<p>The same mineral coloured blue by iron. Much tougher in practice, because aquamarine typically grows clean, and correspondingly easier to live with in a ring worn daily.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Morganite",
+            "body": "<p>Pink to peach beryl, coloured by manganese. Usually clean and often large. It shares emerald's hardness without sharing its fragility.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Heliodor and golden beryl",
+            "body": "<p>Yellow to golden green beryl, again coloured by iron. Uncommon in the shops rather than rare in the ground, and often available in generous sizes.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Goshenite",
+            "body": "<p>Colourless beryl, with no colouring trace elements at all. Chiefly of interest because it makes the point: strip out the chromium and the emerald crystal is simply clear.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Red beryl",
+            "body": "<p>Coloured by manganese, found in gem quality in essentially one small area of Utah, and one of the rarest faceted gems there is. Almost never seen above a carat.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "3",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "The Family",
+        "heading": "Emerald Is Beryl",
+        "intro": "One mineral, six familiar gems. The crystal structure is identical throughout, and only the trace elements differ.",
+        "note": ""
+      }
+    },
+    "clarity": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "ivory",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Clarity",
+        "heading": "The Jardin, and Why Emerald Is Judged Differently",
+        "body": "<p>Gemmologists sort coloured stones into three clarity types according to how they grow. Type I stones such as aquamarine are usually clean. Type II stones such as sapphire and ruby carry some inclusions. Type III stones are almost always visibly included, and emerald is the definitive example. An eye-clean emerald is not the norm that most stones fall short of; it is the exception.</p><p>This follows from how emerald forms. Chromium and beryllium rarely occur together in the earth, so emerald crystallises where two very different geological environments meet, under conditions that are turbulent by the standards of most gem growth. The result is a crystal shot through with fissures, mineral crystals and pockets of liquid and gas. The trade calls that internal landscape a jardin, and the name is less a euphemism than an accurate description. A fine Colombian emerald often shows a characteristic three-phase inclusion: liquid, a gas bubble and a tiny salt crystal in one cavity. Zambian material shows mica flakes and fine needles instead, which helps a laboratory form a view on where a stone came from.</p><p>Because of all this, emerald is not given a clarity grade the way a diamond is. There is no VS2 for coloured stones. The practical standard is whether the stone is clean to the unaided eye at normal distance, and after that the questions are where the inclusions sit and what they mean for durability. This is not a lowered standard but a different one, appropriate to the material.</p>"
+      }
+    },
+    "cut": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "It was invented for this stone",
+            "body": "<p>A rectangular step cut with the four corners truncated. Cutting a fissured crystal puts stress on sharp corners, and a sharp corner is also the point most likely to chip in wear. Removing them solves both problems, which is why the shape carries the stone's name.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Steps rather than brilliant facets",
+            "body": "<p>A brilliant cut breaks light into small flashes, which suits a colourless diamond and works against a coloured stone. Long step facets give broad calm planes of colour instead.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Depth builds colour",
+            "body": "<p>Paler material is left deeper so light travels further through the colour; strongly saturated rough is cut shallower so it does not go dark. Weight is often given away deliberately to get this right.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Windowing and extinction",
+            "body": "<p>Cut too shallow and light passes straight through, leaving a pale window in the middle. Cut too deep and large areas go black. Both are visible without any equipment.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Cabochons and sugarloaves",
+            "body": "<p>Heavily included material is often cut as a smooth dome or a four-sided sugarloaf. The colour can be superb, the price per carat is a fraction of faceted goods, and there are no corners to chip.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Other shapes, and recutting",
+            "body": "<p>Oval, cushion and pear emeralds are common, and a good oval avoids the corner problem entirely. If a stone does chip, a lapidary can usually recut it for the cost of a little weight.</p>"
+          }
+        },
+        "xt1": {
+          "type": "term",
+          "settings": {
+            "heading": "Trapiche emerald",
+            "body": "<p>A six-rayed pattern of dark spokes radiating from a hexagonal core, formed where carbon or albite was trapped along the growth boundaries of the crystal. It is named after the spoked wheel used to crush sugar cane, it is almost entirely Colombian, and it is cut as a slice or cabochon. Price depends more on how clean and symmetrical the star is than on the green around it.</p>"
+          }
+        },
+        "xt2": {
+          "type": "term",
+          "settings": {
+            "heading": "Cat's eye emerald",
+            "body": "<p>Fine parallel growth tubes can concentrate light into a single bright band across a cabochon. A sharp, straight, well-centred eye is genuinely uncommon. Most examples come from Brazil, Zambia and Madagascar.</p>"
+          }
+        },
+        "xt3": {
+          "type": "term",
+          "settings": {
+            "heading": "Gota de aceite",
+            "body": "<p>Spanish for drop of oil, and nothing to do with oiling. It describes a soft, rippled, almost velvety texture visible inside a small number of exceptional Colombian emeralds, caused by irregular growth. It is a mark of the finest material and it carries a premium.</p>"
+          }
+        },
+        "xt4": {
+          "type": "term",
+          "settings": {
+            "heading": "Colour zoning",
+            "body": "<p>Beryl grows in hexagonal layers and colour often arrives in bands. A skilled cutter orients the crystal so the strongest colour sits beneath the table. Zoning handled well is invisible; zoning left visible reduces the price.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6",
+        "xt1",
+        "xt2",
+        "xt3",
+        "xt4"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Cut and Character",
+        "heading": "The Emerald Cut, and the Unusual Ones",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "origins": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Muzo, Colombia | Warm, pure to slightly yellowish green | The historic benchmark, and the name most often borrowed"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Chivor, Colombia | Cooler, slightly bluish green | Prized for a bright, clean-looking green"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Coscuez, Colombia | Strongly saturated, often slightly warm | The third of the classic Colombian mines"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Colombia generally | High chromium, low iron, medium-dark tone | Still the reference point for what fine emerald looks like"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Kafubu, Zambia | Deeper bluish green, higher iron | Often cleaner than Colombian material, and better value for it"
+          }
+        },
+        "r6": {
+          "type": "row",
+          "settings": {
+            "cells": "Belmont, Brazil | Lighter, more yellowish green | Steady production across a wide range of qualities"
+          }
+        },
+        "r7": {
+          "type": "row",
+          "settings": {
+            "cells": "Santa Terezinha, Brazil | Dark, strongly saturated green | Typically very included, and usually heavily oiled"
+          }
+        },
+        "r8": {
+          "type": "row",
+          "settings": {
+            "cells": "Shakiso, Ethiopia | Vivid green, good saturation | A young source, found in 2016, producing some very fine stones"
+          }
+        },
+        "r9": {
+          "type": "row",
+          "settings": {
+            "cells": "Panjshir, Afghanistan | Bright, slightly warm green | Small and irregular output, close in character to Colombian"
+          }
+        },
+        "r10": {
+          "type": "row",
+          "settings": {
+            "cells": "Malyshevo, Russia | Lighter, yellowish to olive green | Worked in the Urals since the 1830s; much antique material"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7",
+        "r8",
+        "r9",
+        "r10"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Where It Comes From",
+        "heading": "The Emerald Sources",
+        "intro": "Every deposit produces recognisably different material, and Colombia remains the benchmark the rest is described against. Origin is a real value factor and also the claim most often stretched.",
+        "headers": "Source | Character | Worth knowing",
+        "first_col_bold": true,
+        "narrow": false,
+        "col1_width": 0,
+        "note": "Origin usually cannot be read off a stone with certainty, and a Colombian description carries a premium a similar-looking Zambian stone will not. Ask what the report states."
+      }
+    },
+    "oiling": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "What it actually is",
+            "body": "<p>Most emeralds have fissures that reach the surface. A clear oil, traditionally cedarwood, is drawn into them under gentle warmth or vacuum. Its refractive index is close to that of emerald, so light stops scattering at the fissure walls and the stone reads cleaner and greener. Nothing is added to the colour.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "How normal it is",
+            "body": "<p>The great majority of emeralds on the market are oiled and have been for centuries. It is disclosed as a matter of course and reflected in the price. An unoiled emerald of good colour is unusual and commands a premium.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "How it is described",
+            "body": "<p>Reports grade the extent rather than the substance, as none, minor, moderate or significant, according to how much filler the fissures contain. Materials other than traditional oil are also used, and some are more durable. The report will say which category a stone falls into.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "It is not permanent",
+            "body": "<p>Oil dries out or seeps away over years, and as it goes the jardin becomes more visible and the stone can look duller. This is normal ageing rather than damage, and it is reversible.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Re-oiling is routine",
+            "body": "<p>A jeweller or lapidary cleans the stone and re-oils it, usually out of the setting. The appearance comes back. It is inexpensive, and best thought of the way you would think about servicing anything you intend to keep for decades.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "What it means for cleaning",
+            "body": "<p>This is the part that matters day to day. No ultrasonic, no steam, no direct heat and no solvents, because each of them removes oil. Warm water, a drop of washing-up liquid and a soft brush is the whole method.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Treatment",
+        "heading": "Oiling, and What It Means for You",
+        "intro": "Oiling is the most misunderstood thing about emerald. It has almost no bearing on whether a stone is a good buy, and a very direct bearing on how you look after it.",
+        "note": ""
+      }
+    },
+    "lab": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "ivory",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "The Other Option",
+        "heading": "Laboratory-Grown Emerald",
+        "body": "<p>We supply laboratory-grown coloured stones as well as mined ones, and emerald is one of the places where the option is most worth taking seriously.</p><p>Laboratory-grown emerald is emerald: beryl with the same chemistry, the same crystal structure, the same hardness and the same green from the same chromium. It is grown from a molten flux or hydrothermally, over months rather than millions of years, and emerald was among the first gems produced synthetically on a commercial scale, in the 1930s.</p><p>Two practical differences follow. Grown material is usually a great deal cleaner than mined emerald, and much of it needs no oiling at all, which removes the whole re-oiling question from the ownership of the piece. Hardness and cleavage are unchanged, so it still wants a protective setting. And it costs a fraction of a mined stone that looks like it.</p><p>What you give up is rarity and provenance, which for many people is the entire point of owning an emerald. A grown stone should always be described as laboratory-grown in writing, and a gemmological laboratory can tell the two apart. Neither is the right answer; they are simply different purchases.</p>"
+      }
+    },
+    "value": {
+      "type": "fye-checklist",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "label": "Colour, ahead of everything else",
+            "note": "Hue, tone and saturation together account for more of the price than all the other factors combined."
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "label": "Clarity, on emerald's own terms",
+            "note": "Eye-clean at normal viewing distance is the practical bar. Loupe-clean is not the standard."
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "label": "The extent of the treatment",
+            "note": "At the same colour, a stone described as minor is worth more than one described as significant."
+          }
+        },
+        "i4": {
+          "type": "item",
+          "settings": {
+            "label": "Origin, where it is documented",
+            "note": "Colombian material carries a genuine premium. The claim is made more often than it is supported."
+          }
+        },
+        "i5": {
+          "type": "item",
+          "settings": {
+            "label": "Size",
+            "note": "Price per carat climbs steeply, and fastest in fine colour. Doubling the weight can more than double the cost."
+          }
+        },
+        "i6": {
+          "type": "item",
+          "settings": {
+            "label": "Cut and proportion",
+            "note": "Windowing, heavy extinction and weight hidden in a deep pavilion all cost money."
+          }
+        },
+        "i7": {
+          "type": "item",
+          "settings": {
+            "label": "Evenness of colour",
+            "note": "A stone that holds its green across the whole face is worth more than one with visible banding."
+          }
+        },
+        "i8": {
+          "type": "item",
+          "settings": {
+            "label": "Natural or laboratory-grown",
+            "note": "Effectively two separate markets, with grown stones at a small fraction of mined prices."
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6",
+        "i7",
+        "i8"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "What You Are Paying For",
+        "heading": "How an Emerald Is Priced",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "care": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Cleaning",
+            "body": "<p>Warm water, a drop of washing-up liquid, a soft brush and a dry cloth. Nothing else is needed and nothing else is safe.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Never",
+            "body": "<p>Ultrasonic cleaners, steamers, jewellery dips, acetone and direct heat. Each of them removes oil, and an ultrasonic can open a fissure.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Wearing",
+            "body": "<p>Off for gardening, the gym, cleaning and anything involving chemicals or hot water. Emerald copes with ordinary daily wear perfectly well.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Storage",
+            "body": "<p>A soft pouch of its own. Diamonds and sapphires loose in the same box will scratch it, and a hot dry environment is unkind to the oil.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Re-oiling",
+            "body": "<p>Expect it eventually, perhaps every several years, and much less often for a stone that never meets heat or solvents.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Over the years",
+            "body": "<p>Have the setting checked once a year, which we do free for the life of the piece. A slightly loose corner is how a chip starts.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "3",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Living With It",
+        "heading": "Looking After an Emerald",
+        "intro": "",
+        "note": "If an emerald does chip it can usually be recut and reset. That is a nuisance and an expense rather than the end of the stone."
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "eyebrow": "Before You Choose",
+        "heading": "Check It Against the Life It Will Lead",
+        "body": "<p>Hardness and toughness are constantly confused, and emerald is the clearest illustration of the difference: it out-scratches almost everything it will meet, and it chips more readily than stones half its hardness. Our durability guide sets out which gems survive daily wear and which are happier in a pendant than on a finger.</p>",
+        "link": "/pages/gemstone-durability",
+        "link_label": "Read the durability guide"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I have an emerald engagement ring?",
+            "a": "<p>Yes, and we make them regularly. It needs the right construction: a bezel or half bezel, or claws sitting over the corners, and a low profile that keeps the stone out of the way. On a hand that does heavy work we would talk the trade-offs through honestly first. With a sensible setting and a sensible cleaning routine, an emerald ring is entirely wearable.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "What is a jardin?",
+            "a": "<p>The network of natural inclusions inside almost every emerald, from the French for garden. It is expected rather than exceptional. What matters is whether it dulls the colour, whether an inclusion sits distractingly under the table, and whether any fissure reaches the surface at a vulnerable point.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Is emerald really the same mineral as aquamarine?",
+            "a": "<p>It is. Both are beryl, with an identical crystal structure. Aquamarine is coloured blue by iron, emerald green by chromium or vanadium, and morganite pink by manganese. The difference is a matter of trace elements measured in parts per thousand.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Why are emeralds oiled?",
+            "a": "<p>Oil fills the surface-reaching fissures that almost all emeralds have. Its refractive index is close to that of emerald, so light stops scattering at the fissure walls and the stone looks cleaner and greener. It is a traditional practice, centuries old, applied to the large majority of emeralds sold anywhere.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Does oiling make an emerald worth less?",
+            "a": "<p>Oiling is priced in rather than penalised. What affects value is the extent of it: reports describe enhancement as none, minor, moderate or significant, and two stones that look alike can be priced quite differently on that basis. A genuinely unoiled emerald of good colour does command a premium.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "How often will an emerald need re-oiling?",
+            "a": "<p>There is no fixed schedule. Every several years is a reasonable expectation, and a stone never exposed to heat, solvents or ultrasonic cleaning may go far longer. You will see it coming, because the jardin becomes gradually more visible. It is straightforward and inexpensive to have done.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "q": "How should I clean an emerald?",
+            "a": "<p>Warm water, a drop of washing-up liquid, a soft brush and a dry cloth. Never an ultrasonic cleaner, a steamer, a jewellery dip or acetone. Heat is the other thing to avoid, so take the ring off before a hot bath, a sauna or a hot tub.</p>"
+          }
+        },
+        "q8": {
+          "type": "qa",
+          "settings": {
+            "q": "What makes an emerald green?",
+            "a": "<p>Traces of chromium, vanadium, or both, sitting in the beryl lattice. Iron, where present, cools the green towards blue and can bring in grey. The proportions vary by deposit, which is much of why Colombian, Zambian and Brazilian emeralds look different.</p>"
+          }
+        },
+        "q9": {
+          "type": "qa",
+          "settings": {
+            "q": "How hard is emerald, and will it scratch?",
+            "a": "<p>Mohs 7.5 to 8, hard enough to resist almost everything it meets in daily life, including the quartz dust that scratches softer stones. The vulnerability is not scratching but chipping, because the inclusions and the cleavage direction give a knock somewhere to go.</p>"
+          }
+        },
+        "q10": {
+          "type": "qa",
+          "settings": {
+            "q": "Are Colombian emeralds the best?",
+            "a": "<p>Colombia is the benchmark, and the finest emeralds have generally come from there. That is not the same as saying every Colombian stone beats every Zambian one. Zambian material is often cleaner and better value, Ethiopia produces some superb stones, and a good stone from anywhere beats a mediocre one from Muzo.</p>"
+          }
+        },
+        "q11": {
+          "type": "qa",
+          "settings": {
+            "q": "What is a trapiche emerald?",
+            "a": "<p>An emerald with a six-rayed dark star radiating from a hexagonal core, formed by carbon or albite trapped along the crystal's growth boundaries. It is named after the spoked wheel used for crushing sugar cane, it is almost entirely Colombian, and it is bought for the pattern rather than the green.</p>"
+          }
+        },
+        "q12": {
+          "type": "qa",
+          "settings": {
+            "q": "What is a cat's eye emerald?",
+            "a": "<p>An emerald cut as a cabochon in which fine parallel growth tubes concentrate light into a single bright band across the dome. It is uncommon, and a sharp, straight, well-centred eye is rarer still. Brazil, Zambia and Madagascar are the usual sources.</p>"
+          }
+        },
+        "q13": {
+          "type": "qa",
+          "settings": {
+            "q": "Is laboratory-grown emerald real emerald?",
+            "a": "<p>Chemically, structurally and optically, yes. It is beryl coloured by chromium, with the same hardness and the same green. What it is not is natural, and it should always be described as laboratory-grown in writing. We do supply it, and it is a genuine option rather than a fallback: typically much cleaner than mined material, often needing no oiling, and a fraction of the price. What you forgo is rarity.</p>"
+          }
+        },
+        "q14": {
+          "type": "qa",
+          "settings": {
+            "q": "Should I prioritise colour or clarity?",
+            "a": "<p>Colour, almost without exception, and emerald is the stone where that is most emphatically true. A slightly included stone with vivid, evenly spread green will look better on the hand than a cleaner stone with a pale or greyish colour. Clarity matters mainly where it affects durability.</p>"
+          }
+        },
+        "q15": {
+          "type": "qa",
+          "settings": {
+            "q": "What is a good emerald alternative for daily wear?",
+            "a": "<p>Green sapphire is the most practical, at Mohs 9 with excellent toughness and no treatment considerations. Tsavorite garnet is brighter and more vivid, softer at 7 to 7.5 but structurally far tougher than emerald. None of them is emerald, and all of them take daily wear more easily.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8",
+        "q9",
+        "q10",
+        "q11",
+        "q12",
+        "q13",
+        "q14",
+        "q15"
+      ],
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Emerald Questions We Are Asked Most",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "UbTxH7"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/diamond-and-gemstone-guide-cover.png",
+        "cover_alt": "The Diamond and Gemstone Guide",
+        "cover_caption": "The Diamond and Gemstone Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Diamond and Gemstone Guide",
+        "body": "<p>Every gemstone stone by stone, plus durability, treatments, ethical sourcing and grading reports.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Emerald Engagement Rings",
+            "desc": "See what we currently have available.",
+            "cta": "Browse",
+            "link": "/collections/emerald-engagement-rings"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Emerald Eternity Rings",
+            "desc": "See what we currently have available.",
+            "cta": "Browse",
+            "link": "/collections/eternity-emerald"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Coloured Stone Rings",
+            "desc": "See what we currently have available.",
+            "cta": "Browse",
+            "link": "/collections/coloured-stone-rings"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Section Hub",
+            "title": "Gemstone Education",
+            "desc": "Every gemstone guide in one place.",
+            "cta": "Back to the hub",
+            "link": "/pages/gemstone-education"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "colour",
+    "palette",
+    "why",
+    "grades",
+    "forring",
+    "watch",
+    "design",
+    "facts",
+    "refintro",
+    "beryl",
+    "clarity",
+    "cut",
+    "origins",
+    "oiling",
+    "lab",
+    "value",
+    "care",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

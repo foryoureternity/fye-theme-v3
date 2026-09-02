@@ -1,0 +1,1465 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Sapphire"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>The most practical coloured gemstone there is, in eleven colours</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 36,
+        "image": "shopify://shop_images/loose-diamonds-coloured-gemstones-sapphire-emerald.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true,
+        "show_contents": true,
+        "contents_label": "On this page"
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Gemstone Education",
+        "heading": "About Sapphire",
+        "body": "<p>Sapphire is the most practical coloured gemstone there is. At Mohs 9 it is second only to diamond and moissanite among the stones we set, it is tough as well as hard, and no other durable gemstone matches its colour range. For colour in a ring worn every day, this is where to start.</p><p>Sapphire is the gem variety of corundum, a crystalline aluminium oxide. Ruby is the same mineral. The only difference is colour: red corundum is called ruby, and corundum of every other colour is called sapphire. A pink stone and a red one can come out of the same pocket of the same mine, and where the trade draws the line between them is convention rather than chemistry.</p><p>Most people picture blue, and blue is the classic. Sapphire is also pink, yellow, orange, green, purple, grey, white and colourless, and it occurs in teal and in parti-coloured stones showing two or three colours at once inside one crystal. Padparadscha, the pink and orange of a lotus flower, is the rarest of the named colours.</p><p>Because we source stones to your specification rather than selling from a fixed case, the question is rarely what happens to be in the window. It is what you want the colour to do, and then finding the stone that does it.</p>"
+      }
+    },
+    "language": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "One mineral, two names",
+            "body": "<p>Sapphire and ruby are both corundum. Red is called ruby; every other colour, including pink, is sapphire. Nothing else differs: same hardness, same toughness, same behaviour in a setting.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Where pink becomes red",
+            "body": "<p>There is no international line between a deep pink sapphire and a light ruby. Laboratories differ, and the same stone can be certified either way. Ruby carries the higher price, so the naming is worth asking about.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Hue",
+            "body": "<p>The colour itself. Blue sapphire is seldom purely blue; it usually carries a secondary hue, described as violetish blue or greenish blue. Violet reads richer, a green cast reads greyer and costs less.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Tone",
+            "body": "<p>How light or dark the stone is. Tone does more damage than anything else when it goes wrong. Too light and the colour washes out; too dark and the stone reads black across a room.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Saturation",
+            "body": "<p>The strength and purity of the colour, and what people are actually responding to when they say a sapphire looks good. Grey in a blue stone and brown in a yellow one both pull saturation down.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Why the language matters",
+            "body": "<p>Sapphire colour is described in words, not graded on a scale like diamond colour. Two sellers can honestly call one stone royal blue and mid blue. Trade names are shorthand; hue, tone and saturation are description.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "3",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "How Colour Is Described",
+        "heading": "The Language of Sapphire Colour",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "palette": {
+      "type": "fye-chips",
+      "blocks": {
+        "c1": {
+          "type": "chip",
+          "settings": {
+            "name": "Classic blue",
+            "sub": "Violetish blue, the traditional choice",
+            "colour": "#1F3F7A"
+          }
+        },
+        "c2": {
+          "type": "chip",
+          "settings": {
+            "name": "Cornflower",
+            "sub": "Bright medium blue, softer",
+            "colour": "#4A72B8"
+          }
+        },
+        "c3": {
+          "type": "chip",
+          "settings": {
+            "name": "Teal",
+            "sub": "Blue and green together, contemporary",
+            "colour": "#1F6E6E"
+          }
+        },
+        "c4": {
+          "type": "chip",
+          "settings": {
+            "name": "Green",
+            "sub": "Olive to forest, quietly unusual",
+            "colour": "#4E7A4E"
+          }
+        },
+        "c5": {
+          "type": "chip",
+          "settings": {
+            "name": "Pink",
+            "sub": "Pale rose through to hot pink",
+            "colour": "#D98BA6"
+          }
+        },
+        "c6": {
+          "type": "chip",
+          "settings": {
+            "name": "Padparadscha",
+            "sub": "Pink and orange at once, the rarest",
+            "colour": "#EF9268",
+            "colour_2": "#F3B892"
+          }
+        },
+        "c7": {
+          "type": "chip",
+          "settings": {
+            "name": "Peach",
+            "sub": "Soft, warm and modern",
+            "colour": "#E3A882"
+          }
+        },
+        "c8": {
+          "type": "chip",
+          "settings": {
+            "name": "Yellow",
+            "sub": "Lemon through to deep gold",
+            "colour": "#E3B84A"
+          }
+        },
+        "c9": {
+          "type": "chip",
+          "settings": {
+            "name": "Orange",
+            "sub": "Saturated and genuinely scarce",
+            "colour": "#E08339"
+          }
+        },
+        "c10": {
+          "type": "chip",
+          "settings": {
+            "name": "Purple",
+            "sub": "Lilac to plum, often unheated",
+            "colour": "#7A5A9E"
+          }
+        },
+        "c11": {
+          "type": "chip",
+          "settings": {
+            "name": "White",
+            "sub": "Colourless, bright rather than fiery",
+            "colour": "#ECEAE4"
+          }
+        },
+        "c12": {
+          "type": "chip",
+          "settings": {
+            "name": "Grey",
+            "sub": "Steel and slate, increasingly asked for",
+            "colour": "#8A8D93"
+          }
+        },
+        "c13": {
+          "type": "chip",
+          "settings": {
+            "name": "Parti",
+            "sub": "Two or three colours in one crystal",
+            "colour": "#2E5E8A",
+            "colour_2": "#5E8A4E"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8",
+        "c9",
+        "c10",
+        "c11",
+        "c12",
+        "c13"
+      ],
+      "settings": {
+        "band": "white",
+        "align": "centre",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Colour",
+        "heading": "The Palette",
+        "intro": "Sapphire occurs in every colour except red, which is called ruby. Swatches are indicative only: tone and saturation vary far more within each colour than between the squares below.",
+        "note": "We will always show you the actual stone in more than one light before it is set."
+      }
+    },
+    "why": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "It survives daily wear",
+            "body": "<p>Mohs 9, excellent toughness and no cleavage plane to split along. Among coloured stones only ruby matches it. A sapphire ring worn every day needs a setting check and a clean, nothing more.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "The widest colour range of any hard stone",
+            "body": "<p>No other gemstone offers this many colours at this durability, so you can chase a very specific shade without compromising on how it wears.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Modern and antique both",
+            "body": "<p>It sits comfortably in a clean bezel or an ornate milgrain cluster, cut as a step cut, a brilliant or a cabochon. Few stones are as design-agnostic.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "It reads as colour, not sparkle",
+            "body": "<p>A diamond is a lighting effect. A sapphire is a colour, recognisable across a room and largely unchanged by the light it is in. For most people choosing one, that is the point.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Strong symbolism",
+            "body": "<p>The September birthstone, long associated with wisdom, constancy and fidelity, and the traditional stone for the fifth and forty-fifth anniversaries.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "A genuinely wide price range",
+            "body": "<p>A pretty commercial stone costs modest money; fine Kashmir material is among the most expensive gem material on earth. There is a good sapphire at most budgets, which is not true of every stone.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "The Case For It",
+        "heading": "Why Sapphire Works",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "tone": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Very light | Pastel, barely coloured | Delicate, but the colour thins out in small sizes"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Light | Clearly coloured and gentle | Pretty in daylight, quieter under warm lamps"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Medium light | Bright and open | Lively, and often best for smaller stones"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Medium | Full colour, still bright | Where a great deal of attractive sapphire sits"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Medium dark | Rich and deep | The classic fine blue, and the most sought after"
+          }
+        },
+        "r6": {
+          "type": "row",
+          "settings": {
+            "cells": "Dark | Deep and beginning to close up | Needs good cutting and an open setting to stay alive"
+          }
+        },
+        "r7": {
+          "type": "row",
+          "settings": {
+            "cells": "Very dark | Near black in anything but sunlight | Cheaper per carat, usually for good reason"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Tone",
+        "heading": "Light, Dark and the Sweet Spot",
+        "intro": "Colour in sapphire is described rather than graded, but tone is the part worth understanding before you look at stones. Tone is how light or dark the stone is, and it moves both the look and the price more than anything else.",
+        "headers": "Tone | Description | What you see",
+        "first_col_bold": true,
+        "narrow": true,
+        "col1_width": 22,
+        "note": "Tone and saturation work together. A medium dark stone with strong saturation is the classic fine blue; the same tone with grey in it looks flat and costs a fraction."
+      }
+    },
+    "forring": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "See it in more than one light",
+            "body": "<p>Sapphire changes character between a window, a warm bulb and shade, and blue in particular can go inky under a restaurant table. Look at any stone in two lights at least, preferably on the hand it will live on.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Follow the tone, not the trade name",
+            "body": "<p>A stone sold as royal blue that is too dark for the wearer disappoints every day. Mid tones stay alive in more situations, and small stones want a lighter tone.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Look through it for a window",
+            "body": "<p>Hold the stone face up over printed text. If you can read through the middle it is windowed, and it will look watery once set.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Compare millimetres, not carats",
+            "body": "<p>Sapphire is about fifteen per cent denser than diamond, so a one carat sapphire looks smaller than a one carat diamond. Face-up measurements are the honest comparison.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Expect a deeper stone",
+            "body": "<p>Sapphire is often cut with a deep pavilion to hold weight. That depth sits below the finger line and changes how the setting is built, so it is something to design around.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Decide about treatment early",
+            "body": "<p>Heated and unheated stones that look alike can differ several times over in price. Settling whether unheated status matters to you narrows the search enormously.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "If It Is Going in a Ring",
+        "heading": "Choosing a Sapphire to Wear",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "watch": {
+      "type": "fye-checklist",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "label": "Very dark stones can read as black once set",
+            "note": "Particularly in a closed setting or against yellow gold. Ask to see the stone against the actual metal."
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "label": "Colour zoning is common",
+            "note": "Straight bands of stronger and weaker colour, most often in blue and yellow. A good cutter keeps it away from the face."
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "label": "Windowing is the usual cut fault",
+            "note": "A pale transparent patch through the centre where light passes straight out. It flattens a stone whatever its colour."
+          }
+        },
+        "i4": {
+          "type": "item",
+          "settings": {
+            "label": "Heat treatment is close to universal",
+            "note": "Assume a sapphire is heated unless a report says otherwise. It is stable, permanent and reflected in the price."
+          }
+        },
+        "i5": {
+          "type": "item",
+          "settings": {
+            "label": "Silk can be an asset or a nuisance",
+            "note": "The rutile needles that create a star in a cabochon make a faceted stone look sleepy in any quantity."
+          }
+        },
+        "i6": {
+          "type": "item",
+          "settings": {
+            "label": "Carat weight does not translate from diamond",
+            "note": "Corundum is denser, so match millimetre sizes rather than weights when comparing with a diamond."
+          }
+        },
+        "i7": {
+          "type": "item",
+          "settings": {
+            "label": "Origin claims need paperwork",
+            "note": "Kashmir, Burmese and Ceylon origins carry real premiums, and origin cannot be read off a stone by eye."
+          }
+        },
+        "i8": {
+          "type": "item",
+          "settings": {
+            "label": "Matching a row takes time",
+            "note": "Matched stones for an eternity ring cost more per carat than a single stone and take longer to find."
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6",
+        "i7",
+        "i8"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Be Aware",
+        "heading": "What to Watch",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "design": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Design Note",
+        "heading": "Setting It Well",
+        "body": "<p>Sapphire is easy to work with. It takes claws, bezels, channel, pavé and cut-down settings without complaint, it survives the workshop as well as it survives the wearer, and a sapphire ring can usually be sized with the stone in place.</p><p>Metal choice matters more than construction. Blue sapphire is classic in platinum and white gold, which keep the palette cool and let a violet secondary hue show. Peach, yellow, orange and padparadscha look most intentional in yellow or rose gold. Teal, green, grey and pink go either way, and usually follow the wearer's other jewellery.</p><p>The one question worth raising is about dark stones. A deep blue in a closed back loses the light that keeps it alive, so an open gallery and a slightly raised setting keep it reading blue rather than black.</p>"
+      }
+    },
+    "facts": {
+      "type": "fye-facts",
+      "blocks": {
+        "f1": {
+          "type": "fact",
+          "settings": {
+            "label": "Hardness",
+            "value": "<p>9 on the Mohs scale</p>",
+            "show_scale": true,
+            "scale_min": 9,
+            "scale_max": 9,
+            "scale_note": "Second only to diamond and moissanite"
+          }
+        },
+        "f2": {
+          "type": "fact",
+          "settings": {
+            "label": "Toughness",
+            "value": "<p>Excellent, with no cleavage plane</p>"
+          }
+        },
+        "f3": {
+          "type": "fact",
+          "settings": {
+            "label": "Composition",
+            "value": "<p>Corundum, crystalline aluminium oxide</p>"
+          }
+        },
+        "f4": {
+          "type": "fact",
+          "settings": {
+            "label": "Same mineral as",
+            "value": "<p>Ruby, which is simply red corundum</p>"
+          }
+        },
+        "f5": {
+          "type": "fact",
+          "settings": {
+            "label": "Colour cause",
+            "value": "<p>Traces of iron, titanium, chromium and vanadium</p>"
+          }
+        },
+        "f6": {
+          "type": "fact",
+          "settings": {
+            "label": "Colour range",
+            "value": "<p>Every colour except red, plus parti-coloured stones</p>"
+          }
+        },
+        "f7": {
+          "type": "fact",
+          "settings": {
+            "label": "Refractive index",
+            "value": "<p>1.76 to 1.78</p>"
+          }
+        },
+        "f8": {
+          "type": "fact",
+          "settings": {
+            "label": "Usual cuts",
+            "value": "<p>Oval, cushion and round; cabochon for star stones</p>"
+          }
+        },
+        "f9": {
+          "type": "fact",
+          "settings": {
+            "label": "Suited to",
+            "value": "<p>Engagement rings, wedding and eternity rings, daily wear</p>"
+          }
+        },
+        "f10": {
+          "type": "fact",
+          "settings": {
+            "label": "Common treatment",
+            "value": "<p>Heat, routine and accepted where disclosed</p>"
+          }
+        },
+        "f11": {
+          "type": "fact",
+          "settings": {
+            "label": "Price range",
+            "value": "<p>£ to £££££, depending on colour, origin and treatment</p>"
+          }
+        },
+        "f12": {
+          "type": "fact",
+          "settings": {
+            "label": "Birthstone",
+            "value": "<p>September</p>"
+          }
+        },
+        "f13": {
+          "type": "fact",
+          "settings": {
+            "label": "Anniversary",
+            "value": "<p>The fifth and the forty-fifth</p>"
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4",
+        "f5",
+        "f6",
+        "f7",
+        "f8",
+        "f9",
+        "f10",
+        "f11",
+        "f12",
+        "f13"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "At a Glance",
+        "heading": "The Practical Facts",
+        "intro": "",
+        "note": "Hardness describes scratch resistance, not toughness. The two are different and both matter. Sapphire is one of the few stones that scores highly on both."
+      }
+    },
+    "refintro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "ivory",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "The Reference",
+        "heading": "A Field Guide to Sapphire",
+        "body": "<p>Sapphire is described in more overlapping ways than almost any other gemstone. One stone might be a Ceylon sapphire by origin, a cornflower blue by trade name, a medium tone violetish blue by description and an unheated stone by treatment, and all four can be true at once.</p><p>What follows is the fuller picture: the colours one by one, the effects only corundum produces, where sapphire comes from, how it is treated, what lab-grown sapphire is, and what moves the price. None of it is necessary in order to choose a stone you like, but it is useful when a description is doing more work than the stone behind it.</p>",
+        "variant": "divider"
+      }
+    },
+    "colours": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Blue",
+            "body": "<p>The classic, coloured by iron and titanium. Fine blue is a medium to medium dark tone with strong saturation and a slight violet secondary hue. Green in the blue reads grey and costs less. The most available colour, and the most variable.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Pink",
+            "body": "<p>Coloured by chromium, the same element that makes ruby red. It runs from pale ballet pink to a hot pink shading towards red, where the naming argument with ruby begins. Sri Lanka and Madagascar are the main sources.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Padparadscha",
+            "body": "<p>Pink and orange together in one stone, named after the lotus flower. Rare enough that laboratories disagree about the boundaries of the term, and priced accordingly. There is a fuller note below.</p><p>Padparadscha is the one sapphire colour with a name of its own and an argument attached. The word comes from the Sinhalese for lotus blossom, and it describes a stone that is pink and orange at once, in a light to medium tone. It is not pink with an orange cast, and not orange with a hint of pink. Both must be present and neither should dominate.</p><p>The premium comes from rarity and from how narrow the definition is. Laboratories disagree about where padparadscha begins and ends, so a stone can be certified padparadscha by one and pink-orange sapphire by another, and that single word can move the price several times over. Sri Lankan material is the benchmark; Madagascar and Tanzania supply much of the market.</p><p>Treatment matters more here than in most colours. Heat is common, and beryllium lattice diffusion can produce a convincing padparadscha colour from unpromising material. Both are legitimate where they are disclosed, and both belong on the paperwork, because two similar-looking stones can sit in entirely different price brackets.</p><p>If it is the colour you want rather than the certificate, a pink-orange sapphire that misses the strict definition can look almost identical for a fraction of the money.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Yellow",
+            "body": "<p>Pale lemon to deep golden honey, coloured by iron. Bright, cheerful and generally better value than blue for the same size and quality.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Orange",
+            "body": "<p>Uncommon in a clean hue, and frequently shading towards brown or towards pink. A saturated orange that stays orange is harder to find than a good blue.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Green",
+            "body": "<p>Usually olive or forest green rather than the vivid green of emerald, and often produced by fine blue and yellow zoning blending together. Quiet, overlooked, and one of the better value colours.</p>"
+          }
+        },
+        "t7": {
+          "type": "term",
+          "settings": {
+            "heading": "Teal",
+            "body": "<p>A blue-green that has become one of the most requested colours of the past decade, largely from Australia, Montana and Madagascar. Teal stones often shift between blue and green as they turn, which is much of the appeal.</p>"
+          }
+        },
+        "t8": {
+          "type": "term",
+          "settings": {
+            "heading": "Parti and bi-colour",
+            "body": "<p>One crystal showing two or three distinct colours, most often blue with green or blue with yellow, divided by a visible boundary. Entirely natural, and impossible to match as a pair. Australia is the classic source.</p>"
+          }
+        },
+        "t9": {
+          "type": "term",
+          "settings": {
+            "heading": "Purple and violet",
+            "body": "<p>Coloured by vanadium, from soft lilac to deep plum. Often unheated, because the colour does not need improving, and usually less expensive than a comparable blue.</p>"
+          }
+        },
+        "t10": {
+          "type": "term",
+          "settings": {
+            "heading": "White, colourless and grey",
+            "body": "<p>Colourless sapphire wears extremely well as a diamond alternative, but with almost no dispersion it reads bright and clean rather than fiery. Grey and steel stones are increasingly asked for in quiet modern designs.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6",
+        "t7",
+        "t8",
+        "t9",
+        "t10"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Colour by Colour",
+        "heading": "The Sapphire Colours",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "phenomena": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Silk",
+            "body": "<p>Microscopic rutile needles growing in three directions inside the crystal. Too much silk makes a faceted stone look hazy. In the right density and orientation, it is what produces a star.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Asterism",
+            "body": "<p>Cut as a cabochon with the dome correctly oriented, a silky crystal reflects light as a six-rayed star that glides across the surface as the stone moves. Twelve-rayed stars exist and are rare.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "What makes a good star",
+            "body": "<p>Straight, sharp, well centred rays that hold together as the stone tilts, over a body colour that still reads as a colour. A strong star on a grey body is common; on a fine blue it is not.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Colour-change sapphire",
+            "body": "<p>A stone that reads one colour in daylight and another under a filament bulb, most often blue to violet or purple, caused by vanadium. The more complete the change, the higher the price.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Cat's eye sapphire",
+            "body": "<p>Silk oriented in one direction rather than three, giving a single band of light instead of a star. Much less common than star material.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Why these are cut as cabochons",
+            "body": "<p>Both effects rely on reflection from inclusions rather than facets, so faceting the same rough would scatter and lose them. These stones are judged by eye, not on clarity.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "3",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Stars and Colour Change",
+        "heading": "The Phenomenal Sapphires",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "origins": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Kashmir, India | Velvety fine blue | Effectively mined out by the 1930s; the highest prices in sapphire"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Mogok, Burma | Deep royal blue | A historic benchmark; sourcing and import rules are complex"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Sri Lanka (Ceylon) | Blue, pink, padparadscha | The most consistent source of fine unheated material"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Madagascar | Almost every colour | The largest modern producer, often sold under other names"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Australia | Deep blue, teal, parti | Queensland and New South Wales; the classic parti source"
+          }
+        },
+        "r6": {
+          "type": "row",
+          "settings": {
+            "cells": "Montana, USA | Teal, blue-green, steel | Yogo Gulch and Rock Creek; small sizes, frequently unheated"
+          }
+        },
+        "r7": {
+          "type": "row",
+          "settings": {
+            "cells": "Thailand | Dark blue and black star | Also the historic centre of heat treatment and cutting"
+          }
+        },
+        "r8": {
+          "type": "row",
+          "settings": {
+            "cells": "Nigeria | Blue, teal, parti | A growing source of teal and less usual colours"
+          }
+        },
+        "r9": {
+          "type": "row",
+          "settings": {
+            "cells": "Tanzania | Blue, pink, colour-change | Umba and Songea material, with a very wide colour range"
+          }
+        },
+        "r10": {
+          "type": "row",
+          "settings": {
+            "cells": "Ethiopia | Blue and parti | A recent discovery, with supply still settling down"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7",
+        "r8",
+        "r9",
+        "r10"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Where It Comes From",
+        "heading": "The Sapphire Sources",
+        "intro": "Origin is a genuine value factor in sapphire, and one of the few gemstone claims capable of multiplying a price. It is also the claim most often stretched, because it cannot be read off a stone by eye.",
+        "headers": "Source | Known for | Worth knowing",
+        "first_col_bold": true,
+        "narrow": false,
+        "col1_width": 0,
+        "note": "Origin says where a stone was mined, not how good it is. A fine Madagascan sapphire beats an ordinary Ceylon one, and pays nothing for the name."
+      }
+    },
+    "treatments": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Heat, and why it is everywhere",
+            "body": "<p>Sapphire has been heated for centuries. Sustained high temperature dissolves silk, improves clarity and deepens or clarifies colour. The result is stable and permanent, it needs no special care, and it applies to the great majority of sapphire on the market. The trade treats it as normal, and it should still be stated.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Unheated stones",
+            "body": "<p>A sapphire that reached its colour without help, confirmed by a laboratory report. Unheated material carries a substantial premium, sometimes several times the price of an identical heated stone. Whether that is worth paying is a personal question, not a quality one.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Lattice diffusion",
+            "body": "<p>Colour introduced at high temperature with an added element, usually titanium for blue or beryllium for yellow, orange and padparadscha colours. Beryllium works through the whole stone; titanium diffusion is shallow. Both should be disclosed, and both price below untreated material.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Where treatment changes the care advice",
+            "body": "<p>Because a titanium-diffused colour lives close to the surface, a recut or a heavy repolish can remove part of it. Tell any jeweller before work is done. Heated and unheated stones need no such warning.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "What a report tells you",
+            "body": "<p>A report from GIA, SSEF, Gübelin, GRS or AGL states the species, describes the colour, records any treatment detected and, where asked, gives an origin opinion. For an everyday sapphire it is optional. Where origin or unheated status is part of the price, it is not.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "What none of it changes",
+            "body": "<p>No accepted treatment makes a sapphire less durable. A heated stone is still Mohs 9 with excellent toughness, sets the same way and lasts as long. Treatment affects what a stone costs, not how it lives.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Treatment",
+        "heading": "Heat, and What Else Is Done",
+        "intro": "",
+        "note": "Heated stones are the market's baseline. Unheated sits above it and diffused below it, so two sapphires that look alike can be several times apart in price."
+      }
+    },
+    "lab": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "The Other Option",
+        "heading": "Lab-Grown Sapphire",
+        "body": "<p>Lab-grown sapphire is sapphire. It is corundum with the same chemistry, the same crystal structure, the same Mohs 9 hardness and the same behaviour in a setting. The only difference is that it crystallised in a factory over weeks rather than in the ground over millions of years. We are happy to supply it, and we describe it as lab-grown on the paperwork.</p><p>The economics are the point. It costs a small fraction of a natural stone of the same size and colour, and the gap widens with size: at eight or ten millimetres, where fine natural material becomes seriously expensive, lab-grown stays modest. It also comes in colours that are scarce in nature, and in matched sets that would take months to assemble.</p><p>The trade-offs are worth saying plainly. Lab-grown sapphire has little to no resale value, where a fine natural stone holds some, and it is often so clean and even that some people read it as too perfect. For many buyers the appeal of a natural stone is that it is a natural object with an origin.</p><p>Neither choice is right in general. Lab-grown makes obvious sense for a large statement stone, a colour otherwise out of reach, or matched stones in an eternity ring. Natural makes sense when the stone itself, rather than the look of it, is what is wanted.</p>"
+      }
+    },
+    "cut": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Cut for colour, not for sparkle",
+            "body": "<p>A diamond is cut to a formula that maximises light return. A sapphire is cut to show its colour at its best, so the cutter balances depth, tone and weight by judgement rather than to a chart.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Windowing",
+            "body": "<p>Cut too shallow, and light passes straight through the middle instead of returning, leaving a pale transparent patch. Hold the stone over printed text: if you can read through it, it is windowed.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Extinction",
+            "body": "<p>Dark patches that return no light, common in deep tones and badly proportioned stones. A little is normal. A lot makes a sapphire look dead however good the colour reads on paper.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Native cut",
+            "body": "<p>Rough is often cut near the mine to retain weight, giving deep, lumpy, asymmetric stones. They cost less per carat and are frequently worth recutting, which loses weight and gains life.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Shape changes how colour reads",
+            "body": "<p>Step cuts such as emerald and Asscher pool the colour and read darker. Brilliant cuts break it up and read lighter. A dark stone benefits from a brilliant cut; a pale one gains from a step cut.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "3",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Cut",
+        "heading": "Why Sapphire Is Cut Differently",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "value": {
+      "type": "fye-checklist",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "label": "Colour, before anything else",
+            "note": "Hue, tone and saturation together account for most of the price. Everything below adjusts that figure rather than setting it."
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "label": "Cut quality",
+            "note": "A well cut stone with no window and little extinction can be worth twice a poorly cut one of the same colour and weight."
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "label": "Treatment status",
+            "note": "Unheated stones carry a premium and diffused stones sit below the heated market. None of it is visible across a table."
+          }
+        },
+        "i4": {
+          "type": "item",
+          "settings": {
+            "label": "Origin",
+            "note": "Kashmir, Burmese and Ceylon command premiums, roughly in that order, and only a report makes the claim worth paying for."
+          }
+        },
+        "i5": {
+          "type": "item",
+          "settings": {
+            "label": "Size",
+            "note": "Price per carat climbs steeply rather than evenly. A four carat sapphire costs far more than twice a two carat one."
+          }
+        },
+        "i6": {
+          "type": "item",
+          "settings": {
+            "label": "Clarity",
+            "note": "Gem-quality sapphire is expected to be clean to the eye, though the right silk adds value in a star stone."
+          }
+        },
+        "i7": {
+          "type": "item",
+          "settings": {
+            "label": "Rarity of the colour",
+            "note": "Padparadscha, fine unheated blue and clean saturated orange are scarce. Green, purple and grey are not."
+          }
+        },
+        "i8": {
+          "type": "item",
+          "settings": {
+            "label": "Matching",
+            "note": "Pairs and rows cost more per carat than single stones, because the matching itself is most of the work."
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6",
+        "i7",
+        "i8"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "What You Are Paying For",
+        "heading": "How a Sapphire Is Priced",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "care": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Cleaning",
+            "body": "<p>Warm water, a drop of washing-up liquid and a soft brush. Sapphire is one of the few stones where an ultrasonic cleaner is generally safe, though we would keep a heavily included stone or an antique setting out of one.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Storage",
+            "body": "<p>Sapphire will scratch nearly anything it is stored with, and only diamond will scratch it. Keep it away from softer stones for their sake rather than its own.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Wearing",
+            "body": "<p>No special routine. Take a ring off for heavy manual work to protect the setting rather than the stone, because the metal gives up long before the sapphire does.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Over the years",
+            "body": "<p>Have the setting checked annually, which we do free for the life of the piece. The wear happens in the claws and the shank, and both are inexpensive to deal with early.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "3",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Living With It",
+        "heading": "Looking After a Sapphire",
+        "intro": "",
+        "note": "The one exception is a lattice-diffused stone, where the colour lives close to the surface. Tell any jeweller before a recut or a heavy repolish."
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "eyebrow": "Before You Choose",
+        "heading": "Check It Against the Life It Will Lead",
+        "body": "<p>Sapphire sits at the durable end of the coloured stone spectrum, which makes it a useful yardstick for everything else. Hardness is not toughness, and the two are constantly confused. Our durability guide sets out which stones survive daily wear, which need protecting, and which belong in a pendant rather than a ring.</p>",
+        "link": "/pages/gemstone-durability",
+        "link_label": "Read the durability guide"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Is sapphire hard enough for an engagement ring?",
+            "a": "<p>Yes, comfortably. At Mohs 9 with excellent toughness and no cleavage plane, sapphire is one of only three stones we recommend without hesitation for daily wear, alongside diamond and ruby. It needs no special handling, and an annual setting check is the whole of the maintenance.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "What is the difference between a sapphire and a ruby?",
+            "a": "<p>Colour, and nothing else. Both are corundum. Red corundum is called ruby and corundum of any other colour is called sapphire. Hardness, toughness, chemistry and crystal structure are identical, and the two can come from the same mine and the same pocket.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Are sapphires only blue?",
+            "a": "<p>No. Sapphire occurs in blue, pink, yellow, orange, green, teal, purple, grey, white and colourless, and in parti-coloured stones showing two or three colours in one crystal. Blue is simply the colour people picture, largely thanks to the Victorian and Edwardian jewellery that shaped the association.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Where does pink sapphire stop and ruby begin?",
+            "a": "<p>There is no agreed international boundary. Laboratories apply their own thresholds of tone and saturation, and the same stone can be certified pink sapphire by one and ruby by another. Since ruby carries the higher price, it is a fair question about any stone near the line.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "What is a padparadscha sapphire?",
+            "a": "<p>A sapphire that is pink and orange at the same time, in a light to medium tone, named after the lotus flower. Both colours must be present and neither should dominate. Because laboratories disagree about the boundaries, the word on a report can move the price several times over.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "What is a parti sapphire?",
+            "a": "<p>A single stone showing more than one colour, most often blue and green or blue and yellow, with a visible boundary between them. The colours come from zoning as the crystal grew, so they are entirely natural. Australian material is the classic source.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "q": "Should I worry about heat treatment?",
+            "a": "<p>No. Heating sapphire is a centuries-old practice, the result is stable and permanent, and it applies to the large majority of sapphire on the market. A heated stone needs no different care and wears exactly as an unheated one does. Disclosure matters for pricing, not for durability.</p>"
+          }
+        },
+        "q8": {
+          "type": "qa",
+          "settings": {
+            "q": "Is an unheated sapphire worth the premium?",
+            "a": "<p>That depends on why you want one. An unheated stone with a report can cost several times an identical-looking heated stone, and the two will look and wear the same. If colour is what you are buying, your money goes further heated.</p>"
+          }
+        },
+        "q9": {
+          "type": "qa",
+          "settings": {
+            "q": "Why is Kashmir sapphire so expensive?",
+            "a": "<p>The deposit was small, it produced an unusually soft velvety blue, and it was effectively worked out by the 1930s, so supply only shrinks. Burmese and Ceylon origins carry real premiums too, though nothing on that scale. Origin justifies a premium only when a laboratory report supports it.</p>"
+          }
+        },
+        "q10": {
+          "type": "qa",
+          "settings": {
+            "q": "What is a star sapphire?",
+            "a": "<p>A sapphire containing fine rutile needles, known as silk, cut as a cabochon so the needles reflect light as a six-rayed star that moves across the dome. A good star is straight, sharp and centred, over a body colour that still reads as a colour.</p>"
+          }
+        },
+        "q11": {
+          "type": "qa",
+          "settings": {
+            "q": "Is lab-grown sapphire a real sapphire?",
+            "a": "<p>Yes. It is corundum with the same chemistry, hardness and structure as a mined stone, grown in a laboratory rather than in the ground. We supply it and always describe it as lab-grown. It costs a fraction of a natural stone, particularly in larger sizes, and has very little resale value.</p>"
+          }
+        },
+        "q12": {
+          "type": "qa",
+          "settings": {
+            "q": "Why does my sapphire look black in some lights?",
+            "a": "<p>Because it is at the dark end of the tone range, and dark sapphires close up when the light does. A closed setting, yellow gold behind the stone and a dim room all make it worse. An open gallery helps, but tone is decided when you choose the stone.</p>"
+          }
+        },
+        "q13": {
+          "type": "qa",
+          "settings": {
+            "q": "Sapphire or blue topaz?",
+            "a": "<p>Sapphire, for a ring. Blue topaz is far cheaper and reads brightly, but it is brittle with a perfect cleavage plane, so it chips. Topaz is better kept for pendants and earrings. If budget is the constraint, a lab-grown sapphire is the more sensible answer.</p>"
+          }
+        },
+        "q14": {
+          "type": "qa",
+          "settings": {
+            "q": "How do I look after a sapphire ring?",
+            "a": "<p>Warm soapy water and a soft brush, plus an annual setting check, which we do free for the life of the piece. Sapphire generally tolerates an ultrasonic cleaner, though we would avoid one on a heavily included stone or an antique setting. The exception is a lattice-diffused stone, which should not be heavily repolished.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8",
+        "q9",
+        "q10",
+        "q11",
+        "q12",
+        "q13",
+        "q14"
+      ],
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Sapphire Questions We Are Asked Most",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "UbTxH7"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/diamond-and-gemstone-guide-cover.png",
+        "cover_alt": "The Diamond and Gemstone Guide",
+        "cover_caption": "The Diamond and Gemstone Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Diamond and Gemstone Guide",
+        "body": "<p>Every gemstone stone by stone, plus durability, treatments, ethical sourcing and grading reports.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Sapphire Engagement Rings",
+            "desc": "See what we currently have available.",
+            "cta": "Browse",
+            "link": "/collections/sapphire-engagement-rings"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Sapphire Eternity Rings",
+            "desc": "See what we currently have available.",
+            "cta": "Browse",
+            "link": "/collections/eternity-sapphire"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Pink Sapphire",
+            "desc": "See what we currently have available.",
+            "cta": "Browse",
+            "link": "/collections/pink-sapphire-engagement-rings"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Section Hub",
+            "title": "Gemstone Education",
+            "desc": "Every gemstone guide in one place.",
+            "cta": "Back to the hub",
+            "link": "/pages/gemstone-education"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "language",
+    "palette",
+    "why",
+    "tone",
+    "forring",
+    "watch",
+    "design",
+    "facts",
+    "refintro",
+    "colours",
+    "phenomena",
+    "origins",
+    "treatments",
+    "lab",
+    "cut",
+    "value",
+    "care",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

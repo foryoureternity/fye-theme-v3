@@ -1,0 +1,1302 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Aquamarine"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Soft, watery blue with a calm that no other stone quite has</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 36,
+        "image": "shopify://shop_images/loose-diamonds-coloured-gemstones-sapphire-emerald.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "show_contents": true,
+        "contents_label": "On this page",
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Gemstone Education",
+        "heading": "About Aquamarine",
+        "body": "<p>Aquamarine is beryl, the same mineral as emerald, morganite and golden beryl, coloured a pale sea blue by traces of iron. The name is the Latin for seawater, and for once a gemstone name earns itself.</p><p>Its colour runs from a barely there sky blue through to a deep, faintly steely sea blue, with a blue-green branch alongside. That range is the whole story of aquamarine pricing: saturation, meaning how much colour the stone actually holds, matters far more than size.</p><p>It also grows in open pegmatite cavities, with room to form large, clean crystals. Emerald, the same mineral in cramped conditions, comes out small and included. A ten carat eye-clean aquamarine is an ordinary thing; a ten carat emerald of the same clarity is not. Carat weight is comparatively cheap here, which makes aquamarine one of the very few coloured stones where a genuinely large centre stone is within reach.</p><p>At Mohs 7.5 to 8 with good toughness it is a stone you can wear rather than one you have to nurse. It is not indestructible, and beryl has a direction of weakness, but it sits comfortably among the gems we are happy to set in a ring worn every day.</p>"
+      }
+    },
+    "palette": {
+      "type": "fye-chips",
+      "blocks": {
+        "c1": {
+          "type": "chip",
+          "settings": {
+            "name": "Pale sky",
+            "sub": "The most abundant material, light and airy",
+            "colour": "#CBE6F0"
+          }
+        },
+        "c2": {
+          "type": "chip",
+          "settings": {
+            "name": "Sea blue",
+            "sub": "The colour most people picture",
+            "colour": "#93CADE"
+          }
+        },
+        "c3": {
+          "type": "chip",
+          "settings": {
+            "name": "Deep sea blue",
+            "sub": "Real body, and uncommon at any size",
+            "colour": "#3F8FB4"
+          }
+        },
+        "c4": {
+          "type": "chip",
+          "settings": {
+            "name": "Santa Maria blue",
+            "sub": "A trade name for the deepest, faintly steely blue",
+            "colour": "#2A6F99"
+          }
+        },
+        "c5": {
+          "type": "chip",
+          "settings": {
+            "name": "Blue-green",
+            "sub": "Blue with an evident green cast",
+            "colour": "#7AC3B9"
+          }
+        },
+        "c6": {
+          "type": "chip",
+          "settings": {
+            "name": "Sea green",
+            "sub": "Greener still, and often left that way",
+            "colour": "#6EAF97"
+          }
+        },
+        "c7": {
+          "type": "chip",
+          "settings": {
+            "name": "Greenish grey",
+            "sub": "Blue muted by grey rather than green",
+            "colour": "#8CA3AC"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7"
+      ],
+      "settings": {
+        "band": "ivory",
+        "align": "centre",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Colour",
+        "heading": "The Colour Range",
+        "intro": "Swatches are indicative. We will always show you the actual stone in more than one light.",
+        "note": "Saturation moves the price. Two stones of identical weight can be several multiples apart on colour alone."
+      }
+    },
+    "why": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Size you can actually afford",
+            "body": "<p>Large, clean aquamarine is common, so price per carat climbs gently rather than steeply. A five or six carat centre stone is realistic here in a way it is not with sapphire or emerald.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "It is usually eye-clean",
+            "body": "<p>Despite being emerald's close relative, aquamarine is normally transparent and free of visible inclusions. You get the clarity of a fine white stone, with colour in it.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "A quiet colour that still reads",
+            "body": "<p>Calm rather than emphatic. It suits people who want colour without announcing it, and sits next to diamonds without competing.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Step cuts suit it",
+            "body": "<p>Emerald cuts, Asschers and long baguettes show colour as a body rather than chopping it into flashes. Aquamarine is one of the stones those cuts were made for.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Hard enough to wear",
+            "body": "<p>Mohs 7.5 to 8 with good toughness. Harder than the everyday grit that dulls softer stones, and practical in a ring with a sensible setting.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "The March birthstone",
+            "body": "<p>And the nineteenth anniversary stone, which makes it a frequent starting point for a commissioned gift.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "The Case For It",
+        "heading": "Why Aquamarine Works",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "colourtable": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Very light | A hint of blue, particularly below one carat | The cheapest material, and why small aquamarines disappoint"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Light | A clear pale sky blue, easily lost at small sizes | Inexpensive, and lovely from about five carats up"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Medium | The soft even sea blue most people picture | The heart of the market, and where most ring stones sit"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Medium to dark | A definite saturated blue that holds up in poor light | A real step up in price, and worth seeing in person"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Dark | Deep sea blue with genuine body, uncommon at any size | Priced in multiples of medium material, and the territory the trade names describe"
+          }
+        },
+        "r6": {
+          "type": "row",
+          "settings": {
+            "cells": "Blue-green | Blue with an evident green cast, more sea than sky | Usually cheaper, and preferred outright by a minority"
+          }
+        },
+        "r7": {
+          "type": "row",
+          "settings": {
+            "cells": "Greenish grey | Blue muted by grey rather than green | The least sought after tone, and the one to check for under warm light"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Depth of Colour",
+        "heading": "How Colour Sets the Price",
+        "intro": "Colour is described by hue, tone and saturation: what colour, how light or dark, and how pure. Tone and saturation account for most of what an aquamarine costs.",
+        "headers": "Depth | What you see | What it means for the price",
+        "first_col_bold": true,
+        "narrow": true,
+        "col1_width": 20,
+        "note": "Grey is the enemy of saturation, and it separates a pale stone that glows from one that looks flat. Far easier to see with two stones side by side."
+      }
+    },
+    "forring": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Go larger than you would with sapphire",
+            "body": "<p>Colour builds with the distance light travels through a stone, so material that looks almost colourless at 4mm can read as a definite blue at 10mm. Size is a colour decision here, and it is affordable enough to treat it that way.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Ask about the pavilion, not just the spread",
+            "body": "<p>A shallow stone cut for face-up size lets light straight through and washes the colour out. A properly proportioned pavilion gives light a longer path and a deeper blue.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Step cuts show it best",
+            "body": "<p>Emerald and Asscher cuts present broad flat facets that read as a sheet of colour. Brilliant cuts add sparkle but return more white light, which dilutes a pale blue.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Decide about green at the outset",
+            "body": "<p>Untreated aquamarine often carries a green cast, and heat removes it. Neither is better, it is a preference, but telling us which you want changes what we go looking for.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Look at it in daylight and indoors",
+            "body": "<p>Warm indoor lighting flattens pale blue more than most colours. A stone chosen under a spotlight can be a surprise at a kitchen table.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Think about the corners",
+            "body": "<p>An emerald cut has four of them, and they are the part most likely to meet a door frame. Claws sitting over the corners, or a bezel, is the whole of the solution.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "If It Is Going in a Ring",
+        "heading": "Choosing One to Wear",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "watch": {
+      "type": "fye-checklist",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "label": "Pale stones need size to speak",
+            "note": "Below about half a carat most aquamarine reads as near colourless. If colour matters, plan the size around it."
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "label": "Beryl has a direction of weakness",
+            "note": "An imperfect basal cleavage. Not fragile, but a sharp knock on the wrong plane can chip it, which argues for a protected girdle."
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "label": "Orientation decides the colour",
+            "note": "Aquamarine shows a different depth of blue depending on which way light travels through it, so identical rough can yield a paler stone."
+          }
+        },
+        "i4": {
+          "type": "item",
+          "settings": {
+            "label": "Windows show up easily",
+            "note": "A shallow stone develops a see-through patch in the middle, more obvious in a pale blue than in a dark stone."
+          }
+        },
+        "i5": {
+          "type": "item",
+          "settings": {
+            "label": "Matching a pair takes time",
+            "note": "Earrings, or side stones matched to a centre, need stones sourced together. Doable, but not a same-week job."
+          }
+        },
+        "i6": {
+          "type": "item",
+          "settings": {
+            "label": "Large stones sit high unless designed low",
+            "note": "A big centre stone catches on clothing and door handles. Worth designing around."
+          }
+        },
+        "i7": {
+          "type": "item",
+          "settings": {
+            "label": "Heat treatment is routine here",
+            "note": "Stable, permanent and standard across the trade. A heated stone needs no different care from an unheated one."
+          }
+        },
+        "i8": {
+          "type": "item",
+          "settings": {
+            "label": "It still scratches eventually",
+            "note": "Mohs 7.5 to 8 is hard, not immune. Years of contact with other jewellery in a drawer will tell."
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6",
+        "i7",
+        "i8"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Be Aware",
+        "heading": "What to Watch",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "design": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Design Note",
+        "heading": "Setting It Well",
+        "body": "<p>Metal changes the reading more than people expect. Platinum and 18ct white gold keep the palette cool and let a blue stay blue, which is the safe choice for a pale stone. Yellow gold warms everything around the stone and can push a blue-green aquamarine further towards green, which some people love. Rose gold gives the strongest contrast and tends to make a pale blue look bluer. Looking at the loose stone against a white metal sample and a yellow one settles it.</p><p>A bezel or partial bezel then does two jobs: it protects the girdle and the corners, and it draws a line around the colour so a pale stone is framed rather than drifting into the hand behind it. Because everything is made in our London workshop, gallery depth and pavilion clearance are decisions we take around your particular stone rather than a standard head.</p>"
+      }
+    },
+    "facts": {
+      "type": "fye-facts",
+      "blocks": {
+        "f1": {
+          "type": "fact",
+          "settings": {
+            "label": "Hardness",
+            "value": "<p>7.5 to 8 on the Mohs scale</p>",
+            "show_scale": true,
+            "scale_min": 7.5,
+            "scale_max": 8,
+            "scale_note": "Harder than quartz, softer than sapphire"
+          }
+        },
+        "f2": {
+          "type": "fact",
+          "settings": {
+            "label": "Toughness",
+            "value": "<p>Good, with an imperfect basal cleavage</p>"
+          }
+        },
+        "f3": {
+          "type": "fact",
+          "settings": {
+            "label": "Mineral",
+            "value": "<p>Beryl, as are emerald and morganite</p>"
+          }
+        },
+        "f4": {
+          "type": "fact",
+          "settings": {
+            "label": "Colouring element",
+            "value": "<p>Iron, in two different states</p>"
+          }
+        },
+        "f5": {
+          "type": "fact",
+          "settings": {
+            "label": "Crystal habit",
+            "value": "<p>Hexagonal prisms, often long and well formed</p>"
+          }
+        },
+        "f6": {
+          "type": "fact",
+          "settings": {
+            "label": "Refractive index",
+            "value": "<p>1.577 to 1.583</p>"
+          }
+        },
+        "f7": {
+          "type": "fact",
+          "settings": {
+            "label": "Specific gravity",
+            "value": "<p>2.68 to 2.74</p>"
+          }
+        },
+        "f8": {
+          "type": "fact",
+          "settings": {
+            "label": "Pleochroism",
+            "value": "<p>Distinct: near colourless and blue</p>"
+          }
+        },
+        "f9": {
+          "type": "fact",
+          "settings": {
+            "label": "Typical clarity",
+            "value": "<p>Usually eye-clean</p>"
+          }
+        },
+        "f10": {
+          "type": "fact",
+          "settings": {
+            "label": "Usual cuts",
+            "value": "<p>Emerald and other step cuts, ovals, rounds</p>"
+          }
+        },
+        "f11": {
+          "type": "fact",
+          "settings": {
+            "label": "Common treatment",
+            "value": "<p>Heat, to remove a green cast</p>"
+          }
+        },
+        "f12": {
+          "type": "fact",
+          "settings": {
+            "label": "Suited to",
+            "value": "<p>Rings, pendants and earrings, including daily wear</p>"
+          }
+        },
+        "f13": {
+          "type": "fact",
+          "settings": {
+            "label": "Price range",
+            "value": "<p>£ to £££, driven by depth of colour</p>"
+          }
+        },
+        "f14": {
+          "type": "fact",
+          "settings": {
+            "label": "Birthstone",
+            "value": "<p>March, and the nineteenth anniversary</p>"
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4",
+        "f5",
+        "f6",
+        "f7",
+        "f8",
+        "f9",
+        "f10",
+        "f11",
+        "f12",
+        "f13",
+        "f14"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "At a Glance",
+        "heading": "The Practical Facts",
+        "intro": "",
+        "note": "Hardness describes scratch resistance, not toughness. The two are different and both matter."
+      }
+    },
+    "refintro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "The Reference",
+        "heading": "A Fuller Look at Aquamarine",
+        "variant": "divider",
+        "body": "<p>Everything above is what you need to choose a stone and have it set. What follows is the background: the family aquamarine belongs to, where its colour comes from, what the trade names denote, how it is treated, where it is mined and how it is priced.</p><p>None of it is required reading. It is here because aquamarine is described using a vocabulary that is largely historical, and it is easier to talk about a stone when you know which words describe the material and which describe a colour someone once saw in Brazil.</p>"
+      }
+    },
+    "beryl": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Emerald",
+            "body": "<p>Green beryl coloured by chromium or vanadium, formed in tight and chemically difficult conditions, which is why it arrives small, included and expensive.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Aquamarine",
+            "body": "<p>Blue to blue-green beryl coloured by iron, grown in open pegmatite pockets, which is why it arrives large and clean.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Morganite",
+            "body": "<p>Pink to peach beryl coloured by manganese. Often heated to remove a yellow component, in exactly the way aquamarine is heated to remove green.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Golden beryl and heliodor",
+            "body": "<p>Yellow to golden beryl, also iron coloured but in a different oxidation state. Heliodor tends towards greenish yellow.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Goshenite",
+            "body": "<p>Colourless beryl, with no trace element colouring it at all. Chemically the baseline the others are variations on.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Red beryl",
+            "body": "<p>Manganese coloured, from a handful of Utah localities, and rarer than almost anything else in the family.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "3",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "The Mineral",
+        "heading": "The Beryl Family",
+        "intro": "Beryl is a beryllium aluminium silicate, colourless when pure. Every variety below is the same mineral with a different trace element in it, which is why aquamarine and emerald share a hardness, a crystal system and a refractive index while behaving nothing alike.",
+        "note": ""
+      }
+    },
+    "colourscience": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Two kinds of iron",
+            "body": "<p>Iron in one oxidation state produces blue; iron in another produces yellow. A stone holding both reads green, because blue and yellow do what blue and yellow always do. That is the whole of aquamarine's colour chemistry, and it explains why heat, which alters the yellow component, turns a green stone blue.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Aquamarine is dichroic",
+            "body": "<p>It shows two colours depending on the direction light passes through it: near colourless one way, a stronger blue the other. Turn a rough crystal and the colour comes and goes.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Which makes cutting a real decision",
+            "body": "<p>The deeper blue lies along the length of the crystal, so a cutter chasing colour orients the table to face down that direction and loses weight doing it. One chasing yield keeps the table along the prism and accepts a paler stone. Much pale aquamarine is pale because of that choice, not because the rough was poor.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Colour builds with path length",
+            "body": "<p>The further light travels inside a stone, the more colour it picks up. A large aquamarine looks bluer than a small one from the same crystal, and depth of cut matters as much as spread.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Zoning is common",
+            "body": "<p>Colour is often concentrated at one end of a crystal or banded along it, and a cutter positions the stone to spread it evenly face up.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Grey is the quiet spoiler",
+            "body": "<p>A stone can be a good tone and hue and still look lifeless because grey has muted the saturation. The hardest thing to judge from a photograph.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Where the Colour Comes From",
+        "heading": "Iron, Direction and Depth",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "trade": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Santa Maria",
+            "body": "<p>Named for the Santa Maria de Itabira mine in Minas Gerais, Brazil, which from the 1950s produced aquamarine of an exceptionally deep, slightly steely blue. The mine is long past being a meaningful source, but the name now describes that colour wherever the stone was mined.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Santa Maria Afriçana",
+            "body": "<p>Deep blue material of comparable saturation from African deposits, chiefly Mozambique. The name borrows the Brazilian reputation and, like the original, describes a colour rather than a mine.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Espírito Santo",
+            "body": "<p>A Brazilian state and, in the trade, a term for a lighter, clear, even blue. Used loosely, generally to mean pleasant medium colour at a sensible price.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Martha Rocha",
+            "body": "<p>From a celebrated Brazilian crystal found in 1954, weighing some thirty four kilograms and named after that year's Miss Brazil. Occasionally used for a fine deep blue.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Maxixe",
+            "body": "<p>Properly a material rather than a colour name: a deep blue beryl whose colour comes from irradiation rather than iron, first found at the Maxixe mine in Brazil. Its colour fades on exposure to light or warmth, which is why it is not used in jewellery.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "None of these is a grade",
+            "body": "<p>No laboratory certifies a stone as Santa Maria, and no two dealers draw the line in the same place. They are useful shorthand between people looking at the same parcel. Our habit is to describe the colour and let the stone argue its own case.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "The Vocabulary",
+        "heading": "Trade Names and What They Denote",
+        "intro": "Aquamarine carries more trade names than almost any other coloured stone, and nearly all began as the name of a mine and ended as the name of a colour.",
+        "note": ""
+      }
+    },
+    "clarity": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Inside the Stone",
+        "heading": "Clarity and Inclusions",
+        "body": "<p>Aquamarine is normally found free of eye-visible inclusions. The material sets that expectation: it crystallises in open cavities with space and time, so it grows large and it grows clean. Emerald, the same mineral under different conditions, is judged by the opposite standard, where inclusions are expected and a jardin is part of the character.</p><p>The consequence is that clarity does not usually cost you anything in aquamarine, because you should be getting it as a matter of course. It also means a visibly included aquamarine is worth noticeably less, which is the reverse of how emerald is priced.</p><p>When inclusions do appear they tend to be liquid filled cavities, two-phase inclusions with a bubble inside a liquid, and fine parallel hollow tubes running the length of the crystal. Cutters call a dense field of them rain. Where they are parallel enough, a cabochon cut across them produces cat's eye aquamarine, with a single moving line of light.</p><p>Size tells the same story. The Dom Pedro, now in the Smithsonian, is an obelisk of more than ten thousand carats. Nothing limits how large a clean aquamarine can be, which is why the carat weight is the cheapest part of it.</p>"
+      }
+    },
+    "treatment": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "ivory",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Treatment",
+        "heading": "Heat, and What It Does",
+        "body": "<p>Most aquamarine on the market has been heated. It is done at moderate temperatures, typically around four hundred degrees, and alters the iron responsible for the yellow component of the colour. Remove the yellow and the green goes with it, leaving the pure blue the market prefers. The change is permanent and stable, and a heated stone behaves like an unheated one.</p><p>This is long-established and accepted practice, as heating is in sapphire and morganite, and in a finished stone it is generally not detectable, because heat completes a process that happens in the ground. Aquamarine that is naturally a pure blue without heat exists and can carry a premium where a laboratory report supports the claim.</p><p>Heat has no bearing on care: a heated aquamarine wants exactly what an unheated one wants. There is one beryl where treatment does change the care advice, and it is worth stating plainly. Deep blue beryl of the Maxixe type takes its colour from irradiation rather than iron, and that colour fades with prolonged light or warmth. It is a real material, it is not what is meant by aquamarine, and it is not something we set.</p>"
+      }
+    },
+    "origins": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Minas Gerais, Brazil | The historic benchmark | Still the most consistent producer, across dozens of pegmatite fields"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Santa Maria de Itabira, Brazil | The deepest blue | Long past its peak; the name has outlived the mine by decades"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Espírito Santo, Brazil | Clean medium blue | Large, well-formed crystals from pegmatite pockets"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Bahia, Brazil | Exceptional large rough | Source of the Martha Rocha crystal; the Dom Pedro came from Minas Gerais"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Mozambique | Deep saturated blue | Most material sold as Santa Maria Afriçana comes from here"
+          }
+        },
+        "r6": {
+          "type": "row",
+          "settings": {
+            "cells": "Nigeria | Strong blue, often smaller sizes | Pegmatites around the Jos Plateau; rough is frequently greener and heated"
+          }
+        },
+        "r7": {
+          "type": "row",
+          "settings": {
+            "cells": "Madagascar | A very wide colour range | Long-standing production across several fields"
+          }
+        },
+        "r8": {
+          "type": "row",
+          "settings": {
+            "cells": "Zambia | Blue to blue-green | Better known for emerald, but a steady aquamarine producer alongside it"
+          }
+        },
+        "r9": {
+          "type": "row",
+          "settings": {
+            "cells": "Pakistan | Sky blue and superb crystals | Shigar and the Gilgit valleys; often valued as crystals as much as cut stones"
+          }
+        },
+        "r10": {
+          "type": "row",
+          "settings": {
+            "cells": "Namibia | Erongo material | Sharp, collectable crystals, generally towards the paler end"
+          }
+        },
+        "r11": {
+          "type": "row",
+          "settings": {
+            "cells": "Russia | Historic Ural production | The classic European source of the nineteenth century"
+          }
+        },
+        "r12": {
+          "type": "row",
+          "settings": {
+            "cells": "Colorado, USA | Mount Antero | The state gemstone, mined at altitude in small quantities"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7",
+        "r8",
+        "r9",
+        "r10",
+        "r11",
+        "r12"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Where It Comes From",
+        "heading": "The Aquamarine Sources",
+        "intro": "Good material comes from a long list of places. Origin has relatively little bearing on price here, because the colour is the thing being bought.",
+        "headers": "Source | Known for | Worth knowing",
+        "first_col_bold": true,
+        "narrow": false,
+        "col1_width": 0,
+        "note": "Origin can rarely be determined from a cut stone, and matters far less here than in ruby or sapphire."
+      }
+    },
+    "lab": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "ivory",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Grown Rather Than Mined",
+        "heading": "Lab-Grown Aquamarine",
+        "body": "<p>We supply lab-grown coloured stones wherever they are available. With aquamarine, availability is the problem, and it is worth explaining why, because people reasonably assume that if lab emerald and lab sapphire are everywhere then lab aquamarine must be too.</p><p>The technology is not the obstacle. Beryl has been grown hydrothermally on a commercial scale since the 1960s, and blue hydrothermal beryl exists. The obstacle is economic. Growing a gemstone is worth doing when the natural stone is scarce, included or expensive, which describes emerald exactly and sapphire well enough. Natural aquamarine is none of those things: abundant, clean, and inexpensive in precisely the sizes people want.</p><p>So most laboratory-grown beryl is coloured to be emerald, and blue material appears only occasionally. If a lab-grown blue beryl is what you want, say so and we will find out what can be sourced.</p>"
+      }
+    },
+    "value": {
+      "type": "fye-checklist",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "label": "Depth of colour, before anything else",
+            "note": "The largest factor by a distance. A dark saturated blue is priced in multiples of a pale one of the same size."
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "label": "Purity of hue",
+            "note": "How much green or grey sits alongside the blue. A clean blue costs more than the same tone dulled by grey."
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "label": "Size, but only gently",
+            "note": "Price per carat rises with weight far more slowly than in sapphire or emerald, because large clean rough is not scarce. This is where the value lies."
+          }
+        },
+        "i4": {
+          "type": "item",
+          "settings": {
+            "label": "Clarity",
+            "note": "Eye-clean is the expectation rather than an achievement, so visible inclusions reduce the price rather than a clean stone raising it."
+          }
+        },
+        "i5": {
+          "type": "item",
+          "settings": {
+            "label": "Cut quality",
+            "note": "Windows, poor proportions and colour-blind orientation all cost the stone its blue."
+          }
+        },
+        "i6": {
+          "type": "item",
+          "settings": {
+            "label": "Shape",
+            "note": "Long emerald cuts and elongated ovals come efficiently from prismatic rough and are usually the best value. Round brilliants waste more."
+          }
+        },
+        "i7": {
+          "type": "item",
+          "settings": {
+            "label": "Documented lack of treatment",
+            "note": "An unheated stone of genuinely fine natural blue, supported by a laboratory report, carries a premium. A small part of the market."
+          }
+        },
+        "i8": {
+          "type": "item",
+          "settings": {
+            "label": "Matched stones and suites",
+            "note": "A pair, or side stones matched to a centre, costs more than the sum of the stones, because the matching is the work."
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6",
+        "i7",
+        "i8"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "What You Are Paying For",
+        "heading": "How an Aquamarine Is Priced",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "care": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Cleaning",
+            "body": "<p>Warm water, a drop of washing-up liquid and a soft brush. We default to hand cleaning, because liquid inclusions and surface-reaching fractures do not enjoy an ultrasonic. Avoid steam.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Storage",
+            "body": "<p>Separately, in a soft pouch. Anything harder in the same drawer will scratch it given long enough, and that includes other aquamarines.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Wearing",
+            "body": "<p>Fine for everyday wear in a sensible setting. Take it off for the gym, gardening and heavy work, less because of hardness than because a sharp knock on a corner is how beryl chips.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Heat and the workshop",
+            "body": "<p>Colour is stable in daylight and normal wear. Prolonged high heat is another matter, so tell any jeweller the stone is aquamarine before torch work, sizing or repairs.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Over the years",
+            "body": "<p>Have the setting checked once a year, which we do free for the life of the piece. Claws wear, and a claw retipped in time costs nothing.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "3",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Living With It",
+        "heading": "Looking After an Aquamarine",
+        "intro": "",
+        "note": "Aquamarine is one of the more forgiving coloured stones to live with."
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "eyebrow": "Before You Choose",
+        "heading": "Check It Against the Life It Will Lead",
+        "body": "<p>Aquamarine sits in the middle of the durability range: harder than most coloured stones, softer than sapphire, and with a cleavage direction worth designing around. Our durability guide sets out how hardness and toughness differ, which stones survive daily wear and which belong in a pendant rather than a ring.</p>",
+        "link": "/pages/gemstone-durability",
+        "link_label": "Read the durability guide"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Is aquamarine hard enough for an engagement ring?",
+            "a": "<p>Yes, with a sensible setting. At Mohs 7.5 to 8 with good toughness it stands up to daily wear. Beryl does have an imperfect cleavage, so we protect the girdle and, on an emerald cut, the corners. A bezel, or claws sitting over the corners, is usually all it takes.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Why do small aquamarines look almost colourless?",
+            "a": "<p>Colour builds with the distance light travels through the stone. Material that reads as a definite blue at ten millimetres can look like faintly tinted glass at four. If colour is the point, plan the size around it, and aquamarine is one of the few stones where doing so is affordable.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Is aquamarine the same thing as emerald?",
+            "a": "<p>The same mineral, yes. Both are beryl. Emerald is coloured green by chromium or vanadium and forms in cramped conditions, which is why it comes out small and included. Aquamarine is coloured by iron and grows in open cavities, so it comes out large and clean.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "What does Santa Maria actually mean?",
+            "a": "<p>It began as the name of a mine, Santa Maria de Itabira in Minas Gerais, which produced exceptionally deep blue aquamarine from the 1950s. The mine is long past its peak, and the name is now a description of that depth of colour rather than a statement of origin. No laboratory certifies it.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "So is Santa Maria Afriçana from Brazil?",
+            "a": "<p>No. It refers to deep blue aquamarine from African sources, principally Mozambique, described by reference to the Brazilian colour. A colour name that happens to contain a place name, which is a fair summary of most aquamarine terminology.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "Is aquamarine heated?",
+            "a": "<p>Usually, and it has been for a very long time. Moderate heat alters the iron responsible for the yellow component, which removes any green cast and leaves a purer blue. It is stable, permanent and accepted throughout the trade.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "q": "Does heat treatment affect the value or the care?",
+            "a": "<p>Care, no. A heated aquamarine behaves exactly like an unheated one. Value, only at the top of the market: a naturally fine blue with a laboratory report confirming no heat can command a premium, but heated material is the norm and is priced as the norm.</p>"
+          }
+        },
+        "q8": {
+          "type": "qa",
+          "settings": {
+            "q": "Should I choose blue or blue-green?",
+            "a": "<p>Whichever you prefer. Pure blue is the more sought after and priced accordingly, but plenty of people find blue-green material more interesting and more like actual seawater. It is also usually cheaper, so preferring it is no hardship.</p>"
+          }
+        },
+        "q9": {
+          "type": "qa",
+          "settings": {
+            "q": "What is the difference between aquamarine and blue topaz?",
+            "a": "<p>Different minerals with a superficially similar colour. Blue topaz is harder at Mohs 8 but has a perfect cleavage that makes it more prone to splitting, and its colour is produced by irradiation. Aquamarine's blue comes from iron in the crystal.</p>"
+          }
+        },
+        "q10": {
+          "type": "qa",
+          "settings": {
+            "q": "Which cut suits aquamarine best?",
+            "a": "<p>Step cuts, most of the time. An emerald cut or an Asscher presents broad flat facets that read as a sheet of colour, which is what you want from a stone whose appeal is hue rather than fire. Ovals and cushions work well too; round brilliants can make a pale stone look paler.</p>"
+          }
+        },
+        "q11": {
+          "type": "qa",
+          "settings": {
+            "q": "Does aquamarine look better in white or yellow gold?",
+            "a": "<p>White metal keeps the palette cool and lets the blue stay blue, which is the conventional choice. Yellow gold warms everything around the stone and can push a blue-green aquamarine towards green. Rose gold gives the strongest contrast and tends to make a pale blue look bluer. Five minutes with the stone against metal samples settles it.</p>"
+          }
+        },
+        "q12": {
+          "type": "qa",
+          "settings": {
+            "q": "Why is a large aquamarine so much cheaper than a large sapphire?",
+            "a": "<p>Supply. Aquamarine forms in open cavities where crystals have room to grow large and clean, so five and ten carat gem material is not scarce. Sapphire of that size and quality is. Price per carat therefore rises gently rather than steeply, which is what makes aquamarine such good value for a statement stone.</p>"
+          }
+        },
+        "q13": {
+          "type": "qa",
+          "settings": {
+            "q": "Is there such a thing as lab-grown aquamarine?",
+            "a": "<p>It exists but it is uncommon, and that is economics rather than technology. Laboratory growth is worth the effort where the natural stone is scarce and expensive, which is why lab emerald and lab sapphire are everywhere. Natural aquamarine is abundant, clean and affordable. We supply lab-grown coloured stones where they are available.</p>"
+          }
+        },
+        "q14": {
+          "type": "qa",
+          "settings": {
+            "q": "What is cat's eye aquamarine?",
+            "a": "<p>Aquamarine containing a dense field of fine parallel hollow tubes. Cut as a cabochon across the direction of the tubes, it shows a single bright line of light that moves as it tilts. Uncommon, not usually deep in colour, and quietly unusual in a ring.</p>"
+          }
+        },
+        "q15": {
+          "type": "qa",
+          "settings": {
+            "q": "Can an aquamarine ring be resized?",
+            "a": "<p>Yes, and more easily than many coloured stones, though heat is still the consideration and the stone may be removed first as a precaution. We include a free UK ring sizer and a free consultation before we start, which is the cheapest way to avoid the question altogether.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8",
+        "q9",
+        "q10",
+        "q11",
+        "q12",
+        "q13",
+        "q14",
+        "q15"
+      ],
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Aquamarine Questions We Are Asked Most",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "klaviyo_form": "UbTxH7",
+            "style": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/diamond-and-gemstone-guide-cover.png",
+        "cover_alt": "The Diamond and Gemstone Guide",
+        "cover_caption": "The Diamond and Gemstone Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Diamond and Gemstone Guide",
+        "body": "<p>Every gemstone stone by stone, plus durability, treatments, ethical sourcing and grading reports.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Aquamarine Engagement Rings",
+            "desc": "See what we currently have available.",
+            "cta": "Browse",
+            "link": "/collections/aquamarine-engagement-rings"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Coloured Stone Rings",
+            "desc": "See what we currently have available.",
+            "cta": "Browse",
+            "link": "/collections/coloured-stone-rings"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Gemstone Education",
+            "title": "Morganite",
+            "desc": "The same mineral in pink. Softer light, warmer metal.",
+            "cta": "Read the guide",
+            "link": "/pages/morganite-guide"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r4"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "palette",
+    "why",
+    "colourtable",
+    "forring",
+    "watch",
+    "design",
+    "facts",
+    "refintro",
+    "beryl",
+    "colourscience",
+    "trade",
+    "clarity",
+    "treatment",
+    "origins",
+    "lab",
+    "value",
+    "care",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

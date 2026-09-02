@@ -1,0 +1,1435 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Opal and Fire Opal"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Play-of-colour like nothing else, and the care it genuinely requires</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 36,
+        "image": "shopify://shop_images/loose-diamonds-coloured-gemstones-sapphire-emerald.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true,
+        "show_contents": true,
+        "contents_label": "On this page"
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Gemstone Education",
+        "heading": "About Opal and Fire Opal",
+        "body": "<p>Opal does something no other gemstone does. Its play-of-colour flashes green, blue, red and orange as it moves, produced by microscopic spheres of silica diffracting light rather than by any pigment at all. No two opals are alike, they cannot be matched or replaced like for like, and photographs never quite capture them.</p><p>The first division to understand is between precious and common opal. Precious opal shows play-of-colour. Common opal does not, which makes it no less beautiful, only differently beautiful: Peruvian blue, Mexican fire, Andean pink and Australian green are all common opal, valued for body colour rather than flash.</p><p>Fire opal is the translucent orange-red variety, which glows rather than flashes and is often faceted where play-of-colour opal is almost always cut as a cabochon. Some Mexican and Ethiopian fire opal shows play-of-colour as well, and those stones are precious fire opal.</p><p>All opal is hydrated silica, and all of it contains water, typically between three and ten per cent by weight. At Mohs 5.5 to 6.5 it is also among the softer stones we set. That combination makes opal the most care-dependent gemstone we work with, and we would rather say so plainly at the start than let you discover it a year in.</p>"
+      }
+    },
+    "poc": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "It is structure, not pigment",
+            "body": "<p>Opal is built from microscopic spheres of silica stacked in an orderly grid. Light bends around them and splits, the same way it does through a prism. Nothing in the stone is actually coloured.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Sphere size decides the hue",
+            "body": "<p>Small spheres diffract blue and violet, larger ones green and orange, and the largest of all red. Only rarely do the spheres grow big enough and regular enough for red, which is why red is the rarest and most expensive colour.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Pinfire",
+            "body": "<p>Tiny points of colour scattered like sparks across the stone. Common, lively, and usually the most affordable of the recognised patterns.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Broad flash",
+            "body": "<p>Large sheets of a single colour that sweep across the whole stone as it turns. Dramatic, and easier to appreciate at arm's length than pinfire.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Harlequin",
+            "body": "<p>An even mosaic of angular blocks of colour. Genuinely rare, frequently claimed and rarely correct: most stones sold as harlequin are patch or mosaic patterns.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Colour has a direction",
+            "body": "<p>Many opals show their play from one angle and go dull from another. Turn a stone through a full circle before you commit, because a ring is seen from every direction and a pendant is not.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "3",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Play of Colour",
+        "heading": "How the Colour Happens",
+        "intro": "Play-of-colour is an optical effect, not a colour in the stone. Understanding how it is produced explains almost everything about how opal is priced.",
+        "note": ""
+      }
+    },
+    "palette": {
+      "type": "fye-chips",
+      "blocks": {
+        "c1": {
+          "type": "chip",
+          "settings": {
+            "name": "Black opal",
+            "sub": "Dark body, brightest colour",
+            "colour": "#20202B"
+          }
+        },
+        "c2": {
+          "type": "chip",
+          "settings": {
+            "name": "Dark opal",
+            "sub": "Mid-grey body, often called semi-black",
+            "colour": "#5A5A63"
+          }
+        },
+        "c3": {
+          "type": "chip",
+          "settings": {
+            "name": "White opal",
+            "sub": "Pale milky body, the most abundant",
+            "colour": "#E8E4DC"
+          }
+        },
+        "c4": {
+          "type": "chip",
+          "settings": {
+            "name": "Crystal opal",
+            "sub": "Transparent, colour floating inside",
+            "colour": "#CBD9DC"
+          }
+        },
+        "c5": {
+          "type": "chip",
+          "settings": {
+            "name": "Jelly opal",
+            "sub": "Gel-like, softly glowing",
+            "colour": "#C2CBBE"
+          }
+        },
+        "c6": {
+          "type": "chip",
+          "settings": {
+            "name": "Boulder opal",
+            "sub": "Opal seams in ironstone",
+            "colour": "#8A6A4A"
+          }
+        },
+        "c7": {
+          "type": "chip",
+          "settings": {
+            "name": "Matrix opal",
+            "sub": "Opal through the pores of the rock",
+            "colour": "#6B5647"
+          }
+        },
+        "c8": {
+          "type": "chip",
+          "settings": {
+            "name": "Fire opal",
+            "sub": "Translucent orange to red",
+            "colour": "#E0713A"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8"
+      ],
+      "settings": {
+        "band": "white",
+        "align": "centre",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "The Main Varieties",
+        "heading": "Opal at a Glance",
+        "intro": "Eight of the varieties you are most likely to be offered. Swatches show the body tone, not the play-of-colour, which no swatch can represent.",
+        "note": "We will always show you the actual stone in more than one light before you commit."
+      }
+    },
+    "why": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Nothing else looks like it",
+            "body": "<p>Play-of-colour is a genuinely unique optical effect. If it is what you want, no other stone and no synthetic substitute will do instead.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Every stone is one of a kind",
+            "body": "<p>Opals cannot be matched or reordered. The one you choose is the only one of its kind, which is either the whole appeal or a real inconvenience if a piece ever needs remaking.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "It suits colour that changes",
+            "body": "<p>An opal reads differently under a window, a lamp and a restaurant candle. For someone who finds a single fixed colour boring, that is precisely the point.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "The October birthstone",
+            "body": "<p>Shared with tourmaline, which is the hardier option for anyone who wants October colour in something worn every day.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Extraordinary value at the lower end",
+            "body": "<p>A characterful white or crystal opal costs very little for the visual interest it delivers. Few gemstones give so much for so little.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "And serious money at the top",
+            "body": "<p>Fine black opal from Lightning Ridge is priced by the carat like a coloured diamond, and the best stones outrun most sapphire and ruby.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "The Case For It",
+        "heading": "Why Opal Works",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "bodytone": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "N1 | Black | Densest black background, colour at its most vivid"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "N2 | Black | Black body, exceptional contrast"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "N3 | Black | Very dark grey-black, still classified black opal"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "N4 | Black | The lightest of the black grades"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "N5 | Dark | Dark grey, often sold as semi-black"
+          }
+        },
+        "r6": {
+          "type": "row",
+          "settings": {
+            "cells": "N6 | Dark | Mid grey, noticeably brighter than white opal"
+          }
+        },
+        "r7": {
+          "type": "row",
+          "settings": {
+            "cells": "N7 | Light | Light grey, the top of the light range"
+          }
+        },
+        "r8": {
+          "type": "row",
+          "settings": {
+            "cells": "N8 | Light | Very pale grey to off-white"
+          }
+        },
+        "r9": {
+          "type": "row",
+          "settings": {
+            "cells": "N9 | White | White or milky, the most abundant body tone"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7",
+        "r8",
+        "r9"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "The N Scale",
+        "heading": "Body Tone, and Why It Matters",
+        "intro": "Australian opal is graded on a nine-step body tone scale from N1 to N9. Body tone is the darkness of the background the colour sits against, and it is the single largest factor in what an opal costs.",
+        "headers": "Body tone | Classification | What you see",
+        "first_col_bold": true,
+        "narrow": true,
+        "col1_width": 22,
+        "note": "Body tone is graded separately from brightness, which runs from subdued to brilliant and is judged by eye against reference stones. A bright N7 can easily outshine a dull N3."
+      }
+    },
+    "forring": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Buy solid, not assembled",
+            "body": "<p>A solid opal is one piece of opal all the way through. Doublets and triplets are thin slices glued to a backing, and while they look dramatic they must never be immersed in water. For a ring we set solid stones only.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Cabochon and bezel, almost always",
+            "body": "<p>A domed cabochon in a rubover setting protects the girdle, which is where chips begin. A low profile keeps the stone out of the way of door frames and kitchen worktops.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Consider the depth of the stone",
+            "body": "<p>A thick solid opal survives a knock that would go straight through a wafer-thin one. Ask about depth as well as face-up size, because face-up size is what you are usually quoted.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Match the body tone to the metal",
+            "body": "<p>White and crystal opals sit beautifully in white metal, which keeps the palette cool and lets the blues read. Black opal and boulder opal generally look richer in yellow gold.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "See it in three lights at least",
+            "body": "<p>Daylight, warm indoor light and shade. Opal is the one stone where a showroom spotlight genuinely misrepresents what you are buying, and any honest jeweller will encourage the comparison.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Buy the stone, not the label",
+            "body": "<p>Names like harlequin and Welo carry premiums that the individual stone may not deserve. If two opals sit side by side, trust the one you keep looking back at.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "If It Is Going in a Ring",
+        "heading": "Choosing an Opal to Wear",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "watch": {
+      "type": "fye-checklist",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "label": "Soft, at Mohs 5.5 to 6.5",
+            "note": "Softer than window glass. It will pick up scratches and it needs a setting that shields the edges."
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "label": "Every opal contains water",
+            "note": "Extreme dryness, direct heat or a sudden temperature change can craze it. Never leave it in a hot car or on a sunny windowsill."
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "label": "Crazing cannot be repaired",
+            "note": "A fine network of cracks, sometimes appearing years after cutting. Some material is far more prone to it than others."
+          }
+        },
+        "i4": {
+          "type": "item",
+          "settings": {
+            "label": "Some opal absorbs liquid",
+            "note": "Porous, or hydrophane, opal takes up water and temporarily loses its play-of-colour, recovering over hours or days as it dries."
+          }
+        },
+        "i5": {
+          "type": "item",
+          "settings": {
+            "label": "Never use an ultrasonic cleaner",
+            "note": "Nor steam, nor solvents. Warm soapy water, a soft brush and a dry cloth is the whole method."
+          }
+        },
+        "i6": {
+          "type": "item",
+          "settings": {
+            "label": "Take it off for anything physical",
+            "note": "Gardening, the gym, cleaning, cooking. Opal is a stone you put on for the evening rather than forget you are wearing."
+          }
+        },
+        "i7": {
+          "type": "item",
+          "settings": {
+            "label": "Composites must be disclosed",
+            "note": "A doublet or triplet should be described as one in writing. If a price on a large black opal looks impossible, this is usually why."
+          }
+        },
+        "i8": {
+          "type": "item",
+          "settings": {
+            "label": "It resizes awkwardly",
+            "note": "Heat and opal do not mix, so a set opal often has to be removed before any work on the shank. Get the size right first time."
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6",
+        "i7",
+        "i8"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Be Aware",
+        "heading": "What to Watch",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "design": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Design Note",
+        "heading": "Setting It Well",
+        "body": "<p>Bezel settings and low profiles, essentially always. A cabochon opal held in a rubover with the girdle fully covered is the sensible construction, and a slightly thicker bezel wall on the side that faces the palm buys years of life.</p><p>We would not recommend an opal as the centre stone of an engagement ring worn every day on an active hand, and we will say so before you commit rather than afterwards. If you want one regardless, we will make it properly and tell you exactly what it will ask of you. A pendant, a pair of earrings or a ring worn in the evening asks almost nothing.</p>"
+      }
+    },
+    "facts": {
+      "type": "fye-facts",
+      "blocks": {
+        "f1": {
+          "type": "fact",
+          "settings": {
+            "label": "Hardness",
+            "value": "<p>5.5 to 6.5 on the Mohs scale</p>",
+            "show_scale": true,
+            "scale_min": 5.5,
+            "scale_max": 6.5,
+            "scale_note": "Softer than sapphire, harder than pearl"
+          }
+        },
+        "f2": {
+          "type": "fact",
+          "settings": {
+            "label": "Toughness",
+            "value": "<p>Poor to fair; crazing is a real risk</p>"
+          }
+        },
+        "f3": {
+          "type": "fact",
+          "settings": {
+            "label": "Composition",
+            "value": "<p>Hydrated silica, with no crystal structure</p>"
+          }
+        },
+        "f4": {
+          "type": "fact",
+          "settings": {
+            "label": "Water content",
+            "value": "<p>Typically 3% to 10% by weight</p>"
+          }
+        },
+        "f5": {
+          "type": "fact",
+          "settings": {
+            "label": "Optical effect",
+            "value": "<p>Diffraction from stacked silica spheres</p>"
+          }
+        },
+        "f6": {
+          "type": "fact",
+          "settings": {
+            "label": "Usual cut",
+            "value": "<p>Cabochon; fire opal is often faceted</p>"
+          }
+        },
+        "f7": {
+          "type": "fact",
+          "settings": {
+            "label": "Suited to",
+            "value": "<p>Pendants, earrings, occasional rings in protective settings</p>"
+          }
+        },
+        "f8": {
+          "type": "fact",
+          "settings": {
+            "label": "Common treatment",
+            "value": "<p>Stabilising possible; doublets and triplets exist</p>"
+          }
+        },
+        "f9": {
+          "type": "fact",
+          "settings": {
+            "label": "Price range",
+            "value": "<p>£ to ££££, depending enormously on type</p>"
+          }
+        },
+        "f10": {
+          "type": "fact",
+          "settings": {
+            "label": "Birthstone",
+            "value": "<p>October, shared with tourmaline</p>"
+          }
+        },
+        "f11": {
+          "type": "fact",
+          "settings": {
+            "label": "Anniversary",
+            "value": "<p>The fourteenth</p>"
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4",
+        "f5",
+        "f6",
+        "f7",
+        "f8",
+        "f9",
+        "f10",
+        "f11"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "At a Glance",
+        "heading": "The Practical Facts",
+        "intro": "",
+        "note": "Hardness describes scratch resistance, not toughness. The two are different and both matter."
+      }
+    },
+    "refintro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "ivory",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "The Reference",
+        "heading": "A Field Guide to Opal",
+        "body": "<p>Opal is classified in several overlapping ways at once, which is why the names get confusing. A single stone can be described by its body tone, by the rock it grew in, by where it was mined and by whether it shows play-of-colour at all, and every one of those descriptions can be true simultaneously.</p><p>What follows is the fuller picture: the varieties you will meet, what each one actually is, and which of them belong in a ring. You do not need any of it to choose a stone you love, but it is useful when a description in a listing is doing more work than the stone deserves.</p>",
+        "variant": "divider"
+      }
+    },
+    "bytone": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Black opal",
+            "body": "<p>Body tone N1 to N4. The rarest and most valuable variety, because a dark background makes the play-of-colour look electric. Almost all gem-quality black opal comes from Lightning Ridge in New South Wales. Bright red on a black body is the most expensive combination in opal.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Dark or semi-black opal",
+            "body": "<p>Body tone N5 to N6. A mid-grey background that is not dark enough to be called black, but still produces far more contrast than white opal. Frequently the value sweet spot, and worth asking about specifically.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "White or light opal",
+            "body": "<p>Body tone N7 to N9. The most abundant precious opal, with a pale milky body and softer pastel play-of-colour. Coober Pedy in South Australia is the classic source. Beautiful, widely available and inexpensive relative to anything darker.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Crystal opal",
+            "body": "<p>Transparent to semi-transparent, with the colour appearing to float inside the stone rather than sit on its surface. Crystal opal is graded on body tone like any other, so black crystal opal exists and is exceptional.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Jelly or water opal",
+            "body": "<p>Transparent with a soft gelatinous look and a gentle internal glow, usually with less concentrated play-of-colour than crystal opal. Mexico produces the best known examples.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Contraluz opal",
+            "body": "<p>Named from the Spanish for against the light. A transparent opal whose play-of-colour only appears when light passes through it from behind, which makes it a poor choice for a ring and a lovely one for a pendant.</p>"
+          }
+        },
+        "xt1": {
+          "type": "term",
+          "settings": {
+            "heading": "Boulder opal",
+            "body": "<p>Thin seams of precious opal still attached to the ironstone they formed in. The dark backing does naturally what a doublet does artificially, so boulder opal delivers black-opal drama at a fraction of the price. Queensland is the principal source. Because the rock is left on, boulder opals are typically cut to free-form shapes.</p>"
+          }
+        },
+        "xt2": {
+          "type": "term",
+          "settings": {
+            "heading": "Yowah nut",
+            "body": "<p>Small rounded ironstone concretions from the Yowah and Koroit fields in Queensland, split open to reveal opal inside. Distinctive banded patterns, and no two are remotely alike.</p>"
+          }
+        },
+        "xt3": {
+          "type": "term",
+          "settings": {
+            "heading": "Matrix opal",
+            "body": "<p>Precious opal filling the pores and spaces between the grains of the host rock, rather than sitting in a defined seam. The result is colour spread evenly through the stone. Andamooka matrix is porous and very commonly treated to darken it, which should always be disclosed.</p>"
+          }
+        },
+        "xt4": {
+          "type": "term",
+          "settings": {
+            "heading": "Opalised wood",
+            "body": "<p>Buried timber whose structure has been replaced by silica, sometimes precious. Grain and growth rings survive in the stone. Much of it is prone to crazing, which is why it appears more often in collections than in rings.</p>"
+          }
+        },
+        "xt5": {
+          "type": "term",
+          "settings": {
+            "heading": "Dendritic or moss opal",
+            "body": "<p>Common opal, usually white or honey-coloured, threaded with dark branching mineral inclusions that look like moss or a treeline. Valued for the picture in the stone rather than for any flash.</p>"
+          }
+        },
+        "xt6": {
+          "type": "term",
+          "settings": {
+            "heading": "Opalised fossil",
+            "body": "<p>Shells, bone, wood and the occasional belemnite, replaced entirely by opal. Mostly Australian, mostly museum material, and priced accordingly when it does reach the market.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6",
+        "xt1",
+        "xt2",
+        "xt3",
+        "xt4",
+        "xt5",
+        "xt6"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "By Body Tone and by Host Rock",
+        "heading": "Types of Opal",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "fire": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "ivory",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "A Different Kind of Opal Entirely",
+        "heading": "Fire Opal",
+        "body": "<p>Fire opal is named for its body colour, not for any flash. It runs from pale yellow through orange to a deep red, and unlike almost all other opal it is usually transparent or translucent rather than milky. That transparency is why it is one of the very few opals routinely faceted rather than cut as a cabochon.</p><p>Most fire opal is common opal, meaning it shows no play-of-colour at all and is bought purely for the glow of its body colour. Some does show play-of-colour, and those stones are precious fire opal: rarer, considerably more expensive, and spectacular when the colour flashes green and violet across an orange body.</p><p>Mexico is the traditional source, from volcanic deposits in Querétaro and Jalisco, and Mexican material is where the trade name Mexican fire opal comes from. Ethiopia and Brazil also produce it. Red is the most valuable body colour, and the stones that hold their colour saturation without looking brown command the strongest prices.</p><p>Fire opal is the same hardness as any other opal and needs the same care, but faceted transparent material shows chips at the girdle more readily than a cabochon does. If it is going in a ring, it wants a bezel just as much as its milky relatives.</p>"
+      }
+    },
+    "common": {
+      "type": "fye-chips",
+      "blocks": {
+        "c1": {
+          "type": "chip",
+          "settings": {
+            "name": "Pink opal",
+            "sub": "Peru and Australia, milky and even",
+            "colour": "#E7B8BC"
+          }
+        },
+        "c2": {
+          "type": "chip",
+          "settings": {
+            "name": "Blue opal",
+            "sub": "Peruvian, teal to pale sky",
+            "colour": "#8FB8C6"
+          }
+        },
+        "c3": {
+          "type": "chip",
+          "settings": {
+            "name": "Green opal",
+            "sub": "Widespread, jade to olive",
+            "colour": "#9BB394"
+          }
+        },
+        "c4": {
+          "type": "chip",
+          "settings": {
+            "name": "Morado opal",
+            "sub": "Mexican purple, lavender to violet",
+            "colour": "#A996BC"
+          }
+        },
+        "c5": {
+          "type": "chip",
+          "settings": {
+            "name": "Prase opal",
+            "sub": "Tanzanian, nickel-green and glowing",
+            "colour": "#7FB79E"
+          }
+        },
+        "c6": {
+          "type": "chip",
+          "settings": {
+            "name": "Hyalite",
+            "sub": "Colourless and glassy, fluoresces green",
+            "colour": "#DCE4DE"
+          }
+        },
+        "c7": {
+          "type": "chip",
+          "settings": {
+            "name": "Girasol",
+            "sub": "Translucent with a floating blue sheen",
+            "colour": "#CBD4DE"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7"
+      ],
+      "settings": {
+        "band": "white",
+        "align": "centre",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Colour Without Flash",
+        "heading": "Common Opal, and Why It Is Not Lesser",
+        "intro": "Common opal shows no play-of-colour. It is not a lower grade of precious opal, it is a different material bought for a different reason: even, saturated body colour that behaves far more predictably than flash.",
+        "note": "Most common opal is a good deal tougher in practice than precious opal, but the hardness is unchanged and the same care applies."
+      }
+    },
+    "origins": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Lightning Ridge, NSW | Black opal | The benchmark for fine black opal, and priced as such"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Coober Pedy, SA | White and light opal | The largest producer of pale precious opal in the world"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Andamooka, SA | Crystal and matrix opal | Matrix material is porous and very often treated"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Queensland | Boulder opal | Yowah, Koroit, Quilpie and Winton; nearly all boulder opal"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "White Cliffs, NSW | Seam opal and fossils | Historic field, source of opalised pineapple fossils"
+          }
+        },
+        "r6": {
+          "type": "row",
+          "settings": {
+            "cells": "Welo, Ethiopia | Vivid precious opal | Strong colour at accessible prices; much of it is porous"
+          }
+        },
+        "r7": {
+          "type": "row",
+          "settings": {
+            "cells": "Querétaro, Mexico | Fire opal | Also jelly, water and contraluz opal"
+          }
+        },
+        "r8": {
+          "type": "row",
+          "settings": {
+            "cells": "Piauí, Brazil | Crystal opal | Pastel play-of-colour, low water content"
+          }
+        },
+        "r9": {
+          "type": "row",
+          "settings": {
+            "cells": "Peru | Blue and pink common opal | The national stone; no play-of-colour"
+          }
+        },
+        "r10": {
+          "type": "row",
+          "settings": {
+            "cells": "Honduras | Matrix opal | Bright opal speckled through a dark host rock"
+          }
+        },
+        "r11": {
+          "type": "row",
+          "settings": {
+            "cells": "Virgin Valley, Nevada | Opalised wood | Famously beautiful and famously prone to crazing"
+          }
+        },
+        "r12": {
+          "type": "row",
+          "settings": {
+            "cells": "Oregon and Idaho, USA | Blue and contraluz opal | Owyhee blue is the best known"
+          }
+        },
+        "r13": {
+          "type": "row",
+          "settings": {
+            "cells": "Indonesia | Opalised wood and opalite | Increasingly seen in the trade"
+          }
+        },
+        "r14": {
+          "type": "row",
+          "settings": {
+            "cells": "Dubník, Slovakia | Historic white opal | Europe's principal source until the 20th century"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7",
+        "r8",
+        "r9",
+        "r10",
+        "r11",
+        "r12",
+        "r13",
+        "r14"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Where It Comes From",
+        "heading": "The Opal Fields",
+        "intro": "Every field produces recognisably different material, because opal takes its character from the ground it forms in. Origin is a genuine value factor, and also the claim most often stretched.",
+        "headers": "Source | Known for | Worth knowing",
+        "first_col_bold": true,
+        "narrow": false,
+        "col1_width": 0,
+        "note": "Origin cannot usually be proven from the stone alone. Where it matters to you, ask what the paperwork actually says rather than what the label asserts."
+      }
+    },
+    "composite": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Solid opal",
+            "body": "<p>One piece of opal all the way through, whether or not it carries host rock on the back. This is the only category we set.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Doublet",
+            "body": "<p>A thin slice of precious opal glued to a dark backing of ironstone, potch or plastic. The dark layer mimics what a black opal does naturally. Convincing face-up, and identifiable from the side by a straight glue line.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Triplet",
+            "body": "<p>A doublet with a clear cap of quartz, glass or plastic bonded on top. The dome magnifies the colour and protects the wafer of opal beneath, which is often paper-thin. Usually cheaper than a doublet because less opal is used.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Mosaic and chip opal",
+            "body": "<p>Fragments of opal reassembled onto a backing or suspended in resin. Inexpensive, and legitimate when described honestly.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Synthetic opal",
+            "body": "<p>Laboratory-grown with the same silica sphere structure, and therefore real play-of-colour. Gilson opal is the best known. Recognisable to a gemmologist by an unnaturally regular columnar pattern.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Simulants and imitations",
+            "body": "<p>Glass and resin materials sold under trade names, with an opalescent shimmer but no true play-of-colour. Opalite is the common example. Attractive in its own right, and not opal.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Solid, Assembled and Man-Made",
+        "heading": "Not Everything Sold as Opal Is Opal",
+        "intro": "",
+        "note": "Composites and synthetics are perfectly legitimate products. The problem is only ever non-disclosure, and it is the single most common complaint in the opal trade."
+      }
+    },
+    "position": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Where We Stand",
+        "heading": "We Set Solid Opal Only",
+        "body": "<p>We do not supply doublets or triplets. They are not fakes and we have no quarrel with anyone who sells them honestly, but they cannot be sized, resized or repaired in the normal way, they must never be immersed in water, and a customer who is not told what they have bought will eventually find out the hard way.</p><p>If you are shopping elsewhere and a large black opal is priced in the low hundreds, look at the stone from the side. A dead-straight line between the colour layer and the dark backing is a doublet. Ask the question in writing, and take a straight answer as a good sign about everything else the seller tells you.</p>"
+      }
+    },
+    "value": {
+      "type": "fye-checklist",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "label": "Brightness, before anything else",
+            "note": "Judged from subdued to brilliant. A brilliant stone with an ordinary pattern beats a dull stone with a famous one, every time."
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "label": "Body tone",
+            "note": "The darker the background, the higher the price, all else being equal. This is why black opal sits at the top."
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "label": "The colours present",
+            "note": "Red is rarest and dearest, then orange, then green, with blue the most common. A stone showing the full range costs more than a blue-green one of the same size."
+          }
+        },
+        "i4": {
+          "type": "item",
+          "settings": {
+            "label": "Pattern",
+            "note": "Named patterns such as harlequin and rolling flash carry premiums. Genuine harlequin is very rare and the term is widely misapplied."
+          }
+        },
+        "i5": {
+          "type": "item",
+          "settings": {
+            "label": "How far the colour travels",
+            "note": "A stone that holds its play through a full turn is worth considerably more than one that goes dead from two sides."
+          }
+        },
+        "i6": {
+          "type": "item",
+          "settings": {
+            "label": "Size and shape",
+            "note": "Price per carat climbs steeply with size. A well-proportioned oval or cushion also costs more than an awkward free-form of equal weight."
+          }
+        },
+        "i7": {
+          "type": "item",
+          "settings": {
+            "label": "Faults and inclusions",
+            "note": "Sand, potch lines, crazing and windows all reduce value. Some are cosmetic, some are structural, and the difference matters more than the appearance."
+          }
+        },
+        "i8": {
+          "type": "item",
+          "settings": {
+            "label": "Origin, honestly stated",
+            "note": "Lightning Ridge and Queensland boulder carry real premiums. Both are claimed more often than they are documented."
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6",
+        "i7",
+        "i8"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "What You Are Paying For",
+        "heading": "How an Opal Is Priced",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "care": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Cleaning",
+            "body": "<p>Warm water, a drop of washing-up liquid, a soft brush and a dry cloth. No ultrasonic, no steamer, no solvent, no jewellery dip.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Storage",
+            "body": "<p>Not in a hot, dry safe or on a sunny shelf. A soft pouch away from harder stones, which will scratch it in a drawer given the chance.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Wearing",
+            "body": "<p>Last thing on and first thing off. Take it off for washing up, gardening, the gym and anything involving chemicals or heat.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Over the years",
+            "body": "<p>Have the setting checked annually, which we do free for the life of the piece. Opal moves in its setting less than it chips at the edges, and a claw or bezel checked in time costs nothing.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "3",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Living With It",
+        "heading": "Looking After an Opal",
+        "intro": "",
+        "note": "If an opal does craze, it cannot be repaired, only replaced. That is the honest position and it is why the care above is worth taking seriously."
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "eyebrow": "Before You Choose",
+        "heading": "Check It Against the Life It Will Lead",
+        "body": "<p>Hardness is not toughness, and the two are constantly confused. Our durability guide sets out which stones survive daily wear, which need protecting, and which belong in a pendant rather than a ring.</p>",
+        "link": "/pages/gemstone-durability",
+        "link_label": "Read the durability guide"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I have an opal engagement ring?",
+            "a": "<p>You can, and we make them, but go in with clear expectations. At Mohs 5.5 to 6.5 an opal will pick up scratches, it can craze, and it needs a protective bezel and a low profile. For a ring worn every day on an active hand we would honestly suggest something harder, and offer opal for a pendant or a dress ring instead. If you want one anyway, we will build it properly and tell you exactly what it needs.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "What is the difference between precious and common opal?",
+            "a": "<p>Precious opal shows play-of-colour, the shifting flashes of spectral colour that opal is famous for. Common opal does not. Common opal is not a lower grade, it is a different material valued for its body colour: Peruvian blue, Mexican fire, Andean pink and Australian green are all common opal.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "What is body tone, and why does it change the price so much?",
+            "a": "<p>Body tone is the darkness of the background the play-of-colour sits against, graded from N1 at the blackest to N9 at white. A dark background makes colour look far more vivid, so the same flash is worth several times more on an N2 body than on an N8 one. It is the single largest price factor in Australian opal.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Which opal is the most valuable?",
+            "a": "<p>Fine black opal from Lightning Ridge, particularly a stone with bright red in the play-of-colour. Red is the rarest colour because it requires the largest and most regular silica spheres. Top black opal is priced per carat like a coloured diamond.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Is black opal actually black?",
+            "a": "<p>The background is, or close to it. The stone itself is anything but: a dark body is precisely what makes the greens, blues and reds look electric. If a black opal looks flat and dark rather than luminous, it is a poor example of the type.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "What is boulder opal?",
+            "a": "<p>Precious opal still attached to the ironstone it formed in. The dark rock behind the colour does naturally what a doublet backing does artificially, so boulder opal gives much of the drama of black opal for considerably less money. It comes almost entirely from Queensland and is usually cut to a free-form shape to keep as much colour as possible.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "q": "What is fire opal?",
+            "a": "<p>Opal named for its body colour rather than any flash, running from yellow through orange to red, and usually transparent rather than milky. Most fire opal is common opal with no play-of-colour. Some does show it, and those precious fire opals are rarer and dearer. Mexico is the traditional source.</p>"
+          }
+        },
+        "q8": {
+          "type": "qa",
+          "settings": {
+            "q": "What is crazing, and can it be repaired?",
+            "a": "<p>A network of fine cracks that can appear when an opal dries out or goes through a sudden temperature change, sometimes years after it was cut. It cannot be repaired, only replaced. Keeping opal away from direct heat, strong sun and very dry environments is the whole of the prevention.</p>"
+          }
+        },
+        "q9": {
+          "type": "qa",
+          "settings": {
+            "q": "Why do some opals go clear when they get wet?",
+            "a": "<p>Porous opal, described as hydrophane, absorbs water into the stone. While it is saturated the play-of-colour fades or disappears entirely, and it returns over hours or days as the stone dries. It is a known characteristic rather than a fault, but it is a good reason to take opal off before washing up.</p>"
+          }
+        },
+        "q10": {
+          "type": "qa",
+          "settings": {
+            "q": "What is a doublet or triplet, and how do I spot one?",
+            "a": "<p>A doublet is a thin slice of opal glued to a dark backing. A triplet adds a clear cap on top. Both look convincing face-up and both are far cheaper than solid opal of the same appearance. Look at the stone from the side: a dead-straight line between the colour and the backing gives it away. We set solid opal only, and any seller should state in writing which you are buying.</p>"
+          }
+        },
+        "q11": {
+          "type": "qa",
+          "settings": {
+            "q": "Is synthetic opal real opal?",
+            "a": "<p>Laboratory-grown opal has the same silica sphere structure and shows genuine play-of-colour, so in material terms it is opal. It is not natural opal, it should always be sold as synthetic, and a gemmologist can identify it by its unnaturally regular columnar pattern. Imitations such as opalite are glass or resin and are not opal at all.</p>"
+          }
+        },
+        "q12": {
+          "type": "qa",
+          "settings": {
+            "q": "Should an opal be treated?",
+            "a": "<p>Some porous material, Andamooka matrix in particular, is routinely treated to darken the body and lift the contrast. Done openly it is an accepted trade practice and it is reflected in the price. What matters is that the treatment is disclosed in writing, because an undisclosed treatment is the difference between a fair price and a bad one.</p>"
+          }
+        },
+        "q13": {
+          "type": "qa",
+          "settings": {
+            "q": "Can an opal ring be resized?",
+            "a": "<p>Usually only with the stone removed first, because opal and the heat of a jeweller's torch do not mix. That makes resizing more involved and more expensive than it would be on a diamond ring, and it is a good reason to be certain of the size before we set the stone.</p>"
+          }
+        },
+        "q14": {
+          "type": "qa",
+          "settings": {
+            "q": "Is opal unlucky?",
+            "a": "<p>No. The superstition traces to a nineteenth-century novel and was reinforced by rivals of the opal trade; it has no basis beyond that. Opal was considered a stone of exceptional good fortune throughout the classical and medieval world. The only real caution around opal is practical, not superstitious: it is soft and it needs looking after.</p>"
+          }
+        },
+        "q15": {
+          "type": "qa",
+          "settings": {
+            "q": "What should I clean an opal with?",
+            "a": "<p>Warm water, a drop of washing-up liquid, a soft brush and a dry cloth. Never an ultrasonic cleaner, a steamer, a jewellery dip or any solvent. If the stone is a doublet or triplet, keep it out of water altogether.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8",
+        "q9",
+        "q10",
+        "q11",
+        "q12",
+        "q13",
+        "q14",
+        "q15"
+      ],
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Opal Questions We Are Asked Most",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "UbTxH7"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/diamond-and-gemstone-guide-cover.png",
+        "cover_alt": "The Diamond and Gemstone Guide",
+        "cover_caption": "The Diamond and Gemstone Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Diamond and Gemstone Guide",
+        "body": "<p>Every gemstone stone by stone, plus durability, treatments, ethical sourcing and grading reports.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Opal Engagement Rings",
+            "desc": "See what we currently have available.",
+            "cta": "Browse",
+            "link": "/collections/opal-engagement-rings"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Fire Opal Engagement Rings",
+            "desc": "See what we currently have available.",
+            "cta": "Browse",
+            "link": "/collections/fire-opal-engagement-rings"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Coloured Stone Rings",
+            "desc": "See what we currently have available.",
+            "cta": "Browse",
+            "link": "/collections/coloured-stone-rings"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Section Hub",
+            "title": "Gemstone Education",
+            "desc": "Every gemstone guide in one place.",
+            "cta": "Back to the hub",
+            "link": "/pages/gemstone-education"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "poc",
+    "palette",
+    "why",
+    "bodytone",
+    "forring",
+    "watch",
+    "design",
+    "facts",
+    "refintro",
+    "bytone",
+    "fire",
+    "common",
+    "origins",
+    "composite",
+    "position",
+    "value",
+    "care",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

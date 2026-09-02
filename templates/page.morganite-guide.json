@@ -1,0 +1,1287 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Morganite"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Soft peach-pink beryl, and the rose gold pairing everyone asks for</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 36,
+        "image": "shopify://shop_images/loose-diamonds-coloured-gemstones-sapphire-emerald.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "show_contents": true,
+        "contents_label": "On this page",
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Gemstone Education",
+        "heading": "About Morganite",
+        "body": "<p>Morganite is pink beryl. That single fact explains most of what follows, because beryl is the mineral that also gives us emerald and aquamarine, and morganite shares their chemistry, their crystal habit and much of their behaviour in a ring. What sets it apart is the trace of manganese that turns the crystal anywhere from the palest blush through peach and apricot to salmon and, occasionally, a clear rose pink.</p><p>It is also a genuinely modern gemstone. Pink beryl was only recognised as a distinct variety in 1910 and named the following year, which means morganite arrives with no folklore, no birthstone month and no accumulated symbolism. Whatever it means, it means to the person wearing it. Some people find that a loss. Rather more find it a relief.</p><p>The colour is usually pale, and that is the most important practical thing about it. Depth of colour builds with the amount of stone light has to travel through, so a five millimetre morganite can look almost colourless while a ten millimetre stone from the same parcel reads as a definite peach. Morganite is a stone you buy in size.</p><p>Metal matters more here than for almost anything else we set. A pale, transparent stone picks up the colour of what surrounds it, and rose gold reflected up through the pavilion warms the pink in a way white metal does not. The rose gold pairing that made morganite famous in the 2010s is doing optical work, not only styling.</p><p>At Mohs 7.5 to 8, with good toughness, morganite is hard enough for a ring worn regularly. It is not sapphire, and over decades that difference shows. It makes an excellent engagement ring for someone reasonably careful with their hands and a frustrating one for someone who is not, and we would rather say so at the start than a year in.</p>"
+      }
+    },
+    "colour": {
+      "type": "fye-chips",
+      "blocks": {
+        "c1": {
+          "type": "chip",
+          "settings": {
+            "name": "Near colourless",
+            "sub": "Too pale to read as pink at small sizes",
+            "colour": "#F4E8E5"
+          }
+        },
+        "c2": {
+          "type": "chip",
+          "settings": {
+            "name": "Pale blush",
+            "sub": "The commonest tone, soft and cool",
+            "colour": "#EFD6D6"
+          }
+        },
+        "c3": {
+          "type": "chip",
+          "settings": {
+            "name": "Rose pink",
+            "sub": "A cleaner pink with little warmth",
+            "colour": "#E9BFC8"
+          }
+        },
+        "c4": {
+          "type": "chip",
+          "settings": {
+            "name": "Peach",
+            "sub": "Pink with a warm undertone, the most requested",
+            "colour": "#EFC1A6"
+          }
+        },
+        "c5": {
+          "type": "chip",
+          "settings": {
+            "name": "Apricot",
+            "sub": "More orange than pink, often untreated",
+            "colour": "#EEB185"
+          }
+        },
+        "c6": {
+          "type": "chip",
+          "settings": {
+            "name": "Salmon",
+            "sub": "Warmer and deeper, holds colour at smaller sizes",
+            "colour": "#DE9A81"
+          }
+        },
+        "c7": {
+          "type": "chip",
+          "settings": {
+            "name": "Strong pink",
+            "sub": "As saturated as morganite generally gets",
+            "colour": "#D98A9C"
+          }
+        },
+        "c8": {
+          "type": "chip",
+          "settings": {
+            "name": "Bi-colour beryl",
+            "sub": "Morganite grading into aquamarine in one crystal",
+            "colour": "#EEC3BE",
+            "colour_2": "#AECFD6"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8"
+      ],
+      "settings": {
+        "band": "ivory",
+        "align": "centre",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Colour",
+        "heading": "The Morganite Palette",
+        "intro": "Morganite runs along two axes at once: how pink or how peach the hue is, and how much of it there is. Almost all of the material on the market sits at the pale end, and the swatches are deliberately gentle for that reason. Treat them as a vocabulary rather than a colour match.",
+        "note": "We source stones to your specification rather than from a fixed stock, so the first useful conversation is which of these tones you are drawn to."
+      }
+    },
+    "why": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Size is genuinely affordable",
+            "body": "<p>Morganite occurs in large, clean crystals, and price per carat climbs far less steeply with size than for pink sapphire or ruby. A ten millimetre centre stone is an ordinary request, and for a gem that needs size to show its colour, that matters.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Almost always eye-clean",
+            "body": "<p>Unlike emerald, its close relative, morganite is normally free of inclusions visible to the naked eye. Clarity is what makes a pale colour look luminous rather than merely faint.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "The rose gold pairing",
+            "body": "<p>Warm metal and a warm pale stone reinforce one another. It is one of the few combinations where the setting genuinely improves the gem rather than framing it, and it has become a modern classic on its own terms.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "A quieter register",
+            "body": "<p>Morganite reads gentler than pink sapphire or spinel. For someone who wants colour but finds saturated colour too declarative, it occupies a space very few stones do.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Hard enough for most people",
+            "body": "<p>At Mohs 7.5 to 8 with good toughness and no strong cleavage direction, morganite sits well above the stones we would only put in a pendant. It asks for sense, not vigilance.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "No inherited meaning",
+            "body": "<p>A twentieth-century discovery, morganite carries no traditional symbolism, no birthstone month and no superstition. If you want a stone chosen purely because you like it, this is one of the very few with a clean slate.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "The Case For It",
+        "heading": "Why Morganite Works",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "metal": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "18ct rose gold | Pushes the stone warm and noticeably deeper | The pairing morganite is known for, and the safest choice for a pale stone"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "9ct rose gold | Slightly stronger copper tone, a touch more red | Harder wearing than 18ct, and a fractionally warmer reflection"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "18ct yellow gold | Warms the stone but reads more golden than pink | Flatters apricot and salmon tones better than cool blush"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Two-tone, rose gold basket | Warmth where it counts, white metal on the shank | A useful compromise if you prefer white on the finger"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Platinum | Neutral, so the stone shows its own colour honestly | A pale morganite can look nearly colourless; a saturated one is fine"
+          }
+        },
+        "r6": {
+          "type": "row",
+          "settings": {
+            "cells": "18ct white gold, rhodium plated | Coolest of all, and most likely to flatten the pink | Works best with a strong pink stone or a warm-toned halo"
+          }
+        },
+        "r7": {
+          "type": "row",
+          "settings": {
+            "cells": "Rose gold with a diamond halo | Warm beneath, sharpened at the edge | Contrast stops the soft centre looking washed out"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Metal and Colour",
+        "heading": "How the Metal Changes the Stone",
+        "intro": "This table matters more for morganite than for sapphire or ruby. A pale, transparent stone acts a little like a lens: light entering the crown bounces off the metal below and returns carrying that metal's colour with it. The same morganite can look meaningfully different in two settings side by side.",
+        "headers": "Metal | What it does to the colour | Worth knowing",
+        "first_col_bold": true,
+        "narrow": false,
+        "col1_width": 0,
+        "note": "Ask to see the stone loose against samples of each metal rather than judging from photographs. This is one of the few decisions where a photograph is close to useless."
+      }
+    },
+    "forring": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Go larger than instinct suggests",
+            "body": "<p>Colour is a function of path length, so size and saturation are not separate decisions. Below about seven millimetres most morganite reads as a warm white. Eight to eleven millimetres is where it starts to look like the colour you fell for.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Decide the metal at the same time",
+            "body": "<p>Choosing the stone first and the metal afterwards is the wrong order here. Bring the two together, because a stone that looks ideal loose can lose most of its presence in the wrong setting.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Ask about depth, not just spread",
+            "body": "<p>Two stones quoted at the same width can differ considerably in pavilion depth, and the deeper one holds more colour. A shallow cut buys face-up size at the cost of the one thing morganite is short of.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Look at it from more than one angle",
+            "body": "<p>Morganite is dichroic, showing a slightly different pink depending on the direction light passes through the crystal. A well-oriented stone looks consistent as you turn it; a poorly oriented one goes pale from certain directions.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "A halo earns its place here",
+            "body": "<p>Diamonds around a soft centre give the eye a hard edge to read against, which makes the morganite look more saturated than it does alone. That is a sound reason for a halo rather than only a fashionable one.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Think about the gallery",
+            "body": "<p>An open under-bezel lets daylight flood straight through a pale stone and wash it out. A more closed gallery, or a rose gold basket, keeps a warm reflection beneath the stone and holds the colour together.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "If It Is Going in a Ring",
+        "heading": "Choosing a Morganite to Wear",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "watch": {
+      "type": "fye-checklist",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "label": "The colour is pale by nature",
+            "note": "Strongly saturated morganite exists but is uncommon. Most of what you are shown is gentle, and expecting a deep pink from a small stone leads to disappointment."
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "label": "White metal can flatten it",
+            "note": "Platinum and rhodium-plated white gold are neutral, and neutral is not what a pale stone wants. Perfectly possible, but see it first."
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "label": "Softer than sapphire",
+            "note": "Mohs 7.5 to 8 against sapphire's 9. Over years of daily wear the facet edges soften and the table picks up fine scratches. A repolish restores it, but it comes round."
+          }
+        },
+        "i4": {
+          "type": "item",
+          "settings": {
+            "label": "Beryl has an indistinct cleavage",
+            "note": "Not a serious weakness, but a sharp knock on the girdle of an unprotected stone can chip it. Bezels and covered corners are worth having."
+          }
+        },
+        "i5": {
+          "type": "item",
+          "settings": {
+            "label": "Heat treatment is routine",
+            "note": "Most morganite has been heated to remove a yellow or orange component. It is stable, permanent and accepted throughout the trade."
+          }
+        },
+        "i6": {
+          "type": "item",
+          "settings": {
+            "label": "Large stones sit high",
+            "note": "A ten or eleven millimetre centre has real depth beneath it, and that height catches on jumpers and door handles. A lower-profile mount is worth asking for."
+          }
+        },
+        "i7": {
+          "type": "item",
+          "settings": {
+            "label": "Pale stones show a dirty setting",
+            "note": "Soap, hand cream and skin oils collect under the stone, and morganite is transparent enough that you see the grey film through it."
+          }
+        },
+        "i8": {
+          "type": "item",
+          "settings": {
+            "label": "It became fashionable quickly",
+            "note": "Morganite went from obscure to ubiquitous in a decade. That says nothing about the stone, but it is worth asking whether you like it or have simply seen a great deal of it."
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6",
+        "i7",
+        "i8"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Be Aware",
+        "heading": "What to Watch",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "design": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Design Note",
+        "heading": "Setting It Well",
+        "body": "<p>Rose gold first, yellow gold second, and white metal only with a stone strong enough to carry it. Give the morganite real size, keep the pavilion deep enough to hold colour, and consider a partly closed gallery or a rose gold basket so daylight does not pass straight through and pale the stone out. A diamond surround does genuine optical work rather than mere decoration, because contrast at the edge makes the centre read stronger.</p><p>For a ring worn every day we would use a protective mount: a bezel, a half-bezel, or claws that properly cover the girdle rather than perch on it. Everything is made to your specification in a London workshop, and every piece comes with a free annual inspection for its lifetime, which at this hardness is the most useful thing we can offer.</p>"
+      }
+    },
+    "facts": {
+      "type": "fye-facts",
+      "blocks": {
+        "f1": {
+          "type": "fact",
+          "settings": {
+            "label": "Hardness",
+            "value": "<p>7.5 to 8 on the Mohs scale</p>",
+            "show_scale": true,
+            "scale_min": 7.5,
+            "scale_max": 8,
+            "scale_note": "Harder than quartz, softer than sapphire"
+          }
+        },
+        "f2": {
+          "type": "fact",
+          "settings": {
+            "label": "Toughness",
+            "value": "<p>Good, with an indistinct basal cleavage</p>"
+          }
+        },
+        "f3": {
+          "type": "fact",
+          "settings": {
+            "label": "Species",
+            "value": "<p>Beryl, the same mineral as emerald and aquamarine</p>"
+          }
+        },
+        "f4": {
+          "type": "fact",
+          "settings": {
+            "label": "Colouring element",
+            "value": "<p>Manganese, in trace amounts</p>"
+          }
+        },
+        "f5": {
+          "type": "fact",
+          "settings": {
+            "label": "Crystal system",
+            "value": "<p>Hexagonal</p>"
+          }
+        },
+        "f6": {
+          "type": "fact",
+          "settings": {
+            "label": "Refractive index",
+            "value": "<p>Around 1.57 to 1.60</p>"
+          }
+        },
+        "f7": {
+          "type": "fact",
+          "settings": {
+            "label": "Specific gravity",
+            "value": "<p>2.71 to 2.90, often high for beryl</p>"
+          }
+        },
+        "f8": {
+          "type": "fact",
+          "settings": {
+            "label": "Pleochroism",
+            "value": "<p>Distinct; two slightly different pinks</p>"
+          }
+        },
+        "f9": {
+          "type": "fact",
+          "settings": {
+            "label": "Typical clarity",
+            "value": "<p>Usually eye-clean</p>"
+          }
+        },
+        "f10": {
+          "type": "fact",
+          "settings": {
+            "label": "Usual cuts",
+            "value": "<p>Cushion and oval, then emerald cut and round</p>"
+          }
+        },
+        "f11": {
+          "type": "fact",
+          "settings": {
+            "label": "Common treatment",
+            "value": "<p>Heat, routine, to remove yellow and orange</p>"
+          }
+        },
+        "f12": {
+          "type": "fact",
+          "settings": {
+            "label": "Suited to",
+            "value": "<p>Rings in protective settings, pendants, earrings</p>"
+          }
+        },
+        "f13": {
+          "type": "fact",
+          "settings": {
+            "label": "Birthstone",
+            "value": "<p>None; morganite has no traditional month</p>"
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4",
+        "f5",
+        "f6",
+        "f7",
+        "f8",
+        "f9",
+        "f10",
+        "f11",
+        "f12",
+        "f13"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "At a Glance",
+        "heading": "The Practical Facts",
+        "intro": "",
+        "note": "Hardness describes scratch resistance, not toughness. Morganite scores respectably on both, which is why it survives a life that emerald would not."
+      }
+    },
+    "refintro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "The Reference",
+        "heading": "A Field Guide to Morganite",
+        "variant": "divider",
+        "body": "<p>Everything above is what you need in order to choose a stone. What follows is the fuller picture: where morganite sits in the beryl family, how it got its name barely a century ago, what produces the colour, where it comes out of the ground and what drives the price.</p><p>None of it is required reading. It is here because a stone with no folklore attached tends to attract invented folklore instead, and the plain facts are more interesting than the marketing, as they usually are.</p>"
+      }
+    },
+    "beryl": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Emerald",
+            "body": "<p>Green beryl coloured by chromium or vanadium. The most valuable member of the family and by some distance the most fragile, because emerald is almost always heavily included and fracture-filled.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Aquamarine",
+            "body": "<p>Blue to blue-green beryl coloured by iron. Like morganite it is typically clean, available large and routinely heated, in aquamarine's case to remove a green component.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Morganite",
+            "body": "<p>Pink to peach beryl coloured by manganese. Frequently caesium-rich, which is why its specific gravity often sits at the top of the beryl range.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Heliodor and golden beryl",
+            "body": "<p>Yellow to greenish-yellow beryl, again coloured by iron. Underused, inexpensive and handsome in warm metal.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Goshenite",
+            "body": "<p>Colourless beryl, with no colouring trace element at all. Named after Goshen in Massachusetts and mostly of collector interest.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Red beryl",
+            "body": "<p>Coloured by manganese in a different oxidation state to morganite. Found in commercial quantity only in Utah, and one of the rarest gemstones there is.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "3",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "The Family",
+        "heading": "Morganite Among the Beryls",
+        "intro": "Beryl is a beryllium aluminium silicate. Pure beryl is colourless; every variety below is the same mineral wearing a different trace impurity. Morganite and aquamarine sometimes grow in one crystal, giving a bi-colour stone.",
+        "note": ""
+      }
+    },
+    "history": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "A Twentieth-Century Gemstone",
+        "heading": "Named in 1911, and Nothing Before That",
+        "body": "<p>Pink beryl had been turning up occasionally for decades, in California and elsewhere, usually catalogued as rose beryl and treated as a curiosity. What changed was Madagascar. In 1910 the pegmatites near Antsirabe began producing pink beryl of a quality and quantity nobody had seen before, and for the first time there was enough material to be worth naming.</p><p>The naming was done by George Frederick Kunz, the gemmologist who ran Tiffany's stone buying and who had already given his own name to kunzite. He proposed morganite in honour of John Pierpont Morgan, the American financier, who was both Tiffany's most significant client and the assembler of one of the finest gem collections ever put together, much of which he gave to the American Museum of Natural History. The name was announced to the New York Academy of Sciences at the end of 1910 and adopted the following year.</p><p>That date explains an absence. Morganite has no place in any historic lapidary, no classical attribution, no medieval virtue, no birthstone month and no anniversary. Whatever is claimed for it in modern listings was invented within living memory. This is a stone with a documented birthday rather than a mythology.</p><p>Its jewellery career has been correspondingly short. For most of the twentieth century morganite stayed a collector's stone, admired in mineral cabinets and rarely set. The American deposits produced remarkable material, including the Rose of Maine, a crystal of around twenty-three kilograms recovered from the Bennett quarry in 1989. It took the rose gold revival of the 2010s to give morganite a mainstream audience.</p>"
+      }
+    },
+    "colourscience": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Manganese, in two forms",
+            "body": "<p>Divalent manganese gives morganite its pink. Trivalent manganese, present in the same crystal, contributes yellow and orange. The balance between them decides whether a stone reads blush, peach, apricot or salmon.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Why it is nearly always pale",
+            "body": "<p>Manganese enters the beryl lattice only in tiny quantities, so the colouring agent is very dilute. Depth of colour therefore depends on how far light travels inside the stone, which is why morganite is bought in size.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Heat treatment",
+            "body": "<p>Gentle heating converts the trivalent manganese and removes the yellow component, moving an apricot stone towards a cleaner pink. It is routine, stable and permanent, and it changes nothing about how the stone is worn or cleaned.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Untreated stones are not lesser",
+            "body": "<p>Some material comes out of the ground with an attractive peach or salmon colour and is cut without treatment. Which you prefer is a matter of taste. Warmth pairs superbly with yellow gold, and there is no objectively correct morganite hue.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Pleochroism",
+            "body": "<p>Morganite is dichroic: it shows two slightly different pinks depending on the direction light passes through the crystal. Cutters orient the table to catch the stronger of the two, which is one reason a well-cut stone looks richer than a badly cut one of the same weight.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Colour stability",
+            "body": "<p>Morganite does not fade in normal wear, and unlike kunzite it is not notably light-sensitive. A stone that looks duller after a few years has picked up surface wear and a film of soap and skin oil rather than lost colour.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Where the Colour Comes From",
+        "heading": "The Colour, Explained",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "origins": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Minas Gerais, Brazil | Large, clean, pale to peach crystals | The mainstay of the market and the source of most commercial sizes"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Antsirabe region, Madagascar | The original 1910 discovery | Still producing, and historically the finest saturated pink"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Mozambique | Peach and salmon material | A significant modern source, often alongside aquamarine and tourmaline"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Nigeria | Clean pale pink and peach | Widely traded, generally cut into calibrated commercial sizes"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Nuristan and Kunar, Afghanistan | Fine pink beryl in pegmatites | Small production, with some exceptional individual crystals"
+          }
+        },
+        "r6": {
+          "type": "row",
+          "settings": {
+            "cells": "San Diego County, California | Historic American pink beryl | The Pala and Mesa Grande pegmatites; more collected than cut today"
+          }
+        },
+        "r7": {
+          "type": "row",
+          "settings": {
+            "cells": "Oxford County, Maine | Very large crystals | The Bennett quarry produced the twenty-three kilogram Rose of Maine in 1989"
+          }
+        },
+        "r8": {
+          "type": "row",
+          "settings": {
+            "cells": "Pakistan | Pink and peach beryl | From the same pegmatite belt as much of the country's aquamarine"
+          }
+        },
+        "r9": {
+          "type": "row",
+          "settings": {
+            "cells": "Namibia and Zimbabwe | Pale pink beryl | Small, irregular output, though the material can be good"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7",
+        "r8",
+        "r9"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Where It Comes From",
+        "heading": "The Morganite Sources",
+        "intro": "Morganite forms in granite pegmatites, the coarse veins that also give us aquamarine, tourmaline and kunzite, which is why the same regions keep appearing across all four. Origin is not a strong price driver here in the way it is for sapphire or emerald. Colour and size matter a great deal more.",
+        "headers": "Source | Known for | Worth knowing",
+        "first_col_bold": true,
+        "narrow": false,
+        "col1_width": 0,
+        "note": "Because origin carries little premium, it is also rarely documented. If a source matters to you, ask what the paperwork states rather than what the description asserts."
+      }
+    },
+    "cuts": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Cushion",
+            "body": "<p>The most common shape by a wide margin. Soft corners suit a soft colour, and a cushion holds more depth than an equivalent oval, which means more colour.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Oval",
+            "body": "<p>The other dominant shape. It spreads well on the finger and flatters the larger sizes morganite is cut in, though a shallow oval loses colour.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Emerald cut",
+            "body": "<p>Long step facets show off the clarity morganite nearly always has. The least forgiving shape for a pale stone, so it wants size or a warmer hue.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Round brilliant",
+            "body": "<p>Maximum sparkle, and the shape that best disguises pale colour behind brightness. Good if you want the stone to read light and lively.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Pear and marquise",
+            "body": "<p>Elongated shapes give light a longer path at the point, which can concentrate colour attractively. They need careful protection at the tip.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Fancy and rose cuts",
+            "body": "<p>Hexagons, kites, elongated cushions and flat rose cuts all appear. A rose cut trades depth of colour for a low profile, so it wants a stronger-coloured stone.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "3",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Shape and Cut",
+        "heading": "How Morganite Is Cut",
+        "intro": "Morganite is almost always faceted rather than cut as a cabochon, because clarity is its strong suit and a cabochon would waste it. Cushion and oval dominate, and cutters favour depth over spread so the finished stone keeps as much colour as possible.",
+        "note": ""
+      }
+    },
+    "lab": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Grown or Mined",
+        "heading": "Lab-Grown Morganite",
+        "body": "<p>Laboratory-grown beryl is well established. Hydrothermally grown emerald has been produced commercially for decades, and grown aquamarine and red beryl both exist. Lab-grown morganite, however, is genuinely uncommon, and the reason is economics: natural morganite occurs in large, clean crystals at accessible prices, so there has never been much incentive to grow it.</p><p>A good deal of material described online as lab-created morganite is therefore not grown beryl but a different synthetic in a similar colour. Those are legitimate products and they are cheaper, but they are a different stone with different hardness and different care needs, so it is worth having the description in writing.</p><p>We supply lab-grown coloured stones wherever they are available, and we will look for grown morganite if you want one. For this gem, natural material is usually the easier answer.</p>"
+      }
+    },
+    "value": {
+      "type": "fye-checklist",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "label": "Saturation, before anything else",
+            "note": "The largest single factor. A stone with real, definite colour costs multiples of a pale one of identical size and clarity, because strong colour is the scarce thing here."
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "label": "Size, but less steeply than you expect",
+            "note": "Price per carat rises with size, though nothing like as sharply as for sapphire or ruby. This is the whole basis of morganite's appeal."
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "label": "Hue",
+            "note": "Clean pink generally commands more than peach or apricot, largely because it is less common. Preference need not follow price."
+          }
+        },
+        "i4": {
+          "type": "item",
+          "settings": {
+            "label": "Cut quality and orientation",
+            "note": "A well-proportioned stone cut to catch the stronger pleochroic direction looks considerably better than a shallow stone cut for weight. You are paying for a cutter's judgement."
+          }
+        },
+        "i5": {
+          "type": "item",
+          "settings": {
+            "label": "Clarity",
+            "note": "Most morganite is eye-clean, so clarity rarely separates stones. Where it does, visible inclusions reduce value sharply, because the market expects clean material."
+          }
+        },
+        "i6": {
+          "type": "item",
+          "settings": {
+            "label": "Treatment status",
+            "note": "Heated stones are the norm and priced as such. Untreated material with attractive natural colour is sometimes priced higher, though the gap is far smaller than in sapphire."
+          }
+        },
+        "i7": {
+          "type": "item",
+          "settings": {
+            "label": "Origin",
+            "note": "A minor factor. Fine Madagascan material carries some cachet, but colour and size decide the price for practically every stone on the market."
+          }
+        },
+        "i8": {
+          "type": "item",
+          "settings": {
+            "label": "Certification",
+            "note": "An independent laboratory report confirms species and treatment. Worth having on a significant stone, and we will arrange one on request."
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6",
+        "i7",
+        "i8"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "What You Are Paying For",
+        "heading": "How a Morganite Is Priced",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "care": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Cleaning",
+            "body": "<p>Warm water, a drop of washing-up liquid and a soft brush, with particular attention to the underside of the stone. A pale, transparent gem shows a grimy setting through it far more readily than a dark one, so this is the most rewarding maintenance you can do.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Ultrasonic and steam",
+            "body": "<p>An ultrasonic cleaner is usually safe on a sound, uncracked morganite, but if the stone has any reaching fracture it is not worth the risk. Steam is best avoided.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Wearing",
+            "body": "<p>Take it off for the gym, gardening, heavy cleaning and anything abrasive. Morganite does not need constant attention, but grit is harder than it is, and grit is what scratches gemstones.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Storage",
+            "body": "<p>Separately, in a soft pouch or a lined compartment. Diamonds and sapphires in the same drawer will scratch a morganite, and a scratched table is what makes a pale stone look tired.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Repairs and heat",
+            "body": "<p>Tell whoever works on the ring that the centre stone is morganite. Its colour was very probably set by controlled heating, and a jeweller's torch is not controlled. Sizing and retipping are routine, but the stone should generally come out first.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Over the years",
+            "body": "<p>Have the setting checked annually, which we do free for the life of the piece. A worn morganite can also be repolished to bring back crisp facet edges, which restores more brightness than people expect.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "3",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Living With It",
+        "heading": "Looking After a Morganite",
+        "intro": "",
+        "note": "Heat treatment is stable and permanent, so it asks nothing extra of you in normal wear. The one place it matters is at the bench, where uncontrolled heat during a repair can affect the stone."
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "eyebrow": "Before You Choose",
+        "heading": "Check It Against the Life It Will Lead",
+        "body": "<p>Morganite sits mid-range for durability, comfortably above the stones that belong in a pendant and comfortably below sapphire. Whether that is enough depends on the hands it will live on. Our durability guide sets out which stones survive daily wear, which need protecting, and why hardness and toughness are not the same thing.</p>",
+        "link": "/pages/gemstone-durability",
+        "link_label": "Read the durability guide"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Is morganite durable enough for an engagement ring?",
+            "a": "<p>For most people, yes. At Mohs 7.5 to 8 with good toughness it is harder than quartz and far tougher than emerald, with no strong cleavage plane to worry about. Set protectively, it will wear well for decades. It is not sapphire, though, and on very active hands the facet edges soften and the table picks up fine scratches faster. If the ring never comes off and your hands work hard, pink sapphire is more forgiving.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Why does morganite look so much better in rose gold?",
+            "a": "<p>Because the metal is doing optical work, not just framing the stone. Morganite is pale and highly transparent, so much of the light you see has passed through the gem, reflected off the metal beneath and returned carrying the metal's colour. Rose gold sends back a warm pink; platinum sends back neutral white.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "What actually is morganite?",
+            "a": "<p>It is the pink to peach variety of beryl, the same mineral species as emerald and aquamarine. Pure beryl is colourless. Chromium or vanadium makes it emerald, iron makes it aquamarine, and manganese makes it morganite.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Who was morganite named after?",
+            "a": "<p>John Pierpont Morgan, the American financier and one of the greatest gem collectors of his era. The name was proposed in late 1910 by George Frederick Kunz, Tiffany's gemmologist, after Madagascar began producing fine pink beryl in commercial quantity, and it was adopted in 1911.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Is morganite an ancient gemstone?",
+            "a": "<p>No, and that is one of the more interesting things about it. Morganite was only identified as a distinct variety in 1910, so it appears in no historical lapidary and carries no traditional symbolism, birthstone month or folklore. Any meaning attributed to it was invented within the last century.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "Is morganite the same thing as pink emerald?",
+            "a": "<p>No. Pink emerald is a marketing name that has been applied to morganite from time to time, and it is discouraged by every gemmological body precisely because it is misleading. Emerald means green beryl. Pink beryl is morganite, and that is what it should be called.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "q": "Is morganite heat treated?",
+            "a": "<p>Most of it, yes. Gentle heating removes a yellow or orange component and moves the stone towards a cleaner pink. The treatment is routine, accepted, stable and permanent, and it does not change how the stone is worn or cleaned. Untreated peach and apricot morganite is also sold, and is worth considering if you like the warmer tone.</p>"
+          }
+        },
+        "q8": {
+          "type": "qa",
+          "settings": {
+            "q": "Why is morganite always so pale?",
+            "a": "<p>Because the manganese that colours it is present in extremely small amounts. Depth of colour depends on how far light travels through the stone, which is why a small morganite can look nearly colourless while a large one from the same rough shows a definite peach.</p>"
+          }
+        },
+        "q9": {
+          "type": "qa",
+          "settings": {
+            "q": "What size morganite should I choose?",
+            "a": "<p>Larger than you might for a sapphire. Below about seven millimetres the colour struggles to show. Eight to eleven millimetres is where most people find it looks the way they imagined it, and morganite is one of the few gems where that size is reasonable to ask for.</p>"
+          }
+        },
+        "q10": {
+          "type": "qa",
+          "settings": {
+            "q": "Which cut suits morganite best?",
+            "a": "<p>Cushion and oval account for most of the market, and both hold enough depth to keep the colour together. Emerald cuts show off the clarity but are less forgiving of a pale stone. Whichever shape you choose, a deeper cut holds more colour than a shallow one of the same face-up size.</p>"
+          }
+        },
+        "q11": {
+          "type": "qa",
+          "settings": {
+            "q": "Morganite or pink sapphire?",
+            "a": "<p>Morganite for size and softness on a modest budget; pink sapphire for durability and saturation. A pink sapphire of the size people typically want in a morganite would cost a great deal more, which is exactly why morganite became popular.</p>"
+          }
+        },
+        "q12": {
+          "type": "qa",
+          "settings": {
+            "q": "Will morganite fade?",
+            "a": "<p>No. Unlike kunzite it is not notably light-sensitive, and its colour is stable in normal wear. A ring that looks duller after a few years has picked up surface scratches and a film of soap and skin oil, both reversible with cleaning and, if needed, a repolish.</p>"
+          }
+        },
+        "q13": {
+          "type": "qa",
+          "settings": {
+            "q": "Is morganite rare?",
+            "a": "<p>Pale morganite is not rare at all, which is why large stones are affordable. Strongly saturated pink is a different matter and is genuinely scarce. Rarity in this stone lives in the colour rather than the material.</p>"
+          }
+        },
+        "q14": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I have a lab-grown morganite?",
+            "a": "<p>We will look, but do not count on it. Lab-grown beryl exists, chiefly as emerald, yet grown morganite is uncommon because natural material is plentiful and inexpensive enough that there has been little reason to produce it. We supply lab-grown coloured stones wherever they are available.</p>"
+          }
+        },
+        "q15": {
+          "type": "qa",
+          "settings": {
+            "q": "Is morganite a birthstone?",
+            "a": "<p>Not traditionally. It has no month in any established birthstone list and no recognised wedding anniversary. Some modern lists have adopted it, but none has a historical basis, since the stone was not named until 1911.</p>"
+          }
+        },
+        "q16": {
+          "type": "qa",
+          "settings": {
+            "q": "How should I clean a morganite ring?",
+            "a": "<p>Warm water, a drop of washing-up liquid, a soft brush and a dry cloth, with particular attention to the underside of the stone. Because morganite is pale and transparent, a dirty setting shows through it far more than through a darker gem. Ultrasonic cleaners are usually safe on a sound stone, but hand cleaning is the reliable option.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8",
+        "q9",
+        "q10",
+        "q11",
+        "q12",
+        "q13",
+        "q14",
+        "q15",
+        "q16"
+      ],
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Morganite Questions We Are Asked Most",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "klaviyo_form": "UbTxH7",
+            "style": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/diamond-and-gemstone-guide-cover.png",
+        "cover_alt": "The Diamond and Gemstone Guide",
+        "cover_caption": "The Diamond and Gemstone Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Diamond and Gemstone Guide",
+        "body": "<p>Every gemstone stone by stone, plus durability, treatments, ethical sourcing and grading reports.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Morganite Engagement Rings",
+            "desc": "See what we currently have available.",
+            "cta": "Browse",
+            "link": "/collections/morganite-engagement-rings"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Coloured Stone Rings",
+            "desc": "See what we currently have available.",
+            "cta": "Browse",
+            "link": "/collections/coloured-stone-rings"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Gemstone Education",
+            "title": "Aquamarine",
+            "desc": "The same mineral in blue, and usually the cleaner stone.",
+            "cta": "Read the guide",
+            "link": "/pages/aquamarine-guide"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r4"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "colour",
+    "why",
+    "metal",
+    "forring",
+    "watch",
+    "design",
+    "facts",
+    "refintro",
+    "beryl",
+    "history",
+    "colourscience",
+    "origins",
+    "cuts",
+    "lab",
+    "value",
+    "care",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

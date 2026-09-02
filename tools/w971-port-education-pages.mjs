@@ -51,7 +51,18 @@ const DROP_TYPES = new Set(['fye-breadcrumb', 'sidebar-page']);
 const EXCLUDE = new Set([
   'page.zz-form-testing.json',        // internal, marked do-not-link
   'page.about-us-v2.json',            // duplicate of the About page already built
-  'page.edu-test-page.json'           // internal test page
+  'page.edu-test-page.json',          // internal test page
+
+  // No page with these handles exists in the store — orphan templates on live.
+  'page.faqs.json',
+  'page.faq-2.json',
+  'page.gemstones.json',
+
+  // Pages exist but their bodies are empty and nothing links to them: no menu
+  // item, no reference in either repo. The nav uses the COLLECTIONS of the
+  // same name (/collections/natural-diamonds, /collections/lab-diamonds).
+  'page.diamonds.json',
+  'page.lab-diamonds.json'
 ]);
 
 if (!existsSync(LIVE)) {

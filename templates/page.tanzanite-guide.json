@@ -1,0 +1,1321 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Tanzanite"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Violet-blue, found in one place on earth, and more delicate than it looks</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 36,
+        "image": "shopify://shop_images/loose-diamonds-coloured-gemstones-sapphire-emerald.png",
+        "use_specify_image": true
+      }
+    },
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "show_contents": true,
+        "contents_label": "On this page",
+        "emit_breadcrumbs": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Gemstone Education",
+        "heading": "About Tanzanite",
+        "body": "<p>Tanzanite is the blue to violet variety of a mineral called zoisite, and it comes from one place. Not one country, one small area: the Merelani Hills in northern Tanzania, a strip of low ground within sight of Kilimanjaro. Every tanzanite in every shop window in the world came out of there. It is the most important fact about the stone, and most of the others follow from it.</p><p>It is also genuinely new. Tanzanite was found in 1967 and named by Tiffany the following year, which makes it younger than colour television. There is no classical lore attached to it and no Victorian revival, only a colour that simply was not on the market before.</p><p>That colour is not fixed. Tanzanite is strongly trichroic, meaning a single crystal shows three different colours along three different directions: blue, violet and a brownish burgundy. The cutter decides which of them you see face up, and that one decision does more to set the price than almost anything else.</p><p>The practical catch is durability. At Mohs 6 to 7, with only fair toughness and one direction of cleavage, tanzanite is not built for a ring worn every day on a busy hand. It is lovely in a pendant, in earrings, and in a ring either protected properly or worn occasionally. We would rather say so at the top of the page than have you discover it a year in.</p>"
+      }
+    },
+    "trichroism": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Three colours at once",
+            "body": "<p>Look down one axis of a tanzanite crystal and you see blue. Turn it and you see violet. Turn it again and you see a brownish burgundy. All three are genuinely present in the same piece of rough.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Why it happens",
+            "body": "<p>Zoisite crystallises in the orthorhombic system, and light passing along each of its three axes is absorbed differently. Stones that behave this way are pleochroic; one showing three colours is trichroic. Tanzanite is among the strongest examples in gemmology.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "The cutter has to choose",
+            "body": "<p>Rough can be oriented to put blue face up or violet face up, not both. The decision is made once, on the wheel, and revisiting it means recutting and losing weight.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Bluer usually costs more",
+            "body": "<p>Orienting for the bluest face-up colour wastes more of the crystal, so a blue stone of a given weight began life as a larger piece of rough. That, rather than fashion, is why blue carries a premium.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Violet-blue or blue-violet",
+            "body": "<p>The trade puts the dominant colour last. Violet-blue reads mainly blue; blue-violet reads mainly violet. It is worth knowing which one a description is claiming, because the two are priced differently.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "The light you are standing in",
+            "body": "<p>Daylight brings out the blue. Warm indoor light and candlelight push the same stone towards violet. This is normal rather than a fault, and it is why we ask people to see a tanzanite in two lights before committing.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "3",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Three Colours, One Crystal",
+        "heading": "How the Colour Works",
+        "intro": "Almost everything unusual about tanzanite, including how it is cut and what it costs, comes back to one crystal holding three colours.",
+        "note": ""
+      }
+    },
+    "palette": {
+      "type": "fye-chips",
+      "blocks": {
+        "c1": {
+          "type": "chip",
+          "settings": {
+            "name": "Deep blue",
+            "sub": "The rarest face-up colour, most often in large stones",
+            "colour": "#25357F"
+          }
+        },
+        "c2": {
+          "type": "chip",
+          "settings": {
+            "name": "Violet-blue",
+            "sub": "Blue dominant, violet behind it; the classic",
+            "colour": "#3B43A0"
+          }
+        },
+        "c3": {
+          "type": "chip",
+          "settings": {
+            "name": "Blue-violet",
+            "sub": "Violet dominant, blue behind it",
+            "colour": "#5B4FA8"
+          }
+        },
+        "c4": {
+          "type": "chip",
+          "settings": {
+            "name": "Violet",
+            "sub": "Warmer, and usually a little more affordable",
+            "colour": "#6E5AAE"
+          }
+        },
+        "c5": {
+          "type": "chip",
+          "settings": {
+            "name": "Lilac",
+            "sub": "Light and soft; common in smaller stones",
+            "colour": "#9B8FC7"
+          }
+        },
+        "c6": {
+          "type": "chip",
+          "settings": {
+            "name": "Pale lavender",
+            "sub": "Very light, often used for side stones",
+            "colour": "#C6BEDD"
+          }
+        },
+        "c7": {
+          "type": "chip",
+          "settings": {
+            "name": "Chrome tanzanite",
+            "sub": "Chromium-bearing, more saturated and greener",
+            "colour": "#2F7F86"
+          }
+        },
+        "c8": {
+          "type": "chip",
+          "settings": {
+            "name": "Fancy colours",
+            "sub": "Green, yellow, pink and bicolour, usually unheated",
+            "colour": "#79A06F"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8"
+      ],
+      "settings": {
+        "band": "white",
+        "align": "centre",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Colour",
+        "heading": "The Tanzanite Palette",
+        "intro": "Swatches show face-up colour only. None can show how a trichroic stone shifts as it moves, which is most of the point of tanzanite.",
+        "note": "We source stones to your specification, and will show you the actual stone in daylight and indoor light before you commit."
+      }
+    },
+    "why": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "One source, and it is real",
+            "body": "<p>Plenty of stones are described as rare. Tanzanite comes from one small area and nowhere else on earth, which is a claim almost nothing else in the trade can make honestly.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "A colour that is hard to buy elsewhere",
+            "body": "<p>The violet-blue of a good tanzanite sits between sapphire and amethyst and matches neither. If that colour is what you want, the alternatives are a long way off it.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "A genuinely modern gemstone",
+            "body": "<p>Found in 1967 and named in 1968. For anyone who finds the weight of gemstone tradition a bit much, tanzanite carries none of it.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "It rewards a second look",
+            "body": "<p>The colour moves as the wearer moves and shifts between daylight and lamplight. A stone that behaves differently across a day is a different kind of pleasure.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "The December birthstone",
+            "body": "<p>Added to the December list in 2002, alongside turquoise and blue zircon, and by some distance the most requested of the three.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Size is within reach",
+            "body": "<p>For a comparable violet-blue, tanzanite generally costs a good deal less than fine sapphire of the same size, which puts larger stones within far more budgets.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "The Case For It",
+        "heading": "Why Tanzanite Works",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "sizecolour": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Under 0.50ct | Pale lavender to lilac | Rarely shows real depth; mostly used as side stones"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "0.50 to 1.00ct | Light violet | Pretty and inexpensive, but not the colour tanzanite is known for"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "1.00 to 2.00ct | Light to medium violet-blue | The usual starting point for a stone that reads as tanzanite"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "2.00 to 3.00ct | Medium violet-blue | A sensible balance of presence and price"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "3.00 to 5.00ct | Medium to strong violet-blue | Noticeably deeper; price per carat steps up"
+          }
+        },
+        "r6": {
+          "type": "row",
+          "settings": {
+            "cells": "5.00 to 10.00ct | Strong to intense | Where the finest colour is most often found"
+          }
+        },
+        "r7": {
+          "type": "row",
+          "settings": {
+            "cells": "Over 10.00ct | Intense, occasionally deep blue | Rare in top colour, and priced accordingly"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Colour and Size",
+        "heading": "Why Size Matters More Here",
+        "intro": "Tanzanite is graded on the depth and purity of its blue, and depth of colour tends to follow size. A small tanzanite is usually a pale one, which is not true of sapphire or most other coloured stones. It is the most useful thing to understand before setting a budget.",
+        "headers": "Size | Colour usually seen | Worth knowing",
+        "first_col_bold": true,
+        "narrow": true,
+        "col1_width": 20,
+        "note": "These are tendencies rather than rules. Exceptional small stones and disappointing large ones both exist, which is why we judge the stone rather than the certificate weight."
+      }
+    },
+    "forring": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Decide blue or violet first",
+            "body": "<p>It is the biggest single variable and it changes the budget. Look at both in person if you can, because a photograph of a trichroic stone tells you very little about how it behaves on a hand.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "A bezel is the sensible construction",
+            "body": "<p>A rubover setting covers the girdle, which is where chips start, and takes the knock instead of the stone. Where claws are wanted for the look, we would use more of them and make them heavier than on a sapphire.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Keep the profile low",
+            "body": "<p>Most damage to a coloured stone ring happens because the stone sits proud and catches a door frame or a worktop. Height is the enemy, and a lower setting buys years.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Match the metal to the colour you want",
+            "body": "<p>White gold and platinum keep the palette cool and let the blue read. Yellow gold warms the stone and pushes it towards violet. Neither is wrong, but the difference is bigger here than with most stones.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Get the size right the first time",
+            "body": "<p>Resizing a tanzanite ring usually means unsetting the stone, because heat and a cleavage plane are a poor combination. We send a free UK ring sizer before we start, and it is worth using properly.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "If It Is Going in a Ring",
+        "heading": "Choosing a Tanzanite to Wear",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "watch": {
+      "type": "fye-checklist",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "label": "Mohs 6 to 7",
+            "note": "Softer than quartz, so everyday dust can scratch it over time. It wants a setting that shields the edges."
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "label": "One direction of cleavage",
+            "note": "A plane along which the stone can split cleanly. A sharp knock in the wrong direction does more than chip it."
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "label": "Toughness is only fair",
+            "note": "Hardness and toughness are different properties. Tanzanite is middling on the first and modest on the second."
+          }
+        },
+        "i4": {
+          "type": "item",
+          "settings": {
+            "label": "Never use an ultrasonic cleaner",
+            "note": "Nor a steamer. The vibration and the heat both work against a stone with a cleavage plane."
+          }
+        },
+        "i5": {
+          "type": "item",
+          "settings": {
+            "label": "Avoid sudden temperature change",
+            "note": "No hot washing-up water followed by a cold rinse, and nothing left on a radiator or a sunny dashboard."
+          }
+        },
+        "i6": {
+          "type": "item",
+          "settings": {
+            "label": "Not for an unprotected daily ring",
+            "note": "As the centre stone of an engagement ring worn every day on an active hand, it will not have an easy life."
+          }
+        },
+        "i7": {
+          "type": "item",
+          "settings": {
+            "label": "Keep it away from acids",
+            "note": "Zoisite is attacked by strong acids, so descaler, drain cleaner and jewellery dips are all worth avoiding."
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6",
+        "i7"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Be Aware",
+        "heading": "What to Watch",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "design": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Design Note",
+        "heading": "Setting It Well",
+        "body": "<p>Bezel settings and low profiles, as a default. A rubover that covers the girdle all the way round, a slightly heavier wall on the side facing the palm, and a shank that keeps the stone close to the finger will do more for a tanzanite than any amount of care afterwards. Where a claw setting is wanted, six claws rather than four.</p><p>We would not recommend tanzanite as the centre stone of an engagement ring worn every day on an active hand, and we will say so before you commission it. If you want one anyway, we will build it properly and see it every year for the life of the piece at no charge. In a pendant or a pair of earrings, none of this applies and the stone is simply beautiful.</p>"
+      }
+    },
+    "facts": {
+      "type": "fye-facts",
+      "blocks": {
+        "f1": {
+          "type": "fact",
+          "settings": {
+            "label": "Hardness",
+            "value": "<p>6 to 7 on the Mohs scale</p>",
+            "show_scale": true,
+            "scale_min": 6,
+            "scale_max": 7,
+            "scale_note": "Softer than quartz, harder than opal"
+          }
+        },
+        "f2": {
+          "type": "fact",
+          "settings": {
+            "label": "Toughness",
+            "value": "<p>Fair, with one direction of cleavage</p>"
+          }
+        },
+        "f3": {
+          "type": "fact",
+          "settings": {
+            "label": "Mineral",
+            "value": "<p>Zoisite, a calcium aluminium silicate</p>"
+          }
+        },
+        "f4": {
+          "type": "fact",
+          "settings": {
+            "label": "Colouring element",
+            "value": "<p>Vanadium, in trace amounts</p>"
+          }
+        },
+        "f5": {
+          "type": "fact",
+          "settings": {
+            "label": "Source",
+            "value": "<p>The Merelani Hills, northern Tanzania, and nowhere else</p>"
+          }
+        },
+        "f6": {
+          "type": "fact",
+          "settings": {
+            "label": "Discovered",
+            "value": "<p>1967; named by Tiffany &amp; Co. in 1968</p>"
+          }
+        },
+        "f7": {
+          "type": "fact",
+          "settings": {
+            "label": "Optical character",
+            "value": "<p>Strongly trichroic: blue, violet and burgundy</p>"
+          }
+        },
+        "f8": {
+          "type": "fact",
+          "settings": {
+            "label": "Crystal system",
+            "value": "<p>Orthorhombic</p>"
+          }
+        },
+        "f9": {
+          "type": "fact",
+          "settings": {
+            "label": "Refractive index",
+            "value": "<p>Approximately 1.691 to 1.700</p>"
+          }
+        },
+        "f10": {
+          "type": "fact",
+          "settings": {
+            "label": "Usual cut",
+            "value": "<p>Faceted; ovals, cushions and trilliants dominate</p>"
+          }
+        },
+        "f11": {
+          "type": "fact",
+          "settings": {
+            "label": "Common treatment",
+            "value": "<p>Heat, near-universal, stable and permanent</p>"
+          }
+        },
+        "f12": {
+          "type": "fact",
+          "settings": {
+            "label": "Suited to",
+            "value": "<p>Pendants, earrings, occasional rings in protective settings</p>"
+          }
+        },
+        "f13": {
+          "type": "fact",
+          "settings": {
+            "label": "Birthstone",
+            "value": "<p>December, added in 2002</p>"
+          }
+        },
+        "f14": {
+          "type": "fact",
+          "settings": {
+            "label": "Anniversary",
+            "value": "<p>The twenty-fourth</p>"
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4",
+        "f5",
+        "f6",
+        "f7",
+        "f8",
+        "f9",
+        "f10",
+        "f11",
+        "f12",
+        "f13",
+        "f14"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "At a Glance",
+        "heading": "The Practical Facts",
+        "intro": "",
+        "note": "Hardness describes scratch resistance, not toughness. Cleavage is a third property again, and in a ring it is the one that matters most."
+      }
+    },
+    "refintro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "ivory",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "The Reference",
+        "heading": "A Field Guide to Tanzanite",
+        "variant": "divider",
+        "body": "<p>Everything above is what you need in order to choose a stone and have it set well. What follows is the fuller picture: where tanzanite comes from, how it was found and named, the wider zoisite family, what heating does, and what the single-source question means for the years ahead.</p><p>None of it is required reading. It is here because tanzanite is one of the few gemstones whose geology, history and market are all short enough to hold in your head at once.</p><h3>The Merelani Hills</h3><p>The deposit sits in the Merelani Hills in the Manyara region of northern Tanzania, roughly forty kilometres south east of Arusha and in clear view of Kilimanjaro. The mineralised zone is small: a few kilometres of graphite-bearing rock, worked from shafts that now run several hundred metres deep. On a map of the world it is a dot.</p><p>The reason it exists there and nowhere else is a coincidence of geology. The right combination of vanadium-bearing rock, pressure and heat, folded into a particular structure by the movement of the East African plates, occurred in that spot and has not been found in that arrangement since.</p><p>The government took the mines into state control in 1971 and later reorganised the area into four licensed blocks, lettered A to D, which is the framework the deposit still works under. Block C has historically been the large mechanised operation; the others carry a mix of medium-sized and artisanal mining.</p><p>In 2018 a perimeter wall was built around the mining area to bring the trade under closer control. For a buyer, the effect is that paperwork on newer material is better than it was, and that Tanzanian origin is one of the few origin claims nobody argues about.</p>"
+      }
+    },
+    "history": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "The mineral came first",
+            "body": "<p>Zoisite was described in 1805 and named after Sigmund Zois, who funded the collecting that produced the first specimens. For a century and a half it was a mineralogical curiosity with no gem use.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Found in 1967",
+            "body": "<p>Blue crystals were picked up on the surface of the Merelani Hills and brought to a prospector named Manuel de Souza, to whom the find is generally credited, with local Maasai herders having spotted the material first.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Named by Tiffany",
+            "body": "<p>Tiffany &amp; Co. took the stone to market in 1968 and named it tanzanite after the country, on the grounds that blue zoisite was never going to sell. The campaign that followed made it a recognised name within a decade.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Not a mineral species",
+            "body": "<p>Tanzanite is a variety name, not a species. The stone is zoisite coloured by trace vanadium, in the way that ruby is a variety of corundum. A laboratory report may describe it either way.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "The December addition",
+            "body": "<p>Tanzanite joined the December birthstone list in 2002, the first change to the modern list in decades. It sits alongside turquoise and blue zircon rather than replacing them.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Why the history matters",
+            "body": "<p>Because there is so little of it. Tanzanite has no antique market and no revival cycles. Almost every tanzanite in existence was cut within living memory.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "How It Got Here",
+        "heading": "A Fifty Year Old Gemstone",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "family": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Tanzanite",
+            "body": "<p>The blue to violet variety, coloured by trace vanadium. Transparent, faceted, and the only member of the family with a serious fine jewellery market.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Fancy colour tanzanite",
+            "body": "<p>Green, yellow, orange, pink and bicoloured zoisite from the same deposit, usually left unheated because heating would drive it towards blue. Small quantities, mostly bought by collectors.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Chrome tanzanite",
+            "body": "<p>Material coloured by chromium as well as vanadium, giving a more saturated, slightly greener blue. It is scarce even by tanzanite standards and is normally only offered in small sizes.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Thulite",
+            "body": "<p>Opaque pink to rose zoisite coloured by manganese, first found in Norway. Cut as cabochons, beads and carvings rather than faceted, and no relation to tanzanite in appearance.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Anyolite",
+            "body": "<p>Also called ruby in zoisite: opaque green zoisite with ruby crystals set through it, from Longido in northern Tanzania. Ornamental material for carvings and large cabochons.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Cat's eye tanzanite",
+            "body": "<p>A rare chatoyant material in which fine parallel inclusions produce a moving line of light across a cabochon. Essentially a collector's stone.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "The Wider Family",
+        "heading": "Zoisite Beyond Tanzanite",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "treatment": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "What Heating Does",
+        "heading": "Heat Treatment",
+        "body": "<p>Most tanzanite comes out of the ground brownish. The rough carries a khaki or reddish-brown component along one crystal direction, and in that state very little of it looks like the stone people recognise. Heating to a few hundred degrees for a short period removes that component and leaves the blue and violet behind. The change is stable and permanent; it does not fade or revert.</p><p>The treatment is near-universal. It is safe to assume any tanzanite offered for sale has been heated unless a laboratory report says otherwise, and the trade treats it as normal rather than as something requiring a discount. A little material comes out of the ground already blue, heated by geological events.</p><p>Because heating is standard, it does not carry the premium question that untreated sapphire and ruby do. What you pay for is the depth and purity of the colour, the size and the quality of the cut.</p><p>Where the treatment does change the advice is care. A stone with a cleavage plane does not enjoy being heated again, whether by a steamer, an ultrasonic tank or a jeweller's torch. That is why we clean tanzanite by hand, take the stone out before any work involving heat, and think it worth telling an unfamiliar jeweller what the stone is before they start.</p>"
+      }
+    },
+    "supply": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "The Supply Question",
+        "heading": "What One Source Actually Means",
+        "body": "<p>A deposit that exists in one place is finite in a way most gemstones are not. Sapphire is mined on several continents, and when one field slows another takes over. Tanzanite has no second field. When Merelani is worked out, whenever that is, no more tanzanite will be produced.</p><p>What nobody can tell you honestly is when. Estimates have circulated since the 1980s, most putting the remaining life at twenty to thirty years, and most have since been overtaken by deeper shafts and better geology. The deposit has repeatedly outlasted its own obituaries. It is equally true that it is small and has been mined hard for over fifty years.</p><p>We will not tell you to buy now because it is running out. That argument has sold tanzanite for four decades and has been wrong more often than right. Buy a tanzanite because you want that colour, and treat the scarcity as an interesting fact rather than a reason to hurry.</p>"
+      }
+    },
+    "lab": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Nobody grows it commercially",
+            "body": "<p>Tanzanite has never been produced synthetically at any commercial scale. The conditions that made it are hard to reproduce and the market has never been large enough to justify the research.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Which is unusual for us",
+            "body": "<p>Where a lab-grown coloured stone genuinely exists we are happy to supply it, and for sapphire, ruby, emerald and spinel we often do. Tanzanite is one of the few stones where that choice does not exist at all.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Simulants are a different thing",
+            "body": "<p>Various materials are cut in tanzanite colours and sold under their own trade names, synthetic forsterite and coated cubic zirconia among them. They are separate materials that happen to be a similar colour, and they are described as such.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "If the colour is what you want",
+            "body": "<p>Lab-grown sapphire can be made in a violet-blue, and it is both far harder and far cheaper. It will not do the trichroic trick, and to our eye it is not the same stone, but for a piece that has to survive daily wear it is worth a conversation.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Laboratory and Alternatives",
+        "heading": "There Is No Lab-Grown Tanzanite",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "compare": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Tanzanite | 6 to 7 | Violet-blue, strongly trichroic | Pendants, earrings, protected rings"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Blue sapphire | 9 | Blue, sometimes violetish | Daily wear, including engagement rings"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Violet sapphire | 9 | Violet to violet-blue | Daily wear; hard to find in larger sizes"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Blue spinel | 8 | Grey-blue to vivid blue | Daily wear; vivid cobalt material is very rare"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Iolite | 7 to 7.5 | Violet-blue, also strongly pleochroic | Occasional rings; it has cleavage too"
+          }
+        },
+        "r6": {
+          "type": "row",
+          "settings": {
+            "cells": "Amethyst | 7 | Purple to violet | Protected rings, pendants, earrings"
+          }
+        },
+        "r7": {
+          "type": "row",
+          "settings": {
+            "cells": "Blue zircon | 6 to 7.5 | Bright blue with strong fire | Pendants and earrings; facet edges abrade"
+          }
+        },
+        "r8": {
+          "type": "row",
+          "settings": {
+            "cells": "Kyanite | 4.5 to 7 | Streaky blue; hardness varies by direction | Pendants and earrings only"
+          }
+        },
+        "r9": {
+          "type": "row",
+          "settings": {
+            "cells": "Lab-grown sapphire | 9 | Blue or violet, made to order | Daily wear, at a fraction of the cost"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7",
+        "r8",
+        "r9"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "In Context",
+        "heading": "Violet and Blue Stones Compared",
+        "intro": "People arrive at tanzanite from several directions: some want that specific colour, some want a blue centre stone, some want an alternative to sapphire. It helps to see where it sits against the others.",
+        "headers": "Stone | Hardness | Colour | Realistically suited to",
+        "first_col_bold": true,
+        "narrow": false,
+        "col1_width": 0,
+        "note": "We source stones to your specification rather than selling from stock, so we can price the same design in more than one material before you decide."
+      }
+    },
+    "value": {
+      "type": "fye-checklist",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "label": "Depth of colour, before anything else",
+            "note": "A saturated violet-blue is worth a multiple of a pale lilac of the same weight. Nothing else moves the price as far."
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "label": "How blue it faces up",
+            "note": "Blue commands more than violet, because getting blue face up costs the cutter more of the rough."
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "label": "Size, because colour follows it",
+            "note": "Price per carat climbs steeply, partly for rarity and partly because larger stones are where the deep colour is."
+          }
+        },
+        "i4": {
+          "type": "item",
+          "settings": {
+            "label": "The quality of the cut",
+            "note": "A stone cut for weight shows a pale window through the middle. A well-cut tanzanite is lively all the way across."
+          }
+        },
+        "i5": {
+          "type": "item",
+          "settings": {
+            "label": "Clarity",
+            "note": "Fine tanzanite is usually eye-clean, so visible inclusions cost more here than they would in an emerald."
+          }
+        },
+        "i6": {
+          "type": "item",
+          "settings": {
+            "label": "Shape",
+            "note": "Ovals, cushions and trilliants get the most out of the rough. Rounds and emerald cuts waste more and cost more per carat."
+          }
+        },
+        "i7": {
+          "type": "item",
+          "settings": {
+            "label": "Fancy colours are their own market",
+            "note": "Green, pink and bicoloured zoisite are priced on rarity and interest rather than on the blue scale."
+          }
+        },
+        "i8": {
+          "type": "item",
+          "settings": {
+            "label": "A report, on the larger stones",
+            "note": "Above a couple of carats an independent laboratory report is worth having, and we arrange one as a matter of course."
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6",
+        "i7",
+        "i8"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "What You Are Paying For",
+        "heading": "How a Tanzanite Is Priced",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "care": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "heading": "Cleaning",
+            "body": "<p>Warm water, a drop of washing-up liquid, a soft brush and a dry cloth. Never an ultrasonic cleaner, a steamer or a jewellery dip.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "heading": "Temperature",
+            "body": "<p>Avoid sudden changes. No hot water followed by a cold rinse, no radiators, no sunny dashboards and nothing near an oven.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "heading": "Wearing",
+            "body": "<p>Last thing on and first thing off. Take it off for gardening, the gym, cleaning and anything involving chemicals or a firm grip.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "heading": "Storage",
+            "body": "<p>In a soft pouch of its own, away from harder stones. A diamond loose in the same box will scratch it given the chance.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "heading": "Repairs and resizing",
+            "body": "<p>Tell the jeweller it is tanzanite. The stone should come out before any torch work, and a workshop not expecting a cleavage plane may not think to ask.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "heading": "Over the years",
+            "body": "<p>Have the setting checked once a year, which we do free for the life of the piece. A bezel edge or a claw caught early costs nothing to put right.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "3",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Living With It",
+        "heading": "Looking After a Tanzanite",
+        "intro": "",
+        "note": "Tanzanite is not fragile in the sense of needing to live in a drawer. It asks for a little more thought than a sapphire, and the habits above cover almost all of it."
+      }
+    },
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "eyebrow": "Before You Choose",
+        "heading": "Check It Against the Life It Will Lead",
+        "body": "<p>Hardness is not toughness, and neither one is cleavage. Tanzanite shows why the distinction matters: it is respectably hard and still needs protecting. Our durability guide sets out which stones survive daily wear, which need a bezel, and which belong in a pendant rather than a ring.</p>",
+        "link": "/pages/gemstone-durability",
+        "link_label": "Read the durability guide"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I have a tanzanite engagement ring?",
+            "a": "<p>You can, and we make them, but go in with clear expectations. At Mohs 6 to 7, with fair toughness and one direction of cleavage, tanzanite will not shrug off knocks the way sapphire does. In a bezel, on a low setting, on a hand not doing heavy work, it can be excellent. As an unprotected centre stone on a busy hand it will have a hard life, and we would suggest a violet sapphire or a spinel instead.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Why is tanzanite found in only one place?",
+            "a": "<p>Because the geology that produced it happened once. The combination of vanadium-bearing rock, heat, pressure and the folded structure created by the East African rift occurred in the Merelani Hills and nowhere else. People have looked hard, for decades, well beyond Tanzania.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Is tanzanite really running out?",
+            "a": "<p>The deposit is finite in a way most gemstones are not, so in the long run the answer is yes. When is another matter. Exhaustion has been predicted since the 1980s and the mine has outlived every forecast by going deeper. Buy a tanzanite because you want the colour, not because of a shortage that has been announced for forty years.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Why does tanzanite look different from different angles?",
+            "a": "<p>It is strongly trichroic. A single crystal absorbs light differently along each of its three axes and shows blue, violet and burgundy accordingly. The cutter chooses which colour faces up, which is why two stones from the same rough can look quite unlike each other.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Why does my tanzanite look purple indoors and blue outside?",
+            "a": "<p>Daylight is cooler and richer in blue; household bulbs and candlelight are warmer. A trichroic stone shows that far more visibly than a sapphire does. It is normal, and many people consider it the best thing about the stone.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "Is heated tanzanite worth less?",
+            "a": "<p>No, because effectively all of it is heated. Most rough is brownish until it is, and the change is stable and permanent. Unlike sapphire and ruby, tanzanite carries no meaningful premium for being unheated.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "q": "What does blue-violet mean compared with violet-blue?",
+            "a": "<p>The trade puts the dominant colour last. Violet-blue reads mainly blue; blue-violet reads mainly violet. Bluer stones generally cost more, because orienting the rough for a blue face-up colour wastes more of the crystal.</p>"
+          }
+        },
+        "q8": {
+          "type": "qa",
+          "settings": {
+            "q": "What size should I be looking at?",
+            "a": "<p>More than you might expect. Depth of colour tends to follow size, so stones much under a carat are usually pale. One to two carats is a reasonable starting point, three to five is where the colour gets genuinely strong, and the finest colour is mostly found above five. Sapphire is different: a small sapphire can still be vividly coloured.</p>"
+          }
+        },
+        "q9": {
+          "type": "qa",
+          "settings": {
+            "q": "How does tanzanite compare with sapphire?",
+            "a": "<p>Sapphire is Mohs 9 with no cleavage and will take daily wear indefinitely. Tanzanite is Mohs 6 to 7 with a cleavage plane and will not. Against that, tanzanite offers a violet-blue sapphire rarely reaches, at a lower price in larger sizes. For an everyday ring, sapphire. For a pendant, earrings or an occasional ring, tanzanite.</p>"
+          }
+        },
+        "q10": {
+          "type": "qa",
+          "settings": {
+            "q": "Is there such a thing as lab-grown tanzanite?",
+            "a": "<p>Not in any practical sense. Tanzanite has never been synthesised commercially, so there is no lab-grown version to buy. We do supply lab-grown coloured stones where they genuinely exist, sapphire and ruby among them, but tanzanite is not one of them.</p>"
+          }
+        },
+        "q11": {
+          "type": "qa",
+          "settings": {
+            "q": "Does tanzanite come in other colours?",
+            "a": "<p>Yes. The same deposit produces green, yellow, orange, pink and bicoloured zoisite, generally sold unheated because heating would push the colour towards blue. There is also chrome tanzanite, coloured by chromium as well as vanadium, which is more saturated and slightly greener.</p>"
+          }
+        },
+        "q12": {
+          "type": "qa",
+          "settings": {
+            "q": "What do the letters AAA and AA mean on a tanzanite listing?",
+            "a": "<p>They are informal trade shorthand rather than a standardised grading system, and sellers apply them differently. A plain description of hue, tone and saturation, or better still the stone in your hand, tells you far more.</p>"
+          }
+        },
+        "q13": {
+          "type": "qa",
+          "settings": {
+            "q": "Can a tanzanite ring be resized?",
+            "a": "<p>Usually only with the stone taken out first, because heat and a cleavage plane are a poor combination. That makes resizing more involved than on a diamond ring, and it is why we send a free ring sizer and take some trouble over the size before we set anything.</p>"
+          }
+        },
+        "q14": {
+          "type": "qa",
+          "settings": {
+            "q": "How should I clean a tanzanite?",
+            "a": "<p>Warm water, a drop of washing-up liquid, a soft brush and a dry cloth. No ultrasonic cleaner, no steamer, no jewellery dip and nothing acidic. If a piece has become genuinely grubby, bring it in with the annual check and we will clean it properly.</p>"
+          }
+        },
+        "q15": {
+          "type": "qa",
+          "settings": {
+            "q": "Is tanzanite a good investment?",
+            "a": "<p>We would not buy any gemstone as an investment and we do not sell them on that basis. Retail jewellery is not a liquid market, and the scarcity story around tanzanite has been used to imply otherwise for decades. Buy one because you like living with it.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8",
+        "q9",
+        "q10",
+        "q11",
+        "q12",
+        "q13",
+        "q14",
+        "q15"
+      ],
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Tanzanite Questions We Are Asked Most",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "klaviyo_form": "UbTxH7",
+            "style": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/diamond-and-gemstone-guide-cover.png",
+        "cover_alt": "The Diamond and Gemstone Guide",
+        "cover_caption": "The Diamond and Gemstone Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Diamond and Gemstone Guide",
+        "body": "<p>Every gemstone stone by stone, plus durability, treatments, ethical sourcing and grading reports.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Tanzanite Engagement Rings",
+            "desc": "See what we currently have available.",
+            "cta": "Browse",
+            "link": "/collections/tanzanite-engagement-rings"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Coloured Stone Rings",
+            "desc": "See what we currently have available.",
+            "cta": "Browse",
+            "link": "/collections/coloured-stone-rings"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Gemstone Education",
+            "title": "Sapphire",
+            "desc": "The harder blue, if the ring will be worn every day.",
+            "cta": "Read the guide",
+            "link": "/pages/sapphire-guide"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r4"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "trichroism",
+    "palette",
+    "why",
+    "sizecolour",
+    "forring",
+    "watch",
+    "design",
+    "facts",
+    "refintro",
+    "history",
+    "family",
+    "treatment",
+    "supply",
+    "lab",
+    "compare",
+    "value",
+    "care",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

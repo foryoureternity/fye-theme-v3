@@ -1568,3 +1568,72 @@ lines, so the delete ran anyway and the file had to be rewritten. **Chain them:
 3. Everything else unchanged: search/404/list-collections templates, the six
    guide-download pages, downloadable-guides, FAQs, the 13 collection suffix
    templates, and the ~60-page education library.
+
+
+---
+
+# Session — 02/09/2026: search and 404
+
+Two templates v3 never had. The search box sits in the header on **every page
+of the site**, and it led to an unstyled page; a mistyped URL got nothing at
+all.
+
+## What was built
+
+| File | Notes |
+|---|---|
+| `sections/main-search.liquid` | 14.3KB. New — live runs T4S's version |
+| `templates/search.json` | Banner + results |
+| `sections/main-404.liquid` | New. Live's 404 carries a bare `main-404` with no settings, so there was nothing to port |
+| `templates/404.json` | Section only, no banner — matches live's shape |
+
+Setting IDs kept from live's search: `limit`, `col_dk`, `col_mb`. Dropped
+~35 T4S settings (image_ratio, layout_des, enable_listing, use_pagination,
+btn_*, space_*, the margin/padding sets) and the disabled `sidebar-collection`
+section.
+
+## Products and reading are separated
+
+Shopify returns products, pages and articles in ONE relevance-ordered list.
+Rendered as a single grid that puts a ring tile beside a care guide, so:
+products fill the grid, pages and articles become a list beneath it. With ~60
+education pages, a search for "sapphire" should surface the sapphire guide as
+well as sapphire rings.
+
+**The trade, stated in the file:** the split happens within each page of
+results, so a query with many products can push articles onto page 2. The
+alternative — two searches — loses the single relevance order.
+
+Counting is done from the results actually on the page rather than from
+`search.results_count`, which is the total across every type and every page:
+using it above a grid of 24 states a number the page does not show.
+
+## The 404 has a search field and six links, and no product grid
+
+Someone on a 404 followed a dead link or mistyped an address, and this rebuild
+has moved several of the old site's ~120 pages. The useful thing is finding
+what they meant. A grid of rings would make the wrong thing the answer.
+
+## THE PAGER IS NOW ITS THIRD COPY
+
+`main-collection`, `main-blog` and now `main-search` each carry their own
+`.*__pager` block — the same markup and the same rules three times. It was
+left local rather than turning this job into a refactor of two working pages,
+but **this is the point at which it should move into `fye-core.css` as one
+`.pager` component.** Flagged in main-search's header comment as well as here.
+
+## Smoke test
+
+`/search` and a 404 URL: 8 of 9 groups clean at 559 and 1440, the ninth
+being the YMQ app images. The 404 returns a real 404 status, not a 200.
+
+## Outstanding
+
+1. **Results were not functionally confirmed** — the smoke test measures
+   layout, not whether a query returned products and guides. Needs one look at
+   `/search?q=sapphire` to check the grid fills and the guides list appears.
+2. **If a search app ever intercepts `/search`** and redirects to its own
+   `/a/search` proxy, this page stops being reachable. `theme.liquid` already
+   notes that `request.page_type` is blank on proxy pages, so the plumbing for
+   that exists — worth knowing which one the header's search box points at.
+3. The pager merge above.

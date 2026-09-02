@@ -1054,6 +1054,24 @@
   .fye .mm-dg-col--aside { padding-left: 0; border-left: 0; }
 }
 
+
+/* ----------------------------------------------------------------------------
+   TOUCH ONLY — 02/09/2026. These links are 18px tall, which is right for a
+   utility bar under a mouse and under the 44px rule for anything tapped. They
+   exist only above 900px, so the narrow smoke runs never saw them; a touch
+   laptop at 1440px did.
+
+   Not applied unconditionally: it would change the measured height of the
+   utility bar on every desktop, and that height was sampled from the live
+   site.
+   -------------------------------------------------------------------------- */
+@media (pointer: coarse) {
+  .fye .hdr__contact-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}
 {% endstylesheet %}
 
 {% schema %}

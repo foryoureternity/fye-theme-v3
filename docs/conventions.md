@@ -176,6 +176,17 @@ figures for every existing pairing are in `fye-core.css`.
 - No custom-CSS textarea. No custom-HTML box.
 - Every section that can be added freely gets a `presets` entry.
 - Ranges: sensible `step`, always a `unit`.
+- **Filters cannot be chained inside a filter ARGUMENT.** This looks reasonable
+  and is not:
+
+      {{ img | image_tag: style: s.focal | default: 'center' | append: ';' }}
+
+  Liquid takes `style: s.focal` as the argument, then applies `default` and
+  `append` to the OUTPUT OF `image_tag` — so the literal text wraps the whole
+  `<img>`. On 02/09/2026 that printed "object-position:" above Edward's
+  photograph on the About page and ";" below it. No error, just CSS rendered as
+  prose. Build the value with `capture` or `assign` first, then pass one
+  variable.
 - **A range value in a JSON template MUST sit on the step grid.** A `range`
   with `"step": 2` accepts 44 and rejects 45, and the rejection takes the
   WHOLE TEMPLATE with it — silently, with the file simply staying at its

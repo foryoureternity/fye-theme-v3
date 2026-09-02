@@ -1474,3 +1474,97 @@ Nine groups, each chosen because this rebuild has actually shipped that fault:
 window. Use devtools responsive mode and re-run at **1440 / 899 / 748 / 559**.
 899 and 559 matter most: the theme reflows at 900 and 560, so those two are one
 pixel inside the narrower layout.
+
+
+---
+
+# Session — 02/09/2026: About Us
+
+Live's About page runs eleven sections. v3 already had eight of them, so this
+was three sections and a template rather than a page build.
+
+## What was built
+
+| File | Notes |
+|---|---|
+| `sections/fye-founder.liquid` | Ported. 2 uses on this page — "Why we started" (photo left, quotation) and "Meet Edward" (photo right, sign-off) |
+| `sections/fye-services.liquid` | Ported. The seven-service list with a split section head |
+| `sections/fye-pillars.liquid` | Ported. Image-topped values grid on teal |
+| `templates/page.about-us.json` | Did not exist |
+
+**Every setting ID was kept**, so live's copy carried over with no re-entry:
+founder keeps band/image_right/image/image_position/image_alt/caption/
+placeholder/eyebrow/heading/intro/quote/attr_name/attr_role/outro/sig;
+services keeps band/columns/eyebrow/heading/note + heading/body/link per block;
+pillars keeps band/columns/eyebrow/heading + image/image_alt/heading/body.
+
+Reused as-is: heading-template, fye-trust-strip, fye-steps, fye-testimonials,
+guide-download-block, fye-gallery-promo, fye-consultation.
+
+## Changed from live, deliberately
+
+**The hero is the standard page banner, not a photo hero with buttons.** Live
+uses `fye-hero` with an overlay, two CTAs (Book a consultation, See the
+gallery) and per-block typography settings. v3's `fye-hero` is a different
+design — logo, heading, two buttons, no overlay or height controls — and
+`heading-template` has no button blocks. So the page opens with the standard
+banner carrying live's h1 and lead paragraph, and both CTA destinations appear
+further down anyway (gallery promo, consultation band). **Ed to say if he wants
+a real photo hero with buttons; that means extending a hero section, not
+faking it in the banner.**
+
+**Pillars dim their body copy with `opacity`, not a hard-coded ivory alpha.**
+Live wrote `rgba(242,241,232,.88)`, which is correct on teal and wrong on the
+other three band choices the schema offers. Opacity inherits from whatever the
+band sets, so one rule works everywhere. Live's contrast note is preserved:
+.82 measures 3.9:1 on sage-deep, .88 clears 4.5:1 for 15px text.
+
+**`.fye-edu` wrapper dropped.** v3 has no education shell — the band IS the
+section. Tokens replace the edu-core variables (`--muted` -> `--ink-soft`,
+`--font-head` -> `--font-display`) and spacing moves onto the --s scale.
+
+## Fixed on this page
+
+| Where | Was | Now |
+|---|---|---|
+| `fye-founder` photo | printed "object-position:" and ";" as text | correct focal point |
+| `.consult__contact a` × 3 | 21px tall | 44px |
+
+The consultation contact links (phone, email, WhatsApp) were 13px inline-flex
+with no vertical padding. **That band closes the homepage and several education
+pages too, so one rule fixed all of them.** The section also had no
+`data-screen-label`, which is why the smoke output could only identify them as
+bare "a" — added.
+
+## Gotchas earned
+
+**Filters cannot be chained inside a filter argument.** Now a rule in
+conventions §4. It printed CSS as prose around a photograph and raised nothing.
+
+**The overflow check had to walk the WHOLE clipping chain, not the nearest
+ancestor.** 12 phantom overflows on this page — testimonial SVGs and
+gallery-promo cells — because the nearest clipper of a carousel slide is often
+an `<svg>` (overflow hidden by default) inside a slide that is legitimately
+parked off-screen, inside the element that actually clips. It now passes if
+ANY ancestor contains the element. The tell, again, was that "DOCUMENT scrolls
+sideways" stayed silent.
+
+**A patch script that writes Liquid must not use backticks in its comments.**
+w959 failed with `SyntaxError: Unexpected identifier` because a Liquid example
+in a JS template literal was quoted with backticks, which closed the literal.
+Worse, the shell line was `node script.mjs` then `rm script.mjs` on separate
+lines, so the delete ran anyway and the file had to be rewritten. **Chain them:
+`node x.mjs && rm x.mjs`.**
+
+## Smoke test
+
+8 of 9 groups clean at 559 and 1440, the ninth being the YMQ app images.
+
+## Outstanding
+
+1. **Live also has `page.about-us-v2.json`** — same size as about-us, in the
+   sitemap, untouched here. Confirm it can be dropped.
+2. The photo-hero question above.
+3. Everything else unchanged: search/404/list-collections templates, the six
+   guide-download pages, downloadable-guides, FAQs, the 13 collection suffix
+   templates, and the ~60-page education library.

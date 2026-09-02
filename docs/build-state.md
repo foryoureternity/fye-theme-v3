@@ -1341,3 +1341,86 @@ theme editor — was wrong, and Ed was right to question it.
    index/blog/article; worth doing, not urgent, and the setting ID itself must
    not be renamed.
 5. **`fyeSmoke()` still has not been run**, on any page, at any width.
+
+
+---
+
+# Session — 01/09/2026 (late): the contact page
+
+`/pages/contact-us` rendered a heading and nothing else in v3 — no template,
+no section. It is also where the no-JavaScript fallback of seven enquiry
+buttons lands, so it was the blocker behind several other jobs.
+
+## What was built
+
+| File | Notes |
+|---|---|
+| `sections/fye-contact.liquid` | 17.8KB, ported from live's `fye-contact` |
+| `templates/page.contact.json` | Did not exist. Banner + contact + guarantee + trust strip |
+
+Form left (name pair, email/phone pair, journey, message, consent), "Reach us
+directly" panel right with phone, WhatsApp, email and the booking link, the
+photograph above it, and Instagram / LinkedIn / Trustpilot as text links.
+
+**Setting IDs kept from live** so nothing has to be re-entered: photo,
+photo_alt, eyebrow, heading, heading_tag, intro, panel_heading, phone_*, wa_*,
+email_*, appt_*, and the three social URLs.
+
+## The decision that matters: the Forms app block is NOT ported
+
+Live wraps a **Shopify Forms app block** (form id `1113897`) inside its
+`fye-contact`, carrying the app's factory colours — `#202020` text, `#1878B9`
+links, a black button. That is the "boring Shopify form" Ed objected to when
+the popup job started.
+
+Now that the popups use `{% form 'contact' %}`, a contact page submitting
+through the Forms app would be a SECOND enquiry system: different styling
+rules, different destination, different notification format. So this page uses
+the same native form and **the same field names as every popup**, and every
+enquiry from the site reads identically in the inbox whichever route it came
+in by.
+
+If the Forms app is ever wanted back, it is an app block — it can be added in
+the theme editor without touching this section.
+
+## Why this section carries `data-fye-popup-panel`
+
+It is not a popup. It carries `data-fye-popup-panel="contact-page"` and
+`data-fye-popup-label` because **the email-body composer in `fye-ui.js` is
+scoped to those attributes**. Reusing it gives the contact page the same
+readable enquiry email as the popups — source line, message, journey answer,
+consent answer, page — instead of a worse one. The dialog-only paths in that
+script (showModal, backdrop, Escape) are inert on a plain element.
+
+This is documented at the top of the file too, because it reads like a
+copy-paste mistake otherwise. If the composer is ever rescoped, this page has
+to move with it.
+
+## Also dropped
+
+**Live's "request call back" second modal.** The form asks for a telephone
+number and says we reply personally; a second modal to ask for the same thing
+is furniture. Ed to say if a dedicated callback route is genuinely wanted.
+
+**Social links are text, not logos** — brand rule is thin outline line-art
+only, and a third-party brand mark is neither that nor ours to restyle.
+
+## Layout note worth keeping
+
+Below 900px **the side panel moves above the form** (`order: -1`) and the
+photograph is hidden. Someone who wants to phone should not scroll past a whole
+form to find the number, and on a phone the photograph is the least useful
+thing on the page.
+
+## Outstanding
+
+1. **Not smoke-tested.** `fyeSmoke()` has still not been run on ANY page at
+   ANY width. The contact page and the popups are the first fixed-width forms
+   in the theme, so they are the right things to run it against first.
+2. **The photograph is `Ring_21.jpg`**, chosen because it exists. A portrait
+   crop of a consultation would suit the page better.
+3. **Seven of the nine popups still share `Ring_211_5.png`.** Theme-editor job.
+4. **`fye-media-text`'s "Start a bespoke enquiry" and the FAQ's "Enquire now"**
+   can now either keep pointing at this page — which finally has a form — or be
+   switched to the enquiry popup by putting `enquire` in their popup field.
+   Both work; Ed's call, and no code either way.

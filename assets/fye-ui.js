@@ -2779,12 +2779,21 @@
   if (!on || window.fyeSmoke) return;
 
   var el = document.createElement('script');
-  // Resolved from this script's own src, so it works on the CDN without
-  // Liquid having to write the URL in.
+
+  /* Resolved from this script's own src so it works on the CDN without Liquid
+     having to write the URL in — but the inherited ?v= MUST be stripped and
+     replaced. It is fye-ui.js's version hash, not fye-debug.js's: editing the
+     debug file alone leaves the URL identical and the browser serves its
+     cached copy forever. That cost two runs of confusion on 02/09/2026, where
+     sharpened checks appeared to have no effect at all.
+
+     A per-load buster is right here: this asset is only ever fetched when
+     someone has explicitly asked for it, so it should never be cached. */
   var mine = document.querySelector('script[src*="fye-ui.js"]');
-  el.src = mine
-    ? mine.src.replace(/fye-ui\.js/, 'fye-debug.js')
+  var base = mine
+    ? mine.src.split('?')[0].replace(/fye-ui\.js$/, 'fye-debug.js')
     : '/assets/fye-debug.js';
+  el.src = base + '?fyedebug=' + Date.now();
   el.onerror = function () {
     console.warn('fyeSmoke: assets/fye-debug.js did not load — is it in the theme?');
   };

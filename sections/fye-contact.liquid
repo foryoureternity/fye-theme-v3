@@ -62,7 +62,7 @@
         <div class="lead fcon__intro">{{ s.intro }}</div>
       {%- endif -%}
 
-      {%- form 'contact', class: 'fcon__form' -%}
+      {%- form 'contact', id: 'fcon-form', class: 'fcon__form' -%}
 
         {%- if form.posted_successfully? -%}
           <div class="fcon__done panel" data-fye-popup-done>

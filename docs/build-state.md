@@ -1424,3 +1424,53 @@ thing on the page.
    can now either keep pointing at this page — which finally has a form — or be
    switched to the enquiry popup by putting `enquire` in their popup field.
    Both work; Ed's call, and no code either way.
+
+
+---
+
+## Correction — `fyeSmoke()` did not exist until 02/09/2026
+
+Every session block from August onward closed by carrying **"`fyeSmoke()` has
+not been run"** as an outstanding item. On 02/09/2026 Ed ran it and got
+`ReferenceError: fyeSmoke is not defined`. A search of the whole repo found the
+name in exactly two places — `docs/build-state.md` and a prompt file. **It had
+never been written.** The docs had been faithfully tracking a tool that existed
+only in prose, and each session copied the line forward without checking.
+
+Worth remembering as a failure mode: an outstanding item that never changes
+state across many sessions may not be a task at all.
+
+It exists now.
+
+## `fyeSmoke()` — what it is and how to run it
+
+`assets/fye-debug.js`, loaded by a gate at the end of `assets/fye-ui.js` **only
+when the URL carries `?fyedebug=1`** (remembered in sessionStorage for the rest
+of the tab, cleared with `?fyedebug=0`). Visitors download nothing. It is not
+in `theme.liquid` because Liquid cannot read query parameters, so gating there
+would mean loading it for everyone or only in the theme editor.
+
+    foryoureternity.com/pages/contact-us?preview_theme_id=197720146304&fyedebug=1
+
+then in the console: `fyeSmoke()`, or `fyeSmoke('targets')` for one group.
+`fyeSmoke.groups` lists them. **It only ever reads the page — no check mutates
+anything.**
+
+Nine groups, each chosen because this rebuild has actually shipped that fault:
+
+| Group | Catches |
+|---|---|
+| `overflow` | sideways scroll, and the elements causing it |
+| `targets` | anything under the 44px rule (inline prose links exempt) |
+| `type` | rendered text under 12px |
+| `popups` | a trigger whose key opens nothing, a popup with no trigger, and class-only hooks with no `data-fye-popup` beside them |
+| `images` | missing `alt`, and images that 404'd |
+| `forms` | controls with no label, malformed `contact[…]` names |
+| `palette` | browser-default blue links (an undefined link colour) |
+| `structure` | missing or duplicated h1, skipped heading levels, duplicate ids |
+| `liquid` | raw `{{`, `{%`, `Liquid error`, or a rich-text field printed as `{"type":"root"…}` |
+
+**Widths cannot be driven from a script** — a page cannot resize its own
+window. Use devtools responsive mode and re-run at **1440 / 899 / 748 / 559**.
+899 and 559 matter most: the theme reflows at 900 and 560, so those two are one
+pixel inside the narrower layout.

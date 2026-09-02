@@ -2741,3 +2741,52 @@
     reopenAfterSend();
   }
 })();
+
+
+/* ============================================================================
+   SMOKE TEST LOADER — appended 02/09/2026
+
+   Pulls in assets/fye-debug.js, which defines window.fyeSmoke(), but ONLY when
+   asked for:
+
+     ...?fyedebug=1        loads it, and remembers for the rest of the session
+     ...?fyedebug=0        forgets it
+
+   Real visitors never download it. The flag is kept in sessionStorage so a
+   whole flow can be clicked through without re-adding the parameter, and dies
+   with the tab.
+
+   Deliberately not in theme.liquid: Liquid cannot read query parameters, so
+   gating there would mean loading it for everyone or only in the theme editor.
+   ========================================================================== */
+(function () {
+  var KEY = 'fye_debug';
+  var on = false;
+
+  try {
+    var m = /[?&]fyedebug=([^&#]*)/.exec(location.search);
+    if (m) {
+      on = m[1] !== '0' && m[1] !== 'false';
+      if (on) sessionStorage.setItem(KEY, '1');
+      else sessionStorage.removeItem(KEY);
+    } else {
+      on = sessionStorage.getItem(KEY) === '1';
+    }
+  } catch (err) {
+    on = /[?&]fyedebug=1/.test(location.search);
+  }
+
+  if (!on || window.fyeSmoke) return;
+
+  var el = document.createElement('script');
+  // Resolved from this script's own src, so it works on the CDN without
+  // Liquid having to write the URL in.
+  var mine = document.querySelector('script[src*="fye-ui.js"]');
+  el.src = mine
+    ? mine.src.replace(/fye-ui\.js/, 'fye-debug.js')
+    : '/assets/fye-debug.js';
+  el.onerror = function () {
+    console.warn('fyeSmoke: assets/fye-debug.js did not load — is it in the theme?');
+  };
+  document.head.appendChild(el);
+})();

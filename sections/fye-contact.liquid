@@ -244,12 +244,20 @@
 .fye .fcon__form { display: flex; flex-direction: column; gap: var(--s5); }
 .fye .fcon__field { display: flex; flex-direction: column; }
 .fye .fcon__pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s5); }
-.fye .fcon__opt { font-weight: var(--fw-light); letter-spacing: 0; text-transform: none; }
+/* Sentence case inside an uppercase label, so it does not get the 11px
+   micro-label allowance — 12px is the floor for anything read as words. */
+.fye .fcon__opt { font-size: 12px; font-weight: var(--fw-light); letter-spacing: 0; text-transform: none; }
 
+/* An 18px checkbox is correct — the LABEL is the tap target, so it carries
+   the 44px minimum. It was 25px on one line, which meant nothing in this row
+   was tappable at 748px and above. It only passed at 599px because the text
+   happened to wrap. */
 .fye .fcon__consent {
   display: flex;
   align-items: flex-start;
   gap: var(--s3);
+  min-height: 44px;
+  padding-block: var(--s1);
   margin: 0;
   font-size: var(--fs-small);
   font-weight: var(--fw-light);
@@ -300,7 +308,13 @@
 .fye .fcon__hours { margin: 0; }
 .fye .fcon__social { display: flex; flex-direction: column; gap: var(--s2); }
 .fye .fcon__social-links { gap: var(--s5); }
-.fye .fcon__social-links a { font-size: var(--fs-small); border-bottom: 1px solid currentColor; }
+.fye .fcon__social-links a {
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--fs-small);
+  min-height: 44px;
+  border-bottom: 1px solid currentColor;
+}
 
 /* ---- reflow ------------------------------------------------------------- */
 @media (max-width: 900px) {

@@ -43,7 +43,10 @@
   function isMicroLabel(el, cs) {
     if (cs.textTransform === 'uppercase') return true;
     if (parseFloat(cs.letterSpacing) >= 0.5) return true;
-    return el.tagName === 'LABEL' || el.tagName === 'LEGEND';
+    if (el.tagName === 'LABEL' || el.tagName === 'LEGEND') return true;
+    // A numeric badge (cart count, filter tally) is a glyph, not reading text.
+    if (/^\d{1,3}$/.test((el.textContent || '').trim())) return true;
+    return false;
   }
 
   function visible(el) {
@@ -114,6 +117,11 @@
         // Deliberately hidden affordances (the skip link) are not targets.
         if (el.closest('.visually-hidden')) return;
         if (el.classList.contains('visually-hidden')) return;
+
+        /* Inert by design is not a target. The footer's column headings are
+           <summary> elements with pointer-events:none above 769px — headings
+           there, tappable rows only below 768px. */
+        if (getComputedStyle(el).pointerEvents === 'none') return;
 
         // Inline links in running text are words in a sentence, not controls.
         if (el.tagName === 'A' && el.closest('p, li, .prose, .lead, .fine, .crumbs, nav[aria-label*="readcrumb"]')) return;

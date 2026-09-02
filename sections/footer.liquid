@@ -177,7 +177,11 @@
 .fye .ftr__list--loose li { margin-bottom: var(--s4); }
 
 .fye .ftr__phone {
-  display: block;
+  /* ftr__phone: 44px hit area. A tel: link is one of the most likely things
+     to be tapped in the whole footer. */
+  display: flex;
+  align-items: center;
+  min-height: 44px;
   font-size: 24px;
   font-weight: var(--fw-semi);
   line-height: 1.2;
@@ -192,7 +196,9 @@
 
 .fye .ftr__cta {
   display: inline-flex; align-items: center; justify-content: center;
-  min-height: 41px;
+  /* Measured at 41px on the live site, raised to the 44px minimum — three
+     pixels nobody will see and the rule matters more than the sample. */
+  min-height: 44px;
   margin-top: var(--s5);
   padding: 0 var(--s6);
   background: var(--white);
@@ -206,7 +212,16 @@
 }
 .fye .ftr__cta:hover { background: var(--teal); color: var(--ivory); }
 
-.fye .ftr__social { display: flex; gap: var(--s7); margin-top: var(--s8); }
+/* The icon stays 20px — the LINK carries the 44px hit area. Negative
+   inline margin keeps the row's visual gap at the measured spacing while the
+   targets themselves touch. */
+.fye .ftr__social { display: flex; gap: var(--s5); margin-top: var(--s7); margin-inline: -10px; }
+.fye .ftr__social a {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+}
 .fye .ftr__social .icon { width: 20px; height: 20px; }
 
 .fye .ftr__rule { border: 0; border-top: 1px solid rgba(35, 61, 71, 0.22); margin: 0; }

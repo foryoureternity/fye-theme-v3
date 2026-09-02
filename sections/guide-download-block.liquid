@@ -199,6 +199,14 @@
     mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.5' stroke-linecap='square'%3E%3Cpath d='M4 12h15'/%3E%3Cpath d='M13.5 6l6 6-6 6'/%3E%3C/svg%3E") center / 16px 16px no-repeat;
   }
 }
+
+/* The 44px minimum. These measured 136×40 on 02/09/2026 — .btn--sm is a 40px
+   button, which is under the rule for anything that gets tapped. Scoped here
+   rather than raising .btn--sm in fye-core.css, because that modifier is used
+   in places this run has not measured. */
+.fye .guides :where(.btn, a.btn, button.btn) {
+  min-height: 44px;
+}
 {% endstylesheet %}
 
 {% schema %}

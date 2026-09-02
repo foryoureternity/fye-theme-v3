@@ -51,8 +51,27 @@
     var own = el.firstChild && el.firstChild.nodeType === 3
       ? el.firstChild.nodeValue.trim()
       : '';
-    if (/^\d{1,3}$/.test(own)) return true;
+    /* Three characters or fewer AND containing a digit: "3", "12", "(3)",
+       "3+", "99". A strict /^\d+$/ kept missing the header cart count, and
+       guessing at its exact markup twice was one time too many. */
+    if (own.length <= 3 && /\d/.test(own)) return true;
     return false;
+  }
+
+  /* The nearest ancestor that clips horizontally. A carousel's off-screen
+     slides legitimately sit outside the viewport — they are inside a track
+     inside a box with overflow:hidden, so they cannot be seen or scrolled to.
+     Without this, every carousel in the theme reads as a layout fault: the
+     gallery reported 12 on 02/09/2026 while the document did not scroll at
+     all. */
+  function clipper(el) {
+    var node = el.parentElement;
+    while (node && node !== document.body) {
+      var ox = getComputedStyle(node).overflowX;
+      if (ox && ox !== 'visible') return node;
+      node = node.parentElement;
+    }
+    return null;
   }
 
   function visible(el) {
@@ -101,10 +120,22 @@
         var cs = getComputedStyle(el);
         if (cs.position === 'fixed') continue;           // headers legitimately span
         var r = el.getBoundingClientRect();
-        if (r.right > vw + 2 || r.left < -2) {
-          out.push('overflows by ' + Math.round(Math.max(r.right - vw, -r.left)) + 'px: ' + where(el));
+        if (r.right <= vw + 2 && r.left >= -2) continue;
+
+        var clip = clipper(el);
+        if (clip) {
+          var cr = clip.getBoundingClientRect();
+          // The clipping box is itself on screen, so nothing escapes: this is
+          // a carousel slide waiting its turn, not a layout fault.
+          if (cr.right <= vw + 2 && cr.left >= -2) continue;
+          out.push('overflows by ' + Math.round(Math.max(r.right - vw, -r.left)) +
+                   'px: ' + where(el) + '  — clipped by ' + where(clip) + ', which itself overflows');
           seen++;
+          continue;
         }
+
+        out.push('overflows by ' + Math.round(Math.max(r.right - vw, -r.left)) + 'px: ' + where(el));
+        seen++;
       }
       return out;
     },

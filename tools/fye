@@ -1,0 +1,122 @@
+#!/bin/bash
+# tools/fye — the one command per session.
+#
+#   ./tools/fye push "message"    stage, commit, pull --rebase, push
+#   ./tools/fye nudge             re-save every JSON template and push
+#   ./tools/fye ship "message"    push, wait 60s, then nudge
+#   ./tools/fye status            what is uncommitted, and how far ahead/behind
+#   ./tools/fye run <script.mjs>  run a tools/ script, then push if it changed anything
+#
+# WHY `ship` EXISTS: a JSON template and the section it references cannot land
+# in one pass. Shopify validates a template against the section schema it holds
+# AT THAT MOMENT, so a template arriving with its section is rejected —
+# silently, staying at its previous version. Re-saving the template a minute
+# later, once the section is in, is what makes it stick. `nudge` appends a
+# newline to force that re-save.
+#
+# Everything here is deliberately boring and refuses rather than guessing.
+
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+REPO="$(pwd)"
+
+if [ ! -d .git ]; then
+  echo "Not a git repository: $REPO" >&2
+  exit 1
+fi
+
+msg="${2:-}"
+
+_commit_push() {
+  local m="$1"
+  if [ -z "$(git status --porcelain)" ]; then
+    echo "nothing to commit — working tree clean"
+    return 0
+  fi
+  git add -A
+  git commit -m "$m"
+  git pull --rebase
+  git push
+  echo ""
+  echo "pushed: $m"
+}
+
+_nudge() {
+  local n=0
+  for f in templates/*.json templates/**/*.json; do
+    [ -e "$f" ] || continue
+    printf '\n' >> "$f"
+    n=$((n + 1))
+  done
+  echo "re-saved $n template(s)"
+}
+
+case "${1:-}" in
+  push)
+    if [ -z "$msg" ]; then echo 'usage: ./tools/fye push "message"' >&2; exit 1; fi
+    _commit_push "$msg"
+    ;;
+
+  nudge)
+    _nudge
+    _commit_push "${msg:-Re-save templates so Shopify picks them up}"
+    ;;
+
+  ship)
+    if [ -z "$msg" ]; then echo 'usage: ./tools/fye ship "message"' >&2; exit 1; fi
+    _commit_push "$msg"
+    echo ""
+    echo "waiting 60s for Shopify to take the sections, then re-saving templates..."
+    sleep 60
+    _nudge
+    _commit_push "Re-save templates after: $msg"
+    ;;
+
+  status)
+    echo "== branch =="
+    git status -sb | head -1
+    echo ""
+    echo "== uncommitted =="
+    if [ -z "$(git status --porcelain)" ]; then
+      echo "  (clean)"
+    else
+      git status --porcelain
+    fi
+    echo ""
+    echo "== last 5 commits =="
+    git log --oneline -5
+    ;;
+
+  run)
+    script="${2:-}"
+    if [ -z "$script" ]; then echo 'usage: ./tools/fye run <script.mjs>' >&2; exit 1; fi
+    if [ ! -f "$script" ] && [ -f "tools/$script" ]; then script="tools/$script"; fi
+    if [ ! -f "$script" ]; then echo "No such script: $script" >&2; exit 1; fi
+    node "$script"
+    echo ""
+    if [ -n "$(git status --porcelain)" ]; then
+      echo "The script changed files. Review above, then:"
+      echo "  ./tools/fye push \"<what it did>\""
+    else
+      echo "The script changed nothing."
+    fi
+    ;;
+
+  *)
+    cat <<'USAGE'
+tools/fye — FYE v3 theme helper
+
+  ./tools/fye push "message"    stage, commit, pull --rebase, push
+  ./tools/fye nudge             re-save every JSON template and push
+  ./tools/fye ship "message"    push, wait 60s, then nudge  (use when a
+                                template and its section land together)
+  ./tools/fye status            what is uncommitted, recent commits
+  ./tools/fye run <script.mjs>  run a tools/ script, then tell you what changed
+
+First time only:
+  chmod +x tools/fye
+USAGE
+    exit 1
+    ;;
+esac

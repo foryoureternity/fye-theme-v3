@@ -355,6 +355,59 @@
                 'color:#879B87');
   }
 
+  /* One compact report, copied to the clipboard.
+
+     Console groups are hard to hand over: groupCollapsed hides the detail
+     when the log is copied, so every round so far has meant expanding each
+     group by hand. This prints a flat block and puts the same text on the
+     clipboard, ready to paste. */
+  run.all = function (beVerbose) {
+    verbose = !!beVerbose;
+    var NL = String.fromCharCode(10);
+    var vw = document.documentElement.clientWidth;
+    var lines = [];
+    var fails = 0;
+
+    lines.push('fyeSmoke ' + vw + 'px  ' + location.pathname);
+
+    Object.keys(checks).forEach(function (name) {
+      var issues;
+      try {
+        issues = checks[name]() || [];
+      } catch (err) {
+        lines.push('  THREW  ' + name + '  ' + err.message);
+        fails++;
+        return;
+      }
+      if (!issues.length) {
+        lines.push('  pass   ' + name);
+        return;
+      }
+      fails++;
+      lines.push('  ' + issues.length + '      ' + name);
+      issues.forEach(function (line) { lines.push('         ' + line); });
+    });
+
+    lines.push(fails === 0
+      ? '  ALL CLEAN at ' + vw + 'px'
+      : '  ' + fails + ' group(s) need a look at ' + vw + 'px');
+
+    var text = lines.join(NL);
+    console.log(text);
+
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () {
+          console.log('%ccopied to clipboard — paste it straight in', 'color:#6E836E');
+        }, function () {
+          console.log('%cclipboard blocked — click the page once, then re-run', 'color:#879B87');
+        });
+      }
+    } catch (err) {}
+
+    return text;
+  };
+
   run.groups = Object.keys(checks);
   run.checks = checks;
   window.fyeSmoke = run;

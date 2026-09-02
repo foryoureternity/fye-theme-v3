@@ -1,0 +1,188 @@
+{%- comment -%}
+  fye-facts — the "At a glance / The practical facts" panel. 7 uses, one per
+  gemstone guide: sapphire, ruby, emerald, tanzanite, aquamarine, opal,
+  morganite.
+
+  PORTED FROM LIVE'S `fye-facts`. Setting IDs kept: band · show_head ·
+  eyebrow · heading · intro · note; per `fact` block label · value ·
+  show_scale · scale_min · scale_max · scale_note.
+
+  A DEFINITION LIST, NOT A TABLE, and that is the point of the section.
+  Two-column label/value reference data reads far better as a <dl> with a
+  narrow letterspaced label column than as a bordered table — and a table
+  would also need headers it does not have. Live worked this out; it is kept.
+
+  THE MOHS SCALE: ten segments, the stone's band lit in sage. Segments light
+  from ceil(min) to ceil(max), so 5.5–6.5 lights 6 and 7, and a flat 9 lights
+  9 only. That rounding is deliberate — a half-lit segment reads as an error
+  rather than as precision.
+
+  CHANGED FOR v3: the `.fye-edu` wrapper is gone, the section head uses the
+  theme's own `sect-head` snippet rather than a local `.flanked`, and colours
+  come from tokens (`--muted` -> `--ink-soft`, `--sage-grey` -> `--line`,
+  the hard-coded "Outfit" -> `var(--font-body)`).
+
+  The 880px measure is live's and is narrower than `wrap`: a reference list
+  with a 260px label column becomes hard to scan across a full 1320px page.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'white'
+-%}
+
+<section class="facts band band--{{ band }}" data-screen-label="Facts">
+  <div class="wrap facts__in">
+    {%- render 'sect-head',
+        show: s.show_head,
+        eyebrow: s.eyebrow,
+        heading: s.heading,
+        intro: s.intro -%}
+
+    <dl class="facts__list">
+      {%- for block in section.blocks -%}
+        {%- assign b = block.settings -%}
+        <div class="facts__row{% if b.show_scale %} facts__row--tall{% endif %}" {{ block.shopify_attributes }}>
+          <dt class="facts__label">{{ b.label }}</dt>
+          <dd class="facts__dd">
+            <div class="facts__value">{{ b.value }}</div>
+            {%- if b.show_scale -%}
+              {%- liquid
+                assign lo = b.scale_min | ceil
+                assign hi = b.scale_max | ceil
+              -%}
+              <div class="facts__scale" aria-hidden="true">
+                {%- for i in (1..10) -%}
+                  <span{% if i >= lo and i <= hi %} class="is-on"{% endif %}></span>
+                {%- endfor -%}
+              </div>
+              <div class="facts__scalekey">
+                <span>1 &middot; Talc</span>
+                {%- if b.scale_note != blank -%}
+                  <span class="facts__scalemid">{{ b.scale_note }}</span>
+                {%- endif -%}
+                <span>10 &middot; Diamond</span>
+              </div>
+            {%- endif -%}
+          </dd>
+        </div>
+      {%- endfor -%}
+    </dl>
+
+    {%- if s.note != blank -%}
+      <p class="facts__note">{{ s.note }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .facts__in { max-width: 880px; margin-inline: auto; }
+
+/* A solid teal rule opens the list, hairlines separate the rows. The strong
+   top rule is what makes it read as one panel rather than loose rows. */
+.fye .facts__list { margin: 0; padding: 0; border-top: 1px solid var(--teal); }
+.fye .facts__row {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: var(--s8);
+  align-items: baseline;
+  padding: var(--s5) 0;
+  border-bottom: var(--hairline);
+}
+.fye .facts__row--tall { padding: var(--s6) 0 var(--s7); }
+
+.fye .facts__label {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.fye .facts__dd { margin: 0; }
+.fye .facts__value {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-lg);
+  font-weight: var(--fw-light);
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+.fye .facts__value :where(p) { margin: 0; }
+.fye .facts__value :where(a) { text-decoration: underline; text-underline-offset: 3px; }
+
+.fye .facts__scale { margin-top: var(--s4); display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; }
+.fye .facts__scale span { display: block; height: 6px; background: var(--line); }
+.fye .facts__scale span.is-on { background: var(--sage); }
+.fye .facts__scalekey {
+  margin-top: var(--s2);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s4);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-light);
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+.fye .facts__note {
+  margin: var(--s6) 0 0;
+  font-size: var(--fs-small);
+  font-weight: var(--fw-light);
+  line-height: 1.6;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+
+@media (max-width: 749px) {
+  .fye .facts__row { grid-template-columns: 1fr; gap: var(--s1); padding: var(--s5) 0; }
+  .fye .facts__row--tall { padding: var(--s5) 0 var(--s6); }
+  .fye .facts__value { font-size: var(--fs-body); }
+  /* The middle caption has nowhere to go once the two ends meet. */
+  .fye .facts__scalemid { display: none; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Facts list",
+  "settings": [
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "white",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Champagne ivory" },
+        { "value": "mist",  "label": "Mist blue" }
+      ]
+    },
+    { "type": "header", "content": "Section head" },
+    { "type": "checkbox", "id": "show_head", "label": "Show the heading", "default": true },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "At a glance" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The practical facts" },
+    { "type": "textarea", "id": "intro", "label": "Intro" },
+    { "type": "header", "content": "Footnote" },
+    { "type": "textarea", "id": "note", "label": "Note under the list" }
+  ],
+  "blocks": [
+    {
+      "type": "fact",
+      "name": "Row",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "info": "Small and letterspaced, in the left column." },
+        { "type": "richtext", "id": "value", "label": "Value" },
+        { "type": "header", "content": "Mohs hardness scale" },
+        { "type": "checkbox", "id": "show_scale", "label": "Show the hardness scale", "default": false },
+        { "type": "range", "id": "scale_min", "label": "Hardness from", "min": 1, "max": 10, "step": 0.5, "default": 7 },
+        { "type": "range", "id": "scale_max", "label": "Hardness to", "min": 1, "max": 10, "step": 0.5, "default": 7 },
+        {
+          "type": "text", "id": "scale_note", "label": "Scale caption",
+          "info": "Sits between the two ends of the scale. Hidden on a phone."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 14,
+  "presets": [
+    { "name": "Facts list", "blocks": [{ "type": "fact" }, { "type": "fact" }, { "type": "fact" }] }
+  ]
+}
+{% endschema %}

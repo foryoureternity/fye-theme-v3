@@ -1683,3 +1683,127 @@ The cost, stated honestly: Shopify's own search relevance is weaker on
 misspellings and synonyms than the app's engine. If that proves a problem in
 use, the fix is a search app that renders through OUR markup — not a shim that
 makes v3 look like T4S.
+
+
+---
+
+# Session — 02/09/2026: the guides and the education library
+
+The biggest single move of the rebuild: **49 page templates added**, most of
+them ported mechanically rather than by hand.
+
+## What was built
+
+| File | Notes |
+|---|---|
+| `sections/guide-download.liquid` | Ported. The "your guide is ready" page — 6 uses on the `guide-download` suffix |
+| `templates/page.guide-download.json` | One template, six pages |
+| `templates/page.downloadable-guides.json` | The hub the header CTA points at |
+| `sections/fye-founder / fye-services / fye-pillars` | Ported for About Us (see the earlier block) |
+| 6 guide reading pages | engagement / plain wedding / diamond wedding / eternity / diamond & gemstone / ring care |
+| 41 education pages | the nine ring-care pages, gemstone and diamond education, styles, budget, settings, sourcing, bespoke process… |
+| `tools/fye` | One command per session instead of four |
+| `assets/fye-debug.js` | +`fyeSmoke.all()` — flat report, copied to the clipboard |
+
+## The guide download page: one template, six pages
+
+Nothing page-specific can live in section settings when six pages share a
+template, so everything that differs comes from each page's own `guide`
+metafields, which already existed in the store:
+
+    guide.pdf_url  ·  guide.cover_image  ·  guide.button_label
+    guide.analytics_name  ·  guide.delay_ms
+
+A guide with no `pdf_url` says "coming very soon" rather than showing a dead
+button — the pages exist before some of the PDFs do.
+
+Live's inline `<script>` moved into `fye-ui.js`, driven by data attributes.
+The auto-download behaviour is live's and unchanged, **including its two
+guards**: a bfcache restore and a hidden tab both fire timers, and without
+those checks someone pressing Back gets a second unexpected download.
+
+## The porter — how 47 templates arrived without being retyped
+
+`tools/w971-port-education-pages.mjs` reads every `page.*.json` live has that
+v3 does not, works out the section types each uses, checks them against
+`v3/sections`, and writes the ones v3 can support. Two things it transforms:
+
+**`fye-hero` is a DIFFERENT SECTION IN v3 UNDER THE SAME NAME.** Live's takes
+`heading` / `subtext` / `button` blocks, each carrying its own font size,
+colour, weight and tracking. v3's takes flat settings, because the design
+system owns the type scale now. Copied verbatim, **every hero would render
+empty** — the settings it reads absent, the blocks it does not know ignored.
+So each hero becomes a `heading-template` banner carrying the h1, the
+subtext, the image and the overlay.
+
+**Standalone `fye-breadcrumb` bands are dropped** — `heading-template` has a
+crumb block, which is how every other v3 page does it.
+
+It also rounds the overlay to an even number, because that range is
+`"step": 2` and an odd value makes Shopify reject the whole template silently.
+
+Everything else passes through untouched, so live's copy, block order and
+settings carry over exactly. **It refuses to write anything unless every page
+in the batch transforms cleanly**, and never overwrites a template v3 already
+has.
+
+## Excluded deliberately
+
+- `page.zz-form-testing.json` — internal, marked do-not-link
+- `page.about-us-v2.json` — a duplicate of the About page already built
+
+## Still blocked, and by what
+
+25 live pages need sections v3 does not have. In order of leverage:
+
+| Section | Unblocks |
+|---|---|
+| `sidebar-page` | **8** — faqs, faq-2, diamonds, gemstones, lab-diamonds, loose-diamond-gems, create, edu-test-page |
+| `fye-facts` | **7** — every gemstone guide: sapphire, ruby, emerald, tanzanite, aquamarine, opal, morganite |
+| `fye-bespoke-cta` | 2 |
+| `fye-signpost` | 1 — jewellery-guides (the six-route chooser) |
+| `fye-scale`, `fye-colour-scale` | 1 — diamond-4cs |
+| `fye-shape-tiles` | 1 — diamond-shapes |
+| `fye-ring-sizer` | 1 — find-your-ring-size |
+| `fye-ring-finder` | 1 — find-your-ring |
+| `fye-affiliate-signup`, `fye-affiliate-terms` | 1 each |
+| `main-pagebrands`, `contact-form`, `categories_section`, `main-store-locator`, `timeline` | 1 each |
+
+**The `sidebar-page` question is open with Ed:** v3 has dropped sidebars
+everywhere else (blog and collection both had one on live), so if those eight
+pages can be single-column the porter can drop `sidebar-page` the way it drops
+the breadcrumb band, and all eight port with no new code.
+
+Two pages error rather than blocking — `page.coloured-stone-guide.json` and
+`page.find-the-perfect-engagement-ring.json` both have a hero with no heading
+text, so they need looking at by hand.
+
+## Tooling, so sessions stop being typing
+
+`./tools/fye push "msg"` · `ship "msg"` (push, wait 60s, re-save templates) ·
+`status` · `run <script.mjs>`. `ship` exists because a template and its
+section cannot land in one pass — Shopify validates against the schema it
+holds at that moment.
+
+`fyeSmoke.all()` prints one flat block and copies it to the clipboard.
+`console.groupCollapsed` hides detail lines when the log is copied, which had
+made every previous smoke round a manual expand-and-select exercise.
+
+**An auto-commit watcher was considered and NOT built.** Three patch scripts
+needed a second attempt on 02/09/2026, and each failure was caught precisely
+because nothing had been committed yet.
+
+## Smoke test
+
+`ring-settings`, `ring-care-cleaning`, `ethical-sourcing` and
+`create-your-own-ring` — the four different section mixes — all 8 of 9 groups
+clean at 559px. The ninth is the YMQ app images, on every page of the site.
+
+## Outstanding
+
+1. Ed's `sidebar-page` decision — worth 8 pages immediately.
+2. `fye-facts`, then the seven gemstone guides.
+3. The two errored pages above.
+4. 13 collection suffix templates still missing; confirm collections fall back
+   cleanly to `collection.json`.
+5. The YMQ app injecting two broken images site-wide. App ticket.

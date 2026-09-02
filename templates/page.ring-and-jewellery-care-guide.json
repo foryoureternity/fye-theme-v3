@@ -1,0 +1,237 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "The Ring and Jewellery Care Guide"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>How to look after fine jewellery so it lasts a lifetime</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 32,
+        "image": "shopify://shop_images/engagement-wedding-ring-stack-gold-rose-gold.png",
+        "use_specify_image": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Welcome",
+        "heading": "Made to Be Worn",
+        "body": "<p>Fine jewellery is made to be worn, not kept in a box. Everything in this guide is written on that assumption: not how to avoid using your ring, but how to wear it every day and still have it looking right in thirty years.</p><p>Most of what shortens a piece's life is ordinary and avoidable. Knocks against door frames, hand cream working under a setting, a claw that has been catching on clothing for a month, a stone that was loose long before it fell out. None of it needs expertise to catch, only the habit of looking.</p><p>Nine chapters, in the order that matters. Read it through, or take the one chapter you need.</p>"
+      }
+    },
+    "contents": {
+      "type": "fye-terms",
+      "blocks": {
+        "c1": {
+          "type": "term",
+          "settings": {
+            "number": "01",
+            "heading": "Everyday Wear & Habits",
+            "body": "<p>How a ring is meant to be worn, the habits that protect it, and what normal wear actually looks like. <a href=\"/pages/ring-care-everyday?guide=care\">Read this chapter</a>.</p>"
+          }
+        },
+        "c2": {
+          "type": "term",
+          "settings": {
+            "number": "02",
+            "heading": "When to Take It Off",
+            "body": "<p>The short list of moments a ring should come off, and the truth about water, swimming and holidays. <a href=\"/pages/ring-care-when-to-remove?guide=care\">Read this chapter</a>.</p>"
+          }
+        },
+        "c3": {
+          "type": "term",
+          "settings": {
+            "number": "03",
+            "heading": "Cleaning at Home",
+            "body": "<p>Four steps, warm water and a soft brush. What to use, what to never use, and how often. <a href=\"/pages/ring-care-cleaning?guide=care\">Read this chapter</a>.</p>"
+          }
+        },
+        "c4": {
+          "type": "term",
+          "settings": {
+            "number": "04",
+            "heading": "Caring for Different Metals",
+            "body": "<p>Platinum, white gold and rhodium, yellow and rose gold, palladium and silver, and how each ages. <a href=\"/pages/ring-care-metals?guide=care\">Read this chapter</a>.</p>"
+          }
+        },
+        "c5": {
+          "type": "term",
+          "settings": {
+            "number": "05",
+            "heading": "Caring for Gemstones",
+            "body": "<p>What each stone can take, which ones need protecting, and why treatments change the rules. <a href=\"/pages/ring-care-gemstones?guide=care\">Read this chapter</a>.</p>"
+          }
+        },
+        "c6": {
+          "type": "term",
+          "settings": {
+            "number": "06",
+            "heading": "Settings, Claws & Warning Signs",
+            "body": "<p>The fabric test, the pull test, and the small signs that mean bring it in now rather than later. <a href=\"/pages/ring-care-settings?guide=care\">Read this chapter</a>.</p>"
+          }
+        },
+        "c7": {
+          "type": "term",
+          "settings": {
+            "number": "07",
+            "heading": "Fit, Resizing & Changing Fingers",
+            "body": "<p>Fingers change and that is normal. What can be resized, what cannot, and what to do instead. <a href=\"/pages/ring-care-fit?guide=care\">Read this chapter</a>.</p>"
+          }
+        },
+        "c8": {
+          "type": "term",
+          "settings": {
+            "number": "08",
+            "heading": "Storage, Travel & Insurance",
+            "body": "<p>Keeping it safe at home and abroad, naming it on a policy, and what to do if it is lost. <a href=\"/pages/ring-care-storage?guide=care\">Read this chapter</a>.</p>"
+          }
+        },
+        "c9": {
+          "type": "term",
+          "settings": {
+            "number": "09",
+            "heading": "Servicing & the Annual Check-Up",
+            "body": "<p>Your free annual inspection, what is covered, what is chargeable, and what to do when something is wrong. <a href=\"/pages/ring-care-servicing?guide=care\">Read this chapter</a>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8",
+        "c9"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "numbers",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Contents",
+        "heading": "Nine Chapters",
+        "intro": "Read in order, or jump to whichever question you have.",
+        "note": ""
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "/pages/ring-and-jewellery-care-guide-download",
+            "style": "btn--primary",
+            "klaviyo_form": "RINGCARE"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/ring-care-guide-cover.png",
+        "cover_alt": "The Ring and Jewellery Care Guide",
+        "cover_caption": "The Ring and Jewellery Care Guide",
+        "eyebrow": "Free Download",
+        "heading": "Prefer It as a PDF?",
+        "body": "<p>The whole guide as a printable PDF, laid out for reading offline or keeping with your valuation paperwork. Free, and yours to keep.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Free",
+            "title": "Book Your Annual Check-Up",
+            "desc": "Free inspection for the life of the piece, in London or by post.",
+            "cta": "Get in touch",
+            "link": "/pages/contact-us"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Getting the Size Right",
+            "desc": "The full UK chart, and what to do when a ring stops fitting.",
+            "cta": "Read more",
+            "link": "/pages/find-your-ring-size"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Reference",
+            "title": "Gemstone Durability",
+            "desc": "Which stones survive daily wear and which need protecting.",
+            "cta": "Read more",
+            "link": "/pages/gemstone-durability"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "All Guides",
+            "title": "The Guide Library",
+            "desc": "Every For Your Eternity guide in one place.",
+            "cta": "See them all",
+            "link": "/pages/jewellery-guides"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Where to Next"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "intro",
+    "contents",
+    "guide",
+    "related"
+  ]
+}

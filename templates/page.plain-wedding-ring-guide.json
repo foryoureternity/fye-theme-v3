@@ -1,0 +1,258 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "The Plain Wedding Ring Guide"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Profiles, widths, metals and finishes that wear well for fifty years</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 36,
+        "image": "shopify://shop_images/engagement-and-wedding.png",
+        "use_specify_image": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Welcome",
+        "heading": "Where to Begin",
+        "body": "<p>A plain band looks like the simplest thing in jewellery and is quietly one of the hardest to get right. Without stones, everything rests on proportion: the cross-section, the width, the depth, the metal and the finish.</p><p>Get those right and the ring becomes almost invisible in daily wear, which is exactly what you want from something worn for fifty years. Get them wrong and it sits in a drawer.</p><p>This guide covers each decision in turn, and is honest about where to spend and where it makes no difference.</p>"
+      }
+    },
+    "contents": {
+      "type": "fye-terms",
+      "blocks": {
+        "c1": {
+          "type": "term",
+          "settings": {
+            "number": "01",
+            "heading": "Profiles, Width & Feel",
+            "body": "<p>Nine cross-sections, and why the wrong one gets taken off. <a href=\"/pages/ring-profiles-and-widths?guide=plain-wedding\">Read this chapter</a>.</p>"
+          }
+        },
+        "c2": {
+          "type": "term",
+          "settings": {
+            "number": "02",
+            "heading": "Choosing the Metal",
+            "body": "<p>Five metals on colour, weight, upkeep and how they age. <a href=\"/pages/find-the-right-metal?guide=plain-wedding\">Read this chapter</a>.</p>"
+          }
+        },
+        "c3": {
+          "type": "term",
+          "settings": {
+            "number": "03",
+            "heading": "Finishes & How They Age",
+            "body": "<p>Polished, brushed, hammered and milgrain, and how each ages. <a href=\"/pages/ring-finishes?guide=plain-wedding\">Read this chapter</a>.</p>"
+          }
+        },
+        "c4": {
+          "type": "term",
+          "settings": {
+            "number": "04",
+            "heading": "Engraving & Personalisation",
+            "body": "<p>Inside, outside, handwriting, and the practical limits. <a href=\"/pages/ring-engraving?guide=plain-wedding\">Read this chapter</a>.</p>"
+          }
+        },
+        "c5": {
+          "type": "term",
+          "settings": {
+            "number": "05",
+            "heading": "Matched or Independent",
+            "body": "<p>Matched, complementary or independent, and how to choose. <a href=\"/pages/matched-or-independent?guide=plain-wedding\">Read this chapter</a>.</p>"
+          }
+        },
+        "c6": {
+          "type": "term",
+          "settings": {
+            "number": "06",
+            "heading": "Pairing With the Engagement Ring",
+            "body": "<p>Straight, shaped or fitted, and the measurement that decides. <a href=\"/pages/wedding-band-pairing?guide=plain-wedding\">Read this chapter</a>.</p>"
+          }
+        },
+        "c7": {
+          "type": "term",
+          "settings": {
+            "number": "07",
+            "heading": "Shaped-to-Fit Bands",
+            "body": "<p>When a curve is not enough, and what fitted really means. <a href=\"/pages/shaped-to-fit-rings?guide=plain-wedding\">Read this chapter</a>.</p>"
+          }
+        },
+        "c8": {
+          "type": "term",
+          "settings": {
+            "number": "08",
+            "heading": "Getting the Size Right",
+            "body": "<p>The full UK chart, and how to find it in secret. <a href=\"/pages/find-your-ring-size?guide=plain-wedding\">Read this chapter</a>.</p>"
+          }
+        },
+        "c9": {
+          "type": "term",
+          "settings": {
+            "number": "09",
+            "heading": "Bespoke Plain Rings",
+            "body": "<p>Eight stages from enquiry to handover, with honest timings. <a href=\"/pages/create-your-own-ring?guide=plain-wedding\">Read this chapter</a>.</p>"
+          }
+        },
+        "c10": {
+          "type": "term",
+          "settings": {
+            "number": "10",
+            "heading": "Aftercare & Insurance",
+            "body": "<p>Cleaning, storage, insurance and the annual check-up. <a href=\"/pages/ring-and-jewellery-care-guide?guide=plain-wedding\">Read this chapter</a>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8",
+        "c9",
+        "c10"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "numbers",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Contents",
+        "heading": "10 Chapters",
+        "intro": "Read in order, or jump to whichever question you have.",
+        "note": ""
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "XMzNMS"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/Plain_Wedding_Cover.png",
+        "cover_alt": "The Plain Wedding Ring Guide",
+        "cover_caption": "The Plain Wedding Ring Guide",
+        "eyebrow": "Free Download",
+        "heading": "Prefer It as a PDF?",
+        "body": "<p>The whole of The Plain Wedding Ring Guide as a printable PDF, laid out for reading offline or taking to an appointment. Free, and yours to keep.</p>"
+      }
+    },
+    "consult": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Still Unsure",
+        "heading": "Talk It Through With Us",
+        "body": "<p>A free 20-minute call, online or in person in London. Tell us where you are up to and we will answer honestly, with no pressure and no obligation. It is usually the fastest way through a decision that feels stuck.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Reference",
+            "title": "Diamond Education",
+            "desc": "The Four Cs, shapes, lab-grown and fancy colour.",
+            "cta": "Explore diamonds",
+            "link": "/pages/diamond-education"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Reference",
+            "title": "Gemstone Education",
+            "desc": "Sapphire, ruby, emerald and the rest, stone by stone.",
+            "cta": "Explore gemstones",
+            "link": "/pages/gemstone-education"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "All Guides",
+            "title": "The Guide Library",
+            "desc": "Every For Your Eternity guide in one place.",
+            "cta": "See them all",
+            "link": "/pages/downloadable-guides"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Talk to Us",
+            "title": "Book a Consultation",
+            "desc": "Free, 20 minutes, online or in London.",
+            "cta": "Get in touch",
+            "link": "/pages/contact-us"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Where to Next"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "intro",
+    "contents",
+    "guide",
+    "consult",
+    "related"
+  ]
+}

@@ -1,0 +1,312 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "The Diamond and Gemstone Wedding Ring Guide"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Setting styles, coverage, stone layout and shaped-to-fit bands</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 36,
+        "image": "shopify://shop_images/engagement-wedding-ring-stack-gold-rose-gold.png",
+        "use_specify_image": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Welcome",
+        "heading": "Where to Begin",
+        "body": "<p>A stone-set wedding band has more decisions in it than an engagement ring: how the stones are held, how far they travel around the finger, how they are laid out, and how the whole thing sits against the ring already on the hand.</p><p>Most of those decisions are permanent. Coverage in particular determines whether the ring can ever be resized, which is why it is worth settling before anything else.</p><p>This guide takes them in a sensible order and is direct about the trade-offs.</p>"
+      }
+    },
+    "contents": {
+      "type": "fye-terms",
+      "blocks": {
+        "c1": {
+          "type": "term",
+          "settings": {
+            "number": "01",
+            "heading": "Setting Styles",
+            "body": "<p>Nine ways stones are held, and what each costs in upkeep. <a href=\"/pages/stone-settings?guide=dg-wedding\">Read this chapter</a>.</p>"
+          }
+        },
+        "c2": {
+          "type": "term",
+          "settings": {
+            "number": "02",
+            "heading": "Half, Three-Quarter & Full",
+            "body": "<p>Quarter to full, and why half is not a compromise. <a href=\"/pages/eternity-ring-coverage?guide=dg-wedding\">Read this chapter</a>.</p>"
+          }
+        },
+        "c3": {
+          "type": "term",
+          "settings": {
+            "number": "03",
+            "heading": "Carat Weight & Stone Layout",
+            "body": "<p>Why total carat weight is the most misread figure in jewellery. <a href=\"/pages/stone-layout?guide=dg-wedding\">Read this chapter</a>.</p>"
+          }
+        },
+        "c4": {
+          "type": "term",
+          "settings": {
+            "number": "04",
+            "heading": "Diamond Quality",
+            "body": "<p>Cut, colour, clarity and carat, and where to spend first. <a href=\"/pages/diamond-4cs?guide=dg-wedding\">Read this chapter</a>.</p>"
+          }
+        },
+        "c5": {
+          "type": "term",
+          "settings": {
+            "number": "05",
+            "heading": "Diamond Shapes",
+            "body": "<p>Twelve shapes, and which flatter which hands. <a href=\"/pages/diamond-shapes?guide=dg-wedding\">Read this chapter</a>.</p>"
+          }
+        },
+        "c6": {
+          "type": "term",
+          "settings": {
+            "number": "06",
+            "heading": "Natural & Lab-Grown",
+            "body": "<p>What is identical, what differs, and the honest view on value. <a href=\"/pages/lab-grown-diamonds?guide=dg-wedding\">Read this chapter</a>.</p>"
+          }
+        },
+        "c7": {
+          "type": "term",
+          "settings": {
+            "number": "07",
+            "heading": "Coloured Gemstones",
+            "body": "<p>Sapphire, ruby, emerald and the rest, stone by stone. <a href=\"/pages/gemstone-education?guide=dg-wedding\">Read this chapter</a>.</p>"
+          }
+        },
+        "c8": {
+          "type": "term",
+          "settings": {
+            "number": "08",
+            "heading": "Width, Depth & Proportion",
+            "body": "<p>Nine cross-sections, and why the wrong one gets taken off. <a href=\"/pages/ring-profiles-and-widths?guide=dg-wedding\">Read this chapter</a>.</p>"
+          }
+        },
+        "c9": {
+          "type": "term",
+          "settings": {
+            "number": "09",
+            "heading": "Choosing the Metal",
+            "body": "<p>Five metals on colour, weight, upkeep and how they age. <a href=\"/pages/find-the-right-metal?guide=dg-wedding\">Read this chapter</a>.</p>"
+          }
+        },
+        "c10": {
+          "type": "term",
+          "settings": {
+            "number": "10",
+            "heading": "Engraving & Personalisation",
+            "body": "<p>Inside, outside, handwriting, and the practical limits. <a href=\"/pages/ring-engraving?guide=dg-wedding\">Read this chapter</a>.</p>"
+          }
+        },
+        "c11": {
+          "type": "term",
+          "settings": {
+            "number": "11",
+            "heading": "Pairing With the Engagement Ring",
+            "body": "<p>Straight, shaped or fitted, and the measurement that decides. <a href=\"/pages/wedding-band-pairing?guide=dg-wedding\">Read this chapter</a>.</p>"
+          }
+        },
+        "c12": {
+          "type": "term",
+          "settings": {
+            "number": "12",
+            "heading": "Shaped-to-Fit Bands",
+            "body": "<p>When a curve is not enough, and what fitted really means. <a href=\"/pages/shaped-to-fit-rings?guide=dg-wedding\">Read this chapter</a>.</p>"
+          }
+        },
+        "c13": {
+          "type": "term",
+          "settings": {
+            "number": "13",
+            "heading": "Getting the Size Right",
+            "body": "<p>The full UK chart, and how to find it in secret. <a href=\"/pages/find-your-ring-size?guide=dg-wedding\">Read this chapter</a>.</p>"
+          }
+        },
+        "c14": {
+          "type": "term",
+          "settings": {
+            "number": "14",
+            "heading": "The Bespoke Process",
+            "body": "<p>Eight stages from enquiry to handover, with honest timings. <a href=\"/pages/create-your-own-ring?guide=dg-wedding\">Read this chapter</a>.</p>"
+          }
+        },
+        "c15": {
+          "type": "term",
+          "settings": {
+            "number": "15",
+            "heading": "Heirlooms & Reused Materials",
+            "body": "<p>Resetting a family stone, and reusing old gold. <a href=\"/pages/heirloom-stones?guide=dg-wedding\">Read this chapter</a>.</p>"
+          }
+        },
+        "c16": {
+          "type": "term",
+          "settings": {
+            "number": "16",
+            "heading": "Aftercare & Insurance",
+            "body": "<p>Cleaning, storage, insurance and the annual check-up. <a href=\"/pages/ring-and-jewellery-care-guide?guide=dg-wedding\">Read this chapter</a>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8",
+        "c9",
+        "c10",
+        "c11",
+        "c12",
+        "c13",
+        "c14",
+        "c15",
+        "c16"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "numbers",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Contents",
+        "heading": "16 Chapters",
+        "intro": "Read in order, or jump to whichever question you have.",
+        "note": ""
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "Rch5bG"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/Diamond_Ring_Guide.png",
+        "cover_alt": "The Diamond and Gemstone Wedding Ring Guide",
+        "cover_caption": "The Diamond and Gemstone Wedding Ring Guide",
+        "eyebrow": "Free Download",
+        "heading": "Prefer It as a PDF?",
+        "body": "<p>The whole of The Diamond and Gemstone Wedding Ring Guide as a printable PDF, laid out for reading offline or taking to an appointment. Free, and yours to keep.</p>"
+      }
+    },
+    "consult": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Still Unsure",
+        "heading": "Talk It Through With Us",
+        "body": "<p>A free 20-minute call, online or in person in London. Tell us where you are up to and we will answer honestly, with no pressure and no obligation. It is usually the fastest way through a decision that feels stuck.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Reference",
+            "title": "Diamond Education",
+            "desc": "The Four Cs, shapes, lab-grown and fancy colour.",
+            "cta": "Explore diamonds",
+            "link": "/pages/diamond-education"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Reference",
+            "title": "Gemstone Education",
+            "desc": "Sapphire, ruby, emerald and the rest, stone by stone.",
+            "cta": "Explore gemstones",
+            "link": "/pages/gemstone-education"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "All Guides",
+            "title": "The Guide Library",
+            "desc": "Every For Your Eternity guide in one place.",
+            "cta": "See them all",
+            "link": "/pages/downloadable-guides"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Talk to Us",
+            "title": "Book a Consultation",
+            "desc": "Free, 20 minutes, online or in London.",
+            "cta": "Get in touch",
+            "link": "/pages/contact-us"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Where to Next"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "intro",
+    "contents",
+    "guide",
+    "consult",
+    "related"
+  ]
+}

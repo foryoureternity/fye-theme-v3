@@ -1,0 +1,376 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "The Engagement Ring Guide"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>How to choose the perfect engagement ring</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 36,
+        "image": "shopify://shop_images/oval-diamond-solitaire-engagement-ring-hand.png",
+        "use_specify_image": true
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "layout": "left",
+        "narrow": true,
+        "eyebrow": "Welcome",
+        "heading": "Where to Begin",
+        "body": "<p>Buying an engagement ring is one of the most meaningful purchases you will ever make: a symbol of commitment, a keepsake worn every day for decades. It is no wonder so many people feel a quiet anxiety about getting it right.</p><p>The good news is that choosing well is not about having an expert's eye or an unlimited budget. It is about understanding what matters, what really does not, and listening closely to what your partner loves.</p><p>This guide walks through every step, from your first thoughts on budget to the moment you slip it onto their finger, without the overwhelm, jargon or pressure. Read it in order, or jump to whichever question you actually have.</p>"
+      }
+    },
+    "contents": {
+      "type": "fye-terms",
+      "blocks": {
+        "c1": {
+          "type": "term",
+          "settings": {
+            "number": "01",
+            "heading": "Setting a Budget",
+            "body": "<p>What different budgets buy, and the costs people forget. <a href=\"/pages/engagement-ring-budget?guide=engagement\">Read this chapter</a>.</p>"
+          }
+        },
+        "c2": {
+          "type": "term",
+          "settings": {
+            "number": "02",
+            "heading": "Understanding Their Style",
+            "body": "<p>Reading their taste from what they already wear. <a href=\"/pages/engagement-ring-style?guide=engagement\">Read this chapter</a>.</p>"
+          }
+        },
+        "c3": {
+          "type": "term",
+          "settings": {
+            "number": "03",
+            "heading": "Ring Styles & Hidden Details",
+            "body": "<p>Ten silhouettes compared, and the details that lift them. <a href=\"/pages/engagement-ring-styles?guide=engagement\">Read this chapter</a>.</p>"
+          }
+        },
+        "c4": {
+          "type": "term",
+          "settings": {
+            "number": "04",
+            "heading": "The Four Cs",
+            "body": "<p>Cut, colour, clarity and carat, and where to spend first. <a href=\"/pages/diamond-4cs?guide=engagement\">Read this chapter</a>.</p>"
+          }
+        },
+        "c5": {
+          "type": "term",
+          "settings": {
+            "number": "05",
+            "heading": "Diamond Shapes",
+            "body": "<p>Twelve shapes, and which flatter which hands. <a href=\"/pages/diamond-shapes?guide=engagement\">Read this chapter</a>.</p>"
+          }
+        },
+        "c6": {
+          "type": "term",
+          "settings": {
+            "number": "06",
+            "heading": "Natural & Lab-Grown",
+            "body": "<p>What is identical, what differs, and the honest view on value. <a href=\"/pages/lab-grown-diamonds?guide=engagement\">Read this chapter</a>.</p>"
+          }
+        },
+        "c7": {
+          "type": "term",
+          "settings": {
+            "number": "07",
+            "heading": "Coloured Stones",
+            "body": "<p>Sapphire, ruby, emerald and the rest, stone by stone. <a href=\"/pages/gemstone-education?guide=engagement\">Read this chapter</a>.</p>"
+          }
+        },
+        "c8": {
+          "type": "term",
+          "settings": {
+            "number": "08",
+            "heading": "Choosing the Metal",
+            "body": "<p>Five metals on colour, weight, upkeep and how they age. <a href=\"/pages/find-the-right-metal?guide=engagement\">Read this chapter</a>.</p>"
+          }
+        },
+        "c9": {
+          "type": "term",
+          "settings": {
+            "number": "09",
+            "heading": "Getting the Size Right",
+            "body": "<p>The full UK chart, and how to find it in secret. <a href=\"/pages/find-your-ring-size?guide=engagement\">Read this chapter</a>.</p>"
+          }
+        },
+        "c10": {
+          "type": "term",
+          "settings": {
+            "number": "10",
+            "heading": "Proposing in Secret",
+            "body": "<p>Size, taste and timing, without giving anything away. <a href=\"/pages/proposing-in-secret?guide=engagement\">Read this chapter</a>.</p>"
+          }
+        },
+        "c11": {
+          "type": "term",
+          "settings": {
+            "number": "11",
+            "heading": "The Bespoke Process",
+            "body": "<p>Eight stages from enquiry to handover, with honest timings. <a href=\"/pages/create-your-own-ring?guide=engagement\">Read this chapter</a>.</p>"
+          }
+        },
+        "c12": {
+          "type": "term",
+          "settings": {
+            "number": "12",
+            "heading": "Pairing With the Wedding Band",
+            "body": "<p>Straight, shaped or fitted, and the measurement that decides. <a href=\"/pages/wedding-band-pairing?guide=engagement\">Read this chapter</a>.</p>"
+          }
+        },
+        "c13": {
+          "type": "term",
+          "settings": {
+            "number": "13",
+            "heading": "Heirlooms & Antique Stones",
+            "body": "<p>Resetting a family stone, and reusing old gold. <a href=\"/pages/heirloom-stones?guide=engagement\">Read this chapter</a>.</p>"
+          }
+        },
+        "c14": {
+          "type": "term",
+          "settings": {
+            "number": "14",
+            "heading": "Aftercare & Insurance",
+            "body": "<p>Cleaning, storage, insurance and the annual check-up. <a href=\"/pages/ring-and-jewellery-care-guide?guide=engagement\">Read this chapter</a>.</p>"
+          }
+        },
+        "c15": {
+          "type": "term",
+          "settings": {
+            "number": "15",
+            "heading": "Mistakes to Avoid",
+            "body": "<p>Ten regrets we hear again and again. <a href=\"/pages/engagement-ring-mistakes?guide=engagement\">Read this chapter</a>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8",
+        "c9",
+        "c10",
+        "c11",
+        "c12",
+        "c13",
+        "c14",
+        "c15"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "numbers",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Contents",
+        "heading": "15 Chapters",
+        "intro": "Read in order, or jump to whichever question you have.",
+        "note": ""
+      }
+    },
+    "together": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "number": "01",
+            "heading": "Revisit their style",
+            "body": "<p>What they wear, what they save, what they admire out loud. Go back to it as often as you need.</p>"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "number": "02",
+            "heading": "Define your priorities",
+            "body": "<p>Size, brilliance, metal, setting. Decide which one you will not compromise on, and which will give.</p>"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "number": "03",
+            "heading": "Choose a jeweller who listens",
+            "body": "<p>Before they sell. If the first conversation is about what is in stock rather than what you want, that tells you something.</p>"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "number": "04",
+            "heading": "Plan the timeline backwards",
+            "body": "<p>From your proposal date, and add two weeks of breathing room. At least five weeks is ideal for anything bespoke.</p>"
+          }
+        },
+        "t5": {
+          "type": "term",
+          "settings": {
+            "number": "05",
+            "heading": "Insure it the day it arrives",
+            "body": "<p>As a specifically named item, not under general contents. A ring left uninsured is a ring you can lose twice.</p>"
+          }
+        },
+        "t6": {
+          "type": "term",
+          "settings": {
+            "number": "06",
+            "heading": "Do not rush the final step",
+            "body": "<p>Give yourself a day or two of reflection before committing. Nothing good is lost by waiting forty-eight hours.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "numbering": "numbers",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Bringing It All Together",
+        "heading": "Before You Finalise Your Choice",
+        "intro": "You have walked through every major decision. A simple framework to pull it together.",
+        "note": ""
+      }
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn--primary",
+            "klaviyo_form": "V9eDYg"
+          }
+        }
+      },
+      "block_order": [
+        "g1"
+      ],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/Engagement_Ring_Cover.png",
+        "cover_alt": "The Engagement Ring Guide",
+        "cover_caption": "The Engagement Ring Guide",
+        "eyebrow": "Free Download",
+        "heading": "Prefer It as a PDF?",
+        "body": "<p>The whole of The Engagement Ring Guide as a printable PDF, laid out for reading offline or taking to an appointment. Free, and yours to keep.</p>"
+      }
+    },
+    "consult": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "teal",
+        "narrow": true,
+        "eyebrow": "Still Unsure",
+        "heading": "Talk It Through With Us",
+        "body": "<p>A free 20-minute call, online or in person in London. Tell us where you are up to and we will answer honestly, with no pressure and no obligation. It is usually the fastest way through a decision that feels stuck.</p>"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Reference",
+            "title": "Diamond Education",
+            "desc": "The Four Cs, shapes, lab-grown and fancy colour.",
+            "cta": "Explore diamonds",
+            "link": "/pages/diamond-education"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Reference",
+            "title": "Gemstone Education",
+            "desc": "Sapphire, ruby, emerald and the rest, stone by stone.",
+            "cta": "Explore gemstones",
+            "link": "/pages/gemstone-education"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "All Guides",
+            "title": "The Guide Library",
+            "desc": "Every For Your Eternity guide in one place.",
+            "cta": "See them all",
+            "link": "/pages/downloadable-guides"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Talk to Us",
+            "title": "Book a Consultation",
+            "desc": "Free, 20 minutes, online or in London.",
+            "cta": "Get in touch",
+            "link": "/pages/contact-us"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Where to Next"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "intro",
+    "contents",
+    "together",
+    "guide",
+    "consult",
+    "related"
+  ]
+}

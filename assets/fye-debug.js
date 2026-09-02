@@ -44,8 +44,14 @@
     if (cs.textTransform === 'uppercase') return true;
     if (parseFloat(cs.letterSpacing) >= 0.5) return true;
     if (el.tagName === 'LABEL' || el.tagName === 'LEGEND') return true;
-    // A numeric badge (cart count, filter tally) is a glyph, not reading text.
-    if (/^\d{1,3}$/.test((el.textContent || '').trim())) return true;
+    /* A numeric badge (cart count, filter tally) is a glyph, not reading text.
+       Tested on the FIRST TEXT NODE, not textContent: a count badge usually
+       carries a visually-hidden word beside the numeral ("3 items"), which
+       made a whole-text match miss it. */
+    var own = el.firstChild && el.firstChild.nodeType === 3
+      ? el.firstChild.nodeValue.trim()
+      : '';
+    if (/^\d{1,3}$/.test(own)) return true;
     return false;
   }
 

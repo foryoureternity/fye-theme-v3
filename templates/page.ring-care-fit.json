@@ -310,7 +310,7 @@
         "headers": "Work | Cost",
         "first_col_bold": true,
         "narrow": true,
-        "col1_width": 56,
+        "col1_width": 55,
         "note": "The full list of complimentary and chargeable work is in the servicing chapter."
       }
     },
@@ -567,6 +567,3 @@
     "related"
   ]
 }
-
-
-

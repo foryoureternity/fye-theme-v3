@@ -386,7 +386,7 @@
         "headers": "Tone | Description | What you see",
         "first_col_bold": true,
         "narrow": true,
-        "col1_width": 22,
+        "col1_width": 20,
         "note": "Tone and saturation work together. A medium dark stone with strong saturation is the classic fine blue; the same tone with grey in it looks flat and costs a fraction."
       }
     },
@@ -1463,4 +1463,3 @@
     "related"
   ]
 }
-

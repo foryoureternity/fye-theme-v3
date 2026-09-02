@@ -102,7 +102,7 @@
         "headers": "Setting | How it fails | What to watch",
         "first_col_bold": true,
         "narrow": false,
-        "col1_width": 22,
+        "col1_width": 20,
         "note": ""
       }
     },
@@ -355,7 +355,7 @@
         "headers": "Fitting | How it fails | What to watch",
         "first_col_bold": true,
         "narrow": false,
-        "col1_width": 22,
+        "col1_width": 20,
         "note": ""
       }
     },
@@ -608,6 +608,3 @@
     "related"
   ]
 }
-
-
-

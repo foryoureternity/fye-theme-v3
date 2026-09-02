@@ -130,7 +130,7 @@
         "headers": "Work | Cost",
         "first_col_bold": true,
         "narrow": false,
-        "col1_width": 56,
+        "col1_width": 55,
         "note": "Nothing chargeable ever happens without a yes from you first."
       }
     },
@@ -650,6 +650,3 @@
     "related"
   ]
 }
-
-
-

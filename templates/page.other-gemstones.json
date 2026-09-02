@@ -734,7 +734,7 @@
         "headers": "Stone | Mohs | Ring worn daily | Worth knowing",
         "first_col_bold": true,
         "narrow": false,
-        "col1_width": 24,
+        "col1_width": 25,
         "note": "Daily wear here means a ring worn continuously on a working hand. Almost everything on this list is perfectly happy in earrings, a pendant or a ring worn in the evening."
       }
     },
@@ -1086,6 +1086,3 @@
     "related"
   ]
 }
-
-
-

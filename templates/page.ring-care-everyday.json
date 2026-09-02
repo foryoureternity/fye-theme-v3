@@ -421,7 +421,7 @@
         "headers": "Myth | Reality",
         "first_col_bold": true,
         "narrow": false,
-        "col1_width": 34,
+        "col1_width": 35,
         "note": ""
       }
     },
@@ -627,6 +627,3 @@
     "related"
   ]
 }
-
-
-

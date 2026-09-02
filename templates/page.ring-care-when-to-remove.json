@@ -337,7 +337,7 @@
         "headers": "Where | What happens | What to do",
         "first_col_bold": true,
         "narrow": false,
-        "col1_width": 22,
+        "col1_width": 20,
         "note": ""
       }
     },
@@ -603,6 +603,3 @@
     "related"
   ]
 }
-
-
-

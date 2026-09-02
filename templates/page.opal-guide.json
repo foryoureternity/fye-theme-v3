@@ -353,7 +353,7 @@
         "headers": "Body tone | Classification | What you see",
         "first_col_bold": true,
         "narrow": true,
-        "col1_width": 22,
+        "col1_width": 20,
         "note": "Body tone is graded separately from brightness, which runs from subdued to brilliant and is judged by eye against reference stones. A bright N7 can easily outshine a dull N3."
       }
     },
@@ -1433,4 +1433,3 @@
     "related"
   ]
 }
-

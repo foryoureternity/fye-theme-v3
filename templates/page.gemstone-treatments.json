@@ -200,7 +200,7 @@
         "heading": "What to Ask About Any Stone",
         "headers": "Question|Why it matters",
         "narrow": true,
-        "col1_width": 42
+        "col1_width": 40
       }
     },
     "xref": {
@@ -366,6 +366,3 @@
     "related"
   ]
 }
-
-
-

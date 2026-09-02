@@ -297,8 +297,20 @@
   display: flex;
   align-items: center;
   width: 100%;
+  /* 44px: the row is a <label> wrapping a 16px checkbox, so the row IS the
+     tap target and carries the minimum. The checkbox stays 16px. Added
+     02/09/2026 after fyeSmoke measured 19 of these at 16×16. */
+  min-height: 44px;
   padding: 5px 8px;
   transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+/* The min/max price inputs in the same panel measured 32px tall. min-height
+   rather than height because used height is max(min-height, height), so this
+   wins over the app's fixed height without needing !important. */
+.fye .cloud-search-num-field__input,
+.fye .cloud-search-text-field__input {
+  min-height: 44px;
 }
 
 .fye .cloud-search-filter-value:hover {
@@ -901,22 +913,6 @@
 .fye .coll__clear,
 .fye .coll__promolink {
   display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-}
-
-/* ----------------------------------------------------------------------------
-   THE FILTER APP'S ROWS — 02/09/2026. Not our markup: cloud-search renders
-   these. Each row is a <label> wrapping a 16px checkbox and the value name, so
-   the label carries the 44px minimum and the whole row becomes the target. The
-   checkbox is left alone at 16px.
-
-   FRAGILE BY NATURE: if the app renames its classes, this stops applying
-   silently. It can only ever add height, so it cannot break the page — but
-   re-run fyeSmoke on a collection page after any cloud-search update.
-   -------------------------------------------------------------------------- */
-.fye .cloud-search-filter-value {
-  display: flex;
   align-items: center;
   min-height: 44px;
 }

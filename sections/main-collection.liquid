@@ -904,6 +904,22 @@
   align-items: center;
   min-height: 44px;
 }
+
+/* ----------------------------------------------------------------------------
+   THE FILTER APP'S ROWS — 02/09/2026. Not our markup: cloud-search renders
+   these. Each row is a <label> wrapping a 16px checkbox and the value name, so
+   the label carries the 44px minimum and the whole row becomes the target. The
+   checkbox is left alone at 16px.
+
+   FRAGILE BY NATURE: if the app renames its classes, this stops applying
+   silently. It can only ever add height, so it cannot break the page — but
+   re-run fyeSmoke on a collection page after any cloud-search update.
+   -------------------------------------------------------------------------- */
+.fye .cloud-search-filter-value {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+}
 {% endstylesheet %}
 
 {% schema %}

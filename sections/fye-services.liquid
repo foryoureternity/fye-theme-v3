@@ -1,0 +1,192 @@
+{%- comment -%}
+  fye-services — rule-topped list of what the business offers. 1 use:
+  page.about-us ("A full-service jeweller").
+
+  PORTED FROM LIVE'S `fye-services`, 25/08/2026 About Us handoff. Setting IDs
+  kept: band · columns · eyebrow · heading · note; blocks carry heading · body
+  · link.
+
+  CHANGED FOR v3: `.fye-edu` wrapper dropped, tokens instead of edu-core
+  variables, spacing on the --s scale.
+
+  WHY NOT fye-cards: that is a boxed concept grid with a border on all four
+  sides. This is a plain list separated by a single hairline above each item,
+  and its section head is SPLIT — title left, note right, on one baseline —
+  rather than centred like every other section head in the theme. That split
+  is the point of the layout: it lets a long explanatory note sit beside the
+  heading instead of pushing the list down the page.
+
+  A LINKED ITEM GETS AN ARROW, and that is not decoration. Nothing else in the
+  cell distinguishes a linked service from an unlinked one — v3 gives .link its
+  own colour, but these headings are display type on a plain ground, so without
+  the arrow a tappable item looks identical to a dead one.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'ivory'
+  assign cols = s.columns | plus: 0
+-%}
+
+<section class="svc band band--{{ band }}" data-screen-label="About — services">
+  <div class="wrap">
+
+    {%- if s.heading != blank or s.note != blank -%}
+      <div class="svc__head">
+        <div class="svc__title">
+          {%- if s.eyebrow != blank -%}
+            <p class="eyebrow">{{ s.eyebrow }}</p>
+          {%- endif -%}
+          {%- if s.heading != blank -%}
+            <h2 class="svc__h">{{ s.heading }}</h2>
+          {%- endif -%}
+        </div>
+        {%- if s.note != blank -%}
+          <p class="svc__note">{{ s.note }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <ul class="svc__grid" style="--cols: {{ cols }};">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign b = block.settings
+          assign tag = 'div'
+          if b.link != blank
+            assign tag = 'a'
+          endif
+        -%}
+        <li {{ block.shopify_attributes }}>
+          <{{ tag }} class="svc__item{% if tag == 'a' %} svc__item--link{% endif %}"{% if tag == 'a' %} href="{{ b.link }}"{% endif %}>
+            {%- if b.heading != blank -%}
+              <h3 class="svc__ih">
+                {{- b.heading -}}
+                {%- if tag == 'a' -%}
+                  {%- render 'icon', name: 'arrow-right', size: 14 -%}
+                {%- endif -%}
+              </h3>
+            {%- endif -%}
+            {%- if b.body != blank -%}
+              <p class="svc__p">{{ b.body }}</p>
+            {%- endif -%}
+          </{{ tag }}>
+        </li>
+      {%- endfor -%}
+    </ul>
+
+  </div>
+</section>
+
+{% stylesheet %}
+/* Split head — title left, note right, sharing a baseline. */
+.fye .svc__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s8);
+  margin-bottom: var(--s9);
+}
+.fye .svc__title { display: flex; flex-direction: column; gap: var(--s4); }
+.fye .svc__h { margin: 0; }
+.fye .svc__note {
+  margin: 0;
+  max-width: 40ch;
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.fye .svc__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+  gap: 0 var(--grid-gap);
+}
+/* The hairline goes on the LI, so every item in every row gets a rule above
+   it and the grid reads as a set of lists rather than a table. */
+.fye .svc__grid > li { margin: 0; border-top: var(--hairline); padding: var(--s5) 0; }
+
+.fye .svc__ih {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-regular);
+  letter-spacing: 0.07em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+.fye .svc__p { margin: var(--s2) 0 0; font-size: var(--fs-small); line-height: 1.65; color: var(--ink-soft); }
+
+.fye .svc__item { display: block; }
+.fye .svc__item--link .svc__ih { display: inline-flex; align-items: center; gap: var(--s2); }
+.fye .svc__item--link .icon { flex: none; transition: transform var(--dur) var(--ease); }
+.fye .svc__item--link:hover .svc__ih { color: var(--sage); }
+.fye .svc__item--link:hover .icon { transform: translateX(3px); }
+.fye .svc__item--link:hover .svc__p { color: var(--ink); }
+
+@media (max-width: 900px) {
+  .fye .svc__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .fye .svc__head { flex-direction: column; align-items: flex-start; gap: var(--s4); margin-bottom: var(--s7); }
+  .fye .svc__note { max-width: none; }
+  .fye .svc__grid { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fye .svc__item--link .icon { transition: none; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Services list",
+  "settings": [
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "ivory",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Champagne ivory" },
+        { "value": "mist",  "label": "Mist blue" }
+      ]
+    },
+    {
+      "type": "select", "id": "columns", "label": "Columns", "default": "3",
+      "info": "Two on tablet, one below 560px.",
+      "options": [
+        { "value": "2", "label": "Two" },
+        { "value": "3", "label": "Three" },
+        { "value": "4", "label": "Four" }
+      ]
+    },
+    { "type": "header", "content": "Section head" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "textarea", "id": "note", "label": "Note", "info": "Sits to the right of the heading." }
+  ],
+  "blocks": [
+    {
+      "type": "service",
+      "name": "Service",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading" },
+        { "type": "textarea", "id": "body", "label": "Description" },
+        {
+          "type": "url", "id": "link", "label": "Link",
+          "info": "Makes the whole item a link and adds an arrow after the heading."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Services list",
+      "blocks": [
+        { "type": "service" }, { "type": "service" }, { "type": "service" },
+        { "type": "service" }, { "type": "service" }, { "type": "service" }
+      ]
+    }
+  ]
+}
+{% endschema %}

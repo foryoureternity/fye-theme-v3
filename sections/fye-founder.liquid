@@ -1,0 +1,227 @@
+{%- comment -%}
+  fye-founder — editorial two-column story with a real blockquote. 2 uses on
+  page.about-us: "Why we started" (photo left, quotation) and "Meet Edward"
+  (photo right, sign-off line).
+
+  PORTED FROM LIVE'S `fye-founder`, 25/08/2026 About Us handoff. Every setting
+  ID is kept, so the live template's settings carry over unchanged:
+    band · image_right · image · image_position · image_alt · caption ·
+    placeholder · eyebrow · heading · intro · quote · attr_name · attr_role ·
+    outro · sig
+
+  CHANGED FOR v3: the `.fye-edu` wrapper div is gone (v3 has no education
+  shell — the band IS the section), colours come from tokens rather than the
+  edu-core variables (`--muted` -> `--ink-soft`, `--font-head` ->
+  `--font-display`), and spacing is on the --s scale.
+
+  WHY THIS EXISTS RATHER THAN fye-media-text: media-text can do image + prose,
+  but not a <figure><blockquote>…<figcaption> pair. The quotation has to be a
+  real blockquote with attribution, and it has to stay visually restrained —
+  the brief explicitly ruled out an oversized decorative pull-quote, which is
+  what a media-text body would have needed to become.
+
+  The quote and the sig are alternatives, not partners: quote for someone
+  else's words about us, sig for first-person copy in Ed's voice. Setting both
+  reads as a man quoting himself.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'white'
+-%}
+
+<section class="fnd-sect band band--{{ band }}" data-screen-label="About — {{ s.heading | default: 'story' }}">
+  <div class="wrap">
+    <div class="fnd{% if s.image_right %} fnd--rev{% endif %}">
+
+      <div class="fnd__media">
+        {%- if s.image != blank -%}
+          {{ s.image | image_url: width: 1000 | image_tag:
+             loading: 'lazy',
+             widths: '440, 700, 1000',
+             sizes: '(max-width: 900px) 92vw, 42vw',
+             class: 'fnd__img',
+             alt: s.image_alt,
+             style: s.image_position | default: 'center center' | prepend: 'object-position:' | append: ';' }}
+        {%- else -%}
+          <div class="fnd__ph" role="presentation">
+            <span>{{ s.placeholder | default: 'Photograph to be added' }}</span>
+          </div>
+        {%- endif -%}
+        {%- if s.caption != blank -%}
+          <p class="fnd__cap">{{ s.caption }}</p>
+        {%- endif -%}
+      </div>
+
+      <div class="fnd__body">
+        {%- if s.eyebrow != blank -%}
+          <p class="eyebrow">{{ s.eyebrow }}</p>
+        {%- endif -%}
+        {%- if s.heading != blank -%}
+          <h2 class="fnd__h">{{ s.heading }}</h2>
+        {%- endif -%}
+        {%- if s.intro != blank -%}
+          <div class="prose fnd__prose">{{ s.intro }}</div>
+        {%- endif -%}
+
+        {%- if s.quote != blank -%}
+          <figure class="fnd__quote">
+            <blockquote>{{ s.quote }}</blockquote>
+            {%- if s.attr_name != blank or s.attr_role != blank -%}
+              <figcaption>
+                {%- if s.attr_name != blank -%}<span class="fnd__name">{{ s.attr_name }}</span>{%- endif -%}
+                {%- if s.attr_role != blank -%}<span class="fnd__role">{{ s.attr_role }}</span>{%- endif -%}
+              </figcaption>
+            {%- endif -%}
+          </figure>
+        {%- endif -%}
+
+        {%- if s.outro != blank -%}
+          <div class="prose fnd__prose">{{ s.outro }}</div>
+        {%- endif -%}
+
+        {%- if s.sig != blank -%}
+          <p class="fnd__sig">{{ s.sig }}</p>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .fnd {
+  display: grid;
+  grid-template-columns: 42fr 58fr;
+  gap: var(--s10);
+  align-items: start;
+}
+/* Order, not direction: `direction: rtl` would flip the prose too. */
+.fye .fnd--rev .fnd__media { order: 2; }
+
+.fye .fnd__body { display: flex; flex-direction: column; align-items: flex-start; gap: var(--s5); }
+.fye .fnd__h { margin: 0; }
+
+.fye .fnd__img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block; }
+.fye .fnd__ph {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  aspect-ratio: 4 / 5;
+  padding: var(--s5);
+  background: var(--ivory);
+  border: var(--hairline);
+}
+.fye .fnd__ph span {
+  font-size: var(--fs-eyebrow);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.fye .fnd__cap { margin: var(--s2) 0 0; font-size: var(--fs-fine); color: var(--ink-soft); }
+
+/* ~62-68 characters is the reading measure this page is set to. */
+.fye .fnd__prose { max-width: 36em; }
+.fye .fnd__prose :where(p:last-child) { margin-bottom: 0; }
+
+/* Marked out by a rule and a tint, not by giant display type. */
+.fye .fnd__quote {
+  margin: 0;
+  padding: var(--s5) var(--s6);
+  max-width: 36em;
+  background: var(--white);
+  border-left: 2px solid var(--teal);
+}
+/* On white the tint has to invert or the quote disappears into the band. */
+.fye .band--white .fnd__quote { background: var(--ivory); }
+.fye .fnd__quote blockquote {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  quotes: none;
+  font-size: var(--fs-body);
+  font-weight: var(--fw-light);
+  font-style: normal;
+  line-height: 1.65;
+}
+.fye .fnd__quote blockquote::before,
+.fye .fnd__quote blockquote::after { content: none; }
+.fye .fnd__quote blockquote :where(p:last-child) { margin-bottom: 0; }
+.fye .fnd__quote figcaption { margin-top: var(--s4); display: flex; flex-direction: column; gap: 2px; }
+.fye .fnd__name {
+  font-family: var(--font-display);
+  font-size: var(--fs-small);
+  letter-spacing: var(--tr-h2);
+  text-transform: uppercase;
+}
+.fye .fnd__role {
+  font-size: var(--fs-eyebrow);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.fye .fnd__sig {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-small);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+  .fye .fnd { grid-template-columns: 1fr; gap: var(--s7); }
+  .fye .fnd--rev .fnd__media { order: 0; }
+  /* 4:5 stacked is a very tall photograph on a phone. */
+  .fye .fnd__img,
+  .fye .fnd__ph { aspect-ratio: 4 / 3; }
+  .fye .fnd__prose,
+  .fye .fnd__quote { max-width: none; }
+}
+@media (max-width: 560px) {
+  .fye .fnd__quote { padding: var(--s4) var(--s4); }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Founder story",
+  "settings": [
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "white",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Champagne ivory" },
+        { "value": "mist",  "label": "Mist blue" }
+      ]
+    },
+    { "type": "checkbox", "id": "image_right", "label": "Photograph on the right", "default": false },
+    { "type": "header", "content": "Photograph" },
+    { "type": "image_picker", "id": "image", "label": "Photograph" },
+    {
+      "type": "text", "id": "image_position", "label": "Focal point", "default": "center center",
+      "info": "Which part to keep when cropped — e.g. center center, center 30%, top center."
+    },
+    { "type": "text", "id": "image_alt", "label": "Photograph description" },
+    { "type": "text", "id": "caption", "label": "Caption below the photograph" },
+    { "type": "text", "id": "placeholder", "label": "Placeholder caption", "default": "Photograph to be added" },
+    { "type": "header", "content": "Story" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "html", "id": "intro", "label": "Opening paragraphs" },
+    { "type": "header", "content": "Quotation" },
+    {
+      "type": "html", "id": "quote", "label": "Quotation",
+      "info": "Rendered as a real blockquote. Use this OR the sign-off line below, not both."
+    },
+    { "type": "text", "id": "attr_name", "label": "Attribution name" },
+    { "type": "text", "id": "attr_role", "label": "Attribution role" },
+    { "type": "header", "content": "Closing" },
+    { "type": "html", "id": "outro", "label": "Closing paragraphs" },
+    {
+      "type": "text", "id": "sig", "label": "Sign-off line",
+      "info": "For first-person copy, e.g. \"Edward — Founder, For Your Eternity\"."
+    }
+  ],
+  "presets": [{ "name": "Founder story" }]
+}
+{% endschema %}

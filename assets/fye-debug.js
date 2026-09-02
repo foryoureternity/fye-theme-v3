@@ -24,8 +24,27 @@
 (function () {
   'use strict';
 
-  var MIN_TARGET = 44;   // brand rule: no tap target under 44px
-  var MIN_TYPE = 12;     // anything under this is unreadable on a phone
+  var MIN_TARGET = 44;   // brand rule: no tap target under 44px, ON TOUCH
+  var MIN_TYPE = 12;     // reading text under this is unreadable on a phone
+  var MIN_MICRO = 10;    // eyebrows and field labels are 11px BY DESIGN
+
+  /* 44px is a touch rule, not a universal one: an 18px utility-bar link under
+     a mouse at 1470px is fine, and flagging it buries the real faults. The
+     theme reflows at 900, so that is the line. */
+  function touchish() {
+    try {
+      if (window.matchMedia('(pointer: coarse)').matches) return true;
+    } catch (err) {}
+    return document.documentElement.clientWidth <= 900;
+  }
+
+  /* An eyebrow, a field label, a trust-strip caption: uppercase, tracked,
+     11px, straight from the design system. Judged at 10px, not 12px. */
+  function isMicroLabel(el, cs) {
+    if (cs.textTransform === 'uppercase') return true;
+    if (parseFloat(cs.letterSpacing) >= 0.5) return true;
+    return el.tagName === 'LABEL' || el.tagName === 'LEGEND';
+  }
 
   function visible(el) {
     if (!el || !el.getBoundingClientRect) return false;
@@ -52,6 +71,8 @@
   }
 
   /* ---- the checks. Each returns an array of plain strings. --------------- */
+
+  var verbose = false;
 
   var checks = {
 
@@ -83,15 +104,32 @@
        link is the usual reason a 15px link passes or fails. */
     targets: function () {
       var out = [];
+      if (!touchish()) {
+        return ['skipped — 44px is a touch rule. Re-run at 899px or narrower, or in devtools device mode.'];
+      }
       var sel = 'a, button, [role="button"], input:not([type="hidden"]), select, textarea, summary';
       document.querySelectorAll(sel).forEach(function (el) {
         if (!visible(el)) return;
         if (el.closest('[data-fye-debug-skip]')) return;
+        // Deliberately hidden affordances (the skip link) are not targets.
+        if (el.closest('.visually-hidden')) return;
+        if (el.classList.contains('visually-hidden')) return;
+
+        // Inline links in running text are words in a sentence, not controls.
+        if (el.tagName === 'A' && el.closest('p, li, .prose, .lead, .fine, .crumbs, nav[aria-label*="readcrumb"]')) return;
+
         var r = el.getBoundingClientRect();
-        // Inline links inside a paragraph are exempt: they are words in a
-        // sentence, not controls, and padding them out breaks the line box.
-        var inProse = el.tagName === 'A' && el.closest('p, li, .prose, .lead, .fine');
-        if (inProse) return;
+
+        /* A checkbox or radio is 18px on purpose — what gets tapped is the
+           label wrapping it. Measure that instead. */
+        if (el.type === 'checkbox' || el.type === 'radio') {
+          var lab = el.closest('label');
+          if (lab) {
+            var lr = lab.getBoundingClientRect();
+            if (lr.height >= MIN_TARGET - 0.5) return;
+          }
+        }
+
         if (r.height < MIN_TARGET - 0.5 || r.width < 24) {
           out.push(Math.round(r.width) + '×' + Math.round(r.height) + '  "' + text(el) + '"  ' + where(el));
         }
@@ -105,9 +143,12 @@
         if (!visible(el)) return;
         if (!el.firstChild || el.firstChild.nodeType !== 3) return;   // own text only
         if (!text(el)) return;
-        var px = parseFloat(getComputedStyle(el).fontSize);
-        if (px && px < MIN_TYPE) {
-          out.push(px.toFixed(1) + 'px  "' + text(el) + '"  ' + where(el));
+        var cs = getComputedStyle(el);
+        var px = parseFloat(cs.fontSize);
+        if (!px) return;
+        var floor = isMicroLabel(el, cs) ? MIN_MICRO : MIN_TYPE;
+        if (px < floor) {
+          out.push(px.toFixed(1) + 'px  (floor ' + floor + ')  "' + text(el) + '"  ' + where(el));
         }
       });
       return out;
@@ -129,10 +170,16 @@
           out.push('trigger opens nothing — key "' + key + '"  "' + text(t) + '"  ' + where(t));
         }
       });
-      Object.keys(panels).forEach(function (key) {
-        if (key === 'contact-page') return;              // a page section, not a popup
-        if (!triggers[key]) out.push('popup "' + key + '" has no trigger on this page (fine if it is opened elsewhere)');
-      });
+      /* The other direction — a popup with no trigger HERE — is normal: they
+         all live in footer-group.json so one copy serves every page. Nine
+         lines of it on every run buried the half that matters. Ask for it:
+         fyeSmoke('popups', true) */
+      if (verbose) {
+        Object.keys(panels).forEach(function (key) {
+          if (key === 'contact-page') return;            // a page section, not a popup
+          if (!triggers[key]) out.push('(verbose) popup "' + key + '" has no trigger on this page');
+        });
+      }
       // A class-only hook is the historical trap — flag any left behind.
       document.querySelectorAll('[class*="open-"]').forEach(function (el) {
         if (!el.hasAttribute('data-fye-popup')) {
@@ -218,7 +265,8 @@
 
   /* ---- runner ----------------------------------------------------------- */
 
-  function run(only) {
+  function run(only, beVerbose) {
+    verbose = !!beVerbose;
     var names = only ? [only] : Object.keys(checks);
     var vw = document.documentElement.clientWidth;
     var fails = 0, total = 0;

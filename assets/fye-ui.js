@@ -2673,6 +2673,24 @@
     var label = pop.getAttribute('data-fye-popup-label');
     if (label) lines.push(label);
 
+    /* Named fields, in document order. Added 03/09/2026 for the ring sizer,
+       whose postal address has to arrive in the body because custom
+       contact[...] fields do not show usefully in the notification email.
+       Any form opts a field in with data-fye-popup-line="Label"; empty
+       fields are skipped, so the block only prints what was typed. */
+    var lined = form.querySelectorAll('[data-fye-popup-line]');
+    if (lined.length) {
+      var block = [];
+      Array.prototype.forEach.call(lined, function (f) {
+        var v = (f.value || '').trim();
+        if (v) block.push(f.getAttribute('data-fye-popup-line') + ': ' + v);
+      });
+      if (block.length) {
+        lines.push('');
+        lines = lines.concat(block);
+      }
+    }
+
     var msg = form.querySelector('[data-fye-popup-message]');
     if (msg && msg.value && msg.value.trim()) {
       lines.push('');

@@ -1,12 +1,12 @@
 {%- comment -%}
   apps, the host for app blocks placed through the theme editor.
 
-  1 use: templates/page.order-a-free-ring-sizer.json, whose `sizer_form`
-  section is of type `apps` and carries the Shopify Forms inline block for
-  the free ring sizer. v3 shipped without this file, so Shopify dropped the
-  section and the page rendered as banner, header and footer with no form
-  (audit 02/09/2026, blank pages table). Adding the file brings the form
-  back; the template needs no edit.
+  0 uses as of 03/09/2026. It was added that morning for
+  page.order-a-free-ring-sizer.json, whose `sizer_form` section carried the
+  Shopify Forms inline block for the free ring sizer; the same day Ed
+  decided the site does not use Shopify Forms, and that page now renders
+  sections/fye-ring-sizer.liquid, a native contact form. This file stays as
+  the standard host for any app block added through the theme editor.
 
   Type name frozen: the JSON template references `apps`. It is the standard
   Shopify app-block host, a loop that renders whatever blocks the editor

@@ -55,7 +55,7 @@
         assign fye_noindex = true
       endif
     when 'page', 'wishlist'
-      if template.suffix == 'guide-download' or template.suffix == 'wishlist' or page.handle contains 'zz-form-testing'
+      if template.suffix == 'guide-download' or template.suffix == 'wishlist' or page.handle contains 'zz-form-testing' or page.handle contains 'find-your-ring'
         assign fye_noindex = true
       endif
   endcase

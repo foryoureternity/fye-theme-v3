@@ -1,0 +1,403 @@
+{%- comment -%}
+  fye-ring-finder — the step-by-step ring finder. 1 use: page.find-your-ring.
+
+  A REWRITE, not a port. The first attempt (old repo: sections/fye-ring-finder,
+  assets/fye-ring-finder.js + .css, the 77KB bridge) targeted the xCloud
+  /a/search proxy, clicked its filter controls after load, and restyled a
+  results page we do not own. v3 does not support /a/search. This section
+  builds a native Shopify filter URL and lands the shopper on
+  /collections/<handle>, which is main-collection. 206KB became ~30KB.
+
+  HOW IT WORKS
+  · Three JOURNEY blocks (a collection each) and one STEP block per question.
+    A step belongs to a journey by matching `journey` keys. Steps render in
+    block order, all present in the HTML and hidden; fye-ui.js shows one at a
+    time and appends a filter param per answer.
+  · Options are a textarea, one per line: `Label | value | icon.svg`.
+    Value and icon are optional; a missing value falls back to the label.
+    One block per option would need ~70 blocks and Shopify caps a section at
+    50, so the textarea IS the editable list.
+  · VALUE SYNTAX, read by fye-ui.js:
+      Concave                       filter.p.m.filters.<param>=Concave
+      1.00..1.49                    <param>.gte=1.00&<param>.lte=1.49  (either side may be empty)
+      carat=18ct&metal_colour=Rose Gold   two params at once; the step's own
+                                    param is ignored. Plain rings store metal
+                                    as TWO metafields — carat and metal_colour —
+                                    and Platinum has no carat at all.
+    A step whose param begins `fye_` is CARRIED, not filtered: it lands on the
+    results URL as a plain query param (fye_metal=18ct+Rose+Gold). Ed,
+    14/08/2026 and 03/09/2026: metal is asked on every journey but only the
+    plain collection can filter on it.
+  · Every step ends with "I'm flexible" (empty value, no param). That rule is
+    what guarantees no ring is orphaned. Do not remove it.
+  · Without JavaScript each journey card is a plain link to its collection.
+
+  FILTER KEYS ARE UNVERIFIED AGAINST THE LIVE RAIL. The collection rail is
+  xCloud's, and clicking it routes to /a/search?filter_metal_filter=..., which
+  says nothing about Shopify's native syntax. `filter.p.m.filters.<key>` and
+  `.gte/.lte` are Shopify's documented shapes; they only bite when each
+  metafield is switched ON as a filter in Search & Discovery for that
+  collection. Check that first if a journey returns the whole collection.
+
+  Icons are SVG files in Content › Files, so they come in as text filenames
+  resolved with `file_url` — see fye-shape-tiles for why not image_picker.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'ivory'
+  assign flex_label = s.flexible_label | default: "I'm flexible"
+  assign enquiry = s.enquiry_link | default: '/pages/contact'
+  assign journeys = section.blocks | where: 'type', 'journey'
+  assign steps = section.blocks | where: 'type', 'step'
+-%}
+
+<section class="rfd band band--{{ band }}" data-screen-label="Ring finder"
+         data-fye-finder data-fye-finder-enquiry="{{ enquiry }}">
+  <div class="wrap rfd__wrap">
+
+    {%- if s.eyebrow != blank or s.heading != blank or s.intro != blank -%}
+      <div class="sect-head">
+        {%- if s.eyebrow != blank -%}<p class="eyebrow">{{ s.eyebrow }}</p>{%- endif -%}
+        {%- if s.heading != blank -%}<h2 class="heading-flank">{{ s.heading }}</h2>{%- endif -%}
+        {%- if s.intro != blank -%}<p class="lead">{{ s.intro }}</p>{%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="rfd__bar">
+      <button type="button" class="rfd__back" data-fye-finder-back hidden>
+        <span>Back</span>
+      </button>
+      <p class="rfd__progress eyebrow" data-fye-finder-progress hidden></p>
+    </div>
+
+    <div class="rfd__stage">
+
+      <div class="rfd__panel" data-fye-finder-panel="journeys">
+        {%- if s.journeys_q != blank -%}
+          <h3 class="rfd__q">{{ s.journeys_q }}</h3>
+        {%- endif -%}
+        {%- if journeys.size > 0 -%}
+          <ul class="rfd__journeys">
+            {%- for block in journeys -%}
+              {%- liquid
+                assign b = block.settings
+                assign coll = b.collection
+                assign jkey = b.key | default: coll.handle
+              -%}
+              <li class="rfd__jitem" {{ block.shopify_attributes }}>
+                <a class="rfd__journey" href="{{ coll.url | default: '/collections/all' }}"
+                   data-fye-finder-journey="{{ jkey }}"
+                   data-fye-finder-collection="{{ coll.url | default: '/collections/all' }}"
+                   data-fye-finder-label="{{ b.label | default: coll.title | escape }}">
+                  {%- if b.icon != blank -%}
+                    <img class="rfd__jicon" src="{{ b.icon | file_url }}" alt="" aria-hidden="true" width="68" height="68" loading="lazy">
+                  {%- endif -%}
+                  <span class="rfd__jname">{{ b.label | default: coll.title }}</span>
+                  {%- if b.description != blank -%}
+                    <span class="rfd__jdesc">{{ b.description }}</span>
+                  {%- endif -%}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- else -%}
+          <p class="lead">Add a journey block for each collection the finder should search.</p>
+        {%- endif -%}
+      </div>
+
+      {%- for block in steps -%}
+        {%- liquid
+          assign b = block.settings
+          assign cols = b.columns | default: '3'
+          assign lines = b.options | newline_to_br | split: '<br />'
+        -%}
+        <fieldset class="rfd__panel rfd__step" hidden
+                  data-fye-finder-step
+                  data-fye-finder-journey="{{ b.journey }}"
+                  data-fye-finder-param="{{ b.param }}"
+                  {{ block.shopify_attributes }}>
+          <legend class="rfd__q" tabindex="-1" data-fye-finder-question>{{ b.heading | default: 'Choose an option' }}</legend>
+          {%- if b.hint != blank -%}<p class="rfd__hint">{{ b.hint }}</p>{%- endif -%}
+          <div class="rfd__opts" style="--cols: {{ cols }};">
+            {%- for line in lines -%}
+              {%- liquid
+                assign row = line | strip
+                if row == blank
+                  continue
+                endif
+                assign parts = row | split: '|'
+                assign lbl = parts[0] | strip
+                assign val = parts[1] | strip | default: lbl
+                assign ico = parts[2] | strip
+              -%}
+              <button type="button" class="rfd__opt"
+                      data-fye-finder-option
+                      data-fye-finder-value="{{ val | escape }}"
+                      data-fye-finder-label="{{ lbl | escape }}">
+                {%- if ico != blank -%}
+                  <img class="rfd__oicon" src="{{ ico | file_url }}" alt="" aria-hidden="true" width="56" height="56" loading="lazy">
+                {%- endif -%}
+                <span class="rfd__olabel">{{ lbl }}</span>
+              </button>
+            {%- endfor -%}
+            <button type="button" class="rfd__opt rfd__opt--flex"
+                    data-fye-finder-option
+                    data-fye-finder-value=""
+                    data-fye-finder-label="{{ flex_label | escape }}">
+              <span class="rfd__olabel">{{ flex_label }}</span>
+            </button>
+          </div>
+        </fieldset>
+      {%- endfor -%}
+
+      <div class="rfd__panel rfd__results" hidden data-fye-finder-panel="results">
+        <h3 class="rfd__q" tabindex="-1" data-fye-finder-question>{{ s.results_heading | default: 'Your ring, in brief' }}</h3>
+        {%- if s.results_intro != blank -%}<p class="rfd__hint">{{ s.results_intro }}</p>{%- endif -%}
+        <dl class="rfd__summary" data-fye-finder-summary></dl>
+        <div class="rfd__actions">
+          <a class="btn" href="/collections/all" data-fye-finder-results>{{ s.results_label | default: 'See your rings' }}</a>
+          <a class="btn btn--outline" href="{{ enquiry }}" data-fye-popup="enquire" data-fye-finder-enquire>{{ s.enquire_label | default: 'Talk to us about these' }}</a>
+        </div>
+        <button type="button" class="rfd__restart" data-fye-finder-restart>Start again</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .rfd__wrap { max-width: var(--maxw-narrow); }
+.fye .rfd__wrap .sect-head { margin-bottom: var(--s7); }
+
+/* Back + progress share one row so the stage below never moves when the
+   back button appears. min-height holds the row when both are hidden. */
+.fye .rfd__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s4);
+  min-height: 44px;
+  margin-bottom: var(--s4);
+}
+.fye .rfd__progress { margin: 0; margin-left: auto; }
+.fye .rfd__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  min-height: 44px;
+  padding: 0 var(--s2) 0 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font-size: var(--fs-fine);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-button);
+  text-transform: uppercase;
+  transition: color var(--dur) var(--ease);
+}
+.fye .rfd__back:hover { color: var(--sage); }
+.fye .rfd__back[hidden], .fye .rfd__progress[hidden] { display: none; }
+
+.fye .rfd__panel { display: flex; flex-direction: column; gap: var(--s5); }
+.fye .rfd__panel[hidden] { display: none; }
+.fye .rfd__step { margin: 0; padding: 0; border: 0; min-width: 0; }
+
+/* The question. Display face at the h3 size, sentence case: it is a question
+   put to one person, not a section title. */
+.fye .rfd__q {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  letter-spacing: 0.02em;
+  line-height: var(--lh-heading);
+  text-transform: none;
+  color: var(--ink);
+}
+.fye .rfd__q:focus { outline: none; }
+.fye .rfd__hint { margin: 0; color: var(--ink-soft); }
+
+/* --- journeys ------------------------------------------------------------ */
+.fye .rfd__journeys {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--grid-gap);
+}
+.fye .rfd__jitem { margin: 0; display: flex; }
+.fye .rfd__journey {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s3);
+  width: 100%;
+  min-height: 44px;
+  padding: var(--s6);
+  border: var(--hairline);
+  background: var(--white);
+  color: var(--ink);
+  transition: border-color var(--dur) var(--ease);
+}
+.fye .rfd__journey:hover { border-color: var(--sage); color: var(--ink); }
+.fye .rfd__journey:hover .rfd__jname { color: var(--sage); }
+.fye .rfd__jicon { width: 68px; height: 68px; }
+.fye .rfd__jname {
+  font-family: var(--font-display);
+  font-size: var(--fs-small);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  transition: color var(--dur) var(--ease);
+}
+.fye .rfd__jdesc { font-size: var(--fs-small); line-height: 1.5; color: var(--ink-soft); }
+
+/* --- options ------------------------------------------------------------- */
+.fye .rfd__opts {
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+  gap: var(--s3);
+}
+/* A tile, not a button: white ground, hairline, the label in body type. The
+   hover shifts the edge and the words to sage, like every other control. */
+.fye .rfd__opt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s2);
+  min-height: 56px;
+  padding: var(--s4);
+  border: var(--hairline);
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-regular);
+  line-height: 1.35;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.fye .rfd__opt:hover { border-color: var(--sage); color: var(--sage); }
+.fye .rfd__opt:active { border-color: var(--sage-deep); color: var(--sage-deep); }
+.fye .rfd__oicon { width: 56px; height: 56px; }
+/* Icons are teal line-art; a hover recolour would need a mask. Fading them a
+   step is the honest equivalent. */
+.fye .rfd__opt:hover .rfd__oicon { opacity: 0.7; }
+.fye .rfd__opt--flex {
+  grid-column: 1 / -1;
+  background: transparent;
+  font-weight: var(--fw-light);
+  color: var(--ink-soft);
+}
+
+/* --- results ------------------------------------------------------------- */
+.fye .rfd__summary {
+  margin: 0;
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: var(--s2) var(--s6);
+  padding: var(--s5) 0;
+  border-top: var(--hairline);
+  border-bottom: var(--hairline);
+  font-size: var(--fs-small);
+}
+.fye .rfd__summary :where(dt) { margin: 0; color: var(--ink-soft); }
+.fye .rfd__summary :where(dd) { margin: 0; font-weight: var(--fw-regular); }
+.fye .rfd__actions { display: flex; flex-wrap: wrap; gap: var(--s4); }
+.fye .rfd__restart {
+  align-self: flex-start;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink-soft);
+  font-size: var(--fs-fine);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-button);
+  text-transform: uppercase;
+  transition: color var(--dur) var(--ease);
+}
+.fye .rfd__restart:hover { color: var(--sage); }
+
+/* --- breakpoints, last --------------------------------------------------- */
+@media (max-width: 900px) {
+  .fye .rfd__opts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .fye .rfd__journeys { grid-template-columns: minmax(0, 1fr); }
+  .fye .rfd__journey { padding: var(--s5); }
+  .fye .rfd__opts { gap: var(--s2); }
+  .fye .rfd__opt { padding: var(--s3); }
+  .fye .rfd__summary { grid-template-columns: minmax(0, 1fr); gap: var(--s1); }
+  .fye .rfd__summary :where(dd) { margin-bottom: var(--s3); }
+  .fye .rfd__actions { flex-direction: column; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Ring finder",
+  "tag": "section",
+  "class": "fye-ring-finder",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "textarea", "id": "intro", "label": "Introduction" },
+    { "type": "text", "id": "journeys_q", "label": "First question", "default": "What are you looking for?" },
+    { "type": "text", "id": "flexible_label", "label": "Skip option label", "default": "I'm flexible", "info": "Ends every step and applies no filter. Keep it: it is what makes every ring reachable." },
+    { "type": "header", "content": "Results" },
+    { "type": "text", "id": "results_heading", "label": "Heading", "default": "Your ring, in brief" },
+    { "type": "textarea", "id": "results_intro", "label": "Introduction" },
+    { "type": "text", "id": "results_label", "label": "Results button", "default": "See your rings" },
+    { "type": "text", "id": "enquire_label", "label": "Enquiry button", "default": "Talk to us about these" },
+    { "type": "url", "id": "enquiry_link", "label": "Enquiry link", "info": "The button opens the enquiry popup where one exists and follows this link otherwise. The answers travel on the link as fye_finder." },
+    { "type": "header", "content": "Background" },
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "ivory",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Champagne ivory" },
+        { "value": "mist", "label": "Mist blue" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "journey",
+      "name": "Journey",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "key", "label": "Key", "info": "Short word that its steps repeat, e.g. plain. Defaults to the collection handle." },
+        { "type": "text", "id": "label", "label": "Name" },
+        { "type": "textarea", "id": "description", "label": "Description" },
+        { "type": "text", "id": "icon", "label": "Icon file name", "info": "A file in Content › Files, including the extension. SVG allowed." }
+      ]
+    },
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "text", "id": "journey", "label": "Journey key", "info": "Must match a journey block's key." },
+        { "type": "text", "id": "heading", "label": "Question" },
+        { "type": "text", "id": "hint", "label": "Hint" },
+        { "type": "text", "id": "param", "label": "Filter metafield key", "info": "A key in the filters namespace, e.g. profile. Begin with fye_ to carry the answer to the results page without filtering." },
+        { "type": "textarea", "id": "options", "label": "Options", "info": "One per line: Label | value | icon.svg. Value and icon are optional. Ranges as 1.00..1.49; two filters at once as carat=18ct&metal_colour=Rose Gold." },
+        {
+          "type": "select", "id": "columns", "label": "Columns", "default": "3",
+          "options": [
+            { "value": "2", "label": "Two" },
+            { "value": "3", "label": "Three" },
+            { "value": "4", "label": "Four" }
+          ]
+        }
+      ]
+    }
+  ],
+  "max_blocks": 40,
+  "presets": [
+    { "name": "Ring finder", "blocks": [ { "type": "journey" }, { "type": "step" } ] }
+  ]
+}
+{% endschema %}

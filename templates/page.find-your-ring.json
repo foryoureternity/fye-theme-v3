@@ -1,0 +1,244 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": { "type": "3", "settings": {} },
+        "title": { "type": "1", "settings": { "heading": "Find Your Ring" } },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>A few quick questions, and we will show you the rings that match. Skip any step you are not sure about.</p>"
+          }
+        }
+      },
+      "block_order": ["crumbs", "title", "sub"],
+      "settings": {
+        "use_specify_image": false,
+        "overlay": 44,
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false
+      }
+    },
+
+    "finder": {
+      "type": "fye-ring-finder",
+      "blocks": {
+        "j_eng": {
+          "type": "journey",
+          "settings": {
+            "collection": "engagement-rings",
+            "key": "eng",
+            "label": "Engagement rings",
+            "description": "Solitaires, halos, trilogies and more, with the centre stone chosen by you.",
+            "icon": "solitaire-4VMZDYZQ.svg"
+          }
+        },
+        "j_plain": {
+          "type": "journey",
+          "settings": {
+            "collection": "plain-wedding-rings",
+            "key": "plain",
+            "label": "Plain wedding rings",
+            "description": "Every profile, width and weight, in platinum and 9ct to 18ct gold.",
+            "icon": ""
+          }
+        },
+        "j_dia": {
+          "type": "journey",
+          "settings": {
+            "collection": "diamond-wedding-rings",
+            "key": "dia",
+            "label": "Diamond and eternity rings",
+            "description": "Diamond or gemstone set, half or full eternity, in every setting style.",
+            "icon": "pave-YYUQTFKW.svg"
+          }
+        },
+
+        "eng_style": {
+          "type": "step",
+          "settings": {
+            "journey": "eng",
+            "heading": "Which style speaks to you?",
+            "param": "ring_style",
+            "columns": "4",
+            "options": "Solitaire | Solitaire | solitaire-4VMZDYZQ.svg\nHalo | Halo | halo-YF4LVVRJ.svg\nHidden Halo | Hidden Halo | hidden-halo-P7AYBI4X.svg\nDouble Halo\nTrilogy | Trilogy | three-stone-Y4KHS2BW.svg\nMultistone\nToi et Moi"
+          }
+        },
+        "eng_size": {
+          "type": "step",
+          "settings": {
+            "journey": "eng",
+            "heading": "How large a centre stone?",
+            "hint": "Carat is weight rather than width, but it is the simplest guide to size.",
+            "param": "centre_weight",
+            "columns": "3",
+            "options": "Under 0.30ct | ..0.29\n0.30 to 0.59ct | 0.30..0.59\n0.60 to 0.99ct | 0.60..0.99\n1.00 to 1.49ct | 1.00..1.49\n1.50 to 1.99ct | 1.50..1.99\n2.00ct and above | 2.00.."
+          }
+        },
+        "eng_cut": {
+          "type": "step",
+          "settings": {
+            "journey": "eng",
+            "heading": "Which cut for the centre stone?",
+            "param": "stone_shape",
+            "columns": "4",
+            "options": "Round Brilliant | Round Brilliant | icon101.svg\nOval | Oval | icon102.svg\nCushion | Cushion | icon103.svg\nPear | Pear | icon104.svg\nEmerald | Emerald Cut | icon105.svg\nRadiant | Radiant | icon106.svg\nPrincess | Princess | icon107.svg\nMarquise | Marquise | icon108.svg\nAsscher | Asscher | icon109.svg\nHeart | Heart | icon110.svg"
+          }
+        },
+        "eng_stone": {
+          "type": "step",
+          "settings": {
+            "journey": "eng",
+            "heading": "Diamond, or a coloured stone?",
+            "param": "stone_type",
+            "columns": "4",
+            "options": "Diamond\nSapphire\nRuby\nEmerald\nAquamarine\nMorganite\nTanzanite\nOpal\nAmethyst\nBlue Topaz\nCitrine\nGarnet\nPeridot\nPink Tourmaline\nFire Opal"
+          }
+        },
+        "eng_metal": {
+          "type": "step",
+          "settings": {
+            "journey": "eng",
+            "heading": "Which metal?",
+            "hint": "Every engagement ring is made in your choice of metal, so this will not narrow the list, but it helps us help you.",
+            "param": "fye_metal",
+            "columns": "3",
+            "options": "Platinum\n18ct Yellow Gold\n18ct White Gold\n18ct Rose Gold\n14ct Yellow Gold\n14ct White Gold\n14ct Rose Gold\n9ct Yellow Gold\n9ct White Gold\n9ct Rose Gold"
+          }
+        },
+        "eng_shoulder": {
+          "type": "step",
+          "settings": {
+            "journey": "eng",
+            "heading": "And the shoulders?",
+            "hint": "The part of the band either side of the centre stone.",
+            "param": "shoulder_style",
+            "columns": "4",
+            "options": "Plain\nDiamond set\nPavé\nChannel\nAccent\nCurved\nSplit"
+          }
+        },
+
+        "plain_profile": {
+          "type": "step",
+          "settings": {
+            "journey": "plain",
+            "heading": "Which profile?",
+            "hint": "The shape of the band in cross-section, which is what you feel on the finger.",
+            "param": "profile",
+            "columns": "3",
+            "options": "Traditional Court\nSlight Court\nD Shape\nFlat\nFlat Court\nEdged Court\nEdged Flat Court\nEngagement Match\nConcave"
+          }
+        },
+        "plain_width": {
+          "type": "step",
+          "settings": {
+            "journey": "plain",
+            "heading": "How wide a band?",
+            "param": "band_width",
+            "columns": "4",
+            "options": "1.5mm\n2mm\n2.5mm\n3mm\n4mm\n5mm\n6mm\n7mm\n8mm\n9mm\n10mm"
+          }
+        },
+        "plain_weight": {
+          "type": "step",
+          "settings": {
+            "journey": "plain",
+            "heading": "How substantial should it feel?",
+            "param": "weight",
+            "columns": "4",
+            "options": "Light | Light Weight\nMedium | Medium Weight\nSignature | Signature Weight\nHeavy | Heavy Weight"
+          }
+        },
+        "plain_metal": {
+          "type": "step",
+          "settings": {
+            "journey": "plain",
+            "heading": "Which metal?",
+            "param": "metal_colour",
+            "columns": "3",
+            "options": "Platinum | metal_colour=Platinum\n18ct Yellow Gold | carat=18ct&metal_colour=Yellow Gold\n18ct White Gold | carat=18ct&metal_colour=White Gold\n18ct Rose Gold | carat=18ct&metal_colour=Rose Gold\n14ct Yellow Gold | carat=14ct&metal_colour=Yellow Gold\n14ct White Gold | carat=14ct&metal_colour=White Gold\n14ct Rose Gold | carat=14ct&metal_colour=Rose Gold\n9ct Yellow Gold | carat=9ct&metal_colour=Yellow Gold\n9ct White Gold | carat=9ct&metal_colour=White Gold\n9ct Rose Gold | carat=9ct&metal_colour=Rose Gold"
+          }
+        },
+
+        "dia_setting": {
+          "type": "step",
+          "settings": {
+            "journey": "dia",
+            "heading": "How should the stones be set?",
+            "param": "setting",
+            "columns": "4",
+            "options": "Channel\nGrain\nPavé\nClaw\nRubover\nBar\nFrench Cut\nInvisible\nOyster\nTension"
+          }
+        },
+        "dia_stone": {
+          "type": "step",
+          "settings": {
+            "journey": "dia",
+            "heading": "Which stone?",
+            "param": "stone_type",
+            "columns": "3",
+            "options": "Diamond\nSapphire\nRuby\nEmerald\nBlack Diamond"
+          }
+        },
+        "dia_shape": {
+          "type": "step",
+          "settings": {
+            "journey": "dia",
+            "heading": "Which shape of stone?",
+            "param": "stone_shape",
+            "columns": "4",
+            "options": "Round Brilliant | Round Brilliant | icon101.svg\nOval | Oval | icon102.svg\nPrincess | Princess | icon107.svg\nBaguette | Baguette | baguette.svg\nMarquise | Marquise | icon108.svg\nEmerald | Emerald Cut | icon105.svg\nAsscher | Asscher | icon109.svg\nHeart | Heart | icon110.svg"
+          }
+        },
+        "dia_coverage": {
+          "type": "step",
+          "settings": {
+            "journey": "dia",
+            "heading": "Stones all the way round, or halfway?",
+            "hint": "A half eternity ring is easier to resize and wears more comfortably; a full eternity ring sparkles from every angle.",
+            "param": "eternity_style",
+            "columns": "2",
+            "options": "Full Eternity\nHalf Eternity"
+          }
+        },
+        "dia_metal": {
+          "type": "step",
+          "settings": {
+            "journey": "dia",
+            "heading": "Which metal?",
+            "hint": "Every ring is made in your choice of metal, so this will not narrow the list, but it helps us help you.",
+            "param": "fye_metal",
+            "columns": "3",
+            "options": "Platinum\n18ct Yellow Gold\n18ct White Gold\n18ct Rose Gold\n14ct Yellow Gold\n14ct White Gold\n14ct Rose Gold\n9ct Yellow Gold\n9ct White Gold\n9ct Rose Gold"
+          }
+        }
+      },
+      "block_order": [
+        "j_eng", "j_plain", "j_dia",
+        "eng_style", "eng_size", "eng_cut", "eng_stone", "eng_metal", "eng_shoulder",
+        "plain_profile", "plain_width", "plain_weight", "plain_metal",
+        "dia_setting", "dia_stone", "dia_shape", "dia_coverage", "dia_metal"
+      ],
+      "settings": {
+        "eyebrow": "Ring finder",
+        "heading": "Find your ring",
+        "intro": "Answer a handful of questions and we will narrow thousands of rings to the ones that fit. Choose I'm flexible on anything you would rather leave open.",
+        "journeys_q": "What are you looking for?",
+        "flexible_label": "I'm flexible",
+        "results_heading": "Your ring, in brief",
+        "results_intro": "Here is what you told us. See the rings that match, or send these answers to us and we will suggest a shortlist.",
+        "results_label": "See your rings",
+        "enquire_label": "Talk to us about these",
+        "enquiry_link": "/pages/contact",
+        "band": "ivory"
+      }
+    },
+
+    "close": {
+      "type": "fye-consultation",
+      "settings": {}
+    }
+  },
+  "order": ["heading", "finder", "close"]
+}

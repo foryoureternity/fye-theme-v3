@@ -2313,3 +2313,77 @@ it.
 Nothing. No template referenced any of these pages, which is why they were
 identified as retirable in the first place. The two redirect targets are
 collections that v3 already links to from the diamonds and gemstones hub.
+
+
+---
+
+# Session — 03/09/2026 (2): the ring finder
+
+`/pages/find-your-ring` is built and UNPUBLISHED. Nothing a customer can reach
+has changed. Publish it unlisted (noindex entry added by w981) to review.
+
+## What was built
+
+| File | Notes |
+|---|---|
+| `sections/fye-ring-finder.liquid` | 17KB. Journey blocks + step blocks; options as a `Label | value | icon` textarea |
+| `templates/page.find-your-ring.json` | Banner, finder (3 journeys, 15 steps), `fye-consultation` close |
+| `assets/fye-ui.js` | +1 IIFE, ~140 lines, returns early off the page |
+| `tools/w981-ring-finder.mjs` | This patch. Delete once run |
+
+## Decisions (Ed, 03/09/2026)
+
+- **End of journey:** filtered collection page AND a "Talk to us about these"
+  button. The answers travel on the enquiry link as `fye_finder=` and on the
+  button as `data-fye-finder-answers`. **The enquiry popup does not read either
+  yet** — one line in the popup JS to prefill its message from the trigger's
+  attribute, when Ed wants it.
+- **Journey A has a Stone type step**, six steps in all. Only deliberate route
+  to the coloured-stone engagement rings.
+- **Metal on journeys A and C is carried**, not filtered: `fye_metal=` on the
+  results URL. Nothing reads it yet.
+- **Option lists are editable** in the theme editor, as textarea lines, not one
+  block per option: ~70 options would exceed Shopify's 50-block cap.
+
+## What the store data changed
+
+- **Plain-ring metal is TWO metafields**, `filters.carat` (`18ct`) and
+  `filters.metal_colour` (`Rose Gold`), and **Platinum has no carat**. So a
+  metal option is `carat=18ct&metal_colour=Rose Gold`, and the finder's value
+  syntax grew a multi-param form to hold it.
+- **Engagement shapes are stored as `Marquise`, not `Marquise Cut`.** The
+  shape steps use `filters.stone_shape` values from the live metafields.
+  `Crisscut Emerald` and `Emerald Cut or Radiant Cut` (xCloud values) were
+  dropped: no metafield value matches them.
+- **Coverage offers Full and Half only.** "Gem set" and "Mixed" were xCloud
+  constructs; native filters cannot say "not diamond", and "Mixed" is just
+  I'm flexible.
+- **Ring weight values carry the word Weight** (`Heavy Weight`). Labels drop
+  it, values keep it.
+
+## UNVERIFIED — check before this goes in a menu
+
+1. **Are the `filters.*` metafields switched on as filters in Search &
+   Discovery, per collection?** Clicking the live rail routes to
+   `/a/search?filter_metal_filter=...`, which is xCloud and proves nothing
+   about native filtering. If a journey returns the whole collection, this is
+   why. Native syntax used: `filter.p.m.filters.<key>=<value>`, ranges as
+   `<key>.gte=` / `<key>.lte=`.
+2. **Centre stone size filters on `filters.centre_weight`** (number_decimal).
+   The two sampled engagement rings had no value for it, so the range step may
+   over-narrow until the field is populated.
+3. **`D Shape`** is offered as a profile. 330 rings; confirm they carry it.
+4. The worked examples still to prove on /collections/:
+   Concave + 4mm + 18ct Rose Gold → 3; Engagement Match + 3mm + Heavy + 9ct
+   Rose Gold → 1.
+
+## Definition of done, status
+
+- [ ] `node tools/w977-validate-templates.mjs page.find-your-ring` → 0 faults
+- [ ] `fyeSmoke.all()` at 889, 500, 1440
+- [ ] every journey walked, I'm flexible at every step returns the collection
+- [ ] one worked example proven
+- [x] no literals outside fye-core.css; no vertical padding; three breakpoints
+- [x] `shopify_attributes` on every block; `data-screen-label` on the root
+- [x] renders with empty settings and with no blocks (journeys panel shows a
+      prompt; no steps means a journey link goes straight to its collection)

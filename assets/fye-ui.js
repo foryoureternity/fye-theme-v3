@@ -2876,3 +2876,157 @@
     window.location.href = pdf;
   }, delay);
 })();
+
+/* ============================================================================
+   RING FINDER — sections/fye-ring-finder.liquid, page.find-your-ring.
+   Added 03/09/2026.
+
+   One step at a time. Every answer becomes a native Shopify filter param on
+   the journey's collection URL; "I'm flexible" (empty value) adds nothing.
+   Value syntax is documented in the section's opening comment. A param that
+   begins fye_ is carried to the results URL as-is rather than filtered.
+
+   Returns early when the section is absent, so this costs nothing on every
+   other page. All clicks are delegated from document (conventions §6).
+   ========================================================================== */
+(function () {
+  'use strict';
+  var root = document.querySelector('[data-fye-finder]');
+  if (!root) return;
+
+  var NS = 'filter.p.m.filters.';
+  var state = { journey: null, url: '', label: '', answers: [] };
+
+  function all(sel) { return Array.prototype.slice.call(root.querySelectorAll(sel)); }
+  function panel(name) { return root.querySelector('[data-fye-finder-panel="' + name + '"]'); }
+  function steps() {
+    return all('[data-fye-finder-step]').filter(function (s) {
+      return s.getAttribute('data-fye-finder-journey') === state.journey;
+    });
+  }
+
+  // One answer -> zero or more "key=value" strings, already encoded.
+  function encode(param, value) {
+    if (!value) return [];
+    var out = [];
+    if (value.indexOf('=') > -1) {
+      value.split('&').forEach(function (pair) {
+        var i = pair.indexOf('=');
+        out.push(NS + pair.slice(0, i).trim() + '=' + encodeURIComponent(pair.slice(i + 1).trim()));
+      });
+      return out;
+    }
+    if (!param) return out;
+    if (param.indexOf('fye_') === 0) return [param + '=' + encodeURIComponent(value)];
+    if (value.indexOf('..') > -1) {
+      var r = value.split('..');
+      if (r[0]) out.push(NS + param + '.gte=' + encodeURIComponent(r[0]));
+      if (r[1]) out.push(NS + param + '.lte=' + encodeURIComponent(r[1]));
+      return out;
+    }
+    return [NS + param + '=' + encodeURIComponent(value)];
+  }
+
+  function finish() {
+    var parts = [];
+    var words = [];
+    var dl = root.querySelector('[data-fye-finder-summary]');
+    dl.textContent = '';
+    state.answers.forEach(function (a) {
+      parts = parts.concat(encode(a.param, a.value));
+      words.push(a.q + ': ' + a.label);
+      var dt = document.createElement('dt');
+      var dd = document.createElement('dd');
+      dt.textContent = a.q;
+      dd.textContent = a.label;
+      dl.appendChild(dt);
+      dl.appendChild(dd);
+    });
+    var url = state.url + (parts.length ? '?' + parts.join('&') : '');
+    root.querySelector('[data-fye-finder-results]').setAttribute('href', url);
+
+    var enq = root.querySelector('[data-fye-finder-enquire]');
+    if (enq) {
+      var base = root.getAttribute('data-fye-finder-enquiry') || '/pages/contact';
+      var summary = state.label + ' | ' + words.join('; ');
+      enq.setAttribute('href', base + (base.indexOf('?') > -1 ? '&' : '?') + 'fye_finder=' + encodeURIComponent(summary));
+      enq.setAttribute('data-fye-finder-answers', summary);
+    }
+  }
+
+  function render() {
+    all('[data-fye-finder-panel], [data-fye-finder-step]').forEach(function (p) { p.hidden = true; });
+    var prog = root.querySelector('[data-fye-finder-progress]');
+    var back = root.querySelector('[data-fye-finder-back]');
+    var show;
+
+    if (!state.journey) {
+      show = panel('journeys');
+      prog.hidden = true;
+      back.hidden = true;
+    } else {
+      var list = steps();
+      var i = state.answers.length;
+      back.hidden = false;
+      if (i < list.length) {
+        show = list[i];
+        prog.textContent = state.label + ' \u00b7 Step ' + (i + 1) + ' of ' + list.length;
+        prog.hidden = false;
+      } else {
+        show = panel('results');
+        prog.textContent = state.label;
+        prog.hidden = false;
+        finish();
+      }
+    }
+    show.hidden = false;
+    var q = show.querySelector('[data-fye-finder-question]');
+    if (q) q.focus({ preventScroll: true });
+    var top = root.getBoundingClientRect().top;
+    if (top < 0) window.scrollBy({ top: top - 24, behavior: 'smooth' });
+  }
+
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!(t instanceof Element) || !root.contains(t)) return;
+
+    var j = t.closest('a[data-fye-finder-journey]');
+    if (j) {
+      e.preventDefault();
+      state = {
+        journey: j.getAttribute('data-fye-finder-journey'),
+        url: j.getAttribute('data-fye-finder-collection') || j.getAttribute('href'),
+        label: j.getAttribute('data-fye-finder-label') || j.textContent.trim(),
+        answers: []
+      };
+      render();
+      return;
+    }
+
+    var o = t.closest('[data-fye-finder-option]');
+    if (o) {
+      var step = o.closest('[data-fye-finder-step]');
+      var q = step.querySelector('[data-fye-finder-question]');
+      state.answers.push({
+        q: q ? q.textContent.trim() : '',
+        label: o.getAttribute('data-fye-finder-label') || o.textContent.trim(),
+        param: step.getAttribute('data-fye-finder-param') || '',
+        value: o.getAttribute('data-fye-finder-value') || ''
+      });
+      render();
+      return;
+    }
+
+    if (t.closest('[data-fye-finder-back]')) {
+      if (state.answers.length) state.answers.pop();
+      else state.journey = null;
+      render();
+      return;
+    }
+
+    if (t.closest('[data-fye-finder-restart]')) {
+      state = { journey: null, url: '', label: '', answers: [] };
+      render();
+    }
+  });
+})();

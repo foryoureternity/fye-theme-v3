@@ -32,6 +32,20 @@
   assign s = section.settings
   assign band = s.band | default: 'white'
   assign align = s.text_align | default: 'left'
+
+  comment
+    Column titles are h3 under the band's own h2. When the band has NO
+    heading (the homepage "Why choose For Your Eternity?" strip) an h3
+    would follow the page's h1 directly and skip a level, which is exactly
+    what fyeSmoke reported on 03/09/2026 once the chrome headings were
+    taken out of the outline. So the titles step up to h2 in that case;
+    .fcols__title pins the size to --fs-h3 either way, so nothing looks
+    different.
+  endcomment
+  assign title_tag = 'h3'
+  if s.top_heading == blank
+    assign title_tag = 'h2'
+  endif
 -%}
 
 <section class="fcols band band--{{ band }} fcols--{{ align }}{% if s.pad == 'tight' %} fcols--tight{% endif %}" data-screen-label="Feature columns">
@@ -66,7 +80,7 @@
           {%- endif -%}
 
           {%- if b.title != blank -%}
-            <h3 class="fcols__title">{{ b.title }}</h3>
+            <{{ title_tag }} class="fcols__title">{{ b.title }}</{{ title_tag }}>
           {%- endif -%}
 
           {%- if b.text != blank -%}
@@ -111,6 +125,9 @@
    its 3-of-12 column — roughly 300px — and at my old 180px cap it read as an
    afterthought beside lead-scale type. */
 .fye .fcols__media { width: 100%; max-width: 320px; }
+
+/* h3 scale whether the title is an h2 or an h3, see the note at the top. */
+.fye .fcols__title { font-size: var(--fs-h3); }
 .fye .fcols__media :where(img) { display: block; width: 100%; height: auto; }
 .fye .fcols--center .fcols__media { margin-inline: auto; }
 

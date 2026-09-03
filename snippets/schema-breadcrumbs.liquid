@@ -1,0 +1,63 @@
+{%- comment -%}
+  schema-breadcrumbs, BreadcrumbList structured data for one visible trail.
+
+  Added 03/09/2026 (audit 02/09/2026, D3). The product page, the collection
+  intro and the page banner all draw Home › … › Here, and only the chapter
+  navigation marked it up, so results for SKU-code URLs like
+  /products/trl47004-rud showed the code where a trail could stand.
+
+  THE JSON-LD MUST SAY WHAT THE VISIBLE TRAIL SAYS. Render it from the same
+  place the trail is drawn, with the same values, and render it ONCE per
+  page, two BreadcrumbLists and Google picks one at random. Chapter pages
+  already emit their own from fye-chapter-nav, which is why heading-template
+  does not emit on the `page` type.
+
+  Parameters, all optional except last_name:
+    mid_name / mid_url     the first level under Home, if any
+    mid2_name / mid2_url   a second level, if any
+    last_name              the current page
+    last_url               its URL; defaults to canonical_url
+
+  URLs may be paths ("/collections/x") or absolute; a path is prefixed with
+  shop.url.
+{%- endcomment -%}
+{%- liquid
+  assign root = shop.url
+  assign pos = 1
+
+  assign u_mid = mid_url
+  if u_mid != blank
+    unless u_mid contains '://'
+      assign u_mid = root | append: u_mid
+    endunless
+  endif
+  assign u_mid2 = mid2_url
+  if u_mid2 != blank
+    unless u_mid2 contains '://'
+      assign u_mid2 = root | append: u_mid2
+    endunless
+  endif
+  assign u_last = last_url | default: canonical_url
+  if u_last != blank
+    unless u_last contains '://'
+      assign u_last = root | append: u_last
+    endunless
+  endif
+-%}
+{%- if last_name != blank -%}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":{{ pos }},"name":"Home","item":{{ root | json }}}
+  {%- if mid_name != blank and u_mid != blank -%}
+    {%- assign pos = pos | plus: 1 -%}
+  ,{"@type":"ListItem","position":{{ pos }},"name":{{ mid_name | strip_html | json }},"item":{{ u_mid | json }}}
+  {%- endif -%}
+  {%- if mid2_name != blank and u_mid2 != blank -%}
+    {%- assign pos = pos | plus: 1 -%}
+  ,{"@type":"ListItem","position":{{ pos }},"name":{{ mid2_name | strip_html | json }},"item":{{ u_mid2 | json }}}
+  {%- endif -%}
+  {%- assign pos = pos | plus: 1 -%}
+  ,{"@type":"ListItem","position":{{ pos }},"name":{{ last_name | strip_html | json }},"item":{{ u_last | json }}}
+]}
+</script>
+{%- endif -%}

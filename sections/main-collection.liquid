@@ -866,6 +866,21 @@
     display: flex;
     padding-bottom: 0;
   }
+
+  /* CLS MITIGATION (audit 02/09/2026, M2). Desktop collection pages shift
+     by 0.31–0.34 after first paint, and Lighthouse names the whole rail +
+     grid region. The rail mounts EMPTY and xCloud fills it later, so
+     everything under the mount point, the promo card, drops by the full
+     height of the filters when they arrive. `:empty` reserves room ONLY
+     while the mount point is still empty: the moment the app injects, the
+     rule stops matching and the final layout is exactly what it was
+     before this rule existed. 560px is a middle estimate of the filled
+     rail; it cuts the shift, it does not remove it. If the trace shows the
+     app is re-rendering the GRID rather than the rail, the fix is the
+     app's "filter the theme's grid in place" setting, not this rule. */
+  .fye .coll__railbody :where(#cloud_search_filters_sidebar:empty) {
+    min-height: 560px;
+  }
 }
 
 @media (max-width: 900px) {

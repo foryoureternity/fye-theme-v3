@@ -40,6 +40,14 @@
   assign btn_label = g.button_label.value | default: 'Download the guide'
   assign delay = g.delay_ms.value | default: 1200
   assign track_name = g.analytics_name.value | default: page.title
+
+  comment
+    Built here, not chained inside the image_tag argument: `alt: page.title |
+    append: '...'` applies the append to the OUTPUT of image_tag (conventions
+    §5), which printed a stray "front cover" as visible text under the cover
+    on every thank-you page while leaving the alt itself empty.
+  endcomment
+  assign cover_alt = page.title | append: ', front cover'
 -%}
 
 <section class="gdl band band--ivory" data-screen-label="Guide download"
@@ -64,7 +72,7 @@
          widths: '320, 640',
          sizes: '(max-width: 560px) 60vw, 300px',
          class: 'gdl__cover',
-         alt: page.title | append: ' — front cover' }}
+         alt: cover_alt }}
     {%- endif -%}
 
     <h1 class="gdl__title">{{ s.heading | default: page.title }}</h1>

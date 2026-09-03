@@ -89,6 +89,16 @@
             <span class="cintro__sep" aria-hidden="true">&rsaquo;</span>
             <span class="cintro__here" aria-current="page">{{ collection.title | escape }}</span>
           </nav>
+          {%- comment -%}
+            The same trail as JSON-LD (audit 02/09/2026, D3), rendered beside
+            the visible one so the two cannot drift. The parent level goes in
+            only when the trail shows one.
+          {%- endcomment -%}
+          {%- if s.parent_label != blank and s.parent_link != blank -%}
+            {%- render 'schema-breadcrumbs', mid_name: s.parent_label, mid_url: s.parent_link, last_name: collection.title, last_url: canonical_url -%}
+          {%- else -%}
+            {%- render 'schema-breadcrumbs', last_name: collection.title, last_url: canonical_url -%}
+          {%- endif -%}
         {%- endif -%}
 
         <div class="cintro__headline">

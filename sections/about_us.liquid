@@ -61,11 +61,16 @@
 
             {%- when 'bl_image' -%}
               {%- if b.image != blank -%}
+                {%- comment -%}
+                  Files rarely carry an alt (audit 02/09/2026, A3); the
+                  section heading is the fallback.
+                {%- endcomment -%}
+                {%- assign img_alt = b.image.alt | default: s.top_heading | default: shop.name | strip_html -%}
                 <div class="aboutus__image" {{ block.shopify_attributes }}>
                   {{ b.image | image_url: width: 1400 | image_tag:
                      loading: 'lazy', widths: '600,900,1200,1400',
                      sizes: '(max-width: 900px) 100vw, 1000px',
-                     alt: b.image.alt }}
+                     alt: img_alt }}
                 </div>
               {%- endif -%}
 
@@ -77,10 +82,11 @@
             {%- when 'bl_sig' -%}
               {%- if b.image_sig != blank -%}
                 <div class="aboutus__sig" {{ block.shopify_attributes }}>
+                  {%- assign sig_alt = b.image_sig.alt | default: 'Signature' -%}
                   {{ b.image_sig | image_url: width: 480 | image_tag:
                      loading: 'lazy', widths: '240,360,480',
                      sizes: '220px',
-                     alt: b.image_sig.alt }}
+                     alt: sig_alt }}
                 </div>
               {%- endif -%}
 

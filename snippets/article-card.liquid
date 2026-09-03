@@ -55,8 +55,13 @@
       <p class="acard__excerpt">{{ excerpt }}</p>
     {%- endif -%}
 
+    {%- comment -%}
+      aria-label names the destination: a page of cards otherwise reads as
+      "Read more, Read more, Read more" to a screen reader and Lighthouse
+      flags every one (audit 02/09/2026, A2). The visible text is unchanged.
+    {%- endcomment -%}
     {%- if show_more -%}
-      <a class="link acard__more" href="{{ article.url }}">{{ label }}</a>
+      <a class="link acard__more" href="{{ article.url }}" aria-label="{{ label | escape }}: {{ alt }}">{{ label }}</a>
     {%- endif -%}
   </div>
 </article>

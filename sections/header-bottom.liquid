@@ -52,7 +52,7 @@
 
       {%- liquid
         assign logo_d = section.settings.logo_url
-        assign logo_m = section.settings.logo_mb_url | default: logo_d
+        assign logo_m = section.settings.logo_mb_url
       -%}
       <a class="hdr__logo" href="{{ routes.root_url }}">
         {%- comment -%}
@@ -60,10 +60,24 @@
           rasters, and handing it the SVG wordmark returned nothing, which is
           why this fell through to the text fallback. width/height are the real
           intrinsic sizes so the header does not reflow as they load.
+
+          ONE <picture>, NOT TWO <img>s (audit 02/09/2026, S4). The first build
+          output both logos and hid one with CSS, so every device downloaded
+          both files, and both carried fetchpriority="high", jumping the queue
+          ahead of the hero image, which is the real LCP element. The <source>
+          media query is the same 900px the CSS switches at, so the browser
+          fetches exactly the file it will show. The hint is gone: a 96px logo
+          does not need to beat the hero to the wire. width/height on <source>
+          is what keeps the mobile mark's 571x320 ratio reserved while it
+          loads; browsers without it fall back to the <img> ratio for a frame.
         {%- endcomment -%}
         {%- if logo_d != blank -%}
-          <img class="hdr__logo-img hdr__logo-img--d" src="{{ logo_d }}" alt="{{ shop.name | escape }}" width="471" height="264" fetchpriority="high">
-          <img class="hdr__logo-img hdr__logo-img--m" src="{{ logo_m }}" alt="{{ shop.name | escape }}" width="571" height="320" fetchpriority="high">
+          <picture class="hdr__logo-pic">
+            {%- if logo_m != blank -%}
+              <source media="(max-width: 900px)" srcset="{{ logo_m }}" width="571" height="320">
+            {%- endif -%}
+            <img class="hdr__logo-img" src="{{ logo_d }}" alt="{{ shop.name | escape }}" width="471" height="264">
+          </picture>
         {%- elsif settings.logo != blank -%}
           {{ settings.logo | image_url: width: 800 | image_tag: alt: shop.name, loading: 'eager' }}
         {%- else -%}
@@ -153,7 +167,7 @@
                           <label class="mm__tab" for="mmtab-{{ block.id }}-2">{{ b.tab2_label }}</label>
                         </div>
                       {%- else -%}
-                        <h2 class="mm__zone-title">{{ b.zone1_title | default: 'Pre-Designed Rings' }}</h2>
+                        <p class="mm__zone-title">{{ b.zone1_title | default: 'Pre-Designed Rings' }}</p>
                       {%- endif -%}
                       {%- if b.zone1_all_url != blank -%}
                         <a class="mm__viewall" href="{{ b.zone1_all_url }}">
@@ -191,7 +205,7 @@
                             endif
                           -%}
                           <div class="mm__col">
-                            <h3 class="mm__label">{{ child.title }}</h3>
+                            <p class="mm__label">{{ child.title }}</p>
                             <ul class="mm__list{% if as_dots %} mm__list--dots{% endif %}">
                               {%- for gc in child.links -%}
                                 {%- liquid
@@ -246,7 +260,7 @@
                         <div class="mm__cols">
                           {%- for child in t2.links -%}
                             <div class="mm__col">
-                              <h3 class="mm__label">{{ child.title }}</h3>
+                              <p class="mm__label">{{ child.title }}</p>
                               <ul class="mm__list">
                                 {%- for gc in child.links -%}
                                   <li><a href="{{ gc.url }}">{{ gc.title }}</a></li>
@@ -266,7 +280,7 @@
 
                   <div class="mm__side">
                     <div class="mm__row-head mm__row-head--major">
-                      <h2 class="mm__zone-title">{{ b.side_title | default: 'The Guide' }}</h2>
+                      <p class="mm__zone-title">{{ b.side_title | default: 'The Guide' }}</p>
                     </div>
 
                     {%- render 'mm-guide-card',
@@ -280,7 +294,7 @@
                       <div class="mm__side-cols">
                         {%- if edu.links.size > 0 -%}
                           <div class="mm__col">
-                            <h3 class="mm__label">{{ b.edu_label | default: 'Diamond Education' }}</h3>
+                            <p class="mm__label">{{ b.edu_label | default: 'Diamond Education' }}</p>
                             <ul class="mm__list mm__list--caps">
                               {%- for link in edu.links -%}
                                 <li><a href="{{ link.url }}">{{ link.title }}</a></li>
@@ -290,7 +304,7 @@
                         {%- endif -%}
                         {%- if jew.links.size > 0 -%}
                           <div class="mm__col">
-                            <h3 class="mm__label">{{ b.jewel_label | default: 'Jewellery Guide' }}</h3>
+                            <p class="mm__label">{{ b.jewel_label | default: 'Jewellery Guide' }}</p>
                             <ul class="mm__list mm__list--caps">
                               {%- for link in jew.links -%}
                                 <li><a href="{{ link.url }}">{{ link.title }}</a></li>
@@ -563,20 +577,22 @@
   .fye .hdr__icon { width: 40px; }
 }
 
-/* Which logo shows. The img TYPE selector is load-bearing: the base rule
-   .fye .hdr__logo img is (0,2,1), so a two-class override loses to it however
-   late it appears — order only breaks ties. These are (0,3,1). */
-.fye .hdr__logo img.hdr__logo-img--d { display: block; height: 96px; width: auto; }
-.fye .hdr__logo img.hdr__logo-img--m { display: none; }
+/* The logo is ONE <picture>; which file it shows is decided by the <source>
+   media query in the markup, not by CSS display toggles. The img TYPE selector
+   is load-bearing: the base rule .fye .hdr__logo img is (0,2,1), so a
+   two-class override loses to it however late it appears, order only breaks
+   ties. This is (0,3,1). The picture is block so the anchor sizes to the image
+   with no inline line box around it. */
+.fye .hdr__logo-pic { display: block; }
+.fye .hdr__logo img.hdr__logo-img { display: block; height: 96px; width: auto; }
 
 @media (max-width: 900px) {
   /* The mobile mark is 571x320 — a wide lockup — so it is capped by height to
-     fit the 62px row. Raise if it reads small on a real phone. */
-  .fye .hdr__logo img.hdr__logo-img--d { display: none; }
-  /* 52px. The mark is a 571x320 lockup, so height drives a much smaller width
+     fit the 62px row. Raise if it reads small on a real phone.
+     52px. The mark is a 571x320 lockup, so height drives a much smaller width
      than it would for a square monogram — at 40px it was ~71px wide and read
      as an afterthought beside the 22px icons. */
-  .fye .hdr__logo img.hdr__logo-img--m { display: block; height: 52px; width: auto; }
+  .fye .hdr__logo img.hdr__logo-img { height: 52px; }
 }
 
 /* ============================================================================
@@ -660,6 +676,12 @@
    own bottom rule. */
 .fye .mm__row-head--major .mm__tab-bar { border: 0; margin: 0; gap: var(--s7); }
 
+/* Zone titles and column labels are <p>, not <h2>/<h3> (audit 02/09/2026,
+   P2): the mega menu is in the HTML of every page, so as headings they put a
+   dozen entries into every page's outline ahead of the content. The two
+   rules below restate what the heading element used to supply from
+   fye-core's :where(h2)/:where(h3) base, colour, display face, heading
+   line-height, text-wrap, so the rendering is byte-for-byte the same. */
 .fye .mm__zone-title {
   margin: 0;
   font-family: var(--font-display);
@@ -668,6 +690,8 @@
   letter-spacing: 0.08em;
   line-height: 1.2;
   text-transform: uppercase;
+  color: var(--ink);
+  text-wrap: pretty;
 }
 /* nowrap belongs to the LEFT zone only — the rail's headings are longer and
    two non-wrapping labels in one narrow track overlapped outright. */
@@ -689,10 +713,13 @@
 .fye .mm__label {
   display: block;
   margin: 0 0 16px;
+  font-family: var(--font-display);
   font-size: 11px; font-weight: 500;
   letter-spacing: 0.18em; text-transform: uppercase;
+  line-height: var(--lh-heading);
   color: rgba(35, 61, 71, 0.62);
   white-space: nowrap;
+  text-wrap: pretty;
 }
 .fye .mm__side-cols .mm__label { white-space: normal; line-height: 1.35; }
 

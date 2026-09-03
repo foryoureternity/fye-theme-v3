@@ -75,12 +75,27 @@
 -%}
 
 <section class="band pbanner pbanner--{{ ground }} pbanner--{{ align }}{% if s.heading_fullwidth %} pbanner--full{% endif %}"
-  {%- if image != blank -%}
-    style="background-image: url({{ image | image_url: width: 2400 }});"
-  {%- endif -%}
   data-screen-label="Page banner">
 
+  {%- comment -%}
+    The photograph is a real <img>, not a CSS background (audit 02/09/2026,
+    S2). A background-image cannot carry srcset, so every phone pulled the
+    2400px file; it cannot take a priority hint; and on the 58 templates that
+    set one it is the LCP element, measured at 6.8s on mobile. As an <img>
+    with widths and sizes="100vw" a phone gets ~900px, and fetchpriority="high"
+    puts it first on the wire. object-fit/object-position reproduce
+    background-size: cover / center exactly; the scrim and the copy sit above
+    it in DOM order. alt is empty because the banner is decoration behind a
+    heading that already names the page.
+  {%- endcomment -%}
   {%- if image != blank -%}
+    {{ image | image_url: width: 2400 | image_tag:
+       loading: 'eager',
+       fetchpriority: 'high',
+       widths: '600,900,1200,1600,2000,2400',
+       sizes: '100vw',
+       alt: '',
+       class: 'pbanner__img' }}
     <span class="pbanner__scrim" style="opacity: {{ s.overlay | default: 54 | divided_by: 100.0 }};"></span>
   {%- endif -%}
 
@@ -98,6 +113,19 @@
             {%- endif -%}
             <span aria-hidden="true">›</span><span aria-current="page">{{ title }}</span>
           </nav>
+          {%- comment -%}
+            The same trail as JSON-LD (audit 02/09/2026, D3), beside the
+            visible one. NOT on the `page` type: the guide chapters already
+            emit a four-level BreadcrumbList from fye-chapter-nav, and two
+            lists on one page has Google pick one at random.
+          {%- endcomment -%}
+          {%- if pt == 'article' -%}
+            {%- render 'schema-breadcrumbs', mid_name: blog.title, mid_url: blog.url, last_name: title, last_url: canonical_url -%}
+          {%- elsif pt == 'product' and collection != blank -%}
+            {%- render 'schema-breadcrumbs', mid_name: collection.title, mid_url: collection.url, last_name: title, last_url: canonical_url -%}
+          {%- elsif pt == 'blog' or pt == 'collection' or pt == 'product' -%}
+            {%- render 'schema-breadcrumbs', last_name: title, last_url: canonical_url -%}
+          {%- endif -%}
 
         {%- when '1' -%}
           <h1 class="pbanner__title" {{ block.shopify_attributes }}>
@@ -144,6 +172,15 @@
 .fye .pbanner--mist  { background-color: var(--mist);  color: var(--ink); }
 .fye .pbanner--teal  { background-color: var(--teal);  color: var(--on-dark); }
 .fye .pbanner--image { background-color: var(--teal);  color: var(--on-dark); }
+
+/* The banner photograph. Fills the section exactly as background-size: cover
+   did; the teal ground shows through until it paints, as before. */
+.fye .pbanner__img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  pointer-events: none;
+}
 
 .fye .pbanner__scrim {
   position: absolute; inset: 0;

@@ -48,15 +48,30 @@
   if s.image != blank
     assign has_img = true
   endif
+
+  comment
+    The wordmark completes the heading ("Engagement rings by" + [FOR YOUR
+    ETERNITY]), so to a crawler or a screen reader the <h1> alone was a
+    fragment (audit 02/09/2026, P1). When a wordmark follows, its words go
+    INSIDE the h1 as visually-hidden text and the image becomes decorative,
+    so the sentence is read once and looks exactly as before.
+  endcomment
+  assign logo_words = s.logo_alt | default: shop.name | strip_html
 -%}
 
 <div class="band band--{{ band }} hero hero--{{ align }}{% if has_img %} hero--media{% endif %}">
   {%- if has_img -%}
     <div class="hero__media scrim">
+      {%- comment -%}
+        fetchpriority="high": this photograph is the LCP element on the
+        homepage and the three landing pages, and without the hint it queued
+        behind the header logos and the first product images (audit S4).
+      {%- endcomment -%}
       {{ s.image | image_url: width: 2400 | image_tag:
          alt: hero_alt,
          class: 'hero__img',
          loading: 'eager',
+         fetchpriority: 'high',
          sizes: '100vw',
          widths: '600,900,1200,1600,2000,2400' }}
     </div>
@@ -68,17 +83,25 @@
     {%- endif -%}
 
     {%- if s.heading != blank -%}
-      <h1 class="hero__title hero__title--{{ hstyle }}">{{ s.heading }}</h1>
+      <h1 class="hero__title hero__title--{{ hstyle }}">{{ s.heading }}{% if s.logo_url != blank %} <span class="visually-hidden">{{ logo_words }}</span>{% endif %}</h1>
     {%- endif -%}
 
     {%- comment -%}
       The wordmark sits BELOW the heading, because the heading is written to
       run into it — "Wedding Rings by" / [FOR YOUR ETERNITY]. Above the
       heading it reads as a stray mark and the sentence dangles.
+
+      alt="" and aria-hidden: the words are already in the h1 above. When
+      there is no heading the image carries the name itself.
     {%- endcomment -%}
     {%- if s.logo_url != blank -%}
-      <img class="hero__logo" src="{{ s.logo_url }}" alt="{{ s.logo_alt | default: shop.name | escape }}"
-        style="--logo-w: {{ s.logo_width | default: 250 }}px;" loading="eager">
+      {%- if s.heading != blank -%}
+        <img class="hero__logo" src="{{ s.logo_url }}" alt="" aria-hidden="true"
+          style="--logo-w: {{ s.logo_width | default: 250 }}px;" loading="eager">
+      {%- else -%}
+        <img class="hero__logo" src="{{ s.logo_url }}" alt="{{ logo_words | escape }}"
+          style="--logo-w: {{ s.logo_width | default: 250 }}px;" loading="eager">
+      {%- endif -%}
     {%- endif -%}
 
     {%- if s.subheading != blank -%}

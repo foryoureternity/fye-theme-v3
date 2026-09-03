@@ -65,6 +65,16 @@
             if b.link != blank
               assign wrap_tag = 'a'
             endif
+
+            comment
+              Files rarely carry an alt (audit 02/09/2026, A3). A set has no
+              caption of its own, so the section heading, "Recent pieces
+              from our workshop", is the truthful fallback for each image.
+            endcomment
+            assign set_alt = s.heading | default: s.eyebrow | default: shop.name | strip_html
+            assign alt_lead = b.image_lead.alt | default: set_alt
+            assign alt_top = b.image_top.alt | default: set_alt
+            assign alt_bottom = b.image_bottom.alt | default: set_alt
           -%}
           <div class="gpromo__set" {{ block.shopify_attributes }}>
             <{{ wrap_tag }} class="gpromo__collage"{% if b.link != blank %} href="{{ b.link }}"{% endif %}>
@@ -74,7 +84,7 @@
                   {{ b.image_lead | image_url: width: 1000 | image_tag:
                      loading: 'lazy', widths: '400,600,800,1000',
                      sizes: '(max-width: 900px) 60vw, 30vw',
-                     alt: b.image_lead.alt }}
+                     alt: alt_lead }}
                 {%- else -%}
                   <span class="gpromo__ph"></span>
                 {%- endif -%}
@@ -85,7 +95,7 @@
                   {{ b.image_top | image_url: width: 700 | image_tag:
                      loading: 'lazy', widths: '300,500,700',
                      sizes: '(max-width: 900px) 40vw, 20vw',
-                     alt: b.image_top.alt }}
+                     alt: alt_top }}
                 {%- else -%}
                   <span class="gpromo__ph"></span>
                 {%- endif -%}
@@ -96,7 +106,7 @@
                   {{ b.image_bottom | image_url: width: 700 | image_tag:
                      loading: 'lazy', widths: '300,500,700',
                      sizes: '(max-width: 900px) 40vw, 20vw',
-                     alt: b.image_bottom.alt }}
+                     alt: alt_bottom }}
                 {%- else -%}
                   <span class="gpromo__ph"></span>
                 {%- endif -%}

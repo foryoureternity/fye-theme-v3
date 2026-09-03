@@ -13,6 +13,53 @@
   that forced inline CSS was specific to the old theme; if it reappears here,
   diagnose it rather than reaching for the inline workaround.
 {%- endcomment -%}
+{%- comment -%}
+  Resolve the page type ONCE, before anything is emitted. Every consumer uses
+  this variable, never request.page_type directly, which is blank on
+  /a/search proxy pages. It used to be captured after </head>; it moved up on
+  03/09/2026 because the robots block in <head> needs it.
+{%- endcomment -%}
+{%- capture fye_page_type -%}{%- render 'fye-page-type' -%}{%- endcapture -%}
+{%- assign fye_page_type = fye_page_type | strip -%}
+
+{%- comment -%}
+  ROBOTS (audit 02/09/2026: P4, C1, C2, I1, Ed approved I1 on 03/09/2026).
+  What is kept out of the index, and why:
+    - search results, the cart, the xCloud /a/search proxy: utility pages.
+    - the six guide-download thank-you pages and the wishlist: reachable
+      only after an action, and their titles would compete with the guides.
+    - a collection with no products: an empty grid indexed as a landing page
+      is a soft 404 waiting to happen (32 of them on 02/09/2026).
+    - cloud-search-all-products: the filter app's 47,000-product utility
+      collection, public only so the app can query it.
+    - loose diamonds and gemstones: ~41,000 one-line stone listings from the
+      supply pipeline, with a draft-then-delete lifecycle. They were most of
+      the sitemap and would have Google crawling the tail for months at the
+      expense of the 6,000 ring pages. `follow` keeps link equity moving;
+      Shopping eligibility is unaffected by noindex. The stone COLLECTION
+      pages stay indexable, they carry real copy.
+    - the zz- test pages, as a safety net until they are unpublished.
+  Reversible line by line.
+{%- endcomment -%}
+{%- liquid
+  assign fye_noindex = false
+  case fye_page_type
+    when 'search', 'cart', 'compare'
+      assign fye_noindex = true
+    when 'product'
+      if product.type == 'Loose Diamond' or product.type == 'Loose Gemstone' or template.suffix == 'diamond'
+        assign fye_noindex = true
+      endif
+    when 'collection'
+      if collection.products_count == 0 or collection.handle == 'cloud-search-all-products'
+        assign fye_noindex = true
+      endif
+    when 'page', 'wishlist'
+      if template.suffix == 'guide-download' or template.suffix == 'wishlist' or page.handle contains 'zz-form-testing'
+        assign fye_noindex = true
+      endif
+  endcase
+-%}
 <!doctype html>
 <html lang="{{ request.locale.iso_code }}">
 <head>
@@ -20,6 +67,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#233D47">
   <link rel="canonical" href="{{ canonical_url }}">
+  {%- if fye_noindex -%}
+    <meta name="robots" content="noindex, follow">
+  {%- endif -%}
   {%- if settings.favicon != blank -%}
     <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
   {%- endif -%}
@@ -28,6 +78,7 @@
   {%- if page_description -%}
     <meta name="description" content="{{ page_description | escape }}">
   {%- endif -%}
+  {% render 'social-meta' %}
 
   {%- comment -%}
     FONTS — self-hosted, not Google Fonts. Two reasons: no third-party DNS+TLS
@@ -58,14 +109,19 @@
 
   {{ content_for_header }}
   {% render 'schema-org' %}
+  {%- comment -%}
+    Page-level structured data (audit 02/09/2026, D1 and D4). Rendered here,
+    once, rather than from each product section, so main-product and
+    fye-stone-product cannot drift apart. Breadcrumbs are the exception:
+    BreadcrumbList is emitted beside the visible trail it describes, in the
+    sections that draw one.
+  {%- endcomment -%}
+  {%- if fye_page_type == 'product' and product != blank -%}
+    {% render 'schema-product', product: product %}
+  {%- elsif fye_page_type == 'article' and article != blank -%}
+    {% render 'schema-article', article: article %}
+  {%- endif -%}
 </head>
-
-{%- comment -%}
-  Resolve the page type ONCE. Every consumer uses this variable — never
-  request.page_type directly, which is blank on /a/search proxy pages.
-{%- endcomment -%}
-{%- capture fye_page_type -%}{%- render 'fye-page-type' -%}{%- endcapture -%}
-{%- assign fye_page_type = fye_page_type | strip -%}
 
 {%- capture body_class -%}
 fye fye-tpl-{{ fye_page_type }}

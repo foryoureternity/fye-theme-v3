@@ -1,0 +1,56 @@
+{%- comment -%}
+  apps, the host for app blocks placed through the theme editor.
+
+  1 use: templates/page.order-a-free-ring-sizer.json, whose `sizer_form`
+  section is of type `apps` and carries the Shopify Forms inline block for
+  the free ring sizer. v3 shipped without this file, so Shopify dropped the
+  section and the page rendered as banner, header and footer with no form
+  (audit 02/09/2026, blank pages table). Adding the file brings the form
+  back; the template needs no edit.
+
+  Type name frozen: the JSON template references `apps`. It is the standard
+  Shopify app-block host, a loop that renders whatever blocks the editor
+  has put in it, inside the theme's band/wrap structure so an app's output
+  lands on the page rhythm rather than edge to edge.
+
+  NOT a T4S shim (conventions, first rule): nothing here speaks to the old
+  theme. Shopify Forms renders its own markup and carries its own styling
+  settings in the template.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'white'
+-%}
+
+<section class="band band--{{ band }} apps" data-screen-label="Apps">
+  <div class="wrap">
+    {%- for block in section.blocks -%}
+      {%- render block -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Apps",
+  "settings": [
+    {
+      "type": "select",
+      "id": "band",
+      "label": "Background band",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Champagne ivory" },
+        { "value": "mist", "label": "Mist blue" }
+      ],
+      "default": "white"
+    }
+  ],
+  "blocks": [
+    { "type": "@app" }
+  ],
+  "presets": [
+    { "name": "Apps" }
+  ]
+}
+{% endschema %}

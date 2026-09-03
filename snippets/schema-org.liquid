@@ -12,12 +12,13 @@
 
       {% render 'schema-org' %}
 
-  Two asset references carried over from the old block: fye-logo-square.png and
-  fye-logo-wide.png. **Neither is in v3's assets/ yet** — binary files cannot be
-  written into the repo from here, so they need uploading through Shopify admin
-  (Content → Files is not enough; these must be theme assets). Until they are,
-  the snippet falls back to the brand logo from Shopify's brand settings, and
-  omits the keys entirely if that is empty too. An ld+json pointing at a 404 is
+  Two asset references carried over from the old block: fye-logo-square.png
+  (1200x1200) and fye-logo-wide.png (2000x1000). Both are in v3's assets/ as
+  of 03/09/2026, copied from the old theme, where they are the files that
+  cleared Merchant Center's "invalid logo" errors in August (audit D5). They
+  are used FIRST, because they are known-good rasters at the sizes Google
+  asks for; the brand logo from Settings › Brand is the fallback, and if
+  that is empty too the keys are omitted. An ld+json pointing at a 404 is
   worse than one with no image.
 
   The address is deliberately absent. JewelryStore inherits LocalBusiness,
@@ -31,7 +32,12 @@
 {%- liquid
   assign logo_square = 'fye-logo-square.png' | asset_url
   assign logo_wide = 'fye-logo-wide.png' | asset_url
-  if logo_square contains 'fye-logo-square.png'
+  comment
+    asset_url stamps an existing asset with ?v=<version>; a missing one
+    comes back bare. That is the only tell Liquid has, so it is the gate.
+  endcomment
+  assign has_assets = false
+  if logo_square contains '?v=' and logo_wide contains '?v='
     assign has_assets = true
   endif
   assign brand_logo = shop.brand.logo | image_url: width: 600
@@ -44,12 +50,12 @@
   "name": {{ shop.name | json }},
   "description": "Ethical engagement, wedding and eternity rings from a London jeweller. GIA/IGI-certified natural and lab-grown diamonds, transparent pricing, in-person and online consultations.",
   "url": "{{ shop.url }}",
-  {%- if brand_logo != blank -%}
-  "logo": "https:{{ brand_logo }}",
-  "image": "https:{{ brand_logo }}",
-  {%- elsif has_assets -%}
+  {%- if has_assets -%}
   "logo": "{{ logo_square | split: '//' | last | prepend: 'https://' }}",
   "image": "{{ logo_wide | split: '//' | last | prepend: 'https://' }}",
+  {%- elsif brand_logo != blank -%}
+  "logo": "https:{{ brand_logo }}",
+  "image": "https:{{ brand_logo }}",
   {%- endif -%}
   "email": "hello@foryoureternity.com",
   "telephone": "+442081786687",

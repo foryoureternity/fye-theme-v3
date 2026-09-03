@@ -61,7 +61,7 @@
           <div class="news__lead-words">
             <a class="news__title" href="{{ lead.url }}">{{ lead.title }}</a>
             <p class="news__excerpt">{{ lead_excerpt }}</p>
-            <a class="news__more" href="{{ lead.url }}">{{ btn_label }}</a>
+            <a class="news__more" href="{{ lead.url }}" aria-label="{{ btn_label | escape }}: {{ lead.title | strip_html | escape }}">{{ btn_label }}</a>
           </div>
         </div>
 
@@ -89,7 +89,7 @@
                 <div class="news__row-words">
                   <a class="news__title" href="{{ article.url }}">{{ article.title }}</a>
                   <p class="news__excerpt">{{ art_excerpt }}</p>
-                  <a class="news__more" href="{{ article.url }}">{{ btn_label }}</a>
+                  <a class="news__more" href="{{ article.url }}" aria-label="{{ btn_label | escape }}: {{ article.title | strip_html | escape }}">{{ btn_label }}</a>
                 </div>
               </div>
             {%- endunless -%}

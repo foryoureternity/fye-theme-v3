@@ -30,7 +30,7 @@
       },
       "11651401770006824842": {
         "type": "shopify://apps/ymq-product-options/blocks/app-embed/86b91121-1f62-4e27-9812-b70a823eb918",
-        "disabled": false,
+        "disabled": true,
         "settings": {}
       }
     }

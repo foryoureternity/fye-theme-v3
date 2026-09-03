@@ -47,6 +47,13 @@
         {%- liquid
           assign b = block.settings
           assign span = b.col_dk | default: 4
+          comment
+            Files rarely carry an alt, and an empty alt on a content image
+            cost the homepage its SEO score (audit 02/09/2026, A3). The
+            column's own heading names what the picture is of, so it is the
+            fallback, as custom-collections already does.
+          endcomment
+          assign img_alt = b.image.alt | default: b.title | default: s.top_heading | strip_html
         -%}
         <div class="fcols__col" style="--span: {{ span }};" {{ block.shopify_attributes }}>
           {%- if b.enable_image and b.image != blank -%}
@@ -54,7 +61,7 @@
               {{ b.image | image_url: width: 800 | image_tag:
                  loading: 'lazy', widths: '200,400,600,800',
                  sizes: '(max-width: 900px) 100vw, 30vw',
-                 alt: b.image.alt }}
+                 alt: img_alt }}
             </div>
           {%- endif -%}
 

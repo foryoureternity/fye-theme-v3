@@ -1807,3 +1807,58 @@ clean at 559px. The ninth is the YMQ app images, on every page of the site.
 4. 13 collection suffix templates still missing; confirm collections fall back
    cleanly to `collection.json`.
 5. The YMQ app injecting two broken images site-wide. App ticket.
+
+
+---
+
+# Session, 03/09/2026 (overnight): speed and SEO audit, release 1
+
+Worked from `FYEv3themeaudit20260902.md` (Ed's project folder). Theme was
+UNPUBLISHED at the time, live had been reverted to `fye-v2-responsive`, so
+nothing here touched the public site. Ed's brief: optimise what v3 has, no
+styling or layout change, do not rebuild anything from v2.
+
+## What was done, by audit ID
+
+| ID | Where | What |
+|---|---|---|
+| S1 | `main-product`, `fye-stone-product` | The gallery `loading:` filter chain was the §5 argument trap: it printed `loading="true"`/`"false"`, so every panel loaded eagerly. Now `eager` + `fetchpriority="high"` on the first, `lazy` on the rest. The `alt:` chain had the same bug (alt was empty whenever the media had none); fixed the same way. |
+| S1 (found) | `guide-download` | Same trap on the cover `alt:`, it printed a stray "front cover" as visible text under the cover on all six thank-you pages. Fixed. |
+| S2 | `heading-template` | Banner is a real `<img>` (`pbanner__img`, absolute, object-fit cover) with `widths`, `sizes="100vw"`, eager, `fetchpriority="high"`. Scrim and copy unchanged. |
+| S4 | `fye-hero`, `main-article` | `fetchpriority="high"` on the hero and article images. |
+| S4 | `header-bottom` | Logo is one `<picture>` (`<source media="(max-width: 900px)">` for the mobile mark) instead of two `<img>`s hidden by CSS; both priority hints dropped. CSS rewritten for the single `.hdr__logo-img`. |
+| P1 | `fye-hero` | When a wordmark follows the heading, its words go inside the `<h1>` as `.visually-hidden` and the image becomes `alt="" aria-hidden`. H1 now reads "Engagement rings by For Your Eternity". |
+| P2 | `header-bottom`, `footer` | Mega-menu zone titles / column labels and the footer strapline / sign-up label are `<p>` with the same classes; each rule restates the heading base (face, colour, line-height, text-wrap) so rendering is identical. |
+| S3 (part) | `fye-popups` | Popup titles are `<p role="heading" aria-level="2">`; `.pop__title` restates the h2 base. The `<template>`-clone refactor was NOT done, untestable without a browser, and the footer's newsletter form loads reCAPTCHA on every page regardless. |
+| D1 | `snippets/schema-product` | Product JSON-LD: AggregateOffer for rings, Offer for single-price stones, GBP, availability, free GB shipping. No return policy asserted (see file). Skipped for Fee / Service Fee / Side Diamonds types. Rendered from `theme.liquid`. |
+| D2 | `snippets/social-meta` | og:/twitter: tags from `page_title`, `page_description`, `page_image`; product price and article dates. Rendered before `content_for_header`. |
+| D3 | `snippets/schema-breadcrumbs` | BreadcrumbList beside every visible trail: `main-product`, `fye-stone-product`, `fye-collection-intro`, and `heading-template` for article/blog only (chapter pages already emit theirs from `fye-chapter-nav`). |
+| D4 | `snippets/schema-article` | Article JSON-LD with author, dates, image, publisher by @id. No visible author line (design decision). |
+| D5 | `assets/`, `schema-org` | `fye-logo-square.png` (1200²) and `fye-logo-wide.png` (2000×1000) copied in from the old theme; the snippet prefers them, falls back to Settings › Brand. The old `has_assets` test was always true. |
+| P4 C1 C2 I1 | `theme.liquid` | `noindex, follow` for: search, cart, /a/search, guide-download and wishlist templates, empty collections, `cloud-search-all-products`, zz-form-testing pages, and (Ed approved) Loose Diamond / Loose Gemstone products. Page-type capture moved above `<head>` to feed it. |
+| A3 | `feature_columns2`, `fye-gallery-promo`, `about_us` | Alt falls back to the block or section heading when Files has none. |
+| A2 (part) | `article-card`, `latest-news-EM` | "Read more" links carry `aria-label="Read more: <title>"`. |
+| M2 | `main-collection` | Desktop-only `min-height: 560px` on `#cloud_search_filters_sidebar:empty`, reserves rail height ONLY until xCloud injects, so the final layout is untouched. A trace is still needed to confirm the shifting element. |
+| M3 | `config/settings_data.json` | YMQ Product Options app embed `disabled: true`. Nothing in the theme references it; it was already listed as injecting broken images site-wide. Shopify Forms and xCloud embeds untouched. |
+| Blank pages | `sections/apps.liquid` | New: the standard `@app` host, so `page.order-a-free-ring-sizer.json`'s Forms block renders again. |
+
+## Not done, and why
+
+- **S3 template-clone**, **S6 minify**, **M4 menu-on-open**, need a browser
+  to test or a build step; not overnight work.
+- **A1 contrast**, **A2 underlines/button names**, **D4 author line**,
+  **N3 drawer links**, visible changes; Ed said none.
+- **Blank pages beyond the ring sizer**, Ed said do not port from v2.
+- **hero wordmark width/height**, the SVG's intrinsic size could not be read
+  (no network from the session). Needs the file's viewBox.
+- Admin items (N1, B3, P3, PR1–PR4, C3, P5, redirects, unpublishing), store
+  data, not theme code. Listed in the handover note in the project folder.
+
+## Verification
+
+Tag-balance and schema-JSON check passed on all 23 touched files;
+`tools/w977-validate-templates.mjs` reports only pre-existing select-value
+notes plus a false positive on the `@app` block (the validator does not know
+the wildcard). Not browser-tested: the session's browser tools were down.
+First thing after push: open the preview with `?fyedebug=1` and run
+`fyeSmoke.all()` on a product, a collection, a guide chapter and an article.

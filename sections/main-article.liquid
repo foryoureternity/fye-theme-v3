@@ -78,8 +78,13 @@
 
     {%- if img_block != nil and article.image != blank -%}
       <figure class="art__hero" {{ img_block.shopify_attributes }}>
+        {%- comment -%}
+          fetchpriority="high": article.json's banner carries no photograph,
+          so this is the LCP element on every post (audit 02/09/2026, S4).
+        {%- endcomment -%}
         {{ article.image | image_url: width: 1600 | image_tag:
            loading: 'eager',
+           fetchpriority: 'high',
            widths: '600, 780, 1000, 1300, 1600',
            sizes: '(max-width: 900px) 100vw, 780px',
            alt: art_alt }}

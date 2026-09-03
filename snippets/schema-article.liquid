@@ -1,0 +1,48 @@
+{%- comment -%}
+  schema-article, Article structured data for one blog post.
+
+  Added 03/09/2026 (audit 02/09/2026, D4). Every post is by Edward Marno in
+  Shopify already; this puts author, dates and the featured image where
+  Google reads them. The visible author line under the title is a separate
+  design decision and is not part of this.
+
+  RENDERED FROM layout/theme.liquid, in <head>, whenever `article` is set:
+
+      {% render 'schema-article', article: article %}
+
+  The publisher is the JewelryStore record from schema-org by @id, so the
+  business is described once and referenced here rather than repeated.
+{%- endcomment -%}
+{%- if article != blank -%}
+  {%- liquid
+    assign a = article
+    assign headline = a.title | strip_html | truncate: 110
+    assign summary = a.excerpt_or_content | strip_html | strip_newlines | strip | truncate: 300
+    assign author_name = a.author | default: shop.name
+    assign words = a.content | strip_html | split: ' ' | size
+  -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "@id": {{ canonical_url | append: '#article' | json }},
+  "mainEntityOfPage": { "@type": "WebPage", "@id": {{ canonical_url | json }} },
+  "headline": {{ headline | json }},
+  "description": {{ summary | json }},
+  {%- if a.image != blank %}
+  "image": [
+    {{ a.image | image_url: width: 1600 | prepend: 'https:' | json }},
+    {{ a.image | image_url: width: 1200, height: 900, crop: 'center' | prepend: 'https:' | json }},
+    {{ a.image | image_url: width: 1200, height: 675, crop: 'center' | prepend: 'https:' | json }}
+  ],
+  {%- endif %}
+  "datePublished": {{ a.published_at | date: '%Y-%m-%dT%H:%M:%S%z' | json }},
+  "dateModified": {{ a.updated_at | default: a.published_at | date: '%Y-%m-%dT%H:%M:%S%z' | json }},
+  "author": { "@type": "Person", "name": {{ author_name | json }} },
+  "publisher": { "@id": {{ shop.url | append: '/#business' | json }} },
+  "wordCount": {{ words }},
+  "inLanguage": {{ request.locale.iso_code | default: 'en' | json }},
+  "isAccessibleForFree": true
+}
+</script>
+{%- endif -%}

@@ -117,7 +117,7 @@
             {%- endcomment -%}
             <div class="pop__done" data-fye-popup-done>
               <p class="eyebrow">{{ b.eyebrow | default: 'For Your Eternity' }}</p>
-              <h2 class="pop__title">{{ b.success_heading | default: 'Thank you' }}</h2>
+              <p class="pop__title" role="heading" aria-level="2">{{ b.success_heading | default: 'Thank you' }}</p>
               <div class="pop__intro">{{ b.success_body | default: '<p>We have your details.</p>' }}</div>
 
               {%- if b.file_url != blank -%}
@@ -135,7 +135,7 @@
             {%- if b.eyebrow != blank -%}
               <p class="eyebrow">{{ b.eyebrow }}</p>
             {%- endif -%}
-            <h2 class="pop__title">{{ heading }}</h2>
+            <p class="pop__title" role="heading" aria-level="2">{{ heading }}</p>
             {%- if b.intro != blank -%}
               <div class="pop__intro">{{ b.intro }}</div>
             {%- endif -%}
@@ -275,7 +275,23 @@
 .fye .pop__close:hover { color: var(--sage); }
 
 /* ---- words -------------------------------------------------------------- */
-.fye .pop__title { margin: var(--s2) 0 var(--s3); font-size: var(--fs-h3); }
+/* A <p role="heading">, not an <h2> (audit 02/09/2026, S3/P2): every popup
+   is in the HTML of every page, so nine dialogs put eighteen h2s into every
+   page's outline and into fye-ui.js's contents lists, which are built from
+   the page's h2s. The role keeps it a heading for screen readers inside the
+   dialog. The declarations below restate fye-core's :where(h2) base so it
+   renders exactly as the h2 did. */
+.fye .pop__title {
+  margin: var(--s2) 0 var(--s3);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-regular);
+  letter-spacing: var(--tr-h2);
+  line-height: var(--lh-heading);
+  text-transform: uppercase;
+  color: var(--ink);
+  text-wrap: pretty;
+}
 .fye .pop__intro { margin-bottom: var(--s5); font-size: var(--fs-small); line-height: 1.6; color: var(--ink-soft); }
 .fye .pop__intro :where(p:last-child) { margin-bottom: 0; }
 

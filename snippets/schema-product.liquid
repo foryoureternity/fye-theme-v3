@@ -1,0 +1,113 @@
+{%- comment -%}
+  schema-product, Product structured data for one product page.
+
+  Added 03/09/2026 (audit 02/09/2026, D1). Without a Product block Google
+  cannot show price or availability in results, and Merchant Center cannot
+  use the landing page to verify price and availability against the feed.
+
+  RENDERED FROM layout/theme.liquid, in <head>, whenever `product` is set:
+
+      {% render 'schema-product', product: product %}
+
+  One place rather than one per product section, so main-product and
+  fye-stone-product cannot drift apart.
+
+  What it says, and why:
+    - Rings vary by metal, quality or size, so they map to an AggregateOffer
+      with lowPrice / highPrice built from product.price_min / price_max.
+      A single-price product (a loose stone) is a plain Offer.
+    - Prices are Shopify's integer pence divided by 100.0, never `money`:
+      money formats with a thousands separator, which is not a JSON number.
+    - Free delivery to the UK is stated on every product page's reassurance
+      line, so it is stated here too. No return policy is asserted: the
+      policy for made-to-order rings is not the policy for loose stones,
+      and a wrong MerchantReturnPolicy is worse than none. Add one per type
+      when the wording is settled.
+    - Fee and service products (the £55 engraving line, side-diamond pairs)
+      are not things a shopper buys from a search result, so they emit
+      nothing.
+    - `image_url` returns a protocol-relative URL; Google wants absolute.
+{%- endcomment -%}
+{%- liquid
+  assign p = product
+  assign skip = false
+  if p == blank
+    assign skip = true
+  elsif p.type == 'Fee' or p.type == 'Service Fee' or p.type == 'Side Diamonds'
+    assign skip = true
+  endif
+-%}
+{%- unless skip -%}
+  {%- liquid
+    assign desc = p.description | strip_html | strip_newlines | strip | truncate: 500
+    if desc == blank
+      assign desc = page_description | default: p.title
+    endif
+
+    assign currency = shop.currency | default: 'GBP'
+    assign price_min = p.price_min | divided_by: 100.0
+    assign price_max = p.price_max | divided_by: 100.0
+    assign single_price = false
+    if p.variants.size == 1 or p.price_varies == false
+      assign single_price = true
+    endif
+
+    assign availability = 'https://schema.org/OutOfStock'
+    if p.available
+      assign availability = 'https://schema.org/InStock'
+    endif
+
+    assign sku = p.selected_or_first_available_variant.sku | default: p.first_available_variant.sku
+    comment
+      The shop, not product.vendor: every product carries the shop name today
+      (checked 03/09/2026), but a supplier import that set vendor to Gemex or
+      Hockley Mint would otherwise publish the trade source as the brand.
+    endcomment
+    assign brand_name = shop.name
+  -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "@id": {{ canonical_url | append: '#product' | json }},
+  "name": {{ p.title | json }},
+  "description": {{ desc | json }},
+  "url": {{ canonical_url | json }},
+  {%- if sku != blank %}
+  "sku": {{ sku | json }},
+  {%- endif %}
+  "brand": { "@type": "Brand", "name": {{ brand_name | json }} },
+  {%- if p.images.size > 0 %}
+  "image": [
+    {%- for img in p.images limit: 6 -%}
+      {{ img | image_url: width: 1600 | prepend: 'https:' | json }}{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ],
+  {%- endif %}
+  {%- if p.collections.size > 0 %}
+  "category": {{ p.collections.first.title | json }},
+  {%- endif %}
+  "offers": {
+    {%- if single_price %}
+    "@type": "Offer",
+    "price": {{ price_min }},
+    {%- else %}
+    "@type": "AggregateOffer",
+    "lowPrice": {{ price_min }},
+    "highPrice": {{ price_max }},
+    "offerCount": {{ p.variants.size }},
+    {%- endif %}
+    "priceCurrency": {{ currency | json }},
+    "availability": {{ availability | json }},
+    "itemCondition": "https://schema.org/NewCondition",
+    "url": {{ canonical_url | json }},
+    "seller": { "@id": {{ shop.url | append: '/#business' | json }} },
+    "shippingDetails": {
+      "@type": "OfferShippingDetails",
+      "shippingRate": { "@type": "MonetaryAmount", "value": 0, "currency": {{ currency | json }} },
+      "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "GB" }
+    }
+  }
+}
+</script>
+{%- endunless -%}

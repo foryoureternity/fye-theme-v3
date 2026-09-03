@@ -1,5 +1,31 @@
 {
   "sections": {
+    "banner": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": ""
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title"
+      ],
+      "settings": {
+        "ground": "ivory",
+        "content_align": "t4s-text-center",
+        "use_specify_image": true,
+        "overlay": 54,
+        "heading_fullwidth": false
+      }
+    },
     "main": {
       "type": "main-page",
       "settings": {
@@ -44,12 +70,8 @@
     }
   },
   "order": [
+    "banner",
     "main",
     "sizer_form"
   ]
 }
-
-
-
-
-

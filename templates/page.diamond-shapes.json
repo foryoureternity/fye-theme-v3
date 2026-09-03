@@ -1,0 +1,466 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": { "type": "3", "settings": {} },
+        "title": { "type": "1", "settings": { "heading": "Diamond Shapes" } },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Eleven cuts, what each one does with light, and which suits which hand</p>"
+          }
+        }
+      },
+      "block_order": ["crumbs", "title", "sub"],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 42,
+        "image": "shopify://shop_images/diamond-shapes-selection-ring-box.png",
+        "use_specify_image": true
+      }
+    },
+
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": { "band": "ivory", "show_prev_next": false, "emit_breadcrumbs": true }
+    },
+
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "variant": "default",
+        "narrow": true,
+        "eyebrow": "Diamond Education",
+        "heading": "Shape Is the Decision People Have Already Made",
+        "body": "<p>Shape is usually the first thing someone knows they want and the last thing they change their mind about. It is also the most personal of the choices, because it is the one you see from across a room.</p><p>Two things worth knowing before you start. Shape and cut quality are different: a round brilliant gets a cut grade on its report, while ovals, pears and emeralds are graded only for polish and symmetry, so proportions have to be judged by eye. And shapes of the same carat weight look quite different in size, because weight sits in different places.</p>"
+      }
+    },
+
+    "tiles": {
+      "type": "fye-shape-tiles",
+      "blocks": {
+        "s1": {
+          "type": "shape",
+          "settings": {
+            "name": "Round Brilliant",
+            "sub": "The most brilliant cut there is, and the only one with a cut grade on its report. Suits everyone, which is why more than half of all engagement rings use it.",
+            "icon": "icon101.svg",
+            "rings_link": "/collections/round-brilliant-engagement-rings",
+            "rings_label": "Rings",
+            "stones_link": "/collections/round-natural-diamonds",
+            "stones_label": "Loose stones"
+          }
+        },
+        "s2": {
+          "type": "shape",
+          "settings": {
+            "name": "Oval",
+            "sub": "Reads larger than a round of the same weight and lengthens the finger. Watch for a bow tie shadow across the centre.",
+            "icon": "icon102.svg",
+            "rings_link": "/collections/oval-cut-engagement-rings",
+            "rings_label": "Rings",
+            "stones_link": "/collections/oval-natural-diamonds",
+            "stones_label": "Loose stones"
+          }
+        },
+        "s3": {
+          "type": "shape",
+          "settings": {
+            "name": "Cushion",
+            "sub": "A softened square with large facets and a warm, glowing sparkle rather than a sharp one. Very forgiving to wear.",
+            "icon": "icon103.svg",
+            "rings_link": "/collections/cushion-cut-engagement-rings",
+            "rings_label": "Rings",
+            "stones_link": "/collections/cushion-natural-diamonds",
+            "stones_label": "Loose stones"
+          }
+        },
+        "s4": {
+          "type": "shape",
+          "settings": {
+            "name": "Pear",
+            "sub": "A teardrop, distinctive and elongating. Needs a claw protecting the point, and needs to be set straight.",
+            "icon": "icon104.svg",
+            "rings_link": "/collections/pear-cut-engagement-rings",
+            "rings_label": "Rings",
+            "stones_link": "/collections/pear-natural-diamonds",
+            "stones_label": "Loose stones"
+          }
+        },
+        "s5": {
+          "type": "shape",
+          "settings": {
+            "name": "Emerald",
+            "sub": "Step cut rather than brilliant, so it flashes broad planes of light instead of sparkling. Clarity shows, so choose the stone carefully.",
+            "icon": "icon105.svg",
+            "rings_link": "/collections/emerald-cut-engagement-rings",
+            "rings_label": "Rings",
+            "stones_link": "/collections/emerald-natural-diamonds",
+            "stones_label": "Loose stones"
+          }
+        },
+        "s6": {
+          "type": "shape",
+          "settings": {
+            "name": "Radiant",
+            "sub": "The outline of an emerald cut with brilliant faceting inside it. Lively, and squarer or longer depending on the stone.",
+            "icon": "icon106.svg",
+            "rings_link": "/collections/radiant-cut-engagement-rings",
+            "rings_label": "Rings",
+            "stones_link": "/collections/radiant-natural-diamonds",
+            "stones_label": "Loose stones"
+          }
+        },
+        "s7": {
+          "type": "shape",
+          "settings": {
+            "name": "Princess",
+            "sub": "A brilliant cut square with sharp corners. Modern and architectural, and best set with the corners protected.",
+            "icon": "icon107.svg",
+            "rings_link": "/collections/princess-cut-engagement-rings",
+            "rings_label": "Rings",
+            "stones_link": "/collections/princess-natural-diamonds",
+            "stones_label": "Loose stones"
+          }
+        },
+        "s8": {
+          "type": "shape",
+          "settings": {
+            "name": "Marquise",
+            "sub": "The most elongating shape of all, and the most face up size for the weight. Two points to protect.",
+            "icon": "icon108.svg",
+            "rings_link": "/collections/marquise-cut-engagement-rings",
+            "rings_label": "Rings",
+            "stones_link": "/collections/marquise-natural-diamonds",
+            "stones_label": "Loose stones"
+          }
+        },
+        "s9": {
+          "type": "shape",
+          "settings": {
+            "name": "Asscher",
+            "sub": "A square step cut with cropped corners and a deep, hall of mirrors look. Quietly art deco.",
+            "icon": "icon109.svg",
+            "rings_link": "/collections/asscher-cut-engagement-rings",
+            "rings_label": "Rings",
+            "stones_link": "/collections/asscher-natural-diamonds",
+            "stones_label": "Loose stones"
+          }
+        },
+        "s10": {
+          "type": "shape",
+          "settings": {
+            "name": "Heart",
+            "sub": "Unmistakable and the hardest to cut well. Needs symmetry, a clear cleft and enough size to read as a heart.",
+            "icon": "icon110.svg",
+            "rings_link": "/collections/heart-cut-engagement-rings",
+            "rings_label": "Rings",
+            "stones_link": "/collections/heart-natural-diamonds",
+            "stones_label": "Loose stones"
+          }
+        },
+        "s11": {
+          "type": "shape",
+          "settings": {
+            "name": "Baguette",
+            "sub": "A slim step cut rectangle, used in eternity rings and as tapered side stones rather than as a centre.",
+            "icon": "",
+            "rings_link": "/collections/eternity-baguette",
+            "rings_label": "Eternity rings",
+            "stones_link": "",
+            "stones_label": ""
+          }
+        }
+      },
+      "block_order": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11"],
+      "settings": {
+        "band": "ivory",
+        "columns": "4",
+        "show_head": true,
+        "eyebrow": "The Cuts",
+        "heading": "Every Shape We Work With",
+        "intro": "Each shape links to finished rings and, where we hold them, to loose stones you can have set into a design of your own.",
+        "note": "Baguette has no icon of its own yet and is stocked as an eternity ring and as side stones rather than as a centre stone, which is why it links differently."
+      }
+    },
+
+    "ratios": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": { "type": "row", "settings": { "cells": "Oval | 1.30 to 1.50 | Longer looks more elegant, shorter looks larger" } },
+        "r2": { "type": "row", "settings": { "cells": "Pear | 1.45 to 1.75 | Below 1.45 starts to look rounded rather than a teardrop" } },
+        "r3": { "type": "row", "settings": { "cells": "Marquise | 1.85 to 2.10 | The classic proportion, and very elongating on the hand" } },
+        "r4": { "type": "row", "settings": { "cells": "Emerald | 1.30 to 1.50 | Squarer emeralds read as unusual, in a good way" } },
+        "r5": { "type": "row", "settings": { "cells": "Radiant | 1.00 to 1.35 | Square at the bottom of the range, elongated at the top" } },
+        "r6": { "type": "row", "settings": { "cells": "Cushion | 1.00 to 1.20 | Square is traditional, slightly long is softer" } },
+        "r7": { "type": "row", "settings": { "cells": "Princess | 1.00 to 1.05 | Should look square, not rectangular" } },
+        "r8": { "type": "row", "settings": { "cells": "Asscher | 1.00 to 1.05 | Square is the whole point of the cut" } },
+        "r9": { "type": "row", "settings": { "cells": "Heart | 0.95 to 1.10 | Wider reads more clearly as a heart at a glance" } }
+      },
+      "block_order": ["r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9"],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Proportions",
+        "heading": "Length to Width, and Why It Matters",
+        "intro": "Length to width ratio is the outline of the stone: a stone twice as long as it is wide has a ratio of 2.00. It is the single most useful number on a fancy shape, and it does not appear as a grade on any report.",
+        "headers": "Shape | Usual range | What it does",
+        "first_col_bold": true,
+        "col1_width": 20,
+        "note": "These are the ranges most people prefer, not rules. If you like a very long oval or a nearly round pear, that is a legitimate choice and we will find one.",
+        "narrow": false
+      }
+    },
+
+    "hand": {
+      "type": "fye-checklist",
+      "blocks": {
+        "h1": {
+          "type": "item",
+          "settings": {
+            "label": "Shorter fingers",
+            "note": "Elongating shapes flatter: oval, pear, marquise and emerald. Set north to south rather than across."
+          }
+        },
+        "h2": {
+          "type": "item",
+          "settings": {
+            "label": "Longer fingers",
+            "note": "Almost anything works. Round, cushion, princess and asscher sit particularly well without adding length."
+          }
+        },
+        "h3": {
+          "type": "item",
+          "settings": {
+            "label": "Smaller hands",
+            "note": "Be careful with very wide shapes. A marquise or a long oval gives presence without overwhelming the finger."
+          }
+        },
+        "h4": {
+          "type": "item",
+          "settings": {
+            "label": "Hands that work hard",
+            "note": "Avoid unprotected points and sharp corners. Round, oval and cushion are the most forgiving of daily knocks."
+          }
+        },
+        "h5": {
+          "type": "item",
+          "settings": {
+            "label": "Wanting maximum size for the budget",
+            "note": "Marquise, then oval and pear, give the most face up spread per carat. Round and cushion give the least."
+          }
+        },
+        "h6": {
+          "type": "item",
+          "settings": {
+            "label": "Planning the wedding ring already",
+            "note": "Pointed and wide shapes often need a shaped band to sit flush. Worth knowing now rather than a year later."
+          }
+        }
+      },
+      "block_order": ["h1", "h2", "h3", "h4", "h5", "h6"],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Choosing",
+        "heading": "Which Shape Suits Which Hand",
+        "intro": "Guidance rather than law. If someone loves a shape, that beats every rule on this list.",
+        "note": ""
+      }
+    },
+
+    "bowtie": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "white",
+        "style": "strong",
+        "narrow": true,
+        "eyebrow": "What a Report Will Not Tell You",
+        "heading": "The Bow Tie, and Why We Look at Every Fancy Shape",
+        "body": "<p>Elongated brilliant cuts, ovals, pears and marquises in particular, can carry a dark band across the middle where the facets fail to return light. It is called a bow tie, every one of these shapes has it to some degree, and a grading report does not mention it at all.</p><p>Two ovals with identical carat, colour, clarity and polish can look completely different because of it. So we look at fancy shapes before recommending them, and when two stones are close we will show you both and say which we would choose.</p>"
+      }
+    },
+
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "eyebrow": "Narrow It Down",
+        "heading": "See Two or Three Shapes Side by Side",
+        "body": "<p>Shape is much easier to settle in person, or on a video call with stones in front of the camera. Tell us the shapes on your shortlist and your budget, and we will put the best of each next to one another.</p>",
+        "link": "/pages/contact-us",
+        "link_label": "Ask to compare shapes"
+      }
+    },
+
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Which shape looks the biggest for the money?",
+            "a": "<p>Marquise, then oval and pear. All three spread their weight across the top of the stone rather than down into the bottom, so they present more surface for the same carat. Round brilliants and cushions carry more weight in depth and look smaller than their weight suggests.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Which shape sparkles the most?",
+            "a": "<p>The round brilliant, which is the shape the modern brilliant faceting was designed around. Oval, pear, marquise, cushion and radiant are all brilliant cuts too and are very lively. Emerald and asscher are step cuts, which flash broad planes of light rather than sparkle, and that is a deliberately different look.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Why do only round diamonds get a cut grade?",
+            "a": "<p>Because a round brilliant has one agreed set of ideal proportions to measure against. Fancy shapes have a legitimate range of proportions, so laboratories report polish and symmetry instead and leave the outline to judgement. This is exactly why looking at a fancy shape matters more than reading its report.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "What is a bow tie?",
+            "a": "<p>A darker band running across the width of an elongated brilliant cut, where facets return less light. Ovals, pears and marquises all have one to some degree. A faint bow tie is normal and adds contrast; a heavy one makes the stone look like it has a shadow through the middle. It is not on any report, so it has to be seen.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Do some shapes need a shaped wedding ring?",
+            "a": "<p>Often, yes. Pointed shapes such as pear and marquise, and low set wide stones, can stop a straight band sitting flush against the engagement ring. A gently curved or notched band solves it. If you think you may want a matching band later, tell us at the design stage and we will allow for it.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "Are pointed shapes more fragile?",
+            "a": "<p>The points are the vulnerable part rather than the diamond itself, which is 10 on the Mohs scale whatever its shape. A pear, marquise or princess should be set with the points or corners inside claws. Done properly they are perfectly practical for everyday wear.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I have a shape you do not list?",
+            "a": "<p>Very likely. Trilliant, old cushion, rose cut, hexagon, kite and shield shapes all exist and we can source them, natural or lab-grown. They are bespoke work rather than stock, so allow a little longer, and ask us early.</p>"
+          }
+        }
+      },
+      "block_order": ["q1", "q2", "q3", "q4", "q5", "q6", "q7"],
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Shape Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": { "band": "ivory", "show_prev_next": true, "emit_breadcrumbs": false }
+    },
+
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn",
+            "klaviyo_form": "UbTxH7"
+          }
+        }
+      },
+      "block_order": ["g1"],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/diamond-and-gemstone-guide-cover.png",
+        "cover_alt": "The Diamond and Gemstone Guide",
+        "cover_caption": "The Diamond and Gemstone Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Diamond and Gemstone Guide",
+        "body": "<p>Every shape in detail, plus the Four Cs, natural against lab-grown, coloured gemstones, treatments and grading reports.</p>"
+      }
+    },
+
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Diamond Education",
+            "title": "The Four Cs",
+            "desc": "Cut, colour, clarity and carat, ranked.",
+            "cta": "Read more",
+            "link": "/pages/diamond-4cs"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Rings",
+            "title": "Ring Settings Explained",
+            "desc": "How the setting protects the shape you choose.",
+            "cta": "Read more",
+            "link": "/pages/ring-settings"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Rings",
+            "title": "Engagement Ring Styles",
+            "desc": "Solitaire, halo, trilogy and the rest.",
+            "cta": "Read more",
+            "link": "/pages/engagement-ring-styles"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Engagement Rings",
+            "desc": "Filter by shape, metal and budget.",
+            "cta": "Browse rings",
+            "link": "/collections/engagement-rings"
+          }
+        }
+      },
+      "block_order": ["r1", "r2", "r3", "r4"],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "tiles",
+    "ratios",
+    "hand",
+    "bowtie",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

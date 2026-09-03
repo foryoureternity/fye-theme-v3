@@ -1,0 +1,436 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": { "type": "3", "settings": {} },
+        "title": { "type": "1", "settings": { "heading": "Find Your Ring Size" } },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>How to measure properly, the full UK conversion chart, and how to get it right first time</p>"
+          }
+        }
+      },
+      "block_order": ["crumbs", "title", "sub"],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 44,
+        "image": "shopify://shop_images/oval-diamond-engagement-ring-18ct-yellow-gold-on-ring-cone.jpg",
+        "use_specify_image": true
+      }
+    },
+
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": { "band": "ivory", "show_prev_next": false, "emit_breadcrumbs": true }
+    },
+
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "variant": "default",
+        "narrow": true,
+        "eyebrow": "Practical Guide",
+        "heading": "Ring Size Is Easier to Get Right Than People Fear",
+        "body": "<p>Finger size is not a fixed number. It changes through the day, with the weather, with exercise and with the width of the ring itself. A finger can differ by a full size between a cold morning and a warm evening.</p><p>So the aim is not one perfect measurement. It is a measurement taken in the right conditions, cross-checked, and then confirmed against a physical sizer before anything is made. That is why we send a free ring sizer, and why resizing is complimentary for the first year.</p><p>If the ring is a surprise, there are quieter ways to work it out. Those are further down.</p>"
+      }
+    },
+
+    "methods": {
+      "type": "fye-steps",
+      "blocks": {
+        "m1": {
+          "type": "step",
+          "settings": {
+            "number": "01",
+            "heading": "Order a free ring sizer",
+            "body": "<p>The most reliable route, and it costs nothing. A physical sizer goes on the finger, sits there for a few minutes, and tells you what a real ring feels like rather than what a piece of paper suggests. Post it back or keep it.</p>"
+          }
+        },
+        "m2": {
+          "type": "step",
+          "settings": {
+            "number": "02",
+            "heading": "Measure a ring she already wears",
+            "body": "<p>Take a ring that fits the correct finger, measure the inside edge to edge in millimetres, and read that diameter off the chart below. Measure the inside, not the outside, and make sure the ring is not a different finger's size.</p>"
+          }
+        },
+        "m3": {
+          "type": "step",
+          "settings": {
+            "number": "03",
+            "heading": "Ask us, and we will help you work it out",
+            "body": "<p>Send us a photograph of a ring beside a ruler, or the inside measurement, and we will tell you the size and how confident we are in it. If the answer sits between two sizes we will say so and explain which way to go.</p>"
+          }
+        }
+      },
+      "block_order": ["m1", "m2", "m3"],
+      "settings": {
+        "band": "ivory",
+        "columns": "3",
+        "show_head": true,
+        "eyebrow": "Three Ways",
+        "heading": "How to Measure",
+        "intro": "In order of reliability. The string and paper strip method is popular online and is the least accurate of all, because both stretch and neither tells you whether the ring will pass the knuckle."
+      }
+    },
+
+    "chart": {
+      "type": "fye-table",
+      "blocks": {
+        "z01": { "type": "row", "settings": { "cells": "A | 12.04 | 37.8 | 0.5 | 38" } },
+        "z02": { "type": "row", "settings": { "cells": "B | 12.45 | 39.1 | 1 | 39" } },
+        "z03": { "type": "row", "settings": { "cells": "C | 12.85 | 40.4 | 1.5 | 40" } },
+        "z04": { "type": "row", "settings": { "cells": "D | 13.26 | 41.7 | 2 | 42" } },
+        "z05": { "type": "row", "settings": { "cells": "E | 13.67 | 42.9 | 2.25 | 43" } },
+        "z06": { "type": "row", "settings": { "cells": "F | 14.07 | 44.2 | 2.75 | 44" } },
+        "z07": { "type": "row", "settings": { "cells": "G | 14.48 | 45.5 | 3.25 | 45" } },
+        "z08": { "type": "row", "settings": { "cells": "H | 14.88 | 46.8 | 3.75 | 47" } },
+        "z09": { "type": "row", "settings": { "cells": "I | 15.29 | 48.0 | 4 | 48" } },
+        "z10": { "type": "row", "settings": { "cells": "J | 15.49 | 48.7 | 4.5 | 49" } },
+        "z11": { "type": "row", "settings": { "cells": "K | 15.90 | 50.0 | 5 | 50" } },
+        "z12": { "type": "row", "settings": { "cells": "L | 16.31 | 51.2 | 5.5 | 51" } },
+        "z13": { "type": "row", "settings": { "cells": "M | 16.71 | 52.5 | 6 | 52" } },
+        "z14": { "type": "row", "settings": { "cells": "N | 17.12 | 53.8 | 6.5 | 54" } },
+        "z15": { "type": "row", "settings": { "cells": "O | 17.53 | 55.1 | 7 | 55" } },
+        "z16": { "type": "row", "settings": { "cells": "P | 17.93 | 56.3 | 7.5 | 56" } },
+        "z17": { "type": "row", "settings": { "cells": "Q | 18.34 | 57.6 | 8 | 58" } },
+        "z18": { "type": "row", "settings": { "cells": "R | 18.75 | 58.9 | 8.5 | 59" } },
+        "z19": { "type": "row", "settings": { "cells": "S | 19.15 | 60.2 | 9 | 60" } },
+        "z20": { "type": "row", "settings": { "cells": "T | 19.56 | 61.4 | 9.5 | 61" } },
+        "z21": { "type": "row", "settings": { "cells": "U | 19.96 | 62.7 | 10 | 63" } },
+        "z22": { "type": "row", "settings": { "cells": "V | 20.37 | 64.0 | 10.5 | 64" } },
+        "z23": { "type": "row", "settings": { "cells": "W | 20.78 | 65.3 | 11 | 65" } },
+        "z24": { "type": "row", "settings": { "cells": "X | 21.18 | 66.6 | 11.5 | 67" } },
+        "z25": { "type": "row", "settings": { "cells": "Y | 21.59 | 67.8 | 12 | 68" } },
+        "z26": { "type": "row", "settings": { "cells": "Z | 22.00 | 69.1 | 12.5 | 69" } },
+        "z27": { "type": "row", "settings": { "cells": "Z+1 | 22.40 | 70.4 | 13 | 70" } },
+        "z28": { "type": "row", "settings": { "cells": "Z+2 | 22.81 | 71.7 | 13.5 | 72" } },
+        "z29": { "type": "row", "settings": { "cells": "Z+3 | 23.22 | 72.9 | 14 | 73" } },
+        "z30": { "type": "row", "settings": { "cells": "Z+4 | 23.62 | 74.2 | 14.5 | 74" } },
+        "z31": { "type": "row", "settings": { "cells": "Z+5 | 24.03 | 75.5 | 15 | 75" } },
+        "z32": { "type": "row", "settings": { "cells": "Z+6 | 24.43 | 76.8 | 15.5 | 77" } }
+      },
+      "block_order": [
+        "z01", "z02", "z03", "z04", "z05", "z06", "z07", "z08",
+        "z09", "z10", "z11", "z12", "z13", "z14", "z15", "z16",
+        "z17", "z18", "z19", "z20", "z21", "z22", "z23", "z24",
+        "z25", "z26", "z27", "z28", "z29", "z30", "z31", "z32"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Conversion Chart",
+        "heading": "UK Ring Sizes, A to Z+6",
+        "intro": "Inside diameter and circumference are given in millimetres. If you have measured an existing ring, find your figure in the diameter column and read the UK size across from it.",
+        "headers": "UK | Diameter mm | Circumference mm | US | Europe",
+        "first_col_bold": true,
+        "col1_width": 15,
+        "note": "Standard published conversions, and US and European equivalents are approximate because those scales do not map exactly onto the UK letters. If your measurement falls between two rows, tell us both and we will advise. We confirm every size against a physical sizer before making anything.",
+        "narrow": false
+      }
+    },
+
+    "timing": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "strong",
+        "narrow": true,
+        "eyebrow": "The One Thing Everyone Gets Wrong",
+        "heading": "Measure in the Afternoon, Never When Cold",
+        "body": "<p>Fingers are at their smallest first thing in the morning and after being out in the cold, and at their largest late in the day, in warm weather, and after exercise or a salty meal. The swing can be a full size.</p><p>So measure late afternoon or early evening, at normal room temperature, and take the measurement two or three times on different days. A ring sized to a cold morning finger will be uncomfortable by every evening for the rest of its life.</p>"
+      }
+    },
+
+    "affects": {
+      "type": "fye-terms",
+      "blocks": {
+        "a1": {
+          "type": "term",
+          "settings": {
+            "heading": "The width of the band",
+            "body": "<p>A wide ring feels tighter than a narrow one of the same size, because it covers more of the finger. Anything from about 6mm upward usually needs a quarter to a half size larger than a 2mm band.</p>",
+            "meta": "Allow half a size on wide rings"
+          }
+        },
+        "a2": {
+          "type": "term",
+          "settings": {
+            "heading": "A prominent knuckle",
+            "body": "<p>If the knuckle is noticeably larger than the base of the finger, the ring has to pass the knuckle and then not spin. That is a fitting problem rather than a sizing one, and it is solved with sizing beads or a slightly sprung shank.</p>",
+            "meta": "Tell us, we will design for it"
+          }
+        },
+        "a3": {
+          "type": "term",
+          "settings": {
+            "heading": "Temperature and time of day",
+            "body": "<p>Cold shrinks, heat swells. Same finger, different size. This is normal and not a fault in the ring, which is why a ring should feel just slightly snug when it goes on in a warm room.</p>",
+            "meta": "Afternoon, warm room"
+          }
+        },
+        "a4": {
+          "type": "term",
+          "settings": {
+            "heading": "Life, over the years",
+            "body": "<p>Weight change, pregnancy, medication and simply getting older all move finger size. Most people change at least once. Complimentary resizing covers the first year, and after that resizing is a straightforward workshop job.</p>",
+            "meta": "Expect one change eventually"
+          }
+        }
+      },
+      "block_order": ["a1", "a2", "a3", "a4"],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "What Changes the Answer",
+        "heading": "Four Things That Move Your Size",
+        "intro": "",
+        "note": ""
+      }
+    },
+
+    "secret": {
+      "type": "fye-checklist",
+      "blocks": {
+        "s1": {
+          "type": "item",
+          "settings": {
+            "label": "Borrow a ring she already wears",
+            "note": "The single best method. Take it from the correct finger, measure the inside diameter, and put it back the same day."
+          }
+        },
+        "s2": {
+          "type": "item",
+          "settings": {
+            "label": "Press one into soap or clay",
+            "note": "An impression of the inside edge gives us something to measure accurately. A clear photograph beside a ruler works too."
+          }
+        },
+        "s3": {
+          "type": "item",
+          "settings": {
+            "label": "Ask someone who would know",
+            "note": "A sister, a best friend or a mother very often knows, and can usually be trusted with the question."
+          }
+        },
+        "s4": {
+          "type": "item",
+          "settings": {
+            "label": "Size to the middle, then resize after",
+            "note": "If you truly cannot find out, we make to a considered estimate and resize once it has been given. That is what the complimentary first year is for."
+          }
+        },
+        "s5": {
+          "type": "item",
+          "settings": {
+            "label": "Do not guess from a shoe or glove size",
+            "note": "There is no relationship, despite what the internet suggests, and nor is there a reliable one to height or build."
+          }
+        },
+        "s6": {
+          "type": "item",
+          "settings": {
+            "label": "Avoid string and paper strips",
+            "note": "Both stretch, both compress, and neither accounts for the knuckle. They are the most common cause of a ring arriving wrong."
+          }
+        }
+      },
+      "block_order": ["s1", "s2", "s3", "s4", "s5", "s6"],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "If It Is a Surprise",
+        "heading": "Working It Out Quietly",
+        "intro": "Every one of these has been done successfully by someone we have made a ring for.",
+        "note": ""
+      }
+    },
+
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "eyebrow": "Free, and Posted to You",
+        "heading": "Order a Free Ring Sizer",
+        "body": "<p>A physical sizer is the only way to know how a ring actually feels on the finger. We will post one out at no charge, with no obligation, anywhere in the UK.</p>",
+        "link": "/pages/order-a-free-ring-sizer",
+        "link_label": "Request a free ring sizer"
+      }
+    },
+
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "What is the most common UK ring size?",
+            "a": "<p>For women, around L to N. For men, around T to V. That is a useful fallback for a surprise rather than a substitute for measuring, and we would still rather help you work out the real answer first.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "How should a ring feel when it fits?",
+            "a": "<p>Snug enough that it will not fall off, loose enough to turn on the finger with a little effort, and it should need a small amount of persuasion to come back over the knuckle. If it slides off easily it is too big, and it will be lost eventually.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Can any ring be resized?",
+            "a": "<p>Most can, within a size or two either way. Full eternity rings set all the way round usually cannot, because there is no plain metal to cut and rejoin, and rings with channel or tension settings are limited. If resizing might be needed later, that is worth discussing at the design stage.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Do you charge for resizing?",
+            "a": "<p>Resizing is complimentary for the first year on anything we have made. After that it is a normal workshop charge, which depends on the ring and how far it has to move. We will always quote before doing the work.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Should a wide band be a bigger size?",
+            "a": "<p>Usually yes, by a quarter to a half size, because a wide band covers more of the finger and feels tighter. If you are buying a wedding ring to sit alongside an engagement ring, the pair together also feel snugger than either alone. We allow for both.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "My measurement is between two sizes. Which do I choose?",
+            "a": "<p>Generally the larger, particularly if the knuckle is prominent or the band is wide. A slightly loose ring can be tightened with beads or resized down easily; a ring that will not pass the knuckle cannot be worn at all. Tell us both figures and we will advise on the specific design.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "q": "Can you size a ring from a photograph?",
+            "a": "<p>We can get close from a clear photograph of the inside of an existing ring beside a ruler, and we will tell you how confident we are. For anything being made rather than bought off the shelf we would still want a physical sizer confirmed first.</p>"
+          }
+        }
+      },
+      "block_order": ["q1", "q2", "q3", "q4", "q5", "q6", "q7"],
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Ring Size Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": { "band": "white", "show_prev_next": true, "emit_breadcrumbs": false }
+    },
+
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn",
+            "klaviyo_form": "V9eDYg"
+          }
+        }
+      },
+      "block_order": ["g1"],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/Engagement_Ring_Cover.png",
+        "cover_alt": "The Engagement Ring Guide",
+        "cover_caption": "The Engagement Ring Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Engagement Ring Guide",
+        "body": "<p>Sizing in full, plus budget, the Four Cs, shapes, settings, metals and how a bespoke commission works.</p>"
+      }
+    },
+
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Practical",
+            "title": "Fit, Resizing and Changing Fingers",
+            "desc": "What to do when a ring stops fitting.",
+            "cta": "Read more",
+            "link": "/pages/ring-care-fit"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Rings",
+            "title": "Profiles, Width and Feel",
+            "desc": "Why width changes the size you need.",
+            "cta": "Read more",
+            "link": "/pages/ring-profiles-and-widths"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Practical",
+            "title": "Proposing in Secret",
+            "desc": "Working out a size without giving the game away.",
+            "cta": "Read more",
+            "link": "/pages/proposing-in-secret"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Bespoke",
+            "title": "The Bespoke Process",
+            "desc": "How a ring is designed and made with you.",
+            "cta": "Read more",
+            "link": "/pages/create-your-own-ring"
+          }
+        }
+      },
+      "block_order": ["r1", "r2", "r3", "r4"],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "methods",
+    "chart",
+    "timing",
+    "affects",
+    "secret",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

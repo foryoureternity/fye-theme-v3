@@ -1,0 +1,235 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": { "type": "3", "settings": {} },
+        "title": { "type": "1", "settings": { "heading": "Diamonds and Gemstones" } },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Loose stones to choose from, and the guidance to choose one with confidence</p>"
+          }
+        }
+      },
+      "block_order": ["crumbs", "title", "sub"],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 46,
+        "image": "shopify://shop_images/loose-diamonds-coloured-gemstones-sapphire-emerald.png",
+        "use_specify_image": true
+      }
+    },
+
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "variant": "default",
+        "narrow": true,
+        "eyebrow": "Where to Start",
+        "heading": "Choose the Stone First, Then Design Around It",
+        "body": "<p>Most of our bespoke work begins with a stone rather than with a ring. Once you know what is at the centre, everything else follows: the setting that protects it, the metal that flatters it, the width that carries it.</p><p>We hold a very large loose inventory across natural and lab-grown diamonds, fancy coloured diamonds, and coloured gemstones including sapphire, ruby, emerald, aquamarine and tanzanite. Any of them can be set into a design from our collections or into something drawn from scratch.</p><p>If you would rather browse finished pieces and worry about stones later, that works too.</p>"
+      }
+    },
+
+    "browse": {
+      "type": "fye-related",
+      "blocks": {
+        "b1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Loose Stones",
+            "title": "Natural Diamonds",
+            "desc": "Kimberley Process certified, filterable by shape, grade and budget.",
+            "cta": "Browse natural diamonds",
+            "link": "/collections/natural-diamonds"
+          }
+        },
+        "b2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Loose Stones",
+            "title": "Lab-Grown Diamonds",
+            "desc": "The same stone, grown rather than mined. More size and specification for the budget.",
+            "cta": "Browse lab-grown",
+            "link": "/collections/lab-diamonds"
+          }
+        },
+        "b3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Loose Stones",
+            "title": "Fancy Coloured Diamonds",
+            "desc": "Yellow, pink, brown, green and beyond, natural and lab-grown.",
+            "cta": "Browse fancy colour",
+            "link": "/collections/fancy-diamonds"
+          }
+        },
+        "b4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Loose Stones",
+            "title": "Coloured Gemstones",
+            "desc": "Sapphire, ruby, emerald, aquamarine, tanzanite, tourmaline and more.",
+            "cta": "Browse gemstones",
+            "link": "/collections/gemstones"
+          }
+        }
+      },
+      "block_order": ["b1", "b2", "b3", "b4"],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Browse the Inventory",
+        "heading": "Loose Stones by Type"
+      }
+    },
+
+    "routes": {
+      "type": "fye-two-ways",
+      "blocks": {
+        "point_a1": {
+          "type": "point_a",
+          "settings": {
+            "text": "Hundreds of coloured stone rings already made and ready to size",
+            "short": "Ready to size",
+            "hide_mobile": false
+          }
+        },
+        "point_a2": {
+          "type": "point_a",
+          "settings": {
+            "text": "Every piece can still be changed: metal, width, setting height",
+            "short": "Still adjustable",
+            "hide_mobile": false
+          }
+        },
+        "point_a3": {
+          "type": "point_a",
+          "settings": {
+            "text": "The fastest route if you have a date to work to",
+            "short": "Quickest route",
+            "hide_mobile": true
+          }
+        },
+        "point_b1": {
+          "type": "point_b",
+          "settings": {
+            "text": "Choose the stone yourself, then have it set into any of our designs",
+            "short": "Your stone, our setting",
+            "hide_mobile": false
+          }
+        },
+        "point_b2": {
+          "type": "point_b",
+          "settings": {
+            "text": "Or start from a blank page and design the piece around it",
+            "short": "Fully bespoke",
+            "hide_mobile": false
+          }
+        },
+        "point_b3": {
+          "type": "point_b",
+          "settings": {
+            "text": "Inherited and unworn stones can be reset the same way",
+            "short": "Heirloom stones welcome",
+            "hide_mobile": true
+          }
+        }
+      },
+      "block_order": ["point_a1", "point_a2", "point_a3", "point_b1", "point_b2", "point_b3"],
+      "settings": {
+        "ground": "white",
+        "eyebrow": "Two Ways In",
+        "heading": "Buy It Made, or Have It Made",
+        "subline": "Both start with a conversation, and neither costs anything to explore.",
+        "card_a_title": "Choose a finished piece",
+        "card_a_lede": "Browse rings already made with coloured stones and diamonds. Pick one, tell us the size, and adjust the details if you want to.",
+        "card_a_cta_label": "Browse coloured stone rings",
+        "card_a_cta_link": "/collections/coloured-stone-rings",
+        "card_b_title": "Bring us a stone",
+        "card_b_lede": "Pick a loose stone from the inventory, or bring one you already own, and we will design and make the piece around it.",
+        "card_b_cta_label": "Talk to us about a stone",
+        "card_b_popup": true
+      }
+    },
+
+    "learn": {
+      "type": "fye-related",
+      "blocks": {
+        "l1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Start Here",
+            "title": "Diamond Education",
+            "desc": "The whole diamond library, in reading order.",
+            "cta": "Read more",
+            "link": "/pages/diamond-education"
+          }
+        },
+        "l2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Start Here",
+            "title": "Gemstone Education",
+            "desc": "Colour, durability, treatments and which stones suit daily wear.",
+            "cta": "Read more",
+            "link": "/pages/gemstone-education"
+          }
+        },
+        "l3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Diamond Education",
+            "title": "The Four Cs",
+            "desc": "Cut, colour, clarity and carat, ranked by what you will notice.",
+            "cta": "Read more",
+            "link": "/pages/diamond-4cs"
+          }
+        },
+        "l4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Diamond Education",
+            "title": "Diamond Shapes",
+            "desc": "Eleven cuts, and which suits which hand.",
+            "cta": "Read more",
+            "link": "/pages/diamond-shapes"
+          }
+        }
+      },
+      "block_order": ["l1", "l2", "l3", "l4"],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Before You Choose",
+        "heading": "Worth Reading First"
+      }
+    },
+
+    "cta": {
+      "type": "fye-consultation",
+      "blocks": {
+        "contact_phone": { "type": "contact", "settings": { "type": "phone", "label": "0208 178 6687" } },
+        "contact_email": { "type": "contact", "settings": { "type": "email", "label": "hello@foryoureternity.com" } },
+        "contact_whatsapp": {
+          "type": "contact",
+          "settings": { "type": "whatsapp", "label": "WhatsApp", "link": "https://wa.me/447840042922" }
+        }
+      },
+      "block_order": ["contact_phone", "contact_email", "contact_whatsapp"],
+      "settings": {
+        "band": "teal",
+        "eyebrow": "Personal Guidance",
+        "heading": "Let Us Draw Up a Short List",
+        "lead": "Tell us the budget, the shape and the colour you have in mind, and we will come back with a handful of stones worth looking at and the trade-offs between them.",
+        "btn_label": "Book a free consultation",
+        "btn_link": "https://calendar.app.google/UKFkGvMLzAYEviqy8"
+      }
+    }
+  },
+
+  "order": ["heading", "intro", "browse", "routes", "learn", "cta"]
+}

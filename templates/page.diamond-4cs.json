@@ -1,0 +1,519 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": { "type": "3", "settings": {} },
+        "title": { "type": "1", "settings": { "heading": "The Four Cs" } },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Cut, colour, clarity and carat, in the order that actually changes how a diamond looks on the hand</p>"
+          }
+        }
+      },
+      "block_order": ["crumbs", "title", "sub"],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 40,
+        "image": "shopify://shop_images/round-brilliant-diamond-sparkle-close-up.png",
+        "use_specify_image": true
+      }
+    },
+
+    "nav_top": {
+      "type": "fye-chapter-nav",
+      "settings": { "band": "ivory", "show_prev_next": false, "emit_breadcrumbs": true }
+    },
+
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "variant": "default",
+        "narrow": true,
+        "eyebrow": "Diamond Education",
+        "heading": "Four Words That Set the Price, and One That Sets the Sparkle",
+        "body": "<p>Every diamond is described by the same four measures: cut, colour, clarity and carat. They are what a grading laboratory reports and what a price is built from.</p><p>They are not equally important. Cut decides how a diamond behaves in daylight, and it is the only one of the four that a cutter controls rather than nature. Colour and clarity mostly decide what you pay, not what you see, once you are past a certain point. Carat is the one everybody starts with and the one worth deciding last.</p><p>What follows is the order we would use ourselves.</p>"
+      }
+    },
+
+    "fourcs": {
+      "type": "fye-terms",
+      "blocks": {
+        "t1": {
+          "type": "term",
+          "settings": {
+            "number": "01",
+            "heading": "Cut, and it is not the shape",
+            "body": "<p>Cut describes proportion and finish: how well the facets are placed to gather light and return it. It is the difference between a diamond that lifts across a room and one that looks flat under the same lamp.</p><p>Confusingly, cut is also used to mean shape, as in emerald cut. On a grading report, cut means quality of cutting. Aim for Excellent on a round brilliant, and accept nothing below Very Good.</p>",
+            "meta": "Spend here first"
+          }
+        },
+        "t2": {
+          "type": "term",
+          "settings": {
+            "number": "02",
+            "heading": "Colour, which means absence of it",
+            "body": "<p>White diamonds are graded D to Z, D being colourless and Z showing an obvious tint. The scale is finer than the eye is: most people cannot separate D from G with the stone in a ring.</p><p>Metal matters more than the letter. A G looks icy in platinum and warm in yellow gold, and a J that would look tinted in platinum looks perfectly white set in 18ct yellow.</p>",
+            "meta": "Match to the metal"
+          }
+        },
+        "t3": {
+          "type": "term",
+          "settings": {
+            "number": "03",
+            "heading": "Clarity, at arm's length",
+            "body": "<p>Clarity records the inclusions formed as the diamond grew. Grades run from Flawless down to I3, and almost all of that scale is invisible without a loupe.</p><p>What matters is whether you can see anything at normal distance, and whether an inclusion sits somewhere structurally unwise. VS2 and a well-placed SI1 are the value grades, and always worth looking at rather than buying by letter.</p>",
+            "meta": "Eye clean is the target"
+          }
+        },
+        "t4": {
+          "type": "term",
+          "settings": {
+            "number": "04",
+            "heading": "Carat, which is weight and not size",
+            "body": "<p>A carat is a fifth of a gram. Two diamonds of the same weight can look quite different: a deep stone hides its weight in the bottom, a well proportioned one puts it across the top where you see it.</p><p>Prices step up sharply at the round weights, so 0.90ct often buys a visibly better diamond than 1.00ct for the same money, and nobody looking at the ring will know.</p>",
+            "meta": "Buy just under the round figures"
+          }
+        }
+      },
+      "block_order": ["t1", "t2", "t3", "t4"],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "numbering": "numbers",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "In Order of What You Will Notice",
+        "heading": "The Four Cs, Ranked",
+        "intro": "If you only take one thing from this page: cut is the one to protect, and clarity is the one people most often overpay for.",
+        "note": ""
+      }
+    },
+
+    "cutgrades": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Excellent | Maximum brilliance and fire, the light return the shape is capable of | Yes, on a round brilliant"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Very Good | Very close to Excellent, and often better value | Yes, worth comparing side by side"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Good | Noticeably less lively, particularly in low light | Only with a reason"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Fair | Visibly dull next to a better cut stone | No"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Poor | Light leaks out of the bottom of the stone | No"
+          }
+        }
+      },
+      "block_order": ["r1", "r2", "r3", "r4", "r5"],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Cut",
+        "heading": "What the Cut Grades Mean in Practice",
+        "intro": "Cut grades are only reported on round brilliants. Fancy shapes such as oval, pear and emerald are graded for polish and symmetry instead, which is why proportions and a good look at the stone matter more on those.",
+        "headers": "Grade | What you see | Worth buying",
+        "first_col_bold": true,
+        "col1_width": 20,
+        "note": "On fancy shapes we look at length to width ratio, the shape of the outline, and whether a bow tie shadow runs across the middle. None of that appears as a single grade on a report.",
+        "narrow": false
+      }
+    },
+
+    "colourbands": {
+      "type": "fye-chips",
+      "blocks": {
+        "c1": {
+          "type": "chip",
+          "settings": {
+            "name": "D to F",
+            "sub": "Colourless. Icy white, the premium grades, best in platinum and white gold",
+            "colour": "#FDFDFB"
+          }
+        },
+        "c2": {
+          "type": "chip",
+          "settings": {
+            "name": "G to H",
+            "sub": "Near colourless. Looks white in any metal. The value sweet spot",
+            "colour": "#FBFAF4"
+          }
+        },
+        "c3": {
+          "type": "chip",
+          "settings": {
+            "name": "I to J",
+            "sub": "Near colourless with a hint of warmth. Excellent in yellow and rose gold",
+            "colour": "#F7F2E3"
+          }
+        },
+        "c4": {
+          "type": "chip",
+          "settings": {
+            "name": "K to M",
+            "sub": "Faint warmth, visible in daylight. Can be lovely in yellow gold, deliberately",
+            "colour": "#F1E7C9"
+          }
+        },
+        "c5": {
+          "type": "chip",
+          "settings": {
+            "name": "N to Z",
+            "sub": "Clearly tinted. Rarely what someone means by a white diamond",
+            "colour": "#E8D9A4"
+          }
+        }
+      },
+      "block_order": ["c1", "c2", "c3", "c4", "c5"],
+      "settings": {
+        "band": "ivory",
+        "align": "center",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Colour",
+        "heading": "The Colour Scale, Grouped as You Would Actually Shop It",
+        "intro": "Laboratories grade in single letters, but the eye works in bands. These are the groups worth thinking in, and the metal you would pair each with.",
+        "note": "The swatches are indicative of relative warmth on screen and are not a grading tool. Colour is graded face down against masterstones in controlled light, which is not a judgement anyone can make from a photograph."
+      }
+    },
+
+    "claritygrades": {
+      "type": "fye-table",
+      "blocks": {
+        "cl1": {
+          "type": "row",
+          "settings": { "cells": "FL and IF | Nothing, even at ten times magnification | Rarity, not appearance" }
+        },
+        "cl2": {
+          "type": "row",
+          "settings": { "cells": "VVS1 and VVS2 | Extremely hard to find under a loupe | Very high specification stones" }
+        },
+        "cl3": {
+          "type": "row",
+          "settings": { "cells": "VS1 and VS2 | Visible under a loupe, invisible to the eye | Most people, most of the time" }
+        },
+        "cl4": {
+          "type": "row",
+          "settings": { "cells": "SI1 | Often eye clean, sometimes not. Look at the stone | Best value when it is clean" }
+        },
+        "cl5": {
+          "type": "row",
+          "settings": { "cells": "SI2 | Sometimes eye clean, frequently not | Only after seeing it" }
+        },
+        "cl6": {
+          "type": "row",
+          "settings": { "cells": "I1 to I3 | Inclusions visible without magnification | Not for a centre stone" }
+        }
+      },
+      "block_order": ["cl1", "cl2", "cl3", "cl4", "cl5", "cl6"],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Clarity",
+        "heading": "Where Clarity Stops Being Visible",
+        "intro": "Everything from VS2 upward looks identical in a ring. The money saved by not buying VVS on a stone nobody will loupe is better spent on cut, or on size.",
+        "headers": "Grade | What you can see | Who it suits",
+        "first_col_bold": true,
+        "col1_width": 25,
+        "note": "Position matters as much as grade. An inclusion under a claw is hidden for life; the same inclusion in the centre of an emerald cut, which has large open facets and nowhere to hide, is a different proposition. We look at every centre stone before recommending it.",
+        "narrow": false
+      }
+    },
+
+    "caratsizes": {
+      "type": "fye-facts",
+      "blocks": {
+        "f1": { "type": "fact", "settings": { "label": "0.25ct", "value": "<p>About 4.1mm across</p>", "show_scale": false } },
+        "f2": { "type": "fact", "settings": { "label": "0.50ct", "value": "<p>About 5.2mm across</p>", "show_scale": false } },
+        "f3": { "type": "fact", "settings": { "label": "0.70ct", "value": "<p>About 5.8mm across</p>", "show_scale": false } },
+        "f4": { "type": "fact", "settings": { "label": "0.90ct", "value": "<p>About 6.3mm across, and priced well below a full carat</p>", "show_scale": false } },
+        "f5": { "type": "fact", "settings": { "label": "1.00ct", "value": "<p>About 6.5mm across</p>", "show_scale": false } },
+        "f6": { "type": "fact", "settings": { "label": "1.50ct", "value": "<p>About 7.4mm across</p>", "show_scale": false } },
+        "f7": { "type": "fact", "settings": { "label": "2.00ct", "value": "<p>About 8.1mm across</p>", "show_scale": false } },
+        "f8": { "type": "fact", "settings": { "label": "3.00ct", "value": "<p>About 9.3mm across</p>", "show_scale": false } }
+      },
+      "block_order": ["f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8"],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Carat",
+        "heading": "What the Weights Look Like",
+        "intro": "Approximate face up diameters for a well proportioned round brilliant. Fancy shapes of the same weight read larger or smaller depending on how the weight is distributed: an oval or a marquise of a given carat looks bigger than a round, and a cushion often looks smaller.",
+        "note": "Two thirds of a carat well cut will outshine a full carat cut badly, every day of the week. If size is the priority, say so and we will show you where the weight is best spent."
+      }
+    },
+
+    "spend": {
+      "type": "fye-checklist",
+      "blocks": {
+        "s1": {
+          "type": "item",
+          "settings": {
+            "label": "Protect the cut grade",
+            "note": "It is the only C you cannot compensate for later, and the only one that changes how the ring looks across a table."
+          }
+        },
+        "s2": {
+          "type": "item",
+          "settings": {
+            "label": "Buy just under the round weights",
+            "note": "0.90ct instead of 1.00ct, or 1.40ct instead of 1.50ct, is usually a better stone for the same figure."
+          }
+        },
+        "s3": {
+          "type": "item",
+          "settings": {
+            "label": "Let the metal choose the colour grade",
+            "note": "Going below H in platinum shows. In 18ct yellow gold, I and J look white and cost noticeably less."
+          }
+        },
+        "s4": {
+          "type": "item",
+          "settings": {
+            "label": "Stop paying for clarity at VS2",
+            "note": "Above that, you are buying a certificate rather than an appearance."
+          }
+        },
+        "s5": {
+          "type": "item",
+          "settings": {
+            "label": "Insist on a report for a centre stone",
+            "note": "GIA or IGI, at any meaningful size, natural or lab-grown. It is how the stone is identified and insured for the rest of its life."
+          }
+        },
+        "s6": {
+          "type": "item",
+          "settings": {
+            "label": "Look at the shape, not only the shape name",
+            "note": "Two ovals of identical specification can differ a great deal in outline. This is the part no report captures."
+          }
+        }
+      },
+      "block_order": ["s1", "s2", "s3", "s4", "s5", "s6"],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "How We Would Spend It",
+        "heading": "Six Decisions That Move the Money",
+        "intro": "",
+        "note": ""
+      }
+    },
+
+    "position": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "strong",
+        "narrow": true,
+        "eyebrow": "Our Position",
+        "heading": "A Report Is Evidence, Not a Recommendation",
+        "body": "<p>Two diamonds with identical reports can look quite different, and the paperwork will not tell you which is which. Light return, the shape of an outline, whether a bow tie shadow crosses the centre of an oval: none of it appears as a grade.</p><p>So we look at stones before we put them in front of you, and when a decision is close we will show you both and explain what we think and why. If you would rather see them yourself, we can arrange a face to face meeting.</p>"
+      }
+    },
+
+    "xref": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "eyebrow": "Put It Against Your Budget",
+        "heading": "See the Trade-Offs on Real Stones",
+        "body": "<p>The Four Cs make sense the moment they have numbers attached. Tell us your budget, the shape you like and the metal you have in mind, and we will send a short list with the compromises spelled out in each direction.</p>",
+        "link": "/pages/contact-us",
+        "link_label": "Ask us for a short list"
+      }
+    },
+
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Which of the Four Cs matters most?",
+            "a": "<p>Cut, without much argument. It decides how the diamond behaves in light, and it is the only one of the four determined by the cutter rather than by how the stone formed. A modest stone cut beautifully looks better than a larger one cut poorly.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "What does eye clean mean?",
+            "a": "<p>That you cannot see any inclusions with the naked eye at normal viewing distance, roughly arm's length, without magnification. Many SI1 diamonds are eye clean and cost considerably less than VS grades. It is a description of the individual stone rather than a grade, which is why it needs looking at rather than reading.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Is a D colour diamond worth the premium?",
+            "a": "<p>Only if the difference matters to you knowing it is there, because it will not be visible in the ring. Most people cannot distinguish D from G once a stone is set, and in yellow or rose gold the metal warms the appearance anyway. G and H give you white without the premium.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Why is 0.90ct so much cheaper than 1.00ct?",
+            "a": "<p>Because prices step at the round weights, where demand concentrates. The visual difference between 0.90ct and 1.00ct is about a fifth of a millimetre across the top, which nobody can see. The price difference is substantial and can be spent on cut or colour instead.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Do the Four Cs apply to lab-grown diamonds?",
+            "a": "<p>They have done, and largely still do in practice. In October 2025 GIA moved lab-grown reporting to a Premium or Standard framework rather than the traditional letters, but most lab-grown stones on the market still carry earlier GIA reports or reports from IGI and other laboratories using the familiar wording. We explain which framework a given report uses.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "Do the Four Cs apply to coloured gemstones?",
+            "a": "<p>Not in the same way. With a sapphire, ruby or emerald, colour is overwhelmingly the driver of both beauty and price, and inclusions are judged by type rather than on the diamond clarity scale. Emeralds in particular are almost always included and are graded on that expectation.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "q": "Should a small accent diamond have a report?",
+            "a": "<p>No, and it would cost more than the stone. Reports are for centre stones and any stone of meaningful individual value. Accent and shoulder diamonds are specified by quality range instead, and we document that range with your order.</p>"
+          }
+        }
+      },
+      "block_order": ["q1", "q2", "q3", "q4", "q5", "q6", "q7"],
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Four Cs Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+
+    "nav_bottom": {
+      "type": "fye-chapter-nav",
+      "settings": { "band": "white", "show_prev_next": true, "emit_breadcrumbs": false }
+    },
+
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "g1": {
+          "type": "button",
+          "settings": {
+            "label": "Download the PDF",
+            "link": "",
+            "style": "btn",
+            "klaviyo_form": "UbTxH7"
+          }
+        }
+      },
+      "block_order": ["g1"],
+      "settings": {
+        "band": "mist",
+        "cover": "shopify://shop_images/diamond-and-gemstone-guide-cover.png",
+        "cover_alt": "The Diamond and Gemstone Guide",
+        "cover_caption": "The Diamond and Gemstone Guide",
+        "eyebrow": "Free Download",
+        "heading": "The Diamond and Gemstone Guide",
+        "body": "<p>The Four Cs in full, plus shapes, natural against lab-grown, fancy colour, coloured gemstones, treatments, durability and how to read a grading report.</p>"
+      }
+    },
+
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Diamond Education",
+            "title": "Diamond Shapes",
+            "desc": "Twelve cuts, and which suits which hand.",
+            "cta": "Read more",
+            "link": "/pages/diamond-shapes"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "Diamond Education",
+            "title": "Natural vs Lab-Grown",
+            "desc": "The same Four Cs, a very different price.",
+            "cta": "Read more",
+            "link": "/pages/lab-grown-diamonds"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "Diamond Education",
+            "title": "Certificates and Grading Reports",
+            "desc": "What a report proves, and what it does not.",
+            "cta": "Read more",
+            "link": "/pages/diamond-certification"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "Shop",
+            "title": "Loose Diamonds",
+            "desc": "Filter by shape, grade and budget.",
+            "cta": "Browse diamonds",
+            "link": "/collections/natural-diamonds"
+          }
+        }
+      },
+      "block_order": ["r1", "r2", "r3", "r4"],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Keep Exploring",
+        "heading": "Related Guides"
+      }
+    }
+  },
+
+  "order": [
+    "heading",
+    "nav_top",
+    "intro",
+    "fourcs",
+    "cutgrades",
+    "colourbands",
+    "claritygrades",
+    "caratsizes",
+    "spend",
+    "position",
+    "xref",
+    "faq",
+    "nav_bottom",
+    "guide",
+    "related"
+  ]
+}

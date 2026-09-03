@@ -62,7 +62,15 @@ const EXCLUDE = new Set([
   // item, no reference in either repo. The nav uses the COLLECTIONS of the
   // same name (/collections/natural-diamonds, /collections/lab-diamonds).
   'page.diamonds.json',
-  'page.lab-diamonds.json'
+  'page.lab-diamonds.json',
+
+  // No page with these handles exists either, confirmed 03/09/2026. Their
+  // blocked sections (main-pagebrands, contact-form, main-store-locator,
+  // timeline) are therefore not needed by anything.
+  'page.create.json',
+  'page.brands.json',
+  'page.store-locator.json',
+  'page.timeline.json'
 ]);
 
 if (!existsSync(LIVE)) {

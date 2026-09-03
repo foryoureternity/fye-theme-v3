@@ -1,0 +1,123 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": { "type": "3", "settings": {} },
+        "title": { "type": "1", "settings": { "heading": "Ring, Jewellery and Gemstone Educational Guides" } },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>The complete guides to choosing the right rings, diamonds and gemstones, and then looking after your jewellery so it lasts</p>"
+          }
+        }
+      },
+      "block_order": ["crumbs", "title", "sub"],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 36,
+        "image": "shopify://shop_images/engagement-wedding-ring-stack-gold-rose-gold.png",
+        "use_specify_image": true
+      }
+    },
+
+    "routes": {
+      "type": "fye-terms",
+      "blocks": {
+        "r1": {
+          "type": "term",
+          "settings": {
+            "heading": "I am going to propose",
+            "body": "<p>Budget, the Four Cs, shapes, settings, sizing and how a bespoke commission works.</p><p><a href=\"/pages/engagement-ring-guide\">Read The Engagement Ring Guide</a></p>",
+            "meta": "15 chapters"
+          }
+        },
+        "r2": {
+          "type": "term",
+          "settings": {
+            "heading": "We want plain wedding rings",
+            "body": "<p>Profiles, metals, finishes, shaped-to-fit bands and matching a pair.</p><p><a href=\"/pages/plain-wedding-ring-guide\">Read The Plain Wedding Ring Guide</a></p>",
+            "meta": "10 chapters"
+          }
+        },
+        "r3": {
+          "type": "term",
+          "settings": {
+            "heading": "We want stones in our wedding rings",
+            "body": "<p>Stone settings, coverage, layout and how a diamond set band wears day to day.</p><p><a href=\"/pages/diamond-gemstone-wedding-ring-guide\">Read The Diamond and Gemstone Wedding Ring Guide</a></p>",
+            "meta": "16 chapters"
+          }
+        },
+        "r4": {
+          "type": "term",
+          "settings": {
+            "heading": "I am buying an eternity ring",
+            "body": "<p>Full, half and three-quarter styles, spacing, stacking and choosing the setting.</p><p><a href=\"/pages/eternity-ring-guide\">Read The Eternity Ring Guide</a></p>",
+            "meta": "15 chapters"
+          }
+        },
+        "r5": {
+          "type": "term",
+          "settings": {
+            "heading": "I want to understand the stones",
+            "body": "<p>Diamonds and coloured gemstones, natural and lab-grown, treatments, durability and grading reports.</p><p><a href=\"/pages/diamond-and-gemstone-guide\">Read The Diamond and Gemstone Guide</a></p>",
+            "meta": "22 chapters"
+          }
+        },
+        "r6": {
+          "type": "term",
+          "settings": {
+            "heading": "I want to look after what I own",
+            "body": "<p>Cleaning, storage, claw checks, replating, resizing and when to have a ring serviced.</p><p><a href=\"/pages/ring-and-jewellery-care-guide\">Read The Ring and Jewellery Care Guide</a></p>",
+            "meta": "9 chapters"
+          }
+        }
+      },
+      "block_order": ["r1", "r2", "r3", "r4", "r5", "r6"],
+      "settings": {
+        "band": "white",
+        "columns": "3",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Start Where You Are",
+        "heading": "Six Guides, Free to Read",
+        "intro": "Each guide is a set of short chapters you can read in order or dip into. Nothing is gated and none of it asks for an email address.",
+        "note": ""
+      }
+    },
+
+    "morehelp": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "bare",
+        "narrow": true,
+        "eyebrow": "Looking for Something Narrower?",
+        "heading": "One Answer Rather Than a Whole Guide",
+        "body": "<p>If you want a single question answered rather than a full guide, start with <a href=\"/pages/diamond-education\">Diamond Education</a> or <a href=\"/pages/gemstone-education\">Gemstone Education</a>, which break the same material into individual pages.</p><p>Prefer a PDF to print or read offline? All six guides are on the <a href=\"/pages/downloadable-guides\">downloadable guides</a> page.</p>"
+      }
+    },
+
+    "cta": {
+      "type": "fye-consultation",
+      "blocks": {
+        "phone": { "type": "contact", "settings": { "type": "phone", "label": "0208 178 6687", "link": "tel:+442081786687" } },
+        "email": { "type": "contact", "settings": { "type": "email", "label": "hello@foryoureternity.com", "link": "mailto:hello@foryoureternity.com" } },
+        "whatsapp": { "type": "contact", "settings": { "type": "whatsapp", "label": "WhatsApp", "link": "https://wa.me/447840042922" } }
+      },
+      "block_order": ["phone", "email", "whatsapp"],
+      "settings": {
+        "band": "teal",
+        "eyebrow": "Personal Guidance",
+        "heading": "Would You Rather Just Ask?",
+        "lead": "The guides exist so nobody has to take our word for anything. If you would rather talk it through, we answer the phone ourselves.",
+        "btn_label": "Book a free consultation",
+        "btn_link": "https://calendar.app.google/UKFkGvMLzAYEviqy8"
+      }
+    }
+  },
+
+  "order": ["heading", "routes", "morehelp", "cta"]
+}

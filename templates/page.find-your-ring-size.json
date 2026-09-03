@@ -333,7 +333,7 @@
         "headers": "UK | Diameter mm | Circumference mm | Europe | US",
         "first_col_bold": true,
         "col1_width": 15,
-        "note": "A dash means that scale publishes no equivalent at that size, and European and US sizes do not map exactly onto the UK letters, so a conversion is the nearest match rather than an exact one. Sizes A to Z are standard published conversions. Z+1 to Z+6 are calculated from the same increments rather than published, so if you are in that range do ask us to confirm against a sizer before anything is made. If your measurement falls between two rows, send us both figures and we will recommend which way to go.",
+        "note": "A dash means that scale publishes no equivalent at that size, and European and US sizes do not map exactly onto the UK letters, so a conversion is the nearest match rather than an exact one. If your measurement falls between two rows, send us both figures and we will recommend which way to go. We confirm every size against a physical sizer before making anything.",
         "narrow": false
       }
     },

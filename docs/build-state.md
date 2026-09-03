@@ -1862,3 +1862,97 @@ notes plus a false positive on the `@app` block (the validator does not know
 the wildcard). Not browser-tested: the session's browser tools were down.
 First thing after push: open the preview with `?fyedebug=1` and run
 `fyeSmoke.all()` on a product, a collection, a guide chapter and an article.
+
+
+---
+
+# Session, 03/09/2026: the six pages with no template
+
+Worked from `PROMPT-v3-missing-pages-03092026.md`. Four of the six built,
+smoke tested and pushed. The two affiliate pages are blocked on their briefs,
+which are not in the repo or the project uploads.
+
+## What was built
+
+| File | Notes |
+|---|---|
+| `templates/page.diamond-4cs.json` | Chapter. Four Cs ranked by what you actually notice |
+| `templates/page.diamond-shapes.json` | Chapter. Eleven cuts, ratios, hand guidance, the bow tie |
+| `templates/page.find-your-ring-size.json` | Chapter. Full A to Z+6 conversion chart |
+| `templates/page.loose-diamond-gems.json` | Hub. Loose stone routes plus the two education entry points |
+| `sections/fye-shape-tiles.liquid` | NEW, and the only new section. Reasoning below |
+| `sections/fye-xref.liquid` | CTA raised to the 44px minimum. Affects all 33 pages using it |
+
+All three chapters follow `page.lab-grown-diamonds.json` exactly: banner,
+chapter-nav top with `emit_breadcrumbs: true`, rich-text intro, content
+sections, xref, faq, chapter-nav bottom with breadcrumbs off, guide download,
+related. All three handles were already in `fye-chapter-nav`'s `seq_` arrays,
+so previous and next across the engagement, plain-wedding, dg-wedding,
+eternity and dg-master guides now resolve instead of landing on nothing.
+
+## The one new section, and why
+
+`fye-shape-tiles`. The shape icons are **SVG** files in Content › Files
+(icon101.svg to icon110.svg), the same ones the mega menu renders. An SVG
+cannot pass through `image_url`, and `image_picker` will not list one, so
+`fye-cards` cannot render them and nothing else in the set has an image slot
+at all. Its icon setting is therefore a `text` field holding a filename,
+resolved with `file_url`. Now a rule in conventions §5.
+
+Each tile carries **two** destinations, rings and loose stones, because
+someone arriving at "oval" wants one or the other. Live linked only to rings.
+
+## Eleven cuts, not twelve
+
+Files holds icon101 to icon110, ten shapes, plus baguette as an eleventh with
+no icon and only `/collections/eternity-baguette` to point at. The page's
+title tag promises twelve. **Open with Ed:** either the title tag becomes
+eleven, or a twelfth shape needs an icon and a collection. Trilliant is the
+obvious candidate and has neither, so it was not invented.
+
+## Verified against the store before linking, not assumed
+
+Every collection handle on these pages was checked live. The brief's
+`/collections/fancy-diamonds` and `/collections/coloured-stone-rings` both
+exist (11,358 and 445 products). The engagement shape handles are irregular
+and had to be read from `mm-shapes.liquid` rather than constructed:
+`round-brilliant-engagement-rings` but `oval-cut-engagement-rings`.
+
+## The hub uses fye-related, not fye-cards
+
+The brief suggested `fye-cards`. Its `card` block has icon, label, heading and
+body and **no link setting at all**, so a hub built from it is a grid of
+unclickable boxes. `fye-related`'s card block has `link` and `cta`, which is
+what a hub needs. `fye-two-ways` carries the finished-ring against
+bring-us-a-stone decision, with the second card opening the enquiry popup.
+
+## Gotchas earned
+
+**A guard that names the selector is not proof the fix landed.** Now a rule in
+conventions §5. Cost one wasted push cycle.
+
+**`<p">` is invisible to every validator.** Typed twice, in two different FAQ
+answers. The JSON is valid, every setting is legal, Shopify accepts it, and
+the browser recovers by inventing an attribute and swallowing part of the
+sentence. Nothing in the toolchain checks the HTML inside a setting VALUE.
+`w981` fixed both and is worth rebuilding if it happens again.
+
+**`targets` had never run on a chapter page.** It only fires at coarse pointer
+or 900px and under, and every previous chapter smoke run was at 1440. Ed's 899
+run found a 24px CTA sitting on 33 pages. **Smoke test at 899, not just 1440**,
+or the check that matters most does not run at all.
+
+## Outstanding
+
+1. **The affiliate pages are blocked.** `BRIEF-affiliate-page-images.md` and
+   `BRIEF-affiliate-terms-revision.md` are referenced by the prompt but are not
+   in the repo, Dropbox or the project uploads.
+2. **The ring size chart needs checking against Hockley Mint's own chart**
+   before publish. Standard published UK conversions, A to Z+6 with diameter,
+   circumference, US and EU, but it is the one number set on these pages where
+   being wrong is expensive. The table note already says every size is
+   confirmed against a physical sizer.
+3. **The twelfth cut**, above.
+4. `mm-shapes.liquid` should move to `file_url`.
+5. The pager is still duplicated three times (`main-collection`, `main-blog`,
+   `main-search`) and should become one `.pager` component in `fye-core.css`.

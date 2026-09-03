@@ -209,6 +209,23 @@ figures for every existing pairing are in `fye-core.css`.
   photograph on the About page and ";" below it. No error, just CSS rendered as
   prose. Build the value with `capture` or `assign` first, then pass one
   variable.
+- **An SVG cannot go through `image_url` or `image_tag`, and `image_picker`
+  will not offer one.** So a section that needs to render an SVG from Content
+  › Files takes the filename as a `text` setting and resolves it with
+  `file_url`. This is why `fye-shape-tiles` exists rather than the diamond
+  shapes being composed from `fye-cards`, whose icon slot is an image picker
+  and physically cannot render icon101.svg. Prefer `file_url` over a hardcoded
+  `foryoureternity.com/cdn/...` URL: same file, resolved by Shopify, survives
+  a domain change and a store copy. `snippets/mm-shapes.liquid` still has the
+  hardcoded form and should move when next touched.
+- **A patch script's guard must name the CHANGE, not the selector.** On
+  03/09/2026 a script guarded on `.fye .xref__cta {` before adding a
+  `min-height` to it. That selector already existed as a one-line margin
+  rule, so the script reported "already present" and the fix never landed,
+  while the tree stayed clean and the push reported nothing to commit. Guard on
+  the property or value being introduced (`min-height: 44px;`), which is false
+  until the work is actually done. The selector guard is still right for
+  preventing a duplicate rule block; it is wrong as proof of completion.
 - **A range value in a JSON template MUST sit on the step grid.** A `range`
   with `"step": 2` accepts 44 and rejects 45, and the rejection takes the
   WHOLE TEMPLATE with it — silently, with the file simply staying at its

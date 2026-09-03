@@ -3,7 +3,8 @@
 #
 #   ./tools/fye push "message"    stage, commit, pull --rebase, push
 #   ./tools/fye nudge             re-save every JSON template and push
-#   ./tools/fye ship "message"    push, wait 60s, then nudge
+#   ./tools/fye ship "message"    push, wait (default 10s), then nudge
+#   FYE_SHIP_WAIT=20 ./tools/fye ship "message"   a longer wait if Shopify is slow
 #   ./tools/fye status            what is uncommitted, and how far ahead/behind
 #   ./tools/fye run <script.mjs>  run a tools/ script, then push if it changed anything
 #
@@ -67,8 +68,12 @@ case "${1:-}" in
     if [ -z "$msg" ]; then echo 'usage: ./tools/fye ship "message"' >&2; exit 1; fi
     _commit_push "$msg"
     echo ""
-    echo "waiting 60s for Shopify to take the sections, then re-saving templates..."
-    sleep 60
+    # Shopify normally takes a push in about five seconds (Ed, 03/09/2026);
+    # 60s was a guess from the first day. Ten covers the usual case with room
+    # to spare; set FYE_SHIP_WAIT for a slow afternoon.
+    wait="${FYE_SHIP_WAIT:-10}"
+    echo "waiting ${wait}s for Shopify to take the sections, then re-saving templates..."
+    sleep "$wait"
     _nudge
     _commit_push "Re-save templates after: $msg"
     ;;

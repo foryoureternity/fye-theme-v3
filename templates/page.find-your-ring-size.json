@@ -100,157 +100,193 @@
         "r01": {
           "type": "row",
           "settings": {
-            "cells": "A | 11.9 | 37.8 | - | 1/2 | -"
+            "cells": "A | 11.9 | 37.8 | - | 1/2"
           }
         },
         "r02": {
           "type": "row",
           "settings": {
-            "cells": "B | 12.3 | 39.1 | - | 1 | -"
+            "cells": "B | 12.3 | 39.1 | - | 1"
           }
         },
         "r03": {
           "type": "row",
           "settings": {
-            "cells": "C | 12.7 | 40.4 | - | 1 1/2 | -"
+            "cells": "C | 12.7 | 40.4 | - | 1 1/2"
           }
         },
         "r04": {
           "type": "row",
           "settings": {
-            "cells": "D | 13.1 | 41.7 | 41 1/2 | 2 | -"
+            "cells": "D | 13.1 | 41.7 | 41 1/2 | 2"
           }
         },
         "r05": {
           "type": "row",
           "settings": {
-            "cells": "E | 13.5 | 42.9 | 42 3/4 | 2 1/2 | -"
+            "cells": "E | 13.5 | 42.9 | 42 3/4 | 2 1/2"
           }
         },
         "r06": {
           "type": "row",
           "settings": {
-            "cells": "F | 13.9 | 44.2 | 44 | 3 | -"
+            "cells": "F | 13.9 | 44.2 | 44 | 3"
           }
         },
         "r07": {
           "type": "row",
           "settings": {
-            "cells": "G | 14.3 | 45.5 | 45 1/4 | 3 3/8 | -"
+            "cells": "G | 14.3 | 45.5 | 45 1/4 | 3 3/8"
           }
         },
         "r08": {
           "type": "row",
           "settings": {
-            "cells": "H | 14.7 | 46.8 | 46 1/2 | 3 3/4 | 8"
+            "cells": "H | 14.7 | 46.8 | 46 1/2 | 3 3/4"
           }
         },
         "r09": {
           "type": "row",
           "settings": {
-            "cells": "I | 15.1 | 48.0 | 47 3/4 | 4 1/4 | 9"
+            "cells": "I | 15.1 | 48.0 | 47 3/4 | 4 1/4"
           }
         },
         "r10": {
           "type": "row",
           "settings": {
-            "cells": "J | 15.5 | 48.7 | 49 | 4 5/8 | 10"
+            "cells": "J | 15.5 | 48.7 | 49 | 4 5/8"
           }
         },
         "r11": {
           "type": "row",
           "settings": {
-            "cells": "K | 15.9 | 50.0 | 50 | 5 1/8 | 11"
+            "cells": "K | 15.9 | 50.0 | 50 | 5 1/8"
           }
         },
         "r12": {
           "type": "row",
           "settings": {
-            "cells": "L | 16.3 | 51.2 | 51 3/4 | 5 1/2 | 12"
+            "cells": "L | 16.3 | 51.2 | 51 3/4 | 5 1/2"
           }
         },
         "r13": {
           "type": "row",
           "settings": {
-            "cells": "M | 16.7 | 52.5 | 52 3/4 | 6 | 13"
+            "cells": "M | 16.7 | 52.5 | 52 3/4 | 6"
           }
         },
         "r14": {
           "type": "row",
           "settings": {
-            "cells": "N | 17.1 | 53.8 | 54 | 6 1/2 | -"
+            "cells": "N | 17.1 | 53.8 | 54 | 6 1/2"
           }
         },
         "r15": {
           "type": "row",
           "settings": {
-            "cells": "O | 17.5 | 55.1 | 55 1/4 | 7 | -"
+            "cells": "O | 17.5 | 55.1 | 55 1/4 | 7"
           }
         },
         "r16": {
           "type": "row",
           "settings": {
-            "cells": "P | 17.9 | 56.3 | 56 1/2 | 7 1/2 | 17"
+            "cells": "P | 17.9 | 56.3 | 56 1/2 | 7 1/2"
           }
         },
         "r17": {
           "type": "row",
           "settings": {
-            "cells": "Q | 18.2 | 57.2 | 57 3/4 | 8 | 18"
+            "cells": "Q | 18.2 | 57.2 | 57 3/4 | 8"
           }
         },
         "r18": {
           "type": "row",
           "settings": {
-            "cells": "R | 18.6 | 58.9 | 59 | 8 5/8 | 19"
+            "cells": "R | 18.6 | 58.9 | 59 | 8 5/8"
           }
         },
         "r19": {
           "type": "row",
           "settings": {
-            "cells": "S | 19.1 | 60.2 | 60 1/4 | 9 1/8 | 20"
+            "cells": "S | 19.1 | 60.2 | 60 1/4 | 9 1/8"
           }
         },
         "r20": {
           "type": "row",
           "settings": {
-            "cells": "T | 19.5 | 61.4 | 61 1/2 | 9 5/8 | 21"
+            "cells": "T | 19.5 | 61.4 | 61 1/2 | 9 5/8"
           }
         },
         "r21": {
           "type": "row",
           "settings": {
-            "cells": "U | 20.0 | 62.7 | 62 3/4 | 10 1/4 | 23"
+            "cells": "U | 20.0 | 62.7 | 62 3/4 | 10 1/4"
           }
         },
         "r22": {
           "type": "row",
           "settings": {
-            "cells": "V | 20.3 | 64.0 | 63 | 10 5/8 | 24"
+            "cells": "V | 20.3 | 64.0 | 63 | 10 5/8"
           }
         },
         "r23": {
           "type": "row",
           "settings": {
-            "cells": "W | 20.7 | 65.3 | 65 | 11 1/8 | 25"
+            "cells": "W | 20.7 | 65.3 | 65 | 11 1/8"
           }
         },
         "r24": {
           "type": "row",
           "settings": {
-            "cells": "X | 21.1 | 66.6 | 66 1/4 | 11 5/8 | 26"
+            "cells": "X | 21.1 | 66.6 | 66 1/4 | 11 5/8"
           }
         },
         "r25": {
           "type": "row",
           "settings": {
-            "cells": "Y | 21.5 | 67.8 | 67 1/2 | 12 | 27"
+            "cells": "Y | 21.5 | 67.8 | 67 1/2 | 12"
           }
         },
         "r26": {
           "type": "row",
           "settings": {
-            "cells": "Z | 21.5 | 68.5 | 68 3/4 | 12 | 28"
+            "cells": "Z | 21.5 | 68.5 | 68 3/4 | 12"
+          }
+        },
+        "r27": {
+          "type": "row",
+          "settings": {
+            "cells": "Z+1 | 22.2 | 69.8 | 70 | 12 1/2"
+          }
+        },
+        "r28": {
+          "type": "row",
+          "settings": {
+            "cells": "Z+2 | 22.6 | 71.1 | 71 1/4 | 13"
+          }
+        },
+        "r29": {
+          "type": "row",
+          "settings": {
+            "cells": "Z+3 | 23.0 | 72.4 | 72 1/2 | 13 1/2"
+          }
+        },
+        "r30": {
+          "type": "row",
+          "settings": {
+            "cells": "Z+4 | 23.5 | 73.7 | 73 3/4 | 14"
+          }
+        },
+        "r31": {
+          "type": "row",
+          "settings": {
+            "cells": "Z+5 | 23.9 | 75.0 | 75 | 14 1/2"
+          }
+        },
+        "r32": {
+          "type": "row",
+          "settings": {
+            "cells": "Z+6 | 24.3 | 76.3 | 76 1/4 | 15"
           }
         }
       },
@@ -280,18 +316,24 @@
         "r23",
         "r24",
         "r25",
-        "r26"
+        "r26",
+        "r27",
+        "r28",
+        "r29",
+        "r30",
+        "r31",
+        "r32"
       ],
       "settings": {
         "band": "white",
         "show_head": true,
         "eyebrow": "Conversion Chart",
-        "heading": "UK Ring Sizes, A to Z",
+        "heading": "UK Ring Sizes, A to Z+6",
         "intro": "Inside diameter and circumference are in millimetres. If you have measured an existing ring, find your figure in the diameter column and read the UK size across from it.",
-        "headers": "UK | Diameter mm | Circumference mm | Europe | US | China",
+        "headers": "UK | Diameter mm | Circumference mm | Europe | US",
         "first_col_bold": true,
-        "col1_width": 10,
-        "note": "A dash means that scale publishes no equivalent at that size. European and US sizes do not map exactly onto the UK letters, so a conversion is the nearest match rather than an exact one. Sizes above Z are available: tell us the measurement and we will advise. If your figure falls between two rows, send us both and we will recommend which way to go. We confirm every size against a physical sizer before making anything.",
+        "col1_width": 15,
+        "note": "A dash means that scale publishes no equivalent at that size, and European and US sizes do not map exactly onto the UK letters, so a conversion is the nearest match rather than an exact one. Sizes A to Z are standard published conversions. Z+1 to Z+6 are calculated from the same increments rather than published, so if you are in that range do ask us to confirm against a sizer before anything is made. If your measurement falls between two rows, send us both figures and we will recommend which way to go.",
         "narrow": false
       }
     },

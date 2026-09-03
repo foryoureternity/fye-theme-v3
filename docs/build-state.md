@@ -2106,3 +2106,85 @@ distinction is the point of the rule, so keep the two claims apart in copy.
 
 **The China column was dropped** from the chart. It was in the source, but it
 is mostly dashes below H and it made this the widest table in the theme.
+
+
+---
+
+## The guides hub, and four more orphans, 03/09/2026
+
+`/pages/jewellery-guides` is built and clean at 889 and 1440. It was the last
+page on the site with a real page behind it and no template.
+
+| File | Notes |
+|---|---|
+| `templates/page.jewellery-guides.json` | Banner, signpost, consultation |
+| `sections/fye-signpost.liquid` | Ported from live, including its six inline icons |
+
+## Ed's rule, applied: build it if the page exists
+
+Checked all five candidates against the store before writing anything. Only
+`jewellery-guides` has a page. **`create`, `brands`, `store-locator` and
+`timeline` have no page with that handle at all**, so they are now in the
+porter's exclude list with the reason.
+
+That retires four entries from the blocked-sections list the porter has been
+reporting since 02/09: **`main-pagebrands`, `contact-form`,
+`main-store-locator` and `timeline` were only ever needed by those four dead
+templates.** Nothing to build. The bespoke page is `create-your-own-ring`,
+which v3 already has.
+
+Running total of orphan templates found this way: `faqs`, `faq-2`,
+`gemstones`, `diamonds`, `lab-diamonds`, `create`, `brands`,
+`store-locator`, `timeline`, `edu-test-page`. **Ten.** Checking the store
+before building a section is now the cheapest step in the whole porter
+workflow.
+
+## fye-signpost was ported rather than approximated
+
+First attempt composed the page from `fye-terms` at three columns, which
+worked and validated clean. It was replaced, because the section is not a grid
+of definitions: it is a routing list where **the reader's own words are the
+large line** and the guide's formal title is deliberately secondary, since
+nobody scans "The Diamond and Gemstone Wedding Ring Guide" quickly.
+
+**The six icons are inline SVG and must stay that way.** Live's reasoning,
+carried into the file: the illustration-scale ring artwork used on the
+ring-styles pages collapses into the same grey ring at 46px, and there was
+nothing for a plain band, an eternity band or care. These six are drawn at icon
+weight and separated by SILHOUETTE rather than detail. `half_set` and
+`eternity` are the hard pair, both being "a band with stones", and they are
+distinguished by texture: three chunky faceted stones across the top against
+ten small even beads all the way round. **Do not tidy either into the other.**
+
+Changed in the port: the heading is an `h2` because `heading-template` owns
+the page's only `h1`; the `fye-edu-section` schema class is gone; the ivory
+ground and vertical rhythm come from `band` so the section carries no padding
+of its own; tokens throughout; and the 400px breakpoint moved to the theme's
+560.
+
+The affiliate page's guides pointer is back on `/pages/jewellery-guides`,
+having been parked on `/pages/downloadable-guides` while this page did not
+exist.
+
+## A useful find in Content › Files
+
+There is a **second, much larger set of diamond-shape SVGs** at 36px with
+hashed filenames, alongside the `icon101` to `icon110` set the mega menu uses:
+
+    ROUND · OVAL · CUSHION · PEAR · EMERALD · RADIANT · PRINCESS · MARQUISE
+    ASSCHER · HEART · BAGUETTE · TAPERED_BAGUETTE · BRIOLETTE · BULLET
+    TAPERED_BULLET · CALF · EUROPEAN_CUT · FLANDERS · HALF_MOON · HEXAGONAL
+    KITE · LOZENGE · OCTAGONAL · OLD_MINER · PENTAGONAL · ROSE · SHIELD
+    SQUARE · SQUARE_EMERALD · SQUARE_RADIANT · STAR · TRAPEZOID · OTHER
+
+Two consequences for `page.diamond-shapes.json`:
+
+1. **Baguette can have an icon** (`BAGUETTE-5APAWROW.svg`). It is currently the
+   one tile without one.
+2. **The twelfth cut is available** whenever Ed wants it. The page's title tag
+   promises twelve and the page shows eleven; there are now more than twenty
+   further shapes with artwork, though most have no collection to link to.
+
+Also there is a set of ring-style SVGs at 68px: solitaire, pave, halo,
+hidden-halo, side-stone, three-stone, vintage, cathedral, bezel, nature. Worth
+knowing about before anyone draws anything new.

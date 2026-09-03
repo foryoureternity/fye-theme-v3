@@ -216,7 +216,7 @@
       },
       "block_order": [
         "j_eng", "j_plain", "j_dia",
-        "eng_style", "eng_size", "eng_cut", "eng_stone", "eng_metal", "eng_shoulder",
+        "eng_style", "eng_size", "eng_stone", "eng_cut", "eng_metal", "eng_shoulder",
         "plain_profile", "plain_width", "plain_weight", "plain_metal",
         "dia_setting", "dia_stone", "dia_shape", "dia_coverage", "dia_metal"
       ],

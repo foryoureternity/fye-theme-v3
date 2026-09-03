@@ -294,7 +294,7 @@
         "w3": { "type": "item", "settings": { "label": "Honest, competitive pricing", "note": "" } },
         "w4": { "type": "item", "settings": { "label": "Personal guidance before, during and after purchase", "note": "" } },
         "w5": { "type": "item", "settings": { "label": "Free insured UK delivery", "note": "" } },
-        "w6": { "type": "item", "settings": { "label": "Complimentary resizing for the first year where appropriate, and a warranty against manufacturing defects", "note": "" } }
+        "w6": { "type": "item", "settings": { "label": "Complimentary resizing for the first year where appropriate, and a lifetime warranty against manufacturing defects", "note": "" } }
       },
       "block_order": ["w1", "w2", "w3", "w4", "w5", "w6"],
       "settings": {

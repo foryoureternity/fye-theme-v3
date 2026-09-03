@@ -3,8 +3,16 @@
     "heading": {
       "type": "heading-template",
       "blocks": {
-        "crumbs": { "type": "3", "settings": {} },
-        "title": { "type": "1", "settings": { "heading": "Find Your Ring Size" } },
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Find Your Ring Size"
+          }
+        },
         "sub": {
           "type": "2",
           "settings": {
@@ -12,7 +20,11 @@
           }
         }
       },
-      "block_order": ["crumbs", "title", "sub"],
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
       "settings": {
         "content_align": "t4s-text-center",
         "heading_fullwidth": false,
@@ -21,12 +33,14 @@
         "use_specify_image": true
       }
     },
-
     "nav_top": {
       "type": "fye-chapter-nav",
-      "settings": { "band": "ivory", "show_prev_next": false, "emit_breadcrumbs": true }
+      "settings": {
+        "band": "ivory",
+        "show_prev_next": false,
+        "emit_breadcrumbs": true
+      }
     },
-
     "intro": {
       "type": "fye-rich-text",
       "settings": {
@@ -38,7 +52,6 @@
         "body": "<p>Finger size is not a fixed number. It changes through the day, with the weather, with exercise and with the width of the ring itself. A finger can differ by a full size between a cold morning and a warm evening.</p><p>So the aim is not one perfect measurement. It is a measurement taken in the right conditions, cross-checked, and then confirmed against a physical sizer before anything is made. That is why we send a free ring sizer, and why resizing is complimentary for the first year.</p><p>If the ring is a surprise, there are quieter ways to work it out. Those are further down.</p>"
       }
     },
-
     "methods": {
       "type": "fye-steps",
       "blocks": {
@@ -67,7 +80,11 @@
           }
         }
       },
-      "block_order": ["m1", "m2", "m3"],
+      "block_order": [
+        "m1",
+        "m2",
+        "m3"
+      ],
       "settings": {
         "band": "ivory",
         "columns": "3",
@@ -77,63 +94,207 @@
         "intro": "In order of reliability. The string and paper strip method is popular online and is the least accurate of all, because both stretch and neither tells you whether the ring will pass the knuckle."
       }
     },
-
     "chart": {
       "type": "fye-table",
       "blocks": {
-        "z01": { "type": "row", "settings": { "cells": "A | 12.04 | 37.8 | 0.5 | 38" } },
-        "z02": { "type": "row", "settings": { "cells": "B | 12.45 | 39.1 | 1 | 39" } },
-        "z03": { "type": "row", "settings": { "cells": "C | 12.85 | 40.4 | 1.5 | 40" } },
-        "z04": { "type": "row", "settings": { "cells": "D | 13.26 | 41.7 | 2 | 42" } },
-        "z05": { "type": "row", "settings": { "cells": "E | 13.67 | 42.9 | 2.25 | 43" } },
-        "z06": { "type": "row", "settings": { "cells": "F | 14.07 | 44.2 | 2.75 | 44" } },
-        "z07": { "type": "row", "settings": { "cells": "G | 14.48 | 45.5 | 3.25 | 45" } },
-        "z08": { "type": "row", "settings": { "cells": "H | 14.88 | 46.8 | 3.75 | 47" } },
-        "z09": { "type": "row", "settings": { "cells": "I | 15.29 | 48.0 | 4 | 48" } },
-        "z10": { "type": "row", "settings": { "cells": "J | 15.49 | 48.7 | 4.5 | 49" } },
-        "z11": { "type": "row", "settings": { "cells": "K | 15.90 | 50.0 | 5 | 50" } },
-        "z12": { "type": "row", "settings": { "cells": "L | 16.31 | 51.2 | 5.5 | 51" } },
-        "z13": { "type": "row", "settings": { "cells": "M | 16.71 | 52.5 | 6 | 52" } },
-        "z14": { "type": "row", "settings": { "cells": "N | 17.12 | 53.8 | 6.5 | 54" } },
-        "z15": { "type": "row", "settings": { "cells": "O | 17.53 | 55.1 | 7 | 55" } },
-        "z16": { "type": "row", "settings": { "cells": "P | 17.93 | 56.3 | 7.5 | 56" } },
-        "z17": { "type": "row", "settings": { "cells": "Q | 18.34 | 57.6 | 8 | 58" } },
-        "z18": { "type": "row", "settings": { "cells": "R | 18.75 | 58.9 | 8.5 | 59" } },
-        "z19": { "type": "row", "settings": { "cells": "S | 19.15 | 60.2 | 9 | 60" } },
-        "z20": { "type": "row", "settings": { "cells": "T | 19.56 | 61.4 | 9.5 | 61" } },
-        "z21": { "type": "row", "settings": { "cells": "U | 19.96 | 62.7 | 10 | 63" } },
-        "z22": { "type": "row", "settings": { "cells": "V | 20.37 | 64.0 | 10.5 | 64" } },
-        "z23": { "type": "row", "settings": { "cells": "W | 20.78 | 65.3 | 11 | 65" } },
-        "z24": { "type": "row", "settings": { "cells": "X | 21.18 | 66.6 | 11.5 | 67" } },
-        "z25": { "type": "row", "settings": { "cells": "Y | 21.59 | 67.8 | 12 | 68" } },
-        "z26": { "type": "row", "settings": { "cells": "Z | 22.00 | 69.1 | 12.5 | 69" } },
-        "z27": { "type": "row", "settings": { "cells": "Z+1 | 22.40 | 70.4 | 13 | 70" } },
-        "z28": { "type": "row", "settings": { "cells": "Z+2 | 22.81 | 71.7 | 13.5 | 72" } },
-        "z29": { "type": "row", "settings": { "cells": "Z+3 | 23.22 | 72.9 | 14 | 73" } },
-        "z30": { "type": "row", "settings": { "cells": "Z+4 | 23.62 | 74.2 | 14.5 | 74" } },
-        "z31": { "type": "row", "settings": { "cells": "Z+5 | 24.03 | 75.5 | 15 | 75" } },
-        "z32": { "type": "row", "settings": { "cells": "Z+6 | 24.43 | 76.8 | 15.5 | 77" } }
+        "r01": {
+          "type": "row",
+          "settings": {
+            "cells": "A | 11.9 | 37.8 | - | 1/2 | -"
+          }
+        },
+        "r02": {
+          "type": "row",
+          "settings": {
+            "cells": "B | 12.3 | 39.1 | - | 1 | -"
+          }
+        },
+        "r03": {
+          "type": "row",
+          "settings": {
+            "cells": "C | 12.7 | 40.4 | - | 1 1/2 | -"
+          }
+        },
+        "r04": {
+          "type": "row",
+          "settings": {
+            "cells": "D | 13.1 | 41.7 | 41 1/2 | 2 | -"
+          }
+        },
+        "r05": {
+          "type": "row",
+          "settings": {
+            "cells": "E | 13.5 | 42.9 | 42 3/4 | 2 1/2 | -"
+          }
+        },
+        "r06": {
+          "type": "row",
+          "settings": {
+            "cells": "F | 13.9 | 44.2 | 44 | 3 | -"
+          }
+        },
+        "r07": {
+          "type": "row",
+          "settings": {
+            "cells": "G | 14.3 | 45.5 | 45 1/4 | 3 3/8 | -"
+          }
+        },
+        "r08": {
+          "type": "row",
+          "settings": {
+            "cells": "H | 14.7 | 46.8 | 46 1/2 | 3 3/4 | 8"
+          }
+        },
+        "r09": {
+          "type": "row",
+          "settings": {
+            "cells": "I | 15.1 | 48.0 | 47 3/4 | 4 1/4 | 9"
+          }
+        },
+        "r10": {
+          "type": "row",
+          "settings": {
+            "cells": "J | 15.5 | 48.7 | 49 | 4 5/8 | 10"
+          }
+        },
+        "r11": {
+          "type": "row",
+          "settings": {
+            "cells": "K | 15.9 | 50.0 | 50 | 5 1/8 | 11"
+          }
+        },
+        "r12": {
+          "type": "row",
+          "settings": {
+            "cells": "L | 16.3 | 51.2 | 51 3/4 | 5 1/2 | 12"
+          }
+        },
+        "r13": {
+          "type": "row",
+          "settings": {
+            "cells": "M | 16.7 | 52.5 | 52 3/4 | 6 | 13"
+          }
+        },
+        "r14": {
+          "type": "row",
+          "settings": {
+            "cells": "N | 17.1 | 53.8 | 54 | 6 1/2 | -"
+          }
+        },
+        "r15": {
+          "type": "row",
+          "settings": {
+            "cells": "O | 17.5 | 55.1 | 55 1/4 | 7 | -"
+          }
+        },
+        "r16": {
+          "type": "row",
+          "settings": {
+            "cells": "P | 17.9 | 56.3 | 56 1/2 | 7 1/2 | 17"
+          }
+        },
+        "r17": {
+          "type": "row",
+          "settings": {
+            "cells": "Q | 18.2 | 57.2 | 57 3/4 | 8 | 18"
+          }
+        },
+        "r18": {
+          "type": "row",
+          "settings": {
+            "cells": "R | 18.6 | 58.9 | 59 | 8 5/8 | 19"
+          }
+        },
+        "r19": {
+          "type": "row",
+          "settings": {
+            "cells": "S | 19.1 | 60.2 | 60 1/4 | 9 1/8 | 20"
+          }
+        },
+        "r20": {
+          "type": "row",
+          "settings": {
+            "cells": "T | 19.5 | 61.4 | 61 1/2 | 9 5/8 | 21"
+          }
+        },
+        "r21": {
+          "type": "row",
+          "settings": {
+            "cells": "U | 20.0 | 62.7 | 62 3/4 | 10 1/4 | 23"
+          }
+        },
+        "r22": {
+          "type": "row",
+          "settings": {
+            "cells": "V | 20.3 | 64.0 | 63 | 10 5/8 | 24"
+          }
+        },
+        "r23": {
+          "type": "row",
+          "settings": {
+            "cells": "W | 20.7 | 65.3 | 65 | 11 1/8 | 25"
+          }
+        },
+        "r24": {
+          "type": "row",
+          "settings": {
+            "cells": "X | 21.1 | 66.6 | 66 1/4 | 11 5/8 | 26"
+          }
+        },
+        "r25": {
+          "type": "row",
+          "settings": {
+            "cells": "Y | 21.5 | 67.8 | 67 1/2 | 12 | 27"
+          }
+        },
+        "r26": {
+          "type": "row",
+          "settings": {
+            "cells": "Z | 21.5 | 68.5 | 68 3/4 | 12 | 28"
+          }
+        }
       },
       "block_order": [
-        "z01", "z02", "z03", "z04", "z05", "z06", "z07", "z08",
-        "z09", "z10", "z11", "z12", "z13", "z14", "z15", "z16",
-        "z17", "z18", "z19", "z20", "z21", "z22", "z23", "z24",
-        "z25", "z26", "z27", "z28", "z29", "z30", "z31", "z32"
+        "r01",
+        "r02",
+        "r03",
+        "r04",
+        "r05",
+        "r06",
+        "r07",
+        "r08",
+        "r09",
+        "r10",
+        "r11",
+        "r12",
+        "r13",
+        "r14",
+        "r15",
+        "r16",
+        "r17",
+        "r18",
+        "r19",
+        "r20",
+        "r21",
+        "r22",
+        "r23",
+        "r24",
+        "r25",
+        "r26"
       ],
       "settings": {
         "band": "white",
         "show_head": true,
         "eyebrow": "Conversion Chart",
-        "heading": "UK Ring Sizes, A to Z+6",
-        "intro": "Inside diameter and circumference are given in millimetres. If you have measured an existing ring, find your figure in the diameter column and read the UK size across from it.",
-        "headers": "UK | Diameter mm | Circumference mm | US | Europe",
+        "heading": "UK Ring Sizes, A to Z",
+        "intro": "Inside diameter and circumference are in millimetres. If you have measured an existing ring, find your figure in the diameter column and read the UK size across from it.",
+        "headers": "UK | Diameter mm | Circumference mm | Europe | US | China",
         "first_col_bold": true,
-        "col1_width": 15,
-        "note": "Standard published conversions, and US and European equivalents are approximate because those scales do not map exactly onto the UK letters. If your measurement falls between two rows, tell us both and we will advise. We confirm every size against a physical sizer before making anything.",
+        "col1_width": 10,
+        "note": "A dash means that scale publishes no equivalent at that size. European and US sizes do not map exactly onto the UK letters, so a conversion is the nearest match rather than an exact one. Sizes above Z are available: tell us the measurement and we will advise. If your figure falls between two rows, send us both and we will recommend which way to go. We confirm every size against a physical sizer before making anything.",
         "narrow": false
       }
     },
-
     "timing": {
       "type": "fye-callout",
       "settings": {
@@ -145,7 +306,6 @@
         "body": "<p>Fingers are at their smallest first thing in the morning and after being out in the cold, and at their largest late in the day, in warm weather, and after exercise or a salty meal. The swing can be a full size.</p><p>So measure late afternoon or early evening, at normal room temperature, and take the measurement two or three times on different days. A ring sized to a cold morning finger will be uncomfortable by every evening for the rest of its life.</p>"
       }
     },
-
     "affects": {
       "type": "fye-terms",
       "blocks": {
@@ -182,7 +342,12 @@
           }
         }
       },
-      "block_order": ["a1", "a2", "a3", "a4"],
+      "block_order": [
+        "a1",
+        "a2",
+        "a3",
+        "a4"
+      ],
       "settings": {
         "band": "white",
         "columns": "2",
@@ -195,7 +360,6 @@
         "note": ""
       }
     },
-
     "secret": {
       "type": "fye-checklist",
       "blocks": {
@@ -242,7 +406,14 @@
           }
         }
       },
-      "block_order": ["s1", "s2", "s3", "s4", "s5", "s6"],
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
       "settings": {
         "band": "ivory",
         "columns": "2",
@@ -254,7 +425,6 @@
         "note": ""
       }
     },
-
     "xref": {
       "type": "fye-xref",
       "settings": {
@@ -267,7 +437,6 @@
         "link_label": "Request a free ring sizer"
       }
     },
-
     "faq": {
       "type": "fye-faq",
       "blocks": {
@@ -321,7 +490,15 @@
           }
         }
       },
-      "block_order": ["q1", "q2", "q3", "q4", "q5", "q6", "q7"],
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7"
+      ],
       "settings": {
         "band": "ivory",
         "narrow": true,
@@ -333,12 +510,14 @@
         "emit_schema": true
       }
     },
-
     "nav_bottom": {
       "type": "fye-chapter-nav",
-      "settings": { "band": "white", "show_prev_next": true, "emit_breadcrumbs": false }
+      "settings": {
+        "band": "white",
+        "show_prev_next": true,
+        "emit_breadcrumbs": false
+      }
     },
-
     "guide": {
       "type": "fye-guide-download",
       "blocks": {
@@ -352,7 +531,9 @@
           }
         }
       },
-      "block_order": ["g1"],
+      "block_order": [
+        "g1"
+      ],
       "settings": {
         "band": "mist",
         "cover": "shopify://shop_images/Engagement_Ring_Cover.png",
@@ -363,7 +544,6 @@
         "body": "<p>Sizing in full, plus budget, the Four Cs, shapes, settings, metals and how a bespoke commission works.</p>"
       }
     },
-
     "related": {
       "type": "fye-related",
       "blocks": {
@@ -408,7 +588,12 @@
           }
         }
       },
-      "block_order": ["r1", "r2", "r3", "r4"],
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
       "settings": {
         "band": "white",
         "show_head": true,
@@ -417,7 +602,6 @@
       }
     }
   },
-
   "order": [
     "heading",
     "nav_top",
@@ -434,5 +618,3 @@
     "related"
   ]
 }
-
-

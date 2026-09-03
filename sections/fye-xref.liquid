@@ -75,7 +75,17 @@
 .fye .xref__text { display: flex; flex-direction: column; align-items: flex-start; gap: var(--s3); }
 .fye .xref__heading { font-size: var(--fs-h4); }
 .fye .xref__body { font-size: var(--fs-small); color: var(--ink-soft); }
-.fye .xref__cta { margin-top: var(--s2); }
+/* 44px minimum, conventions §7. inline-flex because min-height does nothing
+   to an inline box, and padding would move the label off the section
+   baseline. `gap` because inline-flex makes the whitespace between the label
+   and the arrow unreliable. Found by fyeSmoke at 899px, 03/09/2026. */
+.fye .xref__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  min-height: 44px;
+  margin-top: var(--s2);
+}
 .fye .xref__cta .icon { transition: transform var(--dur) var(--ease); }
 .fye .xref__cta:hover .icon { transform: translateX(3px); }
 

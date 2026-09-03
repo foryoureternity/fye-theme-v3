@@ -2188,3 +2188,80 @@ Two consequences for `page.diamond-shapes.json`:
 Also there is a set of ring-style SVGs at 68px: solitaire, pave, halo,
 hidden-halo, side-stone, three-stone, vintage, cathedral, bezel, nature. Worth
 knowing about before anyone draws anything new.
+
+
+---
+
+# v3 IS LIVE, 03/09/2026
+
+Published by Ed on 03/09/2026 and **verified in place**, not reverted. The
+02/09 attempt was up for a few minutes and rolled back to
+`fye-v2-responsive`; this one stayed.
+
+## What was checked on the live theme
+
+| Check | Result |
+|---|---|
+| Checkout: add to bag, cart, begin checkout | pass, correct item, price and shipping |
+| Header search on a real term | pass, lands on `/search`, tiles plus guides list |
+| Enquiry popup from a product page | pass, arrives and is identifiable |
+| Guide download form | pass, arrives and is identifiable |
+| Homepage `fyeSmoke.all()` at 1440 / 889 / 500 | 9 of 9 clean at all three |
+
+The three form and money checks were done first and deliberately, because a
+smoke test cannot see any of them, and because the search app's proxy and the
+app embeds both behave differently on a published theme than on a preview. Both
+turned out fine, but they were the unknowns.
+
+## One fault found and fixed while live
+
+`fyeSmoke` on the live homepage flagged three undersized touch targets:
+`.hero__link` at 294x24, `.news__more` at 118x31, and `.news__title` at about
+22px. Fixed with flex and `min-height: 44px` in `fye-hero` and
+`latest-news-EM`, then re-verified clean at all three widths.
+
+**`.news__title` is worth remembering.** It failed at 889 and 500 but mostly
+passed at 1440, because a headline long enough to wrap to two lines already
+clears 44px. The fault therefore depended on which headlines happened to fit on
+one line at a given width, which is precisely the kind of bug a spot check at a
+single width never sees.
+
+## The pattern behind four of this week's faults
+
+`coll__clear` and `coll__promolink`, the cloud-search filter rows,
+`xref__cta` on 33 chapter pages, and now three on the homepage. **Every one
+was an undersized touch target, and every one was invisible until something was
+measured at a touch width.** `targets` only runs at coarse pointer or 900px and
+under, so a run at 1440 reports nothing.
+
+**Run `fyeSmoke.all()` at 889 before 1440, always.** The homepage is the most
+visited page on the site and had never been measured at a touch width until the
+day it went live.
+
+## Outstanding, none of it blocking
+
+1. **Admin, Ed:** unpublish `find-your-ring`, `about-us-v2`,
+   `find-the-perfect-engagement-ring` and the two `zz-form-testing` pages;
+   redirect `diamonds` and `lab-diamonds` to their collections; repoint the
+   mega-jewellery `find-the-perfect-engagement-ring` item at
+   `/pages/engagement-ring-guide`.
+2. **The Z row of the ring size chart.** Its diameter matches Y's and its
+   circumference is 0.6mm off the published figure. Six derived rows count up
+   from it.
+3. **YMQ Product Options** can now be uninstalled as far as the theme is
+   concerned: v3 references none of it, and the embed is already disabled. It
+   still emits two stylesheet preloads per page. Check its option sets are
+   genuinely unused first.
+4. **The twelfth cut and baguette's icon** on `page.diamond-shapes.json`.
+   Content › Files has a second shape set with over twenty more cuts including
+   `BAGUETTE`.
+5. **The pager markup exists three times** (`main-collection`, `main-blog`,
+   `main-search`) and should become one `.pager` component in `fye-core.css`.
+6. **`mm-shapes.liquid`** should move from its hardcoded
+   `foryoureternity.com/cdn/...` URLs to `file_url`.
+7. **The overnight audit's deferred list:** S3 template-clone refactor, S6
+   minification, M4 menu-on-open, and the A1 contrast items Ed declined as
+   visible changes.
+8. **A visual check nobody has done:** whether the `half_set` and `eternity`
+   icons on `/pages/jewellery-guides` read as distinct at 46px. Live's own
+   comment says that pair was the hard one.

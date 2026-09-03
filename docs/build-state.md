@@ -2054,3 +2054,55 @@ smoke tested clean at 889 and 1440. One new section in the whole job,
 3. **The lifetime warranty wording**, above.
 4. The YMQ app still emits two Early Hints stylesheet preloads on every page
    even with its embed disabled. Needs killing in the app admin, not the theme.
+
+
+---
+
+## The ring size chart, provenance
+
+**Where the numbers came from, because someone will ask.**
+
+`templates/page.find-your-ring-size.json`, section `chart`. 32 rows, five
+columns: UK, inside diameter mm, circumference mm, Europe, US.
+
+**A to Z are transcribed from a published conversion table Ed supplied on
+03/09/2026** and are not to be adjusted without a new source. They replaced the
+standard set the page shipped with that morning, and the difference mattered:
+**every inside diameter in the original was 0.1 to 0.15mm too high**, and Q and
+Z differed on circumference as well. Ed asking for the check is what caught it.
+
+**Z+1 to Z+6 are DERIVED, not published.** The supplied table stops at Z. They
+are extrapolated from the source's own increments: circumference +1.3mm per
+letter, diameter as circumference / pi to one decimal, Europe +1 1/4, US +1/2.
+The patch script verified each derived diameter against circumference / pi
+before writing, and refuses on a drift over 0.1mm.
+
+**The table note says which rows are which**, and asks anyone in the Z+1 to
+Z+6 range to have the size confirmed against a physical sizer. A customer at
+Z+4 has the least access to another chart to check us against, so presenting
+derived figures as equally authoritative would be the wrong way round.
+
+## Three figures in the supplied table still look wrong
+
+Reproduced exactly as supplied rather than silently corrected. Ed's call:
+
+| Row | Supplied | Widely published | Note |
+|---|---|---|---|
+| Q | 57.2mm circumference | 57.6mm | |
+| Z | 21.5mm diameter | about 21.8mm | identical to Y in the source, and 68.5 / pi is 21.8 |
+| Z | 68.5mm circumference | 69.1mm | |
+
+**Z is the base the six derived rows count up from.** Correcting Z moves all
+six with it, so settle that row before anything else in this table.
+
+## Also on 03/09
+
+**"Lifetime warranty against manufacturing defects" restored** on
+`page.affiliate-programme.json`. It had been softened to drop "lifetime"
+under the copy rule forbidding lifetime warranty wording; Ed confirmed the
+lifetime claim is deliberate and attaches to manufacturing defects, not to
+resizing. **Resizing is still complimentary for the first year only**, and that
+distinction is the point of the rule, so keep the two claims apart in copy.
+
+**The China column was dropped** from the chart. It was in the source, but it
+is mostly dashes below H and it made this the widest table in the theme.

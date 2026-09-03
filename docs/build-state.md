@@ -2265,3 +2265,51 @@ day it went live.
 8. **A visual check nobody has done:** whether the `half_set` and `eternity`
    icons on `/pages/jewellery-guides` read as distinct at 46px. Live's own
    comment says that pair was the hard one.
+
+
+---
+
+## Admin jobs, all done 03/09/2026
+
+Done through the Admin API rather than by hand, except the menu item.
+
+## Unpublished, reversible, content intact
+
+`diamonds` · `lab-diamonds` · `find-your-ring` · `zz-form-testing` ·
+`zz-form-testing-internal-do-not-link` · `about-us-v2`
+
+`find-the-perfect-engagement-ring` was already unpublished.
+
+**Unpublish rather than delete**, deliberately: every one of these still has its
+content, so any of them can come back with one toggle. Two of them
+(`diamonds`, `lab-diamonds`) had empty bodies anyway, and `about-us-v2` is a
+duplicate of a page that is live.
+
+## Redirects created
+
+    /pages/diamonds      ->  /collections/natural-diamonds
+    /pages/lab-diamonds  ->  /collections/lab-diamonds
+
+**ORDER MATTERED, and this is the bit worth remembering.** A Shopify URL
+redirect only fires when nothing else answers that URL. Both pages existed and
+were published, so a redirect created first would have sat there doing nothing
+while the page kept winning. **Unpublish first, then redirect.** Four
+operations, not two.
+
+## Ed did the menu item by hand
+
+The mega-jewellery `Find the Perfect Engagement Ring` item now points at
+`/pages/engagement-ring-guide`.
+
+**Left to Ed on purpose**, not from caution about the API: `menuUpdate`
+replaces the entire item tree in a single call, so an error takes out a whole
+mega menu rather than one link. Thirty seconds in Navigation carries no such
+risk. If a menu ever does need doing programmatically, read the full tree
+first, change one item, write the whole thing back, and verify before trusting
+it.
+
+## Theme-side consequence
+
+Nothing. No template referenced any of these pages, which is why they were
+identified as retirable in the first place. The two redirect targets are
+collections that v3 already links to from the diamonds and gemstones hub.

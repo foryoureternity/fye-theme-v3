@@ -1956,3 +1956,101 @@ or the check that matters most does not run at all.
 4. `mm-shapes.liquid` should move to `file_url`.
 5. The pager is still duplicated three times (`main-collection`, `main-blog`,
    `main-search`) and should become one `.pager` component in `fye-core.css`.
+
+
+---
+
+## The affiliate pages, 03/09/2026
+
+The last two of the six. Both built, smoke tested clean at 889 and 1440, and
+**neither brief was ever needed**: `BRIEF-affiliate-page-images.md` and
+`BRIEF-affiliate-terms-revision.md` are not in the repo, Dropbox or the
+project uploads, but the page is live on the old theme, so live's own template
+was the better source anyway. Every word of copy carries over verbatim.
+
+| File | Notes |
+|---|---|
+| `templates/page.affiliate-programme.json` | Recomposed from live's template |
+| `templates/page.affiliate-terms.json` | Banner plus the terms section |
+| `sections/fye-affiliate-terms.liquid` | Copied from live BYTE FOR BYTE, then converted |
+
+## Four of live's sections do not exist in v3
+
+| Live | v3 | Why it works |
+|---|---|---|
+| `fye-hero` | `heading-template` | v3's fye-hero takes flat settings, live's takes typography-per-block. Copied over, it would render empty |
+| `fye-breadcrumb` | dropped | `heading-template` block "3" is the crumb trail |
+| `fye-bespoke-cta` (2 uses) | `fye-xref` | eyebrow, heading, body, one link. Same shape |
+| `fye-affiliate-signup` | `fye-terms` | four numbered steps with headings and bodies; `meta` carries "Step 1" |
+
+## The terms document was copied, not retyped
+
+56KB, thirty numbered clauses, a plain-English summary, three four-column
+tables and a Commercial Schedule. It cross-references **clauses 5, 6, 8, 25.1
+and 26**, and those resolve only because the headings run 1 to 30 in document
+order with each clause's paragraphs as an `<ol>`.
+
+So it was copied verbatim by script, and the conversion script **refuses to
+write unless the legal text comes out byte-identical**. Verified: 31 `<h2>`
+(30 clauses plus the summary), 31 clause lists, 7 sub-lists, 3 tables, all
+cross-references present.
+
+Only the wrapper and the stylesheet changed:
+
+- 5 hardcoded hex to tokens. `#5b6b72` was a **third ink level**, which
+  conventions §3 says does not exist, and became `--ink-soft`.
+- 12 px font-sizes to type-scale tokens.
+- **9 `!important` removed.** They were there to beat the old theme's heading
+  rules; v3's base rules are `:where()` and carry no specificity, so
+  `.fye .fye-legal h2` wins by existing.
+- `@media (max-width: 600px)` to **749**, the theme's table breakpoint.
+- `.fye-legal-wrap` with its own padding became `band band--white`, so rhythm
+  comes from `--sect-y`.
+
+**Two hardcoded `foryoureternity.com` references were LEFT ALONE**: clause 2.2
+names the Website and the Commercial Schedule gives the programme contact.
+That is legal content, not markup.
+
+Two judgements recorded in the file: the 900px measure stays a pixel value
+rather than a `ch` measure, because three tables have four columns and a prose
+measure would make them scroll on desktop; and clause headings stay sentence
+case against the brand's uppercase display default, because "22. SUSPENSION
+AND TERMINATION" in caps reads as shouting in a contract.
+
+**Any future revision should be regenerated from the source document and
+re-copied, never hand-edited in the section.**
+
+## Deliberate departures from live, on the programme page
+
+1. **The `#affiliate-signup` anchor is gone.** Live's hero button, join CTA and
+   apply button all pointed at it, and the section it targeted
+   (`fye-affiliate-signup`) does not exist in v3. "Apply to join" now opens the
+   enquiry popup via `trigger_class: "enquire"`, with `/pages/contact-us` as
+   the no-JavaScript fallback. Matches Ed's instruction that sign-up is an
+   enquiry, and no Shopify Form is involved.
+2. **"Explore our jewellery guides" points at `/pages/downloadable-guides`**,
+   not `/pages/jewellery-guides`, which still has no template in v3 and would
+   render as an empty page. Revert when `fye-signpost` is built.
+3. **`/pages/contact` became `/pages/contact-us`** in two places. The former
+   does not exist.
+4. **"a lifetime manufacturing-defect warranty" softened** to "a warranty
+   against manufacturing defects", and the resizing line reads "complimentary
+   resizing for the first year". The copy rules forbid lifetime warranty
+   wording. **Open with Ed:** if the lifetime claim is deliberate and
+   defensible on the legal side, it goes back.
+
+## Job status: all six pages built
+
+`diamond-4cs`, `diamond-shapes`, `find-your-ring-size`, `loose-diamond-gems`,
+`affiliate-programme`, `affiliate-terms`. Every one validated with 0 faults and
+smoke tested clean at 889 and 1440. One new section in the whole job,
+`fye-shape-tiles`, plus the ported `fye-affiliate-terms`.
+
+## Still open for Ed
+
+1. **The ring size chart against Hockley Mint's own**, before publish.
+2. **The twelfth cut** on the shapes page: the title tag promises twelve, the
+   store supports eleven.
+3. **The lifetime warranty wording**, above.
+4. The YMQ app still emits two Early Hints stylesheet preloads on every page
+   even with its embed disabled. Needs killing in the app admin, not the theme.

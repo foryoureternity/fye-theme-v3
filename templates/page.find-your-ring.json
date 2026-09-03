@@ -3,8 +3,16 @@
     "heading": {
       "type": "heading-template",
       "blocks": {
-        "crumbs": { "type": "3", "settings": {} },
-        "title": { "type": "1", "settings": { "heading": "Find Your Ring" } },
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Find Your Ring"
+          }
+        },
         "sub": {
           "type": "2",
           "settings": {
@@ -12,7 +20,11 @@
           }
         }
       },
-      "block_order": ["crumbs", "title", "sub"],
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
       "settings": {
         "use_specify_image": false,
         "overlay": 44,
@@ -20,7 +32,6 @@
         "heading_fullwidth": false
       }
     },
-
     "finder": {
       "type": "fye-ring-finder",
       "blocks": {
@@ -54,7 +65,6 @@
             "icon": "pave-YYUQTFKW.svg"
           }
         },
-
         "eng_style": {
           "type": "step",
           "settings": {
@@ -118,7 +128,6 @@
             "options": "Plain\nDiamond set\nPavé\nChannel\nAccent\nCurved\nSplit"
           }
         },
-
         "plain_profile": {
           "type": "step",
           "settings": {
@@ -160,7 +169,6 @@
             "options": "Platinum | metal_colour=Platinum\n18ct Yellow Gold | carat=18ct&metal_colour=Yellow Gold\n18ct White Gold | carat=18ct&metal_colour=White Gold\n18ct Rose Gold | carat=18ct&metal_colour=Rose Gold\n14ct Yellow Gold | carat=14ct&metal_colour=Yellow Gold\n14ct White Gold | carat=14ct&metal_colour=White Gold\n14ct Rose Gold | carat=14ct&metal_colour=Rose Gold\n9ct Yellow Gold | carat=9ct&metal_colour=Yellow Gold\n9ct White Gold | carat=9ct&metal_colour=White Gold\n9ct Rose Gold | carat=9ct&metal_colour=Rose Gold"
           }
         },
-
         "dia_setting": {
           "type": "step",
           "settings": {
@@ -215,32 +223,46 @@
         }
       },
       "block_order": [
-        "j_eng", "j_plain", "j_dia",
-        "eng_style", "eng_size", "eng_stone", "eng_cut", "eng_metal", "eng_shoulder",
-        "plain_profile", "plain_width", "plain_weight", "plain_metal",
-        "dia_setting", "dia_stone", "dia_shape", "dia_coverage", "dia_metal"
+        "j_eng",
+        "j_plain",
+        "j_dia",
+        "eng_style",
+        "eng_size",
+        "eng_stone",
+        "eng_cut",
+        "eng_metal",
+        "eng_shoulder",
+        "plain_profile",
+        "plain_width",
+        "plain_weight",
+        "plain_metal",
+        "dia_setting",
+        "dia_stone",
+        "dia_shape",
+        "dia_coverage",
+        "dia_metal"
       ],
       "settings": {
-        "eyebrow": "Ring finder",
-        "heading": "Find your ring",
-        "intro": "Answer a handful of questions and we will narrow thousands of rings to the ones that fit. Choose I'm flexible on anything you would rather leave open.",
         "journeys_q": "What are you looking for?",
         "flexible_label": "I'm flexible",
-        "results_heading": "Your ring, in brief",
-        "results_intro": "Here is what you told us. See the rings that match, or send these answers to us and we will suggest a shortlist.",
-        "results_label": "See your rings",
-        "enquire_label": "Talk to us about these",
-        "enquiry_link": "/pages/contact",
-        "band": "ivory"
+        "results_heading": "Rings that match",
+        "results_label": "See all matching rings",
+        "band": "ivory",
+        "custom_heading": "Can't see what you're looking for?",
+        "custom_intro": "Enter your details here and we'll contact you with custom options.",
+        "custom_placeholder": "Anything you would like us to know — a stone, a budget, a date.",
+        "custom_label": "Send my details",
+        "custom_thanks": "Thank you. We'll be in touch shortly with options made for you."
       }
     },
-
     "close": {
       "type": "fye-consultation",
       "settings": {}
     }
   },
-  "order": ["heading", "finder", "close"]
+  "order": [
+    "heading",
+    "finder",
+    "close"
+  ]
 }
-
-

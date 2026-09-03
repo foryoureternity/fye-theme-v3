@@ -1,0 +1,36 @@
+{%- comment -%}
+  collection.fye-finder — fragment template, NOT a customer-facing page.
+
+  The ring finder fetches this to show matching rings inline, without sending
+  the shopper to the collection page first (Ed, 03/09/2026). It is a real
+  collection request, so Shopify's native filters apply exactly as they do on
+  /collections/<handle>:
+
+    /collections/plain-wedding-rings?filter.p.m.filters.profile=Concave&view=fye-finder
+
+  `{% layout none %}` means no header, footer, scripts or app embeds — the
+  response is a couple of KB of markup and nothing else. Styling lives in
+  sections/fye-ring-finder.liquid, which owns the .rfd-card classes.
+
+  Do not add this to a menu, and do not link to it: with no layout it renders
+  as an unstyled orphan. With no layout it emits no head, so it cannot
+  carry a noindex tag; keeping it unlinked is what keeps it out of the index.
+{%- endcomment -%}
+{%- layout none -%}
+{%- paginate collection.products by 12 -%}
+<div data-count="{{ paginate.items }}" data-shown="{{ collection.products.size }}">
+  {%- for product in collection.products -%}
+    <a class="rfd-card" href="{{ product.url }}">
+      <span class="rfd-card__media">
+        {%- if product.featured_media -%}
+          <img src="{{ product.featured_media | image_url: width: 480 }}"
+               alt="{{ product.featured_media.alt | escape }}"
+               width="240" height="240" loading="lazy">
+        {%- endif -%}
+      </span>
+      <span class="rfd-card__title">{{ product.title }}</span>
+      <span class="rfd-card__price">{{ product.price_min | money }}</span>
+    </a>
+  {%- endfor -%}
+</div>
+{%- endpaginate -%}

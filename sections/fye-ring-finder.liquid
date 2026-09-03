@@ -1,12 +1,12 @@
 {%- comment -%}
   fye-ring-finder — the step-by-step ring finder. 1 use: page.find-your-ring.
 
-  A REWRITE, not a port. The first attempt (old repo: sections/fye-ring-finder,
-  assets/fye-ring-finder.js + .css, the 77KB bridge) targeted the xCloud
-  /a/search proxy, clicked its filter controls after load, and restyled a
-  results page we do not own. v3 does not support /a/search. This section
-  builds a native Shopify filter URL and lands the shopper on
-  /collections/<handle>, which is main-collection. 206KB became ~30KB.
+  REVISED 03/09/2026 (Ed): the last step no longer ends on a button. As soon as
+  the final question is answered the matching rings appear in place, fetched
+  from templates/collection.fye-finder.liquid (a `layout none` fragment of the
+  real collection, so Shopify's native filters do the work). Beside them sits
+  the custom-options enquiry, because the shopper who did not find their ring
+  is exactly the one worth talking to.
 
   HOW IT WORKS
   · Three JOURNEY blocks (a collection each) and one STEP block per question.
@@ -24,20 +24,22 @@
                                     param is ignored. Plain rings store metal
                                     as TWO metafields — carat and metal_colour —
                                     and Platinum has no carat at all.
-    A step whose param begins `fye_` is CARRIED, not filtered: it lands on the
-    results URL as a plain query param (fye_metal=18ct+Rose+Gold). Ed,
-    14/08/2026 and 03/09/2026: metal is asked on every journey but only the
-    plain collection can filter on it.
+    A step whose param begins `fye_` is CARRIED, not filtered: it stays out of
+    the filter URL and travels with the enquiry instead. Ed, 14/08/2026 and
+    03/09/2026: metal is asked on every journey but only the plain collection
+    can filter on it.
   · Every step ends with "I'm flexible" (empty value, no param). That rule is
     what guarantees no ring is orphaned. Do not remove it.
-  · Without JavaScript each journey card is a plain link to its collection.
+  · The heading is deliberately absent from the preset: page.find-your-ring
+    already carries "Find Your Ring" in its banner, and two titles a screen
+    apart read as a mistake. The settings remain for other uses.
+  · Without JavaScript each journey card is a plain link to its collection and
+    the enquiry form still posts.
 
-  FILTER KEYS ARE UNVERIFIED AGAINST THE LIVE RAIL. The collection rail is
-  xCloud's, and clicking it routes to /a/search?filter_metal_filter=..., which
-  says nothing about Shopify's native syntax. `filter.p.m.filters.<key>` and
-  `.gte/.lte` are Shopify's documented shapes; they only bite when each
-  metafield is switched ON as a filter in Search & Discovery for that
-  collection. Check that first if a journey returns the whole collection.
+  The filters are LIVE and verified (Ed, 03/09/2026): all 12 `filters.*`
+  metafields are switched on in Search & Discovery, and
+  Concave + 4mm + 18ct Rose Gold returns exactly 3. The visible sidebar on the
+  collection page is still xCloud's and will not show these filters as ticked.
 
   Icons are SVG files in Content › Files, so they come in as text filenames
   resolved with `file_url` — see fye-shape-tiles for why not image_picker.
@@ -46,27 +48,23 @@
   assign s = section.settings
   assign band = s.band | default: 'ivory'
   assign flex_label = s.flexible_label | default: "I'm flexible"
-  assign enquiry = s.enquiry_link | default: '/pages/contact'
   assign journeys = section.blocks | where: 'type', 'journey'
   assign steps = section.blocks | where: 'type', 'step'
 -%}
 
-<section class="rfd band band--{{ band }}" data-screen-label="Ring finder"
-         data-fye-finder data-fye-finder-enquiry="{{ enquiry }}">
+<section class="rfd band band--{{ band }}" data-screen-label="Ring finder" data-fye-finder>
   <div class="wrap rfd__wrap">
 
     {%- if s.eyebrow != blank or s.heading != blank or s.intro != blank -%}
-      <div class="sect-head">
+      <div class="sect-head rfd__head">
         {%- if s.eyebrow != blank -%}<p class="eyebrow">{{ s.eyebrow }}</p>{%- endif -%}
-        {%- if s.heading != blank -%}<h2 class="heading-flank">{{ s.heading }}</h2>{%- endif -%}
+        {%- if s.heading != blank -%}<h2>{{ s.heading }}</h2>{%- endif -%}
         {%- if s.intro != blank -%}<p class="lead">{{ s.intro }}</p>{%- endif -%}
       </div>
     {%- endif -%}
 
     <div class="rfd__bar">
-      <button type="button" class="rfd__back" data-fye-finder-back hidden>
-        <span>Back</span>
-      </button>
+      <button type="button" class="rfd__back" data-fye-finder-back hidden>Back</button>
       <p class="rfd__progress eyebrow" data-fye-finder-progress hidden></p>
     </div>
 
@@ -151,23 +149,62 @@
       {%- endfor -%}
 
       <div class="rfd__panel rfd__results" hidden data-fye-finder-panel="results">
-        <h3 class="rfd__q" tabindex="-1" data-fye-finder-question>{{ s.results_heading | default: 'Your ring, in brief' }}</h3>
-        {%- if s.results_intro != blank -%}<p class="rfd__hint">{{ s.results_intro }}</p>{%- endif -%}
-        <dl class="rfd__summary" data-fye-finder-summary></dl>
-        <div class="rfd__actions">
-          <a class="btn" href="/collections/all" data-fye-finder-results>{{ s.results_label | default: 'See your rings' }}</a>
-          <a class="btn btn--outline" href="{{ enquiry }}" data-fye-popup="enquire" data-fye-finder-enquire>{{ s.enquire_label | default: 'Talk to us about these' }}</a>
-        </div>
-        <button type="button" class="rfd__restart" data-fye-finder-restart>Start again</button>
-      </div>
 
+        <div class="rfd__rhead">
+          <h3 class="rfd__q" tabindex="-1" data-fye-finder-question>{{ s.results_heading | default: 'Rings that match' }}</h3>
+          <p class="rfd__chips" data-fye-finder-chips></p>
+        </div>
+
+        <p class="rfd__count" data-fye-finder-count aria-live="polite"></p>
+        <div class="rfd__grid" data-fye-finder-grid></div>
+
+        <div class="rfd__ractions">
+          <a class="btn btn--outline" href="/collections/all" data-fye-finder-results hidden>{{ s.results_label | default: 'See all matching rings' }}</a>
+          <button type="button" class="rfd__restart" data-fye-finder-restart>Start again</button>
+        </div>
+
+        <aside class="rfd__custom" data-fye-finder-custom>
+          <h3 class="rfd__ctitle">{{ s.custom_heading | default: "Can't see what you're looking for?" }}</h3>
+          <p class="rfd__hint">{{ s.custom_intro | default: "Enter your details here and we'll contact you with custom options." }}</p>
+          {%- form 'contact', class: 'rfd__form', id: 'rfd-enquiry' -%}
+            {%- if form.posted_successfully? -%}
+              <p class="rfd__thanks">{{ s.custom_thanks | default: "Thank you. We'll be in touch shortly with options made for you." }}</p>
+            {%- else -%}
+              {%- if form.errors -%}
+                <p class="rfd__error">{{ form.errors | default_errors }}</p>
+              {%- endif -%}
+              <div class="rfd__fields">
+                <p class="rfd__field">
+                  <label for="rfd-name">Name</label>
+                  <input type="text" id="rfd-name" name="contact[name]" autocomplete="name" required>
+                </p>
+                <p class="rfd__field">
+                  <label for="rfd-email">Email</label>
+                  <input type="email" id="rfd-email" name="contact[email]" autocomplete="email" required>
+                </p>
+                <p class="rfd__field">
+                  <label for="rfd-phone">Telephone <span class="rfd__opt-note">optional</span></label>
+                  <input type="tel" id="rfd-phone" name="contact[phone]" autocomplete="tel">
+                </p>
+                <p class="rfd__field rfd__field--wide">
+                  <label for="rfd-body">What are you looking for?</label>
+                  <textarea id="rfd-body" name="contact[body]" rows="3" placeholder="{{ s.custom_placeholder | default: 'Anything you would like us to know — a stone, a budget, a date.' | escape }}"></textarea>
+                </p>
+              </div>
+              <input type="hidden" name="contact[Ring finder]" value="" data-fye-finder-answers-field>
+              <button type="submit" class="btn">{{ s.custom_label | default: 'Send my details' }}</button>
+            {%- endif -%}
+          {%- endform -%}
+        </aside>
+
+      </div>
     </div>
   </div>
 </section>
 
 {% stylesheet %}
 .fye .rfd__wrap { max-width: var(--maxw-narrow); }
-.fye .rfd__wrap .sect-head { margin-bottom: var(--s7); }
+.fye .rfd__head { margin-bottom: var(--s6); }
 
 /* Back + progress share one row so the stage below never moves when the
    back button appears. min-height holds the row when both are hidden. */
@@ -177,15 +214,14 @@
   justify-content: space-between;
   gap: var(--s4);
   min-height: 44px;
-  margin-bottom: var(--s4);
+  margin-bottom: var(--s3);
 }
 .fye .rfd__progress { margin: 0; margin-left: auto; }
 .fye .rfd__back {
   display: inline-flex;
   align-items: center;
-  gap: var(--s2);
   min-height: 44px;
-  padding: 0 var(--s2) 0 0;
+  padding: 0;
   border: 0;
   background: none;
   color: var(--ink);
@@ -233,7 +269,7 @@
   gap: var(--s3);
   width: 100%;
   min-height: 44px;
-  padding: var(--s6);
+  padding: var(--s5);
   border: var(--hairline);
   background: var(--white);
   color: var(--ink);
@@ -293,21 +329,46 @@
 }
 
 /* --- results ------------------------------------------------------------- */
-.fye .rfd__summary {
+.fye .rfd__results { gap: var(--s5); }
+.fye .rfd__rhead { display: flex; flex-direction: column; gap: var(--s2); }
+/* The answers as one quiet line under the heading, not a definition list:
+   at this point in the journey they are context, not the subject. */
+.fye .rfd__chips { margin: 0; font-size: var(--fs-small); color: var(--ink-soft); }
+.fye .rfd__count {
   margin: 0;
-  display: grid;
-  grid-template-columns: max-content minmax(0, 1fr);
-  gap: var(--s2) var(--s6);
-  padding: var(--s5) 0;
-  border-top: var(--hairline);
+  padding-bottom: var(--s3);
   border-bottom: var(--hairline);
-  font-size: var(--fs-small);
+  font-size: var(--fs-fine);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-button);
+  text-transform: uppercase;
+  color: var(--ink-soft);
 }
-.fye .rfd__summary :where(dt) { margin: 0; color: var(--ink-soft); }
-.fye .rfd__summary :where(dd) { margin: 0; font-weight: var(--fw-regular); }
-.fye .rfd__actions { display: flex; flex-wrap: wrap; gap: var(--s4); }
+.fye .rfd__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--grid-gap);
+}
+.fye .rfd__grid > :where(div) { display: contents; }
+.fye .rfd-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  color: var(--ink);
+  transition: color var(--dur) var(--ease);
+}
+.fye .rfd-card:hover { color: var(--sage); }
+.fye .rfd-card__media {
+  display: block;
+  aspect-ratio: 1 / 1;
+  background: var(--white);
+  overflow: hidden;
+}
+.fye .rfd-card__media :where(img) { width: 100%; height: 100%; object-fit: contain; }
+.fye .rfd-card__title { font-size: var(--fs-small); line-height: 1.4; }
+.fye .rfd-card__price { font-size: var(--fs-small); color: var(--ink-soft); }
+.fye .rfd__ractions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s5); }
 .fye .rfd__restart {
-  align-self: flex-start;
   min-height: 44px;
   padding: 0;
   border: 0;
@@ -321,18 +382,71 @@
 }
 .fye .rfd__restart:hover { color: var(--sage); }
 
+/* --- custom enquiry ------------------------------------------------------ */
+.fye .rfd__custom {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  padding: var(--s5);
+  border: var(--hairline);
+  background: var(--white);
+}
+.fye .rfd__ctitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-regular);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.fye .rfd__form { display: flex; flex-direction: column; gap: var(--s4); margin: 0; }
+.fye .rfd__fields {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s3);
+}
+.fye .rfd__field { display: flex; flex-direction: column; gap: var(--s1); margin: 0; }
+.fye .rfd__field--wide { grid-column: 1 / -1; }
+.fye .rfd__field :where(label) {
+  font-size: var(--fs-fine);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-button);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.fye .rfd__opt-note { font-weight: var(--fw-light); letter-spacing: 0; text-transform: none; }
+.fye .rfd__field :where(input, textarea) {
+  min-height: 44px;
+  padding: var(--s2) var(--s3);
+  border: var(--hairline);
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-light);
+  transition: border-color var(--dur) var(--ease);
+}
+.fye .rfd__field :where(textarea) { min-height: 88px; resize: vertical; }
+.fye .rfd__field :where(input:focus, textarea:focus) { border-color: var(--sage); outline: none; }
+.fye .rfd__form :where(.btn) { align-self: flex-start; }
+.fye .rfd__thanks, .fye .rfd__error { margin: 0; font-size: var(--fs-small); }
+.fye .rfd__error { color: var(--sage-deep); }
+
 /* --- breakpoints, last --------------------------------------------------- */
 @media (max-width: 900px) {
   .fye .rfd__opts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fye .rfd__fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 560px) {
   .fye .rfd__journeys { grid-template-columns: minmax(0, 1fr); }
-  .fye .rfd__journey { padding: var(--s5); }
   .fye .rfd__opts { gap: var(--s2); }
   .fye .rfd__opt { padding: var(--s3); }
-  .fye .rfd__summary { grid-template-columns: minmax(0, 1fr); gap: var(--s1); }
-  .fye .rfd__summary :where(dd) { margin-bottom: var(--s3); }
-  .fye .rfd__actions { flex-direction: column; }
+  .fye .rfd__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fye .rfd__fields { grid-template-columns: minmax(0, 1fr); }
+  .fye .rfd__custom { padding: var(--s4); }
+  .fye .rfd__ractions { flex-direction: column; align-items: flex-start; gap: var(--s3); }
 }
 {% endstylesheet %}
 
@@ -342,17 +456,21 @@
   "tag": "section",
   "class": "fye-ring-finder",
   "settings": [
+    { "type": "paragraph", "content": "Leave the heading empty when the page banner already names the page." },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
     { "type": "text", "id": "heading", "label": "Heading" },
     { "type": "textarea", "id": "intro", "label": "Introduction" },
     { "type": "text", "id": "journeys_q", "label": "First question", "default": "What are you looking for?" },
     { "type": "text", "id": "flexible_label", "label": "Skip option label", "default": "I'm flexible", "info": "Ends every step and applies no filter. Keep it: it is what makes every ring reachable." },
     { "type": "header", "content": "Results" },
-    { "type": "text", "id": "results_heading", "label": "Heading", "default": "Your ring, in brief" },
-    { "type": "textarea", "id": "results_intro", "label": "Introduction" },
-    { "type": "text", "id": "results_label", "label": "Results button", "default": "See your rings" },
-    { "type": "text", "id": "enquire_label", "label": "Enquiry button", "default": "Talk to us about these" },
-    { "type": "url", "id": "enquiry_link", "label": "Enquiry link", "info": "The button opens the enquiry popup where one exists and follows this link otherwise. The answers travel on the link as fye_finder." },
+    { "type": "text", "id": "results_heading", "label": "Heading", "default": "Rings that match" },
+    { "type": "text", "id": "results_label", "label": "Collection link", "default": "See all matching rings" },
+    { "type": "header", "content": "Custom options enquiry" },
+    { "type": "text", "id": "custom_heading", "label": "Heading", "default": "Can't see what you're looking for?" },
+    { "type": "textarea", "id": "custom_intro", "label": "Introduction", "default": "Enter your details here and we'll contact you with custom options." },
+    { "type": "text", "id": "custom_placeholder", "label": "Message placeholder", "default": "Anything you would like us to know — a stone, a budget, a date." },
+    { "type": "text", "id": "custom_label", "label": "Button", "default": "Send my details" },
+    { "type": "textarea", "id": "custom_thanks", "label": "Thank you message", "default": "Thank you. We'll be in touch shortly with options made for you." },
     { "type": "header", "content": "Background" },
     {
       "type": "select", "id": "band", "label": "Background", "default": "ivory",
@@ -382,7 +500,7 @@
         { "type": "text", "id": "journey", "label": "Journey key", "info": "Must match a journey block's key." },
         { "type": "text", "id": "heading", "label": "Question" },
         { "type": "text", "id": "hint", "label": "Hint" },
-        { "type": "text", "id": "param", "label": "Filter metafield key", "info": "A key in the filters namespace, e.g. profile. Begin with fye_ to carry the answer to the results page without filtering." },
+        { "type": "text", "id": "param", "label": "Filter metafield key", "info": "A key in the filters namespace, e.g. profile. Begin with fye_ to carry the answer to the enquiry without filtering." },
         { "type": "textarea", "id": "options", "label": "Options", "info": "One per line: Label | value | icon.svg. Value and icon are optional. Ranges as 1.00..1.49; two filters at once as carat=18ct&metal_colour=Rose Gold." },
         {
           "type": "select", "id": "columns", "label": "Columns", "default": "3",

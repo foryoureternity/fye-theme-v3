@@ -2879,12 +2879,17 @@
 
 /* ============================================================================
    RING FINDER — sections/fye-ring-finder.liquid, page.find-your-ring.
-   Added 03/09/2026.
+   Added 03/09/2026, results made inline the same day.
 
-   One step at a time. Every answer becomes a native Shopify filter param on
-   the journey's collection URL; "I'm flexible" (empty value) adds nothing.
-   Value syntax is documented in the section's opening comment. A param that
-   begins fye_ is carried to the results URL as-is rather than filtered.
+   One step at a time. Every answer becomes a native Shopify filter param;
+   "I'm flexible" (empty value) adds nothing. When the last question is
+   answered the matching rings are fetched from the collection itself —
+   /collections/<handle>?<filters>&view=fye-finder, which is
+   templates/collection.fye-finder.liquid under layout none — so the filtering
+   is Shopify's own and the shopper never has to press a button to see stock.
+
+   A param beginning fye_ is NOT sent to the collection (nothing can filter on
+   it); it travels with the enquiry instead.
 
    Returns early when the section is absent, so this costs nothing on every
    other page. All clicks are delegated from document (conventions §6).
@@ -2896,12 +2901,14 @@
 
   var NS = 'filter.p.m.filters.';
   var state = { journey: null, url: '', label: '', answers: [] };
+  var req = 0;
 
   function all(sel) { return Array.prototype.slice.call(root.querySelectorAll(sel)); }
-  function panel(name) { return root.querySelector('[data-fye-finder-panel="' + name + '"]'); }
+  function one(sel) { return root.querySelector(sel); }
+  function panel(name) { return one('[data-fye-finder-panel="' + name + '"]'); }
   function steps() {
     return all('[data-fye-finder-step]').filter(function (s) {
-      return s.getAttribute('data-fye-finder-journey') === state.journey;
+      return (s.getAttribute('data-fye-finder-journey') || '').trim() === state.journey;
     });
   }
 
@@ -2916,8 +2923,7 @@
       });
       return out;
     }
-    if (!param) return out;
-    if (param.indexOf('fye_') === 0) return [param + '=' + encodeURIComponent(value)];
+    if (!param || param.indexOf('fye_') === 0) return out;
     if (value.indexOf('..') > -1) {
       var r = value.split('..');
       if (r[0]) out.push(NS + param + '.gte=' + encodeURIComponent(r[0]));
@@ -2927,37 +2933,76 @@
     return [NS + param + '=' + encodeURIComponent(value)];
   }
 
-  function finish() {
-    var parts = [];
-    var words = [];
-    var dl = root.querySelector('[data-fye-finder-summary]');
-    dl.textContent = '';
-    state.answers.forEach(function (a) {
-      parts = parts.concat(encode(a.param, a.value));
-      words.push(a.q + ': ' + a.label);
-      var dt = document.createElement('dt');
-      var dd = document.createElement('dd');
-      dt.textContent = a.q;
-      dd.textContent = a.label;
-      dl.appendChild(dt);
-      dl.appendChild(dd);
-    });
-    var url = state.url + (parts.length ? '?' + parts.join('&') : '');
-    root.querySelector('[data-fye-finder-results]').setAttribute('href', url);
+  function chosen() {
+    return state.answers.filter(function (a) { return a.value; });
+  }
 
-    var enq = root.querySelector('[data-fye-finder-enquire]');
-    if (enq) {
-      var base = root.getAttribute('data-fye-finder-enquiry') || '/pages/contact';
-      var summary = state.label + ' | ' + words.join('; ');
-      enq.setAttribute('href', base + (base.indexOf('?') > -1 ? '&' : '?') + 'fye_finder=' + encodeURIComponent(summary));
-      enq.setAttribute('data-fye-finder-answers', summary);
+  function say(n, shown) {
+    if (n === 0) return 'No exact match in stock';
+    if (n === 1) return 'One design matches';
+    if (shown < n) return n + ' designs match, showing the first ' + shown;
+    return n + ' designs match';
+  }
+
+  function results() {
+    var parts = [];
+    state.answers.forEach(function (a) { parts = parts.concat(encode(a.param, a.value)); });
+    var query = parts.join('&');
+    var collUrl = state.url + (query ? '?' + query : '');
+    var link = one('[data-fye-finder-results]');
+    var grid = one('[data-fye-finder-grid]');
+    var count = one('[data-fye-finder-count]');
+    var chips = one('[data-fye-finder-chips]');
+    var field = one('[data-fye-finder-answers-field]');
+
+    var picked = chosen();
+    if (chips) {
+      chips.textContent = picked.length
+        ? picked.map(function (a) { return a.label; }).join('  \u00b7  ')
+        : 'You kept every option open, so this is the whole collection.';
     }
+    if (field) {
+      field.value = state.label + ' — ' + (state.answers.length
+        ? state.answers.map(function (a) { return a.q + ': ' + a.label; }).join('; ')
+        : 'no answers given');
+    }
+    link.setAttribute('href', collUrl);
+    link.hidden = true;
+
+    count.textContent = 'Finding rings\u2026';
+    grid.setAttribute('aria-busy', 'true');
+    var mine = ++req;
+
+    fetch(state.url + '?' + (query ? query + '&' : '') + 'view=fye-finder', {
+      headers: { 'X-Requested-With': 'fetch' }
+    })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
+      .then(function (html) {
+        if (mine !== req) return;
+        var box = document.createElement('div');
+        box.innerHTML = html;
+        var wrap = box.querySelector('[data-count]');
+        var n = wrap ? parseInt(wrap.getAttribute('data-count'), 10) : 0;
+        var shown = wrap ? parseInt(wrap.getAttribute('data-shown'), 10) : 0;
+        grid.textContent = '';
+        if (wrap) grid.appendChild(wrap);
+        grid.removeAttribute('aria-busy');
+        count.textContent = say(n, shown);
+        link.hidden = n === 0;
+      })
+      .catch(function () {
+        if (mine !== req) return;
+        grid.textContent = '';
+        grid.removeAttribute('aria-busy');
+        count.textContent = 'We could not load the rings just now.';
+        link.hidden = false;
+      });
   }
 
   function render() {
     all('[data-fye-finder-panel], [data-fye-finder-step]').forEach(function (p) { p.hidden = true; });
-    var prog = root.querySelector('[data-fye-finder-progress]');
-    var back = root.querySelector('[data-fye-finder-back]');
+    var prog = one('[data-fye-finder-progress]');
+    var back = one('[data-fye-finder-back]');
     var show;
 
     if (!state.journey) {
@@ -2968,6 +3013,10 @@
       var list = steps();
       var i = state.answers.length;
       back.hidden = false;
+      if (!list.length) {
+        console.warn('[fye finder] no step blocks match journey key "' + state.journey +
+          '". Check each step block\'s Journey key against the journey block\'s Key.');
+      }
       if (i < list.length) {
         show = list[i];
         prog.textContent = state.label + ' \u00b7 Step ' + (i + 1) + ' of ' + list.length;
@@ -2976,7 +3025,7 @@
         show = panel('results');
         prog.textContent = state.label;
         prog.hidden = false;
-        finish();
+        results();
       }
     }
     show.hidden = false;
@@ -2994,7 +3043,7 @@
     if (j) {
       e.preventDefault();
       state = {
-        journey: j.getAttribute('data-fye-finder-journey'),
+        journey: (j.getAttribute('data-fye-finder-journey') || '').trim(),
         url: j.getAttribute('data-fye-finder-collection') || j.getAttribute('href'),
         label: j.getAttribute('data-fye-finder-label') || j.textContent.trim(),
         answers: []

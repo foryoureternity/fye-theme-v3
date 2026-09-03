@@ -2387,3 +2387,43 @@ has changed. Publish it unlisted (noindex entry added by w981) to review.
 - [x] `shopify_attributes` on every block; `data-screen-label` on the root
 - [x] renders with empty settings and with no blocks (journeys panel shows a
       prompt; no steps means a journey link goes straight to its collection)
+
+
+---
+
+## Revision — 03/09/2026 (3): results in place
+
+Ed, on seeing the page: two headings a screen apart read as a mistake, and the
+journey should not end on a button.
+
+- **Duplicate heading removed.** The banner names the page; the finder now
+  opens on its first question. The heading settings remain in the section for
+  other pages, with a paragraph in the schema saying when to leave them empty.
+- **Results are inline.** Answering the last question fetches
+  `/collections/<handle>?<filters>&view=fye-finder` and renders the first 12
+  matching rings in place, with the filtered count and a link to the full
+  collection. New file: `templates/collection.fye-finder.liquid`, a
+  `layout none` fragment — no header, footer or app embeds, a couple of KB
+  per request. It is not a customer-facing page; do not link to it.
+- **Custom-options enquiry** sits beside the results: "Can't see what you're
+  looking for?" with name, email, telephone and message on Shopify's
+  `contact` form. The finder's answers ride along in a hidden
+  `contact[Ring finder]` field, so the enquiry email says which journey and
+  which choices. Replaces the earlier `fye_finder=` link and the popup
+  handoff, which nothing read.
+- **Journey A: stone type now precedes cut** — the cut list is a diamond
+  vocabulary, so a shopper who wants a sapphire should say so first.
+- The summary is now one quiet line of choices under the heading rather than a
+  definition list: at that point it is context, not the subject.
+
+Filters verified live (Ed): all 12 `filters.*` metafields on in Search &
+Discovery, and Concave + 4mm + 18ct Rose Gold returns exactly 3.
+
+**Still open:** the collection page's visible sidebar is xCloud's, so it will
+not show the finder's filters as ticked, and clicking a sidebar box routes to
+`/a/search` and drops them. Native facets are now all enabled, so the theme
+could render `collection.filters` itself and the app could go. Separate
+session.
+
+**Unverified:** `filters.centre_weight` may not be populated — walk
+engagement with a centre stone size and check the count is not 0.

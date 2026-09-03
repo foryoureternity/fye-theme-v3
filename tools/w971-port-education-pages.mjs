@@ -70,7 +70,14 @@ const EXCLUDE = new Set([
   'page.create.json',
   'page.brands.json',
   'page.store-locator.json',
-  'page.timeline.json'
+  'page.timeline.json',
+
+  // No page with this handle exists.
+  'page.coloured-stone-guide.json',
+
+  // Page exists but is unpublished with an empty body, and is listed for
+  // retirement: the mega-jewellery menu item repoints to engagement-ring-guide.
+  'page.find-the-perfect-engagement-ring.json'
 ]);
 
 if (!existsSync(LIVE)) {

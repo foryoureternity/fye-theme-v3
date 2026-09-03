@@ -1,0 +1,437 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": { "type": "3", "settings": {} },
+        "title": { "type": "1", "settings": { "heading": "Share Something Meaningful. Be Rewarded Your Way." } },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Recommend For Your Eternity to your friends, family, followers and contacts. Earn up to 10% commission, or choose to pass some or all of the benefit on to them.</p>"
+          }
+        }
+      },
+      "block_order": ["crumbs", "title", "sub"],
+      "settings": {
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false,
+        "overlay": 40,
+        "image": "shopify://shop_images/affiliate_hero.webp",
+        "use_specify_image": true
+      }
+    },
+
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "variant": "default",
+        "narrow": true,
+        "eyebrow": "Affiliate Programme",
+        "heading": "Choose How to Share the Reward",
+        "body": "<p>There is no single right way to be an affiliate. You may want to earn commission from your recommendations, give the people you refer an exclusive saving, or share the benefit equally. Choose the option that works for you and your audience.</p>"
+      }
+    },
+
+    "rewards": {
+      "type": "fye-cards",
+      "blocks": {
+        "earn": {
+          "type": "card",
+          "settings": {
+            "label": "Earn 10%",
+            "heading": "10% commission for you",
+            "body": "<p>Earn 10% of the total sale price, including VAT, on every eligible purchase attributed to you. Your contact pays the usual advertised price.</p><p><strong>Example</strong><br>On a completed sale of £2,000 including VAT, you earn £200.</p><p><strong>Best for</strong><br>Affiliates who want to maximise their earnings.</p>"
+          }
+        },
+        "share": {
+          "type": "card",
+          "settings": {
+            "label": "Share 5% + 5%",
+            "heading": "5% commission for you, 5% off for them",
+            "body": "<p>Give your friends, family, followers and contacts 5% off while earning 5% commission. Both percentages are calculated on the same eligible sale price, including VAT, before the affiliate discount is applied.</p><p><strong>Example</strong><br>On a £2,000 purchase, your contact receives £100 off and pays £1,900. You earn £100.</p><p><strong>Best for</strong><br>Affiliates who want to reward their audience and earn at the same time.</p>"
+          }
+        },
+        "give": {
+          "type": "card",
+          "settings": {
+            "label": "Give 10%",
+            "heading": "10% off for them",
+            "body": "<p>Prefer to pass on the full benefit? Choose not to receive commission and give your friends, family, followers and contacts an exclusive 10% discount instead.</p><p><strong>Example</strong><br>On a £2,000 purchase, your contact saves £200 and pays £1,800. You receive no commission.</p><p><strong>Best for</strong><br>Anyone who simply wants to help the people they know buy something special for less.</p>"
+          }
+        }
+      },
+      "block_order": ["earn", "share", "give"],
+      "settings": {
+        "band": "ivory",
+        "columns": "3",
+        "show_head": false,
+        "eyebrow": "",
+        "heading": "",
+        "intro": ""
+      }
+    },
+
+    "smallprint": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "default",
+        "narrow": true,
+        "eyebrow": "",
+        "heading": "The Small Print",
+        "body": "<p>Commission is calculated using the eligible sale price, including VAT. Under the 5% + 5% option, the customer's discount and your commission are each calculated from the same VAT-inclusive price before the affiliate discount is applied. Discounts and commission apply to eligible, completed sales attributed to your affiliate link or code and are subject to the <a href=\"/pages/affiliate-terms\">Affiliate Programme Terms</a>.</p>"
+      }
+    },
+
+    "tracking": {
+      "type": "fye-checklist",
+      "blocks": {
+        "t1": {
+          "type": "item",
+          "settings": {
+            "label": "Your own link and two codes",
+            "note": "Share your personalised affiliate link or either discount code, whichever suits the conversation."
+          }
+        },
+        "t2": {
+          "type": "item",
+          "settings": {
+            "label": "Simple tracking",
+            "note": "View referred orders and commission in your affiliate dashboard."
+          }
+        },
+        "t3": {
+          "type": "item",
+          "settings": {
+            "label": "Commission on the VAT-inclusive price",
+            "note": "Your percentage is calculated using the eligible sale price, including VAT. With the 5% + 5% option, your commission is calculated before the affiliate discount is deducted."
+          }
+        },
+        "t4": {
+          "type": "item",
+          "settings": {
+            "label": "Support throughout the sale",
+            "note": "Whether someone buys online or speaks to us first, we will give them the same personal guidance and care."
+          }
+        },
+        "t5": {
+          "type": "item",
+          "settings": {
+            "label": "No cap on earnings",
+            "note": "There is no limit to how many eligible sales you can refer."
+          }
+        }
+      },
+      "block_order": ["t1", "t2", "t3", "t4", "t5"],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "How It Is Tracked and Paid",
+        "heading": "Clear Tracking. Straightforward Rewards.",
+        "intro": "",
+        "note": "Commission becomes payable once the order has been paid in full, completed and passed any applicable cancellation or returns period. Payment timing and the full eligibility rules are set out in our Affiliate Programme Terms."
+      }
+    },
+
+    "join": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "mist",
+        "narrow": true,
+        "eyebrow": "Ready When You Are",
+        "heading": "Join Today and Choose Your Reward",
+        "body": "<p>Applying is quick and straightforward. Once approved you receive your referral link and two discount codes, so you can decide how to share the reward every time you recommend us.</p><p>You can also <a href=\"/pages/affiliate-terms\">read the Affiliate Programme Terms</a> first.</p>",
+        "link": "/pages/contact-us",
+        "link_label": "Become an affiliate"
+      }
+    },
+
+    "works": {
+      "type": "fye-steps",
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "number": "1",
+            "heading": "Share",
+            "body": "<p>Share your personalised link or code with friends, family, followers, clients and contacts.</p>"
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "number": "2",
+            "heading": "They Explore",
+            "body": "<p>They can shop online or speak to us for friendly, expert help choosing or creating the right piece.</p>"
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "number": "3",
+            "heading": "We Track",
+            "body": "<p>Their eligible purchase is attributed to you through your link or code, and commission sales appear in your affiliate dashboard.</p>"
+          }
+        },
+        "s4": {
+          "type": "step",
+          "settings": {
+            "number": "4",
+            "heading": "The Reward Is Applied",
+            "body": "<p>They receive their discount at checkout where applicable. If you have chosen a commission option, your earnings are approved once the sale is complete.</p>"
+          }
+        }
+      },
+      "block_order": ["s1", "s2", "s3", "s4"],
+      "settings": {
+        "band": "ivory",
+        "columns": "4",
+        "show_head": true,
+        "eyebrow": "",
+        "heading": "How It Works",
+        "intro": "The referral journey, from the moment you share us to the moment the reward lands."
+      }
+    },
+
+    "signup": {
+      "type": "fye-terms",
+      "blocks": {
+        "p1": {
+          "type": "term",
+          "settings": {
+            "number": "01",
+            "heading": "Apply to Join",
+            "body": "<p>Tell us a little about yourself and how you plan to introduce people to For Your Eternity. You do not need to be a professional influencer: existing customers, wedding professionals, creators and enthusiastic recommenders are all welcome to apply.</p>",
+            "meta": "Step 1"
+          }
+        },
+        "p2": {
+          "type": "term",
+          "settings": {
+            "number": "02",
+            "heading": "Receive Your Link and Codes",
+            "body": "<p>Once approved we send you a personalised referral link and two discount codes, together with access to your affiliate dashboard and everything you need to start sharing us.</p>",
+            "meta": "Step 2"
+          }
+        },
+        "p3": {
+          "type": "term",
+          "settings": {
+            "number": "03",
+            "heading": "Choose How to Share, Every Time",
+            "body": "<p>Between your link and your two codes you have all three reward options available at once. Decide case by case whether to take the full 10% commission, split it 5% and 5%, or pass the whole 10% on as a discount.</p>",
+            "meta": "Step 3"
+          }
+        },
+        "p4": {
+          "type": "term",
+          "settings": {
+            "number": "04",
+            "heading": "Share and Track",
+            "body": "<p>Introduce people to For Your Eternity in the way that feels natural to you. If you earn commission, you can follow eligible referrals and payments through your dashboard.</p>",
+            "meta": "Step 4"
+          }
+        }
+      },
+      "block_order": ["p1", "p2", "p3", "p4"],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "numbering": "numbers",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Getting Started",
+        "heading": "How to Sign Up",
+        "intro": "",
+        "note": ""
+      }
+    },
+
+    "cta": {
+      "type": "fye-media-text",
+      "blocks": {
+        "b1": {
+          "type": "button",
+          "settings": {
+            "label": "Apply to join",
+            "link": "/pages/contact-us",
+            "style": "btn",
+            "trigger_class": "enquire"
+          }
+        },
+        "b2": {
+          "type": "button",
+          "settings": {
+            "label": "Ask a question",
+            "link": "/pages/contact-us",
+            "style": "btn--outline",
+            "trigger_class": ""
+          }
+        }
+      },
+      "block_order": ["b1", "b2"],
+      "settings": {
+        "band": "sage",
+        "reverse": true,
+        "full_bleed": false,
+        "image_alt": "A couple holding hands, wearing an engagement ring",
+        "placeholder": "Couple holding hands",
+        "eyebrow": "Ready to Share?",
+        "heading": "Become a For Your Eternity Affiliate",
+        "body": "<p>If you believe beautiful, thoughtfully made jewellery should come with honest guidance and personal service, we would love to work with you. Apply today, choose how to share the reward and start introducing people to For Your Eternity.</p><p><em>By applying, you confirm that the information you have provided is accurate and agree to the <a href=\"/pages/affiliate-terms\">Affiliate Programme Terms</a> and <a href=\"/pages/privacy-policy-2\">Privacy Policy</a>.</em></p>"
+      }
+    },
+
+    "why": {
+      "type": "fye-checklist",
+      "blocks": {
+        "w1": { "type": "item", "settings": { "label": "Independently certified diamonds, where applicable", "note": "" } },
+        "w2": { "type": "item", "settings": { "label": "Ethically sourced diamonds, gemstones and precious metals", "note": "" } },
+        "w3": { "type": "item", "settings": { "label": "Honest, competitive pricing", "note": "" } },
+        "w4": { "type": "item", "settings": { "label": "Personal guidance before, during and after purchase", "note": "" } },
+        "w5": { "type": "item", "settings": { "label": "Free insured UK delivery", "note": "" } },
+        "w6": { "type": "item", "settings": { "label": "Complimentary resizing for the first year where appropriate, and a warranty against manufacturing defects", "note": "" } }
+      },
+      "block_order": ["w1", "w2", "w3", "w4", "w5", "w6"],
+      "settings": {
+        "band": "ivory",
+        "columns": "2",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "",
+        "heading": "Why Recommend For Your Eternity?",
+        "intro": "What the people you refer can expect when they buy from us.",
+        "note": ""
+      }
+    },
+
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Who can become a For Your Eternity affiliate?",
+            "a": "<p>We welcome applications from existing customers, content creators, bloggers, wedding professionals, businesses, community organisers and people who simply love recommending us to friends and family. You do not need a large online following. Every application is reviewed to make sure the partnership is a good fit.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "What are the three reward options?",
+            "a": "<p>You can earn 10% commission while your contact pays the usual price; earn 5% commission while giving them 5% off; or receive no commission and give them the full 10% discount. You do not have to pick one and stick with it: on approval you receive a referral link and two discount codes which between them cover all three, so you choose as you go.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Is commission really calculated including VAT?",
+            "a": "<p>Yes. Commission is calculated on the eligible sale price including VAT. With the 5% + 5% option, the customer's discount and your commission are both calculated from the price before the affiliate discount is deducted. On a £2,000 purchase, they save £100 and you earn £100.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "How is a sale linked to me?",
+            "a": "<p>Sales are tracked through your personalised affiliate link or code. The person you refer should use your link, enter your code or quote it when they first contact us. This is particularly important if their purchase involves a consultation or a bespoke design process.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "When will I receive my commission?",
+            "a": "<p>Commission is approved after an eligible order has been paid in full, completed and passed any applicable cancellation or returns period. Your dashboard will show the status of referred orders. The payment schedule and method are explained in the <a href=\"/pages/affiliate-terms\">Affiliate Programme Terms</a>.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "What happens if an order is cancelled, returned or refunded?",
+            "a": "<p>Commission is only payable on the value of a completed sale that For Your Eternity retains. Cancelled or fully refunded orders do not earn commission. If an order is partially refunded, commission is recalculated to reflect the remaining eligible sale value.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "q": "Can affiliate discounts be combined with other offers?",
+            "a": "<p>Affiliate discounts cannot normally be combined with another discount or promotional code unless we expressly state otherwise. The customer will receive the most appropriate eligible offer available to them.</p>"
+          }
+        },
+        "q8": {
+          "type": "qa",
+          "settings": {
+            "q": "Do I have to pick one reward option?",
+            "a": "<p>No. You are given a referral link and two discount codes covering all three options, so you can use whichever suits each conversation. Whatever the customer used at the point of sale is what applies to that order; it cannot be changed afterwards.</p>"
+          }
+        }
+      },
+      "block_order": ["q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8"],
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Frequently Asked Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+
+    "guides": {
+      "type": "fye-xref",
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "eyebrow": "Free to Read",
+        "heading": "Know More. Share With Confidence.",
+        "body": "<p>Our guides explain diamonds, gemstones, precious metals, ring styles, sizing and aftercare in clear, straightforward language. Explore them whenever you or the people you refer would like a little more guidance.</p>",
+        "link": "/pages/downloadable-guides",
+        "link_label": "Explore our guides"
+      }
+    },
+
+    "contact": {
+      "type": "fye-consultation",
+      "blocks": {
+        "phone": {
+          "type": "contact",
+          "settings": { "type": "phone", "label": "0208 178 6687", "link": "tel:+442081786687" }
+        },
+        "email": {
+          "type": "contact",
+          "settings": { "type": "email", "label": "hello@foryoureternity.com", "link": "mailto:hello@foryoureternity.com" }
+        }
+      },
+      "block_order": ["phone", "email"],
+      "settings": {
+        "band": "teal",
+        "eyebrow": "Still Deciding?",
+        "heading": "Questions About Becoming an Affiliate?",
+        "lead": "If you would like to understand the programme before applying, or want to discuss how a partnership could work for you or your business, please get in touch.",
+        "btn_label": "Send an enquiry",
+        "btn_link": "/pages/contact-us"
+      }
+    }
+  },
+
+  "order": [
+    "heading",
+    "intro",
+    "rewards",
+    "smallprint",
+    "tracking",
+    "join",
+    "works",
+    "signup",
+    "cta",
+    "why",
+    "faq",
+    "guides",
+    "contact"
+  ]
+}

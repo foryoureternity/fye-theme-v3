@@ -1,0 +1,32 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": { "type": "3", "settings": {} },
+        "title": { "type": "1", "settings": { "heading": "Affiliate Programme Terms" } },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Version 1.3, last updated 14 August 2026</p>"
+          }
+        }
+      },
+      "block_order": ["crumbs", "title", "sub"],
+      "settings": {
+        "ground": "teal",
+        "use_specify_image": false,
+        "overlay": 100,
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false
+      }
+    },
+
+    "terms": {
+      "type": "fye-affiliate-terms",
+      "settings": {}
+    }
+  },
+
+  "order": ["heading", "terms"]
+}

@@ -201,6 +201,18 @@
 .fye .hero--media { min-height: 580px; display: flex; align-items: center; }
 @media (max-width: 900px) { .fye .hero--media { min-height: 460px; } }
 @media (max-width: 560px) { .fye .hero--media { min-height: 390px; } }
+
+/* ---------------------------------------------------------------------------
+   TOUCH TARGETS, 03/09/2026. Found by fyeSmoke on the live homepage at 889px.
+   .hero__link measured 294x24 against the 44px minimum (conventions §7).
+   inline-flex because min-height does nothing to an inline box, and padding
+   would push the link off the hero copy baseline.
+   --------------------------------------------------------------------------- */
+.fye .hero__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
 {% endstylesheet %}
 
 {% schema %}

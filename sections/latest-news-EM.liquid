@@ -243,6 +243,29 @@
   .fye .news__row-img { flex: 0 0 auto; }
   .fye .news__row-img :where(img) { max-height: 220px; }
 }
+
+/* ---------------------------------------------------------------------------
+   TOUCH TARGETS, 03/09/2026. Found by fyeSmoke on the live homepage.
+
+   .news__more measured 118x31, .news__title about 22px on any title short
+   enough to sit on one line. Both under the 44px minimum, conventions §7.
+
+   flex + min-height, not padding: a title that already wraps to two lines is
+   past 44px and is left completely unchanged, while a single-line title grows
+   to 44px with the text centred, which reads as space above the excerpt.
+   Padding would have shifted every title, wrapped or not.
+   --------------------------------------------------------------------------- */
+.fye .news__more {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.fye .news__title a,
+.fye a.news__title {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+}
 {% endstylesheet %}
 
 {% schema %}

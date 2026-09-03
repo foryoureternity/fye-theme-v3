@@ -3,8 +3,16 @@
     "heading": {
       "type": "heading-template",
       "blocks": {
-        "crumbs": { "type": "3", "settings": {} },
-        "title": { "type": "1", "settings": { "heading": "Share Something Meaningful. Be Rewarded Your Way." } },
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Share Something Meaningful. Be Rewarded Your Way."
+          }
+        },
         "sub": {
           "type": "2",
           "settings": {
@@ -12,7 +20,11 @@
           }
         }
       },
-      "block_order": ["crumbs", "title", "sub"],
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
       "settings": {
         "content_align": "t4s-text-center",
         "heading_fullwidth": false,
@@ -21,7 +33,6 @@
         "use_specify_image": true
       }
     },
-
     "intro": {
       "type": "fye-rich-text",
       "settings": {
@@ -33,7 +44,6 @@
         "body": "<p>There is no single right way to be an affiliate. You may want to earn commission from your recommendations, give the people you refer an exclusive saving, or share the benefit equally. Choose the option that works for you and your audience.</p>"
       }
     },
-
     "rewards": {
       "type": "fye-cards",
       "blocks": {
@@ -62,7 +72,11 @@
           }
         }
       },
-      "block_order": ["earn", "share", "give"],
+      "block_order": [
+        "earn",
+        "share",
+        "give"
+      ],
       "settings": {
         "band": "ivory",
         "columns": "3",
@@ -72,7 +86,6 @@
         "intro": ""
       }
     },
-
     "smallprint": {
       "type": "fye-callout",
       "settings": {
@@ -84,7 +97,6 @@
         "body": "<p>Commission is calculated using the eligible sale price, including VAT. Under the 5% + 5% option, the customer's discount and your commission are each calculated from the same VAT-inclusive price before the affiliate discount is applied. Discounts and commission apply to eligible, completed sales attributed to your affiliate link or code and are subject to the <a href=\"/pages/affiliate-terms\">Affiliate Programme Terms</a>.</p>"
       }
     },
-
     "tracking": {
       "type": "fye-checklist",
       "blocks": {
@@ -124,7 +136,13 @@
           }
         }
       },
-      "block_order": ["t1", "t2", "t3", "t4", "t5"],
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5"
+      ],
       "settings": {
         "band": "white",
         "columns": "2",
@@ -136,7 +154,6 @@
         "note": "Commission becomes payable once the order has been paid in full, completed and passed any applicable cancellation or returns period. Payment timing and the full eligibility rules are set out in our Affiliate Programme Terms."
       }
     },
-
     "join": {
       "type": "fye-xref",
       "settings": {
@@ -149,7 +166,6 @@
         "link_label": "Become an affiliate"
       }
     },
-
     "works": {
       "type": "fye-steps",
       "blocks": {
@@ -186,7 +202,12 @@
           }
         }
       },
-      "block_order": ["s1", "s2", "s3", "s4"],
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
       "settings": {
         "band": "ivory",
         "columns": "4",
@@ -196,7 +217,6 @@
         "intro": "The referral journey, from the moment you share us to the moment the reward lands."
       }
     },
-
     "signup": {
       "type": "fye-terms",
       "blocks": {
@@ -237,7 +257,12 @@
           }
         }
       },
-      "block_order": ["p1", "p2", "p3", "p4"],
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
       "settings": {
         "band": "white",
         "columns": "2",
@@ -250,7 +275,6 @@
         "note": ""
       }
     },
-
     "cta": {
       "type": "fye-media-text",
       "blocks": {
@@ -273,7 +297,10 @@
           }
         }
       },
-      "block_order": ["b1", "b2"],
+      "block_order": [
+        "b1",
+        "b2"
+      ],
       "settings": {
         "band": "sage",
         "reverse": true,
@@ -285,18 +312,60 @@
         "body": "<p>If you believe beautiful, thoughtfully made jewellery should come with honest guidance and personal service, we would love to work with you. Apply today, choose how to share the reward and start introducing people to For Your Eternity.</p><p><em>By applying, you confirm that the information you have provided is accurate and agree to the <a href=\"/pages/affiliate-terms\">Affiliate Programme Terms</a> and <a href=\"/pages/privacy-policy-2\">Privacy Policy</a>.</em></p>"
       }
     },
-
     "why": {
       "type": "fye-checklist",
       "blocks": {
-        "w1": { "type": "item", "settings": { "label": "Independently certified diamonds, where applicable", "note": "" } },
-        "w2": { "type": "item", "settings": { "label": "Ethically sourced diamonds, gemstones and precious metals", "note": "" } },
-        "w3": { "type": "item", "settings": { "label": "Honest, competitive pricing", "note": "" } },
-        "w4": { "type": "item", "settings": { "label": "Personal guidance before, during and after purchase", "note": "" } },
-        "w5": { "type": "item", "settings": { "label": "Free insured UK delivery", "note": "" } },
-        "w6": { "type": "item", "settings": { "label": "Complimentary resizing for the first year where appropriate, and a lifetime warranty against manufacturing defects", "note": "" } }
+        "w1": {
+          "type": "item",
+          "settings": {
+            "label": "Independently certified diamonds, where applicable",
+            "note": ""
+          }
+        },
+        "w2": {
+          "type": "item",
+          "settings": {
+            "label": "Ethically sourced diamonds, gemstones and precious metals",
+            "note": ""
+          }
+        },
+        "w3": {
+          "type": "item",
+          "settings": {
+            "label": "Honest, competitive pricing",
+            "note": ""
+          }
+        },
+        "w4": {
+          "type": "item",
+          "settings": {
+            "label": "Personal guidance before, during and after purchase",
+            "note": ""
+          }
+        },
+        "w5": {
+          "type": "item",
+          "settings": {
+            "label": "Free insured UK delivery",
+            "note": ""
+          }
+        },
+        "w6": {
+          "type": "item",
+          "settings": {
+            "label": "Complimentary resizing for the first year where appropriate, and a lifetime warranty against manufacturing defects",
+            "note": ""
+          }
+        }
       },
-      "block_order": ["w1", "w2", "w3", "w4", "w5", "w6"],
+      "block_order": [
+        "w1",
+        "w2",
+        "w3",
+        "w4",
+        "w5",
+        "w6"
+      ],
       "settings": {
         "band": "ivory",
         "columns": "2",
@@ -308,7 +377,6 @@
         "note": ""
       }
     },
-
     "faq": {
       "type": "fye-faq",
       "blocks": {
@@ -369,7 +437,16 @@
           }
         }
       },
-      "block_order": ["q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8"],
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8"
+      ],
       "settings": {
         "band": "white",
         "narrow": true,
@@ -381,7 +458,6 @@
         "emit_schema": true
       }
     },
-
     "guides": {
       "type": "fye-xref",
       "settings": {
@@ -389,25 +465,35 @@
         "narrow": true,
         "eyebrow": "Free to Read",
         "heading": "Know More. Share With Confidence.",
-        "body": "<p>Our guides explain diamonds, gemstones, precious metals, ring styles, sizing and aftercare in clear, straightforward language. Explore them whenever you or the people you refer would like a little more guidance.</p>",
-        "link": "/pages/downloadable-guides",
+        "body": "<p>Six guides explain diamonds, gemstones, precious metals, ring styles, sizing and aftercare in clear, straightforward language. Point people at whichever fits where they are.</p>",
+        "link": "/pages/jewellery-guides",
         "link_label": "Explore our guides"
       }
     },
-
     "contact": {
       "type": "fye-consultation",
       "blocks": {
         "phone": {
           "type": "contact",
-          "settings": { "type": "phone", "label": "0208 178 6687", "link": "tel:+442081786687" }
+          "settings": {
+            "type": "phone",
+            "label": "0208 178 6687",
+            "link": "tel:+442081786687"
+          }
         },
         "email": {
           "type": "contact",
-          "settings": { "type": "email", "label": "hello@foryoureternity.com", "link": "mailto:hello@foryoureternity.com" }
+          "settings": {
+            "type": "email",
+            "label": "hello@foryoureternity.com",
+            "link": "mailto:hello@foryoureternity.com"
+          }
         }
       },
-      "block_order": ["phone", "email"],
+      "block_order": [
+        "phone",
+        "email"
+      ],
       "settings": {
         "band": "teal",
         "eyebrow": "Still Deciding?",
@@ -418,7 +504,6 @@
       }
     }
   },
-
   "order": [
     "heading",
     "intro",
@@ -435,4 +520,3 @@
     "contact"
   ]
 }
-

@@ -1,0 +1,321 @@
+{%- comment -%}
+  fye-signpost — a pure routing list. One job: get someone to the right guide
+  in about three seconds. 1 use: page.jewellery-guides.
+
+  PORTED FROM LIVE 03/09/2026. Setting IDs kept exactly: title, sub, note;
+  route blocks keep question, guide, link, icon with the same option values, so
+  live's template settings carry over unchanged.
+
+  The large line is the reader's situation in their own words. The guide's real
+  title is secondary, because nobody scans "The Diamond and Gemstone Wedding
+  Ring Guide" quickly.
+
+  ICONS, and why they are inline rather than from snippets/icon.liquid or from
+  Files. Live's note explains the original decision and it still holds: the
+  illustration-scale ring artwork collapses into the same grey ring at 46px,
+  and there was nothing for a plain band, an eternity band or care. These six
+  are drawn at icon weight and differentiated by SILHOUETTE rather than detail,
+  which is the only thing that survives at this size: one stone above a band /
+  two bands / stones across the top / stones all round / a stone with no band /
+  a band with a polish mark.
+
+  They stay inline rather than moving into snippets/icon.liquid because nothing
+  else uses them, and icon.liquid is for the shared utility set. If a second
+  section ever needs them, move them there rather than copying.
+
+  CHANGED FOR v3:
+  - The title renders as an h2, not live's h1. heading-template carries the
+    page's only h1 (conventions §7). Live's template left `title` empty and let
+    its hero do the same job, so nothing is lost.
+  - `.fye-edu-section` schema class dropped: there is no education shell here.
+  - The ivory ground and the vertical rhythm come from `band`, so the section
+    carries no padding of its own, and the ground is now a palette choice.
+  - Tokens throughout, and the 400px breakpoint moved to the theme's 560.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'ivory'
+-%}
+
+{%- capture icon_solitaire -%}
+  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="16" cy="20.5" r="8.6"/>
+    <path d="M16 3.4 20.4 8 16 12.6 11.6 8Z"/>
+    <path d="M11.6 8h8.8"/>
+  </svg>
+{%- endcapture -%}
+
+{%- capture icon_two_bands -%}
+  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="11.4" cy="16" r="8.4"/>
+    <circle cx="20.6" cy="16" r="8.4"/>
+  </svg>
+{%- endcapture -%}
+
+{%- comment -%}
+  half_set and eternity are the hard pair: both are "a band with stones" and at
+  46px an even ring of beads looked identical for both. They are separated by
+  texture rather than by count. Half-set gets three chunky faceted stones
+  clustered across the top over a plain band; eternity gets ten small even
+  beads the whole way round. Do not "tidy" either into the other.
+{%- endcomment -%}
+{%- capture icon_half_set -%}
+  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="16" cy="16" r="9"/>
+    <path d="M10.2 6.8 12.5 9.1 10.2 11.4 7.9 9.1Z" fill="currentColor" stroke="none"/>
+    <path d="M16 4.7 18.3 7 16 9.3 13.7 7Z" fill="currentColor" stroke="none"/>
+    <path d="M21.8 6.8 24.1 9.1 21.8 11.4 19.5 9.1Z" fill="currentColor" stroke="none"/>
+  </svg>
+{%- endcapture -%}
+
+{%- capture icon_eternity -%}
+  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="16" cy="16" r="9"/>
+    <circle cx="16" cy="7" r="1.25" fill="currentColor" stroke="none"/>
+    <circle cx="21.29" cy="8.72" r="1.25" fill="currentColor" stroke="none"/>
+    <circle cx="24.56" cy="13.22" r="1.25" fill="currentColor" stroke="none"/>
+    <circle cx="24.56" cy="18.78" r="1.25" fill="currentColor" stroke="none"/>
+    <circle cx="21.29" cy="23.28" r="1.25" fill="currentColor" stroke="none"/>
+    <circle cx="16" cy="25" r="1.25" fill="currentColor" stroke="none"/>
+    <circle cx="10.71" cy="23.28" r="1.25" fill="currentColor" stroke="none"/>
+    <circle cx="7.44" cy="18.78" r="1.25" fill="currentColor" stroke="none"/>
+    <circle cx="7.44" cy="13.22" r="1.25" fill="currentColor" stroke="none"/>
+    <circle cx="10.71" cy="8.72" r="1.25" fill="currentColor" stroke="none"/>
+  </svg>
+{%- endcapture -%}
+
+{%- capture icon_stone -%}
+  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M10.5 5.5h11l5.5 7.5L16 27.5 5 13Z"/>
+    <path d="M5 13h22"/>
+    <path d="M10.5 5.5 13.4 13 16 27.5 18.6 13l2.9-7.5"/>
+  </svg>
+{%- endcapture -%}
+
+{%- capture icon_care -%}
+  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="13.5" cy="19" r="8.4"/>
+    <path d="M24.6 3.6c.62 3.5 1.02 3.9 4.5 4.5-3.48.62-3.88 1.02-4.5 4.5-.62-3.48-1.02-3.88-4.5-4.5 3.48-.6 3.88-1 4.5-4.5Z"/>
+  </svg>
+{%- endcapture -%}
+
+<section class="spost band band--{{ band }}" data-screen-label="Guide signpost">
+  <div class="wrap spost__inner">
+
+    {%- if s.title != blank -%}
+      <div class="sect-head">
+        <h2 class="heading-flank">{{ s.title }}</h2>
+        {%- if s.sub != blank -%}
+          <p class="lead spost__sub">{{ s.sub }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <ul class="spost__list">
+      {%- for block in section.blocks -%}
+        {%- assign b = block.settings -%}
+        <li class="spost__item" {{ block.shopify_attributes }}>
+          <a class="spost__link" href="{{ b.link }}">
+            {%- if b.icon != 'none' -%}
+              <span class="spost__figure" aria-hidden="true">
+                {%- case b.icon -%}
+                  {%- when 'solitaire' -%}{{ icon_solitaire }}
+                  {%- when 'two_bands' -%}{{ icon_two_bands }}
+                  {%- when 'half_set' -%}{{ icon_half_set }}
+                  {%- when 'eternity' -%}{{ icon_eternity }}
+                  {%- when 'stone' -%}{{ icon_stone }}
+                  {%- when 'care' -%}{{ icon_care }}
+                {%- endcase -%}
+              </span>
+            {%- endif -%}
+            <span class="spost__text">
+              <span class="spost__situation">{{ b.question }}</span>
+              {%- if b.guide != blank -%}
+                <span class="spost__guide">{{ b.guide }}</span>
+              {%- endif -%}
+            </span>
+            <span class="spost__arrow" aria-hidden="true">
+              {%- render 'icon', name: 'arrow-right', size: 20 -%}
+            </span>
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+
+    {%- if s.note != blank -%}
+      <div class="fine spost__note">{{ s.note }}</div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .spost__inner { max-width: 860px; }
+.fye .spost__sub { margin: var(--s4) auto 0; max-width: 46em; }
+
+/* The rows bleed to the container edge so the hairlines read as a single
+   ruled list rather than a stack of boxes. */
+.fye .spost__list {
+  list-style: none;
+  margin: 0 calc(var(--s6) * -1);
+  padding: 0;
+  border-top: var(--hairline);
+}
+.fye .spost__item { margin: 0; padding: 0; border-bottom: var(--hairline); }
+
+.fye .spost__link {
+  display: flex;
+  align-items: center;
+  gap: var(--s7);
+  width: 100%;
+  min-height: 44px;
+  padding: var(--s6);
+  color: var(--ink);
+  background: transparent;
+  transition: background-color var(--dur) var(--ease);
+}
+
+.fye .spost__figure {
+  flex: 0 0 auto;
+  width: 46px;
+  height: 46px;
+  opacity: 0.75;
+  transition: color var(--dur) var(--ease), opacity var(--dur) var(--ease);
+}
+.fye .spost__figure :where(svg) { display: block; width: 100%; height: 100%; }
+
+.fye .spost__text { flex: 1 1 auto; min-width: 0; }
+
+/* Display face at reading size, sentence case: this is the reader's own
+   sentence, so uppercase would make it an announcement instead of a choice. */
+.fye .spost__situation {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-regular);
+  line-height: 1.25;
+  letter-spacing: 0.005em;
+  text-wrap: pretty;
+  transition: color var(--dur) var(--ease);
+}
+.fye .spost__guide {
+  display: block;
+  margin-top: var(--s2);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  line-height: 1.4;
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  transition: color var(--dur) var(--ease);
+}
+
+.fye .spost__arrow {
+  flex: 0 0 auto;
+  display: flex;
+  opacity: 0.55;
+  transition: transform var(--dur) var(--ease), opacity var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+/* White on ivory, so the row lifts rather than darkening. */
+.fye .spost__link:hover,
+.fye .spost__link:focus-visible { background: var(--white); }
+.fye .band--white .spost__link:hover,
+.fye .band--white .spost__link:focus-visible { background: var(--ivory); }
+
+.fye .spost__link:hover .spost__situation,
+.fye .spost__link:focus-visible .spost__situation { color: var(--sage); }
+.fye .spost__link:hover .spost__guide,
+.fye .spost__link:focus-visible .spost__guide { color: var(--ink); }
+.fye .spost__link:hover .spost__figure,
+.fye .spost__link:focus-visible .spost__figure { color: var(--sage); opacity: 1; }
+.fye .spost__link:hover .spost__arrow,
+.fye .spost__link:focus-visible .spost__arrow { transform: translateX(8px); opacity: 1; color: var(--sage); }
+
+.fye .spost__note { margin: var(--s8) 0 0; max-width: 640px; }
+.fye .spost__note :where(p:last-child) { margin-bottom: 0; }
+.fye .spost__note :where(a) { text-decoration: underline; text-underline-offset: 3px; }
+
+@media (max-width: 749px) {
+  .fye .spost__list { margin: 0; }
+  .fye .spost__link { padding: var(--s5) 0; gap: var(--s4); }
+  .fye .spost__figure { width: 36px; height: 36px; }
+  .fye .spost__situation { font-size: var(--fs-body-lg); }
+  /* No hover on touch, and the arrow is decoration once the whole row is the
+     target, so it goes rather than crowding a narrow line. */
+  .fye .spost__arrow { display: none; }
+  .fye .spost__link:hover,
+  .fye .spost__link:focus-visible { background: transparent; }
+}
+@media (max-width: 560px) {
+  .fye .spost__figure { width: 30px; height: 30px; }
+  .fye .spost__situation { font-size: var(--fs-body); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fye .spost__link,
+  .fye .spost__situation,
+  .fye .spost__guide,
+  .fye .spost__figure,
+  .fye .spost__arrow { transition: none; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Guide signpost",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "A routing list. Keep each question in the reader's words, not the guide's title."
+    },
+    {
+      "type": "text", "id": "title", "label": "Heading",
+      "info": "Leave empty when the page banner already carries the title."
+    },
+    { "type": "text", "id": "sub", "label": "Sub-heading" },
+    { "type": "richtext", "id": "note", "label": "Quiet note under the list" },
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "ivory",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Champagne ivory" },
+        { "value": "mist", "label": "Mist blue" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "route",
+      "name": "Route",
+      "settings": [
+        {
+          "type": "text", "id": "question", "label": "The reader's situation",
+          "info": "The large line. Plain words, first person."
+        },
+        { "type": "text", "id": "guide", "label": "Guide name" },
+        { "type": "url", "id": "link", "label": "Link" },
+        {
+          "type": "select", "id": "icon", "label": "Icon", "default": "solitaire",
+          "options": [
+            { "value": "solitaire", "label": "Solitaire, one stone above a band" },
+            { "value": "two_bands", "label": "Two plain bands" },
+            { "value": "half_set", "label": "Stones across the top" },
+            { "value": "eternity", "label": "Stones all the way round" },
+            { "value": "stone", "label": "A cut stone, no band" },
+            { "value": "care", "label": "Band with a polish mark" },
+            { "value": "none", "label": "No icon" }
+          ]
+        }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+  "presets": [
+    {
+      "name": "Guide signpost",
+      "blocks": [{ "type": "route" }, { "type": "route" }, { "type": "route" }]
+    }
+  ]
+}
+{% endschema %}

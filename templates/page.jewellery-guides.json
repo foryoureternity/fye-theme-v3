@@ -22,81 +22,70 @@
       }
     },
 
-    "routes": {
-      "type": "fye-terms",
+    "signpost": {
+      "type": "fye-signpost",
       "blocks": {
         "r1": {
-          "type": "term",
+          "type": "route",
           "settings": {
-            "heading": "I am going to propose",
-            "body": "<p>Budget, the Four Cs, shapes, settings, sizing and how a bespoke commission works.</p><p><a href=\"/pages/engagement-ring-guide\">Read The Engagement Ring Guide</a></p>",
-            "meta": "15 chapters"
+            "question": "I am going to propose",
+            "guide": "The Engagement Ring Guide",
+            "icon": "solitaire",
+            "link": "/pages/engagement-ring-guide"
           }
         },
         "r2": {
-          "type": "term",
+          "type": "route",
           "settings": {
-            "heading": "We want plain wedding rings",
-            "body": "<p>Profiles, metals, finishes, shaped-to-fit bands and matching a pair.</p><p><a href=\"/pages/plain-wedding-ring-guide\">Read The Plain Wedding Ring Guide</a></p>",
-            "meta": "10 chapters"
+            "question": "We want plain wedding rings",
+            "guide": "The Plain Wedding Ring Guide",
+            "icon": "two_bands",
+            "link": "/pages/plain-wedding-ring-guide"
           }
         },
         "r3": {
-          "type": "term",
+          "type": "route",
           "settings": {
-            "heading": "We want stones in our wedding rings",
-            "body": "<p>Stone settings, coverage, layout and how a diamond set band wears day to day.</p><p><a href=\"/pages/diamond-gemstone-wedding-ring-guide\">Read The Diamond and Gemstone Wedding Ring Guide</a></p>",
-            "meta": "16 chapters"
+            "question": "We want stones in our wedding rings",
+            "guide": "The Diamond and Gemstone Wedding Ring Guide",
+            "icon": "half_set",
+            "link": "/pages/diamond-gemstone-wedding-ring-guide"
           }
         },
         "r4": {
-          "type": "term",
+          "type": "route",
           "settings": {
-            "heading": "I am buying an eternity ring",
-            "body": "<p>Full, half and three-quarter styles, spacing, stacking and choosing the setting.</p><p><a href=\"/pages/eternity-ring-guide\">Read The Eternity Ring Guide</a></p>",
-            "meta": "15 chapters"
+            "question": "I am buying an eternity ring",
+            "guide": "The Eternity Ring Guide",
+            "icon": "eternity",
+            "link": "/pages/eternity-ring-guide"
           }
         },
         "r5": {
-          "type": "term",
+          "type": "route",
           "settings": {
-            "heading": "I want to understand the stones",
-            "body": "<p>Diamonds and coloured gemstones, natural and lab-grown, treatments, durability and grading reports.</p><p><a href=\"/pages/diamond-and-gemstone-guide\">Read The Diamond and Gemstone Guide</a></p>",
-            "meta": "22 chapters"
+            "question": "I want to understand the stones",
+            "guide": "The Diamond and Gemstone Guide",
+            "icon": "stone",
+            "link": "/pages/diamond-and-gemstone-guide"
           }
         },
         "r6": {
-          "type": "term",
+          "type": "route",
           "settings": {
-            "heading": "I want to look after what I own",
-            "body": "<p>Cleaning, storage, claw checks, replating, resizing and when to have a ring serviced.</p><p><a href=\"/pages/ring-and-jewellery-care-guide\">Read The Ring and Jewellery Care Guide</a></p>",
-            "meta": "9 chapters"
+            "question": "I want to look after what I own",
+            "guide": "The Ring and Jewellery Care Guide",
+            "icon": "care",
+            "link": "/pages/ring-and-jewellery-care-guide"
           }
         }
       },
       "block_order": ["r1", "r2", "r3", "r4", "r5", "r6"],
       "settings": {
-        "band": "white",
-        "columns": "3",
-        "numbering": "none",
-        "narrow": false,
-        "show_head": true,
-        "eyebrow": "Start Where You Are",
-        "heading": "Six Guides, Free to Read",
-        "intro": "Each guide is a set of short chapters you can read in order or dip into. Nothing is gated and none of it asks for an email address.",
-        "note": ""
-      }
-    },
-
-    "morehelp": {
-      "type": "fye-callout",
-      "settings": {
         "band": "ivory",
-        "style": "bare",
-        "narrow": true,
-        "eyebrow": "Looking for Something Narrower?",
-        "heading": "One Answer Rather Than a Whole Guide",
-        "body": "<p>If you want a single question answered rather than a full guide, start with <a href=\"/pages/diamond-education\">Diamond Education</a> or <a href=\"/pages/gemstone-education\">Gemstone Education</a>, which break the same material into individual pages.</p><p>Prefer a PDF to print or read offline? All six guides are on the <a href=\"/pages/downloadable-guides\">downloadable guides</a> page.</p>"
+        "title": "",
+        "sub": "",
+        "note": "<p>Looking for one specific answer rather than a whole guide? Start with <a href=\"/pages/diamond-education\">Diamond Education</a> or <a href=\"/pages/gemstone-education\">Gemstone Education</a>, which break the same material into individual pages. Prefer a PDF to print or read offline? All six are on the <a href=\"/pages/downloadable-guides\">downloadable guides</a> page.</p>"
       }
     },
 
@@ -119,5 +108,5 @@
     }
   },
 
-  "order": ["heading", "routes", "morehelp", "cta"]
+  "order": ["heading", "signpost", "cta"]
 }

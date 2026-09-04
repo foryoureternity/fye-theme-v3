@@ -2427,3 +2427,37 @@ session.
 
 **Unverified:** `filters.centre_weight` may not be populated — walk
 engagement with a centre stone size and check the count is not 0.
+
+
+---
+
+## Revision — 04/09/2026: metal swatches, and Palladium
+
+Ed: "can you use the same swatches used in the product pages? the 5th metal is
+paladium."
+
+**No new image files.** The theme already draws metal swatches as inline SVG in
+`snippets/fye-filter-icons.liquid`, over the measured per-carat colours in
+fye-core.css. That construction is now a snippet, `fye-metal-swatch.liquid`,
+and the finder renders it directly — so the four `metal-*.svg` uploads asked
+for yesterday are **not needed and should not be uploaded**. One definition of
+what a metal looks like, shared by the rail and the finder.
+
+- An option's icon field accepts `swatch: Rose Gold` as well as a filename.
+  Carat prefix optional: unprefixed colours use the 14ct family colour, which
+  is right now that colour and carat are separate questions.
+- The gradients live in the snippet's `defs: true` mode, emitted once per
+  page. `fye-filter-icons` still emits its own copy for the collection rail —
+  same two ids, and no page renders both. If a page ever needs both, one of
+  them has to give up its ids.
+- **Palladium** added: `--metal-palladium: #BFC3C1`, a shade cooler and darker
+  than platinum. Also added to the filter rail (`Pd`) so the two sides agree.
+- All three metal steps are now five columns of swatch tiles.
+
+**Unverified, and it matters:** whether any product carries
+`filters.metal_colour = "Palladium"`. On plain wedding rings that answer
+filters, so if nothing carries the value the step returns no rings — the
+finder will say "No exact match in stock" and offer the enquiry form, which is
+the correct failure but a poor first impression. Check the value exists in
+Search & Discovery before this page goes in a menu; on engagement and diamond
+the answer is only carried, so it is harmless there.

@@ -1,58 +1,92 @@
 {%- comment -%}
   fye-ring-finder — the step-by-step ring finder. 1 use: page.find-your-ring.
 
-  REVISED 03/09/2026 (Ed): the last step no longer ends on a button. As soon as
-  the final question is answered the matching rings appear in place, fetched
-  from templates/collection.fye-finder.liquid (a `layout none` fragment of the
-  real collection, so Shopify's native filters do the work). Beside them sits
-  the custom-options enquiry, because the shopper who did not find their ring
-  is exactly the one worth talking to.
+  REVISED 03/09/2026 (3), Ed: engagement and diamond journeys now open on a
+  FORK — "start with the setting" or "start with the stone" — and metal is
+  asked as colour first, then carat only if a gold was chosen.
 
   HOW IT WORKS
-  · Three JOURNEY blocks (a collection each) and one STEP block per question.
-    A step belongs to a journey by matching `journey` keys. Steps render in
-    block order, all present in the HTML and hidden; fye-ui.js shows one at a
-    time and appends a filter param per answer.
-  · Options are a textarea, one per line: `Label | value | icon.svg`.
-    Value and icon are optional; a missing value falls back to the label.
-    One block per option would need ~70 blocks and Shopify caps a section at
+  · JOURNEY blocks (a collection each), optional FORK blocks, and one STEP
+    block per question. A step belongs to a journey by matching `journey` keys.
+    Everything renders into the HTML at once and hidden; fye-ui.js shows one
+    panel at a time and appends a filter param per answer.
+
+  · THE FORK does not add questions, it reorders them. Each step carries a
+    `group` — setting, stone, or none — and the fork chooses which group is
+    asked first. Ungrouped steps (metal, carat, coverage) always come last.
+    So one set of step blocks serves both routes and there is nothing to keep
+    in sync. A journey with no fork block runs in plain block order.
+      eng, setting first:  style, shoulders, stone type, cut, size, metal
+      eng, stone first:    stone type, cut, size, style, shoulders, metal
+    The fork deliberately has NO "I'm flexible": it is a route, not a filter,
+    and every route asks every question. It is also not counted as a step.
+
+  · CONDITIONAL STEPS. A step with `when_param` + `when_value` is asked only
+    if an earlier answer to `when_param` contains `when_value`. That is how
+    carat works: asked only when the metal colour contains "Gold". The step
+    total counts a pending conditional step optimistically, so a shopper who
+    picks Platinum finishes one step early — the count never grows mid-journey,
+    which is the direction that would feel like a moving target.
+
+  · Options are a textarea, one per line:
+        Label | value | icon.svg | note
+    An icon of `swatch: Rose Gold` draws the theme's own metal swatch —
+    the same one the filter rail uses — instead of loading a file. Any
+    metal name fye-metal-swatch knows will do, with or without a carat.
+    Value, icon and note are all optional; a missing value falls back to the
+    label. One block per option would need ~90 blocks against Shopify's cap of
     50, so the textarea IS the editable list.
+
   · VALUE SYNTAX, read by fye-ui.js:
       Concave                       filter.p.m.filters.<param>=Concave
       1.00..1.49                    <param>.gte=1.00&<param>.lte=1.49  (either side may be empty)
       carat=18ct&metal_colour=Rose Gold   two params at once; the step's own
-                                    param is ignored. Plain rings store metal
-                                    as TWO metafields — carat and metal_colour —
-                                    and Platinum has no carat at all.
-    A step whose param begins `fye_` is CARRIED, not filtered: it stays out of
-    the filter URL and travels with the enquiry instead. Ed, 14/08/2026 and
-    03/09/2026: metal is asked on every journey but only the plain collection
-    can filter on it.
-  · Every step ends with "I'm flexible" (empty value, no param). That rule is
-    what guarantees no ring is orphaned. Do not remove it.
-  · The heading is deliberately absent from the preset: page.find-your-ring
-    already carries "Find Your Ring" in its banner, and two titles a screen
-    apart read as a mistake. The settings remain for other uses.
+                                    param is ignored
+    A param beginning `fye_` is CARRIED, not filtered: it stays out of the
+    collection URL and travels with the enquiry instead. Metal is asked on
+    every journey but only the plain collection can filter on it (Ed,
+    14/08 and 03/09/2026).
+
+  · ICONS. `icon_size` (40 / 56 / 88px) and `icon_style` per step. Line art
+    fades a step on hover, because recolouring teal line-art would need a mask;
+    colour art — the metal swatches, and product photography later — does not
+    fade, because dimming a photograph looks like a fault. Swatches are square:
+    the brand has no rounded corners outside the logo. Icons are files in
+    Content › Files resolved with `file_url` (see fye-shape-tiles for why not
+    image_picker), and fye-ui.js removes any that fail to load, so a filename
+    typo costs a missing icon rather than a broken-image glyph.
+
+  · Every step except the fork ends with "I'm flexible" (empty value, no
+    param). That rule is what guarantees no ring is orphaned. Do not remove it.
+
+  · The heading is deliberately absent from page.find-your-ring: the banner
+    already names the page, and two titles a screen apart read as a mistake.
+    The settings remain for other uses.
+
   · Without JavaScript each journey card is a plain link to its collection and
     the enquiry form still posts.
 
-  The filters are LIVE and verified (Ed, 03/09/2026): all 12 `filters.*`
-  metafields are switched on in Search & Discovery, and
-  Concave + 4mm + 18ct Rose Gold returns exactly 3. The visible sidebar on the
-  collection page is still xCloud's and will not show these filters as ticked.
-
-  Icons are SVG files in Content › Files, so they come in as text filenames
-  resolved with `file_url` — see fye-shape-tiles for why not image_picker.
+  Filters are LIVE and verified (Ed, 03/09/2026): all 12 `filters.*` metafields
+  are on in Search & Discovery, and Concave + 4mm + 18ct Rose Gold returns
+  exactly 3. The visible sidebar on the collection page is still xCloud's and
+  will not show these filters as ticked.
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
   assign band = s.band | default: 'ivory'
   assign flex_label = s.flexible_label | default: "I'm flexible"
   assign journeys = section.blocks | where: 'type', 'journey'
+  assign forks = section.blocks | where: 'type', 'fork'
   assign steps = section.blocks | where: 'type', 'step'
 -%}
 
 <section class="rfd band band--{{ band }}" data-screen-label="Ring finder" data-fye-finder>
+  {%- comment -%}
+    The two gradients every metal swatch references. Once per page, and only
+    here: fye-filter-icons emits the same two ids for the collection rail,
+    and no page renders both.
+  {%- endcomment -%}
+  {%- render 'fye-metal-swatch', defs: true -%}
   <div class="wrap rfd__wrap">
 
     {%- if s.eyebrow != blank or s.heading != blank or s.intro != blank -%}
@@ -72,7 +106,7 @@
 
       <div class="rfd__panel" data-fye-finder-panel="journeys">
         {%- if s.journeys_q != blank -%}
-          <h3 class="rfd__q">{{ s.journeys_q }}</h3>
+          <h3 class="rfd__q" tabindex="-1" data-fye-finder-question>{{ s.journeys_q }}</h3>
         {%- endif -%}
         {%- if journeys.size > 0 -%}
           <ul class="rfd__journeys">
@@ -88,7 +122,7 @@
                    data-fye-finder-collection="{{ coll.url | default: '/collections/all' }}"
                    data-fye-finder-label="{{ b.label | default: coll.title | escape }}">
                   {%- if b.icon != blank -%}
-                    <img class="rfd__jicon" src="{{ b.icon | file_url }}" alt="" aria-hidden="true" width="68" height="68" loading="lazy">
+                    <img class="rfd__jicon" src="{{ b.icon | file_url }}" alt="" aria-hidden="true" width="68" height="68" loading="lazy" data-fye-finder-icon>
                   {%- endif -%}
                   <span class="rfd__jname">{{ b.label | default: coll.title }}</span>
                   {%- if b.description != blank -%}
@@ -103,20 +137,65 @@
         {%- endif -%}
       </div>
 
+      {%- for block in forks -%}
+        {%- liquid
+          assign b = block.settings
+          assign lines = b.options | newline_to_br | split: '<br />'
+          assign isize = b.icon_size | default: '56'
+        -%}
+        <div class="rfd__panel" hidden
+             data-fye-finder-fork
+             data-fye-finder-journey="{{ b.journey }}"
+             {{ block.shopify_attributes }}>
+          <h3 class="rfd__q" tabindex="-1" data-fye-finder-question>{{ b.heading | default: 'Where would you like to start?' }}</h3>
+          {%- if b.hint != blank -%}<p class="rfd__hint">{{ b.hint }}</p>{%- endif -%}
+          <div class="rfd__fork" style="--isize: {{ isize }}px;">
+            {%- for line in lines -%}
+              {%- liquid
+                assign row = line | strip
+                if row == blank
+                  continue
+                endif
+                assign parts = row | split: '|'
+                assign lbl = parts[0] | strip
+                assign val = parts[1] | strip
+                assign ico = parts[2] | strip
+                assign note = parts[3] | strip
+              -%}
+              <button type="button" class="rfd__opt rfd__opt--fork rfd__opt--{{ b.icon_style | default: 'line' }}"
+                      data-fye-finder-route="{{ val | escape }}">
+                {%- if ico contains 'swatch:' -%}
+                  {%- assign metal = ico | remove_first: 'swatch:' | strip -%}
+                  {%- render 'fye-metal-swatch', metal: metal, class: 'rfd__oicon' -%}
+                {%- elsif ico != blank -%}
+                  <img class="rfd__oicon" src="{{ ico | file_url }}" alt="" aria-hidden="true" loading="lazy" data-fye-finder-icon>
+                {%- endif -%}
+                <span class="rfd__olabel">{{ lbl }}</span>
+                {%- if note != blank -%}<span class="rfd__onote">{{ note }}</span>{%- endif -%}
+              </button>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endfor -%}
+
       {%- for block in steps -%}
         {%- liquid
           assign b = block.settings
           assign cols = b.columns | default: '3'
+          assign isize = b.icon_size | default: '56'
           assign lines = b.options | newline_to_br | split: '<br />'
         -%}
         <fieldset class="rfd__panel rfd__step" hidden
                   data-fye-finder-step
                   data-fye-finder-journey="{{ b.journey }}"
+                  data-fye-finder-group="{{ b.group }}"
                   data-fye-finder-param="{{ b.param }}"
+                  data-fye-finder-when-param="{{ b.when_param }}"
+                  data-fye-finder-when-value="{{ b.when_value }}"
                   {{ block.shopify_attributes }}>
           <legend class="rfd__q" tabindex="-1" data-fye-finder-question>{{ b.heading | default: 'Choose an option' }}</legend>
           {%- if b.hint != blank -%}<p class="rfd__hint">{{ b.hint }}</p>{%- endif -%}
-          <div class="rfd__opts" style="--cols: {{ cols }};">
+          <div class="rfd__opts" style="--cols: {{ cols }}; --isize: {{ isize }}px;">
             {%- for line in lines -%}
               {%- liquid
                 assign row = line | strip
@@ -127,15 +206,20 @@
                 assign lbl = parts[0] | strip
                 assign val = parts[1] | strip | default: lbl
                 assign ico = parts[2] | strip
+                assign note = parts[3] | strip
               -%}
-              <button type="button" class="rfd__opt"
+              <button type="button" class="rfd__opt rfd__opt--{{ b.icon_style | default: 'line' }}"
                       data-fye-finder-option
                       data-fye-finder-value="{{ val | escape }}"
                       data-fye-finder-label="{{ lbl | escape }}">
-                {%- if ico != blank -%}
-                  <img class="rfd__oicon" src="{{ ico | file_url }}" alt="" aria-hidden="true" width="56" height="56" loading="lazy">
+                {%- if ico contains 'swatch:' -%}
+                  {%- assign metal = ico | remove_first: 'swatch:' | strip -%}
+                  {%- render 'fye-metal-swatch', metal: metal, class: 'rfd__oicon' -%}
+                {%- elsif ico != blank -%}
+                  <img class="rfd__oicon" src="{{ ico | file_url }}" alt="" aria-hidden="true" loading="lazy" data-fye-finder-icon>
                 {%- endif -%}
                 <span class="rfd__olabel">{{ lbl }}</span>
+                {%- if note != blank -%}<span class="rfd__onote">{{ note }}</span>{%- endif -%}
               </button>
             {%- endfor -%}
             <button type="button" class="rfd__opt rfd__opt--flex"
@@ -163,7 +247,7 @@
           <button type="button" class="rfd__restart" data-fye-finder-restart>Start again</button>
         </div>
 
-        <aside class="rfd__custom" data-fye-finder-custom>
+        <aside class="rfd__custom">
           <h3 class="rfd__ctitle">{{ s.custom_heading | default: "Can't see what you're looking for?" }}</h3>
           <p class="rfd__hint">{{ s.custom_intro | default: "Enter your details here and we'll contact you with custom options." }}</p>
           {%- form 'contact', class: 'rfd__form', id: 'rfd-enquiry' -%}
@@ -293,6 +377,12 @@
   grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
   gap: var(--s3);
 }
+/* Two tiles, roomier than a step's, because this choice sets the whole route. */
+.fye .rfd__fork {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s4);
+}
 /* A tile, not a button: white ground, hairline, the label in body type. The
    hover shifts the edge and the words to sage, like every other control. */
 .fye .rfd__opt {
@@ -317,10 +407,14 @@
 }
 .fye .rfd__opt:hover { border-color: var(--sage); color: var(--sage); }
 .fye .rfd__opt:active { border-color: var(--sage-deep); color: var(--sage-deep); }
-.fye .rfd__oicon { width: 56px; height: 56px; }
-/* Icons are teal line-art; a hover recolour would need a mask. Fading them a
-   step is the honest equivalent. */
-.fye .rfd__opt:hover .rfd__oicon { opacity: 0.7; }
+.fye .rfd__opt--fork { gap: var(--s3); padding: var(--s5); }
+.fye .rfd__onote { font-size: var(--fs-fine); font-weight: var(--fw-light); line-height: 1.45; color: var(--ink-soft); }
+.fye .rfd__oicon { width: var(--isize, 56px); height: var(--isize, 56px); }
+/* Teal line-art fades a step on hover; a recolour would need a mask. Colour
+   art — metal swatches, photography — never fades: a dimmed photograph reads
+   as a fault rather than a hover. */
+.fye .rfd__opt--line:hover .rfd__oicon { opacity: 0.7; }
+.fye .rfd__opt--colour .rfd__oicon { border: var(--hairline); }
 .fye .rfd__opt--flex {
   grid-column: 1 / -1;
   background: transparent;
@@ -441,8 +535,10 @@
 }
 @media (max-width: 560px) {
   .fye .rfd__journeys { grid-template-columns: minmax(0, 1fr); }
+  .fye .rfd__fork { grid-template-columns: minmax(0, 1fr); }
   .fye .rfd__opts { gap: var(--s2); }
   .fye .rfd__opt { padding: var(--s3); }
+  .fye .rfd__opt--fork { padding: var(--s4); }
   .fye .rfd__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .fye .rfd__fields { grid-template-columns: minmax(0, 1fr); }
   .fye .rfd__custom { padding: var(--s4); }
@@ -461,7 +557,7 @@
     { "type": "text", "id": "heading", "label": "Heading" },
     { "type": "textarea", "id": "intro", "label": "Introduction" },
     { "type": "text", "id": "journeys_q", "label": "First question", "default": "What are you looking for?" },
-    { "type": "text", "id": "flexible_label", "label": "Skip option label", "default": "I'm flexible", "info": "Ends every step and applies no filter. Keep it: it is what makes every ring reachable." },
+    { "type": "text", "id": "flexible_label", "label": "Skip option label", "default": "I'm flexible", "info": "Ends every step and applies no filter. Keep it: it is what makes every ring reachable. Fork blocks never show it." },
     { "type": "header", "content": "Results" },
     { "type": "text", "id": "results_heading", "label": "Heading", "default": "Rings that match" },
     { "type": "text", "id": "results_label", "label": "Collection link", "default": "See all matching rings" },
@@ -494,26 +590,81 @@
       ]
     },
     {
+      "type": "fork",
+      "name": "Fork",
+      "settings": [
+        { "type": "paragraph", "content": "Asks which group of questions comes first. Adds no questions and is not counted as a step. A journey with no fork runs its steps in block order." },
+        { "type": "text", "id": "journey", "label": "Journey key" },
+        { "type": "text", "id": "heading", "label": "Question", "default": "Where would you like to start?" },
+        { "type": "text", "id": "hint", "label": "Hint" },
+        { "type": "textarea", "id": "options", "label": "Options", "info": "One per line: Label | group | icon.svg | note. The group must match a step's Question group." },
+        {
+          "type": "select", "id": "icon_size", "label": "Icon size", "default": "88",
+          "options": [
+            { "value": "40", "label": "Small" },
+            { "value": "56", "label": "Medium" },
+            { "value": "88", "label": "Large" }
+          ]
+        },
+        {
+          "type": "select", "id": "icon_style", "label": "Icon style", "default": "line",
+          "options": [
+            { "value": "line", "label": "Teal line art" },
+            { "value": "colour", "label": "Colour or photograph" }
+          ]
+        }
+      ]
+    },
+    {
       "type": "step",
       "name": "Step",
       "settings": [
         { "type": "text", "id": "journey", "label": "Journey key", "info": "Must match a journey block's key." },
         { "type": "text", "id": "heading", "label": "Question" },
         { "type": "text", "id": "hint", "label": "Hint" },
+        {
+          "type": "select", "id": "group", "label": "Question group", "default": "",
+          "info": "Which half of a forked journey this belongs to. Leave as Always last for questions asked after both groups, such as metal.",
+          "options": [
+            { "value": "", "label": "Always last" },
+            { "value": "setting", "label": "Setting" },
+            { "value": "stone", "label": "Stone" }
+          ]
+        },
         { "type": "text", "id": "param", "label": "Filter metafield key", "info": "A key in the filters namespace, e.g. profile. Begin with fye_ to carry the answer to the enquiry without filtering." },
-        { "type": "textarea", "id": "options", "label": "Options", "info": "One per line: Label | value | icon.svg. Value and icon are optional. Ranges as 1.00..1.49; two filters at once as carat=18ct&metal_colour=Rose Gold." },
+        { "type": "textarea", "id": "options", "label": "Options", "info": "One per line: Label | value | icon.svg | note. All but the label are optional. Ranges as 1.00..1.49; two filters at once as carat=18ct&metal_colour=Rose Gold." },
+        { "type": "header", "content": "Ask only sometimes" },
+        { "type": "text", "id": "when_param", "label": "Depends on", "info": "Another step's filter key. Leave empty to always ask." },
+        { "type": "text", "id": "when_value", "label": "Answer contains", "info": "e.g. Gold — asks this step only when the answer to the key above contains that word." },
+        { "type": "header", "content": "Appearance" },
         {
           "type": "select", "id": "columns", "label": "Columns", "default": "3",
           "options": [
             { "value": "2", "label": "Two" },
             { "value": "3", "label": "Three" },
-            { "value": "4", "label": "Four" }
+            { "value": "4", "label": "Four" },
+            { "value": "5", "label": "Five" }
+          ]
+        },
+        {
+          "type": "select", "id": "icon_size", "label": "Icon size", "default": "56",
+          "options": [
+            { "value": "40", "label": "Small" },
+            { "value": "56", "label": "Medium" },
+            { "value": "88", "label": "Large" }
+          ]
+        },
+        {
+          "type": "select", "id": "icon_style", "label": "Icon style", "default": "line",
+          "options": [
+            { "value": "line", "label": "Teal line art" },
+            { "value": "colour", "label": "Colour or photograph" }
           ]
         }
       ]
     }
   ],
-  "max_blocks": 40,
+  "max_blocks": 50,
   "presets": [
     { "name": "Ring finder", "blocks": [ { "type": "journey" }, { "type": "step" } ] }
   ]

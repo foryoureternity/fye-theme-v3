@@ -1,0 +1,77 @@
+{%- comment -%}
+  fye-metal-swatch — one metal swatch, drawn not photographed.
+
+  Added 04/09/2026 so the ring finder can show the SAME swatches as the filter
+  rail instead of a second set of uploaded files. Ed: "can you use the same
+  swatches used in the product pages?"
+
+  USAGE
+    {%- render 'fye-metal-swatch', defs: true -%}          once per page
+    {%- render 'fye-metal-swatch', metal: 'Rose Gold', class: 'rfd__oicon' -%}
+
+  PARAMS
+    defs    emit the shared gradients and nothing else. Required once per
+            page, before any swatch, and only on pages that do NOT already
+            render fye-filter-icons — that snippet emits the same two ids
+            (fic-sheen, fic-band) and two copies would be a duplicate id.
+            No current page renders both: the rail is on collection templates,
+            the finder is on page.find-your-ring.
+    metal   'Platinum', 'Palladium', 'Yellow Gold', '18ct Rose Gold', … The
+            carat prefix is optional; without one the mid-carat (14ct) colour
+            stands for the family, which is what the finder wants now that
+            colour and carat are two separate questions.
+    label   optional text inside the swatch ('18', 'Pt'). The finder passes
+            none: its tiles are captioned in words underneath.
+    class   the consumer's own class, so sizing stays with the consumer's CSS.
+
+  The construction is live's, unchanged: ground, diagonal sheen, hairline. The
+  colours are the measured per-carat tokens in fye-core.css — 9ct yellow really
+  is paler and greener than 18ct, and a shopper comparing two bands is looking
+  at precisely that difference. Do not substitute the four generic --gold-*
+  brand accents.
+{%- endcomment -%}
+
+{%- if defs -%}
+  <svg class="fic-defs" aria-hidden="true" focusable="false" role="presentation">
+    <defs>
+      <linearGradient id="fic-sheen" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="var(--metal-sheen-hi)"></stop>
+        <stop offset="0.5" stop-color="var(--metal-sheen-mid)"></stop>
+        <stop offset="1" stop-color="var(--metal-sheen-lo)"></stop>
+      </linearGradient>
+      <linearGradient id="fic-band" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="var(--metal-band-hi)"></stop>
+        <stop offset="1" stop-color="var(--metal-band-lo)"></stop>
+      </linearGradient>
+    </defs>
+  </svg>
+{%- else -%}
+  {%- liquid
+    assign name = metal | strip
+    assign key = name | downcase | replace: 'ct ', '-' | replace: ' ', '-'
+    assign token = '--metal-' | append: key
+    comment
+      Unprefixed colours resolve to the 14ct family colour; platinum and
+      palladium have no carat at all.
+    endcomment
+    if key == 'yellow-gold'
+      assign token = '--metal-14-yellow'
+    elsif key == 'white-gold'
+      assign token = '--metal-14-white'
+    elsif key == 'rose-gold'
+      assign token = '--metal-14-rose'
+    elsif key == 'platinum' or key == 'palladium'
+      assign token = '--metal-' | append: key
+    else
+      assign token = key | replace: '-gold', '' | prepend: '--metal-'
+    endif
+  -%}
+  <svg class="fic fic--metal {{ class }}" viewBox="0 0 30 30" role="img" aria-label="{{ name | escape }}">
+    <rect x="2.5" y="2.5" width="25" height="25" fill="var({{ token }}, var(--metal-platinum))"></rect>
+    <rect x="2.5" y="2.5" width="25" height="25" fill="url(#fic-sheen)"></rect>
+    <rect x="2.5" y="2.5" width="25" height="25" fill="none" stroke="var(--metal-edge)" stroke-width="1"></rect>
+    {%- if label != blank -%}
+      <text x="15" y="16" fill="var(--metal-label)" font-family="var(--font-body)" font-size="9" font-weight="500" text-anchor="middle" dominant-baseline="middle">{{ label }}</text>
+    {%- endif -%}
+  </svg>
+{%- endif -%}

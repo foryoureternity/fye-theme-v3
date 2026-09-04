@@ -823,6 +823,12 @@ a.visually-hidden:focus-visible {
 
   --metal-platinum:   #CBCDCB;
 
+  /* Palladium, added 04/09/2026 for the ring finder's metal step. A shade
+     cooler and darker than platinum — the difference is small on screen
+     and is the reason the swatch is captioned rather than left to speak
+     for itself. */
+  --metal-palladium:  #BFC3C1;
+
   /* Shared gradient stops. Sheen is the diagonal highlight across a metal
      swatch; band is the vertical shading across a ring profile. Neutral
      highlight and shadow rather than brand colour, but they live here because

@@ -489,7 +489,10 @@
   width: 100%;
   aspect-ratio: 1;
   padding: var(--jinset, 0);
-  background: var(--ivory);
+  /* White, not ivory: the inset exposes this ground, and ivory read as a grey
+     square inside a white tile. Ivory is right for a full-bleed product image
+     (.pcard__media) where it is only ever seen through a transparent PNG. */
+  background: var(--white);
   overflow: hidden;
 }
 .fye .rfd__jshot :where(img) {

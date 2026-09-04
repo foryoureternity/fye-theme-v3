@@ -2666,3 +2666,28 @@ what made the old grids ragged.
 wide at full width, so they are adequate but have nothing spare for a retina
 screen — they will look slightly soft next to the 1500px wedding band. Re-export
 those two at 1000px+ when convenient; no theme change needed.
+
+
+---
+
+## Fix — 04/09/2026: tile photography, matched
+
+Ed: more space around the engagement and eternity rings, so all three match
+the plain ring.
+
+The difference was in the files, not the layout. WBM3-YEL is shot with margin
+around the band; ENG6162 and FET8068 are cropped close to the ring. At the same
+display size two rings touched their frame while one floated, and the row read
+as three different photographers.
+
+Journey tiles now take a **Space around the ring** setting — none / small 6% /
+medium 12% / large 18% — and the image switches to `object-fit: contain`
+inside it. Engagement and eternity are at medium, plain at none.
+
+Display padding, deliberately: re-cropping the two tight files in Shopify would
+fix this tile and change them everywhere else they appear. This is local, and
+it is a setting, so the next photograph can be nudged without a code change.
+
+Consequence worth knowing: `contain` means the whole frame of the file is
+honoured, so a photograph that is not square will letterbox against the ivory
+ground rather than crop. Every current ring file is square.

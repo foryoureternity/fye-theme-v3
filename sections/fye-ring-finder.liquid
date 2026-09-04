@@ -188,7 +188,7 @@
                       own words name the category, and the ring in the picture is
                       an example rather than the subject.
                     {%- endcomment -%}
-                    <span class="rfd__jshot">
+                    <span class="rfd__jshot" style="--jinset: {{ b.inset | default: '0' }};">
                       <img src="{{ shot | image_url: width: 800 }}"
                            srcset="{{ shot | image_url: width: 480 }} 480w, {{ shot | image_url: width: 800 }} 800w"
                            sizes="(max-width: 560px) 90vw, (max-width: 900px) 45vw, 30vw"
@@ -479,11 +479,23 @@
    their own padded block, which is the product card's idiom (.pcard) rather
    than an image framed by padding. */
 .fye .rfd__journey--photo { padding: 0; gap: 0; overflow: hidden; }
-.fye .rfd__jshot { display: block; width: 100%; background: var(--ivory); overflow: hidden; }
-.fye .rfd__jshot :where(img) {
+/* The BOX is the square, so the inset has something to hold. Photography
+   arrives cropped differently — WBM3-YEL has margin around the band, ENG6162
+   and FET8068 are cropped close — and at the same display size that reads as
+   three different photographers. The inset is display padding only: it does
+   not touch the files, which appear elsewhere on the site. */
+.fye .rfd__jshot {
+  display: block;
   width: 100%;
   aspect-ratio: 1;
-  object-fit: cover;
+  padding: var(--jinset, 0);
+  background: var(--ivory);
+  overflow: hidden;
+}
+.fye .rfd__jshot :where(img) {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   transition: transform var(--dur) var(--ease);
 }
 /* The brand allows a gentle scale on product imagery, and nothing more. */
@@ -753,6 +765,16 @@
         { "type": "text", "id": "label", "label": "Name" },
         { "type": "textarea", "id": "description", "label": "Description" },
         { "type": "product", "id": "product", "label": "Photograph", "info": "A ring that represents this category. The tile uses its featured image, so it follows any re-shoot. Replaces the icon." },
+        {
+          "type": "select", "id": "inset", "label": "Space around the ring", "default": "0",
+          "info": "Match the tiles to each other. Use none for a photograph already shot with margin, and more for one cropped close to the ring.",
+          "options": [
+            { "value": "0", "label": "None" },
+            { "value": "6%", "label": "Small" },
+            { "value": "12%", "label": "Medium" },
+            { "value": "18%", "label": "Large" }
+          ]
+        },
         { "type": "text", "id": "icon", "label": "Icon file name", "info": "A file in Content › Files, including the extension. SVG allowed." }
       ]
     },

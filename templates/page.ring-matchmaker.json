@@ -43,7 +43,8 @@
             "label": "Engagement rings",
             "description": "Solitaires, halos, trilogies and more, with the centre stone chosen by you.",
             "icon": "",
-            "product": "eng6162-smt"
+            "product": "eng6162-smt",
+            "inset": "12%"
           }
         },
         "j_plain": {
@@ -54,7 +55,8 @@
             "label": "Plain wedding rings",
             "description": "Every profile, width and weight, in platinum and 9ct to 18ct gold.",
             "icon": "",
-            "product": "9ct-yellow-gold-slight-court-wedding-ring-3mm-signature"
+            "product": "9ct-yellow-gold-slight-court-wedding-ring-3mm-signature",
+            "inset": "0"
           }
         },
         "j_dia": {
@@ -65,7 +67,8 @@
             "label": "Diamond and eternity rings",
             "description": "Diamond or gemstone set, half or full eternity, in every setting style.",
             "icon": "",
-            "product": "fet8068"
+            "product": "fet8068",
+            "inset": "12%"
           }
         },
         "fork_eng": {
@@ -366,4 +369,3 @@
     "close"
   ]
 }
-

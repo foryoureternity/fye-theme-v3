@@ -3096,7 +3096,8 @@
         img.alt = '';
         img.setAttribute('aria-hidden', 'true');
         img.loading = 'lazy';
-        img.addEventListener('load', function () { img.classList.add('is-in'); });
+        img.classList.add('is-out');
+        img.addEventListener('load', function () { img.classList.remove('is-out'); });
         img.src = hit.img;
         slot.appendChild(img);
       });

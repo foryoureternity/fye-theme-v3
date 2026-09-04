@@ -2748,3 +2748,35 @@ setting** — it is a setting, not a style.
 (Hidden Halo, Multistone, Toi et Moi). Where a label and the metafield value
 disagree, the live photographs silently do not appear — worth walking the step
 once and noting which tiles stay blank.
+
+
+---
+
+## Fix — 04/09/2026: broken option images
+
+Ed's screenshot: the five pinned rings on the engagement style step rendered as
+broken images. Two faults from w995, both mine.
+
+**1. `featured_media` piped into `image_url`.** A media object may be a video
+or a 3D model and its still lives at `.preview_image`, so that pipe is not
+reliable — the journey tiles, which work, use `featured_image`. Every place the
+finder resolves a product image now uses `featured_image`.
+
+The same mistake was in **both fragment templates**, where nothing had been
+looked at yet: `collection.fye-options.liquid` (the stock photographs) and
+`collection.fye-finder.liquid` (the results grid). So the results grid was very
+likely broken too, and is now not — worth walking a journey to the end to
+confirm.
+
+**2. Pinned images were invisible even when they loaded.** The fade-in rule set
+`opacity: 0` on every image in a slot and relied on JavaScript adding
+`.is-in` on load; only JS-inserted images ever ran that code. Inverted —
+visible by default, and the script marks its own images `.is-out` until they
+load.
+
+Fault 2 alone would have shown nothing at all; fault 1 produced the glyph.
+
+**Still open from the same screenshot:** Hidden Halo and Multistone show no
+photograph. That is either the intended "nothing in stock matches" or a
+`filters.ring_style` value that does not read "Hidden Halo" / "Multistone".
+Now that fault 1 is fixed, whether they fill tells us which.

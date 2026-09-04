@@ -22,9 +22,9 @@
   {%- for product in collection.products -%}
     <a class="rfd-card" href="{{ product.url }}">
       <span class="rfd-card__media">
-        {%- if product.featured_media -%}
-          <img src="{{ product.featured_media | image_url: width: 480 }}"
-               alt="{{ product.featured_media.alt | escape }}"
+        {%- if product.featured_image -%}
+          <img src="{{ product.featured_image | image_url: width: 480 }}"
+               alt="{{ product.featured_image.alt | escape }}"
                width="240" height="240" loading="lazy">
         {%- endif -%}
       </span>

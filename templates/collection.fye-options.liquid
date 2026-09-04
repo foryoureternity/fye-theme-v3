@@ -36,11 +36,11 @@
   "products": [
     {%- assign rows = 0 -%}
     {%- for product in collection.products limit: 50 -%}
-      {%- if product.featured_media == nil -%}{%- continue -%}{%- endif -%}
+      {%- if product.featured_image == nil -%}{%- continue -%}{%- endif -%}
       {%- if rows > 0 -%},{%- endif -%}
       {%- assign rows = rows | plus: 1 -%}
       {
-        "img": {{ product.featured_media | image_url: width: 240 | json }},
+        "img": {{ product.featured_image | image_url: width: 240 | json }},
         "url": {{ product.url | json }},
         "v": {
           {%- assign wrote = 0 -%}

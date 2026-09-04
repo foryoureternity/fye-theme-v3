@@ -330,8 +330,14 @@
                     nothing matches the tile keeps its words alone.
                   {%- endcomment -%}
                   <span class="rfd__oshot" data-fye-finder-oshot>
-                    {%- if pick and pick.featured_media -%}
-                      <img src="{{ pick.featured_media | image_url: width: 240 }}" alt="" aria-hidden="true" width="240" height="240" loading="lazy" data-fye-finder-pinned>
+                    {%- comment -%}
+                      featured_IMAGE, not featured_media: media may be a video or
+                      a 3D model and its still lives at .preview_image, so piping
+                      media into image_url is not reliable. This is the form the
+                      journey tiles use.
+                    {%- endcomment -%}
+                    {%- if pick and pick.featured_image -%}
+                      <img src="{{ pick.featured_image | image_url: width: 240 }}" alt="" aria-hidden="true" width="240" height="240" loading="lazy" data-fye-finder-pinned>
                     {%- endif -%}
                   </span>
                 {%- elsif ico contains 'swatch:' -%}
@@ -606,12 +612,13 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  opacity: 0;
   transition: opacity var(--dur) var(--ease);
 }
-/* Fade in when loaded, so tiles do not flash as the stock photographs
-   arrive one by one. */
-.fye .rfd__oshot :where(img.is-in) { opacity: 1; }
+/* Visible by default. Only the images the SCRIPT inserts fade in, and they
+   opt in by carrying .is-out until they load — a Liquid-rendered pinned
+   image never runs that code, and defaulting to zero opacity made those
+   invisible even once they had loaded. */
+.fye .rfd__oshot :where(img.is-out) { opacity: 0; }
 .fye .rfd__opt--photo { justify-content: flex-start; gap: var(--s3); padding: var(--s3); }
 /* Teal line-art fades a step on hover; a recolour would need a mask. Colour
    art — metal swatches, photography — never fades: a dimmed photograph reads

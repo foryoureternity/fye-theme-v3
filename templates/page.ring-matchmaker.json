@@ -115,8 +115,8 @@
             "heading": "And the shoulders?",
             "hint": "The part of the band either side of the centre stone.",
             "param": "shoulder_style",
-            "columns": "4",
-            "options": "Plain\nDiamond set\nPavé\nChannel\nAccent\nCurved\nSplit",
+            "columns": "3",
+            "options": "Plain | Plain\nDiamond set | Diamond set&shoulder_style=Pavé&shoulder_style=Channel&shoulder_style=Accent\nSplit | Split",
             "photo_mode": "stock"
           }
         },
@@ -371,4 +371,3 @@
     "close"
   ]
 }
-

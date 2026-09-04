@@ -2859,3 +2859,24 @@ the console —
 
 — which prints the values the catalogue actually holds. Same trick for any
 other step whose tiles stay blank.
+
+
+---
+
+## Revision — 04/09/2026 (5): three shoulders
+
+Ed: condense shoulders to Plain, Diamond set, Split.
+
+The seven were a guess at the catalogue's vocabulary. Three is a shopper's
+distinction — bare, set with diamonds, or parting around the stone. Pavé,
+Channel and Accent were describing **how** the diamonds are set, which is a
+setting question, and on a photographed tile Pavé against Accent shoulders is
+not a visible difference.
+
+**Diamond set catches the values the narrower labels held**, using the
+multi-value syntax the finder already reads, so condensing the question does
+not quietly hide rings. Three columns, the standard step layout.
+
+Unverified: whether `filters.shoulder_style` uses those exact words for the
+folded-in values. The console line in revision (4) prints what the catalogue
+actually holds if any tile comes back blank.

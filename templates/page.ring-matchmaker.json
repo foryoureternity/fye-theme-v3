@@ -113,10 +113,10 @@
             "journey": "eng",
             "group": "setting",
             "heading": "And the shoulders?",
-            "hint": "The part of the band either side of the centre stone.",
+            "hint": "Pavé, channel and accent settings all sit under diamond set.",
             "param": "shoulder_style",
             "columns": "3",
-            "options": "Plain | Plain\nDiamond set | Diamond set&shoulder_style=Pavé&shoulder_style=Channel&shoulder_style=Accent\nSplit | Split",
+            "options": "Plain | Plain\nDiamond set | Diamond set\nSplit | Split",
             "photo_mode": "stock"
           }
         },
@@ -371,4 +371,3 @@
     "close"
   ]
 }
-

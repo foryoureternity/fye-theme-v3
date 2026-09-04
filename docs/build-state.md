@@ -2880,3 +2880,40 @@ not quietly hide rings. Three columns, the standard step layout.
 Unverified: whether `filters.shoulder_style` uses those exact words for the
 folded-in values. The console line in revision (4) prints what the catalogue
 actually holds if any tile comes back blank.
+
+
+---
+
+## Correction — 04/09/2026: shoulder values, checked not guessed
+
+Ed: reducing shoulders to three must not rule any rings out.
+
+Queried the catalogue. `filters.shoulder_style` is a **list** field and the
+products are already tagged **hierarchically**:
+
+    ["Plain"]                          ["Pavé", "Diamond set"]
+    ["Diamond set"]                    ["Accent", "Diamond set"]
+    ["Diamond set", "Split"]           ["Channel", "Diamond set"]
+                                       ["Curved", "Split", "Diamond set"]
+
+Every Pavé, Accent, Channel and Curved ring **already carries "Diamond set"**,
+so the single value returns all of them and three options exclude nothing. The
+step is now three plain values with a hint saying so.
+
+x001's multi-value fold was unnecessary AND malformed — its leading bare
+`Diamond set` had no `=`, so it was dropped and the tile matched nothing.
+That is why Diamond set had no photograph; the correct value fixes the image
+too.
+
+**One exclusion remains and it is not new:** a few rings carry no
+`shoulder_style` at all (7 of 250 sampled), so any answer here excludes them
+and "I'm flexible" is what reaches them. Same trade every step makes, and the
+reason the flexible option must never be removed.
+
+Also fixed in `suits()`: several values of the SAME key now OR rather than
+AND. Right for `carat=18ct&metal_colour=Rose Gold` (different keys), wrong —
+and unsatisfiable — for two values of one key. Nothing uses that shape today,
+but a rule that can never be met is a trap for the next person.
+
+**Method note:** the hierarchical tagging means other steps may condense the
+same way. Check with a query before folding labels together, not after.

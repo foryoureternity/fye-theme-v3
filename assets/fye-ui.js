@@ -3204,10 +3204,18 @@
     var got = product.v && product.v[param];
     if (!got) return false;
     if (value.indexOf('=') > -1) {
-      return value.split('&').every(function (pair) {
+      /* Pairs are grouped by key: ALL keys must be satisfied, but any one
+         of a key's values will do. Two values of the same key are an OR —
+         requiring both could never be met. */
+      var groups = {};
+      value.split('&').forEach(function (pair) {
         var i = pair.indexOf('=');
-        if (i < 0) return true;
-        return suits(product, pair.slice(0, i).trim(), pair.slice(i + 1).trim());
+        if (i < 0) return;
+        var k = pair.slice(0, i).trim();
+        (groups[k] = groups[k] || []).push(pair.slice(i + 1).trim());
+      });
+      return Object.keys(groups).every(function (k) {
+        return groups[k].some(function (v) { return suits(product, k, v); });
       });
     }
     if (value.indexOf('..') > -1) {

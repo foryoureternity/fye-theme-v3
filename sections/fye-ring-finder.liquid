@@ -68,6 +68,12 @@
     image_picker), and fye-ui.js removes any that fail to load, so a filename
     typo costs a missing icon rather than a broken-image glyph.
 
+  · JOURNEY TILES take a PRODUCT rather than an icon: a photograph of a
+    representative ring identifies a category, where a 68px line drawing of
+    a ring is a small grey circle whatever it depicts. The tile follows the
+    product's featured image, so a re-shoot needs no theme change. Icons
+    still work where no product is set.
+
   · Every step except the fork ends with "I'm flexible" (empty value, no
     param). That rule is what guarantees no ring is orphaned. Do not remove it.
 
@@ -164,11 +170,35 @@
                 assign jkey = b.key | default: coll.handle
               -%}
               <li class="rfd__jitem" {{ block.shopify_attributes }}>
-                <a class="rfd__journey" href="{{ coll.url | default: '/collections/all' }}"
+                {%- liquid
+                  assign shot = null
+                  if b.product != blank and b.product.featured_image
+                    assign shot = b.product.featured_image
+                  endif
+                -%}
+                <a class="rfd__journey{% if shot %} rfd__journey--photo{% endif %}" href="{{ coll.url | default: '/collections/all' }}"
                    data-fye-finder-journey="{{ jkey }}"
                    data-fye-finder-collection="{{ coll.url | default: '/collections/all' }}"
                    data-fye-finder-label="{{ b.label | default: coll.title | escape }}">
-                  {%- if b.icon != blank -%}
+                  {%- if shot -%}
+                    {%- comment -%}
+                      Square, because ring photography is shot square and letting
+                      each tile follow its own file is what made the old grids
+                      ragged (see .pcard in fye-core). alt is empty: the tile's
+                      own words name the category, and the ring in the picture is
+                      an example rather than the subject.
+                    {%- endcomment -%}
+                    <span class="rfd__jshot">
+                      <img src="{{ shot | image_url: width: 800 }}"
+                           srcset="{{ shot | image_url: width: 480 }} 480w, {{ shot | image_url: width: 800 }} 800w"
+                           sizes="(max-width: 560px) 90vw, (max-width: 900px) 45vw, 30vw"
+                           alt="" aria-hidden="true" width="800" height="800" loading="lazy">
+                    </span>
+                  {%- endif -%}
+                  <span class="rfd__jwords">
+                  {%- if shot -%}
+                    {%- comment -%} A photograph replaces the icon; both would be noise. {%- endcomment -%}
+                  {%- elsif b.icon != blank -%}
                     <img class="rfd__jicon" src="{{ b.icon | file_url }}" alt="" aria-hidden="true" width="68" height="68" loading="lazy" data-fye-finder-icon>
                   {%- else -%}
                     {%- comment -%}
@@ -188,6 +218,7 @@
                   {%- if b.description != blank -%}
                     <span class="rfd__jdesc">{{ b.description }}</span>
                   {%- endif -%}
+                  </span>
                 </a>
               </li>
             {%- endfor -%}
@@ -444,6 +475,29 @@
 .fye .rfd__journey:hover { border-color: var(--sage); color: var(--ink); }
 .fye .rfd__journey:hover .rfd__jname { color: var(--sage); }
 .fye .rfd__jicon { width: 68px; height: 68px; }
+/* Photograph tiles: the image reaches the tile edges and the words sit in
+   their own padded block, which is the product card's idiom (.pcard) rather
+   than an image framed by padding. */
+.fye .rfd__journey--photo { padding: 0; gap: 0; overflow: hidden; }
+.fye .rfd__jshot { display: block; width: 100%; background: var(--ivory); overflow: hidden; }
+.fye .rfd__jshot :where(img) {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  transition: transform var(--dur) var(--ease);
+}
+/* The brand allows a gentle scale on product imagery, and nothing more. */
+.fye .rfd__journey--photo:hover .rfd__jshot :where(img) { transform: scale(1.03); }
+.fye .rfd__jwords {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s3);
+}
+.fye .rfd__journey--photo .rfd__jwords { padding: var(--s5); }
+@media (prefers-reduced-motion: reduce) {
+  .fye .rfd__journey--photo:hover .rfd__jshot :where(img) { transform: none; }
+}
 .fye .rfd__jname {
   font-family: var(--font-display);
   font-size: var(--fs-small);
@@ -698,6 +752,7 @@
         { "type": "text", "id": "key", "label": "Key", "info": "Short word that its steps repeat, e.g. plain. Defaults to the collection handle." },
         { "type": "text", "id": "label", "label": "Name" },
         { "type": "textarea", "id": "description", "label": "Description" },
+        { "type": "product", "id": "product", "label": "Photograph", "info": "A ring that represents this category. The tile uses its featured image, so it follows any re-shoot. Replaces the icon." },
         { "type": "text", "id": "icon", "label": "Icon file name", "info": "A file in Content › Files, including the extension. SVG allowed." }
       ]
     },

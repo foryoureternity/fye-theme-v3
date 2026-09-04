@@ -2628,3 +2628,41 @@ RING while the breadcrumb read RING MATCHMAKER. The banner heading is now the
 promise — **Find or Design Your Perfect Ring** — matching the entry sections,
 with the name carried by the breadcrumb, the menu and the eyebrow. The subhead
 now mentions both routes rather than only matching.
+
+
+---
+
+## Change — 04/09/2026: photographs on the journey tiles
+
+Ed asked for different icons for the three ring categories. There are none to
+change to: the theme and Files hold style icons (solitaire, halo, hidden halo,
+trilogy, pavé), the ten stone shapes, drawn ring profiles and metal swatches,
+but **no category-level artwork**. The tiles were wearing style icons as
+stand-ins — a solitaire for all engagement rings, a pavé for all eternity
+rings — and plain rings had none, which is what made that card look broken.
+
+So the tiles are photographs now. At 68px a line drawing of a ring is a small
+grey circle, and three of them side by side are indistinguishable; a solitaire,
+a court band and an eternity ring photographed are not.
+
+The journey block takes a **product**, not an image: the tile uses that
+product's featured image, so a re-shoot needs no theme change. Icons still work
+where no product is set, and the tile falls back to text with neither.
+
+Products chosen by Ed:
+
+| Tile | Product |
+|---|---|
+| Engagement rings | `eng6162-smt` — Pavé-Shoulder Halo Pear-Cut, 0.75ct |
+| Plain wedding rings | `9ct-yellow-gold-slight-court-wedding-ring-3mm-signature` — 3mm Signature |
+| Diamond and eternity rings | `fet8068` — Micro-Claw Diamond Full Eternity, 1.1ct |
+
+Layout follows `.pcard`: square image to the tile edges, words in a padded
+block beneath, a gentle 1.03 scale on hover and nothing more. Square because
+ring photography is shot square and letting each tile follow its own file is
+what made the old grids ragged.
+
+**Worth knowing:** the two ENG/FET files are **492×492**. A tile is about 424px
+wide at full width, so they are adequate but have nothing spare for a retina
+screen — they will look slightly soft next to the 1500px wedding band. Re-export
+those two at 1000px+ when convenient; no theme change needed.

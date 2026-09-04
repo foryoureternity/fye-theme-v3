@@ -2780,3 +2780,48 @@ Fault 2 alone would have shown nothing at all; fault 1 produced the glyph.
 photograph. That is either the intended "nothing in stock matches" or a
 `filters.ring_style` value that does not read "Hidden Halo" / "Multistone".
 Now that fault 1 is fixed, whether they fill tells us which.
+
+
+---
+
+## Fix — 04/09/2026 (3): option photographs, properly this time
+
+Console evidence rather than my third guess:
+
+    fye-ui.js:3070  Uncaught TypeError: attr is not a function
+    product:%20eng40118-mt   404   (one per pinned ring)
+
+**Fault A — the pinned rings never took the photograph branch.** The 404
+filenames are the proof: `product: eng40118-mt` reached `file_url`, which
+only happens in the icon branch, so `b.photos` was arriving **false** despite
+the template JSON setting it — most likely the theme editor rewrote the
+section's settings from a schema cached before the checkbox existed.
+
+Fixed by removing the dependency rather than chasing it: **a `product:`
+handle that resolves renders its photograph whether or not the checkbox is
+on**, a `product:` string can never reach `file_url` again, and the checkbox
+now governs only the live-from-stock fill. Also folds in w997's Liquid syntax
+fix so this script stands alone.
+
+**Fault B — the fill called helpers that do not exist.** `attr()`, and below
+it `panel()`, `one()`, `all()`, `encode()`, `state.url`, `state.answers`. I
+wrote that block against a remembered idea of fye-ui.js's internals instead of
+the file. The first line threw, so no stock photograph was ever attempted.
+
+The block is gone, replaced by a **self-contained module at the end of
+fye-ui.js** that reaches for nothing private: the collection comes from
+`data-fye-finder-collection` on the journey tile, the answers from watching
+clicks on the option tiles (captured, so it records before the panel changes),
+and a step being shown from a MutationObserver on `hidden`. It shares no state
+with the finder and therefore cannot break it — the worst case is tiles with no
+photographs.
+
+It tracks answers a second time, which the finder already does. Accepted
+duplication: this decides which **thumbnail** a tile shows, never which rings
+are returned, so drift costs a stale picture rather than a wrong result.
+
+An image that 404s now removes itself, so a tile falls back to its words.
+
+**Lesson for this file:** fye-ui.js is 3,000 lines and its finder closure has
+its own vocabulary. Read the closure before adding to it — twice now I have
+written plausible-looking calls into it from memory.

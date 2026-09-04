@@ -3025,85 +3025,6 @@
       });
   }
 
-  // ---- option photographs ------------------------------------------------
-  // One request per photographed step: the current collection under the
-  // answers so far, as JSON, from templates/collection.fye-options.liquid.
-  // Cached by query, so Back does not refetch and a shopper changing their
-  // mind twice costs nothing.
-  var optCache = {};
-
-  function filterQuery() {
-    var parts = [];
-    state.answers.forEach(function (a) { parts = parts.concat(encode(a.param, a.value)); });
-    return parts.join('&');
-  }
-
-  function stock(query) {
-    if (optCache[query]) return optCache[query];
-    var url = state.url + '?' + (query ? query + '&' : '') + 'view=fye-options';
-    optCache[query] = fetch(url, { headers: { 'X-Requested-With': 'fetch' } })
-      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-      .then(function (d) { return (d && d.products) || []; })
-      .catch(function () { return []; });   // no photographs is a survivable failure
-    return optCache[query];
-  }
-
-  // Does this product's value for `param` satisfy the option's value? Handles
-  // list metafields (pipe-joined by the fragment) and the 1.00..1.49 range
-  // syntax the finder uses for centre weight.
-  function matches(product, param, value) {
-    var got = product.v && product.v[param];
-    if (!got) return false;
-    if (value.indexOf('..') > -1) {
-      var r = value.split('..');
-      var n = parseFloat(got);
-      if (isNaN(n)) return false;
-      if (r[0] && n < parseFloat(r[0])) return false;
-      if (r[1] && n > parseFloat(r[1])) return false;
-      return true;
-    }
-    var want = value.toLowerCase();
-    return got.toLowerCase().split('|').some(function (v) { return v.trim() === want; });
-  }
-
-  function fillOptionPhotos(step) {
-    var param = attr(step, 'param');
-    if (!param || param.indexOf('fye_') === 0) return;
-    var slots = Array.prototype.slice.call(step.querySelectorAll('[data-fye-finder-oshot]'));
-    if (!slots.length) return;
-
-    var query = filterQuery();
-    stock(query).then(function (products) {
-      slots.forEach(function (slot) {
-        // A hand-picked ring is the curator's choice; never overwrite it.
-        if (slot.querySelector('[data-fye-finder-pinned]')) return;
-        var btn = slot.closest('[data-fye-finder-option]');
-        var value = btn ? attr(btn, 'value') : '';
-        if (!value) return;
-
-        var hit = null;
-        for (var i = 0; i < products.length; i++) {
-          if (matches(products[i], param, value)) { hit = products[i]; break; }
-        }
-        var have = slot.querySelector('img');
-        if (!hit) { if (have) have.remove(); return; }
-        if (have && have.getAttribute('src') === hit.img) return;
-        if (have) have.remove();
-
-        var img = document.createElement('img');
-        img.width = 240;
-        img.height = 240;
-        img.alt = '';
-        img.setAttribute('aria-hidden', 'true');
-        img.loading = 'lazy';
-        img.classList.add('is-out');
-        img.addEventListener('load', function () { img.classList.remove('is-out'); });
-        img.src = hit.img;
-        slot.appendChild(img);
-      });
-    });
-  }
-
   function render() {
     all('[data-fye-finder-panel], [data-fye-finder-step]').forEach(function (p) { p.hidden = true; });
     var prog = one('[data-fye-finder-progress]');
@@ -3138,7 +3059,6 @@
       }
     }
     show.hidden = false;
-    if (show.hasAttribute('data-fye-finder-step')) fillOptionPhotos(show);
     var q = show.querySelector('[data-fye-finder-question]');
     if (q) q.focus({ preventScroll: true });
     var top = root.getBoundingClientRect().top;
@@ -3188,4 +3108,208 @@
       render();
     }
   });
+})();
+
+
+/* ============================================================================
+   OPTION PHOTOGRAPHS — 04/09/2026
+   ----------------------------------------------------------------------------
+   Each tile on a photographed step shows a real ring matching the answers so
+   far, so choosing Halo makes every cut tile a halo (Ed: "wherever possible,
+   subsequent choices reflect previous choices"). Hand-picking cannot reach
+   that — seven styles by ten cuts is seventy photographs before shoulders are
+   considered — so they are fetched.
+
+   DELIBERATELY SELF-CONTAINED. The first version of this lived inside the
+   finder's closure and called helpers I believed were there; the first line
+   threw and no photograph ever appeared. This module reaches for nothing
+   private:
+
+     · the collection comes from data-fye-finder-collection on the journey the
+       shopper clicked;
+     · the answers so far come from watching clicks on the option tiles;
+     · a step being shown is detected by watching its hidden attribute.
+
+   So it cannot break the finder. If any assumption here is wrong the only
+   consequence is tiles without photographs.
+
+   It does track the answers a second time, which the finder already does for
+   itself. That is an accepted duplication: this decides which THUMBNAIL a
+   tile shows, never which rings are returned, so drift costs a stale picture
+   rather than a wrong result.
+
+   Pinned photographs (product: <handle> in the option line) are rendered by
+   Liquid and never touched here.
+   ========================================================================== */
+(function optionPhotos() {
+  var root = document.querySelector('[data-fye-finder]');
+  if (!root) return;
+
+  var PREFIX = 'filter.p.m.filters.';
+  var url = '';          /* the chosen journey's collection */
+  var answers = [];      /* [{ param, value }] in the order they were answered */
+  var cache = {};
+
+  function attrOf(el, name) {
+    return (el && el.getAttribute('data-fye-finder-' + name)) || '';
+  }
+
+  /* The value syntax the finder documents, in one place:
+       Concave                      filters.profile=Concave
+       1.00..1.49                   filters.centre_weight.gte / .lte
+       carat=18ct&metal_colour=Rose Gold   two keys at once
+     A param beginning fye_ is carried to the enquiry, not filtered. */
+  function paramsFor(param, value) {
+    if (!value || !param || param.indexOf('fye_') === 0) return [];
+    if (value.indexOf('=') > -1) {
+      return value.split('&').map(function (pair) {
+        var i = pair.indexOf('=');
+        if (i < 0) return '';
+        return PREFIX + pair.slice(0, i).trim() + '=' + encodeURIComponent(pair.slice(i + 1).trim());
+      }).filter(Boolean);
+    }
+    if (value.indexOf('..') > -1) {
+      var r = value.split('..');
+      var out = [];
+      if (r[0]) out.push(PREFIX + param + '.gte=' + encodeURIComponent(r[0].trim()));
+      if (r[1]) out.push(PREFIX + param + '.lte=' + encodeURIComponent(r[1].trim()));
+      return out;
+    }
+    return [PREFIX + param + '=' + encodeURIComponent(value)];
+  }
+
+  function query() {
+    var parts = [];
+    answers.forEach(function (a) { parts = parts.concat(paramsFor(a.param, a.value)); });
+    return parts.join('&');
+  }
+
+  /* One request per distinct set of answers. Cached, so Back costs nothing and
+     a shopper changing their mind twice costs nothing. No Accept header:
+     Shopify content-negotiates /collections/... and ignores ?view= the moment
+     one is sent (see the diamond feed for the same trap). */
+  function fetchStock(q) {
+    if (cache[q]) return cache[q];
+    var to = url + '?' + (q ? q + '&' : '') + 'view=fye-options';
+    cache[q] = fetch(to)
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (d) { return (d && d.products) || []; })
+      .catch(function () { return []; });
+    return cache[q];
+  }
+
+  /* Does this product satisfy the option? Handles list metafields, which the
+     fragment joins with a pipe, and the range syntax. */
+  function suits(product, param, value) {
+    var got = product.v && product.v[param];
+    if (!got) return false;
+    if (value.indexOf('=') > -1) {
+      return value.split('&').every(function (pair) {
+        var i = pair.indexOf('=');
+        if (i < 0) return true;
+        return suits(product, pair.slice(0, i).trim(), pair.slice(i + 1).trim());
+      });
+    }
+    if (value.indexOf('..') > -1) {
+      var r = value.split('..');
+      var n = parseFloat(got);
+      if (isNaN(n)) return false;
+      if (r[0] && n < parseFloat(r[0])) return false;
+      if (r[1] && n > parseFloat(r[1])) return false;
+      return true;
+    }
+    var want = value.trim().toLowerCase();
+    return String(got).toLowerCase().split('|').some(function (v) { return v.trim() === want; });
+  }
+
+  function fill(step) {
+    if (!url) return;
+    var param = attrOf(step, 'param');
+    if (!param || param.indexOf('fye_') === 0) return;
+
+    var slots = Array.prototype.slice.call(step.querySelectorAll('[data-fye-finder-fill]'));
+    if (!slots.length) return;
+
+    fetchStock(query()).then(function (products) {
+      slots.forEach(function (slot) {
+        /* A hand-picked ring is the curator's choice; never overwrite it. */
+        if (slot.querySelector('[data-fye-finder-pinned]')) return;
+
+        var btn = slot.closest('[data-fye-finder-option]');
+        var value = btn ? attrOf(btn, 'value') : '';
+        if (!value) return;
+
+        var hit = null;
+        for (var i = 0; i < products.length; i++) {
+          if (suits(products[i], param, value)) { hit = products[i]; break; }
+        }
+
+        var have = slot.querySelector('img');
+        if (!hit) { if (have) have.remove(); return; }
+        if (have && have.getAttribute('src') === hit.img) return;
+        if (have) have.remove();
+
+        var img = document.createElement('img');
+        img.width = 240;
+        img.height = 240;
+        img.alt = '';
+        img.setAttribute('aria-hidden', 'true');
+        img.loading = 'lazy';
+        img.className = 'is-out';
+        img.addEventListener('load', function () { img.classList.remove('is-out'); });
+        /* A file that 404s leaves the tile with its words, not a glyph. */
+        img.addEventListener('error', function () { img.remove(); });
+        img.src = hit.img;
+        slot.appendChild(img);
+      });
+    });
+  }
+
+  /* ---- following the shopper ------------------------------------------- */
+
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest) return;
+
+    var journey = e.target.closest('[data-fye-finder-collection]');
+    if (journey && root.contains(journey)) {
+      url = attrOf(journey, 'collection');
+      answers = [];
+      return;
+    }
+
+    if (e.target.closest('[data-fye-finder-restart]')) {
+      answers = [];
+      url = '';
+      return;
+    }
+
+    if (e.target.closest('[data-fye-finder-back]')) {
+      answers.pop();
+      return;
+    }
+
+    var opt = e.target.closest('[data-fye-finder-option]');
+    if (opt && root.contains(opt)) {
+      var step = opt.closest('[data-fye-finder-step]');
+      if (!step) return;
+      var param = attrOf(step, 'param');
+      var value = attrOf(opt, 'value');
+      /* "I'm flexible" carries no value and adds no filter. */
+      if (param && value) answers.push({ param: param, value: value });
+    }
+  }, true);   /* capture, so this records the answer before the panel changes */
+
+  /* A step is revealed by its hidden attribute being removed. Watching that is
+     what keeps this module out of the finder's internals. */
+  var seen = new WeakSet();
+  new MutationObserver(function (records) {
+    records.forEach(function (r) {
+      var el = r.target;
+      if (!el.hasAttribute || !el.hasAttribute('data-fye-finder-step')) return;
+      if (el.hidden) { seen.delete(el); return; }
+      if (seen.has(el)) return;
+      seen.add(el);
+      fill(el);
+    });
+  }).observe(root, { attributes: true, attributeFilter: ['hidden'], subtree: true });
 })();

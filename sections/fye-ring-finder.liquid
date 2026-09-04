@@ -313,23 +313,36 @@
               -%}
               {%- liquid
                 assign pick = null
+                assign is_product = false
                 if ico contains 'product:'
+                  assign is_product = true
                   assign phandle = ico | remove_first: 'product:' | strip
                   assign pick = all_products[phandle]
+                endif
+                comment
+                  A pinned ring is an explicit instruction and renders on its
+                  own, without the Photograph checkbox: relying on the two
+                  agreeing is what sent five handles through file_url and
+                  produced five 404s (Ed, 04/09/2026). The checkbox now only
+                  governs the live-from-stock fill.
+                endcomment
+                assign want_shot = false
+                if b.photos or pick != blank
+                  assign want_shot = true
                 endif
               -%}
               <button type="button" class="rfd__opt rfd__opt--{{ b.icon_style | default: 'line' }}{% if b.photos %} rfd__opt--photo{% endif %}"
                       data-fye-finder-option
                       data-fye-finder-value="{{ val | escape }}"
                       data-fye-finder-label="{{ lbl | escape }}">
-                {%- if b.photos -%}
+                {%- if want_shot -%}
                   {%- comment -%}
                     The slot is always in the markup on a photographed step, so
                     filling it later cannot reflow the grid. A hand-picked ring
                     renders now; otherwise fye-ui.js fills it from stock, and if
                     nothing matches the tile keeps its words alone.
                   {%- endcomment -%}
-                  <span class="rfd__oshot" data-fye-finder-oshot>
+                  <span class="rfd__oshot" data-fye-finder-oshot{% if b.photos %} data-fye-finder-fill{% endif %}>
                     {%- comment -%}
                       featured_IMAGE, not featured_media: media may be a video or
                       a 3D model and its still lives at .preview_image, so piping
@@ -343,7 +356,7 @@
                 {%- elsif ico contains 'swatch:' -%}
                   {%- assign metal = ico | remove_first: 'swatch:' | strip -%}
                   {%- render 'fye-metal-swatch', metal: metal, class: 'rfd__oicon' -%}
-                {%- elsif ico != blank and ico contains 'product:' == false -%}
+                {%- elsif ico != blank and is_product == false -%}
                   <img class="rfd__oicon" src="{{ ico | file_url }}" alt="" aria-hidden="true" loading="lazy" data-fye-finder-icon>
                 {%- endif -%}
                 <span class="rfd__olabel">{{ lbl }}</span>

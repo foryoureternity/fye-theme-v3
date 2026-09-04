@@ -2488,3 +2488,35 @@ Copy now reads as a pair of choices rather than a result and a fallback:
 "Here are the rings that match" / "Or, let's design your perfect ring for you",
 with "Tell us what you had in mind and we'll come back to you with custom
 options."
+
+
+---
+
+## Fix — 04/09/2026: the enquiry reply
+
+Ed asked whether the form sends the answers already given. It does: fye-ui.js
+fills a hidden `contact[Ring finder]` field before the results screen shows,
+with the journey, the fork route and every question/answer pair — including any
+"I'm flexible". It arrives as one line in the contact notification email.
+
+Checking it exposed a defect. Shopify posts the contact form back to the page
+and reloads with `?contact_posted=true`; the finder therefore restarted at the
+first question, and `form.posted_successfully?` rendered its thank-you inside
+the results panel, which is hidden until a journey is walked. **The customer
+saw the form disappear and nothing else.**
+
+Now, when the form has posted, the section renders a confirmation panel in
+place of the whole stage — heading, message, and a link back to the finder —
+and fye-ui.js returns early. Restarting the questions underneath a thank-you
+would only invite the same enquiry twice.
+
+Finding out that a post happened needs an empty `{% form 'contact' %}` block
+above the stage, because `posted_successfully?` is only readable inside a form
+and the real form is inside the hidden panel. It emits no markup.
+
+New settings: **Thank you heading** and **Restart link**.
+
+**Still worth knowing:** if the customer's browser blocks JavaScript the
+hidden field is never filled, so the enquiry arrives without the answers. The
+form still posts and the message still reaches you — only the summary line is
+missing. Not worth solving unless it shows up in real enquiries.

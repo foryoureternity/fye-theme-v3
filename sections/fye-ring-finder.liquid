@@ -108,6 +108,33 @@
       <p class="rfd__progress eyebrow" data-fye-finder-progress hidden></p>
     </div>
 
+    {%- comment -%}
+      Shopify posts the contact form back to this page with
+      ?contact_posted=true. `posted_successfully?` is only readable inside a
+      form block, and the real form sits inside the results panel — which is
+      hidden on a fresh load — so this empty form block is how the section
+      finds out. It emits no markup of its own.
+    {%- endcomment -%}
+    {%- assign just_posted = false -%}
+    {%- form 'contact', id: 'rfd-posted-probe' -%}
+      {%- if form.posted_successfully? -%}{%- assign just_posted = true -%}{%- endif -%}
+    {%- endform -%}
+
+    {%- if just_posted -%}
+      {%- comment -%}
+        The whole stage is replaced. Restarting the finder underneath a
+        thank-you would invite the same enquiry twice.
+      {%- endcomment -%}
+      <div class="rfd__stage" data-fye-finder-posted>
+        <div class="rfd__panel rfd__thanks-panel">
+          <h3 class="rfd__q" tabindex="-1">{{ s.custom_thanks_heading | default: 'Thank you — that is with us' }}</h3>
+          <p class="rfd__hint">{{ s.custom_thanks | default: "Thank you. We'll be in touch shortly with options made for you." }}</p>
+          <div class="rfd__ractions">
+            <a class="btn btn--outline" href="{{ request.path }}">{{ s.restart_label | default: 'Start the finder again' }}</a>
+          </div>
+        </div>
+      </div>
+    {%- else -%}
     <div class="rfd__stage">
 
       <div class="rfd__panel" data-fye-finder-panel="journeys">
@@ -295,6 +322,7 @@
 
       </div>
     </div>
+    {%- endif -%}
   </div>
 </section>
 
@@ -543,6 +571,8 @@
 .fye .rfd__field :where(input:focus, textarea:focus) { border-color: var(--sage); outline: none; }
 .fye .rfd__form :where(.btn) { align-self: flex-start; }
 .fye .rfd__thanks, .fye .rfd__error { margin: 0; font-size: var(--fs-small); }
+/* The post-submit panel. Reading measure, like the questions it replaces. */
+.fye .rfd__thanks-panel { max-width: var(--maxw-narrow); margin-inline: auto; width: 100%; gap: var(--s4); }
 .fye .rfd__error { color: var(--sage-deep); }
 
 /* --- breakpoints, last --------------------------------------------------- */
@@ -585,7 +615,9 @@
     { "type": "textarea", "id": "custom_intro", "label": "Introduction", "default": "Tell us what you had in mind and we'll come back to you with custom options." },
     { "type": "text", "id": "custom_placeholder", "label": "Message placeholder", "default": "Anything you would like us to know — a stone, a budget, a date." },
     { "type": "text", "id": "custom_label", "label": "Button", "default": "Send my details" },
+    { "type": "text", "id": "custom_thanks_heading", "label": "Thank you heading", "default": "Thank you — that is with us" },
     { "type": "textarea", "id": "custom_thanks", "label": "Thank you message", "default": "Thank you. We'll be in touch shortly with options made for you." },
+    { "type": "text", "id": "restart_label", "label": "Restart link", "default": "Start the finder again" },
     { "type": "header", "content": "Background" },
     {
       "type": "select", "id": "band", "label": "Background", "default": "ivory",

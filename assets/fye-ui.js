@@ -2898,6 +2898,9 @@
   'use strict';
   var root = document.querySelector('[data-fye-finder]');
   if (!root) return;
+  // The enquiry has just posted and the section is showing its confirmation
+  // instead of the stage. Nothing to drive.
+  if (root.querySelector('[data-fye-finder-posted]')) return;
 
   var NS = 'filter.p.m.filters.';
   var state = { journey: null, url: '', label: '', answers: [] };

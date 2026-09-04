@@ -1,0 +1,182 @@
+{%- comment -%}
+  fye-finder-entry — the way in to the ring matchmaker. Intended uses: the
+  homepage and the engagement / wedding / eternity ring pages, and anywhere
+  else a visitor is likely to stall.
+
+  NOT A BUTTON, and not a popup (Ed, 04/09/2026). It shows the same journey
+  tiles the matchmaker itself opens on, each deep-linked with ?j=<key>, so a
+  visitor on the engagement rings page lands on the fork rather than on
+  question one. Two reasons that beat a modal: the results screen is two
+  full-width columns with a product grid and a four-field form, which a dialog
+  turns into a scroll inside a scroll; and a page has a URL, so it can be
+  shared, measured step by step, and found in search.
+
+  The eyebrow carries the NAME and the heading carries the PROMISE — "Find or
+  Design Your Perfect Ring" — because the name's job is to differentiate in
+  the menu, not to headline a section. Both are settings; change them here and
+  in page.find-your-ring together.
+
+  The ?j= keys must match the journey block keys in the matchmaker section
+  (eng / plain / dia). A key with no match simply opens on the first question,
+  which is a survivable failure — assets/fye-ui.js warns in the console.
+
+  One tile is fine: on the engagement rings page a single "start here" tile
+  reads better than three, two of which are the wrong category.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'white'
+  assign base = s.page_url | default: '/pages/find-your-ring'
+  assign cols = section.blocks.size | at_least: 1
+-%}
+
+<section class="fnd band band--{{ band }}" data-screen-label="Matchmaker entry">
+  <div class="wrap">
+    {%- if s.eyebrow != blank or s.heading != blank or s.intro != blank -%}
+      <div class="sect-head">
+        {%- if s.eyebrow != blank -%}<p class="eyebrow">{{ s.eyebrow }}</p>{%- endif -%}
+        {%- if s.heading != blank -%}<h2 class="heading-flank">{{ s.heading }}</h2>{%- endif -%}
+        {%- if s.intro != blank -%}<p class="lead">{{ s.intro }}</p>{%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <ul class="fnd__tiles" style="--cols: {{ cols }};">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign b = block.settings
+            assign href = base
+            if b.journey != blank
+              assign href = base | append: '?j=' | append: b.journey
+              if b.start != blank
+                assign href = href | append: '&start=' | append: b.start
+              endif
+            endif
+          -%}
+          <li class="fnd__item" {{ block.shopify_attributes }}>
+            <a class="fnd__tile" href="{{ href }}">
+              {%- if b.icon != blank -%}
+                <img class="fnd__icon" src="{{ b.icon | file_url }}" alt="" aria-hidden="true" width="68" height="68" loading="lazy">
+              {%- endif -%}
+              <span class="fnd__name">{{ b.label | default: 'Start here' }}</span>
+              {%- if b.description != blank -%}
+                <span class="fnd__desc">{{ b.description }}</span>
+              {%- endif -%}
+              <span class="fnd__go link">{{ b.cta | default: s.cta | default: 'Begin' }}</span>
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- else -%}
+      <p class="lead center">Add a tile for each journey this section should open.</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .fnd__tiles {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+  gap: var(--grid-gap);
+}
+.fye .fnd__item { margin: 0; display: flex; }
+/* Same tile as the matchmaker's own journey cards, so arriving there feels
+   like continuing rather than starting again. The CTA sits at the bottom on
+   its own row: margin-top auto keeps it level across tiles of unequal copy. */
+.fye .fnd__tile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s3);
+  width: 100%;
+  min-height: 44px;
+  padding: var(--s6);
+  border: var(--hairline);
+  background: var(--white);
+  color: var(--ink);
+  transition: border-color var(--dur) var(--ease);
+}
+.fye .band--white .fnd__tile { background: transparent; }
+.fye .fnd__tile:hover { border-color: var(--sage); color: var(--ink); }
+.fye .fnd__tile:hover .fnd__name,
+.fye .fnd__tile:hover .fnd__go { color: var(--sage); }
+.fye .fnd__icon { width: 68px; height: 68px; }
+.fye .fnd__name {
+  font-family: var(--font-display);
+  font-size: var(--fs-small);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  transition: color var(--dur) var(--ease);
+}
+.fye .fnd__desc { font-size: var(--fs-small); line-height: 1.5; color: var(--ink-soft); }
+.fye .fnd__go { margin-top: auto; transition: color var(--dur) var(--ease); }
+
+@media (max-width: 900px) {
+  .fye .fnd__tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .fye .fnd__tiles { grid-template-columns: minmax(0, 1fr); }
+  .fye .fnd__tile { padding: var(--s5); }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Matchmaker entry",
+  "tag": "section",
+  "class": "fye-finder-entry",
+  "settings": [
+    { "type": "paragraph", "content": "The eyebrow carries the name, the heading carries the promise. Keep them in step with the matchmaker page itself." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Ring Matchmaker" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Find or Design Your Perfect Ring" },
+    { "type": "textarea", "id": "intro", "label": "Introduction" },
+    { "type": "url", "id": "page_url", "label": "Matchmaker page", "info": "Defaults to /pages/find-your-ring." },
+    { "type": "text", "id": "cta", "label": "Tile link text", "default": "Begin" },
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "white",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Champagne ivory" },
+        { "value": "mist", "label": "Mist blue" },
+        { "value": "teal", "label": "Eternal teal" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Tile",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Name" },
+        { "type": "textarea", "id": "description", "label": "Description" },
+        { "type": "text", "id": "journey", "label": "Journey key", "info": "eng, plain or dia — must match a journey block on the matchmaker page. Leave empty to open on the first question." },
+        {
+          "type": "select", "id": "start", "label": "Skip the fork", "default": "",
+          "info": "Only engagement and diamond journeys have a fork.",
+          "options": [
+            { "value": "", "label": "Ask where to start" },
+            { "value": "setting", "label": "Start with the setting" },
+            { "value": "stone", "label": "Start with the stone" }
+          ]
+        },
+        { "type": "text", "id": "cta", "label": "Link text" },
+        { "type": "text", "id": "icon", "label": "Icon file name", "info": "A file in Content › Files, including the extension." }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Matchmaker entry",
+      "blocks": [
+        { "type": "tile", "settings": { "label": "Engagement rings", "journey": "eng" } },
+        { "type": "tile", "settings": { "label": "Plain wedding rings", "journey": "plain" } },
+        { "type": "tile", "settings": { "label": "Diamond and eternity rings", "journey": "dia" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

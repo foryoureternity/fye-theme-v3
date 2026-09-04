@@ -1,0 +1,368 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Find Your Ring"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>A few quick questions, and we will show you the rings that match. Skip any step you are not sure about.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "use_specify_image": false,
+        "overlay": 44,
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false
+      }
+    },
+    "finder": {
+      "type": "fye-ring-finder",
+      "blocks": {
+        "j_eng": {
+          "type": "journey",
+          "settings": {
+            "collection": "engagement-rings",
+            "key": "eng",
+            "label": "Engagement rings",
+            "description": "Solitaires, halos, trilogies and more, with the centre stone chosen by you.",
+            "icon": "solitaire-4VMZDYZQ.svg"
+          }
+        },
+        "j_plain": {
+          "type": "journey",
+          "settings": {
+            "collection": "plain-wedding-rings",
+            "key": "plain",
+            "label": "Plain wedding rings",
+            "description": "Every profile, width and weight, in platinum and 9ct to 18ct gold.",
+            "icon": ""
+          }
+        },
+        "j_dia": {
+          "type": "journey",
+          "settings": {
+            "collection": "diamond-wedding-rings",
+            "key": "dia",
+            "label": "Diamond and eternity rings",
+            "description": "Diamond or gemstone set, half or full eternity, in every setting style.",
+            "icon": "pave-YYUQTFKW.svg"
+          }
+        },
+        "fork_eng": {
+          "type": "fork",
+          "settings": {
+            "journey": "eng",
+            "heading": "Where would you like to start?",
+            "hint": "Both routes ask the same questions — this only changes the order.",
+            "icon_size": "88",
+            "icon_style": "line",
+            "options": "Start with the setting | setting | solitaire-4VMZDYZQ.svg | The style of the ring: solitaire, halo, trilogy\nStart with the stone | stone | icon101.svg | The centre gem: its type, cut and size"
+          }
+        },
+        "fork_dia": {
+          "type": "fork",
+          "settings": {
+            "journey": "dia",
+            "heading": "Where would you like to start?",
+            "hint": "Both routes ask the same questions — this only changes the order.",
+            "icon_size": "88",
+            "icon_style": "line",
+            "options": "Start with the setting | setting | pave-YYUQTFKW.svg | How the stones are held: channel, pavé, claw\nStart with the stone | stone | icon101.svg | The stones themselves: their type and shape"
+          }
+        },
+        "eng_style": {
+          "type": "step",
+          "settings": {
+            "journey": "eng",
+            "group": "setting",
+            "heading": "Which style speaks to you?",
+            "param": "ring_style",
+            "columns": "4",
+            "icon_size": "56",
+            "icon_style": "line",
+            "options": "Solitaire | Solitaire | solitaire-4VMZDYZQ.svg\nHalo | Halo | halo-YF4LVVRJ.svg\nHidden Halo | Hidden Halo | hidden-halo-P7AYBI4X.svg\nDouble Halo\nTrilogy | Trilogy | three-stone-Y4KHS2BW.svg\nMultistone\nToi et Moi"
+          }
+        },
+        "eng_shoulder": {
+          "type": "step",
+          "settings": {
+            "journey": "eng",
+            "group": "setting",
+            "heading": "And the shoulders?",
+            "hint": "The part of the band either side of the centre stone.",
+            "param": "shoulder_style",
+            "columns": "4",
+            "options": "Plain\nDiamond set\nPavé\nChannel\nAccent\nCurved\nSplit"
+          }
+        },
+        "eng_stone": {
+          "type": "step",
+          "settings": {
+            "journey": "eng",
+            "group": "stone",
+            "heading": "Diamond, or a coloured stone?",
+            "param": "stone_type",
+            "columns": "4",
+            "options": "Diamond\nSapphire\nRuby\nEmerald\nAquamarine\nMorganite\nTanzanite\nOpal\nAmethyst\nBlue Topaz\nCitrine\nGarnet\nPeridot\nPink Tourmaline\nFire Opal"
+          }
+        },
+        "eng_cut": {
+          "type": "step",
+          "settings": {
+            "journey": "eng",
+            "group": "stone",
+            "heading": "Which cut for the centre stone?",
+            "param": "stone_shape",
+            "columns": "5",
+            "icon_size": "56",
+            "icon_style": "line",
+            "options": "Round Brilliant | Round Brilliant | icon101.svg\nOval | Oval | icon102.svg\nCushion | Cushion | icon103.svg\nPear | Pear | icon104.svg\nEmerald | Emerald Cut | icon105.svg\nRadiant | Radiant | icon106.svg\nPrincess | Princess | icon107.svg\nMarquise | Marquise | icon108.svg\nAsscher | Asscher | icon109.svg\nHeart | Heart | icon110.svg"
+          }
+        },
+        "eng_size": {
+          "type": "step",
+          "settings": {
+            "journey": "eng",
+            "group": "stone",
+            "heading": "How large a centre stone?",
+            "hint": "Carat is weight rather than width, but it is the simplest guide to size.",
+            "param": "centre_weight",
+            "columns": "3",
+            "options": "Under 0.30ct | ..0.29\n0.30 to 0.59ct | 0.30..0.59\n0.60 to 0.99ct | 0.60..0.99\n1.00 to 1.49ct | 1.00..1.49\n1.50 to 1.99ct | 1.50..1.99\n2.00ct and above | 2.00.."
+          }
+        },
+        "eng_metal": {
+          "type": "step",
+          "settings": {
+            "journey": "eng",
+            "group": "",
+            "heading": "Which metal?",
+            "hint": "Every engagement ring is made in your choice of metal, so this will not narrow the list, but it helps us help you.",
+            "param": "fye_metal",
+            "columns": "5",
+            "icon_size": "56",
+            "icon_style": "colour",
+            "options": "Platinum | Platinum | swatch: Platinum\nPalladium | Palladium | swatch: Palladium\nYellow Gold | Yellow Gold | swatch: Yellow Gold\nWhite Gold | White Gold | swatch: White Gold\nRose Gold | Rose Gold | swatch: Rose Gold"
+          }
+        },
+        "eng_carat": {
+          "type": "step",
+          "settings": {
+            "journey": "eng",
+            "group": "",
+            "heading": "Which carat of gold?",
+            "hint": "9ct is the hardest wearing and the kindest on price; 18ct has the richest colour.",
+            "param": "fye_carat",
+            "when_param": "fye_metal",
+            "when_value": "Gold",
+            "columns": "3",
+            "options": "9ct\n14ct\n18ct"
+          }
+        },
+        "plain_profile": {
+          "type": "step",
+          "settings": {
+            "journey": "plain",
+            "group": "",
+            "heading": "Which profile?",
+            "hint": "The shape of the band in cross-section, which is what you feel on the finger.",
+            "param": "profile",
+            "columns": "3",
+            "options": "Traditional Court\nSlight Court\nD Shape\nFlat\nFlat Court\nEdged Court\nEdged Flat Court\nEngagement Match\nConcave"
+          }
+        },
+        "plain_width": {
+          "type": "step",
+          "settings": {
+            "journey": "plain",
+            "group": "",
+            "heading": "How wide a band?",
+            "param": "band_width",
+            "columns": "4",
+            "options": "1.5mm\n2mm\n2.5mm\n3mm\n4mm\n5mm\n6mm\n7mm\n8mm\n9mm\n10mm"
+          }
+        },
+        "plain_weight": {
+          "type": "step",
+          "settings": {
+            "journey": "plain",
+            "group": "",
+            "heading": "How substantial should it feel?",
+            "param": "weight",
+            "columns": "4",
+            "options": "Light | Light Weight\nMedium | Medium Weight\nSignature | Signature Weight\nHeavy | Heavy Weight"
+          }
+        },
+        "plain_metal": {
+          "type": "step",
+          "settings": {
+            "journey": "plain",
+            "group": "",
+            "heading": "Which metal?",
+            "param": "metal_colour",
+            "columns": "5",
+            "icon_size": "56",
+            "icon_style": "colour",
+            "options": "Platinum | Platinum | swatch: Platinum\nPalladium | Palladium | swatch: Palladium\nYellow Gold | Yellow Gold | swatch: Yellow Gold\nWhite Gold | White Gold | swatch: White Gold\nRose Gold | Rose Gold | swatch: Rose Gold"
+          }
+        },
+        "plain_carat": {
+          "type": "step",
+          "settings": {
+            "journey": "plain",
+            "group": "",
+            "heading": "Which carat of gold?",
+            "hint": "9ct is the hardest wearing and the kindest on price; 18ct has the richest colour.",
+            "param": "carat",
+            "when_param": "metal_colour",
+            "when_value": "Gold",
+            "columns": "3",
+            "options": "9ct\n14ct\n18ct"
+          }
+        },
+        "dia_setting": {
+          "type": "step",
+          "settings": {
+            "journey": "dia",
+            "group": "setting",
+            "heading": "How should the stones be set?",
+            "param": "setting",
+            "columns": "4",
+            "options": "Channel\nGrain\nPavé\nClaw\nRubover\nBar\nFrench Cut\nInvisible\nOyster\nTension"
+          }
+        },
+        "dia_stone": {
+          "type": "step",
+          "settings": {
+            "journey": "dia",
+            "group": "stone",
+            "heading": "Which stone?",
+            "param": "stone_type",
+            "columns": "3",
+            "options": "Diamond\nSapphire\nRuby\nEmerald\nBlack Diamond"
+          }
+        },
+        "dia_shape": {
+          "type": "step",
+          "settings": {
+            "journey": "dia",
+            "group": "stone",
+            "heading": "Which shape of stone?",
+            "param": "stone_shape",
+            "columns": "4",
+            "icon_size": "56",
+            "icon_style": "line",
+            "options": "Round Brilliant | Round Brilliant | icon101.svg\nOval | Oval | icon102.svg\nPrincess | Princess | icon107.svg\nBaguette | Baguette | baguette.svg\nMarquise | Marquise | icon108.svg\nEmerald | Emerald Cut | icon105.svg\nAsscher | Asscher | icon109.svg\nHeart | Heart | icon110.svg"
+          }
+        },
+        "dia_coverage": {
+          "type": "step",
+          "settings": {
+            "journey": "dia",
+            "group": "",
+            "heading": "Stones all the way round, or halfway?",
+            "hint": "A half eternity ring is easier to resize and wears more comfortably; a full eternity ring sparkles from every angle.",
+            "param": "eternity_style",
+            "columns": "2",
+            "options": "Full Eternity\nHalf Eternity"
+          }
+        },
+        "dia_metal": {
+          "type": "step",
+          "settings": {
+            "journey": "dia",
+            "group": "",
+            "heading": "Which metal?",
+            "hint": "Every ring is made in your choice of metal, so this will not narrow the list, but it helps us help you.",
+            "param": "fye_metal",
+            "columns": "5",
+            "icon_size": "56",
+            "icon_style": "colour",
+            "options": "Platinum | Platinum | swatch: Platinum\nPalladium | Palladium | swatch: Palladium\nYellow Gold | Yellow Gold | swatch: Yellow Gold\nWhite Gold | White Gold | swatch: White Gold\nRose Gold | Rose Gold | swatch: Rose Gold"
+          }
+        },
+        "dia_carat": {
+          "type": "step",
+          "settings": {
+            "journey": "dia",
+            "group": "",
+            "heading": "Which carat of gold?",
+            "hint": "9ct is the hardest wearing and the kindest on price; 18ct has the richest colour.",
+            "param": "fye_carat",
+            "when_param": "fye_metal",
+            "when_value": "Gold",
+            "columns": "3",
+            "options": "9ct\n14ct\n18ct"
+          }
+        }
+      },
+      "block_order": [
+        "j_eng",
+        "j_plain",
+        "j_dia",
+        "fork_eng",
+        "fork_dia",
+        "eng_style",
+        "eng_shoulder",
+        "eng_stone",
+        "eng_cut",
+        "eng_size",
+        "eng_metal",
+        "eng_carat",
+        "plain_profile",
+        "plain_width",
+        "plain_weight",
+        "plain_metal",
+        "plain_carat",
+        "dia_setting",
+        "dia_stone",
+        "dia_shape",
+        "dia_coverage",
+        "dia_metal",
+        "dia_carat"
+      ],
+      "settings": {
+        "journeys_q": "What are you looking for?",
+        "flexible_label": "I'm flexible",
+        "results_heading": "Here are the rings that match",
+        "results_label": "See all matching rings",
+        "custom_heading": "Or, let's design your perfect ring for you",
+        "custom_intro": "Tell us what you had in mind and we'll come back to you with custom options.",
+        "custom_placeholder": "Anything you would like us to know — a stone, a budget, a date.",
+        "custom_label": "Send my details",
+        "custom_thanks": "Thank you. We'll be in touch shortly with options made for you.",
+        "band": "ivory"
+      }
+    },
+    "close": {
+      "type": "fye-consultation",
+      "settings": {}
+    }
+  },
+  "order": [
+    "heading",
+    "finder",
+    "close"
+  ]
+}
+
+
+
+

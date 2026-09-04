@@ -2520,3 +2520,46 @@ New settings: **Thank you heading** and **Restart link**.
 hidden field is never filled, so the enquiry arrives without the answers. The
 form still posts and the message still reaches you — only the summary line is
 missing. Not worth solving unless it shows up in real enquiries.
+
+
+---
+
+## Rename — 04/09/2026: Ring Matchmaker
+
+The page is **Ring Matchmaker** at **/pages/ring-matchmaker**. Chosen because
+one name has to serve the nav and five in-page entry sections: in a menu of
+category nouns a helper name differentiates, and on the engagement rings page
+"Which Ring?" would ask something the visitor has already answered. Ring
+Concierge was ruled out as an existing New York bridal jewellery company.
+
+The heading everywhere is the promise, not the name: **Find or Design Your
+Perfect Ring**, which names both columns of the results screen. The name sits
+in the eyebrow.
+
+### Done on Shopify (before this patch)
+
+- Page title → Ring Matchmaker, handle → `ring-matchmaker`.
+- `/pages/find-your-ring` → `/pages/ring-matchmaker` URL redirect created,
+  so anything already linking to the old path still lands.
+- Template suffix left as `find-your-ring` on purpose, so the live page kept
+  working until the new template file shipped.
+
+### Done in the theme (this patch)
+
+- `templates/page.ring-matchmaker.json` — copy of the old template.
+- `sections/fye-finder-entry.liquid` defaults to the new URL.
+- Both handles noindexed, since the old one still resolves via the redirect.
+
+### AFTER SHIPPING — two steps, in this order
+
+1. **Switch the page's theme template** to `ring-matchmaker` (Online Store ›
+   Pages › Ring Matchmaker › Theme template). Until this is done the page
+   renders from the OLD template file, so edits to the new one have no effect.
+2. **Delete `templates/page.find-your-ring.json`** and drop
+   `'find-your-ring'` from the noindex list in `layout/theme.liquid`. Not
+   before step 1: deleting it while the page points at it drops the page onto
+   the default template.
+
+The two template files are identical the moment this patch runs. If the page
+is edited in the theme editor before step 1, the edits land in the OLD file —
+so do step 1 first, or those edits are lost when it is deleted.

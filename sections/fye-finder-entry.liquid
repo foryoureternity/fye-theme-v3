@@ -26,7 +26,7 @@
 {%- liquid
   assign s = section.settings
   assign band = s.band | default: 'white'
-  assign base = s.page_url | default: '/pages/find-your-ring'
+  assign base = s.page_url | default: '/pages/ring-matchmaker'
   assign cols = section.blocks.size | at_least: 1
 -%}
 
@@ -133,7 +133,7 @@
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Ring Matchmaker" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Find or Design Your Perfect Ring" },
     { "type": "textarea", "id": "intro", "label": "Introduction" },
-    { "type": "url", "id": "page_url", "label": "Matchmaker page", "info": "Defaults to /pages/find-your-ring." },
+    { "type": "url", "id": "page_url", "label": "Matchmaker page", "info": "Defaults to /pages/ring-matchmaker." },
     { "type": "text", "id": "cta", "label": "Tile link text", "default": "Begin" },
     {
       "type": "select", "id": "band", "label": "Background", "default": "white",

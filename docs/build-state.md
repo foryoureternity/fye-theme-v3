@@ -2595,3 +2595,36 @@ This is also the safety net for the two unverified filters: if
 `filters.centre_weight` is unpopulated, or `metal_colour = "Palladium"`
 matches nothing, the shopper now lands somewhere that reads as intentional.
 Worth testing on purpose: engagement › any style › 2.00ct and above.
+
+
+---
+
+## Fix — 04/09/2026: spacing above the first question
+
+Ed, with a screenshot: too much empty space. About 240px of it, from three
+things stacking, all now fixed.
+
+1. **Two lots of section padding.** The banner's bottom padding plus the
+   finder band's top padding — the standard 160px between bands. Core collapses
+   that only for adjacent bands of the same colour *class*, and
+   `heading-template` is not a `.band`, so nothing collapsed. New **Space
+   above** setting (standard / tight / flush), set to **flush** on this page.
+2. **The back/progress row held 56px open on the first screen**, where both of
+   its children are empty. It is now hidden until a journey is chosen;
+   fye-ui.js reveals it, and the min-height still stops the stage shifting
+   between steps.
+3. **`.sect-head`'s 48px bottom margin** was in the markup with no section
+   head above it, because the banner names the page.
+
+Also fixed, visible in the same screenshot: **the plain wedding rings tile had
+no icon**, so its text started 68px higher than its neighbours' and the card
+looked broken. Iconless tiles now hold the space — but only when a sibling
+actually has an icon, or every tile would grow 68px for nothing. The real fix
+is an icon for plain wedding rings; the placeholder stops it looking like a
+fault in the meantime.
+
+**Stale copy from the rename, also fixed:** the banner still read FIND YOUR
+RING while the breadcrumb read RING MATCHMAKER. The banner heading is now the
+promise — **Find or Design Your Perfect Ring** — matching the entry sections,
+with the name carried by the breadcrumb, the menu and the eyebrow. The subhead
+now mentions both routes rather than only matching.

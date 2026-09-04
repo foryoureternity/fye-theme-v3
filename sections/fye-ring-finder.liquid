@@ -86,13 +86,16 @@
 {%- liquid
   assign s = section.settings
   assign band = s.band | default: 'ivory'
+  assign top = s.top_space | default: 'standard'
+  assign journeys_all = section.blocks | where: 'type', 'journey'
   assign flex_label = s.flexible_label | default: "I'm flexible"
   assign journeys = section.blocks | where: 'type', 'journey'
   assign forks = section.blocks | where: 'type', 'fork'
   assign steps = section.blocks | where: 'type', 'step'
 -%}
 
-<section class="rfd band band--{{ band }}" data-screen-label="Ring finder" data-fye-finder>
+<section class="rfd band band--{{ band }}{% if top == 'flush' %} band--flush-top{% elsif top == 'tight' %} rfd--tight-top{% endif %}"
+         data-screen-label="Ring finder" data-fye-finder>
   {%- comment -%}
     The two gradients every metal swatch references. Once per page, and only
     here: fye-filter-icons emits the same two ids for the collection rail,
@@ -109,7 +112,12 @@
       </div>
     {%- endif -%}
 
-    <div class="rfd__bar">
+    {%- comment -%}
+      Hidden until a journey is chosen: on the first screen both children are
+      empty and the row was holding 56px open. fye-ui.js reveals it, and the
+      min-height then keeps the stage from shifting between steps.
+    {%- endcomment -%}
+    <div class="rfd__bar" data-fye-finder-bar hidden>
       <button type="button" class="rfd__back" data-fye-finder-back hidden>Back</button>
       <p class="rfd__progress eyebrow" data-fye-finder-progress hidden></p>
     </div>
@@ -162,6 +170,19 @@
                    data-fye-finder-label="{{ b.label | default: coll.title | escape }}">
                   {%- if b.icon != blank -%}
                     <img class="rfd__jicon" src="{{ b.icon | file_url }}" alt="" aria-hidden="true" width="68" height="68" loading="lazy" data-fye-finder-icon>
+                  {%- else -%}
+                    {%- comment -%}
+                      A tile with no icon beside tiles that have one starts its
+                      text 68px higher, which is what made the plain wedding
+                      rings card look broken. Hold the space instead — only
+                      when a sibling has an icon at all.
+                    {%- endcomment -%}
+                    {%- for j in journeys_all -%}
+                      {%- if j.settings.icon != blank -%}
+                        <span class="rfd__jicon" aria-hidden="true"></span>
+                        {%- break -%}
+                      {%- endif -%}
+                    {%- endfor -%}
                   {%- endif -%}
                   <span class="rfd__jname">{{ b.label | default: coll.title }}</span>
                   {%- if b.description != blank -%}
@@ -342,6 +363,8 @@
 {% stylesheet %}
 .fye .rfd__wrap { max-width: var(--maxw); }
 .fye .rfd__head { margin-bottom: var(--s6); }
+/* Set the token, never a padding declaration (core rule 1). */
+.fye .rfd--tight-top { padding-block-start: var(--sect-y-tight); }
 /* Questions are a reading measure; only the two-option results screen uses
    the full width. Centring them inside a wide wrap keeps one wrapper for
    the section rather than two competing measures. */
@@ -375,6 +398,7 @@
 }
 .fye .rfd__back:hover { color: var(--sage); }
 .fye .rfd__back[hidden], .fye .rfd__progress[hidden] { display: none; }
+.fye .rfd__bar[hidden] { display: none; }
 
 .fye .rfd__panel { display: flex; flex-direction: column; gap: var(--s5); }
 .fye .rfd__panel[hidden] { display: none; }
@@ -647,6 +671,15 @@
     { "type": "textarea", "id": "custom_thanks", "label": "Thank you message", "default": "Thank you. We'll be in touch shortly with options made for you." },
     { "type": "text", "id": "restart_label", "label": "Restart link", "default": "Start the finder again" },
     { "type": "header", "content": "Background" },
+    {
+      "type": "select", "id": "top_space", "label": "Space above", "default": "standard",
+      "info": "Flush when a page banner sits directly above, which is the usual case.",
+      "options": [
+        { "value": "standard", "label": "Standard" },
+        { "value": "tight", "label": "Tight" },
+        { "value": "flush", "label": "Flush to the section above" }
+      ]
+    },
     {
       "type": "select", "id": "band", "label": "Background", "default": "ivory",
       "options": [

@@ -3029,7 +3029,11 @@
     all('[data-fye-finder-panel], [data-fye-finder-step]').forEach(function (p) { p.hidden = true; });
     var prog = one('[data-fye-finder-progress]');
     var back = one('[data-fye-finder-back]');
+    var bar = one('[data-fye-finder-bar]');
     var show;
+    // The row is empty on the journeys screen; showing it there just holds
+    // 56px open above the first question.
+    if (bar) bar.hidden = !state.journey;
 
     if (!state.journey) {
       show = panel('journeys');

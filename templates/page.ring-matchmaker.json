@@ -10,13 +10,13 @@
         "title": {
           "type": "1",
           "settings": {
-            "heading": "Find Your Ring"
+            "heading": "Find or Design Your Perfect Ring"
           }
         },
         "sub": {
           "type": "2",
           "settings": {
-            "content": "<p>A few quick questions, and we will show you the rings that match. Skip any step you are not sure about.</p>"
+            "content": "<p>Answer a few questions and we will show you the rings that match — or design one with you. Skip anything you would rather leave open.</p>"
           }
         }
       },
@@ -348,7 +348,8 @@
         "custom_placeholder": "Anything you would like us to know — a stone, a budget, a date.",
         "custom_label": "Send my details",
         "custom_thanks": "Thank you. We'll be in touch shortly with options made for you.",
-        "band": "ivory"
+        "band": "ivory",
+        "top_space": "flush"
       }
     },
     "close": {
@@ -362,9 +363,3 @@
     "close"
   ]
 }
-
-
-
-
-
-

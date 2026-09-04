@@ -2461,3 +2461,30 @@ finder will say "No exact match in stock" and offer the enquiry form, which is
 the correct failure but a poor first impression. Check the value exists in
 Search & Discovery before this page goes in a menu; on engagement and diamond
 the answer is only carried, so it is harmless there.
+
+
+---
+
+## Revision — 04/09/2026 (2): two options, equal prominence
+
+Ed: the results screen should give equal prominence to two options —
+"here are the rings that match" and "or, let's design your perfect ring for
+you".
+
+- **Two columns, 1fr each**, divided by whitespace and a hairline above each
+  heading. Neither column is a card: the enquiry's white box and border are
+  gone, because a bordered panel on one side makes the other read as the
+  default. Both headings use the same `.rfd__q` treatment at the same size.
+- **The section wrap grows to `--maxw`** (1320px) and the question panels are
+  pinned to `--maxw-narrow` and centred, so only the results screen is wide.
+  One wrapper, two measures, no negative margins.
+- The rings grid is two-up inside its column; the enquiry fields stack to one.
+- **Your answers move above both columns** — they describe the whole screen,
+  not either option — and "Start again" moves below both.
+- Stacks at 900px, where every other two-column layout in this theme
+  collapses. Stacked, the rings grid goes three-up.
+
+Copy now reads as a pair of choices rather than a result and a fallback:
+"Here are the rings that match" / "Or, let's design your perfect ring for you",
+with "Tell us what you had in mind and we'll come back to you with custom
+options."

@@ -1,6 +1,12 @@
 {%- comment -%}
   fye-ring-finder — the step-by-step ring finder. 1 use: page.find-your-ring.
 
+  The RESULTS SCREEN offers two options of equal weight, side by side: the
+  rings that match, and a bespoke enquiry. Neither is a card and both carry
+  the same heading treatment — a border on one side would make the other
+  read as the default (Ed, 04/09/2026). The question panels keep the narrow
+  reading measure; only this screen uses the full width.
+
   REVISED 03/09/2026 (3), Ed: engagement and diamond journeys now open on a
   FORK — "start with the setting" or "start with the stone" — and metal is
   asked as colour first, then carat only if a gold was chosen.
@@ -234,22 +240,25 @@
 
       <div class="rfd__panel rfd__results" hidden data-fye-finder-panel="results">
 
-        <div class="rfd__rhead">
-          <h3 class="rfd__q" tabindex="-1" data-fye-finder-question>{{ s.results_heading | default: 'Rings that match' }}</h3>
-          <p class="rfd__chips" data-fye-finder-chips></p>
-        </div>
+        {%- comment -%}
+          Your answers first, spanning both columns: they belong to the whole
+          screen, not to either option.
+        {%- endcomment -%}
+        <p class="rfd__chips" data-fye-finder-chips></p>
 
-        <p class="rfd__count" data-fye-finder-count aria-live="polite"></p>
-        <div class="rfd__grid" data-fye-finder-grid></div>
+        <div class="rfd__two">
+          <section class="rfd__opt-col">
+            <h3 class="rfd__q" tabindex="-1" data-fye-finder-question>{{ s.results_heading | default: 'Here are the rings that match' }}</h3>
+            <p class="rfd__count" data-fye-finder-count aria-live="polite"></p>
+            <div class="rfd__grid" data-fye-finder-grid></div>
+            <div class="rfd__ractions">
+              <a class="btn btn--outline" href="/collections/all" data-fye-finder-results hidden>{{ s.results_label | default: 'See all matching rings' }}</a>
+            </div>
+          </section>
 
-        <div class="rfd__ractions">
-          <a class="btn btn--outline" href="/collections/all" data-fye-finder-results hidden>{{ s.results_label | default: 'See all matching rings' }}</a>
-          <button type="button" class="rfd__restart" data-fye-finder-restart>Start again</button>
-        </div>
-
-        <aside class="rfd__custom">
-          <h3 class="rfd__ctitle">{{ s.custom_heading | default: "Can't see what you're looking for?" }}</h3>
-          <p class="rfd__hint">{{ s.custom_intro | default: "Enter your details here and we'll contact you with custom options." }}</p>
+          <section class="rfd__opt-col rfd__custom">
+            <h3 class="rfd__q">{{ s.custom_heading | default: "Or, let's design your perfect ring for you" }}</h3>
+            <p class="rfd__hint">{{ s.custom_intro | default: "Tell us what you had in mind and we'll come back to you with custom options." }}</p>
           {%- form 'contact', class: 'rfd__form', id: 'rfd-enquiry' -%}
             {%- if form.posted_successfully? -%}
               <p class="rfd__thanks">{{ s.custom_thanks | default: "Thank you. We'll be in touch shortly with options made for you." }}</p>
@@ -279,7 +288,10 @@
               <button type="submit" class="btn">{{ s.custom_label | default: 'Send my details' }}</button>
             {%- endif -%}
           {%- endform -%}
-        </aside>
+          </section>
+        </div>
+
+        <button type="button" class="rfd__restart" data-fye-finder-restart>Start again</button>
 
       </div>
     </div>
@@ -287,8 +299,13 @@
 </section>
 
 {% stylesheet %}
-.fye .rfd__wrap { max-width: var(--maxw-narrow); }
+.fye .rfd__wrap { max-width: var(--maxw); }
 .fye .rfd__head { margin-bottom: var(--s6); }
+/* Questions are a reading measure; only the two-option results screen uses
+   the full width. Centring them inside a wide wrap keeps one wrapper for
+   the section rather than two competing measures. */
+.fye .rfd__bar,
+.fye .rfd__panel:not(.rfd__results) { max-width: var(--maxw-narrow); margin-inline: auto; width: 100%; }
 
 /* Back + progress share one row so the stage below never moves when the
    back button appears. min-height holds the row when both are hidden. */
@@ -423,8 +440,24 @@
 }
 
 /* --- results ------------------------------------------------------------- */
-.fye .rfd__results { gap: var(--s5); }
-.fye .rfd__rhead { display: flex; flex-direction: column; gap: var(--s2); }
+.fye .rfd__results { gap: var(--s6); }
+/* Two options, equal weight: same heading, same column width, one hairline
+   between them. Neither is a card — a bordered box on one side would make
+   the other look like the default. Ed, 04/09/2026. */
+.fye .rfd__two {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s10);
+  align-items: start;
+}
+.fye .rfd__opt-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+  min-width: 0;
+  padding-top: var(--s5);
+  border-top: var(--hairline);
+}
 /* The answers as one quiet line under the heading, not a definition list:
    at this point in the journey they are context, not the subject. */
 .fye .rfd__chips { margin: 0; font-size: var(--fs-small); color: var(--ink-soft); }
@@ -440,8 +473,8 @@
 }
 .fye .rfd__grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--grid-gap);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s6) var(--grid-gap);
 }
 .fye .rfd__grid > :where(div) { display: contents; }
 .fye .rfd-card {
@@ -477,27 +510,11 @@
 .fye .rfd__restart:hover { color: var(--sage); }
 
 /* --- custom enquiry ------------------------------------------------------ */
-.fye .rfd__custom {
-  display: flex;
-  flex-direction: column;
-  gap: var(--s3);
-  padding: var(--s5);
-  border: var(--hairline);
-  background: var(--white);
-}
-.fye .rfd__ctitle {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: var(--fs-small);
-  font-weight: var(--fw-regular);
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  color: var(--ink);
-}
 .fye .rfd__form { display: flex; flex-direction: column; gap: var(--s4); margin: 0; }
+/* One column: the enquiry now lives in half the page. */
 .fye .rfd__fields {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--s3);
 }
 .fye .rfd__field { display: flex; flex-direction: column; gap: var(--s1); margin: 0; }
@@ -531,6 +548,8 @@
 /* --- breakpoints, last --------------------------------------------------- */
 @media (max-width: 900px) {
   .fye .rfd__opts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fye .rfd__two { grid-template-columns: minmax(0, 1fr); gap: var(--s8); }
+  .fye .rfd__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .fye .rfd__fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 560px) {
@@ -541,7 +560,6 @@
   .fye .rfd__opt--fork { padding: var(--s4); }
   .fye .rfd__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .fye .rfd__fields { grid-template-columns: minmax(0, 1fr); }
-  .fye .rfd__custom { padding: var(--s4); }
   .fye .rfd__ractions { flex-direction: column; align-items: flex-start; gap: var(--s3); }
 }
 {% endstylesheet %}
@@ -559,11 +577,12 @@
     { "type": "text", "id": "journeys_q", "label": "First question", "default": "What are you looking for?" },
     { "type": "text", "id": "flexible_label", "label": "Skip option label", "default": "I'm flexible", "info": "Ends every step and applies no filter. Keep it: it is what makes every ring reachable. Fork blocks never show it." },
     { "type": "header", "content": "Results" },
-    { "type": "text", "id": "results_heading", "label": "Heading", "default": "Rings that match" },
+    { "type": "text", "id": "results_heading", "label": "Heading", "default": "Here are the rings that match" },
     { "type": "text", "id": "results_label", "label": "Collection link", "default": "See all matching rings" },
-    { "type": "header", "content": "Custom options enquiry" },
-    { "type": "text", "id": "custom_heading", "label": "Heading", "default": "Can't see what you're looking for?" },
-    { "type": "textarea", "id": "custom_intro", "label": "Introduction", "default": "Enter your details here and we'll contact you with custom options." },
+    { "type": "header", "content": "Second option — bespoke enquiry" },
+    { "type": "paragraph", "content": "Shown beside the matching rings, at equal size. Keep both headings to a line so the two columns stay level." },
+    { "type": "text", "id": "custom_heading", "label": "Heading", "default": "Or, let's design your perfect ring for you" },
+    { "type": "textarea", "id": "custom_intro", "label": "Introduction", "default": "Tell us what you had in mind and we'll come back to you with custom options." },
     { "type": "text", "id": "custom_placeholder", "label": "Message placeholder", "default": "Anything you would like us to know — a stone, a budget, a date." },
     { "type": "text", "id": "custom_label", "label": "Button", "default": "Send my details" },
     { "type": "textarea", "id": "custom_thanks", "label": "Thank you message", "default": "Thank you. We'll be in touch shortly with options made for you." },

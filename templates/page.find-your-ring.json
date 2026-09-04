@@ -341,10 +341,10 @@
       "settings": {
         "journeys_q": "What are you looking for?",
         "flexible_label": "I'm flexible",
-        "results_heading": "Rings that match",
+        "results_heading": "Here are the rings that match",
         "results_label": "See all matching rings",
-        "custom_heading": "Can't see what you're looking for?",
-        "custom_intro": "Enter your details here and we'll contact you with custom options.",
+        "custom_heading": "Or, let's design your perfect ring for you",
+        "custom_intro": "Tell us what you had in mind and we'll come back to you with custom options.",
         "custom_placeholder": "Anything you would like us to know — a stone, a budget, a date.",
         "custom_label": "Send my details",
         "custom_thanks": "Thank you. We'll be in touch shortly with options made for you.",
@@ -362,4 +362,3 @@
     "close"
   ]
 }
-

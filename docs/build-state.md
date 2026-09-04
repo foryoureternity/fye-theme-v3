@@ -2563,3 +2563,35 @@ in the eyebrow.
 The two template files are identical the moment this patch runs. If the page
 is edited in the theme editor before step 1, the edits land in the OLD file —
 so do step 1 first, or those edits are lost when it is deleted.
+
+
+---
+
+## Addition — 04/09/2026: the empty result
+
+Ed: if a shopper reaches the end and no rings match, say something different —
+"We'll design your ring for you".
+
+The two-column screen assumes two live options. With no rings, the left column
+is an empty grid under a heading promising matches, and the right column opens
+with "Or," referring to nothing. So the zero case **collapses to one column**:
+the bespoke offer at the reading measure, with its own heading and opening
+line, and the form the shopper now needs as the only thing on screen.
+
+- New settings, both editable: **When nothing matches → Heading / Introduction**.
+  Default heading is Ed's line. The default intro reframes rather than
+  apologises: "yours is a ring we make rather than one we hold".
+- Both strings sit in the HTML and fye-ui.js toggles `hidden`, so the copy
+  stays editable in the theme editor rather than living in JavaScript.
+- Focus follows: the heading that had focus is hidden in this state, so focus
+  moves to the one on screen.
+- A **failed fetch is not an empty result** — the two columns stay and the
+  error message stands in for the count. Saying "we'll design it for you"
+  because the network hiccuped would be a lie.
+- The state resets before each fetch, so a second journey cannot inherit the
+  last one's empty state while it loads.
+
+This is also the safety net for the two unverified filters: if
+`filters.centre_weight` is unpopulated, or `metal_colour = "Palladium"`
+matches nothing, the shopper now lands somewhere that reads as intentional.
+Worth testing on purpose: engagement › any style › 2.00ct and above.

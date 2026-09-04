@@ -1,6 +1,12 @@
 {%- comment -%}
   fye-ring-finder — the step-by-step ring finder. 1 use: page.find-your-ring.
 
+  When a journey returns NO rings the screen collapses to one column — the
+  bespoke offer, with its own heading ("We'll design your ring for you") and
+  its own opening line. A promise of matches above an empty grid, and an
+  "Or," referring to nothing, would both be worse than saying the true thing
+  (Ed, 04/09/2026).
+
   The RESULTS SCREEN offers two options of equal weight, side by side: the
   rings that match, and a bespoke enquiry. Neither is a card and both carry
   the same heading treatment — a border on one side would make the other
@@ -274,7 +280,7 @@
         <p class="rfd__chips" data-fye-finder-chips></p>
 
         <div class="rfd__two">
-          <section class="rfd__opt-col">
+          <section class="rfd__opt-col rfd__col--rings">
             <h3 class="rfd__q" tabindex="-1" data-fye-finder-question>{{ s.results_heading | default: 'Here are the rings that match' }}</h3>
             <p class="rfd__count" data-fye-finder-count aria-live="polite"></p>
             <div class="rfd__grid" data-fye-finder-grid></div>
@@ -284,8 +290,15 @@
           </section>
 
           <section class="rfd__opt-col rfd__custom">
-            <h3 class="rfd__q">{{ s.custom_heading | default: "Or, let's design your perfect ring for you" }}</h3>
-            <p class="rfd__hint">{{ s.custom_intro | default: "Tell us what you had in mind and we'll come back to you with custom options." }}</p>
+            {%- comment -%}
+              Two headings, one per state. With matching rings this column is
+              the second of two options, so it opens "Or,". With none it is
+              the only option, and "Or," would refer to nothing.
+            {%- endcomment -%}
+            <h3 class="rfd__q" data-fye-finder-ctitle="some">{{ s.custom_heading | default: "Or, let's design your perfect ring for you" }}</h3>
+            <p class="rfd__hint" data-fye-finder-ctitle="some">{{ s.custom_intro | default: "Tell us what you had in mind and we'll come back to you with custom options." }}</p>
+            <h3 class="rfd__q" tabindex="-1" data-fye-finder-ctitle="none" hidden>{{ s.empty_heading | default: "We'll design your ring for you" }}</h3>
+            <p class="rfd__hint" data-fye-finder-ctitle="none" hidden>{{ s.empty_intro | default: "Nothing in stock matches every answer you gave — which simply means yours is a ring we make rather than one we hold. Leave your details and we'll come back to you with designs and a price." }}</p>
           {%- form 'contact', class: 'rfd__form', id: 'rfd-enquiry' -%}
             {%- if form.posted_successfully? -%}
               <p class="rfd__thanks">{{ s.custom_thanks | default: "Thank you. We'll be in touch shortly with options made for you." }}</p>
@@ -486,6 +499,17 @@
   padding-top: var(--s5);
   border-top: var(--hairline);
 }
+/* No rings matched. The grid and its heading go, and the bespoke offer —
+   now the only option — takes the reading measure rather than sitting in a
+   half-width column beside nothing. */
+.fye .rfd__results[data-fye-finder-empty] .rfd__col--rings { display: none; }
+.fye .rfd__results[data-fye-finder-empty] .rfd__two {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: var(--maxw-narrow);
+  margin-inline: auto;
+  width: 100%;
+}
+.fye .rfd__two [data-fye-finder-ctitle][hidden] { display: none; }
 /* The answers as one quiet line under the heading, not a definition list:
    at this point in the journey they are context, not the subject. */
 .fye .rfd__chips { margin: 0; font-size: var(--fs-small); color: var(--ink-soft); }
@@ -615,6 +639,10 @@
     { "type": "textarea", "id": "custom_intro", "label": "Introduction", "default": "Tell us what you had in mind and we'll come back to you with custom options." },
     { "type": "text", "id": "custom_placeholder", "label": "Message placeholder", "default": "Anything you would like us to know — a stone, a budget, a date." },
     { "type": "text", "id": "custom_label", "label": "Button", "default": "Send my details" },
+    { "type": "header", "content": "When nothing matches" },
+    { "type": "paragraph", "content": "Shown instead of the two columns when a journey returns no rings. The enquiry form is then the only thing on screen." },
+    { "type": "text", "id": "empty_heading", "label": "Heading", "default": "We'll design your ring for you" },
+    { "type": "textarea", "id": "empty_intro", "label": "Introduction", "default": "Nothing in stock matches every answer you gave — which simply means yours is a ring we make rather than one we hold. Leave your details and we'll come back to you with designs and a price." },
     { "type": "text", "id": "custom_thanks_heading", "label": "Thank you heading", "default": "Thank you — that is with us" },
     { "type": "textarea", "id": "custom_thanks", "label": "Thank you message", "default": "Thank you. We'll be in touch shortly with options made for you." },
     { "type": "text", "id": "restart_label", "label": "Restart link", "default": "Start the finder again" },

@@ -2947,6 +2947,26 @@
     return n + ' designs match';
   }
 
+  // Nothing matched: drop the rings column and swap the bespoke column onto
+  // its own heading. Both strings are in the HTML already, so this is a
+  // visibility change rather than a rewrite — the copy stays editable in the
+  // theme editor.
+  function setEmpty(on) {
+    var p = panel('results');
+    if (!p) return;
+    if (on) p.setAttribute('data-fye-finder-empty', '');
+    else p.removeAttribute('data-fye-finder-empty');
+    all('[data-fye-finder-ctitle]').forEach(function (el) {
+      var forEmpty = el.getAttribute('data-fye-finder-ctitle') === 'none';
+      el.hidden = forEmpty !== on;
+    });
+    if (on) {
+      // The heading that had focus is now hidden; move it to the one on screen.
+      var h = one('[data-fye-finder-ctitle="none"].rfd__q');
+      if (h) h.focus({ preventScroll: true });
+    }
+  }
+
   function results() {
     var parts = [];
     state.answers.forEach(function (a) { parts = parts.concat(encode(a.param, a.value)); });
@@ -2974,6 +2994,7 @@
 
     count.textContent = 'Finding rings\u2026';
     grid.setAttribute('aria-busy', 'true');
+    setEmpty(false);
     var mine = ++req;
 
     fetch(state.url + '?' + (query ? query + '&' : '') + 'view=fye-finder', {
@@ -2992,6 +3013,7 @@
         grid.removeAttribute('aria-busy');
         count.textContent = say(n, shown);
         link.hidden = n === 0;
+        setEmpty(n === 0);
       })
       .catch(function () {
         if (mine !== req) return;
@@ -2999,6 +3021,7 @@
         grid.removeAttribute('aria-busy');
         count.textContent = 'We could not load the rings just now.';
         link.hidden = false;
+        setEmpty(false);
       });
   }
 

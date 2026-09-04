@@ -59,7 +59,7 @@
     every journey but only the plain collection can filter on it (Ed,
     14/08 and 03/09/2026).
 
-  · OPTION PHOTOGRAPHS. A step with `photos` on shows a real ring on every
+  · OPTION PHOTOGRAPHS. A step set to `photo_mode: stock` shows a real ring on every
     tile: the hand-picked one if its line says `product: <handle>`, else the
     first ring in stock matching every answer so far plus that option,
     fetched once per step from templates/collection.fye-options.liquid. So
@@ -326,12 +326,23 @@
                   produced five 404s (Ed, 04/09/2026). The checkbox now only
                   governs the live-from-stock fill.
                 endcomment
+                comment
+                  A SELECT, not a checkbox. The checkbox arrived false in
+                  Liquid however the template was written, where every string
+                  setting on this block arrives intact — so the opt-in is a
+                  string. b.photos is still honoured where true, so nothing
+                  regresses if the boolean starts behaving (Ed, 04/09/2026).
+                endcomment
+                assign want_fill = false
+                if b.photo_mode == 'stock' or b.photos
+                  assign want_fill = true
+                endif
                 assign want_shot = false
-                if b.photos or pick != blank
+                if want_fill or pick != blank
                   assign want_shot = true
                 endif
               -%}
-              <button type="button" class="rfd__opt rfd__opt--{{ b.icon_style | default: 'line' }}{% if b.photos %} rfd__opt--photo{% endif %}"
+              <button type="button" class="rfd__opt rfd__opt--{{ b.icon_style | default: 'line' }}{% if want_shot %} rfd__opt--photo{% endif %}"
                       data-fye-finder-option
                       data-fye-finder-value="{{ val | escape }}"
                       data-fye-finder-label="{{ lbl | escape }}">
@@ -342,7 +353,7 @@
                     renders now; otherwise fye-ui.js fills it from stock, and if
                     nothing matches the tile keeps its words alone.
                   {%- endcomment -%}
-                  <span class="rfd__oshot" data-fye-finder-oshot{% if b.photos %} data-fye-finder-fill{% endif %}>
+                  <span class="rfd__oshot" data-fye-finder-oshot{% if want_fill %} data-fye-finder-fill{% endif %}>
                     {%- comment -%}
                       featured_IMAGE, not featured_media: media may be a video or
                       a 3D model and its still lives at .preview_image, so piping
@@ -898,7 +909,14 @@
         { "type": "text", "id": "param", "label": "Filter metafield key", "info": "A key in the filters namespace, e.g. profile. Begin with fye_ to carry the answer to the enquiry without filtering." },
         { "type": "textarea", "id": "options", "label": "Options", "info": "One per line: Label | value | icon | note. In the icon field: a file name, swatch: Rose Gold, or product: a-ring-handle to pin a photograph." },
         { "type": "header", "content": "Photographs" },
-        { "type": "checkbox", "id": "photos", "label": "Photograph each option", "default": false, "info": "Shows a real ring matching the answers so far. Leave off where a photograph cannot show the difference — band width, weight, carat, centre size — and where a diagram or swatch is clearer, as with cuts, metals and stone types." },
+        {
+          "type": "select", "id": "photo_mode", "label": "Option tiles", "default": "",
+          "info": "Photographs show a real ring matching the answers so far. Keep words only where a photograph cannot show the difference — band width, weight, carat, centre size — and where a diagram or swatch is clearer, as with cuts, metals and stone types. A line ending product: a-handle always shows its photograph regardless.",
+          "options": [
+            { "value": "", "label": "Words only" },
+            { "value": "stock", "label": "Photographs from stock" }
+          ]
+        },
         { "type": "header", "content": "Ask only sometimes" },
         { "type": "text", "id": "when_param", "label": "Depends on", "info": "Another step's filter key. Leave empty to always ask." },
         { "type": "text", "id": "when_value", "label": "Answer contains", "info": "e.g. Gold — asks this step only when the answer to the key above contains that word." },

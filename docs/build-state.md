@@ -2825,3 +2825,37 @@ An image that 404s now removes itself, so a tile falls back to its words.
 **Lesson for this file:** fye-ui.js is 3,000 lines and its finder closure has
 its own vocabulary. Read the closure before adding to it — twice now I have
 written plausible-looking calls into it from memory.
+
+
+---
+
+## Fix — 04/09/2026 (4): the opt-in is a select, not a checkbox
+
+Ed: the pinned rings work; shoulders shows nothing.
+
+That isolates the fault rather than being a new one. Pinned photographs now
+render on their own, so they were never affected. Shoulders has no pins — every
+tile comes from the live fill, which was gated on `photos`, the checkbox we
+already know arrives **false** in Liquid.
+
+So the opt-in is now a **select**:
+
+    Option tiles:   Words only  |  Photographs from stock
+
+`photo_mode: "stock"` in the template. Every string setting on that block
+reaches Liquid intact — `options` and `param` demonstrably do — where the
+boolean did not, however it was written. `b.photos` is still honoured where
+true, so nothing regresses if it ever starts behaving.
+
+On: engagement style, engagement shoulders.
+
+**If shoulders still shows nothing, the cause is data, not plumbing:**
+`filters.shoulder_style` values not matching the option labels (Plain,
+Diamond set, Pavé, Channel, Accent, Curved, Split). The check is one line in
+the console —
+
+    fetch('/collections/engagement-rings?view=fye-options').then(r=>r.json())
+      .then(d=>console.log([...new Set(d.products.map(p=>p.v.shoulder_style))]))
+
+— which prints the values the catalogue actually holds. Same trick for any
+other step whose tiles stay blank.

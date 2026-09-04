@@ -104,7 +104,7 @@
             "icon_size": "56",
             "icon_style": "line",
             "options": "Solitaire | Solitaire | product: eng40118-mt\nHalo | Halo | product: eng4242-smt\nHidden Halo\nDouble Halo | Double Halo | product: eng4530-smt\nTrilogy | Trilogy | product: trl40363-smt\nMultistone\nToi et Moi | Toi et Moi | product: eng43252-bsad-smt",
-            "photos": true
+            "photo_mode": "stock"
           }
         },
         "eng_shoulder": {
@@ -117,7 +117,7 @@
             "param": "shoulder_style",
             "columns": "4",
             "options": "Plain\nDiamond set\nPavé\nChannel\nAccent\nCurved\nSplit",
-            "photos": true
+            "photo_mode": "stock"
           }
         },
         "eng_stone": {
@@ -371,7 +371,3 @@
     "close"
   ]
 }
-
-
-
-

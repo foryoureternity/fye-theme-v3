@@ -1,0 +1,67 @@
+{%- comment -%}
+  collection.fye-options — fragment template, NOT a customer-facing page.
+
+  Added 04/09/2026. Feeds the ring matchmaker's option photographs: each option
+  tile shows a real ring matching everything chosen so far, so picking Halo
+  makes every cut tile a halo, and picking sapphire makes them all sapphires
+  (Ed, 04/09/2026 — "wherever possible, subsequent choices reflect previous
+  choices").
+
+  Hand-picking could not reach this: 7 styles x 10 cuts is 70 photographs
+  before shoulders are considered. This is one request per step instead.
+
+    /collections/engagement-rings?filter.p.m.filters.ring_style=Halo&view=fye-options
+
+  Returns compact JSON — one entry per product, its image and its filter
+  values — and assets/fye-ui.js picks the first product matching each option.
+
+  WHY ALL THE KEYS AT ONCE. Liquid cannot read a query parameter, so this
+  template cannot be told which metafield the current step is asking about.
+  It therefore emits every key the finder uses, and the JavaScript selects.
+  Twelve short values per product; 50 products is around 10KB, a couple
+  gzipped.
+
+  50 IS A DELIBERATE CEILING. It covers the common values comfortably. A rare
+  option whose only stock sits past the fiftieth product simply gets no
+  photograph, which is survivable — and honest, since it is genuinely rare.
+
+  Do not link to this. With no layout it renders as bare JSON.
+{%- endcomment -%}
+{%- layout none -%}
+{%- liquid
+  assign keys = 'ring_style,shoulder_style,stone_type,stone_shape,centre_weight,profile,band_width,weight,metal_colour,carat,setting,eternity_style' | split: ','
+-%}
+{
+  "count": {{ collection.products_count | default: 0 }},
+  "products": [
+    {%- assign rows = 0 -%}
+    {%- for product in collection.products limit: 50 -%}
+      {%- if product.featured_media == nil -%}{%- continue -%}{%- endif -%}
+      {%- if rows > 0 -%},{%- endif -%}
+      {%- assign rows = rows | plus: 1 -%}
+      {
+        "img": {{ product.featured_media | image_url: width: 240 | json }},
+        "url": {{ product.url | json }},
+        "v": {
+          {%- assign wrote = 0 -%}
+          {%- for key in keys -%}
+            {%- assign mf = product.metafields.filters[key] -%}
+            {%- if mf == nil or mf.value == blank -%}{%- continue -%}{%- endif -%}
+            {%- if wrote > 0 -%},{%- endif -%}
+            {%- assign wrote = wrote | plus: 1 -%}
+            {%- comment -%}
+              A list-type metafield arrives as an array. Joining on a pipe keeps
+              the payload flat; fye-ui.js splits on it and tests membership, so a
+              ring tagged with several settings matches any of them.
+            {%- endcomment -%}
+            {%- if mf.type contains 'list.' -%}
+              {{ key | json }}: {{ mf.value | join: '|' | json }}
+            {%- else -%}
+              {{ key | json }}: {{ mf.value | json }}
+            {%- endif -%}
+          {%- endfor -%}
+        }
+      }
+    {%- endfor -%}
+  ]
+}

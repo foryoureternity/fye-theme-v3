@@ -3025,6 +3025,84 @@
       });
   }
 
+  // ---- option photographs ------------------------------------------------
+  // One request per photographed step: the current collection under the
+  // answers so far, as JSON, from templates/collection.fye-options.liquid.
+  // Cached by query, so Back does not refetch and a shopper changing their
+  // mind twice costs nothing.
+  var optCache = {};
+
+  function filterQuery() {
+    var parts = [];
+    state.answers.forEach(function (a) { parts = parts.concat(encode(a.param, a.value)); });
+    return parts.join('&');
+  }
+
+  function stock(query) {
+    if (optCache[query]) return optCache[query];
+    var url = state.url + '?' + (query ? query + '&' : '') + 'view=fye-options';
+    optCache[query] = fetch(url, { headers: { 'X-Requested-With': 'fetch' } })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (d) { return (d && d.products) || []; })
+      .catch(function () { return []; });   // no photographs is a survivable failure
+    return optCache[query];
+  }
+
+  // Does this product's value for `param` satisfy the option's value? Handles
+  // list metafields (pipe-joined by the fragment) and the 1.00..1.49 range
+  // syntax the finder uses for centre weight.
+  function matches(product, param, value) {
+    var got = product.v && product.v[param];
+    if (!got) return false;
+    if (value.indexOf('..') > -1) {
+      var r = value.split('..');
+      var n = parseFloat(got);
+      if (isNaN(n)) return false;
+      if (r[0] && n < parseFloat(r[0])) return false;
+      if (r[1] && n > parseFloat(r[1])) return false;
+      return true;
+    }
+    var want = value.toLowerCase();
+    return got.toLowerCase().split('|').some(function (v) { return v.trim() === want; });
+  }
+
+  function fillOptionPhotos(step) {
+    var param = attr(step, 'param');
+    if (!param || param.indexOf('fye_') === 0) return;
+    var slots = Array.prototype.slice.call(step.querySelectorAll('[data-fye-finder-oshot]'));
+    if (!slots.length) return;
+
+    var query = filterQuery();
+    stock(query).then(function (products) {
+      slots.forEach(function (slot) {
+        // A hand-picked ring is the curator's choice; never overwrite it.
+        if (slot.querySelector('[data-fye-finder-pinned]')) return;
+        var btn = slot.closest('[data-fye-finder-option]');
+        var value = btn ? attr(btn, 'value') : '';
+        if (!value) return;
+
+        var hit = null;
+        for (var i = 0; i < products.length; i++) {
+          if (matches(products[i], param, value)) { hit = products[i]; break; }
+        }
+        var have = slot.querySelector('img');
+        if (!hit) { if (have) have.remove(); return; }
+        if (have && have.getAttribute('src') === hit.img) return;
+        if (have) have.remove();
+
+        var img = document.createElement('img');
+        img.width = 240;
+        img.height = 240;
+        img.alt = '';
+        img.setAttribute('aria-hidden', 'true');
+        img.loading = 'lazy';
+        img.addEventListener('load', function () { img.classList.add('is-in'); });
+        img.src = hit.img;
+        slot.appendChild(img);
+      });
+    });
+  }
+
   function render() {
     all('[data-fye-finder-panel], [data-fye-finder-step]').forEach(function (p) { p.hidden = true; });
     var prog = one('[data-fye-finder-progress]');
@@ -3059,6 +3137,7 @@
       }
     }
     show.hidden = false;
+    if (show.hasAttribute('data-fye-finder-step')) fillOptionPhotos(show);
     var q = show.querySelector('[data-fye-finder-question]');
     if (q) q.focus({ preventScroll: true });
     var top = root.getBoundingClientRect().top;

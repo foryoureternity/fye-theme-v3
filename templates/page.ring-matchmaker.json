@@ -103,7 +103,8 @@
             "columns": "4",
             "icon_size": "56",
             "icon_style": "line",
-            "options": "Solitaire | Solitaire | solitaire-4VMZDYZQ.svg\nHalo | Halo | halo-YF4LVVRJ.svg\nHidden Halo | Hidden Halo | hidden-halo-P7AYBI4X.svg\nDouble Halo\nTrilogy | Trilogy | three-stone-Y4KHS2BW.svg\nMultistone\nToi et Moi"
+            "options": "Solitaire | Solitaire | product: eng40118-mt\nHalo | Halo | product: eng4242-smt\nHidden Halo\nDouble Halo | Double Halo | product: eng4530-smt\nTrilogy | Trilogy | product: trl40363-smt\nMultistone\nToi et Moi | Toi et Moi | product: eng43252-bsad-smt",
+            "photos": true
           }
         },
         "eng_shoulder": {
@@ -115,7 +116,8 @@
             "hint": "The part of the band either side of the centre stone.",
             "param": "shoulder_style",
             "columns": "4",
-            "options": "Plain\nDiamond set\nPavé\nChannel\nAccent\nCurved\nSplit"
+            "options": "Plain\nDiamond set\nPavé\nChannel\nAccent\nCurved\nSplit",
+            "photos": true
           }
         },
         "eng_stone": {
@@ -369,5 +371,3 @@
     "close"
   ]
 }
-
-

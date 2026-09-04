@@ -2691,3 +2691,60 @@ it is a setting, so the next photograph can be nudged without a code change.
 Consequence worth knowing: `contain` means the whole frame of the file is
 honoured, so a photograph that is not square will letterbox against the ivory
 ground rather than crop. Every current ring file is square.
+
+
+---
+
+## Addition — 04/09/2026: option photographs, live from stock
+
+Ed: photographs instead of icons on the options, and "wherever possible,
+subsequent choices reflect previous choices".
+
+Hand-picking could not reach that: 7 styles x 10 cuts is 70 photographs before
+shoulders. So a photographed step **fetches** them. Before it is shown,
+fye-ui.js requests the journey's collection under the answers so far —
+`?<filters>&view=fye-options`, the new
+`templates/collection.fye-options.liquid` — and gives each tile the first ring
+matching those answers **plus that option**. Choose Halo and every cut tile is
+a halo; choose sapphire and they are all sapphires.
+
+- **Hand-picked wins.** An option line ending `product: <handle>` renders that
+  ring in Liquid and is never overwritten, so the opening step stays curated.
+  `all_products` is capped by Shopify at 20 lookups per page — openers only.
+- **One request per step**, cached by filter query, so Back never refetches.
+- **No match, no photograph**, and the tile keeps its words. That is a true
+  signal about stock, and "I'm flexible" is always there.
+- The slot holds its square whether or not an image arrives, so a late fill
+  cannot reflow the grid and an empty option stays level with its neighbours.
+- Images fade in on load rather than flashing in one at a time.
+- A failed fetch means no photographs and nothing else — the finder still works.
+- The fragment emits **all twelve filter keys per product** because Liquid
+  cannot read a query parameter and therefore cannot be told which metafield
+  the step is asking about. 50 products, around 10KB, a couple gzipped.
+
+**Steps are opt-in, and most should stay off.** A photograph cannot show 2mm
+against 2.5mm, or Light against Heavy, or 9ct against 18ct, or a 0.9ct centre
+against a 1.1ct one. Cuts are conventionally outline diagrams — a photograph of
+a pear ring shows its setting as much as its shape — and metals and stone types
+are better served by the drawn swatches already in the theme.
+
+**On now:** engagement style (with Ed's five pinned) and engagement shoulders.
+
+### Ed's engagement style picks
+
+| Option | Ring |
+|---|---|
+| Solitaire | `eng40118-mt` Plain-Band Solitaire Round Brilliant 1.0ct |
+| Halo | `eng4242-smt` Plain-Shoulder Halo 0.5ct |
+| Double Halo | `eng4530-smt` Halo with Diamond Set Shoulders 0.33ct |
+| Trilogy | `trl40363-smt` Trilogy with Plain Shoulders 0.75ct |
+| Toi et Moi | `eng43252-bsad-smt` Toi et Moi Pear Sapphire & Diamond |
+
+Hidden Halo and Multistone have no pick and will fill from stock.
+`eng3576` (Invisible-Set Halo Princess) is **parked for journey C's Invisible
+setting** — it is a setting, not a style.
+
+**Unverified:** whether `filters.ring_style` values match these labels exactly
+(Hidden Halo, Multistone, Toi et Moi). Where a label and the metafield value
+disagree, the live photographs silently do not appear — worth walking the step
+once and noting which tiles stay blank.

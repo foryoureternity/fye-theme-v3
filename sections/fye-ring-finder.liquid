@@ -59,6 +59,18 @@
     every journey but only the plain collection can filter on it (Ed,
     14/08 and 03/09/2026).
 
+  · OPTION PHOTOGRAPHS. A step with `photos` on shows a real ring on every
+    tile: the hand-picked one if its line says `product: <handle>`, else the
+    first ring in stock matching every answer so far plus that option,
+    fetched once per step from templates/collection.fye-options.liquid. So
+    choosing Halo makes every cut tile a halo. An option with no match keeps
+    its words and shows no photograph, which is a true signal about stock.
+    Do NOT switch this on for band width, weight, carat or centre size — a
+    photograph cannot show 2mm against 2.5mm — nor for cuts, metals or stone
+    types, where the outline diagrams and drawn swatches are clearer.
+    `product:` uses all_products, which Shopify caps at 20 lookups per
+    page; hand-pick openers only.
+
   · ICONS. `icon_size` (40 / 56 / 88px) and `icon_style` per step. Line art
     fades a step on hover, because recolouring teal line-art would need a mask;
     colour art — the metal swatches, and product photography later — does not
@@ -299,14 +311,33 @@
                 assign ico = parts[2] | strip
                 assign note = parts[3] | strip
               -%}
-              <button type="button" class="rfd__opt rfd__opt--{{ b.icon_style | default: 'line' }}"
+              {%- liquid
+                assign pick = null
+                if ico contains 'product:'
+                  assign phandle = ico | remove_first: 'product:' | strip
+                  assign pick = all_products[phandle]
+                endif
+              -%}
+              <button type="button" class="rfd__opt rfd__opt--{{ b.icon_style | default: 'line' }}{% if b.photos %} rfd__opt--photo{% endif %}"
                       data-fye-finder-option
                       data-fye-finder-value="{{ val | escape }}"
                       data-fye-finder-label="{{ lbl | escape }}">
-                {%- if ico contains 'swatch:' -%}
+                {%- if b.photos -%}
+                  {%- comment -%}
+                    The slot is always in the markup on a photographed step, so
+                    filling it later cannot reflow the grid. A hand-picked ring
+                    renders now; otherwise fye-ui.js fills it from stock, and if
+                    nothing matches the tile keeps its words alone.
+                  {%- endcomment -%}
+                  <span class="rfd__oshot" data-fye-finder-oshot>
+                    {%- if pick and pick.featured_media -%}
+                      <img src="{{ pick.featured_media | image_url: width: 240 }}" alt="" aria-hidden="true" width="240" height="240" loading="lazy" data-fye-finder-pinned>
+                    {%- endif -%}
+                  </span>
+                {%- elsif ico contains 'swatch:' -%}
                   {%- assign metal = ico | remove_first: 'swatch:' | strip -%}
                   {%- render 'fye-metal-swatch', metal: metal, class: 'rfd__oicon' -%}
-                {%- elsif ico != blank -%}
+                {%- elsif ico != blank and ico contains 'product:' == false -%}
                   <img class="rfd__oicon" src="{{ ico | file_url }}" alt="" aria-hidden="true" loading="lazy" data-fye-finder-icon>
                 {%- endif -%}
                 <span class="rfd__olabel">{{ lbl }}</span>
@@ -561,6 +592,27 @@
 .fye .rfd__opt--fork { gap: var(--s3); padding: var(--s5); }
 .fye .rfd__onote { font-size: var(--fs-fine); font-weight: var(--fw-light); line-height: 1.45; color: var(--ink-soft); }
 .fye .rfd__oicon { width: var(--isize, 56px); height: var(--isize, 56px); }
+/* A photographed option. The slot holds its square whether or not an image
+   arrives, so a late fill cannot reflow the grid — and an option with no
+   stock stays level with its neighbours instead of standing shorter. */
+.fye .rfd__oshot {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--white);
+  overflow: hidden;
+}
+.fye .rfd__oshot :where(img) {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity var(--dur) var(--ease);
+}
+/* Fade in when loaded, so tiles do not flash as the stock photographs
+   arrive one by one. */
+.fye .rfd__oshot :where(img.is-in) { opacity: 1; }
+.fye .rfd__opt--photo { justify-content: flex-start; gap: var(--s3); padding: var(--s3); }
 /* Teal line-art fades a step on hover; a recolour would need a mask. Colour
    art — metal swatches, photography — never fades: a dimmed photograph reads
    as a fault rather than a hover. */
@@ -824,7 +876,9 @@
           ]
         },
         { "type": "text", "id": "param", "label": "Filter metafield key", "info": "A key in the filters namespace, e.g. profile. Begin with fye_ to carry the answer to the enquiry without filtering." },
-        { "type": "textarea", "id": "options", "label": "Options", "info": "One per line: Label | value | icon.svg | note. All but the label are optional. Ranges as 1.00..1.49; two filters at once as carat=18ct&metal_colour=Rose Gold." },
+        { "type": "textarea", "id": "options", "label": "Options", "info": "One per line: Label | value | icon | note. In the icon field: a file name, swatch: Rose Gold, or product: a-ring-handle to pin a photograph." },
+        { "type": "header", "content": "Photographs" },
+        { "type": "checkbox", "id": "photos", "label": "Photograph each option", "default": false, "info": "Shows a real ring matching the answers so far. Leave off where a photograph cannot show the difference — band width, weight, carat, centre size — and where a diagram or swatch is clearer, as with cuts, metals and stone types." },
         { "type": "header", "content": "Ask only sometimes" },
         { "type": "text", "id": "when_param", "label": "Depends on", "info": "Another step's filter key. Leave empty to always ask." },
         { "type": "text", "id": "when_value", "label": "Answer contains", "info": "e.g. Gold — asks this step only when the answer to the key above contains that word." },

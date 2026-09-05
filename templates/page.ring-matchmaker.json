@@ -79,7 +79,7 @@
             "hint": "Both routes ask the same questions — this only changes the order.",
             "icon_size": "88",
             "icon_style": "line",
-            "options": "Start with the setting | setting | solitaire-4VMZDYZQ.svg | The style of the ring: solitaire, halo, trilogy\nStart with the stone | stone | icon101.svg | The centre gem: its type, cut and size"
+            "options": "Start with the setting | setting | photo: rf-fork-eng-setting | The style of the ring: solitaire, halo, trilogy\nStart with the stone | stone | photo: rf-fork-eng-stone | The centre gem: its type, cut and size"
           }
         },
         "fork_dia": {
@@ -90,7 +90,7 @@
             "hint": "Both routes ask the same questions — this only changes the order.",
             "icon_size": "88",
             "icon_style": "line",
-            "options": "Start with the setting | setting | pave-YYUQTFKW.svg | How the stones are held: channel, pavé, claw\nStart with the stone | stone | icon101.svg | The stones themselves: their type and shape"
+            "options": "Start with the setting | setting | photo: rf-fork-diamond-setting | How the stones are held: channel, pavé, claw\nStart with the stone | stone | photo: rf-fork-diamond-stone | The stones themselves: their type and shape"
           }
         },
         "eng_style": {
@@ -103,7 +103,7 @@
             "columns": "4",
             "icon_size": "56",
             "icon_style": "line",
-            "options": "Solitaire | Solitaire | product: eng40118-mt\nHalo | Halo | product: eng4242-smt\nHidden Halo\nDouble Halo | Double Halo | product: eng4530-smt\nTrilogy | Trilogy | product: trl40363-smt\nMultistone\nToi et Moi | Toi et Moi | product: eng43252-bsad-smt",
+            "options": "Solitaire | Solitaire | photo: rf-eng-style-solitaire\nHalo | Halo | photo: rf-eng-style-halo\nHidden Halo |  | photo: rf-eng-style-hidden-halo\nDouble Halo | Double Halo | photo: rf-eng-style-double-halo\nTrilogy | Trilogy | photo: rf-eng-style-trilogy\nMultistone |  | photo: rf-eng-style-multistone\nToi et Moi | Toi et Moi | photo: rf-eng-style-toi-et-moi",
             "photo_mode": "stock"
           }
         },
@@ -116,7 +116,7 @@
             "hint": "Pavé, channel and accent settings all sit under diamond set.",
             "param": "shoulder_style",
             "columns": "3",
-            "options": "Plain | Plain\nDiamond set | Diamond set\nSplit | Split",
+            "options": "Plain | Plain | photo: rf-eng-shoulder-plain\nDiamond set | Diamond set | photo: rf-eng-shoulder-diamond-set\nSplit | Split | photo: rf-eng-shoulder-split",
             "photo_mode": "stock"
           }
         },
@@ -192,8 +192,8 @@
             "heading": "Which profile?",
             "hint": "The shape of the band in cross-section, which is what you feel on the finger.",
             "param": "profile",
-            "columns": "3",
-            "options": "Traditional Court\nSlight Court\nD Shape\nFlat\nFlat Court\nEdged Court\nEdged Flat Court\nEngagement Match\nConcave"
+            "columns": "4",
+            "options": "Traditional Court |  | photo: rf-plain-profile-traditional-court\nSlight Court |  | photo: rf-plain-profile-slight-court\nD Shape |  | photo: rf-plain-profile-d-shape\nFlat |  | photo: rf-plain-profile-flat\nFlat Court |  | photo: rf-plain-profile-flat-court\nEdged Court |  | photo: rf-plain-profile-edged-court\nEdged Flat Court |  | photo: rf-plain-profile-edged-flat-court\nEngagement Match |  | photo: rf-plain-profile-engagement-match\nConcave |  | photo: rf-plain-profile-concave"
           }
         },
         "plain_width": {
@@ -253,7 +253,7 @@
             "heading": "How should the stones be set?",
             "param": "setting",
             "columns": "4",
-            "options": "Channel\nGrain\nPavé\nClaw\nRubover\nBar\nFrench Cut\nInvisible\nOyster\nTension"
+            "options": "Channel |  | photo: rf-diamond-setting-channel\nGrain |  | photo: rf-diamond-setting-grain\nPavé |  | photo: rf-diamond-setting-pave\nClaw |  | photo: rf-diamond-setting-claw\nRubover |  | photo: rf-diamond-setting-rubover\nBar |  | photo: rf-diamond-setting-bar\nFrench Cut |  | photo: rf-diamond-setting-french-cut\nInvisible |  | photo: rf-diamond-setting-invisible\nOyster |  | photo: rf-diamond-setting-oyster\nTension |  | photo: rf-diamond-setting-tension"
           }
         },
         "dia_stone": {
@@ -288,8 +288,8 @@
             "heading": "Stones all the way round, or halfway?",
             "hint": "A half eternity ring is easier to resize and wears more comfortably; a full eternity ring sparkles from every angle.",
             "param": "eternity_style",
-            "columns": "2",
-            "options": "Full Eternity\nHalf Eternity"
+            "columns": "3",
+            "options": "Full Eternity |  | photo: rf-eternity-full\nHalf Eternity |  | photo: rf-eternity-half"
           }
         },
         "dia_metal": {
@@ -371,6 +371,3 @@
     "close"
   ]
 }
-
-
-

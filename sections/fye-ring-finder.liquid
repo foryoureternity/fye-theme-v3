@@ -276,9 +276,26 @@
                 assign ico = parts[2] | strip
                 assign note = parts[3] | strip
               -%}
-              <button type="button" class="rfd__opt rfd__opt--fork rfd__opt--{{ b.icon_style | default: 'line' }}"
+              {%- liquid
+                comment
+                  Fork options have their own loop, so they need the same
+                  `photo:` handling the steps got — without it the prefix
+                  goes through file_url and 404s, exactly as the pinned
+                  handles did on 04/09 (Ed, 05/09/2026).
+                endcomment
+                assign fork_pic = null
+                if ico contains 'photo:'
+                  assign fbase = ico | remove_first: 'photo:' | strip
+                  assign fork_pic = fbase | append: treat | append: '.png' | file_url
+                endif
+              -%}
+              <button type="button" class="rfd__opt rfd__opt--fork rfd__opt--{{ b.icon_style | default: 'line' }}{% if fork_pic != blank %} rfd__opt--photo{% endif %}"
                       data-fye-finder-route="{{ val | escape }}">
-                {%- if ico contains 'swatch:' -%}
+                {%- if fork_pic != blank -%}
+                  <span class="rfd__oshot">
+                    <img src="{{ fork_pic }}" alt="" aria-hidden="true" width="800" height="800" loading="lazy" data-fye-finder-icon>
+                  </span>
+                {%- elsif ico contains 'swatch:' -%}
                   {%- assign metal = ico | remove_first: 'swatch:' | strip -%}
                   {%- render 'fye-metal-swatch', metal: metal, class: 'rfd__oicon' -%}
                 {%- elsif ico != blank -%}

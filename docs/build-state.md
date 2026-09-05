@@ -2958,3 +2958,41 @@ icon branch, or `file_url` receives the prefix and 404s — exactly how
 2. **Only the blurred set was delivered** — 35 files in `images-blurred/`.
    The grey-mask contact sheet is there but not its images, so the switch has
    nothing to flip to until they are supplied and uploaded.
+
+
+---
+
+## Addition — 05/09/2026: photographs wired on
+
+All 70 files verified uploaded and READY (35 blurred, 35 grey-mask, every
+expected name present — some were uploaded twice and Shopify kept the second
+copy under a hashed name; harmless, the theme references the clean names).
+
+**Closed a gap in x003:** fork options render through their own loop, which
+x003 did not touch. A fork line of `photo: rf-fork-eng-setting` would have
+gone through `file_url` with the prefix attached and 404d — the identical
+fault to the five pinned handles on 04/09. Same fix, same shape.
+
+**The option lines are derived, not hand-typed:** filename = the step's prefix
+(from its filter param) + the slugged label. A line is only rewritten when the
+file EXISTS, so a label that does not match a filename is reported at run time
+rather than silently producing a broken tile.
+
+**Engagement style's five `product:` pins are replaced.** They were stock
+photographs standing in until real artwork existed; the supplied set is masked
+deliberately, per option, and should win. They also cost `all_products`
+lookups against Shopify's cap of 20.
+
+Steps deliberately left words-only: band width, weight, carat, centre size
+(a photograph cannot show 2mm against 2.5mm), and cuts, metals and stone types
+(the outline diagrams and drawn swatches are clearer).
+
+### To judge
+
+Walk each journey with **Treatment = Softened**, then again with **Grey mask**.
+The expectation on the evidence so far is that softened wins on the background
+alone: the grey set greys the WHOLE frame, and the eleven images that needed no
+mask (nine profiles, two coverage) stayed white, so a step can show grey-backed
+and white-backed tiles side by side on a white ground. If the grey reads better
+on the ring itself, it is worth one more pass keeping the background pure white
+and greying only the jewellery.

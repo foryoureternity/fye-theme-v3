@@ -20,7 +20,40 @@
 {%- paginate collection.products by 12 -%}
 <div data-count="{{ paginate.items }}" data-shown="{{ collection.products.size }}">
   {%- for product in collection.products -%}
-    <a class="rfd-card" href="{{ product.url }}">
+    {%- assign attrs = '' -%}
+    {%- comment -%}
+      One data attribute per metal this product holds a shot for, so the
+      finder can show the chosen metal without another request. The
+      template cannot read the answer (no query params in Liquid), so it
+      offers what it has and lets the JS choose.
+
+      Matched on ALT TEXT ("...in Yellow Gold"), which is what a human
+      wrote and what gets corrected when wrong; the YG-/RG-/WG- filename
+      prefix is the fallback for shots whose alt was never written.
+    {%- endcomment -%}
+    {%- assign shots = '' -%}
+    {%- for img in product.images -%}
+      {%- assign a = img.alt | default: '' | downcase -%}
+      {%- assign fn = img.src | split: '?' | first | split: '/' | last | downcase -%}
+      {%- assign hit = '' -%}
+      {%- if a contains 'yellow gold' or fn contains 'yg-' -%}
+        {%- assign hit = 'yellow-gold' -%}
+      {%- elsif a contains 'rose gold' or fn contains 'rg-' -%}
+        {%- assign hit = 'rose-gold' -%}
+      {%- elsif a contains 'white gold' or fn contains 'wg-' -%}
+        {%- assign hit = 'white-gold' -%}
+      {%- elsif a contains 'palladium' -%}
+        {%- assign hit = 'palladium' -%}
+      {%- elsif a contains 'platinum' -%}
+        {%- assign hit = 'platinum' -%}
+      {%- endif -%}
+      {%- comment -%} First shot of a metal wins; later duplicates are ignored. {%- endcomment -%}
+      {%- if hit != '' and shots contains hit == false -%}
+        {%- assign shots = shots | append: hit | append: ' ' -%}
+        {%- capture attrs -%}{{ attrs }} data-img-{{ hit }}="{{ img | image_url: width: 480 }}"{%- endcapture -%}
+      {%- endif -%}
+    {%- endfor -%}
+    <a class="rfd-card" href="{{ product.url }}"{{ attrs }}>
       <span class="rfd-card__media">
         {%- if product.featured_image -%}
           <img src="{{ product.featured_image | image_url: width: 480 }}"

@@ -418,10 +418,10 @@
         "fork_dia",
         "eng_style",
         "eng_shoulder",
+        "eng_metal",
         "eng_stone",
         "eng_cut",
         "eng_size",
-        "eng_metal",
         "eng_carat",
         "plain_profile",
         "plain_width",
@@ -429,10 +429,10 @@
         "plain_metal",
         "plain_carat",
         "dia_setting",
+        "dia_metal",
         "dia_stone",
         "dia_shape",
         "dia_coverage",
-        "dia_metal",
         "dia_carat"
       ],
       "settings": {
@@ -478,4 +478,3 @@
     "close"
   ]
 }
-

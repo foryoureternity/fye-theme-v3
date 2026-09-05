@@ -297,10 +297,10 @@
                   </span>
                 {%- elsif ico contains 'gem:' -%}
                   {%- assign gemname = ico | remove_first: 'gem:' | strip -%}
-                  {%- render 'fye-gem-swatch', gem: gemname, class: 'rfd__oicon' -%}
+                  {%- render 'fye-swatch-block', kind: 'gem', name: gemname, class: 'rfd__oicon' -%}
                 {%- elsif ico contains 'swatch:' -%}
                   {%- assign metal = ico | remove_first: 'swatch:' | strip -%}
-                  {%- render 'fye-metal-swatch', metal: metal, class: 'rfd__oicon rfd__oswatch' -%}
+                  {%- render 'fye-swatch-block', kind: 'metal', name: metal, class: 'rfd__oicon' -%}
                 {%- elsif ico != blank -%}
                   <img class="rfd__oicon" src="{{ ico | file_url }}" alt="" aria-hidden="true" loading="lazy" data-fye-finder-icon>
                 {%- endif -%}
@@ -422,10 +422,10 @@
                   </span>
                 {%- elsif ico contains 'gem:' -%}
                   {%- assign gemname = ico | remove_first: 'gem:' | strip -%}
-                  {%- render 'fye-gem-swatch', gem: gemname, class: 'rfd__oicon' -%}
+                  {%- render 'fye-swatch-block', kind: 'gem', name: gemname, class: 'rfd__oicon' -%}
                 {%- elsif ico contains 'swatch:' -%}
                   {%- assign metal = ico | remove_first: 'swatch:' | strip -%}
-                  {%- render 'fye-metal-swatch', metal: metal, class: 'rfd__oicon rfd__oswatch' -%}
+                  {%- render 'fye-swatch-block', kind: 'metal', name: metal, class: 'rfd__oicon' -%}
                 {%- elsif ico != blank and is_product == false and is_file_photo == false -%}
                   <img class="rfd__oicon" src="{{ ico | file_url }}" alt="" aria-hidden="true" loading="lazy" data-fye-finder-icon>
                 {%- endif -%}
@@ -908,6 +908,42 @@
   padding: var(--s3);
 }
 .fye .rfd__opt--line:hover .fic--gem { opacity: 1; }
+
+
+/* --- swatch tiles, redesigned — 05/09/2026 --------------------------------
+   Ed: the swatches did not match the site. They were a small object scaled up,
+   so the tile showed three nested rectangles. Now the colour is the tile's
+   media area, edge to edge, exactly like a ring photograph: one hairline, one
+   field, label beneath.
+
+   `inset 0 0 0 1px` in place of a border keeps the field's own edge on the
+   pixel the tile's border occupies, so pale metals still read as an object
+   without a second line appearing. */
+.fye .rfd__opt:has(.fic--block) {
+  justify-content: flex-start;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.fye .rfd__opt .fic--block {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  box-shadow: inset 0 0 0 1px rgba(35, 61, 71, 0.06);
+}
+/* Whatever the label element is called, it needs the padding the tile gave up.
+   Selecting "the non-svg children" rather than a class keeps this working if
+   the option loop is restructured again. */
+.fye .rfd__opt:has(.fic--block) > *:not(svg) {
+  padding: var(--s3) var(--s3) 0;
+}
+.fye .rfd__opt:has(.fic--block) > *:not(svg):last-child {
+  padding-bottom: var(--s3);
+}
+/* Colour art never fades on hover — a dimmed metal reads as a different metal.
+   The tile still answers, through its border and label. */
+.fye .rfd__opt--line:hover .fic--block { opacity: 1; }
 
 {% endstylesheet %}
 

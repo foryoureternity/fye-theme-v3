@@ -3013,6 +3013,40 @@
   // its own heading. Both strings are in the HTML already, so this is a
   // visibility change rather than a rewrite — the copy stays editable in the
   // theme editor.
+  var METALS = ["Platinum", "Yellow Gold", "White Gold", "Rose Gold", "Palladium"];
+
+  // The metal the shopper chose, or null. Read off the answers rather than a
+  // step id: the metal step filters on plain rings (metal_colour) and is a
+  // preference elsewhere (fye_metal), so the param name is not dependable.
+  function chosenMetal() {
+    var hit = null;
+    chosen().forEach(function (a) {
+      METALS.forEach(function (m) {
+        if ((a.label || '').toLowerCase() === m.toLowerCase()) hit = m;
+      });
+    });
+    return hit;
+  }
+
+  // Ed, 05/09/2026: show the ring in the metal they asked for where a shot
+  // exists. The fragment emits one data-img-<metal> per shot it holds; a ring
+  // photographed only in platinum simply has none, and keeps its own image.
+  function preferMetal(wrap) {
+    var metal = chosenMetal();
+    if (!metal) return;
+    var slug = metal.toLowerCase().replace(/\s+/g, '-');
+    Array.prototype.slice.call(wrap.querySelectorAll('[data-img-' + slug + ']')).forEach(function (card) {
+      var img = card.querySelector('img');
+      if (!img) return;
+      var src = card.getAttribute('data-img-' + slug);
+      if (!src || img.getAttribute('src') === src) return;
+      img.setAttribute('src', src);
+      // The alt described the platinum shot; say which metal is shown now.
+      var t = card.querySelector('.rfd-card__title');
+      img.setAttribute('alt', (t ? t.textContent.trim() : '') + ' in ' + metal);
+    });
+  }
+
   function setEmpty(on) {
     var p = panel('results');
     if (!p) return;
@@ -3072,6 +3106,7 @@
         var shown = wrap ? parseInt(wrap.getAttribute('data-shown'), 10) : 0;
         grid.textContent = '';
         if (wrap) grid.appendChild(wrap);
+        if (wrap) preferMetal(wrap);
         grid.removeAttribute('aria-busy');
         count.textContent = say(n, shown);
         link.hidden = n === 0;

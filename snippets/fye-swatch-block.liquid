@@ -1,0 +1,143 @@
+{%- comment -%}
+  fye-swatch-block — a metal or gemstone as a full-bleed colour field.
+
+  Added 05/09/2026. Ed, with a screenshot of the metal step: "the swatches
+  don't really match the look and feel of the site."
+
+  WHY A NEW SNIPPET RATHER THAN CHANGING THE OLD ONE. fye-metal-swatch is the
+  product page's swatch and Ed asked for those specifically ("can you use the
+  same swatches used in the product pages"). Editing it to fix the finder would
+  change every product page as a side effect. So the product swatch is left
+  exactly as it is and the finder gets its own treatment.
+
+  WHAT WAS WRONG. The product swatch is a small object sat next to text: a
+  25x25 field with its own hairline, inside a 30x30 box. That is correct at
+  20px beside a variant name. Blown up to fill a 200px tile it became three
+  nested rectangles — the tile's border, the swatch's margin, the swatch's own
+  stroke — which reads as a framed picture of a colour rather than a material.
+
+  WHAT THIS IS. One colour field, edge to edge, no stroke and no margin: the
+  tile's own hairline is the only frame, so a metal tile is built exactly like
+  the ring photograph tiles beside it. The sheen is a single soft diagonal —
+  enough to say polished metal, not a highlight drawn on top.
+
+  USAGE
+    {%- render 'fye-swatch-block', kind: 'metal', name: 'Rose Gold' -%}
+    {%- render 'fye-swatch-block', kind: 'gem',   name: 'Sapphire'  -%}
+
+  Self-contained: each render carries its own gradient with a unique id, so
+  there is no page-level defs block to remember and no id collision when the
+  same metal appears on two steps.
+
+  An unknown name falls back to the ivory ground, so a typo in the theme editor
+  shows as a blank stone rather than a missing tile.
+{%- endcomment -%}
+{%- liquid
+  assign key = name | strip | downcase | replace: ' ', '-'
+
+  if kind == 'gem'
+    comment
+      Two finder names are the mega-menu's stone with a qualifier. Blue topaz
+      IS topaz; pink tourmaline IS tourmaline. One colour per stone.
+    endcomment
+    if key == 'blue-topaz'
+      assign key = 'topaz'
+    elsif key == 'pink-tourmaline'
+      assign key = 'tourmaline'
+    endif
+  endif
+
+  case key
+    comment -- metals: light and dark stop, taken off the product swatch --
+    when 'platinum'
+      assign a = '#E7E9EA'
+      assign b = '#C4C9CB'
+    when 'yellow-gold'
+      assign a = '#EDD584'
+      assign b = '#C7A340'
+    when 'white-gold'
+      assign a = '#F4F5F5'
+      assign b = '#D8DBDB'
+    when 'rose-gold'
+      assign a = '#F2CDB8'
+      assign b = '#D69E82'
+    when 'palladium'
+      assign a = '#E5E7E8'
+      assign b = '#BFC4C6'
+
+    comment -- stones: the mega-menu's own hex, lifted a shade for the light stop --
+    when 'ruby'
+      assign a = '#B32438'
+      assign b = '#8A1526'
+    when 'sapphire'
+      assign a = '#244C86'
+      assign b = '#16305A'
+    when 'emerald'
+      assign a = '#228557'
+      assign b = '#155839'
+    when 'tanzanite'
+      assign a = '#6C5FBE'
+      assign b = '#4C4192'
+    when 'aquamarine'
+      assign a = '#A6D7E7'
+      assign b = '#79B6CD'
+    when 'morganite'
+      assign a = '#F1C2BB'
+      assign b = '#DC9E95'
+    when 'peridot'
+      assign a = '#AFCC4E'
+      assign b = '#87A52E'
+    when 'amethyst'
+      assign a = '#9E60BC'
+      assign b = '#753F93'
+    when 'garnet'
+      assign a = '#93222E'
+      assign b = '#69141D'
+    when 'citrine'
+      assign a = '#EFB13A'
+      assign b = '#CE8C1C'
+    when 'topaz'
+      assign a = '#55A5DA'
+      assign b = '#2E7EB6'
+    when 'opal'
+      assign a = '#F5F1E9'
+      assign b = '#E2DACB'
+    when 'tourmaline'
+      assign a = '#E27AAD'
+      assign b = '#C74E88'
+    when 'diamond'
+      assign a = '#FBFCFC'
+      assign b = '#E4E9EA'
+    when 'fire-opal'
+      assign a = '#E8873A'
+      assign b = '#C4600F'
+    when 'black-diamond'
+      assign a = '#3A3D40'
+      assign b = '#1E2022'
+    else
+      assign a = '#F5F1E9'
+      assign b = '#E2DACB'
+  endcase
+
+  assign uid = 'sw-' | append: kind | append: '-' | append: key
+-%}
+<svg class="fic fic--block fic--block-{{ key }} {{ class }}" viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-label="{{ name | escape }}" focusable="false">
+  <defs>
+    <linearGradient id="{{ uid }}" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="{{ a }}"></stop>
+      <stop offset="1" stop-color="{{ b }}"></stop>
+    </linearGradient>
+    {%- comment -%}
+      The sheen: one soft diagonal band, white at 22% falling to nothing. On a
+      pale metal it is nearly invisible, which is correct — platinum is not
+      shiny at this size, it is simply light grey.
+    {%- endcomment -%}
+    <linearGradient id="{{ uid }}-s" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0.28" stop-color="#FFFFFF" stop-opacity="0"></stop>
+      <stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0.22"></stop>
+      <stop offset="0.72" stop-color="#FFFFFF" stop-opacity="0"></stop>
+    </linearGradient>
+  </defs>
+  <rect width="100" height="100" fill="url(#{{ uid }})"></rect>
+  <rect width="100" height="100" fill="url(#{{ uid }}-s)"></rect>
+</svg>

@@ -2918,22 +2918,46 @@
     })[0] || null;
   }
 
+  // Ordered clusters. The metal leads every route (Ed, 05/09/2026) and the
+  // carat stays pinned behind it — it is conditional on a gold, so asked later
+  // it refers back to a choice made several questions ago and makes the step
+  // total change at the end of the journey instead of immediately.
+  var CLUSTERS = {
+    metal:   ['fye_metal', 'metal_colour', 'fye_carat', 'carat'],
+    setting: ['ring_style', 'shoulder_style', 'setting', 'eternity_style'],
+    stone:   ['stone_type', 'stone_shape', 'centre_weight']
+  };
+
+  // Which cluster a step belongs to, and its position within it. A param that
+  // is in no cluster sorts last in block order — a question in an odd place is
+  // a far better failure than a question that vanishes.
+  function clusterRank(param, order) {
+    for (var c = 0; c < order.length; c++) {
+      var i = CLUSTERS[order[c]].indexOf(param);
+      if (i > -1) return c * 100 + i;
+    }
+    return 9999;
+  }
+
   function mySteps() {
     var mine = all('[data-fye-finder-step]').filter(function (s) {
       return (s.getAttribute('data-fye-finder-journey') || '').trim() === state.journey;
     });
     if (!state.route) return mine;
-    // The chosen group first, the other second, ungrouped last. A stable
-    // sort, so within a group the blocks keep their editor order — that is
-    // how one set of blocks serves both routes with nothing to keep in sync.
-    function rank(s) {
-      var g = (s.getAttribute('data-fye-finder-group') || '').trim();
-      if (!g) return 2;
-      return g === state.route ? 0 : 1;
-    }
+
+    // The route decides which of setting/stone is asked first; the metal is
+    // ahead of both either way.
+    var order = state.route === 'stone'
+      ? ['metal', 'stone', 'setting']
+      : ['metal', 'setting', 'stone'];
+
+    // Stable: equal ranks keep their block order, so an unclustered step and a
+    // reordered one never swap unpredictably between renders.
     return mine
-      .map(function (s, i) { return { s: s, i: i }; })
-      .sort(function (a, b) { return (rank(a.s) - rank(b.s)) || (a.i - b.i); })
+      .map(function (s, i) {
+        return { s: s, i: i, r: clusterRank((s.getAttribute('data-fye-finder-param') || '').trim(), order) };
+      })
+      .sort(function (a, b) { return a.r - b.r || a.i - b.i; })
       .map(function (x) { return x.s; });
   }
 

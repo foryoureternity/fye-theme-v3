@@ -145,13 +145,13 @@
             "hint": "",
             "group": "stone",
             "param": "stone_type",
-            "options": "Diamond\nSapphire\nRuby\nEmerald\nAquamarine\nMorganite\nTanzanite\nOpal\nAmethyst\nBlue Topaz\nCitrine\nGarnet\nPeridot\nPink Tourmaline\nFire Opal",
+            "options": "Diamond |  | gem: Diamond\nSapphire |  | gem: Sapphire\nRuby |  | gem: Ruby\nEmerald |  | gem: Emerald\nAquamarine |  | gem: Aquamarine\nMorganite |  | gem: Morganite\nTanzanite |  | gem: Tanzanite\nOpal |  | gem: Opal\nAmethyst |  | gem: Amethyst\nBlue Topaz |  | gem: Blue Topaz\nCitrine |  | gem: Citrine\nGarnet |  | gem: Garnet\nPeridot |  | gem: Peridot\nPink Tourmaline |  | gem: Pink Tourmaline\nFire Opal |  | gem: Fire Opal",
             "photo_mode": "",
             "when_param": "",
             "when_value": "",
             "columns": "4",
             "icon_size": "56",
-            "icon_style": "line"
+            "icon_style": "colour"
           }
         },
         "eng_cut": {
@@ -332,13 +332,13 @@
             "hint": "",
             "group": "stone",
             "param": "stone_type",
-            "options": "Diamond\nSapphire\nRuby\nEmerald\nBlack Diamond",
+            "options": "Diamond |  | gem: Diamond\nSapphire |  | gem: Sapphire\nRuby |  | gem: Ruby\nEmerald |  | gem: Emerald\nBlack Diamond |  | gem: Black Diamond",
             "photo_mode": "",
             "when_param": "",
             "when_value": "",
-            "columns": "3",
+            "columns": "4",
             "icon_size": "56",
-            "icon_style": "line"
+            "icon_style": "colour"
           }
         },
         "dia_shape": {
@@ -478,8 +478,3 @@
     "close"
   ]
 }
-
-
-
-
-

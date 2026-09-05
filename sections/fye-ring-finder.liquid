@@ -295,6 +295,9 @@
                   <span class="rfd__oshot">
                     <img src="{{ fork_pic }}" alt="" aria-hidden="true" width="800" height="800" loading="lazy" data-fye-finder-icon>
                   </span>
+                {%- elsif ico contains 'gem:' -%}
+                  {%- assign gemname = ico | remove_first: 'gem:' | strip -%}
+                  {%- render 'fye-gem-swatch', gem: gemname, class: 'rfd__oicon' -%}
                 {%- elsif ico contains 'swatch:' -%}
                   {%- assign metal = ico | remove_first: 'swatch:' | strip -%}
                   {%- render 'fye-metal-swatch', metal: metal, class: 'rfd__oicon rfd__oswatch' -%}
@@ -417,6 +420,9 @@
                       <img src="{{ pick.featured_image | image_url: width: 240 }}" alt="" aria-hidden="true" width="240" height="240" loading="lazy" data-fye-finder-pinned>
                     {%- endif -%}
                   </span>
+                {%- elsif ico contains 'gem:' -%}
+                  {%- assign gemname = ico | remove_first: 'gem:' | strip -%}
+                  {%- render 'fye-gem-swatch', gem: gemname, class: 'rfd__oicon' -%}
                 {%- elsif ico contains 'swatch:' -%}
                   {%- assign metal = ico | remove_first: 'swatch:' | strip -%}
                   {%- render 'fye-metal-swatch', metal: metal, class: 'rfd__oicon rfd__oswatch' -%}
@@ -883,6 +889,25 @@
 }
 /* Colour art never fades on hover: a dimmed metal reads as a different metal. */
 .fye .rfd__opt--line:hover .fic--metal { opacity: 1; }
+
+
+/* --- gemstone swatches — 05/09/2026 ---------------------------------------
+   Ed: "use the existing colour icons for the gems to do the diamond or gem
+   picker screen." Same treatment as the metal swatches, at the same 0,3,0
+   specificity and for the same reason (see the note above) — a stone question
+   and a metal question are the same kind of question and must not look like
+   two different controls. */
+.fye .rfd__opt .fic--gem {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+}
+.fye .rfd__opt:has(.fic--gem) {
+  justify-content: flex-start;
+  gap: var(--s3);
+  padding: var(--s3);
+}
+.fye .rfd__opt--line:hover .fic--gem { opacity: 1; }
 
 {% endstylesheet %}
 

@@ -2903,16 +2903,78 @@
   if (root.querySelector('[data-fye-finder-posted]')) return;
 
   var NS = 'filter.p.m.filters.';
-  var state = { journey: null, url: '', label: '', answers: [] };
+  var state = { journey: null, route: null, url: '', label: '', answers: [] };
   var req = 0;
 
   function all(sel) { return Array.prototype.slice.call(root.querySelectorAll(sel)); }
   function one(sel) { return root.querySelector(sel); }
   function panel(name) { return one('[data-fye-finder-panel="' + name + '"]'); }
-  function steps() {
-    return all('[data-fye-finder-step]').filter(function (s) {
+  // The fork block for a journey, if it has one. A journey without one runs
+  // its steps in plain block order.
+  function forkFor(key) {
+    if (!key) return null;
+    return all('[data-fye-finder-fork]').filter(function (fk) {
+      return (fk.getAttribute('data-fye-finder-journey') || '').trim() === key;
+    })[0] || null;
+  }
+
+  function mySteps() {
+    var mine = all('[data-fye-finder-step]').filter(function (s) {
       return (s.getAttribute('data-fye-finder-journey') || '').trim() === state.journey;
     });
+    if (!state.route) return mine;
+    // The chosen group first, the other second, ungrouped last. A stable
+    // sort, so within a group the blocks keep their editor order — that is
+    // how one set of blocks serves both routes with nothing to keep in sync.
+    function rank(s) {
+      var g = (s.getAttribute('data-fye-finder-group') || '').trim();
+      if (!g) return 2;
+      return g === state.route ? 0 : 1;
+    }
+    return mine
+      .map(function (s, i) { return { s: s, i: i }; })
+      .sort(function (a, b) { return (rank(a.s) - rank(b.s)) || (a.i - b.i); })
+      .map(function (x) { return x.s; });
+  }
+
+  // A step may declare that it is only worth asking given an earlier answer:
+  // the carat of a gold is a question, the carat of a platinum ring is not.
+  // Returns null when the step is unconditional, true/false otherwise.
+  function condition(s) {
+    var p = (s.getAttribute('data-fye-finder-when-param') || '').trim();
+    var v = (s.getAttribute('data-fye-finder-when-value') || '').trim();
+    if (!p || !v) return null;
+    var asked = false;
+    var met = false;
+    state.answers.forEach(function (a) {
+      if (a.param !== p) return;
+      asked = true;
+      // CONTAINS, not equals: one value ("Gold") covers yellow, white and
+      // rose without listing them, and 'I'm flexible' carries no value and
+      // therefore never satisfies a condition.
+      if ((a.value || '').toLowerCase().indexOf(v.toLowerCase()) > -1) met = true;
+    });
+    return asked ? met : false;
+  }
+
+  // The steps actually to be asked, in order.
+  function steps() {
+    return mySteps().filter(function (s) { return condition(s) !== false; });
+  }
+
+  // The progress total. A conditional step whose dependency has not been
+  // answered yet is counted optimistically, so the total can only fall as a
+  // journey proceeds, never rise. A total that grows mid-journey reads as a
+  // moving target; finishing one step early does not.
+  function total() {
+    var answered = {};
+    state.answers.forEach(function (a) { if (a.param) answered[a.param] = true; });
+    return mySteps().filter(function (s) {
+      var p = (s.getAttribute('data-fye-finder-when-param') || '').trim();
+      if (!p) return true;
+      if (!answered[p]) return true;            // not yet decided — assume asked
+      return condition(s) === true;
+    }).length;
   }
 
   // One answer -> zero or more "key=value" strings, already encoded.
@@ -3026,7 +3088,7 @@
   }
 
   function render() {
-    all('[data-fye-finder-panel], [data-fye-finder-step]').forEach(function (p) { p.hidden = true; });
+    all('[data-fye-finder-panel], [data-fye-finder-step], [data-fye-finder-fork]').forEach(function (p) { p.hidden = true; });
     var prog = one('[data-fye-finder-progress]');
     var back = one('[data-fye-finder-back]');
     var bar = one('[data-fye-finder-bar]');
@@ -3039,6 +3101,12 @@
       show = panel('journeys');
       prog.hidden = true;
       back.hidden = true;
+    } else if (forkFor(state.journey) && !state.route) {
+      // A ROUTE, not a step: it adds no question and applies no filter, so
+      // it carries no progress line and is not counted in the step total.
+      show = forkFor(state.journey);
+      prog.hidden = true;
+      back.hidden = false;
     } else {
       var list = steps();
       var i = state.answers.length;
@@ -3047,9 +3115,28 @@
         console.warn('[fye finder] no step blocks match journey key "' + state.journey +
           '". Check each step block\'s Journey key against the journey block\'s Key.');
       }
+      // A condition can only be evaluated once its dependency has been
+      // answered, so it must point at an EARLIER step. Warn rather than
+      // silently skipping a step that can never be reached.
+      if (i === 0) {
+        var order = mySteps();
+        order.forEach(function (s, n) {
+          var p = (s.getAttribute('data-fye-finder-when-param') || '').trim();
+          if (!p) return;
+          var at = -1;
+          order.forEach(function (o, m) {
+            if ((o.getAttribute('data-fye-finder-param') || '').trim() === p) at = m;
+          });
+          if (at === -1) {
+            console.warn('[fye finder] a step depends on "' + p + '", which no step in this journey asks. It will never be shown.');
+          } else if (at > n) {
+            console.warn('[fye finder] a step depends on "' + p + '", which is asked LATER in this journey. Move it earlier or the step will never be shown.');
+          }
+        });
+      }
       if (i < list.length) {
         show = list[i];
-        prog.textContent = state.label + ' \u00b7 Step ' + (i + 1) + ' of ' + list.length;
+        prog.textContent = state.label + ' \u00b7 Step ' + (i + 1) + ' of ' + Math.max(total(), list.length);
         prog.hidden = false;
       } else {
         show = panel('results');
@@ -3073,11 +3160,21 @@
     if (j) {
       e.preventDefault();
       state = {
+        route: null,
         journey: (j.getAttribute('data-fye-finder-journey') || '').trim(),
         url: j.getAttribute('data-fye-finder-collection') || j.getAttribute('href'),
         label: j.getAttribute('data-fye-finder-label') || j.textContent.trim(),
         answers: []
       };
+      render();
+      return;
+    }
+
+    // Fork buttons carry a route rather than an option, so they never reach
+    // the answer handler below and are never recorded as an answer.
+    var r = t.closest('[data-fye-finder-route]');
+    if (r) {
+      state.route = (r.getAttribute('data-fye-finder-route') || '').trim();
       render();
       return;
     }
@@ -3097,14 +3194,18 @@
     }
 
     if (t.closest('[data-fye-finder-back]')) {
+      // Three levels: an answer, then the route, then the journey. Someone
+      // who picks "start with the stone" and thinks better of it should get
+      // back to that choice, not be thrown out to the journey tiles.
       if (state.answers.length) state.answers.pop();
+      else if (state.route) state.route = null;
       else state.journey = null;
       render();
       return;
     }
 
     if (t.closest('[data-fye-finder-restart]')) {
-      state = { journey: null, url: '', label: '', answers: [] };
+      state = { journey: null, route: null, url: '', label: '', answers: [] };
       render();
     }
   });

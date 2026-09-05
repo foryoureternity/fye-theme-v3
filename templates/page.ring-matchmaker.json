@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "heading": {
@@ -26,6 +35,7 @@
         "sub"
       ],
       "settings": {
+        "ground": "ivory",
         "use_specify_image": false,
         "overlay": 44,
         "content_align": "t4s-text-center",
@@ -42,9 +52,9 @@
             "key": "eng",
             "label": "Engagement rings",
             "description": "Solitaires, halos, trilogies and more, with the centre stone chosen by you.",
-            "icon": "",
             "product": "eng6162-smt",
-            "inset": "12%"
+            "inset": "12%",
+            "icon": ""
           }
         },
         "j_plain": {
@@ -54,9 +64,9 @@
             "key": "plain",
             "label": "Plain wedding rings",
             "description": "Every profile, width and weight, in platinum and 9ct to 18ct gold.",
-            "icon": "",
             "product": "9ct-yellow-gold-slight-court-wedding-ring-3mm-signature",
-            "inset": "0"
+            "inset": "0",
+            "icon": ""
           }
         },
         "j_dia": {
@@ -66,9 +76,9 @@
             "key": "dia",
             "label": "Diamond and eternity rings",
             "description": "Diamond or gemstone set, half or full eternity, in every setting style.",
-            "icon": "",
             "product": "fet8068",
-            "inset": "12%"
+            "inset": "12%",
+            "icon": ""
           }
         },
         "fork_eng": {
@@ -77,9 +87,9 @@
             "journey": "eng",
             "heading": "Where would you like to start?",
             "hint": "Both routes ask the same questions — this only changes the order.",
+            "options": "Start with the setting | setting | photo: rf-fork-eng-setting | The style of the ring: solitaire, halo, trilogy\nStart with the stone | stone | photo: rf-fork-eng-stone | The centre gem: its type, cut and size",
             "icon_size": "88",
-            "icon_style": "line",
-            "options": "Start with the setting | setting | photo: rf-fork-eng-setting | The style of the ring: solitaire, halo, trilogy\nStart with the stone | stone | photo: rf-fork-eng-stone | The centre gem: its type, cut and size"
+            "icon_style": "line"
           }
         },
         "fork_dia": {
@@ -88,236 +98,315 @@
             "journey": "dia",
             "heading": "Where would you like to start?",
             "hint": "Both routes ask the same questions — this only changes the order.",
+            "options": "Start with the setting | setting | photo: rf-fork-diamond-setting | How the stones are held: channel, pavé, claw\nStart with the stone | stone | photo: rf-fork-diamond-stone | The stones themselves: their type and shape",
             "icon_size": "88",
-            "icon_style": "line",
-            "options": "Start with the setting | setting | photo: rf-fork-diamond-setting | How the stones are held: channel, pavé, claw\nStart with the stone | stone | photo: rf-fork-diamond-stone | The stones themselves: their type and shape"
+            "icon_style": "line"
           }
         },
         "eng_style": {
           "type": "step",
           "settings": {
             "journey": "eng",
-            "group": "setting",
             "heading": "Which style speaks to you?",
+            "hint": "",
+            "group": "setting",
             "param": "ring_style",
+            "options": "Solitaire | Solitaire | photo: rf-eng-style-solitaire\nHalo | Halo | photo: rf-eng-style-halo\nHidden Halo |  | photo: rf-eng-style-hidden-halo\nDouble Halo | Double Halo | photo: rf-eng-style-double-halo\nTrilogy | Trilogy | photo: rf-eng-style-trilogy\nMultistone |  | photo: rf-eng-style-multistone\nToi et Moi | Toi et Moi | photo: rf-eng-style-toi-et-moi",
+            "photo_mode": "stock",
+            "when_param": "",
+            "when_value": "",
             "columns": "4",
             "icon_size": "56",
-            "icon_style": "line",
-            "options": "Solitaire | Solitaire | photo: rf-eng-style-solitaire\nHalo | Halo | photo: rf-eng-style-halo\nHidden Halo |  | photo: rf-eng-style-hidden-halo\nDouble Halo | Double Halo | photo: rf-eng-style-double-halo\nTrilogy | Trilogy | photo: rf-eng-style-trilogy\nMultistone |  | photo: rf-eng-style-multistone\nToi et Moi | Toi et Moi | photo: rf-eng-style-toi-et-moi",
-            "photo_mode": "stock"
+            "icon_style": "line"
           }
         },
         "eng_shoulder": {
           "type": "step",
           "settings": {
             "journey": "eng",
-            "group": "setting",
             "heading": "And the shoulders?",
             "hint": "Pavé, channel and accent settings all sit under diamond set.",
+            "group": "setting",
             "param": "shoulder_style",
-            "columns": "3",
             "options": "Plain | Plain | photo: rf-eng-shoulder-plain\nDiamond set | Diamond set | photo: rf-eng-shoulder-diamond-set\nSplit | Split | photo: rf-eng-shoulder-split",
-            "photo_mode": "stock"
+            "photo_mode": "stock",
+            "when_param": "",
+            "when_value": "",
+            "columns": "3",
+            "icon_size": "56",
+            "icon_style": "line"
           }
         },
         "eng_stone": {
           "type": "step",
           "settings": {
             "journey": "eng",
-            "group": "stone",
             "heading": "Diamond, or a coloured stone?",
+            "hint": "",
+            "group": "stone",
             "param": "stone_type",
+            "options": "Diamond\nSapphire\nRuby\nEmerald\nAquamarine\nMorganite\nTanzanite\nOpal\nAmethyst\nBlue Topaz\nCitrine\nGarnet\nPeridot\nPink Tourmaline\nFire Opal",
+            "photo_mode": "",
+            "when_param": "",
+            "when_value": "",
             "columns": "4",
-            "options": "Diamond\nSapphire\nRuby\nEmerald\nAquamarine\nMorganite\nTanzanite\nOpal\nAmethyst\nBlue Topaz\nCitrine\nGarnet\nPeridot\nPink Tourmaline\nFire Opal"
+            "icon_size": "56",
+            "icon_style": "line"
           }
         },
         "eng_cut": {
           "type": "step",
           "settings": {
             "journey": "eng",
-            "group": "stone",
             "heading": "Which cut for the centre stone?",
+            "hint": "",
+            "group": "stone",
             "param": "stone_shape",
+            "options": "Round Brilliant | Round Brilliant | icon101.svg\nOval | Oval | icon102.svg\nCushion | Cushion | icon103.svg\nPear | Pear | icon104.svg\nEmerald | Emerald Cut | icon105.svg\nRadiant | Radiant | icon106.svg\nPrincess | Princess | icon107.svg\nMarquise | Marquise | icon108.svg\nAsscher | Asscher | icon109.svg\nHeart | Heart | icon110.svg",
+            "photo_mode": "",
+            "when_param": "",
+            "when_value": "",
             "columns": "5",
             "icon_size": "56",
-            "icon_style": "line",
-            "options": "Round Brilliant | Round Brilliant | icon101.svg\nOval | Oval | icon102.svg\nCushion | Cushion | icon103.svg\nPear | Pear | icon104.svg\nEmerald | Emerald Cut | icon105.svg\nRadiant | Radiant | icon106.svg\nPrincess | Princess | icon107.svg\nMarquise | Marquise | icon108.svg\nAsscher | Asscher | icon109.svg\nHeart | Heart | icon110.svg"
+            "icon_style": "line"
           }
         },
         "eng_size": {
           "type": "step",
           "settings": {
             "journey": "eng",
-            "group": "stone",
             "heading": "How large a centre stone?",
             "hint": "Carat is weight rather than width, but it is the simplest guide to size.",
+            "group": "stone",
             "param": "centre_weight",
+            "options": "Under 0.30ct | ..0.29\n0.30 to 0.59ct | 0.30..0.59\n0.60 to 0.99ct | 0.60..0.99\n1.00 to 1.49ct | 1.00..1.49\n1.50 to 1.99ct | 1.50..1.99\n2.00ct and above | 2.00..",
+            "photo_mode": "",
+            "when_param": "",
+            "when_value": "",
             "columns": "3",
-            "options": "Under 0.30ct | ..0.29\n0.30 to 0.59ct | 0.30..0.59\n0.60 to 0.99ct | 0.60..0.99\n1.00 to 1.49ct | 1.00..1.49\n1.50 to 1.99ct | 1.50..1.99\n2.00ct and above | 2.00.."
+            "icon_size": "56",
+            "icon_style": "line"
           }
         },
         "eng_metal": {
           "type": "step",
           "settings": {
             "journey": "eng",
-            "group": "",
             "heading": "Which metal?",
             "hint": "Every engagement ring is made in your choice of metal, so this will not narrow the list, but it helps us help you.",
+            "group": "",
             "param": "fye_metal",
+            "options": "Platinum | Platinum | swatch: Platinum\nPalladium | Palladium | swatch: Palladium\nYellow Gold | Yellow Gold | swatch: Yellow Gold\nWhite Gold | White Gold | swatch: White Gold\nRose Gold | Rose Gold | swatch: Rose Gold",
+            "photo_mode": "",
+            "when_param": "",
+            "when_value": "",
             "columns": "5",
             "icon_size": "56",
-            "icon_style": "colour",
-            "options": "Platinum | Platinum | swatch: Platinum\nPalladium | Palladium | swatch: Palladium\nYellow Gold | Yellow Gold | swatch: Yellow Gold\nWhite Gold | White Gold | swatch: White Gold\nRose Gold | Rose Gold | swatch: Rose Gold"
+            "icon_style": "colour"
           }
         },
         "eng_carat": {
           "type": "step",
           "settings": {
             "journey": "eng",
-            "group": "",
             "heading": "Which carat of gold?",
             "hint": "9ct is the hardest wearing and the kindest on price; 18ct has the richest colour.",
+            "group": "",
             "param": "fye_carat",
+            "options": "9ct\n14ct\n18ct",
+            "photo_mode": "",
             "when_param": "fye_metal",
             "when_value": "Gold",
             "columns": "3",
-            "options": "9ct\n14ct\n18ct"
+            "icon_size": "56",
+            "icon_style": "line"
           }
         },
         "plain_profile": {
           "type": "step",
           "settings": {
             "journey": "plain",
-            "group": "",
             "heading": "Which profile?",
             "hint": "The shape of the band in cross-section, which is what you feel on the finger.",
+            "group": "",
             "param": "profile",
+            "options": "Traditional Court |  | photo: rf-plain-profile-traditional-court\nSlight Court |  | photo: rf-plain-profile-slight-court\nD Shape |  | photo: rf-plain-profile-d-shape\nFlat |  | photo: rf-plain-profile-flat\nFlat Court |  | photo: rf-plain-profile-flat-court\nEdged Court |  | photo: rf-plain-profile-edged-court\nEdged Flat Court |  | photo: rf-plain-profile-edged-flat-court\nEngagement Match |  | photo: rf-plain-profile-engagement-match\nConcave |  | photo: rf-plain-profile-concave",
+            "photo_mode": "",
+            "when_param": "",
+            "when_value": "",
             "columns": "4",
-            "options": "Traditional Court |  | photo: rf-plain-profile-traditional-court\nSlight Court |  | photo: rf-plain-profile-slight-court\nD Shape |  | photo: rf-plain-profile-d-shape\nFlat |  | photo: rf-plain-profile-flat\nFlat Court |  | photo: rf-plain-profile-flat-court\nEdged Court |  | photo: rf-plain-profile-edged-court\nEdged Flat Court |  | photo: rf-plain-profile-edged-flat-court\nEngagement Match |  | photo: rf-plain-profile-engagement-match\nConcave |  | photo: rf-plain-profile-concave"
+            "icon_size": "56",
+            "icon_style": "line"
           }
         },
         "plain_width": {
           "type": "step",
           "settings": {
             "journey": "plain",
-            "group": "",
             "heading": "How wide a band?",
+            "hint": "",
+            "group": "",
             "param": "band_width",
+            "options": "1.5mm\n2mm\n2.5mm\n3mm\n4mm\n5mm\n6mm\n7mm\n8mm\n9mm\n10mm",
+            "photo_mode": "",
+            "when_param": "",
+            "when_value": "",
             "columns": "4",
-            "options": "1.5mm\n2mm\n2.5mm\n3mm\n4mm\n5mm\n6mm\n7mm\n8mm\n9mm\n10mm"
+            "icon_size": "56",
+            "icon_style": "line"
           }
         },
         "plain_weight": {
           "type": "step",
           "settings": {
             "journey": "plain",
-            "group": "",
             "heading": "How substantial should it feel?",
+            "hint": "",
+            "group": "",
             "param": "weight",
+            "options": "Light | Light Weight\nMedium | Medium Weight\nSignature | Signature Weight\nHeavy | Heavy Weight",
+            "photo_mode": "",
+            "when_param": "",
+            "when_value": "",
             "columns": "4",
-            "options": "Light | Light Weight\nMedium | Medium Weight\nSignature | Signature Weight\nHeavy | Heavy Weight"
+            "icon_size": "56",
+            "icon_style": "line"
           }
         },
         "plain_metal": {
           "type": "step",
           "settings": {
             "journey": "plain",
-            "group": "",
             "heading": "Which metal?",
+            "hint": "",
+            "group": "",
             "param": "metal_colour",
+            "options": "Platinum | Platinum | swatch: Platinum\nPalladium | Palladium | swatch: Palladium\nYellow Gold | Yellow Gold | swatch: Yellow Gold\nWhite Gold | White Gold | swatch: White Gold\nRose Gold | Rose Gold | swatch: Rose Gold",
+            "photo_mode": "",
+            "when_param": "",
+            "when_value": "",
             "columns": "5",
             "icon_size": "56",
-            "icon_style": "colour",
-            "options": "Platinum | Platinum | swatch: Platinum\nPalladium | Palladium | swatch: Palladium\nYellow Gold | Yellow Gold | swatch: Yellow Gold\nWhite Gold | White Gold | swatch: White Gold\nRose Gold | Rose Gold | swatch: Rose Gold"
+            "icon_style": "colour"
           }
         },
         "plain_carat": {
           "type": "step",
           "settings": {
             "journey": "plain",
-            "group": "",
             "heading": "Which carat of gold?",
             "hint": "9ct is the hardest wearing and the kindest on price; 18ct has the richest colour.",
+            "group": "",
             "param": "carat",
+            "options": "9ct\n14ct\n18ct",
+            "photo_mode": "",
             "when_param": "metal_colour",
             "when_value": "Gold",
             "columns": "3",
-            "options": "9ct\n14ct\n18ct"
+            "icon_size": "56",
+            "icon_style": "line"
           }
         },
         "dia_setting": {
           "type": "step",
           "settings": {
             "journey": "dia",
-            "group": "setting",
             "heading": "How should the stones be set?",
+            "hint": "",
+            "group": "setting",
             "param": "setting",
+            "options": "Channel |  | photo: rf-diamond-setting-channel\nGrain |  | photo: rf-diamond-setting-grain\nPavé |  | photo: rf-diamond-setting-pave\nClaw |  | photo: rf-diamond-setting-claw\nRubover |  | photo: rf-diamond-setting-rubover\nBar |  | photo: rf-diamond-setting-bar\nFrench Cut |  | photo: rf-diamond-setting-french-cut\nInvisible |  | photo: rf-diamond-setting-invisible\nOyster |  | photo: rf-diamond-setting-oyster\nTension |  | photo: rf-diamond-setting-tension",
+            "photo_mode": "",
+            "when_param": "",
+            "when_value": "",
             "columns": "4",
-            "options": "Channel |  | photo: rf-diamond-setting-channel\nGrain |  | photo: rf-diamond-setting-grain\nPavé |  | photo: rf-diamond-setting-pave\nClaw |  | photo: rf-diamond-setting-claw\nRubover |  | photo: rf-diamond-setting-rubover\nBar |  | photo: rf-diamond-setting-bar\nFrench Cut |  | photo: rf-diamond-setting-french-cut\nInvisible |  | photo: rf-diamond-setting-invisible\nOyster |  | photo: rf-diamond-setting-oyster\nTension |  | photo: rf-diamond-setting-tension"
+            "icon_size": "56",
+            "icon_style": "line"
           }
         },
         "dia_stone": {
           "type": "step",
           "settings": {
             "journey": "dia",
-            "group": "stone",
             "heading": "Which stone?",
+            "hint": "",
+            "group": "stone",
             "param": "stone_type",
+            "options": "Diamond\nSapphire\nRuby\nEmerald\nBlack Diamond",
+            "photo_mode": "",
+            "when_param": "",
+            "when_value": "",
             "columns": "3",
-            "options": "Diamond\nSapphire\nRuby\nEmerald\nBlack Diamond"
+            "icon_size": "56",
+            "icon_style": "line"
           }
         },
         "dia_shape": {
           "type": "step",
           "settings": {
             "journey": "dia",
-            "group": "stone",
             "heading": "Which shape of stone?",
+            "hint": "",
+            "group": "stone",
             "param": "stone_shape",
+            "options": "Round Brilliant | Round Brilliant | icon101.svg\nOval | Oval | icon102.svg\nPrincess | Princess | icon107.svg\nBaguette | Baguette | baguette.svg\nMarquise | Marquise | icon108.svg\nEmerald | Emerald Cut | icon105.svg\nAsscher | Asscher | icon109.svg\nHeart | Heart | icon110.svg",
+            "photo_mode": "",
+            "when_param": "",
+            "when_value": "",
             "columns": "4",
             "icon_size": "56",
-            "icon_style": "line",
-            "options": "Round Brilliant | Round Brilliant | icon101.svg\nOval | Oval | icon102.svg\nPrincess | Princess | icon107.svg\nBaguette | Baguette | baguette.svg\nMarquise | Marquise | icon108.svg\nEmerald | Emerald Cut | icon105.svg\nAsscher | Asscher | icon109.svg\nHeart | Heart | icon110.svg"
+            "icon_style": "line"
           }
         },
         "dia_coverage": {
           "type": "step",
           "settings": {
             "journey": "dia",
-            "group": "",
             "heading": "Stones all the way round, or halfway?",
             "hint": "A half eternity ring is easier to resize and wears more comfortably; a full eternity ring sparkles from every angle.",
+            "group": "",
             "param": "eternity_style",
+            "options": "Full Eternity |  | photo: rf-eternity-full\nHalf Eternity |  | photo: rf-eternity-half",
+            "photo_mode": "",
+            "when_param": "",
+            "when_value": "",
             "columns": "3",
-            "options": "Full Eternity |  | photo: rf-eternity-full\nHalf Eternity |  | photo: rf-eternity-half"
+            "icon_size": "56",
+            "icon_style": "line"
           }
         },
         "dia_metal": {
           "type": "step",
           "settings": {
             "journey": "dia",
-            "group": "",
             "heading": "Which metal?",
             "hint": "Every ring is made in your choice of metal, so this will not narrow the list, but it helps us help you.",
+            "group": "",
             "param": "fye_metal",
+            "options": "Platinum | Platinum | swatch: Platinum\nPalladium | Palladium | swatch: Palladium\nYellow Gold | Yellow Gold | swatch: Yellow Gold\nWhite Gold | White Gold | swatch: White Gold\nRose Gold | Rose Gold | swatch: Rose Gold",
+            "photo_mode": "",
+            "when_param": "",
+            "when_value": "",
             "columns": "5",
             "icon_size": "56",
-            "icon_style": "colour",
-            "options": "Platinum | Platinum | swatch: Platinum\nPalladium | Palladium | swatch: Palladium\nYellow Gold | Yellow Gold | swatch: Yellow Gold\nWhite Gold | White Gold | swatch: White Gold\nRose Gold | Rose Gold | swatch: Rose Gold"
+            "icon_style": "colour"
           }
         },
         "dia_carat": {
           "type": "step",
           "settings": {
             "journey": "dia",
-            "group": "",
             "heading": "Which carat of gold?",
             "hint": "9ct is the hardest wearing and the kindest on price; 18ct has the richest colour.",
+            "group": "",
             "param": "fye_carat",
+            "options": "9ct\n14ct\n18ct",
+            "photo_mode": "",
             "when_param": "fye_metal",
             "when_value": "Gold",
             "columns": "3",
-            "options": "9ct\n14ct\n18ct"
+            "icon_size": "56",
+            "icon_style": "line"
           }
         }
       },
@@ -347,6 +436,9 @@
         "dia_carat"
       ],
       "settings": {
+        "eyebrow": "",
+        "heading": "",
+        "intro": "",
         "journeys_q": "What are you looking for?",
         "flexible_label": "I'm flexible",
         "results_heading": "Here are the rings that match",
@@ -355,14 +447,29 @@
         "custom_intro": "Tell us what you had in mind and we'll come back to you with custom options.",
         "custom_placeholder": "Anything you would like us to know — a stone, a budget, a date.",
         "custom_label": "Send my details",
+        "empty_heading": "We'll design your ring for you",
+        "empty_intro": "Nothing in stock matches every answer you gave — which simply means yours is a ring we make rather than one we hold. Leave your details and we'll come back to you with designs and a price.",
+        "custom_thanks_heading": "Thank you — that is with us",
         "custom_thanks": "Thank you. We'll be in touch shortly with options made for you.",
-        "band": "ivory",
-        "top_space": "flush"
+        "restart_label": "Start the finder again",
+        "photo_treatment": "-grey-mask",
+        "top_space": "flush",
+        "band": "ivory"
       }
     },
     "close": {
       "type": "fye-consultation",
-      "settings": {}
+      "settings": {
+        "band": "teal",
+        "eyebrow": "Personal Guidance",
+        "heading": "Still Unsure Where to Start?",
+        "lead": "Book a free consultation — in person, by phone or video.",
+        "btn_label": "Book a Free Consultation",
+        "btn_link": "",
+        "btn2_label": "",
+        "btn2_link": "",
+        "btn2_new_tab": false
+      }
     }
   },
   "order": [
@@ -371,4 +478,3 @@
     "close"
   ]
 }
-

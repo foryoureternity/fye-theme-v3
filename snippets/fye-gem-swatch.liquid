@@ -1,0 +1,98 @@
+{%- comment -%}
+  fye-gem-swatch — one gemstone swatch, drawn not photographed.
+
+  Added 05/09/2026. Ed: "use the existing colour icons for the gems to do the
+  diamond or gem picker screen."
+
+  The colours ALREADY existed, but only as inline hex inside
+  snippets/mm-gemstones.liquid — the mega-menu's stone grid. Copying them into
+  the finder would have created a second set to keep in step, and the first
+  time someone corrected a colour the two would disagree. So they live here
+  once, and mm-gemstones should be pointed at this snippet next time it is
+  touched (not today: that snippet is matched to live and is not what Ed asked
+  about).
+
+  USAGE — the finder already emits the shared gradients for the metal swatch,
+  and this reuses them, so there is nothing extra to render once per page:
+
+    {%- render 'fye-gem-swatch', gem: 'Sapphire', class: 'rfd__oicon' -%}
+
+  PARAMS
+    gem     'Sapphire', 'Blue Topaz', 'Diamond', … Case and spacing are
+            forgiving. An unknown name falls back to the pale ground with a
+            hairline rather than rendering nothing, so a typo in the theme
+            editor shows as a blank stone instead of a missing tile.
+    class   the consumer's own class, so sizing stays with the consumer's CSS —
+            same contract as fye-metal-swatch.
+
+  CONSTRUCTION is deliberately identical to fye-metal-swatch: same 30x30 box,
+  same 25x25 square, same diagonal sheen over the colour, same hairline. That
+  is the point — the stone question and the metal question are the same kind of
+  question, and they should not look like two different controls.
+
+  THREE COLOURS ARE NEW, and are mine rather than the menu's, because the
+  finder offers stones the mega-menu does not: Diamond, Fire Opal and Black
+  Diamond. Flagged so they can be corrected by someone who sells them:
+    diamond        near-colourless, carried by the sheen alone
+    fire-opal      warm orange, between citrine and ruby
+    black-diamond  near-black with a cool cast, not flat black
+{%- endcomment -%}
+{%- liquid
+  assign key = gem | strip | downcase | replace: ' ', '-'
+  comment
+    Two of the finder's names are the menu's stone with a qualifier. Blue topaz
+    IS the menu's topaz; pink tourmaline IS its tourmaline. Mapping them keeps
+    one colour per stone.
+  endcomment
+  if key == 'blue-topaz'
+    assign key = 'topaz'
+  elsif key == 'pink-tourmaline'
+    assign key = 'tourmaline'
+  endif
+
+  case key
+    when 'ruby'
+      assign hex = '#9B1B2E'
+    when 'sapphire'
+      assign hex = '#1B3A6B'
+    when 'emerald'
+      assign hex = '#1B6B45'
+    when 'tanzanite'
+      assign hex = '#5B4FA8'
+    when 'aquamarine'
+      assign hex = '#8FC8DC'
+    when 'morganite'
+      assign hex = '#E8AFA8'
+    when 'peridot'
+      assign hex = '#9BB93B'
+    when 'amethyst'
+      assign hex = '#8B4FA8'
+    when 'garnet'
+      assign hex = '#7B1B25'
+    when 'citrine'
+      assign hex = '#E0A128'
+    when 'topaz'
+      assign hex = '#3E92CC'
+    when 'opal'
+      assign hex = '#EDE8DE'
+    when 'tourmaline'
+      assign hex = '#D9629B'
+    when 'diamond'
+      assign hex = '#F4F6F7'
+    when 'fire-opal'
+      assign hex = '#D9761F'
+    when 'black-diamond'
+      assign hex = '#2A2C2E'
+    else
+      assign hex = '#EDE8DE'
+  endcase
+-%}
+<svg class="fic fic--gem fic--gem-{{ key }} {{ class }}" viewBox="0 0 30 30" role="img" aria-label="{{ gem | escape }}">
+  <rect x="2.5" y="2.5" width="25" height="25" fill="{{ hex }}"></rect>
+  {%- comment -%}
+    The same sheen the metal swatches use, so a stone and a metal read as the
+    same object drawn twice. The finder renders the gradient defs already.
+  {%- endcomment -%}
+  <rect x="2.5" y="2.5" width="25" height="25" fill="url(#fic-sheen)"></rect>
+  <rect x="2.5" y="2.5" width="25" height="25" fill="none" stroke="var(--metal-edge)" stroke-width="1"></rect>
+</svg>

@@ -854,6 +854,36 @@
   .fye .rfd__fields { grid-template-columns: minmax(0, 1fr); }
   .fye .rfd__ractions { flex-direction: column; align-items: flex-start; gap: var(--s3); }
 }
+
+/* --- metal swatches fill the tile — 05/09/2026 (2) -------------------------
+   Ed, twice: the swatches are still little squares.
+
+   The two previous attempts wrote `.fye .rfd__oswatch` — specificity 0,2,0,
+   the same as the `.fye .rfd__oicon { width: var(--isize, 56px) }` they had to
+   beat. Equal specificity means position decides, and a section stylesheet is
+   not guaranteed to sit after the rule it competes with. They lost for that
+   reason, both times.
+
+   `.fye .rfd__opt .fic--metal` is 0,3,0: it beats the icon rule and anything
+   in fye-core on .fic wherever the files land. The selector also says what it
+   means — a metal swatch inside an option tile — rather than relying on a
+   class added for the purpose. */
+.fye .rfd__opt .fic--metal {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+}
+/* The tile then squares up on its own: it was landscape only because a 56px
+   icon in a five-column grid leaves it short and wide. Top-aligned padding so
+   the label sits under the swatch, matching a photographed tile. */
+.fye .rfd__opt:has(.fic--metal) {
+  justify-content: flex-start;
+  gap: var(--s3);
+  padding: var(--s3);
+}
+/* Colour art never fades on hover: a dimmed metal reads as a different metal. */
+.fye .rfd__opt--line:hover .fic--metal { opacity: 1; }
+
 {% endstylesheet %}
 
 {% schema %}

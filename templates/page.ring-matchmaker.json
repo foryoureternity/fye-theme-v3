@@ -332,13 +332,14 @@
             "hint": "",
             "group": "stone",
             "param": "stone_type",
-            "options": "Diamond |  | gem: Diamond\nSapphire |  | gem: Sapphire\nRuby |  | gem: Ruby\nEmerald |  | gem: Emerald\nBlack Diamond |  | gem: Black Diamond",
+            "options": "Diamonds only | Diamond | gem: Diamond | No coloured stone\nSapphire |  | gem: Sapphire\nRuby |  | gem: Ruby\nEmerald |  | gem: Emerald\nBlack Diamond |  | gem: Black Diamond",
             "photo_mode": "",
             "when_param": "",
             "when_value": "",
             "columns": "4",
             "icon_size": "56",
-            "icon_style": "colour"
+            "icon_style": "colour",
+            "question": "Which stone alongside the diamonds?"
           }
         },
         "dia_shape": {
@@ -478,6 +479,3 @@
     "close"
   ]
 }
-
-
-

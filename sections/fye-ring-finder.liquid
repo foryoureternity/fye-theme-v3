@@ -298,13 +298,18 @@
                 {%- elsif ico contains 'gem:' -%}
                   {%- assign gemname = ico | remove_first: 'gem:' | strip -%}
                   {%- render 'fye-gem-icon', name: gemname, class: 'rfd__oicon' -%}
-                {%- elsif stepparam == 'profile' -%}
+                {%- elsif ico contains 'profile:' -%}
                   {%- comment -%}
                     Profiles are photographed rather than drawn: the image shows
                     the cut band AND its cross-section, and the section is what
-                    actually answers the question. See fye-profile-icon.
+                    answers the question. Same icon-column prefix as photo:,
+                    gem: and swatch: — the name after the colon is optional and
+                    defaults to the option's own label, which is the profile
+                    name. See snippets/fye-profile-icon.
                   {%- endcomment -%}
-                  {%- render 'fye-profile-icon', name: optlabel, class: 'rfd__oicon' -%}
+                  {%- assign pname = ico | remove_first: 'profile:' | strip -%}
+                  {%- if pname == blank -%}{%- assign pname = lbl -%}{%- endif -%}
+                  {%- render 'fye-profile-icon', name: pname, class: 'rfd__oicon' -%}
                 {%- elsif ico contains 'swatch:' -%}
                   {%- assign metal = ico | remove_first: 'swatch:' | strip -%}
                   {%- render 'fye-swatch-block', kind: 'metal', name: metal, class: 'rfd__oicon' -%}
@@ -430,13 +435,18 @@
                 {%- elsif ico contains 'gem:' -%}
                   {%- assign gemname = ico | remove_first: 'gem:' | strip -%}
                   {%- render 'fye-gem-icon', name: gemname, class: 'rfd__oicon' -%}
-                {%- elsif stepparam == 'profile' -%}
+                {%- elsif ico contains 'profile:' -%}
                   {%- comment -%}
                     Profiles are photographed rather than drawn: the image shows
                     the cut band AND its cross-section, and the section is what
-                    actually answers the question. See fye-profile-icon.
+                    answers the question. Same icon-column prefix as photo:,
+                    gem: and swatch: — the name after the colon is optional and
+                    defaults to the option's own label, which is the profile
+                    name. See snippets/fye-profile-icon.
                   {%- endcomment -%}
-                  {%- render 'fye-profile-icon', name: optlabel, class: 'rfd__oicon' -%}
+                  {%- assign pname = ico | remove_first: 'profile:' | strip -%}
+                  {%- if pname == blank -%}{%- assign pname = lbl -%}{%- endif -%}
+                  {%- render 'fye-profile-icon', name: pname, class: 'rfd__oicon' -%}
                 {%- elsif ico contains 'swatch:' -%}
                   {%- assign metal = ico | remove_first: 'swatch:' | strip -%}
                   {%- render 'fye-swatch-block', kind: 'metal', name: metal, class: 'rfd__oicon' -%}

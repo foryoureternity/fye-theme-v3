@@ -230,7 +230,7 @@
             "hint": "The shape of the band in cross-section, which is what you feel on the finger.",
             "group": "",
             "param": "profile",
-            "options": "Traditional Court |  | photo: rf-plain-profile-traditional-court\nSlight Court |  | photo: rf-plain-profile-slight-court\nD Shape |  | photo: rf-plain-profile-d-shape\nFlat |  | photo: rf-plain-profile-flat\nFlat Court |  | photo: rf-plain-profile-flat-court\nEdged Court |  | photo: rf-plain-profile-edged-court\nEdged Flat Court |  | photo: rf-plain-profile-edged-flat-court\nEngagement Match |  | photo: rf-plain-profile-engagement-match\nConcave |  | photo: rf-plain-profile-concave",
+            "options": "Traditional Court | Traditional Court | profile:\nSlight Court | Slight Court | profile:\nD Shape | D Shape | profile:\nFlat | Flat | profile:\nFlat Court | Flat Court | profile:\nEdged Court | Edged Court | profile:\nEdged Flat Court | Edged Flat Court | profile:\nEngagement Match | Engagement Match | profile:\nConcave | Concave | profile:",
             "photo_mode": "",
             "when_param": "",
             "when_value": "",
@@ -478,13 +478,3 @@
     "close"
   ]
 }
-
-
-
-
-
-
-
-
-
-

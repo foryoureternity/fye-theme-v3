@@ -298,6 +298,13 @@
                 {%- elsif ico contains 'gem:' -%}
                   {%- assign gemname = ico | remove_first: 'gem:' | strip -%}
                   {%- render 'fye-gem-icon', name: gemname, class: 'rfd__oicon' -%}
+                {%- elsif stepparam == 'profile' -%}
+                  {%- comment -%}
+                    Profiles are photographed rather than drawn: the image shows
+                    the cut band AND its cross-section, and the section is what
+                    actually answers the question. See fye-profile-icon.
+                  {%- endcomment -%}
+                  {%- render 'fye-profile-icon', name: optlabel, class: 'rfd__oicon' -%}
                 {%- elsif ico contains 'swatch:' -%}
                   {%- assign metal = ico | remove_first: 'swatch:' | strip -%}
                   {%- render 'fye-swatch-block', kind: 'metal', name: metal, class: 'rfd__oicon' -%}
@@ -423,6 +430,13 @@
                 {%- elsif ico contains 'gem:' -%}
                   {%- assign gemname = ico | remove_first: 'gem:' | strip -%}
                   {%- render 'fye-gem-icon', name: gemname, class: 'rfd__oicon' -%}
+                {%- elsif stepparam == 'profile' -%}
+                  {%- comment -%}
+                    Profiles are photographed rather than drawn: the image shows
+                    the cut band AND its cross-section, and the section is what
+                    actually answers the question. See fye-profile-icon.
+                  {%- endcomment -%}
+                  {%- render 'fye-profile-icon', name: optlabel, class: 'rfd__oicon' -%}
                 {%- elsif ico contains 'swatch:' -%}
                   {%- assign metal = ico | remove_first: 'swatch:' | strip -%}
                   {%- render 'fye-swatch-block', kind: 'metal', name: metal, class: 'rfd__oicon' -%}
@@ -981,6 +995,35 @@
 /* Colour art never fades on hover — a dimmed ruby reads as a garnet. The tile
    still answers through its border and its label. */
 .fye .rfd__opt--line:hover .fic--gem { opacity: 1; }
+
+
+/* --- photographed profile tiles — 05/09/2026 ------------------------------
+   Nine WebPs in assets/, cut from one strip at native scale through a shared
+   vertical window so every ring is the same size and on the same line.
+
+   Same construction as the gemstone tile, not the metal swatch's full bleed:
+   these are photographs carrying their own white ground and their own air, and
+   at the tile's edge the ring's shadow collides with the hairline. */
+.fye .rfd__opt:has(.fic--profile) {
+  justify-content: flex-start;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+  background: var(--white);
+}
+.fye .rfd__opt .fic--profile {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+}
+.fye .rfd__opt:has(.fic--profile) > *:not(img) {
+  padding: var(--s3);
+}
+/* Photographs do not fade on hover — a dimmed gold band reads as a different
+   metal. The tile answers through its border and label. */
+.fye .rfd__opt--line:hover .fic--profile { opacity: 1; }
 
 {% endstylesheet %}
 

@@ -1,0 +1,55 @@
+{%- comment -%}
+  fye-profile-icon — a plain band's profile, photographed.
+
+  Added 05/09/2026. For the matchmaker's profile step on the plain wedding ring
+  journey.
+
+  WHY A PHOTOGRAPH HERE AND A DRAWING FOR STONES. A stone's identity is its
+  material, which a photograph of a ring cannot isolate — so stones are drawn
+  (fye-gem-icon). A profile's identity is its geometry, and these images show
+  it twice over: the cut band, and its cross-section beside it. That second
+  element is the one that actually answers the question, and it is why a plain
+  product shot would not do.
+
+  Cut from one strip at native scale through a shared vertical window, so all
+  nine rings are the same size and sit on the same line. That matters more than
+  it sounds: a ring drawn 5% larger reads as a wider ring, which is a different
+  question.
+
+  USAGE
+    {%- render 'fye-profile-icon', name: 'Traditional Court', class: 'rfd__oicon' -%}
+
+  240x240 WebP, about 4KB each, white ground (not transparent — the tile ground
+  is white, and keying the white out of a photograph with white highlights
+  leaves halos on the metal).
+
+  An unrecognised name renders NOTHING rather than a broken image, so a typo in
+  the theme editor shows as a tile with its label alone.
+{%- endcomment -%}
+{%- liquid
+  assign key = name | strip | downcase | replace: ' ', '-'
+  comment
+    The store's filter value is "D Shape"; the photography was labelled
+    "D-shape". Both arrive here as d-shape, but Engagement Match is sometimes
+    typed with an ampersand, so normalise that too.
+  endcomment
+  assign key = key | replace: '&', 'and'
+
+  assign known = 'traditional-court,slight-court,d-shape,flat,flat-court,edged-court,edged-flat-court,engagement-match,concave' | split: ','
+  assign ok = false
+  for k in known
+    if k == key
+      assign ok = true
+      break
+    endif
+  endfor
+
+  assign file = 'fye-profile-' | append: key | append: '.webp'
+-%}
+{%- if ok -%}
+  <img class="fic fic--profile fic--profile-{{ key }} {{ class }}"
+       src="{{ file | asset_url }}"
+       alt=""
+       width="240" height="240"
+       loading="lazy" decoding="async">
+{%- endif -%}

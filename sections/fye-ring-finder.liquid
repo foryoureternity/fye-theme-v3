@@ -297,7 +297,7 @@
                   </span>
                 {%- elsif ico contains 'swatch:' -%}
                   {%- assign metal = ico | remove_first: 'swatch:' | strip -%}
-                  {%- render 'fye-metal-swatch', metal: metal, class: 'rfd__oicon' -%}
+                  {%- render 'fye-metal-swatch', metal: metal, class: 'rfd__oicon rfd__oswatch' -%}
                 {%- elsif ico != blank -%}
                   <img class="rfd__oicon" src="{{ ico | file_url }}" alt="" aria-hidden="true" loading="lazy" data-fye-finder-icon>
                 {%- endif -%}
@@ -383,7 +383,12 @@
                   assign want_shot = true
                 endif
               -%}
-              <button type="button" class="rfd__opt rfd__opt--{{ b.icon_style | default: 'line' }}{% if want_shot %} rfd__opt--photo{% endif %}"
+              {%- comment -%}
+                A filling swatch takes the photographed tile layout, so a
+                metal step and a style step read as the same question
+                (Ed, 05/09/2026).
+              {%- endcomment -%}
+              <button type="button" class="rfd__opt rfd__opt--{{ b.icon_style | default: 'line' }}{% if want_shot %} rfd__opt--photo{% elsif ico contains 'swatch:' %} rfd__opt--photo{% endif %}"
                       data-fye-finder-option
                       data-fye-finder-value="{{ val | escape }}"
                       data-fye-finder-label="{{ lbl | escape }}">
@@ -414,7 +419,7 @@
                   </span>
                 {%- elsif ico contains 'swatch:' -%}
                   {%- assign metal = ico | remove_first: 'swatch:' | strip -%}
-                  {%- render 'fye-metal-swatch', metal: metal, class: 'rfd__oicon' -%}
+                  {%- render 'fye-metal-swatch', metal: metal, class: 'rfd__oicon rfd__oswatch' -%}
                 {%- elsif ico != blank and is_product == false and is_file_photo == false -%}
                   <img class="rfd__oicon" src="{{ ico | file_url }}" alt="" aria-hidden="true" loading="lazy" data-fye-finder-icon>
                 {%- endif -%}
@@ -670,6 +675,15 @@
 .fye .rfd__opt--fork { gap: var(--s3); padding: var(--s5); }
 .fye .rfd__onote { font-size: var(--fs-fine); font-weight: var(--fw-light); line-height: 1.45; color: var(--ink-soft); }
 .fye .rfd__oicon { width: var(--isize, 56px); height: var(--isize, 56px); }
+/* A metal swatch fills the tile, like a photograph, rather than sitting in
+   it at icon size: beside 800px ring photographs a 56px square reads as a
+   different kind of control (Ed, 05/09/2026). The swatch keeps its own
+   hairline inside the tile's — Ed: "don't worry about the double border". */
+.fye .rfd__oswatch {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+}
 /* A photographed option. The slot holds its square whether or not an image
    arrives, so a late fill cannot reflow the grid — and an option with no
    stock stays level with its neighbours instead of standing shorter. */

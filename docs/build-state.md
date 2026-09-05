@@ -2996,3 +2996,27 @@ mask (nine profiles, two coverage) stayed white, so a step can show grey-backed
 and white-backed tiles side by side on a white ground. If the grey reads better
 on the ring itself, it is worth one more pass keeping the background pure white
 and greying only the jewellery.
+
+
+---
+
+## Revision — 05/09/2026: the metal step
+
+Ed: platinum, golds, palladium; no carat question after platinum or palladium;
+swatches should fill the tile.
+
+- **Order set by rule, not by retyping** — platinum first (house metal, most
+  asked), then the golds in whatever relative order they are typed in, then
+  palladium (rarest), then anything else. So the order survives future edits to
+  the textarea.
+- **The carat question already behaved**: it is conditional on the metal answer
+  containing "Gold", so platinum and palladium skip it. Nothing to change —
+  but the script now ASSERTS that condition and refuses to run if it has
+  drifted, because the failure mode is asking for the carat of a platinum ring.
+- **Swatches fill the tile.** They were sized by `--isize` (56px) like a line
+  icon; beside 800px ring photographs that reads as a different kind of
+  control. A filling swatch now takes the same square and the same top-aligned
+  tile padding as a photograph, so a metal step and a style step read as the
+  same question. Applied in both the step and fork loops.
+- The swatch keeps its own hairline inside the tile's, per Ed: "don't worry
+  about the double border".

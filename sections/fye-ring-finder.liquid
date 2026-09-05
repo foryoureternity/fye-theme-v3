@@ -59,6 +59,16 @@
     every journey but only the plain collection can filter on it (Ed,
     14/08 and 03/09/2026).
 
+  · SUPPLIED PHOTOGRAPHS. An option line of `photo: rf-eng-style-solitaire`
+    fills the tile from Content › Files, in the SAME square slot a stock
+    ring uses — a named file used to go through the icon path and render at
+    56px, so a supplied image appeared at half the size of the one it
+    replaced. The line names the ring only: the section appends the suffix
+    from `photo_treatment`, so ONE dropdown swaps every tile between the
+    softened and grey-mask sets and the two can be judged side by side in
+    place rather than from memory (Ed, 05/09/2026). Supplied photographs
+    are `pinned` — the live-from-stock fill never overwrites them.
+
   · OPTION PHOTOGRAPHS. A step set to `photo_mode: stock` shows a real ring on every
     tile: the hand-picked one if its line says `product: <handle>`, else the
     first ring in stock matching every answer so far plus that option,
@@ -107,6 +117,7 @@
   assign top = s.top_space | default: 'standard'
   assign journeys_all = section.blocks | where: 'type', 'journey'
   assign flex_label = s.flexible_label | default: "I'm flexible"
+  assign treat = s.photo_treatment | default: '-blurred'
   assign journeys = section.blocks | where: 'type', 'journey'
   assign forks = section.blocks | where: 'type', 'fork'
   assign steps = section.blocks | where: 'type', 'step'
@@ -314,6 +325,19 @@
               {%- liquid
                 assign pick = null
                 assign is_product = false
+                assign filepic = null
+                assign is_file_photo = false
+                comment
+                  A supplied photograph. The line names the RING, not the
+                  treatment — the section appends the suffix — so one
+                  dropdown swaps all of them and the two treatments can
+                  actually be compared in place (Ed, 05/09/2026).
+                endcomment
+                if ico contains 'photo:'
+                  assign is_file_photo = true
+                  assign fbase = ico | remove_first: 'photo:' | strip
+                  assign filepic = fbase | append: treat | append: '.png' | file_url
+                endif
                 if ico contains 'product:'
                   assign is_product = true
                   assign phandle = ico | remove_first: 'product:' | strip
@@ -338,7 +362,7 @@
                   assign want_fill = true
                 endif
                 assign want_shot = false
-                if want_fill or pick != blank
+                if want_fill or pick != blank or filepic != blank
                   assign want_shot = true
                 endif
               -%}
@@ -360,14 +384,21 @@
                       media into image_url is not reliable. This is the form the
                       journey tiles use.
                     {%- endcomment -%}
-                    {%- if pick and pick.featured_image -%}
+                    {%- if filepic != blank -%}
+                      {%- comment -%}
+                        Marked pinned: a supplied photograph is an explicit
+                        instruction and the live-from-stock fill must never
+                        overwrite it.
+                      {%- endcomment -%}
+                      <img src="{{ filepic }}" alt="" aria-hidden="true" width="800" height="800" loading="lazy" data-fye-finder-pinned data-fye-finder-icon>
+                    {%- elsif pick and pick.featured_image -%}
                       <img src="{{ pick.featured_image | image_url: width: 240 }}" alt="" aria-hidden="true" width="240" height="240" loading="lazy" data-fye-finder-pinned>
                     {%- endif -%}
                   </span>
                 {%- elsif ico contains 'swatch:' -%}
                   {%- assign metal = ico | remove_first: 'swatch:' | strip -%}
                   {%- render 'fye-metal-swatch', metal: metal, class: 'rfd__oicon' -%}
-                {%- elsif ico != blank and is_product == false -%}
+                {%- elsif ico != blank and is_product == false and is_file_photo == false -%}
                   <img class="rfd__oicon" src="{{ ico | file_url }}" alt="" aria-hidden="true" loading="lazy" data-fye-finder-icon>
                 {%- endif -%}
                 <span class="rfd__olabel">{{ lbl }}</span>
@@ -822,6 +853,15 @@
     { "type": "text", "id": "custom_thanks_heading", "label": "Thank you heading", "default": "Thank you — that is with us" },
     { "type": "textarea", "id": "custom_thanks", "label": "Thank you message", "default": "Thank you. We'll be in touch shortly with options made for you." },
     { "type": "text", "id": "restart_label", "label": "Restart link", "default": "Start the finder again" },
+    { "type": "header", "content": "Option photographs" },
+    { "type": "paragraph", "content": "Swaps every supplied photograph at once, so the two treatments can be compared in place. Option lines name the ring only — photo: rf-eng-style-solitaire — and this adds the suffix. Both sets must be uploaded to Content › Files." },
+    {
+      "type": "select", "id": "photo_treatment", "label": "Treatment", "default": "-blurred",
+      "options": [
+        { "value": "-blurred", "label": "Softened (…-blurred.png)" },
+        { "value": "-grey-mask", "label": "Grey mask (…-grey-mask.png)" }
+      ]
+    },
     { "type": "header", "content": "Background" },
     {
       "type": "select", "id": "top_space", "label": "Space above", "default": "standard",
@@ -907,7 +947,7 @@
           ]
         },
         { "type": "text", "id": "param", "label": "Filter metafield key", "info": "A key in the filters namespace, e.g. profile. Begin with fye_ to carry the answer to the enquiry without filtering." },
-        { "type": "textarea", "id": "options", "label": "Options", "info": "One per line: Label | value | icon | note. In the icon field: a file name, swatch: Rose Gold, or product: a-ring-handle to pin a photograph." },
+        { "type": "textarea", "id": "options", "label": "Options", "info": "One per line: Label | value | icon | note. In the icon field: photo: rf-name to fill the tile with a supplied photograph (no suffix, no extension), product: a-ring-handle to pin a real ring, swatch: Rose Gold to draw a metal swatch, or a plain file name for a small icon." },
         { "type": "header", "content": "Photographs" },
         {
           "type": "select", "id": "photo_mode", "label": "Option tiles", "default": "",

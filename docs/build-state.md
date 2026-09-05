@@ -2917,3 +2917,44 @@ but a rule that can never be met is a trap for the next person.
 
 **Method note:** the hierarchical tagging means other steps may condense the
 same way. Check with a query before folding labels together, not after.
+
+
+---
+
+## Addition — 05/09/2026: two photograph treatments, one switch
+
+Ed supplied the masked photographs in two treatments — softened and grey-mask —
+and wants to judge them **in situ** rather than on a contact sheet.
+
+So an option line names the **ring**, not the file:
+
+    Solitaire | Solitaire | photo: rf-eng-style-solitaire
+
+and a new section setting **Option photographs › Treatment** appends
+`-blurred` or `-grey-mask`. One dropdown swaps all 35 tiles. Any comparison
+needing 35 edits per switch gets done once and judged from memory, which is not
+a comparison.
+
+Section level, not per step, deliberately: the question is which treatment
+reads better, and mixing them across steps answers nothing.
+
+**Also fixes the sizing caveat** flagged when the image brief was written: a
+named file went through the ICON path and rendered at 56px, where a stock
+photograph fills the square. A `photo:` file now renders into the same
+`.rfd__oshot` slot at the same size — otherwise every supplied image would
+have appeared at half the size of the one it replaced. Marked `pinned`, so the
+live-from-stock fill never overwrites it. `photo:` is also excluded from the
+icon branch, or `file_url` receives the prefix and 404s — exactly how
+`product:` broke on 04/09.
+
+### Two things to check before judging
+
+1. **The grey-mask set greys the BACKGROUND too.** On the contact sheet the
+   whole tile is grey where a mask was applied, and white on the eleven images
+   that needed none (nine profiles, two coverage). Those sit in the same grids,
+   so a step could show grey-backed and white-backed tiles side by side on a
+   white ground — the same fault as the ivory journey tiles on 04/09. If the
+   grey treatment wins on the ring, it still needs the background left white.
+2. **Only the blurred set was delivered** — 35 files in `images-blurred/`.
+   The grey-mask contact sheet is there but not its images, so the switch has
+   nothing to flip to until they are supplied and uploaded.

@@ -2947,8 +2947,13 @@
 
     // The route decides which of setting/stone is asked first; the metal is
     // ahead of both either way.
+    // The routes differ in a way that follows from what each one says. Choosing
+    // "start with the stone" and then being asked about metal first breaks the
+    // promise the route just made, so on that route the metal goes last. On the
+    // setting route it leads, per Ed's earlier note — the alternative there was
+    // metal at step six. (Ed, 05/09/2026.)
     var order = state.route === 'stone'
-      ? ['metal', 'stone', 'setting']
+      ? ['stone', 'setting', 'metal']
       : ['metal', 'setting', 'stone'];
 
     // Stable: equal ranks keep their block order, so an unclustered step and a

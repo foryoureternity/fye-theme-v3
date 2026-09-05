@@ -123,18 +123,24 @@
 
   assign uid = 'sw-' | append: kind | append: '-' | append: key
 -%}
-<svg class="fic fic--block fic--block-{{ key }} {{ class }}" viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-label="{{ name | escape }}" focusable="false">
-  <defs>
-    <linearGradient id="{{ uid }}" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="{{ a }}"></stop>
-      <stop offset="1" stop-color="{{ b }}"></stop>
-    </linearGradient>
-    <linearGradient id="{{ uid }}-s" x1="0" y1="1" x2="1" y2="0">
-      <stop offset="0.28" stop-color="#FFFFFF" stop-opacity="0"></stop>
-      <stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0.22"></stop>
-      <stop offset="0.72" stop-color="#FFFFFF" stop-opacity="0"></stop>
-    </linearGradient>
-  </defs>
-  <rect width="100" height="100" fill="url(#{{ uid }})"></rect>
-  <rect width="100" height="100" fill="url(#{{ uid }}-s)"></rect>
-</svg>
+{%- comment -%}
+  fye-swatch-block, CSS gradients — 05/09/2026.
+
+  This was an inline SVG whose rectangle was filled with url(#id). The
+  metal step appears on all three journeys, the id was derived from the
+  metal name, so the same id existed three times per page; url(#id)
+  resolves to the first match, which sat inside a hidden step, and the
+  swatch painted with nothing at full opacity and full size.
+
+  A rectangle with a gradient needs no SVG and no id. Two background
+  layers: the sheen over the metal. Renders identically however many
+  times it appears, which is the whole point.
+
+  The sheen is one soft diagonal, white at 22% falling to nothing. On a
+  pale metal it is nearly invisible, which is correct — platinum is not
+  shiny at this size, it is light grey.
+{%- endcomment -%}
+<span class="fic fic--block fic--block-{{ key }} {{ class }}"
+      role="img"
+      aria-label="{{ name | escape }}"
+      style="background-image: linear-gradient(45deg, rgba(255,255,255,0) 28%, rgba(255,255,255,0.22) 50%, rgba(255,255,255,0) 72%), linear-gradient(135deg, {{ a }}, {{ b }});"></span>

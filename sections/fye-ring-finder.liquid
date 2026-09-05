@@ -959,7 +959,9 @@
 /* Whatever the label element is called, it needs the padding the tile gave up.
    Selecting "the non-svg children" rather than a class keeps this working if
    the option loop is restructured again. */
-.fye .rfd__opt:has(.fic--block) > *:not(svg) {
+/* The swatch is a <span> since 05/09/2026, so exclude it by class rather
+   than by tag — :not(svg) would now match the swatch itself. */
+.fye .rfd__opt:has(.fic--block) > *:not(.fic--block) {
   padding: var(--s3) var(--s3) 0;
 }
 .fye .rfd__opt:has(.fic--block) > *:not(svg):last-child {

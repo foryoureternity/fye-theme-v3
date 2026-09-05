@@ -228,7 +228,7 @@
             "columns": "5",
             "icon_size": "56",
             "icon_style": "colour",
-            "options": "Platinum | Platinum | swatch: Platinum\nPalladium | Palladium | swatch: Palladium\nYellow Gold | Yellow Gold | swatch: Yellow Gold\nWhite Gold | White Gold | swatch: White Gold\nRose Gold | Rose Gold | swatch: Rose Gold"
+            "options": "Platinum | Platinum | swatch: Platinum\nYellow Gold | Yellow Gold | swatch: Yellow Gold\nWhite Gold | White Gold | swatch: White Gold\nRose Gold | Rose Gold | swatch: Rose Gold\nPalladium | Palladium | swatch: Palladium"
           }
         },
         "plain_carat": {
@@ -371,4 +371,3 @@
     "close"
   ]
 }
-

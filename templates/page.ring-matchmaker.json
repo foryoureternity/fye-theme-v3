@@ -419,10 +419,10 @@
         "eng_style",
         "eng_shoulder",
         "eng_metal",
+        "eng_carat",
         "eng_stone",
         "eng_cut",
         "eng_size",
-        "eng_carat",
         "plain_profile",
         "plain_width",
         "plain_weight",
@@ -430,10 +430,10 @@
         "plain_carat",
         "dia_setting",
         "dia_metal",
+        "dia_carat",
         "dia_stone",
         "dia_shape",
-        "dia_coverage",
-        "dia_carat"
+        "dia_coverage"
       ],
       "settings": {
         "eyebrow": "",
@@ -478,6 +478,3 @@
     "close"
   ]
 }
-
-
-

@@ -5,16 +5,16 @@
   don't really match the look and feel of the site."
 
   WHY A NEW SNIPPET RATHER THAN CHANGING THE OLD ONE. fye-metal-swatch is the
-  product page's swatch and Ed asked for those specifically ("can you use the
+  product page's swatch, and Ed asked for those specifically ("can you use the
   same swatches used in the product pages"). Editing it to fix the finder would
   change every product page as a side effect. So the product swatch is left
   exactly as it is and the finder gets its own treatment.
 
   WHAT WAS WRONG. The product swatch is a small object sat next to text: a
-  25x25 field with its own hairline, inside a 30x30 box. That is correct at
-  20px beside a variant name. Blown up to fill a 200px tile it became three
-  nested rectangles — the tile's border, the swatch's margin, the swatch's own
-  stroke — which reads as a framed picture of a colour rather than a material.
+  25x25 field with its own hairline inside a 30x30 box. Correct at 20px beside
+  a variant name. Scaled to fill a 200px tile it became three nested rectangles
+  — the tile's border, the swatch's margin, the swatch's own stroke — which
+  reads as a framed picture of a colour rather than a material.
 
   WHAT THIS IS. One colour field, edge to edge, no stroke and no margin: the
   tile's own hairline is the only frame, so a metal tile is built exactly like
@@ -29,26 +29,30 @@
   there is no page-level defs block to remember and no id collision when the
   same metal appears on two steps.
 
-  An unknown name falls back to the ivory ground, so a typo in the theme editor
-  shows as a blank stone rather than a missing tile.
+  NOTE ON THE COLOUR TABLE. This was first written with explanatory comments
+  inside the case block, which threw "Case tag must be followed by exactly one
+  'when'" and blanked the section. Liquid allows ONLY when/else between case
+  and endcase. Hence the notes live here:
+
+    · metals — light and dark stop lifted off the product swatch, so a finder
+      swatch and a product swatch read as the same metal.
+    · stones — the mega-menu's own hex as the dark stop, a shade lighter for
+      the light stop.
+    · blue topaz IS topaz, pink tourmaline IS tourmaline: the finder's names
+      carry a qualifier the stone itself does not, so both map to one colour.
+    · an unknown name falls through to the ivory ground, so a typo in the theme
+      editor shows as a blank stone rather than a broken tile.
 {%- endcomment -%}
 {%- liquid
   assign key = name | strip | downcase | replace: ' ', '-'
-
-  if kind == 'gem'
-    comment
-      Two finder names are the mega-menu's stone with a qualifier. Blue topaz
-      IS topaz; pink tourmaline IS tourmaline. One colour per stone.
-    endcomment
-    if key == 'blue-topaz'
-      assign key = 'topaz'
-    elsif key == 'pink-tourmaline'
-      assign key = 'tourmaline'
-    endif
+  if kind == 'gem' and key == 'blue-topaz'
+    assign key = 'topaz'
+  endif
+  if kind == 'gem' and key == 'pink-tourmaline'
+    assign key = 'tourmaline'
   endif
 
   case key
-    comment -- metals: light and dark stop, taken off the product swatch --
     when 'platinum'
       assign a = '#E7E9EA'
       assign b = '#C4C9CB'
@@ -64,8 +68,6 @@
     when 'palladium'
       assign a = '#E5E7E8'
       assign b = '#BFC4C6'
-
-    comment -- stones: the mega-menu's own hex, lifted a shade for the light stop --
     when 'ruby'
       assign a = '#B32438'
       assign b = '#8A1526'
@@ -127,11 +129,6 @@
       <stop offset="0" stop-color="{{ a }}"></stop>
       <stop offset="1" stop-color="{{ b }}"></stop>
     </linearGradient>
-    {%- comment -%}
-      The sheen: one soft diagonal band, white at 22% falling to nothing. On a
-      pale metal it is nearly invisible, which is correct — platinum is not
-      shiny at this size, it is simply light grey.
-    {%- endcomment -%}
     <linearGradient id="{{ uid }}-s" x1="0" y1="1" x2="1" y2="0">
       <stop offset="0.28" stop-color="#FFFFFF" stop-opacity="0"></stop>
       <stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0.22"></stop>

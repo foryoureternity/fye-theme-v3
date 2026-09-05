@@ -48,9 +48,11 @@
         {%- assign hit = 'platinum' -%}
       {%- endif -%}
       {%- comment -%} First shot of a metal wins; later duplicates are ignored. {%- endcomment -%}
-      {%- if hit != '' and shots contains hit == false -%}
-        {%- assign shots = shots | append: hit | append: ' ' -%}
-        {%- capture attrs -%}{{ attrs }} data-img-{{ hit }}="{{ img | image_url: width: 480 }}"{%- endcapture -%}
+      {%- if hit != '' -%}
+        {%- unless shots contains hit -%}
+          {%- assign shots = shots | append: hit | append: ' ' -%}
+          {%- capture attrs -%}{{ attrs }} data-img-{{ hit }}="{{ img | image_url: width: 480 }}"{%- endcapture -%}
+        {%- endunless -%}
       {%- endif -%}
     {%- endfor -%}
     <a class="rfd-card" href="{{ product.url }}"{{ attrs }}>

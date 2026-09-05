@@ -1,0 +1,64 @@
+{%- comment -%}
+  fye-gem-icon — a gemstone as a drawn brilliant cut.
+
+  Added 05/09/2026. Replaces the flat colour field (fye-swatch-block, kind:
+  'gem') on the matchmaker's stone step.
+
+  WHY. Sixteen coloured rectangles side by side read as a paint chart. Every
+  other step in the matchmaker shows a photograph of a real ring; the stone step
+  cannot, because a photograph of a sapphire ring shows the setting as much as
+  the stone. So the stone gets drawn instead: one round brilliant, viewed from
+  above, rendered sixteen times in sixteen colourways. Same cut every time,
+  deliberately — the question asks which MATERIAL, not which cut, and varying
+  the cut would imply a ruby comes marquise and an emerald comes emerald-cut.
+
+  Facets do the work colour cannot. Table, star and bezel facets differ in tone
+  the way a real stone's do, which is what makes a diamond legible at all
+  (colourless, so its structure is the only thing to see) and a black diamond
+  legible too.
+
+  USAGE
+    {%- render 'fye-gem-icon', name: 'Sapphire', class: 'rfd__oicon' -%}
+
+  The artwork lives in assets/ as one SVG per stone, not inlined here: sixteen
+  inlined stones would add ~43KB to every render of this page, and as separate
+  assets they are cached once and reused by the filter rail later.
+
+  NAME MAPPING. The finder's option labels carry qualifiers the stone itself
+  does not — "Blue Topaz" IS topaz, "Pink Tourmaline" IS tourmaline — so both
+  map to one file. An unrecognised name renders NOTHING rather than a broken
+  image: the tile then shows its label alone, which is a degraded tile rather
+  than a broken one.
+
+  Kept out of a case block on purpose. The first version of the swatch snippet
+  put comments inside a Liquid case and threw "Case tag must be followed by
+  exactly one 'when'", blanking the whole section. A handle filter does the
+  same job with nothing to get wrong.
+{%- endcomment -%}
+{%- liquid
+  assign key = name | strip | downcase | replace: ' ', '-'
+  if key == 'blue-topaz'
+    assign key = 'topaz'
+  endif
+  if key == 'pink-tourmaline'
+    assign key = 'tourmaline'
+  endif
+
+  assign known = 'diamond,ruby,sapphire,emerald,tanzanite,aquamarine,morganite,peridot,amethyst,garnet,citrine,topaz,tourmaline,opal,fire-opal,black-diamond' | split: ','
+  assign ok = false
+  for k in known
+    if k == key
+      assign ok = true
+      break
+    endif
+  endfor
+
+  assign file = 'fye-gem-' | append: key | append: '.svg'
+-%}
+{%- if ok -%}
+  <img class="fic fic--gem fic--gem-{{ key }} {{ class }}"
+       src="{{ file | asset_url }}"
+       alt=""
+       width="200" height="200"
+       loading="lazy" decoding="async">
+{%- endif -%}

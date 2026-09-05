@@ -297,7 +297,7 @@
                   </span>
                 {%- elsif ico contains 'gem:' -%}
                   {%- assign gemname = ico | remove_first: 'gem:' | strip -%}
-                  {%- render 'fye-swatch-block', kind: 'gem', name: gemname, class: 'rfd__oicon' -%}
+                  {%- render 'fye-gem-icon', name: gemname, class: 'rfd__oicon' -%}
                 {%- elsif ico contains 'swatch:' -%}
                   {%- assign metal = ico | remove_first: 'swatch:' | strip -%}
                   {%- render 'fye-swatch-block', kind: 'metal', name: metal, class: 'rfd__oicon' -%}
@@ -422,7 +422,7 @@
                   </span>
                 {%- elsif ico contains 'gem:' -%}
                   {%- assign gemname = ico | remove_first: 'gem:' | strip -%}
-                  {%- render 'fye-swatch-block', kind: 'gem', name: gemname, class: 'rfd__oicon' -%}
+                  {%- render 'fye-gem-icon', name: gemname, class: 'rfd__oicon' -%}
                 {%- elsif ico contains 'swatch:' -%}
                   {%- assign metal = ico | remove_first: 'swatch:' | strip -%}
                   {%- render 'fye-swatch-block', kind: 'metal', name: metal, class: 'rfd__oicon' -%}
@@ -944,6 +944,43 @@
 /* Colour art never fades on hover — a dimmed metal reads as a different metal.
    The tile still answers, through its border and label. */
 .fye .rfd__opt--line:hover .fic--block { opacity: 1; }
+
+
+/* --- drawn gemstone tiles — 05/09/2026 ------------------------------------
+   Sixteen stones drawn as round brilliants, one SVG each in assets/. Replaces
+   the flat colour fields, which read as a paint chart beside the ring
+   photographs on every other step.
+
+   NOT full bleed, unlike the metal swatches. A colour field has no edges of
+   its own so it can run to the tile's; a drawn stone does, and at the edge its
+   girdle collides with the tile's hairline — sixteen touching circles read as
+   a pattern rather than a jeweller's tray. The icons are drawn at 86% of their
+   frame for this reason and the tile adds a little more air.
+
+   Metals keep the full-bleed swatch: a metal has no shape of its own, so a
+   field is the honest answer there. */
+.fye .rfd__opt:has(.fic--gem) {
+  justify-content: flex-start;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+  background: var(--white);
+}
+.fye .rfd__opt .fic--gem {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  padding: var(--s3) var(--s3) 0;
+  box-sizing: border-box;
+}
+.fye .rfd__opt:has(.fic--gem) > *:not(img) {
+  padding: var(--s3);
+}
+/* Colour art never fades on hover — a dimmed ruby reads as a garnet. The tile
+   still answers through its border and its label. */
+.fye .rfd__opt--line:hover .fic--gem { opacity: 1; }
 
 {% endstylesheet %}
 

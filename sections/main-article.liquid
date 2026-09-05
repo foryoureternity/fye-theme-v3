@@ -153,6 +153,23 @@
 .fye .art__body :where(a) { text-decoration: underline; text-underline-offset: 3px; }
 .fye .art__body :where(table) { width: 100%; border-collapse: collapse; font-size: var(--fs-small); margin-block: var(--s6); }
 .fye .art__body :where(th, td) { padding: var(--s3) var(--s4); border-bottom: var(--hairline); text-align: left; vertical-align: top; }
+
+/* Article headings one step down — 05/09/2026. Ed: the blog headings are too
+   big. article.content arrives as bare h2/h3 and picked up the page scale, so
+   an in-article h2 rendered at up to 38px uppercase: the size the PAGE title
+   is set in, inside the body copy. Each level now borrows the scale of the one
+   below (h2 -> --fs-h3, h3 -> --fs-h4).
+
+   Sizes only. The elements, the outline and the Tenor Sans uppercase treatment
+   are untouched, so the document structure and the brand voice are unchanged
+   and this cannot affect the guide templates, which set their headings through
+   their own sections rather than through .prose.
+
+   These beat .prose in core because a section's {% stylesheet %} is served
+   after fye-core.css — same reason core cannot override a section (build-state,
+   R4). Equal specificity, later wins. */
+.fye .art__body :where(h2) { font-size: var(--fs-h3); }
+.fye .art__body :where(h3) { font-size: var(--fs-h4); }
 {% endstylesheet %}
 
 {% schema %}

@@ -215,6 +215,13 @@
             "title": "Contact",
             "url": "/pages/contact-us"
           }
+        },
+        "nav_matchmaker": {
+          "type": "base",
+          "settings": {
+            "title": "Ring Matchmaker",
+            "url": "/pages/ring-matchmaker"
+          }
         }
       },
       "block_order": [
@@ -223,6 +230,7 @@
         "nav_wedding",
         "nav_eternity",
         "nav_diamonds",
+        "nav_matchmaker",
         "nav_guides",
         "nav_news",
         "nav_about",

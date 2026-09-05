@@ -931,6 +931,55 @@
   align-items: center;
   min-height: 44px;
 }
+
+/* ============================================================================
+   RAIL DENSITY — 05/09/2026. Ed: the filter spacing is too great.
+
+   MEASURED on the live rail at 1440 before this rule: the rail stood 3,019px
+   against a 2,833px product grid, so the filters were taller than the products
+   they filter. Where it went: 39 option rows at a 55px pitch (a 44px row plus
+   xCloud's own 8px bottom margin and an 11px margin-top on every row after the
+   first) = 2,145px; seven groups 32px apart; seven 23px group titles each with
+   16px of clearance.
+
+   MEASURED after, same page, same width: 2,132px. 887px shorter, 29%, and the
+   rail is now shorter than the grid. Nothing is hidden and nothing scrolls
+   internally — xCloud's own max-height stays off, because a scrollbar through
+   the middle of the swatches is worse than a long rail.
+
+   GATED ON A FINE POINTER ON PURPOSE. Coarse pointers keep the 44px rows added
+   on 02/09/2026 after fyeSmoke measured 19 of them at 16x16. 34px still clears
+   WCAG 2.5.8 (24px minimum for a pointer) and still clears the tallest thing in
+   a row, the 27px profile drawing — verified, zero rows clip their icon.
+   If a later smoke run flags these as small targets, this rule is why: check
+   the pointer type before "fixing" it back.
+
+   The sibling selector is deliberate. xCloud sets the row's top margin with its
+   own `.cloud-search-filter-value + .cloud-search-filter-value`, which carries
+   the same specificity as a two-class rule, so a plain `.fye .row` override
+   ties and loses on source order. Matching their shape and adding .fye wins it
+   outright, and still needs no !important.
+   ========================================================================== */
+
+@media (min-width: 901px) and (pointer: fine) {
+  .fye .cloud-search-filter-value {
+    min-height: 34px;
+    padding-block: 2px;
+    margin-bottom: 0;
+  }
+
+  .fye .cloud-search-filter-value + .cloud-search-filter-value {
+    margin-top: 0;
+  }
+
+  .fye .cloud-search-filter {
+    margin-bottom: var(--s5);
+  }
+
+  .fye .cloud-search-filter__name {
+    margin-bottom: var(--s3);
+  }
+}
 {% endstylesheet %}
 
 {% schema %}

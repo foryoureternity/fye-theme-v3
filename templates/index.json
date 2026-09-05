@@ -512,6 +512,47 @@
         "btn_label": "Book a free consultation",
         "btn_link": "https://calendar.app.google/UKFkGvMLzAYEviqy8"
       }
+    },
+    "fye_finder_entry_home": {
+      "type": "fye-finder-entry",
+      "blocks": {
+        "tile_1": {
+          "type": "tile",
+          "settings": {
+            "label": "Engagement rings",
+            "description": "Solitaires, halos, trilogies and coloured stones.",
+            "journey": "eng"
+          }
+        },
+        "tile_2": {
+          "type": "tile",
+          "settings": {
+            "label": "Plain wedding rings",
+            "description": "Profiles, widths, metals and finishes.",
+            "journey": "plain"
+          }
+        },
+        "tile_3": {
+          "type": "tile",
+          "settings": {
+            "label": "Diamond and eternity rings",
+            "description": "Set bands, half and full eternity.",
+            "journey": "dia"
+          }
+        }
+      },
+      "block_order": [
+        "tile_1",
+        "tile_2",
+        "tile_3"
+      ],
+      "settings": {
+        "eyebrow": "Ring Matchmaker",
+        "heading": "Find or design your perfect ring",
+        "intro": "Answer a few questions and we will show you the rings that match, or start a design with us instead.",
+        "cta": "Begin",
+        "band": "ivory"
+      }
     }
   },
   "order": [
@@ -520,6 +561,7 @@
     "feature_columns2_A486RK",
     "fye_two_ways_wdDULb",
     "custom_collections_cq7kaN",
+    "fye_finder_entry_home",
     "fye_testimonials_WTRaAj",
     "featured_collection_PHLfPD",
     "fye_mediatext_designed_home",
@@ -530,55 +572,3 @@
     "fye_consultation_home"
   ]
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

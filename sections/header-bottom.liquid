@@ -1123,21 +1123,24 @@
    spacing purposes, so the 20px nav gap still reads as 20px to the eye rather
    than 20px plus the button's own padding.
    -------------------------------------------------------------------------- */
+/* An outline, not a fill. A solid teal block in an ivory band outweighed the
+   logo; this is the same treatment as .hdr__cta 145px above — teal hairline,
+   ink type, filling teal on hover — so the item reads as an action without
+   shouting, in a shape this header already uses. (Ed, 07/09/2026.) */
 .fye .hdr__nav-link[href="/pages/ring-matchmaker"] {
-  min-height: 34px;
+  min-height: 32px;
   padding-block: 0;
-  padding-inline: var(--s5);
-  margin-inline: calc(var(--s5) * -1 + var(--s2));
-  background: var(--teal);
-  color: var(--ivory);
+  padding-inline: var(--s4);
+  margin-inline: calc(var(--s4) * -1 + var(--s2));
+  border: 1px solid var(--teal);
+  color: var(--ink);
   transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
 }
-.fye .hdr__nav-link[href="/pages/ring-matchmaker"]:hover { background: var(--sage); color: var(--ivory); }
-.fye .hdr__nav-link[href="/pages/ring-matchmaker"]:active { background: var(--sage-deep); color: var(--ivory); }
-/* is-active would otherwise turn the type sage on its own ground, which on
-   teal fails contrast and on sage vanishes outright. On this page the filled
-   ground is already the active signal. */
-.fye .hdr__nav-link[href="/pages/ring-matchmaker"].is-active { color: var(--ivory); }
+.fye .hdr__nav-link[href="/pages/ring-matchmaker"]:hover { background: var(--teal); color: var(--ivory); }
+.fye .hdr__nav-link[href="/pages/ring-matchmaker"]:active { background: var(--sage-deep); color: var(--ivory); border-color: var(--sage-deep); }
+/* On the matchmaker page itself the outline fills, which is the active state
+   the rest of the nav gets from going sage. */
+.fye .hdr__nav-link[href="/pages/ring-matchmaker"].is-active { background: var(--teal); color: var(--ivory); }
 /* Focus ring must clear the fill, not sit on it. */
 .fye .hdr__nav-link[href="/pages/ring-matchmaker"]:focus-visible { outline-offset: 3px; }
 

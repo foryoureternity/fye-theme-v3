@@ -414,7 +414,6 @@
       "block_order": [
         "j_eng",
         "j_plain",
-        "j_dia",
         "fork_eng",
         "fork_dia",
         "eng_style",
@@ -479,5 +478,3 @@
     "close"
   ]
 }
-
-

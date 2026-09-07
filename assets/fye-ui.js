@@ -3486,3 +3486,32 @@
     });
   }).observe(root, { attributes: true, attributeFilter: ['hidden'], subtree: true });
 })();
+
+
+/* ============================================================================
+   FYE PREVIEW FLAG — 07/09/2026
+   ----------------------------------------------------------------------------
+   ?fyedebug=1 puts .fye-preview on <html> and remembers it for the session, so
+   unfinished work can be walked through across page loads. ?fyedebug=0 clears
+   it. Nothing else reads it yet beyond the matchmaker's eternity tile.
+
+   sessionStorage, not localStorage: a preview should not still be on in a
+   fortnight because of a URL clicked once. Wrapped in try/catch — Safari's
+   private mode throws on access, and a thrown error here would take the rest
+   of this file's modules with it.
+   ========================================================================== */
+(function () {
+  'use strict';
+  var KEY = 'fye:preview';
+  var on = false;
+  try {
+    var q = new URLSearchParams(window.location.search).get('fyedebug');
+    if (q === '0') sessionStorage.removeItem(KEY);
+    else if (q) sessionStorage.setItem(KEY, '1');
+    on = sessionStorage.getItem(KEY) === '1';
+  } catch (e) {
+    /* No storage: honour the URL for this page only. */
+    on = /[?&]fyedebug=[^0&]/.test(window.location.search);
+  }
+  if (on) document.documentElement.classList.add('fye-preview');
+})();

@@ -230,11 +230,11 @@
         "nav_wedding",
         "nav_eternity",
         "nav_diamonds",
-        "nav_matchmaker",
         "nav_guides",
         "nav_news",
         "nav_about",
-        "nav_contact"
+        "nav_contact",
+        "nav_matchmaker"
       ]
     }
   },

@@ -1099,6 +1099,66 @@
     min-height: 44px;
   }
 }
+
+/* ----------------------------------------------------------------------------
+   RING MATCHMAKER — nav-link--reversed — the one nav item that is an action, not a category
+   ----------------------------------------------------------------------------
+   Ed, 07/09/2026: last in the menu, and made to stand out with a button behind
+   it in reversed colours.
+
+   Reversed here means the design system's filled button: teal ground, ivory
+   type, shifting to sage green on hover and sage deep on press. Squared, like
+   every other surface in this system.
+
+   MATCHED ON HREF, not on a class or a block setting. A checkbox on the base
+   block would read better in the theme editor, but this nav loop and its
+   schema are the most-edited code in the file and an attribute selector needs
+   neither touched. The trade-off: CHANGE THE PAGE URL AND THIS STYLING
+   SILENTLY DISAPPEARS — update the two selectors below if /pages/ring-matchmaker
+   ever moves.
+
+   Sized to sit inside the 49px nav band: 34px tall leaves 7px of ivory above
+   and below, so the band does not grow and the rest of the row stays on its
+   measured baseline. The negative inline margin cancels the padding for
+   spacing purposes, so the 20px nav gap still reads as 20px to the eye rather
+   than 20px plus the button's own padding.
+   -------------------------------------------------------------------------- */
+.fye .hdr__nav-link[href="/pages/ring-matchmaker"] {
+  min-height: 34px;
+  padding-block: 0;
+  padding-inline: var(--s5);
+  margin-inline: calc(var(--s5) * -1 + var(--s2));
+  background: var(--teal);
+  color: var(--ivory);
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.fye .hdr__nav-link[href="/pages/ring-matchmaker"]:hover { background: var(--sage); color: var(--ivory); }
+.fye .hdr__nav-link[href="/pages/ring-matchmaker"]:active { background: var(--sage-deep); color: var(--ivory); }
+/* is-active would otherwise turn the type sage on its own ground, which on
+   teal fails contrast and on sage vanishes outright. On this page the filled
+   ground is already the active signal. */
+.fye .hdr__nav-link[href="/pages/ring-matchmaker"].is-active { color: var(--ivory); }
+/* Focus ring must clear the fill, not sit on it. */
+.fye .hdr__nav-link[href="/pages/ring-matchmaker"]:focus-visible { outline-offset: 3px; }
+
+/* The drawer is a separate list — the nav band does not exist below 900px, so
+   without this the item is just another line. Full width, 48px tall, centred:
+   it is the only button in that list and should look like one. */
+.fye .drawer__list a[href="/pages/ring-matchmaker"] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding-inline: var(--s5);
+  background: var(--teal);
+  color: var(--ivory);
+  transition: background var(--dur) var(--ease);
+}
+.fye .drawer__list a[href="/pages/ring-matchmaker"]:hover { background: var(--sage); color: var(--ivory); }
+.fye .drawer__list a[href="/pages/ring-matchmaker"]:active { background: var(--sage-deep); color: var(--ivory); }
+/* Its own row needs no hairline under it — the fill is the divider. */
+.fye .drawer__list li:has(a[href="/pages/ring-matchmaker"]) { border-bottom: 0; }
+
 {% endstylesheet %}
 
 {% schema %}

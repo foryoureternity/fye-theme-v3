@@ -332,7 +332,7 @@
             "hint": "",
             "group": "stone",
             "param": "stone_type",
-            "options": "Diamonds only | Diamond | gem: Diamond | No coloured stone\nSapphire |  | gem: Sapphire\nRuby |  | gem: Ruby\nEmerald |  | gem: Emerald\nBlack Diamond |  | gem: Black Diamond",
+            "options": "Diamonds only | Diamond | gem: Diamond | No coloured stone\nSapphires & Diamonds | Sapphire | gem: Sapphire\nRubies & Diamonds | Ruby | gem: Ruby\nEmeralds & Diamonds | Emerald | gem: Emerald\nBlack Diamonds & Diamonds | Black Diamond | gem: Black Diamond",
             "photo_mode": "",
             "when_param": "",
             "when_value": "",
@@ -479,4 +479,3 @@
     "close"
   ]
 }
-

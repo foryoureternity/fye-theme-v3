@@ -1226,6 +1226,46 @@
 .fye .drawer__list a[href="/pages/ring-matchmaker"]:active { background: transparent; border-color: var(--sage-deep); color: var(--sage-deep); }
 .fye .drawer__list li:has(a[href="/pages/ring-matchmaker"]) { border-bottom: 0; padding-top: var(--s4); }
 
+
+/* ----------------------------------------------------------------------------
+   RING MATCHMAKER — the rollover, restored — 07/09/2026
+   ----------------------------------------------------------------------------
+   The resting state above is right: ivory ground, teal hairline, teal type.
+   What it lacked was an affordance, so the fill comes back — but only on
+   hover. That is the design system's outline-button behaviour, and with a
+   quiet resting state it reads as a response rather than as shouting.
+
+   The transition carries background as well as border and colour, so the fill
+   arrives over 220ms rather than snapping.
+   -------------------------------------------------------------------------- */
+.fye .hdr__nav-link[href="/pages/ring-matchmaker"] {
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.fye .hdr__nav-link[href="/pages/ring-matchmaker"]:hover {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: var(--ivory);
+}
+.fye .hdr__nav-link[href="/pages/ring-matchmaker"]:active {
+  background: var(--sage-deep);
+  border-color: var(--sage-deep);
+  color: var(--ivory);
+}
+/* Hovering the current page fills too — otherwise the one page where the item
+   matters most is the one place it stops responding. */
+.fye .hdr__nav-link[href="/pages/ring-matchmaker"].is-active:hover {
+  background: var(--teal);
+  color: var(--ivory);
+}
+
+/* Drawer: same, and it needs the fill more — there is no cursor on a phone, so
+   this is the tap feedback. */
+.fye .drawer__list a[href="/pages/ring-matchmaker"] {
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.fye .drawer__list a[href="/pages/ring-matchmaker"]:hover { background: var(--teal); border-color: var(--teal); color: var(--ivory); }
+.fye .drawer__list a[href="/pages/ring-matchmaker"]:active { background: var(--sage-deep); border-color: var(--sage-deep); color: var(--ivory); }
+
 {% endstylesheet %}
 
 {% schema %}

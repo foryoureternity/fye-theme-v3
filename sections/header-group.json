@@ -5,7 +5,8 @@
     "announcement": {
       "type": "announcement-bar",
       "settings": {
-        "text": "Ethically sourced, independently certified, fairly priced. Book a free consultation — in London or online."
+        "text": "Ethically sourced, independently certified, fairly priced.",
+        "utility_menu": "utility-nav"
       }
     },
     "header": {
@@ -15,23 +16,17 @@
         "email": "hello@foryoureternity.com",
         "booking_url": "https://calendar.app.google/UKFkGvMLzAYEviqy8",
         "whatsapp_url": "https://wa.me/447840042922",
-        "cta_label": "Downloadable guides",
-        "cta_link": "/pages/downloadable-guides",
+        "utility_menu": "utility-nav",
+        "cta_label": "Design Your Own Ring",
+        "cta_link": "/pages/design-your-own-ring",
         "logo_url": "https://cdn.shopify.com/s/files/1/0972/5391/7056/files/TER_Logo_Teal_f8aa5b79-0138-4319-8fba-25f42c08e217.svg?v=1774511367",
         "logo_mb_url": "https://cdn.shopify.com/s/files/1/0972/5391/7056/files/fye-brand-mark.webp?v=1785320235"
       },
       "blocks": {
-        "nav_home": {
-          "type": "base",
-          "settings": {
-            "title": "Home",
-            "url": "/"
-          }
-        },
         "nav_engagement": {
           "type": "mega",
           "settings": {
-            "title": "Engagement rings",
+            "title": "Engagement Rings",
             "url": "/pages/engagement-rings",
             "menu": "mega-engagement",
             "zone1_title": "Engagement Rings",
@@ -70,7 +65,7 @@
         "nav_wedding": {
           "type": "mega",
           "settings": {
-            "title": "Wedding rings",
+            "title": "Wedding Rings",
             "url": "/pages/wedding-rings",
             "menu": "mega-wedding",
             "zone1_title": "Wedding Rings",
@@ -109,7 +104,7 @@
         "nav_eternity": {
           "type": "mega",
           "settings": {
-            "title": "Eternity rings",
+            "title": "Eternity Rings",
             "url": "/pages/eternity-rings",
             "menu": "mega-eternity",
             "zone1_title": "Eternity Rings",
@@ -148,7 +143,7 @@
         "nav_diamonds": {
           "type": "mega",
           "settings": {
-            "title": "Diamonds & gemstones",
+            "title": "Diamonds & Gems",
             "url": "/pages/loose-diamonds-gems",
             "menu": "mega-diamonds",
             "zone1_title": "Diamonds & Gemstones",
@@ -188,53 +183,20 @@
             "side_note": "Not sure where to start? Book a consultation and we’ll source the stone with you."
           }
         },
-        "nav_guides": {
+        "nav_gallery": {
           "type": "base",
           "settings": {
-            "title": "Jewellery guides & advice",
-            "url": "/pages/jewellery-guides"
-          }
-        },
-        "nav_news": {
-          "type": "base",
-          "settings": {
-            "title": "News",
-            "url": "/blogs/news"
-          }
-        },
-        "nav_about": {
-          "type": "base",
-          "settings": {
-            "title": "About us",
-            "url": "/pages/about-us"
-          }
-        },
-        "nav_contact": {
-          "type": "base",
-          "settings": {
-            "title": "Contact",
-            "url": "/pages/contact-us"
-          }
-        },
-        "nav_matchmaker": {
-          "type": "base",
-          "settings": {
-            "title": "Ring Matchmaker",
-            "url": "/pages/ring-matchmaker"
+            "title": "Gallery",
+            "url": "/pages/jewellery-gallery"
           }
         }
       },
       "block_order": [
-        "nav_home",
         "nav_engagement",
         "nav_wedding",
         "nav_eternity",
         "nav_diamonds",
-        "nav_guides",
-        "nav_news",
-        "nav_about",
-        "nav_contact",
-        "nav_matchmaker"
+        "nav_gallery"
       ]
     }
   },

@@ -1,39 +1,145 @@
 {%- comment -%}
-  announcement-bar — pale sage strip above the header.
-  Measured from the live site: ground #EEF2EE, 47.5px tall, 16px Outfit Light,
-  sentence case (NOT uppercase), centred, teal.
+  announcement-bar — the UTILITY ROW. Pale sage strip above the header.
+
+  Measured from the live site: ground #EEF2EE, 47.5px tall, teal type.
+
+  It carries two things from 10/09/2026: the standing message on the left and
+  the utility nav on the right. That is the whole point of the header
+  restructure — the strip was 47.5px of chrome holding one sentence across
+  1,500px, so the utility links move into space the header was already paying
+  for, and the nav band below keeps only the product categories. Total header
+  height is unchanged at 242px (47.5 + 145.5 + 1 + 49).
+
+  THE LINKS COME FROM A MENU, NOT FROM BLOCKS. The mobile drawer lives in
+  header-bottom.liquid and Liquid cannot read another section's blocks, so
+  blocks here would have stripped Home, News, About Us and Contact out of the
+  drawer entirely. A linklist IS readable from both sections, so one menu
+  renders here on desktop and inside the drawer below 900. Set the same menu
+  in both sections or the drawer will come up short.
+
+  The message TRUNCATES rather than wraps. The links are the load-bearing
+  content, and a wrapped strip grows the header, which is the exact fault this
+  restructure exists to fix. Keep the text short and it will never be cut.
 {%- endcomment -%}
-{%- if section.settings.text != blank -%}
-  <div class="ann">
-    {%- if section.settings.link != blank -%}
-      <a href="{{ section.settings.link }}">{{ section.settings.text }}</a>
-    {%- else -%}
-      <span>{{ section.settings.text }}</span>
+
+{%- liquid
+  assign util = linklists[section.settings.utility_menu]
+  assign has_links = false
+  if util.links.size > 0
+    assign has_links = true
+  endif
+-%}
+
+{%- if section.settings.text != blank or has_links -%}
+  <div class="ann{% unless has_links %} ann--centred{% endunless %}">
+    {%- if section.settings.text != blank -%}
+      {%- if section.settings.link != blank -%}
+        <a class="ann__msg" href="{{ section.settings.link }}">{{ section.settings.text }}</a>
+      {%- else -%}
+        <span class="ann__msg">{{ section.settings.text }}</span>
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if has_links -%}
+      <nav class="ann__nav" aria-label="Utility">
+        {%- for link in util.links -%}
+          <a class="ann__link{% if link.current %} is-active{% endif %}" href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+        {%- endfor -%}
+      </nav>
     {%- endif -%}
   </div>
 {%- endif -%}
 
 {% stylesheet %}
+/* Chrome, not a content band: its own padding, full width, no max-width. */
 .fye .ann {
   background: var(--sage-pale);
   color: var(--ink);
-  padding: var(--s3) var(--pad-x);
-  text-align: center;
-  font-size: 16px;
-  font-weight: var(--fw-light);
-  line-height: 1.4;
+  padding-inline: var(--s7);            /* 32px, matching the header rows */
+  min-height: 47.5px;                   /* measured */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s7);
 }
-.fye .ann a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
-.fye .ann a:hover { color: var(--sage); }
-@media (max-width: 560px) { .fye .ann { font-size: 14px; padding: var(--s2) var(--pad-x); } }
+/* With no menu set it falls back to the old centred single message. */
+.fye .ann--centred { justify-content: center; }
+
+.fye .ann__msg {
+  color: inherit;
+  font-size: 12px;
+  font-weight: var(--fw-light);
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+  /* min-width: 0 is load-bearing. A flex item defaults to min-width: auto —
+     "at least as wide as my content" — so without it the sentence refuses to
+     shrink and shoves the links off the right edge instead of ellipsing. */
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+a.ann__msg { text-decoration: underline; text-underline-offset: 3px; }
+
+.fye .ann__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--s6);                       /* 24px */
+  flex: 0 0 auto;                       /* the links never shrink */
+}
+.fye .ann__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 47.5px;                   /* fills the band, so the tap target is
+                                           47.5px even though the type is 11px */
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: text-decoration-color var(--dur) var(--ease);
+}
+/* Hover is an UNDERLINE, not a colour shift, and this is a deliberate
+   departure from the system's "hover goes sage green" rule. Sage green type on
+   this pale sage ground measures about 2.4:1 at 11px, well under 4.5:1. The
+   type stays full-strength teal and sage green moves to the rule instead. */
+.fye .ann__link:hover {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--sage);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+}
+.fye .ann__link.is-active {
+  text-decoration: underline;
+  text-decoration-color: var(--sage-deep);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+}
+.fye .ann__link:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
+
+@media (max-width: 900px) {
+  /* Below 900 the drawer owns the utility links: header-bottom renders the
+     same menu inside it. The strip keeps its message and its measured height,
+     centred as it was before the restructure. */
+  .fye .ann { padding-inline: var(--pad-x); justify-content: center; }
+  .fye .ann__nav { display: none; }
+  .fye .ann__msg { font-size: 11px; }
+}
 {% endstylesheet %}
 
 {% schema %}
 {
   "name": "Announcement bar",
   "settings": [
-    { "type": "text", "id": "text", "label": "Text", "default": "Ethically sourced, independently certified, fairly priced. Book a free consultation — in London or online." },
-    { "type": "url", "id": "link", "label": "Link" }
+    { "type": "text", "id": "text", "label": "Message", "default": "Ethically sourced, independently certified, fairly priced." },
+    { "type": "url", "id": "link", "label": "Message link" },
+    { "type": "header", "content": "Utility nav" },
+    { "type": "paragraph", "content": "The right-hand links: Home, guides, News, About us, Contact. Use a MENU, not blocks — the mobile drawer reads the same menu, so whatever you put here also lands in the drawer. Set the same menu in the Header section. Keep the message short: it truncates to protect the links." },
+    { "type": "link_list", "id": "utility_menu", "label": "Utility menu" }
   ]
 }
 {% endschema %}

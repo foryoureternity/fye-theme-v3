@@ -14,6 +14,19 @@
       fye.carat_min      0.4
       fye.carat_max      0.65
 
+  fye.centre_shape may hold TWO cuts as a comma list — "Emerald, Radiant" —
+  for the handful of settings made for either. Ed, 10/09/2026. It is a
+  single_line_text_field, so a list is the only place two cuts can live short
+  of splitting the product in two. One feed handle is built per cut and
+  fye-ui.js fetches each, merging them into one grid; the shopper picks the
+  cut by picking the stone. A single value produces a single handle and
+  behaves exactly as it always has.
+
+  Why it exists: trl36084-smt and its two siblings are titled "Emerald Cut or
+  Radiant Cut", so the shape parser could never write one value, the field
+  stayed blank and the panel never rendered — the Side diamonds panel beside
+  it did, which is how it read as a template fault rather than a data one.
+
   plus the section's `enable_centre_diamond`, which product.complete.json,
   product.gemset.json, product.gents.json and product.plain.json untick.
 
@@ -92,7 +105,31 @@
   assign p = product
   assign mf = p.metafields.fye
 
-  assign shape = mf.centre_shape
+  comment
+    ── The cut, or cuts ──
+    Split on comma, strip each, drop blanks, so " Emerald , Radiant " and
+    "Emerald" both arrive as a clean list. `shape` stays the FIRST cut,
+    because the fancy-colour path and the browse link are both singular.
+
+    `append: ''` first, so the metafield object is a string before `split`
+    ever sees it.
+  endcomment
+  assign centre_text = mf.centre_shape | append: ''
+  assign shape_raw = centre_text | split: ','
+  assign shapes = ''
+  for part in shape_raw
+    assign one = part | strip
+    unless one == blank
+      if shapes == blank
+        assign shapes = one
+      else
+        assign shapes = shapes | append: ',' | append: one
+      endif
+    endunless
+  endfor
+  assign shape_list = shapes | split: ','
+  assign shape = shape_list | first
+
   assign ct_min = mf.carat_min
   assign ct_max = mf.carat_max
 
@@ -120,28 +157,56 @@
     picker to filter by shape; a white one reads the shape collections, which
     are already shape-pure.
   endcomment
-  assign shape_slug = shape | downcase | replace: ' ', '-'
   if fancy_colour != blank
     assign natural_handle = 'fancy-' | append: fancy_colour | append: '-natural-diamonds'
     assign lab_handle = 'fancy-' | append: fancy_colour | append: '-lab-grown-diamonds'
     assign browse_handle = 'fancy-' | append: fancy_colour | append: '-diamonds'
     assign shape_filter = '1'
   else
-    assign natural_handle = shape_slug | append: '-natural-diamonds'
-    assign lab_handle = shape_slug | append: '-lab-grown-diamonds'
-    assign browse_handle = natural_handle
+    assign natural_handle = ''
+    assign lab_handle = ''
+    for one in shape_list
+      assign shape_slug = one | downcase | replace: ' ', '-'
+      unless natural_handle == blank
+        assign natural_handle = natural_handle | append: ','
+        assign lab_handle = lab_handle | append: ','
+      endunless
+      assign natural_handle = natural_handle | append: shape_slug | append: '-natural-diamonds'
+      assign lab_handle = lab_handle | append: shape_slug | append: '-lab-grown-diamonds'
+    endfor
+    assign browse_handle = natural_handle | split: ',' | first
     assign shape_filter = ''
   endif
 
   comment
     How the stone is described in prose. "fancy yellow radiant" reads as the
     trade does — colour first, then cut.
+
+    Two cuts read as "emerald or radiant", so every sentence built from it
+    still scans: "suitable for an emerald or radiant cut centre diamond",
+    "We set your emerald or radiant diamond". The word "cut" is added by the
+    sentence, never by the list.
+
+    `browse_words` is the FIRST cut alone, because the browse link can only
+    point at one collection and must not promise the other.
   endcomment
-  assign shape_lower = shape | downcase
+  assign shape_lower = ''
+  for one in shape_list
+    assign w = one | downcase
+    if forloop.first
+      assign shape_lower = w
+    else
+      assign shape_lower = shape_lower | append: ' or ' | append: w
+    endif
+  endfor
+  assign shape_first = shape | downcase
+
   if fancy_colour != blank
     assign stone_words = 'fancy ' | append: fancy_colour | append: ' ' | append: shape_lower
+    assign browse_words = 'fancy ' | append: fancy_colour | append: ' ' | append: shape_first
   else
     assign stone_words = shape_lower
+    assign browse_words = shape_first
   endif
 
   comment
@@ -173,7 +238,7 @@
 
 <div class="pdp__choose"
      data-fye-centre
-     data-shape="{{ shape | escape }}"
+     data-shape="{{ shapes | escape }}"
      data-shape-filter="{{ shape_filter }}"
      data-carat-min="{{ ct_min }}"
      data-carat-max="{{ ct_max }}"
@@ -253,7 +318,7 @@
 
     <p class="pdp__hint fine" data-fye-stone-help hidden>
       Not sure? <a href="{{ s.centre_help_link | default: '/pages/contact-us' }}" data-fye-popup="enquire">We will help you choose</a> — or
-      <a href="/collections/{{ browse_handle }}">browse every {{ stone_words }} diamond</a>.
+      <a href="/collections/{{ browse_handle }}">browse every {{ browse_words }} diamond</a>.
     </p>
   </div>
 

@@ -871,24 +871,39 @@
      Verified 01/09/2026 that both use the same words ("Radiant", "Oval"). */
   function shapeOk(panel, d) {
     if (panel.getAttribute('data-shape-filter') !== '1') return true;
-    var want = String(panel.getAttribute('data-shape') || '').trim().toLowerCase();
-    if (!want) return true;
-    return String(d.shape || '').trim().toLowerCase() === want;
+    /* data-shape carries one cut, or two comma separated on a dual-cut ring. */
+    var want = csv(panel.getAttribute('data-shape')).map(lower);
+    if (!want.length) return true;
+    return want.indexOf(String(d.shape || '').trim().toLowerCase()) !== -1;
+  }
+
+  function lower(v) { return String(v).toLowerCase(); }
+
+  /* A setting made for either of two cuts carries one feed handle per cut,
+     comma separated, in data-feed-natural and data-feed-lab — see
+     fye-buybox-centre. Single handle in, single handle out. Ed, 10/09/2026. */
+  function csv(v) {
+    return String(v || '').split(',').map(function (x) { return x.trim(); })
+      .filter(function (x) { return x.length > 0; });
   }
 
   function ensureStones(panel) {
     if (panel.__fyeStones || panel.__fyeLoading) return;
     panel.__fyeLoading = true;
 
-    var natural = panel.getAttribute('data-feed-natural');
-    var lab = panel.getAttribute('data-feed-lab');
+    /* One request per feed, every feed fired on the first open so the
+       Natural / Lab-grown toggle inside the modal needs no further network.
+       Two cuts means four requests rather than two; the origin each stone
+       belongs to is read off the stone, not off the feed it arrived in, so
+       merging them is safe. */
+    var handles = csv(panel.getAttribute('data-feed-natural'))
+      .concat(csv(panel.getAttribute('data-feed-lab')));
     var state = panel.querySelector('[data-fye-stone-state]');
 
-    Promise.all([
-      fetchOrigin(panel, natural).catch(function () { return []; }),
-      fetchOrigin(panel, lab).catch(function () { return []; })
-    ]).then(function (both) {
-      var all = both[0].concat(both[1]).filter(function (d) {
+    Promise.all(handles.map(function (h) {
+      return fetchOrigin(panel, h).catch(function () { return []; });
+    })).then(function (lists) {
+      var all = [].concat.apply([], lists).filter(function (d) {
         return d && d.variantId && d.available !== false && caratOk(panel, d) && shapeOk(panel, d);
       });
 

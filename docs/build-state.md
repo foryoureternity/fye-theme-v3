@@ -3020,3 +3020,49 @@ swatches should fill the tile.
   same question. Applied in both the step and fork loops.
 - The swatch keeps its own hairline inside the tile's, per Ed: "don't worry
   about the double border".
+
+---
+
+## 10/09/2026: the centre chooser learns a second cut (W324)
+
+Ed, on `/products/trl36084-smt`: the trilogy page shows Side diamonds and no
+Centre diamond. It reads as a template fault and is not one. Both trilogy
+templates (`product.engagement`, `product.complete`) render the panel, and 116
+of the 244 active trilogies show it correctly. The gate in `main-product` is
+`fye.centre_shape` + `carat_min` + `carat_max`, all three or nothing.
+
+Three of them had carat min and max but no `centre_shape`, because they are
+titled **"Emerald Cut or Radiant Cut"** — two cuts, and the field is a
+`single_line_text_field` feeding one collection handle, so no parser could ever
+write a value. The panel stayed away; Side diamonds, gated only on the tag plus
+`fye.side_stones`, stayed. Hence the asymmetry Ed saw.
+
+**The change.** `fye.centre_shape` may now hold a comma list, `"Emerald,
+Radiant"`.
+
+- `fye-buybox-centre` splits and strips it, builds **one feed handle per cut**
+  in `data-feed-natural` / `data-feed-lab` (also comma separated), and puts the
+  whole list in `data-shape`. `shape` remains the first cut, which is all the
+  fancy-colour path and the browse link need.
+- `fye-ui.js` gains `csv()`; `ensureStones` fetches every handle and merges the
+  results, `shapeOk` matches against the list. Two cuts is four requests rather
+  than two. Safe to merge because a stone's natural/lab origin is read off the
+  stone, never off the feed it arrived in.
+- Prose builds as "emerald or radiant" and the sentence supplies "cut", so
+  "suitable for an emerald or radiant cut centre diamond, 0.8–1.3ct" and "We
+  set your emerald or radiant diamond" both scan. `browse_words` is the first
+  cut alone, because the browse link can only point at one collection and must
+  not promise the other.
+
+**Single-shape behaviour is unchanged** — one value in, one handle out, same
+strings. Nothing else in the theme reads `data-shape` or `data-feed-*`.
+
+Alternatives rejected by Ed: setting one cut (the description still says "or
+radiant", so the page would contradict itself) and splitting each ring into two
+products.
+
+Data set the same day on `trl36675-smt`, `trl36084-smt`, `trl36677-smt`.
+`trl36676-smt` is the fourth of that family and is DRAFT with no metafields at
+all. `trl69180-fy-mt` is still blank on purpose: its handle carries `-fy-`,
+which the fancy-colour map reads as fancy yellow, and the title says only
+"Oval-Cut" — that one needs Ed.

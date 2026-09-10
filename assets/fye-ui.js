@@ -1903,7 +1903,10 @@
 
     var label = form.querySelector('[data-fye-metal-label]') ||
                 document.querySelector('[data-fye-metal-label]');
-    if (label) label.textContent = isGold(metal) && gold ? gold + ' ' + metal : metal;
+    if (label) {
+      var shown = prettyMetal(metal);
+      label.textContent = isGold(metal) && gold ? gold + ' ' + shown : shown;
+    }
 
     /* Carat row and the colour property only mean anything on a gold. */
     var karatRow = document.querySelector('[data-fye-karatrow]');
@@ -1926,6 +1929,13 @@
 
     /* One code path for the price: let the existing matcher do it. */
     metalInput.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+
+  /* The option value is spelled "14k Gold"; the UK trade writes "14ct Gold",
+     and every other surface in this theme already does. Label only — the
+     value posted to Shopify is never touched. Ed, 10/09/2026. */
+  function prettyMetal(v) {
+    return String(v || '').replace(/(\d+)\s*k(?=\b|\s)/i, '$1ct');
   }
 
   document.addEventListener('click', function (e) {

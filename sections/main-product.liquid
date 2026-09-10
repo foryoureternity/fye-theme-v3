@@ -259,7 +259,10 @@
   endif
 
   assign colours = 'Yellow Gold,White Gold,Rose Gold,Platinum' | split: ','
-  assign carats = '18ct,14ct,9ct' | split: ','
+  comment
+    Ascending, to match the buybox carat tiles. Ed, 10/09/2026.
+  endcomment
+  assign carats = '9ct,14ct,18ct' | split: ','
   assign golds = 'Yellow Gold,White Gold,Rose Gold' | split: ','
 
   comment

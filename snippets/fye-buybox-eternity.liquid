@@ -129,8 +129,12 @@
 
   comment
     The carat to land on when someone picks a gold colour from platinum.
-    Live calls this preferredKarat() and lands on 18ct; here it is simply the
-    first gold the product offers, which is the same thing without hardcoding.
+    The FIRST gold in Shopify's own option order, which on this catalogue is
+    14ct — the middle of the three, and a fair place to land. Deliberately
+    read off the unsorted list: the tiles below are sorted for the eye, and
+    sorting this too would silently move every gold-from-platinum journey onto
+    9ct, the cheapest. Ed, 10/09/2026 — say so if you would rather it opened
+    on 18ct.
   endcomment
   assign preferred_karat = ''
   for value in metal_opt.values
@@ -139,6 +143,56 @@
       break
     endif
   endfor
+
+  comment
+    ── The carat tiles: 9, 14, 18, and ct not k ──
+    Ed, 10/09/2026. Shopify hands the option values back in import order —
+    "14k Gold", "18k Gold", "9k Gold" — and the row echoed that, which reads
+    as a mistake. Sorted here rather than reordered on the products: it is
+    presentation, it is identical on every ring, and productOptionsReorder
+    across the catalogue is a long job for a cosmetic gain.
+
+    Each entry is keyed "09|9|9k Gold" so a plain string sort orders 9 before
+    14, and carries the digits for the label beside the untouched option
+    value for the button. THE VALUE POSTED TO SHOPIFY IS UNCHANGED — only the
+    words on the tile.
+
+    "ct" not "K": UK trade writes gold fineness as 9ct / 18ct, and every other
+    surface in this theme already does (fye-filter-icons, fye-metal-swatch,
+    fye-ring-finder, the plain-ring switcher in main-product). A gold value
+    that carries no number at all keeps its old label and sorts last.
+  endcomment
+  assign gold_keys = ''
+  for value in metal_opt.values
+    if value contains 'Gold'
+      assign kt = value | downcase | split: 'k' | first | strip
+      assign kt_num = kt | plus: 0
+      if kt_num > 0
+        assign label = kt | append: 'ct'
+        assign sort_key = kt
+        if kt.size == 1
+          assign sort_key = '0' | append: kt
+        endif
+      else
+        assign label = value | remove: ' Gold' | upcase
+        assign sort_key = '99'
+      endif
+      assign entry = sort_key | append: '|' | append: label | append: '|' | append: value
+      if gold_keys == blank
+        assign gold_keys = entry
+      else
+        assign gold_keys = gold_keys | append: '~' | append: entry
+      endif
+    endif
+  endfor
+  assign gold_tiles = gold_keys | split: '~' | sort
+
+  comment
+    The "Metal: …" line reads the option value straight, so it would say
+    "14k Gold" one line above a tile saying "14ct". Same relabel, label only.
+    fye-ui.js does the same when it rewrites this line on a click.
+  endcomment
+  assign metal_label = metal_now | replace: 'k Gold', 'ct Gold' | replace: 'K Gold', 'ct Gold'
 
   comment
     ── W803: does the quality selector do anything? ──
@@ -206,7 +260,7 @@
 
 {%- if metal_opt != nil -%}
   <div class="pdp__field">
-    <p class="pdp__label pdp__label--inline">Metal: <span class="pdp__labelval" data-fye-metal-label>{{ metal_now }}</span></p>
+    <p class="pdp__label pdp__label--inline">Metal: <span class="pdp__labelval" data-fye-metal-label>{{ metal_label }}</span></p>
 
     <ul class="pdp__colours" data-fye-metals data-preferred-karat="{{ preferred_karat | escape }}">
       {%- for colour in golds -%}
@@ -254,14 +308,14 @@
   {%- endcomment -%}
   <div class="pdp__field" data-fye-karatrow{% unless is_gold %} hidden{% endunless %}>
     <ul class="pdp__carats">
-      {%- for value in metal_opt.values -%}
-        {%- if value contains 'Gold' -%}
-          <li>
-            <button type="button"
-                    class="pdp__carat{% if value == metal_now %} is-current{% endif %}"
-                    data-fye-metal="{{ value | escape }}">{{ value | remove: ' Gold' | upcase }}</button>
-          </li>
-        {%- endif -%}
+      {%- for tile in gold_tiles -%}
+        {%- assign bits = tile | split: '|' -%}
+        {%- if bits[2] == blank -%}{%- continue -%}{%- endif -%}
+        <li>
+          <button type="button"
+                  class="pdp__carat{% if bits[2] == metal_now %} is-current{% endif %}"
+                  data-fye-metal="{{ bits[2] | escape }}">{{ bits[1] }}</button>
+        </li>
       {%- endfor -%}
     </ul>
   </div>

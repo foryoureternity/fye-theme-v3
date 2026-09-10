@@ -3066,3 +3066,39 @@ Data set the same day on `trl36675-smt`, `trl36084-smt`, `trl36677-smt`.
 all. `trl69180-fy-mt` is still blank on purpose: its handle carries `-fy-`,
 which the fancy-colour map reads as fancy yellow, and the title says only
 "Oval-Cut" — that one needs Ed.
+
+---
+
+## 10/09/2026: gold carats read 9ct, 14ct, 18ct (W325)
+
+Ed: the carat row is ordered 14, 18, 9 and says K.
+
+Both come from the same place — the row echoed `metal_opt.values` verbatim,
+and Shopify hands those back in import order (`14k Gold`, `18k Gold`,
+`9k Gold`).
+
+- **Order.** `fye-buybox-eternity` now keys each gold as `"09|9ct|9k Gold"`
+  and plain-string-sorts, so 9 lands before 14 without a numeric sort filter.
+  Sorted in Liquid, not on the products: it is presentation, identical on
+  every ring, and `productOptionsReorder` across ~3,000 rings is a long job
+  for a cosmetic gain. A gold value carrying no number keeps its old label
+  and sorts last.
+- **Unit.** `9ct` / `14ct` / `18ct`. UK trade spelling, and what
+  `fye-filter-icons`, `fye-metal-swatch`, `fye-ring-finder` and the plain-ring
+  switcher already write. **Label only** — `data-fye-metal` still carries the
+  untouched option value, so nothing about the variant, the cart line or the
+  price path changes.
+- The **"Metal: …" line** above the swatches said `14k Gold` and would have
+  contradicted the tile beneath it, so it takes the same relabel: `metal_label`
+  in Liquid, `prettyMetal()` in `fye-ui.js` for the rewrite on click.
+- `main-product`'s plain-wedding-ring switcher had the list hardcoded
+  **descending** (`18ct,14ct,9ct`); flipped to ascending to match.
+
+**Still says 14k:** the cart, checkout and order emails, because that is
+Shopify's own variant title. Changing it means renaming the option values on
+every ring — a data job, not a theme one, and not done.
+
+**Left alone deliberately:** `preferred_karat`, the carat a shopper lands on
+when choosing a gold colour while on platinum. It reads the FIRST gold in
+Shopify's unsorted order, which is 14ct. Sorting it too would silently move
+every one of those journeys onto 9ct, the cheapest. Flagged to Ed.

@@ -483,10 +483,14 @@
   display: inline-flex; align-items: center; gap: var(--s2);
   padding-block: var(--s3);
   color: var(--ink);
-  /* 12px / 0.07em. Was 13px / 0.08em (measured off live), but the eleven menu
-     items still wrapped to a second row on narrower desktops — dropped a point
-     and tightened the list gap to s4 (09/09/2026). At 15px and 0.10em it wrapped
-     badly. */
+  /* 12px / 0.07em is the NARROW-DESKTOP size, and it is the base because the
+     wrap is the failure that matters: eleven items at 13px / 0.08em broke onto
+     a second row on a 13in laptop (09/09/2026). At 15px / 0.10em it wrapped
+     badly at any width.
+
+     The measured live size, 13px / 0.08em, comes back at 1440px and up, with
+     the full s5 gap from 1500px — see the two min-width tiers below. This size
+     is what Ed's 1426 laptop gets, and it is sized for exactly that. */
   font-size: 12px;
   font-weight: var(--fw-semi);
   letter-spacing: 0.07em;
@@ -555,6 +559,45 @@
   letter-spacing: 0.09em; text-transform: uppercase;
 }
 .fye .drawer__contact .btn { text-transform: uppercase; }
+
+/* Wide desktop: the nav gets its measured live size back.
+
+   MEASURED IN THE BROWSER, 10/09/2026, on the live ten-item menu. The row is
+   1,139px of item text at 12px, and every number below is a fit, not a guess:
+
+     size / tracking / gap / side padding      row needs   fits from
+     13px  0.08em  s5(20)  s7(32)   ORIGINAL     1,487px     1500
+     13px  0.08em  s4(16)  0                     1,387px     1400
+     12px  0.07em  s4(16)  s7(32)   the base     1,283px      —
+
+   Ed's 13in laptop is 1426 across and is the machine the 09/09 compaction was
+   for, so EVERY TIER HERE MUST START ABOVE 1426. That rules out the 1400
+   option on its own merits: it fits, but it would land on the laptop.
+
+     >= 1500px   fully original: 13px / 0.08em / s5 gap / s7 padding
+     >= 1440px   13px / 0.08em, s4 gap, no side padding — full-size text on a
+                 monitor window too narrow for the original spacing. Dropping
+                 the side padding costs nothing: the list is centred and only
+                 fills the row at these widths.
+     1281-1439   12px / 0.07em / s4 gap — the base above, and what the laptop
+                 gets
+     <= 1280px   11px / 0.05em / s3 gap — narrowest desktop before the drawer
+
+   Against conventions §3, which allows three breakpoints for layout. The
+   header is measured chrome and already carried 1280 and 1400; these are the
+   header's own tiers, not the page's, and they exist because ten uppercase
+   items is very nearly more than a 1440px row can hold. THE REAL FIX IS FEWER
+   OR SHORTER LABELS — "Jewellery Guides & Advice" alone is 192px. Anything
+   that changes the width of these items must be re-measured at 1440 and 1500,
+   and at 1426 for the laptop. */
+@media (min-width: 1440px) {
+  .fye .hdr__nav-list { gap: var(--s4); padding-inline: 0; }
+  .fye .hdr__nav-link { font-size: 13px; letter-spacing: 0.08em; }
+}
+
+@media (min-width: 1500px) {
+  .fye .hdr__nav-list { gap: var(--s5); padding-inline: var(--s7); }
+}
 
 /* Narrow desktop: drop the contact labels before dropping the whole row. */
 @media (max-width: 1280px) {

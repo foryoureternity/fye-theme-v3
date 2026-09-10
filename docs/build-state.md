@@ -3102,3 +3102,39 @@ every ring — a data job, not a theme one, and not done.
 when choosing a gold colour while on platinum. It reads the FIRST gold in
 Shopify's unsorted order, which is 14ct. Sorting it too would silently move
 every one of those journeys onto 9ct, the cheapest. Flagged to Ed.
+
+---
+
+## 10/09/2026: nav tiers at 1440 and 1500 (W326)
+
+The 09/09 compaction (13px/0.08em/s5 → 12px/0.07em/s4, to stop the ten items
+wrapping on Ed's 13in laptop) applied at every width, so his widescreen
+monitor got the small type too. Ed: put the original size back on anything
+wider than the laptop.
+
+**Measured in the browser on the live menu**, not estimated. Ten items,
+1,139px of text at 12px, "Jewellery Guides & Advice" alone 192px:
+
+| size / tracking / gap / side padding | row needs | fits from |
+|---|---|---|
+| 13px 0.08em s5 s7 — the original | 1,487px | 1500 |
+| 13px 0.08em s4 none | 1,387px | 1400 |
+| 12px 0.07em s4 s7 — the base | 1,283px | — |
+
+**The laptop is 1426 across**, which is why the original wrapped there: it
+wants a 1,487px window. So every tier has to start above 1426, and the 1400
+option is ruled out on that ground alone even though it fits.
+
+    >= 1500px   fully original: 13px / 0.08em / s5 gap / s7 padding
+    >= 1440px   13px / 0.08em, s4 gap, no side padding — full-size text on a
+                monitor window too narrow for the original spacing
+    1281-1439   12px / 0.07em / s4 gap — the base, and what the laptop gets
+    <= 1280px   11px / 0.05em / s3 gap
+
+Dropping the side padding in the 1440 tier costs nothing: the list is centred
+and only fills the row at these widths.
+
+This is against conventions §3, which allows three breakpoints for layout. The
+header is measured chrome and already carried 1280 and 1400; these are the
+header's own tiers, not the page's. **The real fix is fewer or shorter labels**
+— re-measure at 1440, 1500 and 1426 if anything in that menu is renamed.

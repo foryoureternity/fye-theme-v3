@@ -474,7 +474,7 @@
 .fye .hdr__nav { background: var(--ivory); position: relative; }
 .fye .hdr__nav-list {
   display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
-  gap: var(--s5);
+  gap: var(--s4);
   min-height: 49px;
   margin: 0; padding-inline: var(--s7); list-style: none;
 }
@@ -483,11 +483,13 @@
   display: inline-flex; align-items: center; gap: var(--s2);
   padding-block: var(--s3);
   color: var(--ink);
-  /* 13px / 0.08em measured off live. At 15px and 0.10em the eleven menu
-     items could not fit one row and the last two wrapped. */
-  font-size: 13px;
+  /* 12px / 0.07em. Was 13px / 0.08em (measured off live), but the eleven menu
+     items still wrapped to a second row on narrower desktops — dropped a point
+     and tightened the list gap to s4 (09/09/2026). At 15px and 0.10em it wrapped
+     badly. */
+  font-size: 12px;
   font-weight: var(--fw-semi);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.07em;
   line-height: 1;
   text-transform: uppercase;
   white-space: nowrap;
@@ -558,8 +560,8 @@
 @media (max-width: 1280px) {
   .fye .hdr__contact { gap: var(--s5); }
   .fye .hdr__contact-link span { display: none; }
-  .fye .hdr__nav-list { gap: var(--s4); }
-  .fye .hdr__nav-link { font-size: 12px; letter-spacing: 0.06em; }
+  .fye .hdr__nav-list { gap: var(--s3); }
+  .fye .hdr__nav-link { font-size: 11px; letter-spacing: 0.05em; }
 }
 
 @media (max-width: 900px) {
@@ -1120,8 +1122,8 @@
    Sized to sit inside the 49px nav band: 34px tall leaves 7px of ivory above
    and below, so the band does not grow and the rest of the row stays on its
    measured baseline. The negative inline margin cancels the padding for
-   spacing purposes, so the 20px nav gap still reads as 20px to the eye rather
-   than 20px plus the button's own padding.
+   spacing purposes, so the 16px nav gap still reads as 16px to the eye rather
+   than 16px plus the button's own padding.
    -------------------------------------------------------------------------- */
 /* An outline, not a fill. A solid teal block in an ivory band outweighed the
    logo; this is the same treatment as .hdr__cta 145px above — teal hairline,

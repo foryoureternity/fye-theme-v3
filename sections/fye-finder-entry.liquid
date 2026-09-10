@@ -14,19 +14,26 @@
   The eyebrow carries the NAME and the heading carries the PROMISE — "Find or
   Design Your Perfect Ring" — because the name's job is to differentiate in
   the menu, not to headline a section. Both are settings; change them here and
-  in page.find-your-ring together.
+  on the matchmaker page together.
 
   The ?j= keys must match the journey block keys in the matchmaker section
   (eng / plain / dia). A key with no match simply opens on the first question,
   which is a survivable failure — assets/fye-ui.js warns in the console.
 
   One tile is fine: on the engagement rings page a single "start here" tile
-  reads better than three, two of which are the wrong category.
+  reads better than three, two of which are the wrong category. The tile row
+  CENTRES, so hiding a journey does not leave a hole in the grid — the third
+  tile is deliberately out of block_order on the homepage until the eternity
+  path is right (Ed, 10/09/2026).
+
+  URL, 10/09/2026: the page moved to /pages/design-your-own-ring. The default
+  below has to be the new path, because a redirect does NOT carry the ?j= query
+  string with it — the old default sent every tile to question one.
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
   assign band = s.band | default: 'white'
-  assign base = s.page_url | default: '/pages/ring-matchmaker'
+  assign base = s.page_url | default: '/pages/design-your-own-ring'
   assign cols = section.blocks.size | at_least: 1
 -%}
 
@@ -74,12 +81,29 @@
 </section>
 
 {% stylesheet %}
+/* The section owns its own width, 10/09/2026. On the homepage this band was
+   rendering about 806px wide against the left edge instead of taking the
+   standard 1320px centred measure: the heading and eyebrow centred correctly
+   but inside that narrow box, and the flanked-heading hairlines collapsed to
+   nothing because they had no width left to grow into. display: block and an
+   explicit full-width wrap stop the band from being sized by whatever layout
+   context it happens to sit in. Same declarations the global .wrap rule
+   makes; restated here so this section cannot lose them again. */
+.fye .fnd { display: block; width: 100%; }
+.fye .fnd > .wrap { max-width: var(--maxw); width: 100%; margin-inline: auto; }
+
 .fye .fnd__tiles {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+  /* Tracks are BOUNDED rather than 1fr, and the row is centred. With 1fr the
+     tracks always fill the measure, so a section showing two of its three
+     journeys left an empty column on the right and the row read as
+     left-aligned. Bounded tracks plus justify-content mean any number of tiles
+     from one to four sits centred, at a consistent tile width. */
+  grid-template-columns: repeat(var(--cols, 3), minmax(0, 380px));
+  justify-content: center;
   gap: var(--grid-gap);
 }
 .fye .fnd__item { margin: 0; display: flex; }
@@ -115,6 +139,8 @@
 .fye .fnd__go { margin-top: auto; transition: color var(--dur) var(--ease); }
 
 @media (max-width: 900px) {
+  /* Below 900 the tiles fill the measure again: two bounded 380px tracks in a
+     narrow viewport would leave the row looking stranded rather than centred. */
   .fye .fnd__tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 560px) {
@@ -130,10 +156,10 @@
   "class": "fye-finder-entry",
   "settings": [
     { "type": "paragraph", "content": "The eyebrow carries the name, the heading carries the promise. Keep them in step with the matchmaker page itself." },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Ring Matchmaker" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Design Your Own Ring" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Find or Design Your Perfect Ring" },
     { "type": "textarea", "id": "intro", "label": "Introduction" },
-    { "type": "url", "id": "page_url", "label": "Matchmaker page", "info": "Defaults to /pages/ring-matchmaker." },
+    { "type": "url", "id": "page_url", "label": "Matchmaker page", "info": "Defaults to /pages/design-your-own-ring. Do not point this at /pages/ring-matchmaker: that path still redirects, but the redirect drops the ?j= journey key and every tile then opens on question one." },
     { "type": "text", "id": "cta", "label": "Tile link text", "default": "Begin" },
     {
       "type": "select", "id": "band", "label": "Background", "default": "white",

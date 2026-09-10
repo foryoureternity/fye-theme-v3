@@ -368,6 +368,20 @@
           <li><a href="{{ block.settings.url | default: '#' }}">{{ block.settings.title }}</a></li>
         {%- endif -%}
       {%- endfor -%}
+
+      {%- comment -%}
+        The utility items live in a MENU, not in blocks, because the desktop
+        strip that renders them is a different section (announcement-bar) and
+        Liquid cannot read another section's blocks. Same menu both places, so
+        nothing can appear on desktop and go missing on mobile. Set it to the
+        same menu you set on the announcement bar.
+      {%- endcomment -%}
+      {%- assign drawer_util = linklists[section.settings.utility_menu] -%}
+      {%- if drawer_util.links.size > 0 -%}
+        {%- for link in drawer_util.links -%}
+          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {%- endfor -%}
+      {%- endif -%}
     </ul>
     <div class="drawer__contact">
       {%- if section.settings.phone != blank -%}
@@ -432,19 +446,28 @@
 .fye .hdr__right { justify-self: end; display: flex; align-items: center; gap: var(--s4); }
 .fye .hdr__cta {
   display: inline-flex; align-items: center; justify-content: center;
+  /* The one FILLED button in the header, 10/09/2026. It holds Design Your Own
+     Ring, which used to be an outlined exception inside the nav band — an
+     action sitting in a row of categories. Filled teal because it is the thing
+     we most want a customer to start, and because one filled object in an
+     otherwise outlined header needs no further emphasis. 288px min-width holds
+     the label at this tracking; the 44px height is unchanged, so no band grows. */
   min-height: 44px;
+  min-width: 288px;
   padding: 0 var(--s6);
   border: 1px solid var(--teal);
-  color: var(--ink);
-  font-size: 17px;
-  font-weight: var(--fw-light);
-  letter-spacing: 0.02em;
+  background: var(--teal);
+  color: var(--ivory);
+  font-size: 14px;
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.20em;
   line-height: 1;
   text-transform: uppercase;
   white-space: nowrap;
-  transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
 }
-.fye .hdr__cta:hover { background: var(--teal); color: var(--ivory); }
+.fye .hdr__cta:hover { background: var(--sage); border-color: var(--sage); color: var(--white); }
+.fye .hdr__cta:active { background: var(--sage-deep); border-color: var(--sage-deep); color: var(--white); }
 
 /* -12px pulls the icon row's optical padding back to the 32px page edge. */
 .fye .hdr__icons { display: flex; align-items: center; margin-right: -12px; }
@@ -474,7 +497,7 @@
 .fye .hdr__nav { background: var(--ivory); position: relative; }
 .fye .hdr__nav-list {
   display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
-  gap: var(--s4);
+  gap: var(--s5);
   min-height: 49px;
   margin: 0; padding-inline: var(--s7); list-style: none;
 }
@@ -483,23 +506,35 @@
   display: inline-flex; align-items: center; gap: var(--s2);
   padding-block: var(--s3);
   color: var(--ink);
-  /* 12px / 0.07em is the NARROW-DESKTOP size, and it is the base because the
-     wrap is the failure that matters: eleven items at 13px / 0.08em broke onto
-     a second row on a 13in laptop (09/09/2026). At 15px / 0.10em it wrapped
-     badly at any width.
-
-     The measured live size, 13px / 0.08em, comes back at 1440px and up, with
-     the full s5 gap from 1500px — see the two min-width tiers below. This size
-     is what Ed's 1426 laptop gets, and it is sized for exactly that. */
-  font-size: 12px;
+  /* 13px / 0.08em — the designed size, restored 10/09/2026. It was dropped to
+     12px, then 11px, chasing a row of ten items that needed 1,487px and so
+     wrapped at every width between 900 and 1,197. Shrinking type only ever
+     moved the failure about 50px at a time. The restructure fixed the cause
+     instead: the utility items moved up into the announcement strip and the
+     row now carries four mega categories plus Gallery, needing 816px, which
+     clears 900 with 84px to spare. DO NOT shrink this again — if the row
+     overflows, an item has been added that belongs in the utility menu. */
+  font-size: 13px;
   font-weight: var(--fw-semi);
-  letter-spacing: 0.07em;
+  letter-spacing: 0.08em;
   line-height: 1;
   text-transform: uppercase;
   white-space: nowrap;
 }
-.fye .hdr__nav-link:hover,
-.fye .hdr__nav-link.is-active { color: var(--sage); }
+/* Hover and current are 2px BARS on the band's bottom edge, not a colour
+   shift on the type. The system's accent is sage green, but sage green type on
+   ivory measures about 2.4:1 at 13px, well under 4.5:1, so the type stays
+   full-strength teal and sage green moves to the bar. An open mega panel takes
+   the same bar in teal, continuous with the panel's own top hairline. */
+.fye .hdr__nav-link { transition: box-shadow var(--dur) var(--ease); }
+.fye .hdr__nav-link:hover { box-shadow: inset 0 -2px 0 0 var(--sage); }
+.fye .hdr__nav-link.is-active { box-shadow: inset 0 -2px 0 0 var(--sage-deep); }
+.fye .hdr__nav-item:hover .hdr__nav-link,
+.fye .hdr__nav-item:focus-within .hdr__nav-link { box-shadow: inset 0 -2px 0 0 var(--teal); }
+.fye .hdr__nav-item:hover .hdr__nav-link .icon,
+.fye .hdr__nav-item:focus-within .hdr__nav-link .icon { transform: rotate(180deg); }
+.fye .hdr__nav-link .icon { transition: transform var(--dur) var(--ease); }
+.fye .hdr__nav-link:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
 .fye .hdr__nav-link .icon { width: 13px; height: 13px; stroke-width: 1.6; }
 
 /* Mega panel — full-bleed ivory sheet, opens on hover and on keyboard focus. */
@@ -560,51 +595,10 @@
 }
 .fye .drawer__contact .btn { text-transform: uppercase; }
 
-/* Wide desktop: the nav gets its measured live size back.
-
-   MEASURED IN THE BROWSER, 10/09/2026, on the live ten-item menu. The row is
-   1,139px of item text at 12px, and every number below is a fit, not a guess:
-
-     size / tracking / gap / side padding      row needs   fits from
-     13px  0.08em  s5(20)  s7(32)   ORIGINAL     1,487px     1500
-     13px  0.08em  s4(16)  0                     1,387px     1400
-     12px  0.07em  s4(16)  s7(32)   the base     1,283px      —
-
-   Ed's 13in laptop is 1426 across and is the machine the 09/09 compaction was
-   for, so EVERY TIER HERE MUST START ABOVE 1426. That rules out the 1400
-   option on its own merits: it fits, but it would land on the laptop.
-
-     >= 1500px   fully original: 13px / 0.08em / s5 gap / s7 padding
-     >= 1440px   13px / 0.08em, s4 gap, no side padding — full-size text on a
-                 monitor window too narrow for the original spacing. Dropping
-                 the side padding costs nothing: the list is centred and only
-                 fills the row at these widths.
-     1281-1439   12px / 0.07em / s4 gap — the base above, and what the laptop
-                 gets
-     <= 1280px   11px / 0.05em / s3 gap — narrowest desktop before the drawer
-
-   Against conventions §3, which allows three breakpoints for layout. The
-   header is measured chrome and already carried 1280 and 1400; these are the
-   header's own tiers, not the page's, and they exist because ten uppercase
-   items is very nearly more than a 1440px row can hold. THE REAL FIX IS FEWER
-   OR SHORTER LABELS — "Jewellery Guides & Advice" alone is 192px. Anything
-   that changes the width of these items must be re-measured at 1440 and 1500,
-   and at 1426 for the laptop. */
-@media (min-width: 1440px) {
-  .fye .hdr__nav-list { gap: var(--s4); padding-inline: 0; }
-  .fye .hdr__nav-link { font-size: 13px; letter-spacing: 0.08em; }
-}
-
-@media (min-width: 1500px) {
-  .fye .hdr__nav-list { gap: var(--s5); padding-inline: var(--s7); }
-}
-
 /* Narrow desktop: drop the contact labels before dropping the whole row. */
 @media (max-width: 1280px) {
   .fye .hdr__contact { gap: var(--s5); }
   .fye .hdr__contact-link span { display: none; }
-  .fye .hdr__nav-list { gap: var(--s3); }
-  .fye .hdr__nav-link { font-size: 11px; letter-spacing: 0.05em; }
 }
 
 @media (max-width: 900px) {
@@ -1146,171 +1140,18 @@
 }
 
 /* ----------------------------------------------------------------------------
-   RING MATCHMAKER — nav-link--reversed — the one nav item that is an action, not a category
+   THE MATCHMAKER NAV RULES — REMOVED 10/09/2026
    ----------------------------------------------------------------------------
-   Ed, 07/09/2026: last in the menu, and made to stand out with a button behind
-   it in reversed colours.
+   Three appended blocks of nav-link--reversed rules lived here, all matching on
+   the item's href. Dead twice over: the item left the nav band to become the
+   main-row CTA (see .hdr__cta above), and the page handle changed, so the
+   selectors matched nothing either way.
 
-   Reversed here means the design system's filled button: teal ground, ivory
-   type, shifting to sage green on hover and sage deep on press. Squared, like
-   every other surface in this system.
-
-   MATCHED ON HREF, not on a class or a block setting. A checkbox on the base
-   block would read better in the theme editor, but this nav loop and its
-   schema are the most-edited code in the file and an attribute selector needs
-   neither touched. The trade-off: CHANGE THE PAGE URL AND THIS STYLING
-   SILENTLY DISAPPEARS — update the two selectors below if /pages/ring-matchmaker
-   ever moves.
-
-   Sized to sit inside the 49px nav band: 34px tall leaves 7px of ivory above
-   and below, so the band does not grow and the rest of the row stays on its
-   measured baseline. The negative inline margin cancels the padding for
-   spacing purposes, so the 16px nav gap still reads as 16px to the eye rather
-   than 16px plus the button's own padding.
+   The href-matching was always the fragile part. It needed neither the nav loop
+   nor the schema touched, at the price of styling that would vanish silently if
+   the URL ever moved. The URL then moved. Nothing about the button now depends
+   on its href.
    -------------------------------------------------------------------------- */
-/* An outline, not a fill. A solid teal block in an ivory band outweighed the
-   logo; this is the same treatment as .hdr__cta 145px above — teal hairline,
-   ink type, filling teal on hover — so the item reads as an action without
-   shouting, in a shape this header already uses. (Ed, 07/09/2026.) */
-.fye .hdr__nav-link[href="/pages/ring-matchmaker"] {
-  min-height: 32px;
-  padding-block: 0;
-  padding-inline: var(--s4);
-  margin-inline: calc(var(--s4) * -1 + var(--s2));
-  border: 1px solid var(--teal);
-  color: var(--ink);
-  transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
-}
-.fye .hdr__nav-link[href="/pages/ring-matchmaker"]:hover { background: var(--teal); color: var(--ivory); }
-.fye .hdr__nav-link[href="/pages/ring-matchmaker"]:active { background: var(--sage-deep); color: var(--ivory); border-color: var(--sage-deep); }
-/* On the matchmaker page itself the outline fills, which is the active state
-   the rest of the nav gets from going sage. */
-.fye .hdr__nav-link[href="/pages/ring-matchmaker"].is-active { background: var(--teal); color: var(--ivory); }
-/* Focus ring must clear the fill, not sit on it. */
-.fye .hdr__nav-link[href="/pages/ring-matchmaker"]:focus-visible { outline-offset: 3px; }
-
-/* The drawer is a separate list — the nav band does not exist below 900px, so
-   without this the item is just another line. Full width, 48px tall, centred:
-   it is the only button in that list and should look like one. */
-.fye .drawer__list a[href="/pages/ring-matchmaker"] {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 48px;
-  padding-inline: var(--s5);
-  background: var(--teal);
-  color: var(--ivory);
-  transition: background var(--dur) var(--ease);
-}
-.fye .drawer__list a[href="/pages/ring-matchmaker"]:hover { background: var(--sage); color: var(--ivory); }
-.fye .drawer__list a[href="/pages/ring-matchmaker"]:active { background: var(--sage-deep); color: var(--ivory); }
-/* Its own row needs no hairline under it — the fill is the divider. */
-.fye .drawer__list li:has(a[href="/pages/ring-matchmaker"]) { border-bottom: 0; }
-
-
-/* ----------------------------------------------------------------------------
-   RING MATCHMAKER, quieter still — 07/09/2026
-   ----------------------------------------------------------------------------
-   Ed: reverse the colours back, keep a teal border. So this is no longer a
-   filled object at all — the border alone says button. Ground is the nav
-   band's own ivory, so nothing new appears behind the type; the hairline and
-   the teal type do the work.
-
-   HOVER NO LONGER FILLS. That was the remaining aggression: quiet until
-   touched, then the heaviest thing in the row. Border and type move to sage
-   green instead — the system's accent behaviour, with no block of colour
-   arriving under the cursor.
-
-   Appended rather than patched: two earlier scripts wrote rules for this
-   selector, and order decides between equal specificities. Every property they
-   set is re-declared below, so whichever landed, this is the result.
-   -------------------------------------------------------------------------- */
-.fye .hdr__nav-link[href="/pages/ring-matchmaker"] {
-  min-height: 32px;
-  padding-block: 0;
-  padding-inline: var(--s4);
-  margin-inline: calc(var(--s4) * -1 + var(--s2));
-  border: 1px solid var(--teal);
-  background: transparent;
-  color: var(--ink);
-  transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
-}
-.fye .hdr__nav-link[href="/pages/ring-matchmaker"]:hover {
-  background: transparent;
-  border-color: var(--sage);
-  color: var(--sage);
-}
-.fye .hdr__nav-link[href="/pages/ring-matchmaker"]:active {
-  background: transparent;
-  border-color: var(--sage-deep);
-  color: var(--sage-deep);
-}
-/* On the matchmaker page itself: a white ground lifts it off the ivory band
-   just enough to read as current, without inverting anything. */
-.fye .hdr__nav-link[href="/pages/ring-matchmaker"].is-active {
-  background: var(--white);
-  border-color: var(--teal);
-  color: var(--ink);
-}
-
-/* Drawer, matched to the above. It had a fill because it is the only button in
-   that list, but one item should not have two treatments. Full width and 48px
-   for the tap target. */
-.fye .drawer__list a[href="/pages/ring-matchmaker"] {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 48px;
-  padding-inline: var(--s5);
-  border: 1px solid var(--teal);
-  background: transparent;
-  color: var(--ink);
-  transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
-}
-.fye .drawer__list a[href="/pages/ring-matchmaker"]:hover { background: transparent; border-color: var(--sage); color: var(--sage); }
-.fye .drawer__list a[href="/pages/ring-matchmaker"]:active { background: transparent; border-color: var(--sage-deep); color: var(--sage-deep); }
-.fye .drawer__list li:has(a[href="/pages/ring-matchmaker"]) { border-bottom: 0; padding-top: var(--s4); }
-
-
-/* ----------------------------------------------------------------------------
-   RING MATCHMAKER — the rollover, restored — 07/09/2026
-   ----------------------------------------------------------------------------
-   The resting state above is right: ivory ground, teal hairline, teal type.
-   What it lacked was an affordance, so the fill comes back — but only on
-   hover. That is the design system's outline-button behaviour, and with a
-   quiet resting state it reads as a response rather than as shouting.
-
-   The transition carries background as well as border and colour, so the fill
-   arrives over 220ms rather than snapping.
-   -------------------------------------------------------------------------- */
-.fye .hdr__nav-link[href="/pages/ring-matchmaker"] {
-  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
-}
-.fye .hdr__nav-link[href="/pages/ring-matchmaker"]:hover {
-  background: var(--teal);
-  border-color: var(--teal);
-  color: var(--ivory);
-}
-.fye .hdr__nav-link[href="/pages/ring-matchmaker"]:active {
-  background: var(--sage-deep);
-  border-color: var(--sage-deep);
-  color: var(--ivory);
-}
-/* Hovering the current page fills too — otherwise the one page where the item
-   matters most is the one place it stops responding. */
-.fye .hdr__nav-link[href="/pages/ring-matchmaker"].is-active:hover {
-  background: var(--teal);
-  color: var(--ivory);
-}
-
-/* Drawer: same, and it needs the fill more — there is no cursor on a phone, so
-   this is the tap feedback. */
-.fye .drawer__list a[href="/pages/ring-matchmaker"] {
-  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
-}
-.fye .drawer__list a[href="/pages/ring-matchmaker"]:hover { background: var(--teal); border-color: var(--teal); color: var(--ivory); }
-.fye .drawer__list a[href="/pages/ring-matchmaker"]:active { background: var(--sage-deep); border-color: var(--sage-deep); color: var(--ivory); }
-
 {% endstylesheet %}
 
 {% schema %}
@@ -1361,6 +1202,19 @@
       "type": "url",
       "id": "whatsapp_url",
       "label": "WhatsApp link"
+    },
+    {
+      "type": "header",
+      "content": "Utility nav"
+    },
+    {
+      "type": "paragraph",
+      "content": "The drawer's copy of the utility links. Set this to the SAME menu as the announcement bar — that section renders them on desktop, this one renders them in the mobile drawer."
+    },
+    {
+      "type": "link_list",
+      "id": "utility_menu",
+      "label": "Utility menu"
     },
     {
       "type": "header",

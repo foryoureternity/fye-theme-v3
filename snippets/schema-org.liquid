@@ -28,6 +28,18 @@
   the geography instead. If a studio address is ever published, add
   `address` as a PostalAddress and Google will treat the listing as a
   storefront.
+
+  10/09/2026 (W169) — CONFIRMED BY ED, not an assumption. Three audits have
+  now flagged the missing address as a gap. It is not one. The only address
+  available is residential, and publishing a home address in head markup on
+  every page is unscrapeable-back: it is mirrored into directory sites and
+  cached within days. Google's own guidance for a business that does not
+  receive customers at its address is a service-area listing with the address
+  HIDDEN, so publishing it here would also disagree with the Business Profile
+  and cost the very consistency it was meant to buy. DO NOT ADD A
+  PostalAddress because an audit tool reports one missing. The local signal
+  is carried by areaServed, the Business Profile as a service-area business
+  (W170) and the London consultation page (W171).
 {%- endcomment -%}
 {%- liquid
   assign logo_square = 'fye-logo-square.png' | asset_url

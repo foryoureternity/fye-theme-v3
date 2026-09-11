@@ -22,7 +22,16 @@
       line, so it is stated here too. No return policy is asserted: the
       policy for made-to-order rings is not the policy for loose stones,
       and a wrong MerchantReturnPolicy is worse than none. Add one per type
-      when the wording is settled.
+      when the wording is settled. Still true on 10/09/2026 (W334): the
+      wording is Ed's to settle, so hasMerchantReturnPolicy stays out. So do
+      gtin and mpn — not one variant on the catalogue carries a barcode
+      (checked on ENG23146-SMT, 20 variants, 0 barcodes), and deriving an mpn
+      from the SKU stem needs a rule per supplier, not a guess.
+    - `material` IS emitted, from the Metal option's own values rather than a
+      metafield or a tag. A ring that comes in platinum, 18k, 14k, 9k and
+      palladium has five materials and asserting one of them would be wrong;
+      schema.org takes repeated values, so all of them are listed. A product
+      with no Metal option says nothing.
     - Fee and service products (the £55 engraving line, side-diamond pairs)
       are not things a shopper buys from a search result, so they emit
       nothing.
@@ -64,6 +73,20 @@
       Hockley Mint would otherwise publish the trade source as the brand.
     endcomment
     assign brand_name = shop.name
+
+    comment
+      Metal option -> material. Matched on the option NAME, not position:
+      position 1 is Metal on rings but not everywhere, and a loose stone has
+      no metal at all.
+    endcomment
+    assign metals = blank
+    for opt in p.options_with_values
+      assign opt_name = opt.name | downcase | strip
+      if opt_name == 'metal'
+        assign metals = opt.values
+        break
+      endif
+    endfor
   -%}
 <script type="application/ld+json">
 {
@@ -77,6 +100,13 @@
   "sku": {{ sku | json }},
   {%- endif %}
   "brand": { "@type": "Brand", "name": {{ brand_name | json }} },
+  {%- if metals != blank and metals.size > 0 %}
+  "material": [
+    {%- for m in metals -%}
+      {{ m | json }}{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ],
+  {%- endif %}
   {%- if p.images.size > 0 %}
   "image": [
     {%- for img in p.images limit: 6 -%}

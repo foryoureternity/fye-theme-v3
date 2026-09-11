@@ -720,7 +720,12 @@
    dozen entries into every page's outline ahead of the content. The two
    rules below restate what the heading element used to supply from
    fye-core's :where(h2)/:where(h3) base, colour, display face, heading
-   line-height, text-wrap, so the rendering is byte-for-byte the same. */
+   line-height, text-wrap, so the rendering is byte-for-byte the same.
+
+   10/09/2026 (W329): that change was made here but missed the six <h3>s in
+   the mm-* snippets, so every page still opened with ten H3s before its own
+   H1. mm-cuts, mm-shapes, mm-stones, mm-diamonds and mm-gemstones are now
+   <p> as well, and .mm-dg-coltitle below gained the same restatement. */
 .fye .mm__zone-title {
   margin: 0;
   font-family: var(--font-display);
@@ -965,6 +970,10 @@
   font-size: 13px; font-weight: 400;
   letter-spacing: 0.14em; text-transform: uppercase;
   white-space: nowrap;
+  /* Restated for the <p> (W329): as an <h3> these two came from fye-core's
+     :where(h1..h6) base. A <p> inherits body line-height and ink instead. */
+  line-height: var(--lh-heading);
+  color: var(--ink);
 }
 .fye .mm-viewall-link {
   display: inline-flex; align-items: center; gap: 9px;

@@ -228,6 +228,14 @@
               </li>
             {%- endfor -%}
           </ul>
+          {%- comment -%}
+            W331: the grid described as an ItemList. Emitted here, not from
+            the head, because only inside paginate is it known which products
+            are actually on this page. See snippets/schema-collection.liquid.
+          {%- endcomment -%}
+          {%- render 'schema-collection',
+                collection: collection, products: collection.products,
+                paginate: paginate -%}
         {%- else -%}
           <p class="coll__empty lead">No products match these filters. <a href="{{ collection.url }}">Clear all filters</a> to see everything in this collection.</p>
         {%- endif -%}

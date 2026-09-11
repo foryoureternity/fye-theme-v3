@@ -12,6 +12,22 @@
 
   The publisher is the JewelryStore record from schema-org by @id, so the
   business is described once and referenced here rather than repeated.
+
+  10/09/2026 (W332) — FAQPage. Several articles carry a real Q&A section in
+  the body; the one checked has nine questions with a clean answer under each
+  and emitted no FAQPage at all. This reads an OPT-IN metafield rather than
+  parsing the article body:
+
+      article.metafields.fye.faq   JSON, a list of { "q": ..., "a": ... }
+
+  Opt-in on purpose. Sniffing the body for headings that end in a question
+  mark eventually marks up a rhetorical one, and FAQ markup that does not
+  match the visible page is a manual action, not a missed opportunity. An
+  article without the metafield emits nothing and is unchanged.
+
+  The FAQPage is a separate <script> block, not a node inside Article: they
+  are two pages' worth of claims about one URL, and Google reads them
+  independently.
 {%- endcomment -%}
 {%- if article != blank -%}
   {%- liquid
@@ -45,4 +61,43 @@
   "isAccessibleForFree": true
 }
 </script>
+{%- liquid
+  assign faq = a.metafields.fye.faq.value | default: a.metafields.fye.faq
+  assign faq_ok = false
+  if faq != blank and faq.size > 0
+    assign faq_ok = true
+  endif
+-%}
+{%- if faq_ok -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": {{ canonical_url | append: '#faq' | json }},
+  "mainEntity": [
+    {%- comment -%}
+      The comma leads rather than trails. A row missing a question or an
+      answer is skipped, so `forloop.last` is not the same as "last one
+      printed" and a trailing comma there would invalidate the whole block.
+    {%- endcomment -%}
+    {%- assign printed = 0 -%}
+    {%- for row in faq -%}
+      {%- liquid
+        assign q = row.q | default: row.question | strip_html | strip
+        assign ans = row.a | default: row.answer | strip_html | strip
+      -%}
+      {%- if q != blank and ans != blank -%}
+        {%- if printed > 0 %},{% endif %}
+      {
+        "@type": "Question",
+        "name": {{ q | json }},
+        "acceptedAnswer": { "@type": "Answer", "text": {{ ans | json }} }
+      }
+        {%- assign printed = printed | plus: 1 -%}
+      {%- endif -%}
+    {%- endfor -%}
+  ]
+}
+</script>
+{%- endif -%}
 {%- endif -%}

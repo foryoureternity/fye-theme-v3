@@ -37,7 +37,7 @@
   assign cols = section.blocks.size | at_least: 1
 -%}
 
-<section class="mme band band--{{ band }}" data-screen-label="Matchmaker entry">
+<section class="fnd band band--{{ band }}" data-screen-label="Matchmaker entry">
   <div class="wrap">
     {%- if s.eyebrow != blank or s.heading != blank or s.intro != blank -%}
       <div class="sect-head">
@@ -48,7 +48,7 @@
     {%- endif -%}
 
     {%- if section.blocks.size > 0 -%}
-      <ul class="mme__tiles" style="--mme-cols: {{ cols }};">
+      <ul class="fnd__tiles" style="--cols: {{ cols }};">
         {%- for block in section.blocks -%}
           {%- liquid
             assign b = block.settings
@@ -60,16 +60,16 @@
               endif
             endif
           -%}
-          <li class="mme__item" {{ block.shopify_attributes }}>
-            <a class="mme__tile" href="{{ href }}">
+          <li class="fnd__item" {{ block.shopify_attributes }}>
+            <a class="fnd__tile" href="{{ href }}">
               {%- if b.icon != blank -%}
-                <img class="mme__icon" src="{{ b.icon | file_url }}" alt="" aria-hidden="true" width="68" height="68" loading="lazy">
+                <img class="fnd__icon" src="{{ b.icon | file_url }}" alt="" aria-hidden="true" width="68" height="68" loading="lazy">
               {%- endif -%}
-              <span class="mme__name">{{ b.label | default: 'Start here' }}</span>
+              <span class="fnd__name">{{ b.label | default: 'Start here' }}</span>
               {%- if b.description != blank -%}
-                <span class="mme__desc">{{ b.description }}</span>
+                <span class="fnd__desc">{{ b.description }}</span>
               {%- endif -%}
-              <span class="mme__go link">{{ b.cta | default: s.cta | default: 'Begin' }}</span>
+              <span class="fnd__go link">{{ b.cta | default: s.cta | default: 'Begin' }}</span>
             </a>
           </li>
         {%- endfor -%}
@@ -81,28 +81,18 @@
 </section>
 
 {% stylesheet %}
-/* CLASS PREFIX IS mme, NOT fnd — 10/09/2026, and this is load-bearing.
+/* The section owns its own width, 10/09/2026. On the homepage this band was
+   rendering about 806px wide against the left edge instead of taking the
+   standard 1320px centred measure: the heading and eyebrow centred correctly
+   but inside that narrow box, and the flanked-heading hairlines collapsed to
+   nothing because they had no width left to grow into. display: block and an
+   explicit full-width wrap stop the band from being sized by whatever layout
+   context it happens to sit in. Same declarations the global .wrap rule
+   makes; restated here so this section cannot lose them again. */
+.fye .fnd { display: block; width: 100%; }
+.fye .fnd > .wrap { max-width: var(--maxw); width: 100%; margin-inline: auto; }
 
-   Another component in this theme owns .fnd and sets display: grid on it,
-   with roughly two columns. Because every section stylesheet block is
-   concatenated into one document stylesheet, that rule reached this section
-   as well: the band became a two-column grid, .wrap became a start-packed
-   grid item in a content-sized first column, and the section rendered 759px
-   wide against the left edge with a 1,048px empty column beside it. The
-   flanked heading lost its hairlines at the same time, because they are
-   flex: 1 1 0 and had no spare width to grow into.
-
-   margin-inline: auto could not save it: an auto margin cannot centre an item
-   inside a track only as wide as its own content. Nor could specificity —
-   .fye .fnd declared twice means the later rule wins, and section stylesheet
-   order is not ours to choose. Renaming removes the collision outright, which
-   is the honest fix anyway: two unrelated components should not share a root
-   class. --cols is renamed for the same reason, since .fye .agrid reads it
-   with a fallback of 4. */
-.fye .mme { display: block; width: 100%; }
-.fye .mme > .wrap { max-width: var(--maxw); width: 100%; margin-inline: auto; }
-
-.fye .mme__tiles {
+.fye .fnd__tiles {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -112,15 +102,15 @@
      journeys left an empty column on the right and the row read as
      left-aligned. Bounded tracks plus justify-content mean any number of tiles
      from one to four sits centred, at a consistent tile width. */
-  grid-template-columns: repeat(var(--mme-cols, 3), minmax(0, 380px));
+  grid-template-columns: repeat(var(--cols, 3), minmax(0, 380px));
   justify-content: center;
   gap: var(--grid-gap);
 }
-.fye .mme__item { margin: 0; display: flex; }
+.fye .fnd__item { margin: 0; display: flex; }
 /* Same tile as the matchmaker's own journey cards, so arriving there feels
    like continuing rather than starting again. The CTA sits at the bottom on
    its own row: margin-top auto keeps it level across tiles of unequal copy. */
-.fye .mme__tile {
+.fye .fnd__tile {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -133,29 +123,29 @@
   color: var(--ink);
   transition: border-color var(--dur) var(--ease);
 }
-.fye .band--white .mme__tile { background: transparent; }
-.fye .mme__tile:hover { border-color: var(--sage); color: var(--ink); }
-.fye .mme__tile:hover .mme__name,
-.fye .mme__tile:hover .mme__go { color: var(--sage); }
-.fye .mme__icon { width: 68px; height: 68px; }
-.fye .mme__name {
+.fye .band--white .fnd__tile { background: transparent; }
+.fye .fnd__tile:hover { border-color: var(--sage); color: var(--ink); }
+.fye .fnd__tile:hover .fnd__name,
+.fye .fnd__tile:hover .fnd__go { color: var(--sage); }
+.fye .fnd__icon { width: 68px; height: 68px; }
+.fye .fnd__name {
   font-family: var(--font-display);
   font-size: var(--fs-small);
   letter-spacing: 0.07em;
   text-transform: uppercase;
   transition: color var(--dur) var(--ease);
 }
-.fye .mme__desc { font-size: var(--fs-small); line-height: 1.5; color: var(--ink-soft); }
-.fye .mme__go { margin-top: auto; transition: color var(--dur) var(--ease); }
+.fye .fnd__desc { font-size: var(--fs-small); line-height: 1.5; color: var(--ink-soft); }
+.fye .fnd__go { margin-top: auto; transition: color var(--dur) var(--ease); }
 
 @media (max-width: 900px) {
   /* Below 900 the tiles fill the measure again: two bounded 380px tracks in a
      narrow viewport would leave the row looking stranded rather than centred. */
-  .fye .mme__tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fye .fnd__tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 560px) {
-  .fye .mme__tiles { grid-template-columns: minmax(0, 1fr); }
-  .fye .mme__tile { padding: var(--s5); }
+  .fye .fnd__tiles { grid-template-columns: minmax(0, 1fr); }
+  .fye .fnd__tile { padding: var(--s5); }
 }
 {% endstylesheet %}
 

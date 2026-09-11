@@ -123,7 +123,14 @@
     assign is_gold = true
   endif
 
-  assign golds = s.gold_colours | default: 'Yellow,White,Rose' | split: ','
+  comment
+    Spelled out in full, "Yellow Gold" not "Yellow", so this picker reads the
+    same as the plain-ring picker in main-product, which has always spelled
+    them out. The two sat side by side on the same site disagreeing. Ed,
+    11/09/2026.
+  endcomment
+  assign golds = s.gold_colours | default: 'Yellow Gold,White Gold,Rose Gold' | split: ','
+  assign gold_default = golds[0] | strip | split: ' ' | first
   assign sizes = s.ring_sizes | default: 'A,A.5,B,B.5,C,C.5,D,D.5,E,E.5,F,F.5,G,G.5,H,H.5,I,I.5,J,J.5,K,K.5,L,L.5,M,M.5,N,N.5,O,O.5,P,P.5,Q,Q.5,R,R.5,S,S.5,T,T.5,U,U.5,V,V.5,W,W.5,X,X.5,Y,Y.5,Z,Z.5,Z+1,Z+1.5,Z+2,Z+2.5,Z+3,Z+3.5,Z+4,Z+4.5,Z+5,Z+5.5,Z+6,Z+6.5,Z+7,Z+7.5,Z+8,Z+8.5,Z+9,Z+9.5' | split: ','
   assign threshold = s.surcharge_size | default: 'Q'
 
@@ -265,14 +272,24 @@
     <ul class="pdp__colours" data-fye-metals data-preferred-karat="{{ preferred_karat | escape }}">
       {%- for colour in golds -%}
         {%- liquid
+          comment
+            Full name on the LABEL, bare colour word in the VALUE. The value is
+            the suffix of the --metal-18-* token, and it is what is posted as
+            the "Gold colour" line property, which every order placed so far
+            already carries as "Yellow". Changing the stored value would split
+            the order history in two to gain nothing a shopper can see.
+            main-product's plain-ring picker derives its token from the first
+            word in exactly this way.
+          endcomment
           assign name = colour | strip
-          assign tone = name | downcase | prepend: '--metal-18-'
+          assign key = name | split: ' ' | first
+          assign tone = key | downcase | prepend: '--metal-18-'
         -%}
         <li>
           <button type="button"
                   class="pdp__colour{% if is_gold and forloop.first %} is-current{% endif %}"
                   style="--sw: var({{ tone }});"
-                  data-fye-gold="{{ name | escape }}">
+                  data-fye-gold="{{ key | escape }}">
             <span class="pdp__dot"></span>
             <span class="pdp__colourname">{{ name }}</span>
           </button>
@@ -326,7 +343,7 @@
   {%- endcomment -%}
   <input type="hidden"
          name="properties[Gold colour]"
-         value="{{ golds[0] | strip | escape }}"
+         value="{{ gold_default | escape }}"
          data-fye-gold-input
          {% unless is_gold %}disabled{% endunless %}>
 

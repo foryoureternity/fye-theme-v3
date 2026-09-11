@@ -993,7 +993,13 @@
   flex-direction: column;
   align-items: center;
   gap: var(--s2);
-  width: 92px;
+  /* 100px, measured 11/09/2026. "YELLOW GOLD" is the widest caption and needs
+     100 to stay on one line; at the old 92 it alone wrapped to two while the
+     other four stayed on one, which read as ragged. It had been wrapping that
+     way on the plain-ring picker since day one, since that picker has always
+     spelled the colours out. 100 still packs three per row at 375px with 3px
+     to spare, and the row is SHORTER than it was because nothing wraps. */
+  width: 100px;
   text-align: center;
 }
 

@@ -112,10 +112,38 @@
   {%- endcomment -%}
   {%- liquid
     assign fye_description = page_description
+
     if fye_page_type == 'product' and product != blank and fye_description contains 'From £'
       assign fye_desc_head = fye_description | split: 'From £' | first
       assign fye_desc_price = product.price_min | money_without_trailing_zeros
       assign fye_description = fye_desc_head | append: 'From ' | append: fye_desc_price | append: '.'
+
+      comment
+        Normalise back to plain text, ONLY on this branch.
+
+        Something on the product path hands this string over already
+        HTML-escaped, so "Sapphire & Diamond" arrives as "Sapphire &amp;
+        Diamond"; the `escape` on the meta tag below then makes it
+        "&amp;amp;" and the search snippet shows a literal "&amp;". It went
+        live that way on 10/09/2026 (W335).
+
+        It is the PRODUCT path specifically. A collection page whose
+        description_tag also contains a plain "&"
+        (/collections/diamond-wedding-rings) renders a correct single "&amp;"
+        through the untouched branch above, so neither `assign` nor `escape`
+        is at fault, and the likeliest cause is that a product's
+        description_tag is escaped on output as metafields are. That would
+        mean the old `{{ page_description | escape }}` had the same bug; it
+        could not be proved from outside, because every ring description
+        carries both an "&" and a "From £", so there is no product on the site
+        that takes one path and not the other.
+
+        Either way this is the right place to fix it: decode here, and the
+        single `escape` below produces correct markup whichever it was. The
+        non-product branch is left byte-identical to what it replaced, because
+        that one is proven correct.
+      endcomment
+      assign fye_description = fye_description | replace: '&amp;', '&' | replace: '&lt;', '<' | replace: '&gt;', '>' | replace: '&quot;', '"' | replace: '&#39;', "'"
     endif
   -%}
   {%- if fye_description != blank -%}

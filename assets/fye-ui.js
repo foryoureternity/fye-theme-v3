@@ -1967,6 +1967,122 @@
 
 
 /* ============================================================================
+   THE GALLERY FOLLOWS THE METAL COLOUR - W341, 11/09/2026
+   ----------------------------------------------------------------------------
+   Clicking Yellow, White or Rose shows that colour's photograph; Platinum and
+   Palladium show the base one. Only where the photograph exists, which on most
+   of the catalogue it does not yet.
+
+   THIS BEHAVIOUR DID NOT EXIST BEFORE TODAY. W341 was raised believing a
+   handler was failing to fire. Nothing in this file, or in the two product
+   snippets, ever read a colour swatch and touched the gallery: metalSelect
+   above changes the variant, the price, the label and the highlight, and stops
+   there. Said plainly so that nobody spends another session hunting a bug in
+   code that was never written.
+
+   ── WHY ALT TEXT AND NOT THE FILENAME ─────────────────────────────────────
+   The colour photographs were attached to ~990 rings by W339, which began with
+   YG- / RG- / WG- filename prefixes and DROPPED THEM PARTWAY THROUGH. ENG22937
+   and HET1107 carry the prefix; TRL23668 AQD and FET13376, uploaded
+   11/09/2026, are plain <CODE>_<uuid>.jpg. A filename rule passes every test
+   written today and fails silently on the newer half of the catalogue, which
+   is precisely the failure mode the W339 brief warned about.
+
+   The alt text is consistent on every product checked:
+
+       "<product title> in Yellow Gold"   "... in Rose Gold"   "... in White Gold"
+
+   and the base image carries no colour suffix. The base alt is NOT reliably
+   the product title: on ENG20698 SMT it is "ENG20698 SMT — product video". So
+   ONLY THE SUFFIX IS MATCHED, case-insensitively. Matching the title plus a
+   suffix would fail on exactly those products.
+
+   ── WHY NOT VARIANTS ──────────────────────────────────────────────────────
+   Colour is presentational. The Shopify option is Metal (Platinum / 18k / 14k
+   / 9k Gold / Palladium) and the price is identical across the colours, so a
+   colour variant would triple the gold variants on ~2,700 products purely to
+   hang a picture on them. Ed ruled that out. Front end only.
+
+   ── WHY IT CLICKS THE THUMBNAIL ───────────────────────────────────────────
+   The same reasoning as the change event metalSelect dispatches above. The
+   gallery already has one code path for "show panel N", and it also moves the
+   thumbnail highlight and starts the 360 viewer. Clicking the thumbnail runs
+   that path rather than keeping a second copy of it here, showPanel() being
+   private to productPage(). A colour photograph means at least two media, and
+   the thumbnail strip renders whenever media.size > 1, so the button is always
+   there when a target panel exists.
+
+   NO MATCH MEANS NO CHANGE. A ring the image job has not reached must behave
+   exactly as it does today: no switch, no blank stage, no console noise.
+   ========================================================================== */
+(function galleryMetalColour() {
+
+  /* data-fye-gallery is also the past-pieces grid, which has no panels. */
+  function stage() {
+    var all = document.querySelectorAll('[data-fye-gallery]');
+    for (var i = 0; i < all.length; i++) {
+      if (all[i].querySelector('[data-fye-panel]')) return all[i];
+    }
+    return null;
+  }
+
+  /* 'yellow' | 'rose' | 'white', or '' for an image with no colour suffix. */
+  function colourOfAlt(alt) {
+    var m = /\bin\s+(yellow|rose|white)\s+gold\s*$/i.exec(String(alt || ''));
+    return m ? m[1].toLowerCase() : '';
+  }
+
+  /* The swatch is labelled from the gold_colours setting, today "Yellow" but
+     "Yellow Gold" if it is ever spelled out. Both reduce to 'yellow'. */
+  function colourOfSwatch(name) {
+    return String(name || '').trim().toLowerCase().replace(/\s*gold\s*$/, '');
+  }
+
+  function show(colour) {
+    var gallery = stage();
+    if (!gallery) return;
+
+    var panels = gallery.querySelectorAll('[data-fye-panel]');
+    var target = null;
+    var photographed = false;
+
+    for (var i = 0; i < panels.length; i++) {
+      var img = panels[i].querySelector('img');
+      if (!img) continue;                              /* the 360 panel */
+      var c = colourOfAlt(img.getAttribute('alt'));
+      if (c) photographed = true;
+      if (!target && c === colour) target = panels[i];
+    }
+
+    /* Not reached by the image job, or reached but not in this colour. */
+    if (!photographed || !target) return;
+    if (target.classList.contains('is-on')) return;
+
+    var thumb = gallery.querySelector(
+      '[data-fye-thumb="' + target.getAttribute('data-fye-panel') + '"]'
+    );
+    if (thumb) thumb.click();
+  }
+
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest) return;
+
+    var gold = e.target.closest('[data-fye-gold]');
+    if (gold) {
+      show(colourOfSwatch(gold.getAttribute('data-fye-gold')));
+      return;
+    }
+
+    /* Platinum and palladium are colour swatches and go to the base image.
+       The CARAT TILES carry the same attribute and must NOT move the gallery,
+       18ct rose being still rose, so the swatch row is required explicitly. */
+    var metal = e.target.closest('[data-fye-metal]');
+    if (metal && metal.closest('[data-fye-metals]')) show('');
+  });
+})();
+
+
+/* ============================================================================
    CART — 01/09/2026
    ----------------------------------------------------------------------------
    Two behaviours, both cart-page only, both no-ops everywhere else.

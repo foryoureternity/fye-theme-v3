@@ -993,12 +993,23 @@
   flex-direction: column;
   align-items: center;
   gap: var(--s2);
-  /* 100px, measured 11/09/2026. "YELLOW GOLD" is the widest caption and needs
-     100 to stay on one line; at the old 92 it alone wrapped to two while the
-     other four stayed on one, which read as ragged. It had been wrapping that
-     way on the plain-ring picker since day one, since that picker has always
-     spelled the colours out. 100 still packs three per row at 375px with 3px
-     to spare, and the row is SHORTER than it was because nothing wraps. */
+  /* 100px, measured 11/09/2026, and it is deliberately the SAME at every
+     width: the 560 breakpoint used to drop this to 64 and no longer does.
+
+     "YELLOW GOLD" is the widest caption and needs exactly 100 to stay on one
+     line. At 92 it alone wrapped while the other four stayed on one line, and
+     at the old mobile 64 all three golds wrapped while PLATINUM and PALLADIUM
+     did not, because a single word cannot wrap and simply overflowed the box
+     into the gap. That mixture inside one row is what read as ragged.
+
+     At 375px the row has 335px and the mobile gap is --s4 (16px), so three
+     still fit with 3px to spare: 3x100 + 2x16 = 332. The swatch row is
+     SHORTER than it was, 148px against 162px, because nothing wraps any more.
+     Below about 340px it drops to two per row, which is correct behaviour
+     rather than overflow, and the page never scrolls sideways.
+
+     The plain-ring picker above shares this class and has spelled its colours
+     out since day one, so it had been wrapping this way all along. */
   width: 100px;
   text-align: center;
 }
@@ -1719,10 +1730,6 @@
 
   .fye .pdp__colours {
     gap: var(--s4);
-  }
-
-  .fye .pdp__colour {
-    width: 64px;
   }
 
   .fye .pdp__engravehead {

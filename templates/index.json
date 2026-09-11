@@ -243,30 +243,48 @@
             "rating": 5
           }
         },
-        "testimonial_qLjif4": {
+        "testimonial_tpRicky": {
           "type": "testimonial",
           "settings": {
-            "quote": "<p>From the first email to the final fitting, the team made designing my engagement ring feel effortless. The lab-grown diamond is breathtaking and the craftsmanship is beyond anything I expected.</p>",
-            "name": "Eleanor R.",
-            "context": "Engagement ring",
+            "quote": "<p>What a amazing experience, full 5 star concierge treatment from start to finish</p>",
+            "name": "Ricky",
+            "context": "",
             "rating": 5
           }
         },
-        "testimonial_3tEreq": {
+        "testimonial_tpLydia": {
           "type": "testimonial",
           "settings": {
-            "quote": "<p>We wanted matching wedding bands that felt personal, and For Your Eternity delivered exactly that. The attention to detail and the gentle, unhurried guidance made the whole process a joy.</p>",
-            "name": "James & Priya",
-            "context": "A pair of wedding rings",
+            "quote": "<p>Ed really knows his stuff! Myself and my husband bought our wedding rings through ‘For your eternity’ and we are so happy with them! The whole process was enjoyable and seamless! Buying your wedding rings is a big decision and Ed was so knowledgeable and patient!</p>",
+            "name": "Lydia",
+            "context": "Pair of wedding rings",
             "rating": 5
           }
         },
-        "testimonial_RVhzLU": {
+        "testimonial_tpOllie": {
           "type": "testimonial",
           "settings": {
-            "quote": "<p>I was nervous buying a ring online, but the transparency around the stone and the lifetime guarantee put me completely at ease. It arrived beautifully packaged and even more stunning in person.</p>",
-            "name": "Marcus T.",
-            "context": "Solitaire engagement ring",
+            "quote": "<p>Ed was brilliant from start to finish and created an unbelievable ring both my partner and myself are extremely happy with. Couldn’t recommend For Your Eternity more!</p>",
+            "name": "Ollie E.",
+            "context": "",
+            "rating": 5
+          }
+        },
+        "testimonial_tpTom": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>My wife and I had a brilliant experience with For Your Eternity while choosing her wedding ring. Ed was absolutely fantastic - friendly, knowledgeable, and genuinely invested in helping us find the perfect ring.</p>",
+            "name": "Tom",
+            "context": "Wedding ring",
+            "rating": 5
+          }
+        },
+        "testimonial_tpSamir": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>Had a tricky problem with my engagement ring. Felt uninformed and uncertain how to proceed. Ed helped me through every step of our process and came up with a great solution. Thoroughly recommend for your jewellery needs.</p>",
+            "name": "Samir K.",
+            "context": "Engagement ring resizing",
             "rating": 5
           }
         }
@@ -275,9 +293,11 @@
         "testimonial_YWNeHc",
         "testimonial_3QkATh",
         "testimonial_Rhnrrc",
-        "testimonial_qLjif4",
-        "testimonial_3tEreq",
-        "testimonial_RVhzLU"
+        "testimonial_tpRicky",
+        "testimonial_tpLydia",
+        "testimonial_tpOllie",
+        "testimonial_tpTom",
+        "testimonial_tpSamir"
       ],
       "settings": {
         "heading": "Testimonials",

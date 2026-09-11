@@ -76,16 +76,48 @@
 
   <title>{{ page_title }}{% if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.page' | t }} {{ current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>
   {%- comment -%}
-    W335: the description is computed, not printed straight from the
-    metafield, because the metafield has a price frozen into it. Captured once
-    here and passed to all three consumers so the meta tag, the social tags
-    and the Product schema cannot state three different prices. See
-    snippets/fye-description.liquid.
+    W335, 10/09/2026 — the description is COMPUTED, not printed straight from
+    the metafield.
+
+    Every product's description_tag was generated on 12/08/2026 with that
+    day's price written into the sentence ("... lifetime warranty. From
+    £2,093."). Gemex prices move weekly and a metafield does not, so the text
+    drifted: of 50 trilogy rings sampled on 10/09, 37 disagreed with their own
+    page and three, caught by the 19/08 trilogy restructure, were advertising
+    at roughly half price. So the amount after the final "From £" is replaced
+    with the live price_min and every other word is left as written. The
+    number can never go stale again, whatever a reprice does.
+
+    `money_without_trailing_zeros` matches the house style: whole pounds print
+    as £1,748, only a real part-pound as £2,127.50.
+
+    ONLY THE NUMBER CHANGES, not the wording. The product card says "Setting
+    from" on engagement rings because the centre stone is chosen separately;
+    these descriptions say "From". Aligning the two is a copy decision and
+    belongs with W206 and W166.
+
+    THIS IS DELIBERATELY `assign`, NOT `capture` + `render`. It was written as
+    a snippet first and that shipped a bug: a captured render round-trip
+    HTML-escapes its output, so "wedding & eternity" came back as
+    "wedding &amp; eternity", the `escape` below made it "&amp;amp;", and
+    Google would have been shown a literal "&amp;" in the snippet on every
+    page with an ampersand. `assign` does not escape, so the pipeline below is
+    byte-identical to what it replaced. Do not refactor this into a snippet.
+
+    Computed ONCE and handed to all three consumers — the meta tag,
+    social-meta and schema-product — so they cannot state three different
+    prices. That matters because product.description is empty on most rings
+    (checked 10/09/2026), so schema-product takes its fallback, which is how
+    the 12/08 price reached the Product node as well as the search snippet.
   {%- endcomment -%}
-  {%- capture fye_description -%}
-    {%- render 'fye-description', page_type: fye_page_type, product: product, description: page_description -%}
-  {%- endcapture -%}
-  {%- assign fye_description = fye_description | strip -%}
+  {%- liquid
+    assign fye_description = page_description
+    if fye_page_type == 'product' and product != blank and fye_description contains 'From £'
+      assign fye_desc_head = fye_description | split: 'From £' | first
+      assign fye_desc_price = product.price_min | money_without_trailing_zeros
+      assign fye_description = fye_desc_head | append: 'From ' | append: fye_desc_price | append: '.'
+    endif
+  -%}
   {%- if fye_description != blank -%}
     <meta name="description" content="{{ fye_description | escape }}">
   {%- endif -%}

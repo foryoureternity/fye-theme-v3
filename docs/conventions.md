@@ -176,6 +176,17 @@ figures for every existing pairing are in `fye-core.css`.
 - `{% render %}` only. Never `{% include %}` (deprecated, leaks scope).
 - Snippets take explicit named parameters. A snippet that reaches for
   `section.settings` from inside is a bug.
+- **Never wrap a `{% render %}` in a `{% capture %}` to get a value back.**
+  The captured output is HTML-escaped, so any `&`, `<` or `>` in it comes back
+  as an entity. If that string is then put through `| escape` for an attribute
+  you get `&amp;amp;`, and the page shows a literal `&amp;` to users and to
+  Google. It shipped exactly that way on 10/09/2026 (W335): every page whose
+  meta description contained an ampersand advertised `wedding &amp; eternity`
+  until it was caught. The same string in a `| json` field is wrong in the
+  other direction, carrying an HTML entity into JSON-LD.
+  A snippet renders *markup*. To compute a *value*, use `{%- liquid assign -%}`
+  where you need it — `assign` does not escape. If the logic is genuinely
+  shared, duplicate the four lines rather than round-tripping through capture.
 
 ## 5. Schema
 

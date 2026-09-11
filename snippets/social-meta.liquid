@@ -16,10 +16,16 @@
   SEO title and description already resolved for the page, so the card says
   what the search result says. The price tags are the Open Graph product
   vocabulary that WhatsApp and Pinterest read.
+
+  10/09/2026 (W335) — `description` is now PASSED IN from theme.liquid rather
+  than read from `page_description` here. On product pages it has had its
+  frozen price swapped for the live one, and a share card quoting a different
+  price from the search snippet is exactly the drift this was fixing. Falls
+  back to page_description if rendered without the parameter.
 {%- endcomment -%}
 {%- liquid
   assign og_title = page_title | default: shop.name
-  assign og_description = page_description | default: shop.description | default: shop.name
+  assign og_description = description | default: page_description | default: shop.description | default: shop.name
   assign og_type = 'website'
   if request.page_type == 'product'
     assign og_type = 'product'

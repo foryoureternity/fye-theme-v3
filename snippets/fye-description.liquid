@@ -1,0 +1,54 @@
+{%- comment -%}
+  fye-description — the page's meta description, with a LIVE price.
+
+  Added 10/09/2026 (W335). Every product's description_tag metafield was
+  generated on 12/08/2026 with that day's price written into the sentence:
+
+      "... and a lifetime warranty. From £2,093."
+
+  Gemex prices move weekly, and a metafield does not, so the text has been
+  drifting ever since. Sampled 50 trilogy rings on 10/09: 37 disagreed with
+  their own page. Most were out by £11-£80, but three caught by the 19/08
+  trilogy restructure were advertising at roughly half price — trl36677-smt
+  said "From £862" for a £1,748 ring.
+
+  The fix is to stop storing a price and start computing one. This snippet
+  replaces the amount after the final "From £" with the product's live
+  price_min, leaving every other word of the copy exactly as written. So the
+  sentence stays whatever the copywriter wrote and the number can never go
+  stale again, whatever the reprice does.
+
+      {%- capture fye_description -%}
+        {%- render 'fye-description', page_type: fye_page_type,
+              product: product, description: page_description -%}
+      {%- endcapture -%}
+
+  Capture it ONCE in layout/theme.liquid and pass it to the meta tag,
+  social-meta and schema-product, so the three cannot disagree. That matters
+  more than it looks: product.description is empty on most rings (checked
+  10/09/2026), so schema-product falls back to this same text, which is how
+  the frozen price reached the Product node as well as the snippet.
+
+  WHY ONLY THE NUMBER, and not the wording. The product card says "Setting
+  from" on engagement rings, because the centre stone is chosen separately and
+  a bare "From" understates by an order of magnitude. These descriptions all
+  say "From". Aligning the two is a copy decision and belongs with W206 and
+  W166, not smuggled into a bug fix.
+
+  `money_without_trailing_zeros` matches the existing house style: whole
+  pounds print as £1,748, and only a real part-pound prints as £2,127.50.
+
+  A description with no "From £" in it, and any non-product page, passes
+  through untouched.
+{%- endcomment -%}
+{%- liquid
+  assign fye_desc = description
+
+  if page_type == 'product' and product != blank and fye_desc contains 'From £'
+    assign fye_head = fye_desc | split: 'From £' | first
+    assign fye_live = product.price_min | money_without_trailing_zeros
+    assign fye_desc = fye_head | append: 'From ' | append: fye_live | append: '.'
+  endif
+
+  echo fye_desc | strip
+-%}

@@ -48,9 +48,17 @@
 -%}
 {%- unless skip -%}
   {%- liquid
+    comment
+      W335, 10/09/2026: the fallback is the description PASSED IN from
+      theme.liquid, which has had its frozen price replaced with the live one,
+      not raw page_description. This matters more than it reads: p.description
+      is empty on most rings (checked 10/09/2026), so nearly every Product node
+      takes this fallback, which is how a price from 12/08 ended up in the
+      structured data as well as in the search snippet.
+    endcomment
     assign desc = p.description | strip_html | strip_newlines | strip | truncate: 500
     if desc == blank
-      assign desc = page_description | default: p.title
+      assign desc = description | default: page_description | default: p.title
     endif
 
     assign currency = shop.currency | default: 'GBP'

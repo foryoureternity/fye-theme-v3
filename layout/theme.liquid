@@ -75,10 +75,21 @@
   {%- endif -%}
 
   <title>{{ page_title }}{% if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.page' | t }} {{ current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>
-  {%- if page_description -%}
-    <meta name="description" content="{{ page_description | escape }}">
+  {%- comment -%}
+    W335: the description is computed, not printed straight from the
+    metafield, because the metafield has a price frozen into it. Captured once
+    here and passed to all three consumers so the meta tag, the social tags
+    and the Product schema cannot state three different prices. See
+    snippets/fye-description.liquid.
+  {%- endcomment -%}
+  {%- capture fye_description -%}
+    {%- render 'fye-description', page_type: fye_page_type, product: product, description: page_description -%}
+  {%- endcapture -%}
+  {%- assign fye_description = fye_description | strip -%}
+  {%- if fye_description != blank -%}
+    <meta name="description" content="{{ fye_description | escape }}">
   {%- endif -%}
-  {% render 'social-meta' %}
+  {% render 'social-meta', description: fye_description %}
 
   {%- comment -%}
     FONTS — self-hosted, not Google Fonts. Two reasons: no third-party DNS+TLS
@@ -117,7 +128,7 @@
     sections that draw one.
   {%- endcomment -%}
   {%- if fye_page_type == 'product' and product != blank -%}
-    {% render 'schema-product', product: product %}
+    {% render 'schema-product', product: product, description: fye_description %}
   {%- elsif fye_page_type == 'article' and article != blank -%}
     {% render 'schema-article', article: article %}
   {%- endif -%}

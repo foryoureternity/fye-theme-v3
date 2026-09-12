@@ -52,6 +52,7 @@
             "jewel_label": "Jewellery Guide",
             "shape_set": "engagement",
             "shapes_first": false,
+            "cols_even": true,
             "stone_set": "engagement",
             "show_cuts": false,
             "guide2_title": "",

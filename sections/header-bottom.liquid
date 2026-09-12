@@ -191,7 +191,7 @@
                       {%- if tabbed and b.show_cuts -%}
                         {%- render 'mm-diamonds' -%}
                       {%- else -%}
-                      <div class="mm__cols">
+                      <div class="mm__cols{% if b.cols_even %} mm__cols--even{% endif %}">
                         {%- if b.shapes_first -%}
                           {%- render 'mm-shapes', set: b.shape_set, label: b.shape_label -%}
                         {%- endif -%}
@@ -774,6 +774,15 @@
    so an 80px gap overflowed the track and crushed the second column. */
 .fye .mm__cols:has(.mm__cuts-wrap) { gap: 48px; }
 .fye .mm__col { min-width: 0; }
+/* Equal columns — Ed, 12/09/2026, engagement panel. The columns are otherwise
+   content-width flex items, so the shape grid sat hard against the type list
+   and the whole row's slack fell at the rail. flex-basis 0 splits the row; the
+   min-content floor is what still lets the row wrap below 1100, where a
+   basis of 0 alone would never trigger a wrap. */
+.fye .mm__cols--even > .mm__col { flex: 1 1 0; min-width: min-content; }
+/* and the shape grid spreads across its half rather than sitting max-content
+   wide inside it, which otherwise left 69px of the column empty at 1470. */
+.fye .mm__cols--even .mm__shapes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
 .fye .mm__list { margin: 0; padding: 0; list-style: none; }
 .fye .mm__list li { margin: 0 0 var(--s4); }
@@ -1476,6 +1485,13 @@
           "type": "checkbox",
           "id": "shapes_first",
           "label": "Shapes before the menu columns",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "cols_even",
+          "label": "Equal-width columns",
+          "info": "Splits the column row evenly instead of sizing each column to its content.",
           "default": false
         },
         {

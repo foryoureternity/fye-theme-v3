@@ -816,7 +816,17 @@
 .fye .mm__cols:has(.mm__feature) > .mm__col { flex: 0 0 auto; }
 .fye .mm__cols > .mm__col:has(.mm__feature) { flex: 1 1 auto; min-width: 0; }
 
-.fye .mm__feature { width: 100%; max-width: 185px; margin-top: var(--s8); }
+/* Boxed, so it reads as an offer rather than another column (Ed, 12/09/2026).
+   White ground with a hairline on the panel's ivory, which is the same
+   treatment the guide cards in the rail already use; 20px against their 24px
+   because this box is 185px wide, not 480. */
+.fye .mm__feature {
+  width: 100%; max-width: 185px;
+  margin-top: var(--s8);
+  padding: 20px;
+  background: var(--white);
+  border: var(--hairline);
+}
 .fye .mm__feature .mm__label { white-space: normal; line-height: 1.35; margin-bottom: var(--s3); }
 .fye .mm__feature-blurb {
   margin: 0 0 var(--s4);

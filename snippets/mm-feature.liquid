@@ -4,7 +4,9 @@
   Params:
     label       heading, styled as a column label
     blurb       one or two sentences
-    image       CDN url, landscape; ask for ?width= on the url itself
+    image       CDN url, landscape; ask for &width= on the url itself.
+                The width/height on the tag are a 3:2 CLS hint matching the
+                image in use, not a crop - CSS sizes it width:100%, height:auto.
     link        destination for both the image and the link line
     link_label  defaults to "Learn more"
 
@@ -21,7 +23,7 @@
     {%- endif -%}
     {%- if image != blank -%}
       <a class="mm__feature-img" href="{{ link | default: '#' }}" tabindex="-1" aria-hidden="true">
-        <img src="{{ image }}" alt="" width="180" height="101" loading="lazy">
+        <img src="{{ image }}" alt="" width="180" height="120" loading="lazy">
       </a>
     {%- endif -%}
     {%- if link != blank -%}

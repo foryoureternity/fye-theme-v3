@@ -238,24 +238,23 @@
                             {%- if b.show_cuts and forloop.first -%}
                               {%- render 'mm-cuts', label: b.cuts_label -%}
                             {%- endif -%}
-                            {%- comment -%}
-                              The promoted block rides the LAST column so it
-                              lands under that column's list rather than under
-                              the panel, the same reasoning as the cut grid
-                              above. Wedding's last column is Plain / By Metal.
-                            {%- endcomment -%}
-                            {%- if forloop.last -%}
-                              {%- render 'mm-feature',
-                                  label: b.feature_label, blurb: b.feature_blurb,
-                                  image: b.feature_image, link: b.feature_link,
-                                  link_label: b.feature_link_label -%}
-                            {%- endif -%}
                           </div>
                         {%- endfor -%}
 
                         {%- unless b.shapes_first -%}
                           {%- render 'mm-shapes', set: b.shape_set, label: b.shape_label -%}
                         {%- endunless -%}
+
+                        {%- comment -%}
+                          The promoted block is a SIBLING of the columns, not a
+                          child of one (it was a child until 12/09/2026). It has
+                          to be, to span two column tracks. The row becomes a
+                          grid when it is present; see the stylesheet.
+                        {%- endcomment -%}
+                        {%- render 'mm-feature',
+                            label: b.feature_label, blurb: b.feature_blurb,
+                            image: b.feature_image, link: b.feature_link,
+                            link_label: b.feature_link_label -%}
                       </div>
                       {%- endif -%}
 
@@ -797,45 +796,70 @@
 .fye .mm__cols--even .mm__shapes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
 /* ---- column feature block -----------------------------------------------
-   A promoted offer at the foot of a column: heading, blurb, image, link, in
-   that order (Ed, 12/09/2026). Measured with the wedding panel open.
+   A promoted offer beneath the column row, spanning two column tracks
+   (Ed, 12/09/2026). It is a sibling of the columns, not a child of one.
 
-   The row's other columns are frozen at their content width and the feature's
-   column takes what is left. A fixed width on the feature was tried first and
-   pushed the shape grid below its own min-content: at 1281 the grid wanted
-   275px and got 232. The 48px gap is the same concession the cut-grid row
-   makes one rule above, for the same reason - a fixed object in the row has
-   to buy its width from somewhere.
+   A row carrying one becomes a GRID, because that is the only way the tall
+   third column can run full height beside a box that sits under the first
+   two. The placement below describes the wedding panel, the only panel with
+   a feature: shapes in track 1, the metal column (the one with colour dots)
+   in track 2, whatever else is in the row in track 3 spanning both rows, and
+   the box under tracks 1 and 2. A second panel taking a feature needs its own
+   placement, not a tweak to these four rules.
 
-   Result: 1470 gives 275 + 148 + 250 of a 768px zone, feature capped at 185.
-   1281 gives 275 + 148 + 155 of 673. Below 1100 the row wraps and the feature
-   column takes the second line. Freezing the columns also clears a squeeze
-   that predates this block: at 1281 the wedding shape grid was already 22px
-   wider than the column it sat in. */
-.fye .mm__cols:has(.mm__feature) { gap: 48px; }
-.fye .mm__cols:has(.mm__feature) > .mm__col { flex: 0 0 auto; }
-.fye .mm__cols > .mm__col:has(.mm__feature) { flex: 1 1 auto; min-width: 0; }
+   Measured at 1470 with the panel open: tracks 275 + 134 + 148 and two 48px
+   gaps = 653 of a 768px zone; the box is 457 wide and about 150 tall, against
+   294 when it was a stack in the metal column. Below 1100 the grid is dropped
+   and the row goes back to wrapping flex, which makes every grid-column and
+   grid-row declaration here inert. */
+.fye .mm__cols:has(.mm__feature) {
+  display: grid;
+  grid-template-columns: min-content min-content max-content;
+  column-gap: 48px;
+  row-gap: var(--s7);
+  align-items: start;
+}
+.fye .mm__cols:has(.mm__feature) > .mm__col { grid-column: 3; grid-row: 1 / span 2; }
+.fye .mm__cols:has(.mm__feature) > .mm__col--shapes { grid-column: 1; grid-row: 1; }
+.fye .mm__cols:has(.mm__feature) > .mm__col:has(.mm__list--dots) { grid-column: 2; grid-row: 1; }
+.fye .mm__cols > .mm__feature { grid-column: 1 / span 2; grid-row: 2; }
 
-/* Boxed, so it reads as an offer rather than another column (Ed, 12/09/2026).
-   White ground with a hairline on the panel's ivory, which is the same
-   treatment the guide cards in the rail already use; 20px against their 24px
-   because this box is 185px wide, not 480. */
+/* min-content on tracks 1 and 2 is load-bearing. They are the two the box
+   spans, and a spanning item hands its MAX-content to max-content tracks: with
+   max-content there, the blurb's one-line width blew track 1 out to 417px and
+   pushed the row 169px past the sheet. Under min-content the tracks size to
+   the columns themselves and the box takes what they add up to.
+   That only works while the columns hold their own width, so the two rules
+   below restore the nowrap the labels and the metal list are supposed to have;
+   without them "Plain / By Metal" broke over two lines in a 131px track. */
+.fye .mm__cols:has(.mm__feature) > .mm__col > .mm__label { white-space: nowrap; }
+.fye .mm__list--dots a { white-space: nowrap; }
+
+/* Boxed, so it reads as an offer rather than another column. White ground
+   with a hairline on the panel's ivory, the same treatment the guide cards in
+   the rail use; 20px against their 24px because this box is 457px wide, not
+   480 with a 128px cover. */
 .fye .mm__feature {
-  width: 100%; max-width: 185px;
-  margin-top: var(--s8);
+  display: flex; align-items: center;
+  gap: var(--s6);
   padding: 20px;
   background: var(--white);
   border: var(--hairline);
 }
-.fye .mm__feature .mm__label { white-space: normal; line-height: 1.35; margin-bottom: var(--s3); }
+.fye .mm__feature-img { flex: 0 0 160px; }
+.fye .mm__feature-img img { display: block; width: 100%; height: auto; }
+.fye .mm__feature-words {
+  min-width: 0;
+  display: flex; flex-direction: column; align-items: flex-start;
+  gap: 10px;
+}
+.fye .mm__feature .mm__label { margin: 0; white-space: normal; line-height: 1.35; }
 .fye .mm__feature-blurb {
-  margin: 0 0 var(--s4);
+  margin: 0;
   font-size: 12px; font-weight: var(--fw-light);
   line-height: 1.45;
   color: var(--ink-soft);
 }
-.fye .mm__feature-img { display: block; margin: 0 0 var(--s4); }
-.fye .mm__feature-img img { display: block; width: 100%; height: auto; }
 .fye .mm__feature-link {
   display: inline-flex; align-items: center; gap: var(--s3);
   font-size: 12px; font-weight: 500;
@@ -1192,6 +1216,9 @@
 }
 @media (max-width: 1100px) {
   .fye .mm__cols { flex-wrap: wrap; gap: var(--s8); }
+  /* Back to wrapping flex, which makes the feature grid's placement inert. */
+  .fye .mm__cols:has(.mm__feature) { display: flex; }
+  .fye .mm__feature { flex: 1 1 320px; max-width: 420px; }
   .fye .mm__stones { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .fye .mm-dg-cols { flex-wrap: wrap; }
   .fye .mm-dg-col--aside { padding-left: 0; border-left: 0; }

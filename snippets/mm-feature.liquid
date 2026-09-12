@@ -1,5 +1,5 @@
 {%- comment -%}
-  mm-feature — a promoted block at the foot of a mega panel's last column.
+  mm-feature — a promoted block sitting beneath a mega panel's column row.
 
   Params:
     label       heading, styled as a column label
@@ -11,26 +11,31 @@
     link_label  defaults to "Learn more"
 
   Renders nothing without a label, so a panel that has not set one costs no
-  markup. Order is heading, blurb, image, link (Ed, 12/09/2026): the words
-  carry the offer and the image confirms it, which is the opposite of the
-  guide cards in the rail and deliberate.
+  markup.
+
+  12/09/2026: the block was a stack (heading, blurb, image, link) inside the
+  last column and is now a card spanning two column tracks, image beside the
+  words. Stacked, a box this wide would have shown a 457px image and made the
+  panel taller, which is the opposite of what the change was for.
 {%- endcomment -%}
 {%- if label != blank -%}
   <div class="mm__feature">
-    <p class="mm__label">{{ label }}</p>
-    {%- if blurb != blank -%}
-      <p class="mm__feature-blurb">{{ blurb }}</p>
-    {%- endif -%}
     {%- if image != blank -%}
       <a class="mm__feature-img" href="{{ link | default: '#' }}" tabindex="-1" aria-hidden="true">
         <img src="{{ image }}" alt="" width="180" height="120" loading="lazy">
       </a>
     {%- endif -%}
-    {%- if link != blank -%}
-      <a class="mm__feature-link" href="{{ link }}">
-        <span>{{ link_label | default: 'Learn more' }}</span>
-        {% render 'icon', name: 'arrow-right', size: 14 %}
-      </a>
-    {%- endif -%}
+    <div class="mm__feature-words">
+      <p class="mm__label">{{ label }}</p>
+      {%- if blurb != blank -%}
+        <p class="mm__feature-blurb">{{ blurb }}</p>
+      {%- endif -%}
+      {%- if link != blank -%}
+        <a class="mm__feature-link" href="{{ link }}">
+          <span>{{ link_label | default: 'Learn more' }}</span>
+          {% render 'icon', name: 'arrow-right', size: 14 %}
+        </a>
+      {%- endif -%}
+    </div>
   </div>
 {%- endif -%}

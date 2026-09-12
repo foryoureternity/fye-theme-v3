@@ -238,6 +238,18 @@
                             {%- if b.show_cuts and forloop.first -%}
                               {%- render 'mm-cuts', label: b.cuts_label -%}
                             {%- endif -%}
+                            {%- comment -%}
+                              The promoted block rides the LAST column so it
+                              lands under that column's list rather than under
+                              the panel, the same reasoning as the cut grid
+                              above. Wedding's last column is Plain / By Metal.
+                            {%- endcomment -%}
+                            {%- if forloop.last -%}
+                              {%- render 'mm-feature',
+                                  label: b.feature_label, blurb: b.feature_blurb,
+                                  image: b.feature_image, link: b.feature_link,
+                                  link_label: b.feature_link_label -%}
+                            {%- endif -%}
                           </div>
                         {%- endfor -%}
 
@@ -783,6 +795,43 @@
 /* and the shape grid spreads across its half rather than sitting max-content
    wide inside it, which otherwise left 69px of the column empty at 1470. */
 .fye .mm__cols--even .mm__shapes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+/* ---- column feature block -----------------------------------------------
+   A promoted offer at the foot of a column: heading, blurb, image, link, in
+   that order (Ed, 12/09/2026). Measured with the wedding panel open.
+
+   The row's other columns are frozen at their content width and the feature's
+   column takes what is left. A fixed width on the feature was tried first and
+   pushed the shape grid below its own min-content: at 1281 the grid wanted
+   275px and got 232. The 48px gap is the same concession the cut-grid row
+   makes one rule above, for the same reason - a fixed object in the row has
+   to buy its width from somewhere.
+
+   Result: 1470 gives 275 + 148 + 250 of a 768px zone, feature capped at 185.
+   1281 gives 275 + 148 + 155 of 673. Below 1100 the row wraps and the feature
+   column takes the second line. Freezing the columns also clears a squeeze
+   that predates this block: at 1281 the wedding shape grid was already 22px
+   wider than the column it sat in. */
+.fye .mm__cols:has(.mm__feature) { gap: 48px; }
+.fye .mm__cols:has(.mm__feature) > .mm__col { flex: 0 0 auto; }
+.fye .mm__cols > .mm__col:has(.mm__feature) { flex: 1 1 auto; min-width: 0; }
+
+.fye .mm__feature { width: 100%; max-width: 185px; margin-top: var(--s8); }
+.fye .mm__feature .mm__label { white-space: normal; line-height: 1.35; margin-bottom: var(--s3); }
+.fye .mm__feature-blurb {
+  margin: 0 0 var(--s4);
+  font-size: 12px; font-weight: var(--fw-light);
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+.fye .mm__feature-img { display: block; margin: 0 0 var(--s4); }
+.fye .mm__feature-img img { display: block; width: 100%; height: auto; }
+.fye .mm__feature-link {
+  display: inline-flex; align-items: center; gap: var(--s3);
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  line-height: 1.3;
+}
 
 .fye .mm__list { margin: 0; padding: 0; list-style: none; }
 .fye .mm__list li { margin: 0 0 var(--s4); }
@@ -1493,6 +1542,38 @@
           "label": "Equal-width columns",
           "info": "Splits the column row evenly instead of sizing each column to its content.",
           "default": false
+        },
+        {
+          "type": "header",
+          "content": "Column feature"
+        },
+        {
+          "type": "text",
+          "id": "feature_label",
+          "label": "Feature heading",
+          "info": "Sits at the foot of the last column. Leave blank for no feature."
+        },
+        {
+          "type": "textarea",
+          "id": "feature_blurb",
+          "label": "Feature blurb"
+        },
+        {
+          "type": "text",
+          "id": "feature_image",
+          "label": "Feature image url",
+          "info": "A landscape CDN url. Add &width=400 so a full-size file is not shipped."
+        },
+        {
+          "type": "url",
+          "id": "feature_link",
+          "label": "Feature link"
+        },
+        {
+          "type": "text",
+          "id": "feature_link_label",
+          "label": "Feature link text",
+          "default": "Learn more"
         },
         {
           "type": "select",

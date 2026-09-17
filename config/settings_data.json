@@ -10,6 +10,7 @@
 {
   "current": {
     "logo_width": 175,
+    "favicon": "shopify://shop_images/AppIcon-mac-256_2x_c03be993-a52e-43df-9dbc-cb1938fdc8cd.png",
     "menu_main": "main-menu",
     "menu_footer": "footer",
     "announcement_show": true,
@@ -26,11 +27,6 @@
       "14352282602675302068": {
         "type": "shopify://apps/xcloud-search-filter/blocks/cloudsearch_opt/8ddbd0bf-e311-492e-ab28-69d0ad268fac",
         "disabled": false,
-        "settings": {}
-      },
-      "11651401770006824842": {
-        "type": "shopify://apps/ymq-product-options/blocks/app-embed/86b91121-1f62-4e27-9812-b70a823eb918",
-        "disabled": true,
         "settings": {}
       }
     }

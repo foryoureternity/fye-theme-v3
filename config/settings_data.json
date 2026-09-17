@@ -9,6 +9,7 @@
  */
 {
   "current": {
+    "logo": "shopify://shop_images/fye-brand-mark.webp",
     "logo_width": 175,
     "favicon": "shopify://shop_images/AppIcon-mac-256_2x_c03be993-a52e-43df-9dbc-cb1938fdc8cd.png",
     "menu_main": "main-menu",

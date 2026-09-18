@@ -358,6 +358,8 @@
           assign in_more = false
           assign more_open = false
           assign more_label = ''
+          assign more_ico = ''
+          assign more_note = ''
         -%}
         <fieldset class="rfd__panel rfd__step" hidden
                   data-fye-finder-step
@@ -398,7 +400,17 @@
                   untouched by it (Ed, 18/09/2026).
                 endcomment
                 if row contains 'more:'
-                  assign more_label = row | remove_first: 'more:' | strip
+                  comment
+                    Same three fields an option line uses, so the reveal can be
+                    a real tile rather than a text link:
+                      more: Label | photo: name.jpg | note
+                    The photo and note are optional.
+                  endcomment
+                  assign more_row = row | remove_first: 'more:' | strip
+                  assign more_parts = more_row | split: '|'
+                  assign more_label = more_parts[0] | strip
+                  assign more_ico = more_parts[1] | strip
+                  assign more_note = more_parts[2] | strip
                   assign in_more = true
                   continue
                 endif
@@ -417,10 +429,37 @@
                   container and are hidden by CSS, so "I'm flexible" still ends
                   the step where it does on every other screen, and revealing
                   cannot reflow the openers into a different grid.
+
+                  The reveal takes the SAME tile treatment as a real option —
+                  photograph, label, note — so the opening row reads as three
+                  equal choices rather than two tiles and a link (Ed,
+                  18/09/2026). It still answers nothing.
                 {%- endcomment -%}
-                <button type="button" class="rfd__opt rfd__opt--more" data-fye-finder-reveal
-                        aria-expanded="false">
+                {%- liquid
+                  assign more_pic = null
+                  assign more_pic_yellow = null
+                  assign more_pic_rose = null
+                  if more_ico contains 'photo:'
+                    assign more_base = more_ico | remove_first: 'photo:' | strip
+                    assign more_pic = more_base | file_url | append: '&width=400'
+                    assign more_stem = more_base | split: '.' | first
+                    assign more_ext = more_base | split: '.' | last
+                    assign more_pic_yellow = more_stem | append: '-yellow.' | append: more_ext | file_url | append: '&width=400'
+                    assign more_pic_rose = more_stem | append: '-rose.' | append: more_ext | file_url | append: '&width=400'
+                  endif
+                -%}
+                <button type="button"
+                        class="rfd__opt rfd__opt--more{% if more_pic %} rfd__opt--colour rfd__opt--photo{% endif %}"
+                        data-fye-finder-reveal aria-expanded="false">
+                  {%- if more_pic -%}
+                    <span class="rfd__oshot">
+                      <img src="{{ more_pic }}" alt="" aria-hidden="true" width="400" height="400" loading="lazy"
+                           data-fye-finder-pinned data-fye-finder-icon
+                           data-fye-finish-neutral="{{ more_pic }}" data-fye-finish-yellow="{{ more_pic_yellow }}" data-fye-finish-rose="{{ more_pic_rose }}">
+                    </span>
+                  {%- endif -%}
                   <span class="rfd__olabel">{{ more_label | default: 'Something else' }}</span>
+                  {%- if more_note != blank -%}<span class="rfd__onote">{{ more_note }}</span>{%- endif -%}
                 </button>
               {%- endif -%}
               {%- liquid
@@ -901,12 +940,20 @@
    left to do. */
 .fye .rfd__step[data-fye-finder-revealed] .rfd__opt--more { display: none; }
 
-/* Spans the row like "I'm flexible", and is quieter than a real answer: it
-   opens a drawer, it does not choose anything. */
+/* Takes the ordinary tile treatment, so the opening row of finish reads as
+   three equal choices — Polished, Matt, Something else — rather than two
+   tiles and a link underneath (Ed, 18/09/2026). Only the label weight is
+   held back, because it opens a drawer rather than answering the question.
+
+   It deliberately does NOT span the row any more: at three columns the three
+   openers fill it exactly. */
 .fye .rfd__opt--more {
-  grid-column: 1 / -1;
-  background: transparent;
+  /* White ground and hairline are inherited from .rfd__opt, same as Polished
+     and Matt. The label stays light and underlined so it still reads as a way
+     in rather than an answer. */
   font-weight: var(--fw-light);
+}
+.fye .rfd__opt--more .rfd__olabel {
   text-decoration: underline;
   text-underline-offset: 3px;
 }

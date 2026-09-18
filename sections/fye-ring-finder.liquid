@@ -890,32 +890,23 @@
 .fye .rfd__opts--finish .rfd__oshot { background: #fff; }
 .fye .rfd__opts--finish .rfd__oshot img { object-fit: contain; }
 
-/* --- normalising three different framings ---------------------------------
-   Hockley Mint photograph these rings at THREE different scales, measured
-   18/09/2026 by sampling every file. The ring occupies:
+/* THE SEVEN HAND ENGRAVED PHOTOGRAPHS ARE SHOT AT TWICE THE SCALE of the
+   others. Measured 18/09/2026 across all 47: the ring occupies 44% of frame
+   width in 40 of them (min 39.5%), but 88.5% in hand engraved 1 to 7. Left
+   alone they read as seven much larger rings in the middle of the grid.
 
-     44%  of frame width  in 40 of the 47 pattern finishes (min 39.5%)
-     66%  in the plain band shots under /images/ringwidths/, which is where
-          the polished tile's photograph comes from — there is no polished
-          image in the pattern set
-     89%  in hand engraved 1 to 7
+   object-fit cannot correct it — it honours whatever framing the file has —
+   so the compensation has to be a transform. 44 / 88.5 = 0.497.
 
-   Left alone, one grid would show rings at three sizes and read as a fault.
-   object-fit cannot correct it, since it honours whatever framing the file
-   has, so the compensation is a transform against the 44% majority:
+   The POLISHED trio needs no rule: those images were made from the matt
+   photographs, so they inherit the framing and measure 44.0 to 44.5%.
+   Anything sourced from /images/ringwidths/ would need 0.667, but those are
+   width DIAGRAMS with the millimetres printed on the ring and are not usable
+   here — noted so nobody reaches for them again (Ed, 18/09/2026).
 
-     44 / 66   = 0.667      44 / 88.5 = 0.497
-
-   Both are patches over source photography, not design decisions. Scaling
-   down never costs sharpness here — the polished files are 300px and the
-   patterns 200px, against a tile that renders at about 140px — but delete
-   each rule the day its files are reshot or padded to match, or it will
-   shrink correct images. */
-.fye .rfd__opts--finish .rfd__oshot img[src*="rf-finish-polished."],
-.fye .rfd__opts--finish .rfd__oshot img[src*="rf-finish-polished-yellow"],
-.fye .rfd__opts--finish .rfd__oshot img[src*="rf-finish-polished-rose"] {
-  transform: scale(0.667);
-}
+   This is a patch over source photography, not a design decision. Delete it
+   the day those seven are reshot or padded to match, and check the grid
+   again: with corrected files this rule would make them half size. */
 .fye .rfd__opts--finish .rfd__oshot img[src*="rf-finish-hand-engraved"] {
   transform: scale(0.5);
 }

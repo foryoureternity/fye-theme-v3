@@ -3384,6 +3384,26 @@
       return;
     }
 
+    /* "Something else" on a step held back in two parts. Handled BEFORE the
+       option branch and returning early, because it is not an answer: it
+       un-hides tiles that were always in the markup. Nothing is pushed to
+       state.answers, so the step count, the back button and the filter the
+       step contributes are all untouched — and there is no re-render, so the
+       openers do not flicker. */
+    var more = t.closest('[data-fye-finder-reveal]');
+    if (more) {
+      var mstep = more.closest('[data-fye-finder-step]');
+      if (mstep) {
+        mstep.setAttribute('data-fye-finder-revealed', 'true');
+        more.setAttribute('aria-expanded', 'true');
+        /* Send focus to the first tile revealed, or a keyboard user is left
+           on a button that has just been hidden. */
+        var first = mstep.querySelector('[data-fye-finder-extra]');
+        if (first && first.focus) first.focus();
+      }
+      return;
+    }
+
     var o = t.closest('[data-fye-finder-option]');
     if (o) {
       var step = o.closest('[data-fye-finder-step]');

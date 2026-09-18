@@ -68,6 +68,10 @@
     softened and grey-mask sets and the two can be judged side by side in
     place rather than from memory (Ed, 05/09/2026). Supplied photographs
     are `pinned` — the live-from-stock fill never overwrites them.
+    A name that CARRIES ITS OWN EXTENSION (`photo: rf-finish-matt.jpg`) is used
+    exactly as given, with no treatment suffix: the finish photographs come
+    from Hockley Mint as 200px JPGs on white and have no blurred or grey-mask
+    twin to switch between (Ed, 18/09/2026).
 
   · OPTION PHOTOGRAPHS. A step set to `photo_mode: stock` shows a real ring on every
     tile: the hand-picked one if its line says `product: <handle>`, else the
@@ -95,6 +99,16 @@
     a ring is a small grey circle whatever it depicts. The tile follows the
     product's featured image, so a re-shoot needs no theme change. Icons
     still work where no product is set.
+
+  · A STEP IN TWO PARTS. A line of `more: Something else` splits a long step:
+    everything before it is asked straight away, everything after waits behind
+    one tile. Added 18/09/2026 for FINISH, which asks 48 things — Polished and
+    Matt answer it for most people, and 48 tiles at once is a catalogue rather
+    than a question (Ed, 18/09/2026).
+    The reveal is NOT a step, a route or an answer. Every tile is in the markup
+    from the start and CSS hides the held-back ones, so the step count, the
+    back button and the recorded answer are all untouched, and opening it costs
+    no request. Only finish uses it.
 
   · Every step except the fork ends with "I'm flexible" (empty value, no
     param). That rule is what guarantees no ring is orphaned. Do not remove it.
@@ -330,6 +344,13 @@
           assign cols = b.columns | default: '3'
           assign isize = b.icon_size | default: '56'
           assign lines = b.options | newline_to_br | split: '<br />'
+          comment
+            Liquid keeps assigns across iterations of this loop, so a step that
+            used `more:` would leak the revealed state into every step after it.
+          endcomment
+          assign in_more = false
+          assign more_open = false
+          assign more_label = ''
         -%}
         <fieldset class="rfd__panel rfd__step" hidden
                   data-fye-finder-step
@@ -341,11 +362,37 @@
                   {{ block.shopify_attributes }}>
           <legend class="rfd__q" tabindex="-1" data-fye-finder-question>{{ b.heading | default: 'Choose an option' }}</legend>
           {%- if b.hint != blank -%}<p class="rfd__hint">{{ b.hint }}</p>{%- endif -%}
-          <div class="rfd__opts" style="--cols: {{ cols }}; --isize: {{ isize }}px;">
+          {%- comment -%}
+            The finish photographs are the supplier's own 200px JPGs on white,
+            not the 800px treated renders the other photographed steps use, so
+            they get a white plate and contain rather than cover. Keyed to the
+            filenames themselves so the treatment follows the pictures.
+          {%- endcomment -%}
+          <div class="rfd__opts{% if b.options contains 'photo: rf-finish' %} rfd__opts--finish{% endif %}"
+               style="--cols: {{ cols }}; --isize: {{ isize }}px;">
             {%- for line in lines -%}
               {%- liquid
                 assign row = line | strip
                 if row == blank
+                  continue
+                endif
+                comment
+                  A line of `more: Label` splits a long step in two. Everything
+                  BEFORE it is asked straight away; everything after is held
+                  back behind one tile until the shopper asks to see it.
+
+                  Finish needs this and nothing else does: 48 choices in one
+                  grid is not a question, it is a catalogue. Polished and Matt
+                  answer it for most people, so they lead and the rest wait.
+
+                  It is NOT a step, a route or an answer. The reveal simply
+                  un-hides tiles that were always in the markup, so the step
+                  count, the back button and the recorded answer are all
+                  untouched by it (Ed, 18/09/2026).
+                endcomment
+                if row contains 'more:'
+                  assign more_label = row | remove_first: 'more:' | strip
+                  assign in_more = true
                   continue
                 endif
                 assign parts = row | split: '|'
@@ -354,6 +401,21 @@
                 assign ico = parts[2] | strip
                 assign note = parts[3] | strip
               -%}
+              {%- if in_more and more_open != true -%}
+                {%- liquid
+                  assign more_open = true
+                -%}
+                {%- comment -%}
+                  One grid throughout, not two. The held-back tiles stay in this
+                  container and are hidden by CSS, so "I'm flexible" still ends
+                  the step where it does on every other screen, and revealing
+                  cannot reflow the openers into a different grid.
+                {%- endcomment -%}
+                <button type="button" class="rfd__opt rfd__opt--more" data-fye-finder-reveal
+                        aria-expanded="false">
+                  <span class="rfd__olabel">{{ more_label | default: 'Something else' }}</span>
+                </button>
+              {%- endif -%}
               {%- liquid
                 assign pick = null
                 assign is_product = false
@@ -368,7 +430,20 @@
                 if ico contains 'photo:'
                   assign is_file_photo = true
                   assign fbase = ico | remove_first: 'photo:' | strip
-                  assign filepic = fbase | append: treat | append: '.png' | file_url
+                  comment
+                    A name carrying its own extension is used AS GIVEN, with no
+                    treatment suffix. The finish photographs come from Hockley
+                    Mint as 200px JPGs on white and have no blurred or grey-mask
+                    version to switch between, so appending the suffix would
+                    only ever look for a file that cannot exist. A bare name
+                    still gets treat + .png, so every existing line is unchanged
+                    (Ed, 18/09/2026).
+                  endcomment
+                  if fbase contains '.'
+                    assign filepic = fbase | file_url
+                  else
+                    assign filepic = fbase | append: treat | append: '.png' | file_url
+                  endif
                 endif
                 if ico contains 'product:'
                   assign is_product = true
@@ -405,6 +480,7 @@
               {%- endcomment -%}
               <button type="button" class="rfd__opt rfd__opt--{{ b.icon_style | default: 'line' }}{% if want_shot %} rfd__opt--photo{% elsif ico contains 'swatch:' %} rfd__opt--photo{% endif %}"
                       data-fye-finder-option
+                      {% if in_more %}data-fye-finder-extra{% endif %}
                       data-fye-finder-value="{{ val | escape }}"
                       data-fye-finder-label="{{ lbl | escape }}">
                 {%- if want_shot -%}
@@ -747,6 +823,42 @@
   font-weight: var(--fw-light);
   color: var(--ink-soft);
 }
+
+/* --- a step held back in two parts ---------------------------------------
+   Finish asks 48 things, and 48 tiles at once is a catalogue rather than a
+   question. Polished and Matt answer it for most people, so they lead and the
+   rest wait behind one tile.
+
+   Hidden with display, not the hidden attribute: these are grid items, and
+   .rfd__opts sets display on them, which would win. Everything stays in the
+   markup and in the DOM, so revealing costs no request and the tiles are
+   already decoded. */
+.fye .rfd__opt[data-fye-finder-extra] { display: none; }
+.fye .rfd__step[data-fye-finder-revealed] .rfd__opt[data-fye-finder-extra] {
+  display: flex;
+}
+/* Once they have asked to see everything, the tile that asked has nothing
+   left to do. */
+.fye .rfd__step[data-fye-finder-revealed] .rfd__opt--more { display: none; }
+
+/* Spans the row like "I'm flexible", and is quieter than a real answer: it
+   opens a drawer, it does not choose anything. */
+.fye .rfd__opt--more {
+  grid-column: 1 / -1;
+  background: transparent;
+  font-weight: var(--fw-light);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* The supplier's finish photographs are 200px on a white ground, against the
+   800px treated renders every other photographed step uses. Contain rather
+   than cover so the band is never cropped, and a white plate so the image
+   does not sit on a visibly different ivory. They are deliberately smaller:
+   the source goes soft above about 120px and enlarging it would only show
+   that. */
+.fye .rfd__opts--finish .rfd__oshot { background: #fff; }
+.fye .rfd__opts--finish .rfd__oshot img { object-fit: contain; }
 
 /* --- results ------------------------------------------------------------- */
 .fye .rfd__results { gap: var(--s6); }

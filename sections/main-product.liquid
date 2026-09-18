@@ -585,6 +585,17 @@
             {%- endif -%}
           {%- endif -%}
 
+          {%- comment -%}
+            The finish picker. Plain rings only: the 47 Hockley Mint finishes
+            are a wedding-band service, and an engagement ring's surface is
+            set by its setting. Above engraving because that is the order the
+            shopper thinks in — what the ring looks like, then what it says
+            inside. Ed, 18/09/2026.
+          {%- endcomment -%}
+          {%- if is_plain -%}
+            {%- render 'fye-buybox-finish', product: p, settings: s -%}
+          {%- endif -%}
+
           {%- if s.engraving and s.engraving_variant_id != blank -%}
             <div class="pdp__engrave"
                  data-fye-engrave
@@ -1166,6 +1177,245 @@
   flex: 0 0 auto;
   font-size: var(--fs-fine);
   color: var(--ink-soft);
+}
+
+/* --- finish picker ------------------------------------------------------
+   Plain rings only. The row mirrors engraving exactly — same hairline top,
+   same .pdp__seg toggle — because they are the same kind of decision and a
+   second visual treatment would imply otherwise.
+
+   The modal reuses .pdp__modal / scrim / panel from the diamond picker
+   unchanged; only the grid and the tile are new. */
+
+.fye .pdp__finish {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  padding-top: var(--s5);
+  border-top: var(--hairline);
+}
+
+.fye .pdp__finishhead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s4);
+}
+
+/* The chosen finish, on ivory so it reads as the consequence of the toggle
+   above it rather than another control. */
+.fye .pdp__finishpick[hidden] { display: none; }
+
+.fye .pdp__finishpick {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr) auto;
+  gap: var(--s3);
+  align-items: center;
+  padding: var(--s3);
+  background: var(--ivory);
+}
+
+.fye .pdp__finishthumb {
+  display: block;
+  width: 88px;
+  height: 88px;
+  object-fit: cover;
+  background: var(--white);
+  border: 1px solid var(--line);
+}
+
+/* 200px source: sharp to about 120, so 44 in the modal foot. */
+.fye .pdp__finishthumb--sm {
+  width: 44px;
+  height: 44px;
+}
+
+.fye .pdp__finishtxt {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.fye .pdp__finishname {
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+  color: var(--ink);
+  text-wrap: pretty;
+}
+
+.fye .pdp__finishmeta {
+  font-size: var(--fs-fine);
+  color: var(--ink-soft);
+}
+
+.fye .pdp__finishacts {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+}
+
+/* A way back to polished without reopening 48 photographs. Underlined
+   because it is a text action beside a bordered button and must not read as
+   a second button. */
+.fye .pdp__finishreset[hidden] { display: none; }
+
+.fye .pdp__finishreset {
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: var(--fs-fine);
+  color: var(--ink);
+  border-bottom: 1px solid currentColor;
+  transition: color var(--dur) var(--ease);
+}
+
+.fye .pdp__finishreset:hover {
+  color: var(--sage);
+}
+
+/* --- the grid ------------------------------------------------------------
+   auto-fill at 112px, which is the largest the 200px source stays sharp at
+   and still gives six columns in the modal and two on a phone. No group
+   tabs: the list is flat and searched, per Ed 18/09/2026. */
+
+.fye .pdp__finishgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+  gap: var(--s4);
+  align-content: start;
+  padding: var(--s4) var(--s5);
+  overflow-y: auto;
+}
+
+.fye .pdp__ftile[hidden] { display: none; }
+
+.fye .pdp__ftile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  padding: var(--s1);
+  border: 1px solid var(--line);
+  background: var(--white);
+  text-align: start;
+  transition: border-color var(--dur) var(--ease);
+}
+
+.fye .pdp__ftile:hover {
+  border-color: var(--sage);
+}
+
+/* Selected: a solid teal edge, doubled with an inset ring so it is legible
+   against 48 white tiles without a shadow or a radius. */
+.fye .pdp__ftile.is-on {
+  border-color: var(--line-strong);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+}
+
+.fye .pdp__ftileimg {
+  display: block;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--white);
+}
+
+.fye .pdp__ftileimg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur) var(--ease);
+}
+
+/* The one image hover the brand allows. */
+.fye .pdp__ftile:hover .pdp__ftileimg img {
+  transform: scale(1.03);
+}
+
+/* min-height holds two lines, so a one-line name and a four-word name sit
+   on the same baseline grid across the row. */
+.fye .pdp__ftilename {
+  min-height: 2.7em;
+  font-size: var(--fs-fine);
+  line-height: 1.35;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+
+.fye .pdp__ftile.is-on .pdp__ftilename {
+  color: var(--ink);
+}
+
+/* The HM number, quietly. It is the order reference, so a shopper ringing us
+   can read it back, but it is not how anyone chooses. */
+.fye .pdp__ftilehm {
+  font-size: 10px;
+  letter-spacing: var(--tr-eyebrow);
+  color: var(--ink-soft);
+}
+
+.fye .pdp__ftilemark {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  display: none;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  background: var(--teal);
+  color: var(--ivory);
+}
+
+.fye .pdp__ftile.is-on .pdp__ftilemark {
+  display: grid;
+}
+
+.fye .pdp__ftilemark .icon {
+  width: 13px;
+  height: 13px;
+}
+
+/* --- modal furniture ---------------------------------------------------- */
+
+.fye .pdp__finishsearch {
+  flex: 1 1 240px;
+  min-width: 0;
+}
+
+/* The draft, then the actions. Tapping selects and Confirm applies, so the
+   foot has to say what is about to be applied. */
+.fye .pdp__finishfoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s4);
+  flex-wrap: wrap;
+}
+
+.fye .pdp__finishdraft {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  min-width: 0;
+}
+
+.fye .pdp__finishbtns {
+  display: flex;
+  gap: var(--s3);
+}
+
+@media (max-width: 560px) {
+  /* The row stacks: 88px of thumbnail plus a long finish name plus two
+     controls does not fit 335px, and the buttons are what get squeezed. */
+  .fye .pdp__finishpick {
+    grid-template-columns: 88px minmax(0, 1fr);
+  }
+
+  .fye .pdp__finishacts {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+  }
 }
 
 /* --- stone choosers -----------------------------------------------------

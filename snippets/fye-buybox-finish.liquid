@@ -1,0 +1,337 @@
+{%- comment -%}
+  fye-buybox-finish — the surface-finish chooser for plain wedding rings.
+
+  Built 18/09/2026. Rendered by main-product inside the `is_plain` branch,
+  directly ABOVE engraving, because both are personalisation and they come
+  after metal, profile, width, weight and size. Ed, 18/09/2026.
+
+  ── WHY A TOGGLE AND NOT A ROW ────────────────────────────────────────────
+
+  Every ring is polished. Most shoppers will leave it there, so the control
+  has to stay quiet until it is wanted. It is therefore the SAME Yes/No
+  segmented pattern as engraving (`.pdp__seg`), not a permanently open row of
+  48 choices, and Yes OPENS THE PICKER straight away — the toggle would
+  otherwise be a switch with nothing behind it.
+
+  Cancelling out of the picker LEAVES THE TOGGLE ON, showing Polished with a
+  Change button. Ed, 18/09/2026: snapping back to No throws away the fact
+  that the shopper asked the question, and they then have to find the control
+  again to ask it a second time.
+
+  ── THE FINISH LIST ───────────────────────────────────────────────────────
+
+  48 choices: Polished, plus Hockley Mint's 47. The HM NUMBER IS THE ORDER
+  REFERENCE and must travel with the choice, so the property reads
+
+      Finish: Matt with Bevelled Edges (HM 38)
+
+  Customer-facing names are tidied from HM's; the number is shown quietly
+  under the name so a shopper who rings up can quote it, and so the workshop
+  and the page cannot drift apart.
+
+  DELIBERATELY NOT GROUPED. Ed, 18/09/2026. A first pass had eight group tabs
+  (Matt and brushed, Frosted, Milled…). They are HM's manufacturing families,
+  not how anyone shops: a shopper who wants "a line down the middle" does not
+  know whether that is Grooves or Milled, and the tabs hid forty of the
+  forty-eight behind a guess. One flat grid with a search field instead —
+  Polished first, then HM's own order, which runs plain to decorated.
+
+  THE HAND ENGRAVED SEVEN have no names of their own in HM's list, so they are
+  named "Hand Engraved Pattern 1–7" here and the modal says in words that they
+  are cut into the OUTSIDE of the band. They are real engraving and they are
+  not the engraving option below, which is a message inside the ring; a
+  shopper who confuses the two orders the wrong thing.
+
+  ── THE PHOTOGRAPHY IS THE CONSTRAINT ─────────────────────────────────────
+
+  HM's finish photographs are 200x200 JPGs on a white ground, one ring at a
+  slight angle. They hold up to about 120px and go soft above it, which is
+  why the tiles are ~112px and why the gallery is NOT switched to the chosen
+  finish: the hero is a 1254px product photograph and swapping a 200px
+  thumbnail into it upscales by five. The choice is echoed as an 88px
+  thumbnail in the buy box instead, where the source is sharp.
+
+  They are uploaded to Shopify Files as `rf-finish-<slug>.jpg`, with `-yellow`
+  and `-rose` variants, so `file_url` resolves them with no metaobject and no
+  app. COLOUR FOLLOWS THE RING: yellow gold takes `-yellow`, rose gold takes
+  `-rose`, and white gold, platinum and palladium all share the white set,
+  which is how HM shoots them.
+
+  There is no Polished photograph in the set — a polished ring is just the
+  ring — so the Polished tile shows this product's own featured image, which
+  is also the only tile that is genuinely this ring.
+
+  HM shoot a `_thin` variant for bands of 4mm and under. Those are NOT in
+  Files yet, so width does not change the photograph today. When they are
+  uploaded, append the suffix here from `filters.band_width`; nothing else
+  needs to change.
+
+  ── PRICE IS NOT SETTLED ──────────────────────────────────────────────────
+
+  Ed, 18/09/2026: the uplift will be somewhere between £0 and £100 depending
+  on the finish, and the figures are not agreed. Nothing is shown today. The
+  markup carries an empty `.pdp__ftileprice` hook and the snippet reads
+  `custom.finish_price_pennies` off the product if it is ever set, so turning
+  prices on is a data job and not a template one.
+
+  ── WHAT THE ORDER CARRIES ────────────────────────────────────────────────
+
+      properties[Finish]   "Polished" | "Matt with Bevelled Edges (HM 38)"
+
+  Polished is sent EXPLICITLY, on every plain ring, whether or not the shopper
+  opened the picker. An absent property would mean "nobody asked", which is
+  not the same thing as "polished" and is not what the workshop needs to read.
+
+  The field is a real named input inside the buy-box form, so the wishlist —
+  which saves what the buy box currently holds, via context: 'form' — picks
+  the finish up with no change to fye-wishlist-button.
+
+  Parameters: product, settings (the section's)
+{%- endcomment -%}
+{%- liquid
+  assign p = product
+  assign s = settings
+  assign cf = p.metafields.custom
+
+  comment
+    Colour suffix. White gold, platinum and palladium share HM's white set.
+  endcomment
+  assign metal_now = cf.ring_metal | append: ''
+  assign tone = ''
+  if metal_now contains 'Yellow'
+    assign tone = '-yellow'
+  elsif metal_now contains 'Rose'
+    assign tone = '-rose'
+  endif
+-%}
+
+{%- capture finish_rows -%}
+  24|Matt|matt;
+  67|Vertical Brushed|vertical-brushed;
+  69|Diagonal Brushed|diagonal-brushed;
+  68|File Matt|file-matt;
+  19|Half Matt, Half Polished|half-matt-half-polished;
+  35|Three-Quarter Matt|three-quarter-matt;
+  30|Matt in Three Bands|matt-in-three-bands;
+  6|Matt Centre, Polished Edges|matt-centre-polished-edges;
+  2|Matt Centre, Stepped Edges|matt-centre-stepped-edges;
+  38|Matt with Bevelled Edges|matt-with-bevelled-edges;
+  39|Matt Centre with Boxed Bevelled Edges|matt-centre-with-boxed-bevelled-edges;
+  25|Matt with Flat Groove and Bevelled Edges|matt-with-flat-groove-and-bevelled-edges;
+  5|Matt with Inset Milled Edges|matt-with-inset-milled-edges;
+  47|Matt with Inset Milled Edge and Polished Step|matt-with-inset-milled-edge-and-polished-step;
+  94|Matt with Feathered Edges|matt-with-feathered-edges;
+  17|Matt with Centre Groove|matt-with-centre-groove;
+  34|Matt with Centre V-Groove|matt-with-centre-v-groove;
+  27|Matt with Twin Centre Grooves|matt-with-twin-centre-grooves;
+  18|Matt with Offset Double Line|matt-with-offset-double-line;
+  37|Matt with Double Offset Lines|matt-with-double-offset-lines;
+  21|Centre V-Groove|centre-v-groove;
+  22|Bevelled Edges|bevelled-edges;
+  23|Lined Edges|lined-edges;
+  95|Centre Chevrons|centre-chevrons;
+  1|Milled Centre|milled-centre;
+  3|Milled Edges|milled-edges;
+  4|Polished with Inset Milled Edges|polished-with-inset-milled-edges;
+  46|Polished with Double Milled Edges|polished-with-double-milled-edges;
+  86|Frosted|frosted;
+  84|Frosted with Stepped Edges|frosted-with-stepped-edges;
+  85|Frosted with Chamfered Edges|frosted-with-chamfered-edges;
+  87|Frosted with Polished Tramlines|frosted-with-polished-tramlines;
+  88|Frosted with Flat Centre Line|frosted-with-flat-centre-line;
+  89|Frosted with Stars and Stepped Edges|frosted-with-stars-and-stepped-edges;
+  90|Frosted with Concave Wave|frosted-with-concave-wave;
+  91|Frosted with Leaves|frosted-with-leaves;
+  92|Frosted with Oval Spots|frosted-with-oval-spots;
+  93|Matt with Leaves|matt-with-leaves;
+  65|Bark|bark;
+  66|Diamond Wheel|diamond-wheel;
+  70|Hand Engraved Pattern 1|hand-engraved-1;
+  71|Hand Engraved Pattern 2|hand-engraved-2;
+  72|Hand Engraved Pattern 3|hand-engraved-3;
+  73|Hand Engraved Pattern 4|hand-engraved-4;
+  74|Hand Engraved Pattern 5|hand-engraved-5;
+  75|Hand Engraved Pattern 6|hand-engraved-6;
+  76|Hand Engraved Pattern 7|hand-engraved-7
+{%- endcapture -%}
+{%- assign finishes = finish_rows | split: ';' -%}
+
+<div class="pdp__finish" data-fye-finish>
+
+  <div class="pdp__finishhead">
+    <p class="pdp__label">
+      {{ s.finish_label | default: 'Custom finish' }}
+      <span class="pdp__labelval" data-fye-finish-hint>{{ s.finish_hint | default: 'Polished as standard' }}</span>
+    </p>
+
+    <div class="pdp__seg" role="radiogroup" aria-label="{{ s.finish_label | default: 'Custom finish' | escape }}">
+      <button type="button" role="radio" class="is-on" aria-checked="true" data-fye-finish-set="no">No</button>
+      <button type="button" role="radio" aria-checked="false" data-fye-finish-set="yes">Yes</button>
+    </div>
+  </div>
+
+  {%- comment -%}
+    The chosen finish. Hidden until the toggle is on; it then shows Polished,
+    so the shopper can see that "yes" has not silently changed anything yet.
+  {%- endcomment -%}
+  <div class="pdp__finishpick" data-fye-finish-pick hidden>
+    <img class="pdp__finishthumb"
+         src="{{ p.featured_image | image_url: width: 176 }}"
+         alt=""
+         width="88"
+         height="88"
+         loading="lazy"
+         data-fye-finish-thumb>
+    <span class="pdp__finishtxt">
+      <span class="pdp__finishname" data-fye-finish-name>Polished</span>
+      <span class="pdp__finishmeta" data-fye-finish-meta>Standard finish</span>
+    </span>
+    <span class="pdp__finishacts">
+      <button type="button" class="pdp__finishreset" data-fye-finish-reset hidden>Back to polished</button>
+      <button type="button" class="btn btn--outline pdp__finishopen" data-fye-finish-open>
+        {{ s.finish_change_label | default: 'Change' }}
+      </button>
+    </span>
+  </div>
+
+  {%- comment -%}
+    Always enabled, always sent — see the header. Its value is rewritten by
+    fye-finish.js as the choice changes.
+  {%- endcomment -%}
+  <input type="hidden" name="properties[Finish]" value="Polished" data-fye-finish-prop>
+
+  {%- comment -%}
+    ---- The picker modal ----
+    Same shell as the diamond picker (`.pdp__modal` / scrim / panel), one set
+    of markup at every width: the grid reflows and becomes a sheet on a phone.
+    Never a second copy of the content.
+
+    Tiles are rendered by Liquid rather than fetched, because the list is
+    fixed, small and the same on every plain ring. No request, no loading
+    state, and the grid is in the DOM for search engines and for anyone with
+    JS off, who still sees the finishes even though they cannot select one.
+  {%- endcomment -%}
+  <div class="pdp__modal" data-fye-finish-modal hidden>
+    <div class="pdp__modalscrim" data-fye-finish-close></div>
+
+    <div class="pdp__modalpanel" role="dialog" aria-modal="true" aria-labelledby="pdp-finish-title" tabindex="-1" data-fye-finish-panel>
+      <div class="pdp__modalhead">
+        <div>
+          <h2 class="pdp__modaltitle" id="pdp-finish-title">{{ s.finish_heading | default: 'Choose your finish' }}</h2>
+          <p class="pdp__modalsub">
+            {{ s.finish_note | default: 'Every ring is polished as standard. Hand engraved patterns are cut into the outside of the band by our finishers, which is different from a custom engraved message inside the ring.' }}
+          </p>
+        </div>
+
+        <button type="button" class="pdp__modalx" data-fye-finish-close aria-label="Close">
+          {%- render 'icon', name: 'close' -%}
+        </button>
+      </div>
+
+      <div class="pdp__modaltools">
+        <label class="visually-hidden" for="pdp-finish-search">Search finishes</label>
+        <input class="pdp__input pdp__finishsearch"
+               type="search"
+               id="pdp-finish-search"
+               placeholder="{{ s.finish_search_label | default: 'Search finishes' | escape }}"
+               autocomplete="off"
+               data-fye-finish-search>
+        <p class="pdp__count" data-fye-finish-count aria-live="polite">48 finishes</p>
+      </div>
+
+      <div class="pdp__finishgrid" role="radiogroup" aria-label="{{ s.finish_heading | default: 'Choose your finish' | escape }}" data-fye-finish-grid>
+
+        {%- comment -%}
+          Polished first, and marked as the default in words — it is the one
+          tile that is not an HM photograph but this ring's own image.
+        {%- endcomment -%}
+        <button type="button"
+                class="pdp__ftile is-on"
+                role="radio"
+                aria-checked="true"
+                data-fye-ftile
+                data-name="Polished"
+                data-prop="Polished"
+                data-hm=""
+                data-search="polished default standard">
+          <span class="pdp__ftileimg">
+            <img src="{{ p.featured_image | image_url: width: 224 }}"
+                 alt="{{ p.title | escape }}, polished"
+                 width="112"
+                 height="112"
+                 loading="lazy">
+          </span>
+          <span class="pdp__ftilename">Polished</span>
+          <span class="pdp__ftilehm">Standard finish</span>
+          <span class="pdp__ftilemark" aria-hidden="true">{%- render 'icon', name: 'check' -%}</span>
+        </button>
+
+        {%- for row in finishes -%}
+          {%- liquid
+            assign bits = row | strip | split: '|'
+            assign hm = bits[0] | strip
+            assign name = bits[1] | strip
+            assign slug = bits[2] | strip
+          -%}
+          {%- if slug == blank -%}{%- continue -%}{%- endif -%}
+          {%- assign asset_name = 'rf-finish-' | append: slug | append: tone | append: '.jpg' -%}
+
+          <button type="button"
+                  class="pdp__ftile"
+                  role="radio"
+                  aria-checked="false"
+                  data-fye-ftile
+                  data-name="{{ name | escape }}"
+                  data-prop="{{ name | append: ' (HM ' | append: hm | append: ')' | escape }}"
+                  data-hm="HM {{ hm }}"
+                  data-search="{{ name | downcase | escape }} hm{{ hm }} {{ hm }}">
+            <span class="pdp__ftileimg">
+              <img src="{{ asset_name | file_url }}"
+                   alt="{{ name | escape }} finish on a {{ metal_now | escape }} band"
+                   width="112"
+                   height="112"
+                   loading="lazy">
+            </span>
+            <span class="pdp__ftilename">{{ name }}</span>
+            <span class="pdp__ftilehm">HM {{ hm }}</span>
+            <span class="pdp__ftilemark" aria-hidden="true">{%- render 'icon', name: 'check' -%}</span>
+          </button>
+        {%- endfor -%}
+      </div>
+
+      {%- comment -%}
+        Tapping a tile SELECTS; Confirm applies. Ed, 18/09/2026 — with 48
+        near-identical photographs the shopper needs to put two side by side
+        and change their mind, and an apply-on-tap grid closes under them the
+        moment they touch the wrong one. Closing without confirming keeps the
+        previous choice.
+      {%- endcomment -%}
+      <div class="pdp__modalfoot pdp__finishfoot">
+        <span class="pdp__finishdraft">
+          <img class="pdp__finishthumb pdp__finishthumb--sm"
+               src="{{ p.featured_image | image_url: width: 88 }}"
+               alt=""
+               width="44"
+               height="44"
+               loading="lazy"
+               data-fye-finish-draftimg>
+          <span class="pdp__finishtxt">
+            <span class="pdp__finishname" data-fye-finish-draftname>Polished</span>
+            <span class="pdp__finishmeta" data-fye-finish-draftmeta>The standard finish, no extra work</span>
+          </span>
+        </span>
+        <span class="pdp__finishbtns">
+          <button type="button" class="btn btn--outline" data-fye-finish-cancel>Cancel</button>
+          <button type="button" class="btn" data-fye-finish-confirm>{{ s.finish_confirm_label | default: 'Confirm finish' }}</button>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- comment -%}
+  Loaded here rather than from the layout, so the ~3KB is requested only on
+  the pages that render a picker. `defer` because nothing above depends on it
+  and the markup is already usable without it.
+{%- endcomment -%}
+<script src="{{ 'fye-finish.js' | asset_url }}" defer></script>

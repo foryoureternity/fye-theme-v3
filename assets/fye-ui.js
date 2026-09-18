@@ -3389,8 +3389,29 @@
     Array.prototype.slice
       .call(step.querySelectorAll('[data-fye-finish-neutral]'))
       .forEach(function (img) {
-        var src = img.getAttribute('data-fye-finish-' + want) ||
-                  img.getAttribute('data-fye-finish-neutral');
+        var neutral = img.getAttribute('data-fye-finish-neutral');
+        var src = img.getAttribute('data-fye-finish-' + want) || neutral;
+
+        /* A colour that has not been supplied yet falls back to the neutral
+           photograph rather than showing a broken-image glyph. Liquid derives
+           the -yellow and -rose names from the neutral one, so it cannot know
+           whether the file exists; only the browser finds out. The error
+           handler on the live-from-stock fill does not cover these, because
+           these are rendered by Liquid.
+
+           Bound once. Guarded against the neutral itself 404ing, which would
+           otherwise loop. */
+        if (!img.dataset.fyeFinishFallback) {
+          img.dataset.fyeFinishFallback = '1';
+          img.addEventListener('error', function () {
+            if (neutral && img.getAttribute('src') !== neutral) {
+              img.setAttribute('src', neutral);
+            } else {
+              img.remove();
+            }
+          });
+        }
+
         /* Only touch it when it actually changes: reassigning the same src
            makes some browsers re-decode, which flickers a tile that was
            already right. */

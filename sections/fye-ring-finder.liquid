@@ -890,6 +890,22 @@
 .fye .rfd__opts--finish .rfd__oshot { background: #fff; }
 .fye .rfd__opts--finish .rfd__oshot img { object-fit: contain; }
 
+/* THE SEVEN HAND ENGRAVED PHOTOGRAPHS ARE SHOT AT TWICE THE SCALE of the
+   other forty. Measured 18/09/2026 across all 47: the ring occupies 44% of
+   frame width in almost every one (min 39.5%, and the polished pair added
+   later match at exactly 44.0%), but 88.5% in hand engraved 1 to 7. Left
+   alone they read as seven much larger rings in the middle of the grid.
+
+   object-fit cannot correct it — it honours whatever framing the file has —
+   so the compensation has to be a transform. 44 / 88.5 = 0.497.
+
+   This is a patch over source photography, not a design decision. Delete it
+   the day those seven are reshot or padded to match, and check the grid
+   again: with corrected files this rule would make them half size. */
+.fye .rfd__opts--finish .rfd__oshot img[src*="rf-finish-hand-engraved"] {
+  transform: scale(0.5);
+}
+
 /* --- results ------------------------------------------------------------- */
 .fye .rfd__results { gap: var(--s6); }
 /* Two options, equal weight: same heading, same column width, one hairline

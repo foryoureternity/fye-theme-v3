@@ -1290,33 +1290,17 @@
 .fye .rfd__opt--line:hover .fic--profile { opacity: 1; }
 
 
-/* --- eternity journey, hidden while it is built — 07/09/2026 --------------
-   Ed needs the tile to work on the branch; shoppers should not see it yet. So
-   it stays in the running order and is hidden here, revealed by the session
-   flag that fye-ui.js sets from ?fyedebug=1.
+/* The diamond and eternity journey was curtained from 07/09/2026 while it was
+   built — visible only under ?fyedebug=1, with a "hidden from shoppers" marker
+   so it could never be mistaken for live. Curtain lifted 18/09/2026 (Ed): the
+   branch is finished and the tile is public. Nothing replaces those rules; the
+   tile now behaves like the other two.
 
-   SCOPED TO THE JOURNEYS PANEL deliberately. The step panels carry the same
-   data-fye-finder-journey attribute, so an unscoped rule would hide every
-   question on the journey as well as the tile — and the journey would then be
-   selectable but blank.
-
-   This is a curtain, not a lock: the tile is in the HTML on every visit. That
-   is the accepted trade while the branch is unfinished. */
-[data-fye-finder-panel="journeys"] [data-fye-finder-journey="dia"] { display: none; }
-.fye-preview [data-fye-finder-panel="journeys"] [data-fye-finder-journey="dia"] { display: flex; }
-/* A visible marker, so a hidden-in-public tile is never mistaken for a live
-   one during testing. */
-.fye-preview [data-fye-finder-panel="journeys"] [data-fye-finder-journey="dia"]::after {
-  content: 'Preview — hidden from shoppers';
-  display: block;
-  padding: var(--s2) var(--s3);
-  background: var(--teal);
-  color: var(--ivory);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
+   Kept as a note because the pattern is worth reusing. If another journey ever
+   needs hiding, SCOPE IT TO THE JOURNEYS PANEL — the step panels carry the
+   same data-fye-finder-journey attribute, so an unscoped rule hides every
+   question on the journey too, leaving it selectable but blank. And it is a
+   curtain, not a lock: the tile stays in the HTML on every visit. */
 
 {% endstylesheet %}
 

@@ -3351,10 +3351,51 @@
       }
     }
     show.hidden = false;
+    paintFinishColour(show);
     var q = show.querySelector('[data-fye-finder-question]');
     if (q) q.focus({ preventScroll: true });
     var top = root.getBoundingClientRect().top;
     if (top < 0) window.scrollBy({ top: top - 24, behavior: 'smooth' });
+  }
+
+  /* Hockley Mint photograph every finish in yellow, rose and white, so the
+     tiles can show the metal the shopper actually chose rather than a stand-in.
+
+     Done here, as the step is shown, because that is the first moment the metal
+     answer is known — and re-done every time, so going back to change the metal
+     repaints the finishes instead of leaving them on the old colour.
+
+     Only the three colours exist. White gold, platinum, palladium and "I'm
+     flexible" all take the neutral set, which is the white photography. */
+  function finishColourKey() {
+    var metal = '';
+
+    state.answers.forEach(function (a) {
+      if ((a.param || '') === 'metal_colour') metal = (a.value || '').toLowerCase();
+    });
+
+    if (metal.indexOf('yellow') > -1) return 'yellow';
+    if (metal.indexOf('rose') > -1) return 'rose';
+    return 'neutral';
+  }
+
+  function paintFinishColour(step) {
+    if (!step || !step.querySelectorAll) return;
+
+    var want = finishColourKey();
+
+    /* slice.call, matching all() above: this file does not lean on
+       NodeList.forEach anywhere. */
+    Array.prototype.slice
+      .call(step.querySelectorAll('[data-fye-finish-neutral]'))
+      .forEach(function (img) {
+        var src = img.getAttribute('data-fye-finish-' + want) ||
+                  img.getAttribute('data-fye-finish-neutral');
+        /* Only touch it when it actually changes: reassigning the same src
+           makes some browsers re-decode, which flickers a tile that was
+           already right. */
+        if (src && img.getAttribute('src') !== src) img.setAttribute('src', src);
+      });
   }
 
   document.addEventListener('click', function (e) {

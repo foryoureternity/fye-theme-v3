@@ -70,8 +70,15 @@
     are `pinned` — the live-from-stock fill never overwrites them.
     A name that CARRIES ITS OWN EXTENSION (`photo: rf-finish-matt.jpg`) is used
     exactly as given, with no treatment suffix: the finish photographs come
-    from Hockley Mint as 200px JPGs on white and have no blurred or grey-mask
-    twin to switch between (Ed, 18/09/2026).
+    from Hockley Mint as 200px JPGs and have no blurred or grey-mask twin to
+    switch between (Ed, 18/09/2026).
+    Such a name beginning `rf-finish-` also gets its two COLOUR SIBLINGS
+    emitted beside it — `-yellow` and `-rose` — because Hockley Mint photograph
+    every finish in all three metals. fye-ui.js swaps the src from the
+    metal_colour answer as the step is shown, so the tiles show the band the
+    shopper chose. The bare name is the neutral set and serves white gold,
+    platinum, palladium and no preference. 141 files, all verified present
+    (Ed, 18/09/2026).
 
   · OPTION PHOTOGRAPHS. A step set to `photo_mode: stock` shows a real ring on every
     tile: the hand-picked one if its line says `product: <handle>`, else the
@@ -422,6 +429,13 @@
                 assign filepic = null
                 assign is_file_photo = false
                 comment
+                  Per option, not per step: Liquid keeps assigns across loop
+                  iterations, so without this a finish tile with no colour pair
+                  would inherit the previous tile's.
+                endcomment
+                assign pic_yellow = null
+                assign pic_rose = null
+                comment
                   A supplied photograph. The line names the RING, not the
                   treatment — the section appends the suffix — so one
                   dropdown swaps all of them and the two treatments can
@@ -441,6 +455,21 @@
                   endcomment
                   if fbase contains '.'
                     assign filepic = fbase | file_url
+                    comment
+                      Hockley Mint photograph every finish in all three metal
+                      colours, so the tile can show the band the shopper has
+                      actually chosen. All three URLs are emitted and fye-ui.js
+                      picks one from the metal answer: Liquid cannot know the
+                      answer, and JS cannot build a Files URL, so each does the
+                      half it can. The bare name is the neutral set and covers
+                      platinum, palladium, white gold and no preference.
+                    endcomment
+                    assign fstem = fbase | split: '.' | first
+                    assign fext = fbase | split: '.' | last
+                    if fstem contains 'rf-finish-'
+                      assign pic_yellow = fstem | append: '-yellow.' | append: fext | file_url
+                      assign pic_rose = fstem | append: '-rose.' | append: fext | file_url
+                    endif
                   else
                     assign filepic = fbase | append: treat | append: '.png' | file_url
                   endif
@@ -503,7 +532,8 @@
                         instruction and the live-from-stock fill must never
                         overwrite it.
                       {%- endcomment -%}
-                      <img src="{{ filepic }}" alt="" aria-hidden="true" width="800" height="800" loading="lazy" data-fye-finder-pinned data-fye-finder-icon>
+                      <img src="{{ filepic }}" alt="" aria-hidden="true" width="800" height="800" loading="lazy" data-fye-finder-pinned data-fye-finder-icon
+                           {%- if pic_yellow %} data-fye-finish-neutral="{{ filepic }}" data-fye-finish-yellow="{{ pic_yellow }}" data-fye-finish-rose="{{ pic_rose }}"{%- endif -%}>
                     {%- elsif pick and pick.featured_image -%}
                       <img src="{{ pick.featured_image | image_url: width: 240 }}" alt="" aria-hidden="true" width="240" height="240" loading="lazy" data-fye-finder-pinned>
                     {%- endif -%}

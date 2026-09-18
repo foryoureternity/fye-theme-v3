@@ -100,7 +100,8 @@
             "hint": "Both routes ask the same questions — this only changes the order.",
             "options": "Start with the setting | setting | photo: rf-fork-diamond-setting | How the stones are held: channel, pavé, claw\nStart with the stone | stone | photo: rf-fork-diamond-stone | The stones themselves: their type and shape",
             "icon_size": "88",
-            "icon_style": "line"
+            "icon_style": "line",
+            "photo_treatment": "-blurred"
           }
         },
         "eng_style": {
@@ -321,7 +322,8 @@
             "when_value": "",
             "columns": "4",
             "icon_size": "56",
-            "icon_style": "line"
+            "icon_style": "line",
+            "photo_treatment": "-blurred"
           }
         },
         "dia_stone": {
@@ -373,7 +375,8 @@
             "when_value": "",
             "columns": "3",
             "icon_size": "56",
-            "icon_style": "line"
+            "icon_style": "line",
+            "photo_treatment": "-blurred"
           }
         },
         "dia_metal": {

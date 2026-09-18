@@ -435,6 +435,8 @@
                 endcomment
                 assign pic_yellow = null
                 assign pic_rose = null
+                assign fyellow_name = null
+                assign frose_name = null
                 comment
                   A supplied photograph. The line names the RING, not the
                   treatment — the section appends the suffix — so one
@@ -444,6 +446,22 @@
                 if ico contains 'photo:'
                   assign is_file_photo = true
                   assign fbase = ico | remove_first: 'photo:' | strip
+                  comment
+                    THREE NAMES, COMMA SEPARATED, when the colour versions do
+                    not share a stem: neutral, yellow, rose. The polished trio
+                    arrived as platinum_polished / gold_polished /
+                    rose_polished, which no suffix rule can derive from one
+                    another, and renaming files in Content > Files is not
+                    something Shopify allows (Ed, 18/09/2026). A single name
+                    still derives its own siblings, below, so every other line
+                    is unchanged.
+                  endcomment
+                  if fbase contains ','
+                    assign fparts = fbase | split: ','
+                    assign fbase = fparts[0] | strip
+                    assign fyellow_name = fparts[1] | strip
+                    assign frose_name = fparts[2] | strip
+                  endif
                   comment
                     A name carrying its own extension is used AS GIVEN, with no
                     treatment suffix. The finish photographs come from Hockley
@@ -464,11 +482,23 @@
                       half it can. The bare name is the neutral set and covers
                       platinum, palladium, white gold and no preference.
                     endcomment
-                    assign fstem = fbase | split: '.' | first
-                    assign fext = fbase | split: '.' | last
-                    if fstem contains 'rf-finish-'
-                      assign pic_yellow = fstem | append: '-yellow.' | append: fext | file_url
-                      assign pic_rose = fstem | append: '-rose.' | append: fext | file_url
+                    comment
+                      A width is appended to every finish photograph: these
+                      files range from 200px to 1254px and the tile renders at
+                      about 140px, so serving the originals would pull a
+                      megabyte per tile. 400 covers a retina tile.
+                    endcomment
+                    assign filepic = filepic | append: '&width=400'
+                    if fyellow_name
+                      assign pic_yellow = fyellow_name | file_url | append: '&width=400'
+                      assign pic_rose = frose_name | file_url | append: '&width=400'
+                    else
+                      assign fstem = fbase | split: '.' | first
+                      assign fext = fbase | split: '.' | last
+                      if fstem contains 'rf-finish-'
+                        assign pic_yellow = fstem | append: '-yellow.' | append: fext | file_url | append: '&width=400'
+                        assign pic_rose = fstem | append: '-rose.' | append: fext | file_url | append: '&width=400'
+                      endif
                     endif
                   else
                     assign filepic = fbase | append: treat | append: '.png' | file_url

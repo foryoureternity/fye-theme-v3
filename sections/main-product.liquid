@@ -1347,12 +1347,25 @@
   color: var(--ink);
 }
 
-/* The HM number, quietly. It is the order reference, so a shopper ringing us
-   can read it back, but it is not how anyone chooses. */
+/* The HM number, quietly, with the uplift beside it. The number is the order
+   reference, so a shopper ringing us can read it back. Neither is how anyone
+   chooses a finish, which is why they share one small line under the name
+   rather than taking a row each. */
 .fye .pdp__ftilehm {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s2);
   font-size: 10px;
   letter-spacing: var(--tr-eyebrow);
   color: var(--ink-soft);
+}
+
+/* Full ink: the uplift is a fact the shopper needs before choosing, and a
+   grey price reads as a footnote. Polished prints nothing here at all. */
+.fye .pdp__ftileprice {
+  flex: 0 0 auto;
+  color: var(--ink);
 }
 
 .fye .pdp__ftilemark {
@@ -2178,6 +2191,26 @@
       "id": "engraving_fonts",
       "label": "Fonts (pipe-separated)",
       "default": "Classic Script|Elegant Serif|Modern Sans|Block Capitals"
+    },
+
+    { "type": "header", "content": "Finish" },
+    {
+      "type": "paragraph",
+      "content": "Plain rings only. Polished is included. Every other finish is charged as a separate cart line for the hidden Custom Finish product, exactly as engraving is, and the seven hand engraved patterns take the second variant because they are cut by hand."
+    },
+    { "type": "text", "id": "finish_variant_id", "label": "Fee variant ID", "default": "59922131681664" },
+    {
+      "type": "number",
+      "id": "finish_price_pennies",
+      "label": "Fee in pennies",
+      "default": 5000
+    },
+    { "type": "text", "id": "finish_engraved_variant_id", "label": "Hand engraved fee variant ID", "default": "59922131714432" },
+    {
+      "type": "number",
+      "id": "finish_engraved_price_pennies",
+      "label": "Hand engraved fee in pennies",
+      "default": 10000
     }
   ],
   "presets": [{ "name": "Main product" }]

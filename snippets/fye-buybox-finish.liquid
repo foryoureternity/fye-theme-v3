@@ -57,22 +57,33 @@
   `-rose`, and white gold, platinum and palladium all share the white set,
   which is how HM shoots them.
 
-  There is no Polished photograph in the set — a polished ring is just the
-  ring — so the Polished tile shows this product's own featured image, which
-  is also the only tile that is genuinely this ring.
+  HM shoot no polished ring, so the three polished photographs are ours:
+  `gold_polished.png`, `rose_polished.png` and `platinum_polished.png`, one
+  per metal family, following the same colour rule. Ed, 18/09/2026. They are
+  1254px, the product-photography size rather than HM's 200, so every use
+  here asks the CDN for the width it actually needs. `file_url` alone would
+  ship a 1254px PNG into a 112px tile.
 
   HM shoot a `_thin` variant for bands of 4mm and under. Those are NOT in
   Files yet, so width does not change the photograph today. When they are
   uploaded, append the suffix here from `filters.band_width`; nothing else
   needs to change.
 
-  ── PRICE IS NOT SETTLED ──────────────────────────────────────────────────
+  ── THE UPLIFT ────────────────────────────────────────────────────────────
 
-  Ed, 18/09/2026: the uplift will be somewhere between £0 and £100 depending
-  on the finish, and the figures are not agreed. Nothing is shown today. The
-  markup carries an empty `.pdp__ftileprice` hook and the snippet reads
-  `custom.finish_price_pennies` off the product if it is ever set, so turning
-  prices on is a data job and not a template one.
+  Ed, 18/09/2026: polished is included, every Hockley Mint finish is £50, and
+  the seven hand engraved patterns are £100, because those are cut by hand.
+
+  Charged the way engraving is, and for the same reason: a fee variant on a
+  hidden product, posted as its own cart line, so the price the buy box shows
+  is the price the customer is actually taken through checkout at. The two
+  variants live on `Custom Finish`; their IDs and the two figures are section
+  settings, so changing a price is a customiser job and not a code one.
+
+  Each tile carries its own fee and fee variant. fye-finish.js copies the
+  applied tile's pair onto this block's root, where fye-ui.js reads them
+  exactly as it reads engraving's, which is why the total and the cart line
+  cannot disagree.
 
   ── WHAT THE ORDER CARRIES ────────────────────────────────────────────────
 
@@ -103,6 +114,33 @@
   elsif metal_now contains 'Rose'
     assign tone = '-rose'
   endif
+
+  comment
+    The polished photographs, same colour rule. These three are 1254px, so
+    each use asks the CDN for the width it needs. `&width=` is exactly what
+    image_url emits; file_url is the only way to reach a file by name.
+  endcomment
+  assign polished_file = 'platinum_polished.png'
+  if metal_now contains 'Yellow'
+    assign polished_file = 'gold_polished.png'
+  elsif metal_now contains 'Rose'
+    assign polished_file = 'rose_polished.png'
+  endif
+  assign polished_url = polished_file | file_url
+  assign polished_tile = polished_url | append: '&width=224'
+  assign polished_thumb = polished_url | append: '&width=176'
+  assign polished_small = polished_url | append: '&width=88'
+
+  comment
+    The uplift. Settings rather than constants so a price change is a
+    customiser job; the defaults are the two Custom Finish variants.
+  endcomment
+  assign fee_plain = s.finish_price_pennies | default: 5000
+  assign fee_hand = s.finish_engraved_price_pennies | default: 10000
+  assign var_plain = s.finish_variant_id | default: '59922131681664'
+  assign var_hand = s.finish_engraved_variant_id | default: '59922131714432'
+  assign label_plain = fee_plain | money_without_trailing_zeros
+  assign label_hand = fee_hand | money_without_trailing_zeros
 -%}
 
 {%- capture finish_rows -%}
@@ -156,7 +194,12 @@
 {%- endcapture -%}
 {%- assign finishes = finish_rows | split: ';' -%}
 
-<div class="pdp__finish" data-fye-finish>
+{%- comment -%}
+  data-fee-price and data-fee-variant start empty because Polished is free.
+  fye-finish.js rewrites both as the applied finish changes, and fye-ui.js
+  reads them here the same way it reads engraving's.
+{%- endcomment -%}
+<div class="pdp__finish" data-fye-finish data-fee-price="0" data-fee-variant="">
 
   <div class="pdp__finishhead">
     <p class="pdp__label">
@@ -176,7 +219,7 @@
   {%- endcomment -%}
   <div class="pdp__finishpick" data-fye-finish-pick hidden>
     <img class="pdp__finishthumb"
-         src="{{ p.featured_image | image_url: width: 176 }}"
+         src="{{ polished_thumb }}"
          alt=""
          width="88"
          height="88"
@@ -242,8 +285,11 @@
       <div class="pdp__finishgrid" role="radiogroup" aria-label="{{ s.finish_heading | default: 'Choose your finish' | escape }}" data-fye-finish-grid>
 
         {%- comment -%}
-          Polished first, and marked as the default in words — it is the one
-          tile that is not an HM photograph but this ring's own image.
+          Polished first, and marked as the default in words. It carries no
+          fee and no fee variant, so choosing it adds nothing to the total
+          and posts no second cart line. No price is printed on it either: a
+          "+£0" beside forty-seven prices invites the comparison rather than
+          settling it.
         {%- endcomment -%}
         <button type="button"
                 class="pdp__ftile is-on"
@@ -253,10 +299,13 @@
                 data-name="Polished"
                 data-prop="Polished"
                 data-hm=""
+                data-fee="0"
+                data-fee-variant=""
+                data-fee-label=""
                 data-search="polished default standard">
           <span class="pdp__ftileimg">
-            <img src="{{ p.featured_image | image_url: width: 224 }}"
-                 alt="{{ p.title | escape }}, polished"
+            <img src="{{ polished_tile }}"
+                 alt="A polished {{ metal_now | escape }} band"
                  width="112"
                  height="112"
                  loading="lazy">
@@ -276,6 +325,23 @@
           {%- if slug == blank -%}{%- continue -%}{%- endif -%}
           {%- assign asset_name = 'rf-finish-' | append: slug | append: tone | append: '.jpg' -%}
 
+          {%- comment -%}
+            The seven hand engraved patterns are cut by hand and cost £100;
+            everything else is £50. The slug is the test because it is the
+            same string the photograph is named after, so a new hand engraved
+            pattern picks up the right price by being named like its fellows.
+          {%- endcomment -%}
+          {%- liquid
+            assign fee = fee_plain
+            assign fee_label = label_plain
+            assign fee_variant = var_plain
+            if slug contains 'hand-engraved'
+              assign fee = fee_hand
+              assign fee_label = label_hand
+              assign fee_variant = var_hand
+            endif
+          -%}
+
           <button type="button"
                   class="pdp__ftile"
                   role="radio"
@@ -284,6 +350,9 @@
                   data-name="{{ name | escape }}"
                   data-prop="{{ name | append: ' (HM ' | append: hm | append: ')' | escape }}"
                   data-hm="HM {{ hm }}"
+                  data-fee="{{ fee }}"
+                  data-fee-variant="{{ fee_variant }}"
+                  data-fee-label="+{{ fee_label }}"
                   data-search="{{ name | downcase | escape }} hm{{ hm }} {{ hm }}">
             <span class="pdp__ftileimg">
               <img src="{{ asset_name | file_url }}"
@@ -293,7 +362,10 @@
                    loading="lazy">
             </span>
             <span class="pdp__ftilename">{{ name }}</span>
-            <span class="pdp__ftilehm">HM {{ hm }}</span>
+            <span class="pdp__ftilehm">
+              HM {{ hm }}
+              <span class="pdp__ftileprice">+{{ fee_label }}</span>
+            </span>
             <span class="pdp__ftilemark" aria-hidden="true">{%- render 'icon', name: 'check' -%}</span>
           </button>
         {%- endfor -%}
@@ -309,7 +381,7 @@
       <div class="pdp__modalfoot pdp__finishfoot">
         <span class="pdp__finishdraft">
           <img class="pdp__finishthumb pdp__finishthumb--sm"
-               src="{{ p.featured_image | image_url: width: 88 }}"
+               src="{{ polished_small }}"
                alt=""
                width="44"
                height="44"

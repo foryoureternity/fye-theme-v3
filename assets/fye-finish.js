@@ -36,6 +36,10 @@
     prop: 'Polished',
     name: 'Polished',
     hm: '',
+    fee: '0',
+    feeVariant: '',
+    feeLabel: '',
+    isPolished: true,
     meta: 'Standard finish',
     draftMeta: 'The standard finish, no extra work'
   };
@@ -80,9 +84,19 @@
       prop: tile.getAttribute('data-prop') || POLISHED.prop,
       name: tile.getAttribute('data-name') || POLISHED.name,
       hm: tile.getAttribute('data-hm') || '',
+      fee: tile.getAttribute('data-fee') || '0',
+      feeVariant: tile.getAttribute('data-fee-variant') || '',
+      feeLabel: tile.getAttribute('data-fee-label') || '',
       src: img ? img.getAttribute('src') : '',
       isPolished: tile === tiles[0]
     };
+  }
+
+  /* "HM 38 · +£50" — the order reference a shopper can quote us, then what
+     it adds. Polished says what it is and carries no price at all. */
+  function metaOf(f) {
+    if (f.isPolished) return POLISHED.meta;
+    return f.feeLabel ? f.hm + ' · ' + f.feeLabel : f.hm;
   }
 
   /* ---- painting --------------------------------------------------------- */
@@ -91,15 +105,26 @@
     var f = read(applied);
     if (prop) prop.value = f.prop;
     if (out.name) out.name.textContent = f.name;
-    if (out.meta) out.meta.textContent = f.isPolished ? POLISHED.meta : f.hm;
+    if (out.meta) out.meta.textContent = metaOf(f);
     if (out.thumb && f.src) out.thumb.src = f.src;
     if (reset) reset.hidden = f.isPolished;
+
+    /* The uplift travels on the root, which is where fye-ui.js reads it for
+       the selected price and for the cart line — the same two attributes
+       engraving uses. Written in one place, so the price the shopper is
+       shown and the line they are charged cannot drift apart. */
+    root.setAttribute('data-fee-price', f.isPolished ? '0' : f.fee);
+    root.setAttribute('data-fee-variant', f.isPolished ? '' : f.feeVariant);
+
+    /* fye-ui.js owns the displayed price and has already handled this click
+       by the time we run, so it has to be asked to paint again. */
+    if (window.FYE && window.FYE.refresh) window.FYE.refresh(root);
   }
 
   function paintDraft() {
     var f = read(draft);
     if (foot.name) foot.name.textContent = f.name;
-    if (foot.meta) foot.meta.textContent = f.isPolished ? POLISHED.draftMeta : f.hm;
+    if (foot.meta) foot.meta.textContent = f.isPolished ? POLISHED.draftMeta : metaOf(f);
     if (foot.thumb && f.src) foot.thumb.src = f.src;
 
     tiles.forEach(function (t) {
@@ -232,6 +257,39 @@
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && modal && !modal.hidden) close();
   });
+
+  /* ---- the wishlist ------------------------------------------------------
+     A saved ring is restored through FYE.readConfig / FYE.applyConfig, which
+     live in fye-ui.js and know nothing about this picker. So the picker
+     publishes its own read and apply, and fye-ui.js calls them only if they
+     are there: the finish comes back with the ring, and a page with no
+     picker is untouched.
+
+     Apply deliberately does NOT click Yes. Yes opens the modal, and a ring
+     restored from the wishlist should not greet the shopper with a dialog. */
+
+  window.FYE = window.FYE || {};
+  window.FYE.finishState = {
+    read: function () {
+      return { prop: applied ? applied.getAttribute('data-prop') || '' : '' };
+    },
+
+    apply: function (state) {
+      if (!state || !state.prop) return;
+
+      var found = null;
+      tiles.forEach(function (t) {
+        if (t.getAttribute('data-prop') === state.prop) found = t;
+      });
+      if (!found) return;
+
+      applied = found;
+      draft = found;
+      setToggle(!read(found).isPolished);
+      paintApplied();
+      paintDraft();
+    }
+  };
 
   setToggle(false);
   paintApplied();

@@ -652,6 +652,17 @@
     return parseInt(block.getAttribute('data-fee-price'), 10) || 0;
   }
 
+  /* The finish uplift, plain rings only. fye-finish.js writes the applied
+     finish's fee onto [data-fye-finish], so this reads the DOM like every
+     other add-on and there is no second copy of the state to keep in step.
+     Polished writes a zero, so it contributes nothing without a special
+     case here. */
+  function finishFee(form) {
+    var block = form.querySelector('[data-fye-finish]');
+    if (!block) return 0;
+    return parseInt(block.getAttribute('data-fee-price'), 10) || 0;
+  }
+
   /* ---- choosers: reading state -----------------------------------------
      Every question below is answered off the DOM, so there is one source of
      truth and no object to keep in step. */
@@ -1224,7 +1235,7 @@
        travels as its own unflagged cart line and is not surcharged. Taking it
        on the total here would make the page disagree with the cart. */
     var base = Math.round(v.price * mul);
-    var total = base + engraveFee(form) + centreAddOn(form) + sidesAddOn(form);
+    var total = base + engraveFee(form) + finishFee(form) + centreAddOn(form) + sidesAddOn(form);
 
     var price = form.querySelector('[data-fye-price]');
     if (price) price.textContent = money(total);
@@ -1547,6 +1558,14 @@
       if (engVariant) lines.push({ id: parseInt(engVariant, 10), quantity: 1, properties: tag });
     }
 
+    /* The finish fee. No toggle to read: Polished leaves the variant empty,
+       so the line only exists once a chargeable finish is applied. */
+    var finish = form.querySelector('[data-fye-finish]');
+    if (finish) {
+      var finVariant = (finish.getAttribute('data-fee-variant') || '').trim();
+      if (finVariant) lines.push({ id: parseInt(finVariant, 10), quantity: 1, properties: tag });
+    }
+
     var centre = centreOf(form);
     if (centre) {
       var cm = modeOf(centre);
@@ -1587,6 +1606,13 @@
      wishlist block at the end of this file calls the same three functions
      add-to-cart already uses. */
   window.FYE = window.FYE || {};
+
+  /* fye-finish.js is a separate file, loaded on plain ring pages only, and it
+     changes the finish AFTER this file's click handler has run. This is how
+     it asks for the price to be painted again. Same door the wishlist uses,
+     rather than a second copy of render(). */
+  window.FYE.refresh = function (el) { renderForm(el); };
+
   window.FYE.buyBox = function (form) {
     var v = chosenVariant(form);
     if (!v) return null;
@@ -1630,6 +1656,9 @@
         ? { mode: modeOf(sides), chip: chip ? chip.getAttribute('data-fye-side-variant') : '' }
         : null,
       engrave: eng ? { on: eng.getAttribute('data-on') || 'no', fields: fields } : null,
+      /* Plain rings only, and only once fye-finish.js has loaded. Absent on
+         every other page, which applyConfig below treats as nothing to do. */
+      finish: window.FYE.finishState ? window.FYE.finishState.read() : null,
       waiver: { centre: !!(cw && cw.checked), sides: !!(sw && sw.checked) }
     };
   };
@@ -1670,6 +1699,8 @@
         if (f) f.value = cfg.engrave.fields[name];
       });
     }
+
+    if (cfg.finish && window.FYE.finishState) window.FYE.finishState.apply(cfg.finish);
 
     if (cfg.waiver) {
       var cw2 = waiverOf(centre, 'centre');

@@ -3138,3 +3138,51 @@ This is against conventions §3, which allows three breakpoints for layout. The
 header is measured chrome and already carried 1280 and 1400; these are the
 header's own tiers, not the page's. **The real fix is fewer or shorter labels**
 — re-measure at 1440, 1500 and 1426 if anything in that menu is renamed.
+
+## 18/09/2026: the matchmaker band was wearing the founder's grid
+
+Ed reported the "Find or Design Your Perfect Ring" band on the homepage sitting
+in a ~806px box against the left edge with an empty half beside it, heading and
+eyebrow centred inside that box rather than on the page.
+
+**Cause: two sections claimed the same class namespace.** `sections/fye-founder.
+liquid` styled its two-column story as `.fye .fnd { display: grid;
+grid-template-columns: 42fr 58fr; gap: var(--s10); align-items: start }`, and
+`sections/fye-finder-entry.liquid` uses `.fnd` for the matchmaker entry band.
+Every section stylesheet block is concatenated into one styles.css; the bundle
+is ordered by filename, `fye-founder` sorts after `fye-finder-entry`, so the
+founder rule won sitewide even though the two sections never appear on the same
+page. The matchmaker's `.wrap` became the 42fr track — measured 557.76px of a
+1328px grid at a 1440 viewport, with the 770px 58fr track empty. `.fnd__name`
+collided too, giving the tile names the founder's attribution tracking.
+
+This is the same symptom the 10/09 comment in `fye-finder-entry.liquid` was
+written against ("the section owns its own width"). That fix added `display:
+block; width: 100%` to `.fye .fnd` — correct, but it sits earlier in the bundle,
+so it lost. Adding width declarations could never have worked; the collision had
+to go.
+
+**Fix:** renamed the founder section's whole namespace `fnd` -> `fdr`
+(`.fdr-sect`, `.fdr`, `.fdr--rev`, `.fdr__*`), 41 occurrences, all inside
+`sections/fye-founder.liquid`. Nothing outside that file referenced them — no
+JS hook, no template, no `data-fye-*`. Verified in-browser at 1440 by disabling
+the founder rule: `.wrap` returns to 1320px with 60px either side, tiles with
+it.
+
+**The check worth keeping:** extract every class selector from every section's
+stylesheet block, strip `__element` and `--modifier`, and flag any base name
+owned by more than one file. Two more genuine collisions came out of it and are
+NOT fixed here:
+
+- `.rel__grid` — `fye-related.liquid` (auto-fit minmax(260px, 1fr), plus list
+  resets) vs `fye-related-products.liquid` (repeat(4, minmax(0, 1fr))).
+  `fye-related-products` sorts first ('-' < '.'), so fye-related wins and the
+  related-products row is not the fixed four columns it declares.
+- `.gdl__cover` — in `guide-download.liquid` it is the `<img>` itself
+  (max-width 300px, margin auto, a box-shadow); in `fye-guide-download.liquid`
+  it is the `<div>` wrapping the image. `guide-download` sorts last, so that
+  wrapper is capped at 300px and carries a shadow it was never given.
+
+Shared utility names (`band`, `btn`, `icon`, `eyebrow`, `sect-head`, `wrap`)
+are deliberate and are not collisions. **Convention going forward: a section's
+base class namespace is owned by exactly one file.**

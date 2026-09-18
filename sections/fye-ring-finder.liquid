@@ -441,11 +441,23 @@
                   assign more_pic_rose = null
                   if more_ico contains 'photo:'
                     assign more_base = more_ico | remove_first: 'photo:' | strip
-                    assign more_pic = more_base | file_url | append: '&width=400'
-                    assign more_stem = more_base | split: '.' | first
-                    assign more_ext = more_base | split: '.' | last
-                    assign more_pic_yellow = more_stem | append: '-yellow.' | append: more_ext | file_url | append: '&width=400'
-                    assign more_pic_rose = more_stem | append: '-rose.' | append: more_ext | file_url | append: '&width=400'
+                    comment
+                      Takes the same two forms an option line does: three names
+                      comma separated when the colours share no stem, or one
+                      name whose -yellow and -rose siblings are derived.
+                    endcomment
+                    if more_base contains ','
+                      assign more_names = more_base | split: ','
+                      assign more_pic = more_names[0] | strip | file_url | append: '&width=400'
+                      assign more_pic_yellow = more_names[1] | strip | file_url | append: '&width=400'
+                      assign more_pic_rose = more_names[2] | strip | file_url | append: '&width=400'
+                    else
+                      assign more_pic = more_base | file_url | append: '&width=400'
+                      assign more_stem = more_base | split: '.' | first
+                      assign more_ext = more_base | split: '.' | last
+                      assign more_pic_yellow = more_stem | append: '-yellow.' | append: more_ext | file_url | append: '&width=400'
+                      assign more_pic_rose = more_stem | append: '-rose.' | append: more_ext | file_url | append: '&width=400'
+                    endif
                   endif
                 -%}
                 <button type="button"

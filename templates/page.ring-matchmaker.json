@@ -100,8 +100,7 @@
             "hint": "Both routes ask the same questions — this only changes the order.",
             "options": "Start with the setting | setting | photo: rf-fork-diamond-setting | How the stones are held: channel, pavé, claw\nStart with the stone | stone | photo: rf-fork-diamond-stone | The stones themselves: their type and shape",
             "icon_size": "88",
-            "icon_style": "line",
-            "photo_treatment": "-blurred"
+            "icon_style": "line"
           }
         },
         "eng_style": {
@@ -316,14 +315,13 @@
             "hint": "",
             "group": "setting",
             "param": "setting",
-            "options": "Channel |  | photo: rf-diamond-setting-channel\nGrain |  | photo: rf-diamond-setting-grain\nPavé |  | photo: rf-diamond-setting-pave\nClaw |  | photo: rf-diamond-setting-claw\nRubover |  | photo: rf-diamond-setting-rubover\nBar |  | photo: rf-diamond-setting-bar\nFrench Cut |  | photo: rf-diamond-setting-french-cut\nInvisible |  | photo: rf-diamond-setting-invisible\nOyster |  | photo: rf-diamond-setting-oyster\nTension |  | photo: rf-diamond-setting-tension",
-            "photo_mode": "",
+            "options": "Channel\nGrain\nPavé\nClaw\nRubover\nBar\nFrench Cut\nInvisible\nOyster\nTension",
+            "photo_mode": "stock",
             "when_param": "",
             "when_value": "",
             "columns": "4",
             "icon_size": "56",
-            "icon_style": "line",
-            "photo_treatment": "-blurred"
+            "icon_style": "line"
           }
         },
         "dia_stone": {
@@ -369,14 +367,13 @@
             "hint": "A half eternity ring is easier to resize and wears more comfortably; a full eternity ring sparkles from every angle.",
             "group": "",
             "param": "eternity_style",
-            "options": "Full Eternity |  | photo: rf-eternity-full\nHalf Eternity |  | photo: rf-eternity-half",
-            "photo_mode": "",
+            "options": "Full Eternity\nHalf Eternity",
+            "photo_mode": "stock",
             "when_param": "",
             "when_value": "",
             "columns": "3",
             "icon_size": "56",
-            "icon_style": "line",
-            "photo_treatment": "-blurred"
+            "icon_style": "line"
           }
         },
         "dia_metal": {

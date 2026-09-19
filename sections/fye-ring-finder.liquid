@@ -305,17 +305,9 @@
                   handles did on 04/09 (Ed, 05/09/2026).
                 endcomment
                 assign fork_pic = null
-                comment
-                  A block may override the section's treatment. The grey mask
-                  suits the engagement tiles but the diamond and eternity
-                  branch has no grey version of its coverage pair, so those two
-                  fell back to white and the branch mixed grey squares with
-                  white ones (Ed, 18/09/2026).
-                endcomment
-                assign treat_here = b.photo_treatment | default: treat
                 if ico contains 'photo:'
                   assign fbase = ico | remove_first: 'photo:' | strip
-                  assign fork_pic = fbase | append: treat_here | append: '.png' | file_url
+                  assign fork_pic = fbase | append: treat | append: '.png' | file_url
                 endif
               -%}
               <button type="button" class="rfd__opt rfd__opt--fork rfd__opt--{{ b.icon_style | default: 'line' }}{% if fork_pic != blank %} rfd__opt--photo{% endif %}"
@@ -363,11 +355,6 @@
             Liquid keeps assigns across iterations of this loop, so a step that
             used `more:` would leak the revealed state into every step after it.
           endcomment
-          comment
-            Per-step treatment, falling back to the section's. See the fork's
-            note above for why the branch needs its own.
-          endcomment
-          assign step_treat = b.photo_treatment | default: treat
           assign in_more = false
           assign more_open = false
           assign more_label = ''
@@ -565,7 +552,7 @@
                       endif
                     endif
                   else
-                    assign filepic = fbase | append: step_treat | append: '.png' | file_url
+                    assign filepic = fbase | append: treat | append: '.png' | file_url
                   endif
                 endif
                 if ico contains 'product:'
@@ -1406,15 +1393,6 @@
         { "type": "text", "id": "hint", "label": "Hint" },
         { "type": "textarea", "id": "options", "label": "Options", "info": "One per line: Label | group | icon.svg | note. The group must match a step's Question group." },
         {
-          "type": "select", "id": "photo_treatment", "label": "Photograph treatment", "default": "",
-          "info": "Overrides the section's treatment for this block only. Use the section default unless a branch has no version in the other set.",
-          "options": [
-            { "value": "", "label": "Use the section setting" },
-            { "value": "-blurred", "label": "Softened (…-blurred.png)" },
-            { "value": "-grey-mask", "label": "Grey mask (…-grey-mask.png)" }
-          ]
-        },
-        {
           "type": "select", "id": "icon_size", "label": "Icon size", "default": "88",
           "options": [
             { "value": "40", "label": "Small" },
@@ -1450,15 +1428,6 @@
         { "type": "text", "id": "param", "label": "Filter metafield key", "info": "A key in the filters namespace, e.g. profile. Begin with fye_ to carry the answer to the enquiry without filtering." },
         { "type": "textarea", "id": "options", "label": "Options", "info": "One per line: Label | value | icon | note. In the icon field: photo: rf-name to fill the tile with a supplied photograph (no suffix, no extension), product: a-ring-handle to pin a real ring, swatch: Rose Gold to draw a metal swatch, or a plain file name for a small icon." },
         { "type": "header", "content": "Photographs" },
-        {
-          "type": "select", "id": "photo_treatment", "label": "Photograph treatment", "default": "",
-          "info": "Overrides the section's treatment for this block only. Use the section default unless a branch has no version in the other set.",
-          "options": [
-            { "value": "", "label": "Use the section setting" },
-            { "value": "-blurred", "label": "Softened (…-blurred.png)" },
-            { "value": "-grey-mask", "label": "Grey mask (…-grey-mask.png)" }
-          ]
-        },
         {
           "type": "select", "id": "photo_mode", "label": "Option tiles", "default": "",
           "info": "Photographs show a real ring matching the answers so far. Keep words only where a photograph cannot show the difference — band width, weight, carat, centre size — and where a diagram or swatch is clearer, as with cuts, metals and stone types. A line ending product: a-handle always shows its photograph regardless.",

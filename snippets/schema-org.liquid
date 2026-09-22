@@ -87,3 +87,22 @@
   }
 }
 </script>
+{%- comment -%}
+  22/09/2026 (W388): WebSite entity. The JewelryStore above says who the
+  business is; this says what the site is and ties it to that business by
+  @id, which is how Google picks the site name shown in results and how
+  answer engines connect the domain to the brand. No SearchAction: Google
+  retired the sitelinks search box in November 2024, and our search runs
+  through the xCloud proxy, which is noindexed.
+{%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "{{ shop.url }}/#website",
+  "name": {{ shop.name | json }},
+  "url": "{{ shop.url }}",
+  "inLanguage": "en-GB",
+  "publisher": { "@id": "{{ shop.url }}/#business" }
+}
+</script>

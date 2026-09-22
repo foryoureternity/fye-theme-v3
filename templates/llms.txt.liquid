@@ -1,0 +1,106 @@
+{%- comment -%}
+  llms.txt — the plain-text summary of For Your Eternity for AI answer engines.
+
+  Added 22/09/2026 (Magneto W387). Before this, /llms.txt fell through to
+  Shopify's managed agents.md: the Shop skill, UCP endpoints and nothing at
+  all about who FYE is or what it has published. Searchable (the AI-visibility
+  trial) showed AI answers citing competitors' guides on exactly the topics
+  our education pages already cover, so this file exists to point answer
+  engines at them.
+
+  Scope, deliberately:
+  - Only /llms.txt. /agents.md and /llms-full.txt stay on Shopify's managed
+    default, which is what shopping agents need (UCP, cart, checkout). Adding
+    templates/agents.md.liquid would take those instructions away.
+  - Facts only, each one already stated on the live site (About page,
+    JewelryStore schema, the policy pages). Do not add a street address
+    (W169, Ed 10/09/2026) or any price-led claim (fye-never-sell-on-price).
+  - Returns and warranty terms are linked, not restated: the three policy
+    documents still disagree (W053). Restate them here once that is fixed.
+
+  Keep the page list in step with the education site map (W186). A dead link
+  here is worse than a missing one.
+{%- endcomment -%}
+# For Your Eternity
+
+> For Your Eternity is an independent London jeweller making engagement rings, wedding rings, eternity rings, fine jewellery and bespoke commissions. It works with GIA and IGI certified natural and lab-grown diamonds, explains the trade-offs plainly, and makes each piece to order. Founder Edward Marno handles every consultation personally, in person across London or by video.
+
+Key facts:
+
+- Founded in London in 2024. Pieces are hand-finished and hallmarked in a Hatton Garden workshop.
+- Natural and lab-grown diamonds, independently certified by GIA or IGI. Natural diamonds are supplied in line with the Kimberley Process; see the ethical sourcing page for what can and cannot be documented.
+- Made to order from the collection, or fully bespoke: sketches and renders until the design is right, with a fixed quote before anything is made.
+- Free consultation in person across London, by phone or by video.
+- Free insured delivery, free resizing for the first year, and free inspection and cleaning for life.
+- A free ring sizer can be ordered online.
+- Contact: hello@foryoureternity.com, 0208 178 6687.
+
+## Buying guides
+
+- [The Engagement Ring Guide]({{ shop.url }}/pages/engagement-ring-guide): choosing a stone, setting, metal and budget, start to finish
+- [The Eternity Ring Guide]({{ shop.url }}/pages/eternity-ring-guide): full and half eternity rings, stone coverage and stacking
+- [The Plain Wedding Ring Guide]({{ shop.url }}/pages/plain-wedding-ring-guide): profiles, widths, metals and fit
+- [The Diamond and Gemstone Wedding Ring Guide]({{ shop.url }}/pages/diamond-gemstone-wedding-ring-guide): set wedding bands and pairing them with an engagement ring
+- [The Diamond and Gemstone Guide]({{ shop.url }}/pages/diamond-and-gemstone-guide): grading, certificates and coloured stones
+- [The Ring and Jewellery Care Guide]({{ shop.url }}/pages/ring-and-jewellery-care-guide): cleaning, servicing, resizing and insurance
+- [All guides]({{ shop.url }}/pages/jewellery-guides)
+
+## Diamonds and gemstones
+
+- [Lab-grown vs natural diamonds]({{ shop.url }}/pages/lab-grown-diamonds): an honest comparison of the two
+- [Certificates and grading reports]({{ shop.url }}/pages/diamond-certification): GIA and IGI reports and how to compare them between retailers
+- [Ethical and responsible sourcing]({{ shop.url }}/pages/ethical-sourcing): what a jeweller can and cannot promise about origin
+- [The diamond 4Cs]({{ shop.url }}/pages/diamond-4cs)
+- [Diamond shapes]({{ shop.url }}/pages/diamond-shapes)
+- [Diamond alternatives]({{ shop.url }}/pages/diamond-alternatives)
+- [Gemstone education]({{ shop.url }}/pages/gemstone-education): sapphire, ruby, emerald, tanzanite, aquamarine and more
+- [Gemstone durability]({{ shop.url }}/pages/gemstone-durability) and [treatments]({{ shop.url }}/pages/gemstone-treatments)
+
+## Engagement rings
+
+- [Setting a budget]({{ shop.url }}/pages/engagement-ring-budget)
+- [Engagement ring styles]({{ shop.url }}/pages/engagement-ring-styles)
+- [Stone settings explained]({{ shop.url }}/pages/stone-settings)
+- [Engagement ring mistakes to avoid]({{ shop.url }}/pages/engagement-ring-mistakes)
+- [Proposing in secret]({{ shop.url }}/pages/proposing-in-secret)
+- [Heirlooms and reused stones]({{ shop.url }}/pages/heirloom-stones)
+
+## Wedding and eternity rings
+
+- [Pairing a wedding band with an engagement ring]({{ shop.url }}/pages/wedding-band-pairing)
+- [Shaped-to-fit bands]({{ shop.url }}/pages/shaped-to-fit-rings)
+- [Profiles, width and feel]({{ shop.url }}/pages/ring-profiles-and-widths)
+- [Finishes and how they age]({{ shop.url }}/pages/ring-finishes)
+- [Matched, complementary or independent]({{ shop.url }}/pages/matched-or-independent)
+- [Eternity ring stone coverage]({{ shop.url }}/pages/eternity-ring-coverage)
+- [Wearing an eternity ring in a stack]({{ shop.url }}/pages/eternity-ring-stacking)
+- [Total carat weight and stone layout]({{ shop.url }}/pages/stone-layout)
+
+## Services
+
+- [The bespoke process]({{ shop.url }}/pages/create-your-own-ring): how a ring is designed and made with you
+- [Design your own ring]({{ shop.url }}/pages/design-your-own-ring)
+- [Find your ring size]({{ shop.url }}/pages/find-your-ring-size) and [order a free ring sizer]({{ shop.url }}/pages/order-a-free-ring-sizer)
+- [Engraving and personalisation]({{ shop.url }}/pages/ring-engraving)
+- [Fit, resizing and changing fingers]({{ shop.url }}/pages/ring-care-fit)
+- [Servicing and the annual check-up]({{ shop.url }}/pages/ring-care-servicing)
+- [Storage, travel and insurance]({{ shop.url }}/pages/ring-care-storage)
+- [Gallery of pieces we have made]({{ shop.url }}/pages/jewellery-gallery)
+- [About For Your Eternity]({{ shop.url }}/pages/about-us)
+- [Book a free consultation]({{ shop.url }}/pages/contact-us)
+
+## Collections
+
+- [Engagement rings]({{ shop.url }}/collections/engagement-rings)
+- [Eternity rings]({{ shop.url }}/collections/eternity-rings)
+- [Wedding rings]({{ shop.url }}/pages/wedding-rings)
+
+## Policies
+
+- [Returns policy]({{ shop.url }}/pages/refund_returns-2)
+- [Terms and conditions]({{ shop.url }}/pages/terms-conditions)
+- [Privacy policy]({{ shop.url }}/pages/privacy-policy-2)
+
+## For shopping agents
+
+Catalogue search, cart and checkout for AI agents are described at [/agents.md]({{ shop.url }}/agents.md).

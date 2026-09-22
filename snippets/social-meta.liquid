@@ -68,3 +68,14 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ og_title | escape }}">
 <meta name="twitter:description" content="{{ og_description | escape }}">
+{%- comment -%}
+  22/09/2026 (W388): twitter:image added. X falls back to og:image, but other
+  card readers (and SEO/AEO audit tools) look for the explicit tag. Same
+  1200px image as og:image, so the two can never disagree.
+{%- endcomment -%}
+{%- if og_img -%}
+<meta name="twitter:image" content="https:{{ og_img }}">
+  {%- if page_image.alt != blank -%}
+<meta name="twitter:image:alt" content="{{ page_image.alt | escape }}">
+  {%- endif -%}
+{%- endif -%}

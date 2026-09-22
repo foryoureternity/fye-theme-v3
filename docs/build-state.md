@@ -3186,3 +3186,27 @@ NOT fixed here:
 Shared utility names (`band`, `btn`, `icon`, `eyebrow`, `sect-head`, `wrap`)
 are deliberate and are not collisions. **Convention going forward: a section's
 base class namespace is owned by exactly one file.**
+
+## 22/09/2026 — AI visibility pass (W387, W388, W394)
+
+Prompted by the Searchable AI-visibility trial (visibility 7.3%, 6th of 19;
+AI answers cite competitors' guides on topics our education pages already
+cover). Four changes, all head or robots markup, nothing visible:
+
+- **`templates/llms.txt.liquid`** (new, W387). /llms.txt was Shopify's managed
+  agents.md boilerplate with nothing about FYE. Now a plain-text brand summary
+  plus links to the six guides, the education pages, services and policies.
+  Only /llms.txt is overridden; /agents.md and /llms-full.txt stay on the
+  managed default so shopping agents keep the UCP instructions. All 48 links
+  checked 200, indexable, not redirected on 22/09. Returns/warranty terms are
+  linked, not restated, until W053 reconciles the three policy documents.
+- **`snippets/schema-org.liquid`** (W388): WebSite node, `@id #website`,
+  publisher `#business`. No SearchAction (sitelinks search box retired 2024).
+- **`snippets/social-meta.liquid`** (W388): `twitter:image` (+ alt), the same
+  1200px image as og:image.
+- **`layout/theme.liquid`** (W394): the ring finder noindex was `contains
+  'find-your-ring'`, which also noindexed `/pages/find-your-ring-size`, the
+  ring size guide and estimator. Now `== 'find-your-ring'`.
+
+After shipping: check `/llms.txt`, view-source the homepage for the WebSite
+block and twitter:image, and confirm find-your-ring-size has no robots meta.

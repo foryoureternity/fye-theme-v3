@@ -22,9 +22,13 @@
   frozen price swapped for the live one, and a share card quoting a different
   price from the search snippet is exactly the drift this was fixing. Falls
   back to page_description if rendered without the parameter.
+
+  23/09/2026 (W396) — `title` is passed in the same way, so a long product
+  name is not cut at Shopify's 70-character page_title limit. Falls back to
+  page_title.
 {%- endcomment -%}
 {%- liquid
-  assign og_title = page_title | default: shop.name
+  assign og_title = title | default: page_title | default: shop.name
   assign og_description = description | default: page_description | default: shop.description | default: shop.name
   assign og_type = 'website'
   if request.page_type == 'product'

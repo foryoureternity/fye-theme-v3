@@ -1,0 +1,22 @@
+{%- comment -%}
+  schema-person — the author node, as an inline JSON object.
+
+  Added 23/09/2026 (W333). Rendered INSIDE an ld+json block by
+  schema-article and schema-page-article, as the value of "author":
+
+      "author": {% render 'schema-person', name: author_name %},
+
+  Edward writes everything on the site, so when the name is his the node
+  carries a stable @id, the About page (where "Meet Edward" lives) as url,
+  his role, the business he works for by @id, and his LinkedIn profile.
+  Any other name gets a bare Person, which is all we can honestly say.
+  Keep the LinkedIn URL in step with the one in his email signature.
+{%- endcomment -%}
+{%- liquid
+  assign n = name | default: 'Edward Marno'
+-%}
+{%- if n == 'Edward Marno' -%}
+{ "@type": "Person", "@id": {{ shop.url | append: '/#edward-marno' | json }}, "name": "Edward Marno", "jobTitle": "Founder", "url": {{ shop.url | append: '/pages/about-us' | json }}, "worksFor": { "@id": {{ shop.url | append: '/#business' | json }} }, "sameAs": ["https://www.linkedin.com/in/edwardmarno/"] }
+{%- else -%}
+{ "@type": "Person", "name": {{ n | json }} }
+{%- endif -%}

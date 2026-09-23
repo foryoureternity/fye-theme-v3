@@ -80,7 +80,23 @@
     <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
   {%- endif -%}
 
-  <title>{{ page_title }}{% if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.page' | t }} {{ current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>
+  {%- comment -%}
+    23/09/2026 (W396) — full product names in the title.
+    No product has an SEO title set, and Shopify's page_title falls back to
+    the product title CUT AT 70 CHARACTERS, mid-word: "...Engagement Ring,
+    0.5ct (ENG – For Your Eternity". That truncated string was the <title>,
+    og:title and twitter:title of every long-named ring. When a product has
+    no global.title_tag of its own, use the whole product.title instead.
+    Search engines shorten long titles for display on their own; they never
+    need us to do it for them. A title_tag set in admin still wins.
+  {%- endcomment -%}
+  {%- liquid
+    assign fye_title = page_title
+    if fye_page_type == 'product' and product != blank and product.metafields.global.title_tag == blank
+      assign fye_title = product.title
+    endif
+  -%}
+  <title>{{ fye_title }}{% if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.page' | t }} {{ current_page }}{% endif %}{% unless fye_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>
   {%- comment -%}
     W335, 10/09/2026 — the description is COMPUTED, not printed straight from
     the metafield.
@@ -155,7 +171,7 @@
   {%- if fye_description != blank -%}
     <meta name="description" content="{{ fye_description | escape }}">
   {%- endif -%}
-  {% render 'social-meta', description: fye_description %}
+  {% render 'social-meta', description: fye_description, title: fye_title %}
 
   {%- comment -%}
     FONTS — self-hosted, not Google Fonts. Two reasons: no third-party DNS+TLS
@@ -197,6 +213,11 @@
     {% render 'schema-product', product: product, description: fye_description %}
   {%- elsif fye_page_type == 'article' and article != blank -%}
     {% render 'schema-article', article: article %}
+  {%- elsif fye_page_type == 'page' and page.metafields.fye.updated_on != blank -%}
+    {% render 'schema-page-article', page: page %}
+  {%- endif -%}
+  {%- if fye_page_type == 'page' and page.handle == 'create-your-own-ring' -%}
+    {% render 'schema-service' %}
   {%- endif -%}
   <script>window.sa=window.sa||function(){(sa.q=sa.q||[]).push(arguments)}</script>
 <script>window.sa=window.sa||function(){(sa.q=sa.q||[]).push(arguments)}</script>

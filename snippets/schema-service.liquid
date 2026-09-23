@@ -1,0 +1,37 @@
+{%- comment -%}
+  schema-service — Service structured data for the bespoke ring service.
+
+  Added 23/09/2026 (W398). Searchable's audit rated /pages/create-your-own-ring
+  Critical for "Service schema is missing": the page describes a service, not
+  a product, and nothing in the markup said so.
+
+  RENDERED FROM layout/theme.liquid, in <head>, on that one page only.
+
+  Every claim here is already on the page or in the T&Cs: design with the
+  client, sketches and renders, a fixed quote before anything is made,
+  making normally 2 to 4 weeks once the design is confirmed (Ed, 23/09/2026,
+  W397), consultations in person across London or by video. No price is
+  stated because a bespoke piece has none until it is quoted. If the page
+  copy changes, change this too.
+{%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": {{ canonical_url | append: '#service' | json }},
+  "name": "Bespoke engagement, wedding and eternity ring design",
+  "serviceType": "Bespoke jewellery design and manufacture",
+  "description": "Rings designed with you from a first consultation, in person across London or by video. Sketches and renders until the design is right, a fixed quote before anything is made, and making normally 2 to 4 weeks once the design is confirmed. Natural or lab-grown diamonds with GIA or IGI certificates, hallmarked in our Hatton Garden workshop.",
+  "url": {{ canonical_url | json }},
+  "provider": { "@id": {{ shop.url | append: '/#business' | json }} },
+  "areaServed": [
+    { "@type": "City", "name": "London" },
+    { "@type": "Country", "name": "United Kingdom" }
+  ],
+  "availableChannel": {
+    "@type": "ServiceChannel",
+    "serviceUrl": {{ shop.url | append: '/pages/contact-us' | json }},
+    "availableLanguage": "en-GB"
+  }
+}
+</script>

@@ -1,0 +1,42 @@
+{%- comment -%}
+  schema-page-article — Article structured data for a guide or education page.
+
+  Added 23/09/2026 (W333). The Searchable AI-visibility audit rated the
+  education pages High for "no author", "no publication or last-updated
+  date" and "Article schema is missing": they emitted JewelryStore, WebSite,
+  BreadcrumbList and FAQPage, but nothing saying who wrote them or when.
+  Answer engines weigh exactly that when choosing a source.
+
+  RENDERED FROM layout/theme.liquid, in <head>, only when the page carries the
+  fye.updated_on date metafield (the 53 guide and chapter pages):
+
+      {% render 'schema-page-article', page: page %}
+
+  dateModified is that metafield, the same date the visible author line in
+  heading-template prints, so the two cannot drift. datePublished is the
+  page's own publish date. The publisher is the JewelryStore by @id.
+{%- endcomment -%}
+{%- if page != blank and page.metafields.fye.updated_on != blank -%}
+  {%- liquid
+    assign updated = page.metafields.fye.updated_on.value | default: page.metafields.fye.updated_on
+    assign published = page.published_at | default: updated
+  -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "@id": {{ canonical_url | append: '#article' | json }},
+  "mainEntityOfPage": { "@type": "WebPage", "@id": {{ canonical_url | json }} },
+  "headline": {{ page.title | strip_html | truncate: 110 | json }},
+  {%- if page_description != blank %}
+  "description": {{ page_description | strip_html | json }},
+  {%- endif %}
+  "datePublished": {{ published | date: '%Y-%m-%d' | json }},
+  "dateModified": {{ updated | date: '%Y-%m-%d' | json }},
+  "author": {% render 'schema-person', name: 'Edward Marno' %},
+  "publisher": { "@id": {{ shop.url | append: '/#business' | json }} },
+  "inLanguage": "en-GB",
+  "isAccessibleForFree": true
+}
+</script>
+{%- endif -%}

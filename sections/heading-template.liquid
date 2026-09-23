@@ -66,6 +66,25 @@
     assign ground = 'image'
   endif
 
+  comment
+    Author line (W333, Ed approved 23/09/2026): "Written by Edward Marno,
+    updated September 2026". On a guide or education page it appears only
+    when the page carries the fye.updated_on date metafield (set on the 53
+    guide and chapter pages, editable in admin on each page), so policy,
+    contact and landing pages never get one. On an article it uses the
+    article's own author and last-updated date. The same date is the
+    dateModified in schema-page-article / schema-article, so the visible line
+    and the markup cannot disagree.
+  endcomment
+  assign byline_date = blank
+  assign byline_name = 'Edward Marno'
+  if pt == 'article'
+    assign byline_date = article.updated_at | default: article.published_at
+    assign byline_name = article.author | default: 'Edward Marno'
+  elsif pt == 'page' and page.metafields.fye.updated_on != blank
+    assign byline_date = page.metafields.fye.updated_on.value | default: page.metafields.fye.updated_on
+  endif
+
   assign align = 'center'
   if s.content_align == 't4s-text-start'
     assign align = 'start'
@@ -155,6 +174,13 @@
     {%- if section.blocks.size == 0 -%}
       <h1 class="pbanner__title">{{ title }}</h1>
     {%- endif -%}
+
+    {%- if byline_date != blank -%}
+      <p class="pbanner__byline">
+        Written by <a href="{{ routes.root_url }}pages/about-us">{{ byline_name }}</a>, updated
+        <time datetime="{{ byline_date | date: '%Y-%m-%d' }}">{{ byline_date | date: '%B %Y' }}</time>
+      </p>
+    {%- endif -%}
   </div>
 </section>
 
@@ -197,6 +223,23 @@
   gap: var(--s4);
 }
 .fye .pbanner--full .pbanner__in { max-width: none; }
+
+/* W333: the author line. Quiet on purpose: fine print, the soft ink on light
+   grounds, and on a photograph or teal ground the inherited light colour at
+   reduced strength. The name is underlined so it reads as a link without
+   relying on colour. */
+.fye .pbanner__byline {
+  margin: 0;
+  font-size: var(--fs-fine);
+  color: var(--ink-soft);
+}
+.fye .pbanner--teal .pbanner__byline,
+.fye .pbanner--image .pbanner__byline { color: inherit; opacity: .85; }
+.fye .pbanner__byline a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
 .fye .pbanner--center .pbanner__in { align-items: center; text-align: center; }
 .fye .pbanner--start  .pbanner__in { align-items: flex-start; text-align: left; }
 .fye .pbanner--end    .pbanner__in { align-items: flex-end; text-align: right; }

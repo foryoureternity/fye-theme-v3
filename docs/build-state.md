@@ -3234,3 +3234,31 @@ in the project folder); the theme side:
   modal subtitle, underlined, opens in a new tab so a half-made choice is kept.
 
 JSON templates changed, so ship with `./tools/fye ship`, not `push`.
+
+## 23/09/2026 — titles, lead time, author line, Service schema (W396, W397, W333, W398)
+
+- **W396, full product titles.** `layout/theme.liquid` computes `fye_title`:
+  on a product with no `global.title_tag`, the whole `product.title` instead
+  of Shopify's `page_title`, which is cut at 70 characters mid-word
+  ("...0.5ct (ENG – For Your Eternity"). Passed into `social-meta` as `title`
+  so og:title and twitter:title match. An admin SEO title still wins.
+- **W397, bespoke lead time.** Ed: "normally between 2 and 4 weeks once the
+  design is confirmed". FAQ on the engagement, wedding and eternity landing
+  pages (was 4–6 weeks), step 05 meta and the timing FAQ on
+  create-your-own-ring, and a line in `/llms.txt`. T&Cs section 5 changed in
+  admin (policy and page) the same day.
+- **W333, author line.** New page metafield `fye.updated_on` (date, pinned,
+  definition 501422948736), set on the 53 guide and chapter pages from each
+  page's last admin update (Aug 2026), with create-your-own-ring and
+  find-your-ring-size at 23/09/2026 because their copy changed this week.
+  `heading-template` prints "Written by Edward Marno, updated <Month Year>"
+  under the H1 when the metafield is present, or on any article (author and
+  updated_at). New `schema-page-article` (Article with author and
+  dateModified from the same metafield) and `schema-person` (Edward, @id,
+  About page url, LinkedIn sameAs), which `schema-article` now also uses.
+  **To refresh a page's date, edit the metafield on the page in admin.**
+- **W398.** New `schema-service` on /pages/create-your-own-ring only.
+
+JSON templates changed, so ship with `./tools/fye ship`.
+
+- 23/09/2026 (store data, no theme change): W399 done. All 99 collection descriptions now say "a complimentary resize in the first year" (was "complimentary resizing for one year / for a year"). W392 reviewed: Agentic Storefronts live (ChatGPT, Meta AI, Copilot, Other; Shop off), Knowledge Base app not installed.

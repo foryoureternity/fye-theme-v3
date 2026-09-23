@@ -139,14 +139,14 @@
           "type": "point_a",
           "settings": {
             "text": "Free insured delivery",
-            "short": "Free insured delivery, resizing for the first year, lifetime warranty",
+            "short": "Free insured delivery, a free first-year resize, lifetime warranty",
             "hide_mobile": false
           }
         },
         "point_a_GET8UM": {
           "type": "point_a",
           "settings": {
-            "text": "Complimentary resizing for the first year",
+            "text": "One complimentary resize in the first year",
             "short": "",
             "hide_mobile": true
           }
@@ -473,7 +473,7 @@
         "placeholder": "Hand with ring",
         "eyebrow": "",
         "heading": "The For Your Eternity guarantee",
-        "body": "<ul><li>GIA & IGI certified diamonds</li><li>Ethical, conflict free gemstones & precious metals</li><li>10% discount on your wedding ring for returning customers</li><li>Free insured delivery</li><li>Complimentary resizing for one year</li><li>Complimentary cleaning for life</li><li>Lifetime warranty against manufacturing defects</li></ul>",
+        "body": "<ul><li>GIA & IGI certified diamonds</li><li>Ethical, conflict free gemstones & precious metals</li><li>10% discount on your wedding ring for returning customers</li><li>Free insured delivery</li><li>One complimentary resize in the first year</li><li>Complimentary cleaning for life</li><li>Lifetime warranty against manufacturing defects</li></ul>",
         "reverse": false,
         "full_bleed": true,
         "band": "mist"

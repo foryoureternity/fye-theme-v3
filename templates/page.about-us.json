@@ -38,7 +38,7 @@
           "settings": {
             "icon": "fair",
             "label": "Fair & transparent",
-            "sub": "Direct pricing, no retail markups"
+            "sub": "Clear pricing, a fixed quote before anything is made"
           }
         },
         "point_guidance": {
@@ -54,7 +54,7 @@
           "settings": {
             "icon": "risk-free",
             "label": "Risk-free purchasing",
-            "sub": "Free insured delivery & 1st-year resizing"
+            "sub": "Free insured delivery & a free first-year resize"
           }
         }
       },
@@ -74,7 +74,7 @@
         "eyebrow": "Our story",
         "heading": "Why we started",
         "intro": "<p>For Your Eternity began in 2024 out of a simple frustration: buying fine jewellery shouldn't feel like being sold to. Too much mystique, too much mark-up, too little straight talk. We wanted a jeweller that explains rather than pressures — where the person you speak to is the person who designs your piece.</p><p>We began with engagement and wedding rings, and today we work across the whole of fine jewellery: eternity rings, pendants, earrings, bespoke commissions, and remodelling pieces you already own into something you'll actually wear.</p>",
-        "quote": "<p>Exceptional quality, ethical craftsmanship — and prices better than the high street.</p>"
+        "quote": "<p>Exceptional quality, ethical craftsmanship, and a jeweller who explains every choice.</p>"
       }
     },
 
@@ -134,7 +134,7 @@
           "type": "service",
           "settings": {
             "heading": "Care & repairs",
-            "body": "Free resizing for the first year, then free inspection and cleaning for life.",
+            "body": "One free resize in the first year, free inspection and cleaning for life, and a lifetime warranty against manufacturing defects.",
             "link": ""
           }
         }
@@ -193,8 +193,8 @@
           "settings": {
             "image": "shopify://shop_images/fffg1_6.png",
             "image_alt": "A halo diamond engagement ring in an open presentation box",
-            "heading": "Fairly priced, always",
-            "body": "Expertly crafted to the highest standards and priced without the high street markup. Luxury, minus the theatre."
+            "heading": "Clear pricing, always",
+            "body": "Expertly crafted to the highest standards, with a fixed quote before anything is made and every cost explained. Luxury, minus the theatre."
           }
         },
         "d4": {
@@ -249,7 +249,7 @@
           "settings": {
             "number": "04",
             "heading": "Made & cared for",
-            "body": "<p>Hand-finished and hallmarked in our Hatton Garden workshop, then insured to your door — with free resizing for the first year and free inspection and cleaning for life.</p>"
+            "body": "<p>Hand-finished and hallmarked in our Hatton Garden workshop, then insured to your door — with one free resize in the first year, free inspection and cleaning for life, and a lifetime warranty against manufacturing defects.</p>"
           }
         }
       },

@@ -294,7 +294,7 @@
         },
         "shipping_L4p6LB": {
           "type": "shipping",
-          "settings": { "illustration": "resize", "text": "<p>Free resizing for one year</p>" }
+          "settings": { "illustration": "resize", "text": "<p>Free resize in the first year</p>" }
         },
         "shipping_bVDUpk": {
           "type": "shipping",
@@ -415,7 +415,7 @@
         "image_alt": "Hand wearing a For Your Eternity ring",
         "placeholder": "Hand with ring",
         "heading": "The For Your Eternity guarantee",
-        "body": "<ul><li>GIA & IGI certified diamonds</li><li>Ethical, conflict free gemstones & precious metals</li><li>20% discount on your engagement ring for returning customers</li><li>Free insured delivery</li><li>Complimentary resizing for one year</li><li>Complimentary cleaning for life</li><li>Lifetime warranty against manufacturing defects</li></ul>"
+        "body": "<ul><li>GIA & IGI certified diamonds</li><li>Ethical, conflict free gemstones & precious metals</li><li>20% discount on your engagement ring for returning customers</li><li>Free insured delivery</li><li>One complimentary resize in the first year</li><li>Complimentary cleaning for life</li><li>Lifetime warranty against manufacturing defects</li></ul>"
       }
     },
 

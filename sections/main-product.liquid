@@ -1730,6 +1730,14 @@
   color: var(--ink-soft);
 }
 
+/* W395: the certificate links inside these two notes are underlined, so they
+   are not told apart from the grey text by colour alone. */
+.fye .pdp__choosenote a,
+.fye .pdp__modalsub a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 .fye .pdp__modalx {
   flex: 0 0 auto;
   width: 44px;

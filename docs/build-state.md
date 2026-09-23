@@ -3210,3 +3210,27 @@ cover). Four changes, all head or robots markup, nothing visible:
 
 After shipping: check `/llms.txt`, view-source the homepage for the WebSite
 block and twitter:image, and confirm find-your-ring-size has no robots meta.
+
+## 22/09/2026 (later) — warranty wording, About copy, certificate link (W053, W356, W395)
+
+Ed's decisions the same afternoon: **lifetime warranty against manufacturing
+defects**, **one free resize within 12 months of delivery**, free inspection and
+cleaning for life. The policies themselves are store data and Ed is editing
+them in admin (see `AI visibility/Policy_edits_warranty_resizing_22092026.txt`
+in the project folder); the theme side:
+
+- 25 resizing strings across 17 JSON templates brought to "one resize in the
+  first year" wording (trust badges, landing-page lists, product reassurance
+  lines, homepage, contact, blog, affiliate, ring size guide). The section
+  schema default in `main-product.liquid` was left alone: no live effect.
+- `page.about-us.json`: price-led lines replaced (fye-never-sell-on-price):
+  "prices better than the high street", "priced without the high street
+  markup", "Fairly priced, always", "Direct pricing, no retail markups". Care
+  lines now state the warranty and the one free resize.
+- `templates/llms.txt.liquid`: warranty, resize and 30-day return terms now
+  restated.
+- `snippets/fye-buybox-centre.liquid` + `main-product.liquid` (W395): link to
+  /pages/diamond-certification from the centre chooser note and the picker
+  modal subtitle, underlined, opens in a new tab so a half-made choice is kept.
+
+JSON templates changed, so ship with `./tools/fye ship`, not `push`.

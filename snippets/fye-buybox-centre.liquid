@@ -302,6 +302,13 @@
     <p class="pdp__choosenote">
       Add a certified {{ stone_words }} diamond to complete this ring.
       {{ ct_min }}–{{ ct_max }}ct suits this setting.
+      {%- comment -%}
+        22/09/2026 (W395): links the certificate promise to the page that
+        explains it. The Searchable AI-visibility trial found AI answers on
+        certification citing other retailers' guides; ours had no route in
+        from the ring pages, the place a buyer actually asks the question.
+      {%- endcomment -%}
+      <a href="/pages/diamond-certification" target="_blank" rel="noopener">How to read a diamond certificate</a>
     </p>
 
     <p class="pdp__stonestate" data-fye-stone-state>{{ s.centre_loading | default: 'Checking which diamonds we hold…' }}</p>
@@ -365,7 +372,7 @@
       <div class="pdp__modalhead">
         <div>
           <h2 class="pdp__modaltitle" id="pdp-picker-title">Choose your {{ stone_words }} diamond</h2>
-          <p class="pdp__modalsub">{{ ct_min }}–{{ ct_max }}ct suits this setting. Every stone is supplied with its certificate.</p>
+          <p class="pdp__modalsub">{{ ct_min }}–{{ ct_max }}ct suits this setting. Every stone is supplied with its certificate. <a href="/pages/diamond-certification" target="_blank" rel="noopener">How to read it</a></p>
         </div>
 
         <button type="button" class="pdp__modalx" data-fye-picker-close aria-label="Close">

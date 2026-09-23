@@ -131,7 +131,7 @@
         "image_alt": "Hand wearing a For Your Eternity ring",
         "placeholder": "Hand with ring",
         "heading": "The For Your Eternity guarantee",
-        "body": "<ul><li>GIA & IGI certified diamonds</li><li>Ethical, conflict free gemstones & precious metals</li><li>10% discount on your wedding ring for returning customers</li><li>Free insured delivery</li><li>Free cleaning & inspection for life</li><li>Free resizing for one year</li></ul>"
+        "body": "<ul><li>GIA & IGI certified diamonds</li><li>Ethical, conflict free gemstones & precious metals</li><li>10% discount on your wedding ring for returning customers</li><li>Free insured delivery</li><li>Free cleaning & inspection for life</li><li>Free resize in the first year</li></ul>"
       }
     },
 
@@ -149,7 +149,7 @@
         },
         "trust_resize": {
           "type": "shipping",
-          "settings": { "illustration": "resize", "text": "<p>Free resizing for one year</p>" }
+          "settings": { "illustration": "resize", "text": "<p>Free resize in the first year</p>" }
         },
         "trust_warranty": {
           "type": "shipping",

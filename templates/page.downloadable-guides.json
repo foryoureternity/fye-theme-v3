@@ -147,7 +147,7 @@
         },
         "trust_resize": {
           "type": "shipping",
-          "settings": { "illustration": "resize", "text": "<p>Free resizing for one year</p>" }
+          "settings": { "illustration": "resize", "text": "<p>Free resize in the first year</p>" }
         },
         "trust_warranty": {
           "type": "shipping",

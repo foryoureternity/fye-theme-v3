@@ -37,6 +37,21 @@
     display  — uppercase, tracked, full H1 scale. The brand default.
     sentence — sentence case, one step down the scale, tracking relaxed.
   Use `sentence` only for a heading that is genuinely a sentence.
+
+  ADDED 26/09/2026 (Route 1 homepage, Claude Design canvas "FYE Hero
+  Sections", option A). Both additions are opt-in, so the other heroes that
+  use this section render exactly as before:
+    - `copy_position` — `bottom` drops the copy to the foot of a taller
+      photograph instead of centring it. Only takes effect with an image.
+    - `category` blocks — a row of shop-by-category links along the foot of
+      the hero, under a hairline, each with an optional small badge ("New").
+      With no blocks nothing is rendered. On a narrow screen the row scrolls
+      sideways rather than wrapping; it is one set of markup at every width.
+      A block for a collection that does not exist yet should be hidden in
+      the editor (it is saved as "disabled") until the collection is live.
+  `logo_words_position: start` no longer needs a wordmark image. The homepage
+  dropped the image (the header already carries the logo) but keeps the
+  brand words at the start of the h1 for W406.
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
@@ -69,12 +84,18 @@
     run into the wordmark ("Wedding rings by" [FOR YOUR ETERNITY]).
   endcomment
   assign logo_words_first = false
-  if s.logo_url != blank and s.logo_words_position == 'start'
+  if s.logo_words_position == 'start'
     assign logo_words_first = true
   endif
+
+  assign pos_class = ''
+  if has_img and s.copy_position == 'bottom'
+    assign pos_class = ' hero--bottom'
+  endif
+  assign cat_blocks = section.blocks | where: 'type', 'category'
 -%}
 
-<div class="band band--{{ band }} hero hero--{{ align }}{% if has_img %} hero--media{% endif %}">
+<div class="band band--{{ band }} hero hero--{{ align }}{% if has_img %} hero--media{% endif %}{{ pos_class }}" data-screen-label="Hero">
   {%- if has_img -%}
     <div class="hero__media scrim">
       {%- comment -%}
@@ -140,6 +161,20 @@
       <a class="hero__link" href="{{ s.link_url | default: '#' }}">{{ s.link_label }}</a>
     {%- endif -%}
   </div>
+
+  {%- if cat_blocks.size > 0 -%}
+    <nav class="wrap hero__cats" aria-label="{{ s.cats_label | default: 'Shop by category' | escape }}">
+      {%- for block in cat_blocks -%}
+        {%- assign b = block.settings -%}
+        {%- if b.label != blank -%}
+          <a class="hero__cat" href="{{ b.link | default: '#' }}" {{ block.shopify_attributes }}>
+            {{- b.label -}}
+            {%- if b.badge != blank %}<span class="hero__cat-badge">{{ b.badge }}</span>{% endif -%}
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </nav>
+  {%- endif -%}
 </div>
 
 {% stylesheet %}
@@ -232,6 +267,78 @@
   align-items: center;
   min-height: 44px;
 }
+
+/* ---------------------------------------------------------------------------
+   COPY AT THE FOOT, 26/09/2026. Route 1 homepage: a tall photograph with the
+   copy sitting low on it, the way the Claude Design canvas drew it. Heights
+   are measured from that canvas (800 desktop, a full phone screen on mobile)
+   and trimmed for the header above; literals, like the three above, because
+   they belong to this one layout.
+   --------------------------------------------------------------------------- */
+.fye .hero--bottom {
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: stretch;
+  gap: var(--s9);
+  min-height: 720px;
+}
+@media (max-width: 900px) { .fye .hero--bottom { min-height: 620px; } }
+@media (max-width: 560px) { .fye .hero--bottom { min-height: 600px; gap: var(--s7); } }
+
+/* ---------------------------------------------------------------------------
+   SHOP-BY-CATEGORY ROW. Hairline above, labels in the eyebrow voice at the
+   fine size so seven of them fit the 1320 measure. Spread across the width
+   when there is room; scrolls sideways when there is not (never wraps, so
+   the row stays one line on a phone). Colour follows the ground: ivory on a
+   photograph or a teal band, ink elsewhere.
+   --------------------------------------------------------------------------- */
+.fye .hero__cats {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s7);
+  border-top: 1px solid var(--line);
+  padding-top: var(--s5);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.fye .hero__cats::-webkit-scrollbar { display: none; }
+/* Width, not padding, so the hairline starts where the copy starts: the copy
+   is inset 48px inside a --maxw-wide wrap (see .hero--left .hero__in). */
+.fye .hero--left .hero__cats { width: calc(100% - 96px); max-width: calc(var(--maxw-wide) - 96px); }
+@media (max-width: 560px) {
+  .fye .hero--left .hero__cats { width: calc(100% - 2 * var(--gutter, 16px)); }
+  .fye .hero__cats { justify-content: flex-start; }
+}
+.fye .hero--media .hero__cats { border-top-color: var(--line-on-dark); }
+.fye .hero__cat {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  min-height: 44px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-size: var(--fs-fine);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  text-decoration: none;
+  color: inherit;
+}
+.fye .hero--media .hero__cat { color: var(--on-dark); }
+.fye .hero__cat:hover { color: var(--sage); }
+.fye .hero--media .hero__cat:hover { color: var(--sage-grey); }
+/* Teal on sage-grey: 7.0:1, computed in sRGB (#233D47 on #C8CDC7). */
+.fye .hero__cat-badge {
+  font-size: var(--fs-eyebrow);
+  letter-spacing: var(--tr-eyebrow);
+  line-height: 1;
+  padding: 3px 6px;
+  background: var(--sage-grey);
+  color: var(--teal);
+}
 {% endstylesheet %}
 
 {% schema %}
@@ -272,6 +379,15 @@
     { "type": "url", "id": "link_url", "label": "Text link URL" },
     { "type": "header", "content": "Layout" },
     {
+      "type": "select", "id": "copy_position", "label": "Copy position", "default": "middle",
+      "info": "With a background image only. Bottom makes the hero taller and sits the copy low on the photograph.",
+      "options": [
+        { "value": "middle", "label": "Middle" },
+        { "value": "bottom", "label": "Bottom" }
+      ]
+    },
+    { "type": "text", "id": "cats_label", "label": "Category links name", "default": "Shop by category", "info": "Read by screen readers. Only used when there are category link blocks." },
+    {
       "type": "select", "id": "align", "label": "Alignment", "default": "center",
       "options": [
         { "value": "center", "label": "Centred" },
@@ -291,6 +407,18 @@
         { "value": "sage", "label": "Sage green" }
       ],
       "default": "ivory"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category link",
+      "limit": 10,
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "text", "id": "badge", "label": "Badge", "info": "Optional, e.g. New." }
+      ]
     }
   ],
   "presets": [

@@ -12,24 +12,97 @@
     "hero": {
       "type": "fye-hero",
       "settings": {
-        "eyebrow": "",
-        "heading": "Beautifully made engagement rings, wedding rings and fine jewellery, ethically sourced, fairly priced.",
-        "heading_style": "sentence",
-        "subheading": "For Your Eternity is an independent London jeweller: ethical diamonds, personal guidance and bespoke craftsmanship.",
+        "eyebrow": "Ethical fine jewellery, London",
+        "heading": "Your forever begins here",
+        "heading_style": "display",
+        "subheading": "Engagement, wedding and eternity rings, and fine jewellery from earrings to necklaces, ethically sourced and made with you by a London jeweller.",
         "image": "shopify://shop_images/home_hero_39bd9050-faac-46b0-91e8-720cbd66a74a.webp",
-        "logo_url": "https://cdn.shopify.com/s/files/1/0972/5391/7056/files/temp-logo-white-1.svg?v=1771834133",
+        "logo_url": "",
         "logo_alt": "For Your Eternity",
         "logo_words_position": "start",
         "logo_width": 250,
-        "button_label": "Shop engagement rings",
-        "button_link": "shopify://pages/engagement-rings",
-        "button2_label": "Shop wedding rings",
-        "button2_link": "shopify://pages/wedding-rings",
-        "link_label": "Or contact us to book a free consultation",
-        "link_url": "/pages/contact-us#popup-contact",
+        "button_label": "Shop all jewellery",
+        "button_link": "shopify://collections/all",
+        "button2_label": "Book a free consultation",
+        "button2_link": "/pages/contact-us#popup-contact",
+        "link_label": "",
+        "link_url": "",
         "align": "left",
-        "band": "ivory"
-      }
+        "band": "ivory",
+        "copy_position": "bottom",
+        "cats_label": "Shop by category"
+      },
+      "blocks": {
+        "cat_engagement": {
+          "type": "category",
+          "settings": {
+            "label": "Engagement rings",
+            "link": "shopify://pages/engagement-rings",
+            "badge": ""
+          }
+        },
+        "cat_wedding": {
+          "type": "category",
+          "settings": {
+            "label": "Wedding rings",
+            "link": "shopify://pages/wedding-rings",
+            "badge": ""
+          }
+        },
+        "cat_eternity": {
+          "type": "category",
+          "settings": {
+            "label": "Eternity rings",
+            "link": "shopify://pages/eternity-rings",
+            "badge": ""
+          }
+        },
+        "cat_bracelets": {
+          "type": "category",
+          "settings": {
+            "label": "Bracelets",
+            "link": "/collections/bracelets",
+            "badge": "New"
+          },
+          "disabled": true
+        },
+        "cat_earrings": {
+          "type": "category",
+          "settings": {
+            "label": "Earrings",
+            "link": "/collections/earrings",
+            "badge": "New"
+          },
+          "disabled": true
+        },
+        "cat_pendants": {
+          "type": "category",
+          "settings": {
+            "label": "Pendants",
+            "link": "/collections/pendants",
+            "badge": "New"
+          },
+          "disabled": true
+        },
+        "cat_necklaces": {
+          "type": "category",
+          "settings": {
+            "label": "Necklaces",
+            "link": "/collections/necklaces",
+            "badge": "New"
+          },
+          "disabled": true
+        }
+      },
+      "block_order": [
+        "cat_engagement",
+        "cat_wedding",
+        "cat_eternity",
+        "cat_bracelets",
+        "cat_earrings",
+        "cat_pendants",
+        "cat_necklaces"
+      ]
     },
     "fye_trust_strip_home": {
       "type": "fye-trust-strip",
@@ -638,10 +711,3 @@
     "fye_consultation_home"
   ]
 }
-
-
-
-
-
-
-

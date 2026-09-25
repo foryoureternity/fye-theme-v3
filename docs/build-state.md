@@ -3378,3 +3378,27 @@ land before index.json; `ship` handles that.
   as FYE_enquiry_tracking_pixel_v4.js in the project folder; the live copy is
   pasted in the admin by Ed.
 - A popup key rename breaks the pixel's form map silently. Change both together.
+
+## 26/09/2026: homepage hero, Route 1 option A (W-row in Magneto)
+
+- Design: Claude Design canvas "FYE Hero Sections", page "Homepage, Route 1",
+  option A. Full-bleed photograph, teal scrim, copy low on the image, and a
+  shop-by-category row under a hairline at the foot of the hero.
+- `sections/fye-hero.liquid`, additive only (68 other uses unchanged):
+  `copy_position` (middle | bottom; bottom = taller hero, copy at the foot,
+  image heroes only), `cats_label`, and a `category` block (label, link,
+  badge). `logo_words_position: start` no longer needs `logo_url`, so the
+  homepage keeps "For Your Eternity:" at the start of its h1 (W406) with the
+  wordmark image removed.
+- `templates/index.json` hero: eyebrow "Ethical fine jewellery, London",
+  heading "Your forever begins here" (display), new subheading naming the
+  wider range, buttons "Shop all jewellery" (/collections/all) and "Book a
+  free consultation" (#popup-contact), text link removed, seven category
+  blocks. Bracelets, Earrings, Pendants, Necklaces are saved `disabled`
+  with a "New" badge because those collections do not exist yet: show each
+  in the theme editor once its collection is live (handles assumed
+  bracelets / earrings / pendants / necklaces).
+- Open: /collections/all includes the loose diamonds (see W281); an "All
+  jewellery" collection would be a better target for the first button.
+- Validator: `node tools/w977-validate-templates.mjs index` clean.
+- Ship: `./tools/fye ship "Homepage hero: Route 1 with category row"`.

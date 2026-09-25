@@ -3360,3 +3360,21 @@ land before index.json; `ship` handles that.
   focuses it; a successful send focuses the thank-you panel.
 - Ship order: the new settings live in `footer-group.json`, which `nudge` does
   not touch, so re-save it once after the section has landed.
+
+## 25/09/2026 (later): contact-tap tracking (W420)
+
+- `assets/fye-ui.js` publishes a Shopify customer event `fye_contact_click`
+  (channel: call / sms / whatsapp / email / book_consultation; location: popup
+  key, header, footer, section label or body copy; page_path) on every click of
+  a tel:, sms:, mailto:, wa.me or Google booking link, sitewide, delegated from
+  document in the capture phase. Nothing is sent to Google or Meta from the
+  theme.
+- The "FYE enquiry tracking" custom pixel (Settings > Customer events), v4,
+  subscribes and forwards: Meta Contact / Schedule, GA4 contact_click /
+  book_consultation_click, optional Google Ads labels. v4 also maps the new
+  `pop-form-contact` form (was `pop-form-consultation`, so the Contact us popup
+  had lost enhanced-conversion data), names the ring sizer and ring finder
+  forms, and adds GA4 generate_lead / guide_request. The pixel source is kept
+  as FYE_enquiry_tracking_pixel_v4.js in the project folder; the live copy is
+  pasted in the admin by Ed.
+- A popup key rename breaks the pixel's form map silently. Change both together.

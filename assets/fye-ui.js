@@ -3808,3 +3808,68 @@
   }
   if (on) document.documentElement.classList.add('fye-preview');
 })();
+
+
+/* ============================================================================
+   CONTACT CLICK TRACKING: 25/09/2026 (W420)
+   ----------------------------------------------------------------------------
+   Every tap on a call, text, WhatsApp or email link anywhere on the site, and
+   on the Book consultation diary link, is published as a Shopify customer
+   event named `fye_contact_click`. The theme sends nothing to Google or Meta
+   itself: the "FYE enquiry tracking" custom pixel (Shopify admin > Settings >
+   Customer events) subscribes to it and forwards it, so consent is handled in
+   one place and only for visitors who accepted marketing cookies.
+
+   Delegated from document, so links in article bodies, product descriptions,
+   the header, footer and popups are all covered with no markup changes.
+   Nothing identifying goes in the payload: the channel, where on the page the
+   link sat, and the page path. Our own numbers are not the visitor's data, but
+   there is no reason to send them either.
+
+   If the pixel is missing or consent was refused, publish() is a no-op for
+   it; the link behaves exactly as before either way.
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  function channelOf(href) {
+    var h = (href || '').toLowerCase();
+    if (h.indexOf('tel:') === 0) return 'call';
+    if (h.indexOf('sms:') === 0) return 'sms';
+    if (h.indexOf('mailto:') === 0) return 'email';
+    if (/^https?:\/\/(wa\.me|api\.whatsapp\.com|web\.whatsapp\.com)\//.test(h)) return 'whatsapp';
+    if (/^https?:\/\/calendar\.app\.google\//.test(h) || /^https?:\/\/calendar\.google\.com\/calendar\/appointments/.test(h)) return 'book_consultation';
+    return null;
+  }
+
+  /* Where the link sat, in words a report can group by. */
+  function placeOf(a) {
+    var pop = a.closest('[data-fye-popup-panel]');
+    if (pop) return 'popup:' + pop.getAttribute('data-fye-popup-panel');
+    if (a.closest('header, .hdr, [data-fye-drawer]')) return 'header';
+    if (a.closest('footer, .ftr')) return 'footer';
+    var sect = a.closest('[data-screen-label]');
+    if (sect) return sect.getAttribute('data-screen-label');
+    if (a.closest('.prose, .rte, article')) return 'body copy';
+    return 'page';
+  }
+
+  document.addEventListener('click', function (e) {
+    if (!e.target || !e.target.closest) return;
+    var a = e.target.closest('a[href]');
+    if (!a) return;
+    var channel = channelOf(a.getAttribute('href'));
+    if (!channel) return;
+
+    try {
+      var an = window.Shopify && window.Shopify.analytics;
+      if (an && typeof an.publish === 'function') {
+        an.publish('fye_contact_click', {
+          channel: channel,
+          location: placeOf(a),
+          page_path: window.location.pathname
+        });
+      }
+    } catch (err) {}
+  }, true);
+})();

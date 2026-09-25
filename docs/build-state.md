@@ -3406,3 +3406,8 @@ land before index.json; `ship` handles that.
   band's bottom padding is dropped when the category row is present (it left
   the row floating 80px up the photograph), and the row now packs from the
   left with a 64px gap instead of spreading three links to the corners.
+- 26/09/2026, second look: the teal scrim was never visible on ANY photo
+  hero. fye-core's `.scrim > * { position: relative; z-index: 1 }` lifted the
+  <img> above its own ::after overlay. `.hero__img` is now position: static.
+  Also: display headings `text-wrap: balance`; eyebrow one size up on the
+  bottom-copy hero.

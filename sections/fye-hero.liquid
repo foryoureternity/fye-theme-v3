@@ -208,8 +208,10 @@
 .fye .hero__actions { justify-content: center; margin-top: var(--s3); }
 .fye .hero--left .hero__actions { justify-content: flex-start; }
 
-/* Brand default: uppercase, tracked, short. */
-.fye .hero__title--display { max-width: 24ch; }
+/* Brand default: uppercase, tracked, short. Balanced so a short heading
+   breaks evenly ("Your forever / begins here") instead of leaving one word
+   on the last line. */
+.fye .hero__title--display { max-width: 24ch; text-wrap: balance; }
 
 /* A heading that is a sentence. One step down the scale, no uppercase, and a
    wider measure because sentences need line length. See the note above. */
@@ -235,7 +237,14 @@
    white ring, where ivory type at 42% is not readable — 55%, measured against
    the lightest area of that image. */
 .fye .hero--media .hero__media { position: absolute; inset: 0; --scrim: rgba(35, 61, 71, 0.55); }
-.fye .hero--media .hero__img { width: 100%; height: 100%; object-fit: cover; }
+.fye .hero--media .hero__img { width: 100%; height: 100%; object-fit: cover; position: static; }
+/* position: static is load-bearing (26/09/2026). fye-core.css gives every
+   child of .scrim `position: relative; z-index: 1` so copy sits above the
+   overlay; the photograph is a child too, so it was painted OVER its own
+   scrim and the teal wash never showed. Found on the Route 1 homepage, where
+   ivory type sat on the raw peach photograph. Static puts the image back
+   under the ::after overlay. This darkens every photo hero to the scrim the
+   comments above always intended. */
 /* width: 100% is load-bearing. .hero--media is display:flex, which makes this
    wrap a flex item — without an explicit width it shrink-to-fits its own text
    and .wrap's auto margins then centre that narrow box, indenting the copy by
@@ -322,6 +331,8 @@
   .fye .hero__cats { gap: var(--s7); padding-block-end: var(--s5); }
 }
 .fye .hero--media .hero__cats { border-top-color: var(--line-on-dark); }
+/* The 11px eyebrow disappears on a photograph at this scale; one step up. */
+.fye .hero--bottom .eyebrow { font-size: var(--fs-fine); }
 .fye .hero__cat {
   display: inline-flex;
   align-items: center;

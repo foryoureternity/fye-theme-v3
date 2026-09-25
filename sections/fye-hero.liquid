@@ -282,6 +282,12 @@
   gap: var(--s9);
   min-height: 720px;
 }
+/* The one vertical padding rule in this file, deliberately (26/09/2026, Ed:
+   "the spacing vertically is slightly off"). The category row is the foot of
+   the hero, so the band's bottom --sect-y left it floating 80px above the
+   edge with dead photograph under it. Same device as the band-after-band
+   reset in fye-core.css; the row supplies its own breathing room below. */
+.fye .hero--bottom:has(.hero__cats) { padding-block-end: 0; }
 @media (max-width: 900px) { .fye .hero--bottom { min-height: 620px; } }
 @media (max-width: 560px) { .fye .hero--bottom { min-height: 600px; gap: var(--s7); } }
 
@@ -297,10 +303,13 @@
   z-index: 1;
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  gap: var(--s7);
+  /* Packed from the left with a fixed gap, not spread: with three links,
+     space-between threw them to the far corners and the row stopped reading
+     as a row. Seven fit the measure at this gap. */
+  justify-content: flex-start;
+  gap: var(--s10);
   border-top: 1px solid var(--line);
-  padding-top: var(--s5);
+  padding-block: var(--s5) var(--s7);
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -310,7 +319,7 @@
 .fye .hero--left .hero__cats { width: calc(100% - 96px); max-width: calc(var(--maxw-wide) - 96px); }
 @media (max-width: 560px) {
   .fye .hero--left .hero__cats { width: calc(100% - 2 * var(--gutter, 16px)); }
-  .fye .hero__cats { justify-content: flex-start; }
+  .fye .hero__cats { gap: var(--s7); padding-block-end: var(--s5); }
 }
 .fye .hero--media .hero__cats { border-top-color: var(--line-on-dark); }
 .fye .hero__cat {

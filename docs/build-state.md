@@ -3402,3 +3402,7 @@ land before index.json; `ship` handles that.
   jewellery" collection would be a better target for the first button.
 - Validator: `node tools/w977-validate-templates.mjs index` clean.
 - Ship: `./tools/fye ship "Homepage hero: Route 1 with category row"`.
+- 26/09/2026 follow-up (after first ship): foot of the hero tightened. The
+  band's bottom padding is dropped when the category row is present (it left
+  the row floating 80px up the photograph), and the row now packs from the
+  left with a 64px gap instead of spreading three links to the corners.

@@ -27,7 +27,7 @@
     - Liquid writes a fallback body naming the popup, so an enquiry is
       identifiable even with JavaScript off.
     - On submit, fye-ui.js REWRITES that body to fold in the popup name, the
-      typed message, the journey answer and the consent answer as plain lines.
+      typed message and the consent answer as plain lines.
 
   The individual named fields are still submitted as well. That is belt and
   braces, not the mechanism — do not delete the body composition and rely on
@@ -95,6 +95,13 @@
       screen.
     - A failed send now reopens the popup on its error (fye-ui.js); before,
       the page reloaded with the message inside a closed dialog.
+
+  NO "WHERE YOU ARE IN YOUR JOURNEY" QUESTION (Ed, 25/09/2026). It was
+  wedding-specific and the brand is moving beyond rings, so the select and its
+  three settings (`show_journey`, `journey_label`, `journey_options`) are gone
+  from every popup. Values still stored in footer-group.json are ignored.
+  fye-ui.js still folds a journey answer into the email if a form ever has
+  one; with none it adds nothing.
 {%- endcomment -%}
 
 {%- for block in section.blocks -%}
@@ -123,7 +130,6 @@
       preserved. Which popup was submitted is remembered by fye-ui.js in
       sessionStorage, because the redirect carries no popup key.
     endcomment
-    assign journey_list = b.journey_options | split: ','
 
     comment
       Reach panel (Contact us popup). UK numbers are entered as read; a
@@ -335,19 +341,6 @@
                 <input id="pop-phone-{{ uid }}" type="tel" name="contact[Telephone]" autocomplete="tel" placeholder="For a personal follow-up">
               </div>
             </div>
-
-            {%- if b.show_journey and journey_list.size > 0 -%}
-              <div class="pop__field">
-                <label for="pop-journey-{{ uid }}">{{ b.journey_label | default: 'Where you are in your journey' }}</label>
-                <select id="pop-journey-{{ uid }}" name="contact[Journey]" data-fye-popup-journey>
-                  <option value="">Please choose…</option>
-                  {%- for opt in journey_list -%}
-                    {%- assign opt_clean = opt | strip -%}
-                    <option value="{{ opt_clean | escape }}">{{ opt_clean }}</option>
-                  {%- endfor -%}
-                </select>
-              </div>
-            {%- endif -%}
 
             {%- comment -%}
               The message box. On an enquiry it is the whole point; on a guide
@@ -748,13 +741,6 @@
         { "type": "checkbox", "id": "show_message", "label": "Include a message box", "default": false, "info": "On for enquiries, off for guide requests." },
         { "type": "text", "id": "message_label", "label": "Message label", "default": "What can we help with?" },
         { "type": "text", "id": "message_placeholder", "label": "Message placeholder", "default": "A piece you have seen, a budget, a date to work to…" },
-        { "type": "checkbox", "id": "show_journey", "label": "Ask where they are in their journey", "default": true },
-        { "type": "text", "id": "journey_label", "label": "Question label", "default": "Where you are in your journey" },
-        {
-          "type": "textarea", "id": "journey_options", "label": "Answers",
-          "info": "Comma separated.",
-          "default": "Just starting to look, Ready to choose, We have a date in mind, Looking for inspiration"
-        },
         { "type": "checkbox", "id": "show_consent", "label": "Show the email consent tickbox", "default": true },
         { "type": "text", "id": "consent_text", "label": "Consent wording", "default": "Yes, I'm happy for For Your Eternity to email me occasional news. I can unsubscribe anytime." },
         { "type": "text", "id": "reassurance", "label": "Line under the button", "default": "Your details are kept private and used only to reply to you." },

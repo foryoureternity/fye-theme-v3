@@ -23,8 +23,10 @@
   This section carries `data-fye-popup-panel` and `data-fye-popup-label` even
   though it is not a popup, because the composer in fye-ui.js is scoped to
   those attributes. That gives the contact page the same readable enquiry email
-  as every popup — first line naming the source, then the message, the journey
-  answer, the consent answer and the page. Without it the email would be worse
+  as every popup: first line naming the source, then the message, the consent
+  answer and the page. (The "where you are in your journey" question was
+  removed on 25/09/2026, Ed: too wedding-specific. Its three settings went with
+  it; values left in page.contact.json are ignored.) Without it the email would be worse
   here than in a popup, for no reason. The dialog-only paths in that script are
   inert on a plain element.
 
@@ -35,7 +37,6 @@
   assign s = section.settings
   assign band = s.band | default: 'ivory'
   assign tag = s.heading_tag | default: 'h2'
-  assign journey_list = s.journey_options | split: ','
   assign has_panel = false
   if s.phone_display != blank or s.email != blank or s.wa_display != blank or s.appt_url != blank
     assign has_panel = true
@@ -98,19 +99,6 @@
               <input id="fcon-phone" type="tel" name="contact[Telephone]" autocomplete="tel" placeholder="For a personal follow-up">
             </div>
           </div>
-
-          {%- if s.show_journey and journey_list.size > 0 -%}
-            <div class="fcon__field">
-              <label for="fcon-journey">{{ s.journey_label | default: 'Where you are in your journey' }}</label>
-              <select id="fcon-journey" name="contact[Journey]" data-fye-popup-journey>
-                <option value="">Please choose…</option>
-                {%- for opt in journey_list -%}
-                  {%- assign opt_clean = opt | strip -%}
-                  <option value="{{ opt_clean | escape }}">{{ opt_clean }}</option>
-                {%- endfor -%}
-              </select>
-            </div>
-          {%- endif -%}
 
           <div class="fcon__field">
             <label for="fcon-message">{{ s.message_label | default: 'How can we help?' }}</label>
@@ -353,12 +341,6 @@
     { "type": "text", "id": "button_label", "label": "Button label", "default": "Send message" },
     { "type": "text", "id": "message_label", "label": "Message label", "default": "How can we help?" },
     { "type": "text", "id": "message_placeholder", "label": "Message placeholder", "default": "A ring you have seen, a stone you are curious about, a date you are working to…" },
-    { "type": "checkbox", "id": "show_journey", "label": "Ask where they are in their journey", "default": true },
-    { "type": "text", "id": "journey_label", "label": "Question label", "default": "Where you are in your journey" },
-    {
-      "type": "textarea", "id": "journey_options", "label": "Answers", "info": "Comma separated.",
-      "default": "Just starting to look, Ready to choose, We have a date in mind, Looking for inspiration"
-    },
     { "type": "text", "id": "consent_text", "label": "Consent wording", "default": "Yes, I'm happy for For Your Eternity to email me occasional news. I can unsubscribe anytime." },
     { "type": "text", "id": "reassurance", "label": "Line under the button", "default": "We reply to every message ourselves, usually within one working day." },
     { "type": "header", "content": "After sending" },

@@ -3343,3 +3343,20 @@ land before index.json; `ship` handles that.
   `footer-group.json` lands before the new `fye-popups` schema, re-save it once.
 - Not done here: "book a consultation" wording inside articles, page bodies and
   product descriptions (store content) is a separate pass.
+
+## 25/09/2026 (later): Contact us popup goes two columns (W275)
+
+- Claude Design handoff applied as drop-in files: `sections/fye-popups.liquid`,
+  `sections/footer-group.json` (pop_consultation block only), `assets/fye-ui.js`.
+- Contact us popup (`show_contact` on): teal reach panel left (400px: eyebrow,
+  heading, intro, Call / WhatsApp / Text us / Email rows, hours, filled ivory
+  Book consultation button + note), form right on white. No photograph for this
+  popup. The reach panel sits outside the form, so it stays beside the
+  thank-you panel. Under 900px it stacks and scrolls as one with a pinned close
+  tile; under 560px it is a full-screen sheet.
+- New settings `book_note`, `hours`; `reach_divider` is now the form heading.
+- All popups: first and last name share a row.
+- fye-ui.js: a send Shopify refuses now reopens the popup on its error and
+  focuses it; a successful send focuses the thank-you panel.
+- Ship order: the new settings live in `footer-group.json`, which `nudge` does
+  not touch, so re-save it once after the section has landed.

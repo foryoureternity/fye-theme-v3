@@ -70,6 +70,31 @@
   URL settings cannot carry a data attribute, so most of the rewired buttons
   open this through the `#popup-<key>` link hook in fye-ui.js: their link is
   `/pages/contact-us#popup-contact`, which is also where they land without JS.
+
+  TWO COLUMNS (25/09/2026, the Contact us popup brief)
+  A popup with `show_contact` on is now a two-column dialog above 900px:
+  every way to reach us on a teal panel on the left, the form on white on the
+  right. Nobody is made to fill in a form to reach a human, and someone who
+  wants to ring sees the number first.
+    - The photograph is not rendered for this popup at any width; the teal
+      panel does the job it did. The `image` setting is left alone (dropping
+      a stored value is harmless, renaming is not) and still serves every
+      other popup.
+    - The reach panel sits OUTSIDE the form, so it stays beside the thank-you
+      panel after sending. Only the form column changes.
+    - `reach_divider` is now the form column's heading ("Send us a message").
+      Setting ID kept; label changed.
+    - Geometry, chosen not measured: 960px max width, 400px left column (the
+      email address stays on one line), 52px channel rows (56px under 560),
+      36px icon tiles. Everything else is a token.
+    - On teal the focus ring is ivory, not sage deep: sage deep on teal is
+      about 2.7:1, under the 3:1 a focus indicator needs. Ivory is 10.1:1.
+    - Under 900px it stacks, reach panel first, and the whole dialog scrolls
+      as one; the close button pins on its own teal tile. Under 560px it is a
+      full-screen sheet: at 390 x 844 Call and WhatsApp are on the first
+      screen.
+    - A failed send now reopens the popup on its error (fye-ui.js); before,
+      the page reloaded with the message inside a closed dialog.
 {%- endcomment -%}
 
 {%- for block in section.blocks -%}
@@ -119,15 +144,37 @@
       assign mob = mob | remove_first: '0' | prepend: '+44'
     endif
     assign wa = mob | remove: '+'
+
+    comment
+      The Contact us popup has no photograph at any width: the teal reach
+      panel replaces it.
+    endcomment
+    assign show_media = false
+    if b.image != blank and has_reach == false
+      assign show_media = true
+    endif
   -%}
 
-  <dialog class="pop" id="fye-popup-{{ uid }}"
+  <dialog class="pop{% if has_reach %} pop--reach{% endif %}" id="fye-popup-{{ uid }}"
           data-fye-popup-panel="{{ key }}"
           data-fye-popup-label="{{ email_line | escape }}"
           aria-label="{{ heading | escape }}" {{ block.shopify_attributes }}>
-    <div class="pop__in{% if b.image == blank %} pop__in--noimage{% endif %}{% if has_reach %} pop__in--reach{% endif %}">
 
-      {%- if b.image != blank -%}
+    {%- if has_reach -%}
+      {%- comment -%}
+        Outside .pop__in so it can pin (sticky) while the stacked dialog
+        scrolls on tablet and phone. Zero height, so it takes no layout.
+      {%- endcomment -%}
+      <div class="pop__bar">
+        <button class="pop__close" type="button" data-fye-popup-close aria-label="Close">
+          {%- render 'icon', name: 'close', size: 18 -%}
+        </button>
+      </div>
+    {%- endif -%}
+
+    <div class="pop__in{% if show_media == false and has_reach == false %} pop__in--noimage{% endif %}{% if has_reach %} pop__in--reach{% endif %}">
+
+      {%- if show_media -%}
         <div class="pop__media">
           {{ b.image | image_url: width: 900 | image_tag:
              loading: 'lazy',
@@ -137,10 +184,75 @@
         </div>
       {%- endif -%}
 
+      {%- if has_reach -%}
+        {%- comment -%}
+          Tile labels are structural names for the channel, like "Home" in a
+          breadcrumb; the values are settings.
+        {%- endcomment -%}
+        <div class="pop__reach">
+          {%- if b.eyebrow != blank -%}
+            <p class="eyebrow">{{ b.eyebrow }}</p>
+          {%- endif -%}
+          <p class="pop__title" role="heading" aria-level="2">{{ heading }}</p>
+          {%- if b.intro != blank -%}
+            <div class="pop__intro">{{ b.intro }}</div>
+          {%- endif -%}
+
+          <ul class="pop__ways">
+            {%- if b.phone != blank -%}
+              <li><a class="pop__way" href="tel:{{ tel }}">
+                <span class="pop__way-icon">{%- render 'icon', name: 'phone', size: 18 -%}</span>
+                <span class="pop__way-text"><span class="pop__way-label">Call</span>{{ b.phone }}</span>
+                <span class="pop__way-go">{%- render 'icon', name: 'arrow-right', size: 16 -%}</span>
+              </a></li>
+            {%- endif -%}
+            {%- if b.mobile != blank -%}
+              <li><a class="pop__way" href="https://wa.me/{{ wa }}" target="_blank" rel="noopener">
+                <span class="pop__way-icon">{%- render 'icon', name: 'message', size: 18 -%}</span>
+                <span class="pop__way-text"><span class="pop__way-label">WhatsApp</span>{{ b.mobile }}</span>
+                <span class="pop__way-go">{%- render 'icon', name: 'arrow-right', size: 16 -%}</span>
+                <span class="visually-hidden">(opens in a new tab)</span>
+              </a></li>
+              <li><a class="pop__way" href="sms:{{ mob }}">
+                <span class="pop__way-icon">{%- render 'icon', name: 'sms', size: 18 -%}</span>
+                <span class="pop__way-text"><span class="pop__way-label">Text us</span>{{ b.mobile }}</span>
+                <span class="pop__way-go">{%- render 'icon', name: 'arrow-right', size: 16 -%}</span>
+              </a></li>
+            {%- endif -%}
+            {%- if b.email != blank -%}
+              <li><a class="pop__way" href="mailto:{{ b.email }}">
+                <span class="pop__way-icon">{%- render 'icon', name: 'mail', size: 18 -%}</span>
+                <span class="pop__way-text"><span class="pop__way-label">Email</span>{{ b.email }}</span>
+                <span class="pop__way-go">{%- render 'icon', name: 'arrow-right', size: 16 -%}</span>
+              </a></li>
+            {%- endif -%}
+          </ul>
+
+          {%- if b.hours != blank -%}
+            <p class="pop__hours">{{ b.hours }}</p>
+          {%- endif -%}
+
+          {%- if b.book_url != blank -%}
+            <div class="pop__book">
+              <a class="btn btn--block" href="{{ b.book_url }}" target="_blank" rel="noopener">
+                {%- render 'icon', name: 'calendar', size: 18 -%}
+                {{ b.book_label | default: 'Book consultation' }}
+                <span class="visually-hidden">(opens in a new tab)</span>
+              </a>
+              {%- if b.book_note != blank -%}
+                <p class="pop__book-note">{{ b.book_note }}</p>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
       <div class="pop__body">
-        <button class="pop__close" type="button" data-fye-popup-close aria-label="Close">
-          {%- render 'icon', name: 'close', size: 18 -%}
-        </button>
+        {%- unless has_reach -%}
+          <button class="pop__close" type="button" data-fye-popup-close aria-label="Close">
+            {%- render 'icon', name: 'close', size: 18 -%}
+          </button>
+        {%- endunless -%}
 
         {%- assign form_id = 'pop-form-' | append: key | handleize -%}
       {%- form 'contact', id: form_id, class: 'pop__form' -%}
@@ -152,8 +264,12 @@
               the flash is not per-form. Harmless: only the popup named in the
               query string is opened, and the others stay closed.
             {%- endcomment -%}
-            <div class="pop__done" data-fye-popup-done>
-              <p class="eyebrow">{{ b.eyebrow | default: 'For Your Eternity' }}</p>
+            <div class="pop__done" data-fye-popup-done tabindex="-1">
+              {%- if has_reach -%}
+                <span class="pop__done-mark">{%- render 'icon', name: 'check', size: 22 -%}</span>
+              {%- else -%}
+                <p class="eyebrow">{{ b.eyebrow | default: 'For Your Eternity' }}</p>
+              {%- endif -%}
               <p class="pop__title" role="heading" aria-level="2">{{ b.success_heading | default: 'Thank you' }}</p>
               <div class="pop__intro">{{ b.success_body | default: '<p>We have your details.</p>' }}</div>
 
@@ -165,82 +281,54 @@
               {%- elsif b.no_file_note != blank -%}
                 <p class="pop__note">{{ b.no_file_note }}</p>
               {%- endif -%}
+
+              {%- if has_reach -%}
+                <button class="btn btn--outline" type="button" data-fye-popup-close>Close</button>
+              {%- endif -%}
             </div>
 
           {%- else -%}
 
-            {%- if b.eyebrow != blank -%}
-              <p class="eyebrow">{{ b.eyebrow }}</p>
-            {%- endif -%}
-            <p class="pop__title" role="heading" aria-level="2">{{ heading }}</p>
-            {%- if b.intro != blank -%}
-              <div class="pop__intro">{{ b.intro }}</div>
-            {%- endif -%}
-
             {%- if has_reach -%}
-              {%- comment -%}
-                Tile labels are structural names for the channel, like "Home"
-                in a breadcrumb; the values are settings.
-              {%- endcomment -%}
-              <div class="pop__reach">
-                <ul class="pop__ways">
-                  {%- if b.phone != blank -%}
-                    <li><a class="pop__way" href="tel:{{ tel }}">
-                      {%- render 'icon', name: 'phone', size: 20 -%}
-                      <span><span class="pop__way-label">Call</span>{{ b.phone }}</span>
-                    </a></li>
-                  {%- endif -%}
-                  {%- if b.mobile != blank -%}
-                    <li><a class="pop__way" href="https://wa.me/{{ wa }}" target="_blank" rel="noopener">
-                      {%- render 'icon', name: 'message', size: 20 -%}
-                      <span><span class="pop__way-label">WhatsApp</span>{{ b.mobile }}</span>
-                    </a></li>
-                    <li><a class="pop__way" href="sms:{{ mob }}">
-                      {%- render 'icon', name: 'sms', size: 20 -%}
-                      <span><span class="pop__way-label">Text us</span>{{ b.mobile }}</span>
-                    </a></li>
-                  {%- endif -%}
-                  {%- if b.email != blank -%}
-                    <li class="pop__ways-wide"><a class="pop__way" href="mailto:{{ b.email }}">
-                      {%- render 'icon', name: 'mail', size: 20 -%}
-                      <span><span class="pop__way-label">Email</span>{{ b.email }}</span>
-                    </a></li>
-                  {%- endif -%}
-                </ul>
-
-                {%- if b.book_url != blank -%}
-                  <a class="btn btn--outline btn--block" href="{{ b.book_url }}" target="_blank" rel="noopener">
-                    {%- render 'icon', name: 'calendar', size: 18 -%}
-                    {{ b.book_label | default: 'Book consultation' }}
-                  </a>
-                {%- endif -%}
-
-                {%- if b.reach_divider != blank -%}
-                  <p class="pop__or">{{ b.reach_divider }}</p>
-                {%- endif -%}
-              </div>
+              {%- if b.reach_divider != blank -%}
+                <p class="pop__formtitle" role="heading" aria-level="3">{{ b.reach_divider }}</p>
+              {%- endif -%}
+            {%- else -%}
+              {%- if b.eyebrow != blank -%}
+                <p class="eyebrow">{{ b.eyebrow }}</p>
+              {%- endif -%}
+              <p class="pop__title" role="heading" aria-level="2">{{ heading }}</p>
+              {%- if b.intro != blank -%}
+                <div class="pop__intro">{{ b.intro }}</div>
+              {%- endif -%}
             {%- endif -%}
 
             {%- if form.errors -%}
-              <div class="pop__errors" role="alert">
+              {%- comment -%}
+                Shopify's single message, above the fields. data-fye-popup-error
+                is what makes fye-ui.js reopen the popup and focus this.
+              {%- endcomment -%}
+              <div class="pop__errors" id="pop-err-{{ uid }}" role="alert" tabindex="-1" data-fye-popup-error>
                 <p>{{ form.errors | default_errors }}</p>
               </div>
             {%- endif -%}
 
-            <div class="pop__field">
-              <label for="pop-first-{{ uid }}">First name</label>
-              <input id="pop-first-{{ uid }}" type="text" name="contact[First name]" autocomplete="given-name" placeholder="First name">
-            </div>
-
-            <div class="pop__field">
-              <label for="pop-last-{{ uid }}">Last name</label>
-              <input id="pop-last-{{ uid }}" type="text" name="contact[Last name]" autocomplete="family-name" placeholder="Last name">
+            <div class="pop__pair">
+              <div class="pop__field">
+                <label for="pop-first-{{ uid }}">First name</label>
+                <input id="pop-first-{{ uid }}" type="text" name="contact[First name]" autocomplete="given-name" placeholder="First name">
+              </div>
+              <div class="pop__field">
+                <label for="pop-last-{{ uid }}">Last name</label>
+                <input id="pop-last-{{ uid }}" type="text" name="contact[Last name]" autocomplete="family-name" placeholder="Last name">
+              </div>
             </div>
 
             <div class="pop__pair">
               <div class="pop__field">
                 <label for="pop-email-{{ uid }}">Email address</label>
-                <input id="pop-email-{{ uid }}" type="email" name="contact[email]" autocomplete="email" placeholder="you@email.com" required>
+                <input id="pop-email-{{ uid }}" type="email" name="contact[email]" autocomplete="email" placeholder="you@email.com" required
+                       {%- if form.errors contains 'email' %} aria-invalid="true" aria-describedby="pop-err-{{ uid }}"{% endif %}>
               </div>
               <div class="pop__field">
                 <label for="pop-phone-{{ uid }}">Telephone <span class="pop__opt">(optional)</span></label>
@@ -272,7 +360,7 @@
             {%- if b.show_message -%}
               <div class="pop__field">
                 <label for="pop-message-{{ uid }}">{{ b.message_label | default: 'What can we help with?' }}</label>
-                <textarea id="pop-message-{{ uid }}" name="contact[Message]" rows="4" data-fye-popup-message
+                <textarea id="pop-message-{{ uid }}" name="contact[Message]" rows="{% if has_reach %}3{% else %}4{% endif %}" data-fye-popup-message
                           placeholder="{{ b.message_placeholder | default: 'A piece you have seen, a budget, a date to work to…' | escape }}"></textarea>
               </div>
             {%- endif -%}
@@ -292,11 +380,12 @@
             {%- endcomment -%}
             <input type="hidden" name="contact[body]" value="{{ email_line | escape }} (sent from {{ request.path }})" data-fye-popup-body>
 
-            <button class="btn btn--block pop__submit" type="submit">{{ btn_label }}</button>
-
-            {%- if b.reassurance != blank -%}
-              <p class="pop__note">{{ b.reassurance }}</p>
-            {%- endif -%}
+            <div class="pop__send">
+              <button class="btn btn--block pop__submit" type="submit">{{ btn_label }}</button>
+              {%- if b.reassurance != blank -%}
+                <p class="pop__note">{{ b.reassurance }}</p>
+              {%- endif -%}
+            </div>
 
           {%- endif -%}
 
@@ -424,56 +513,11 @@
 .fye .pop__done { display: flex; flex-direction: column; gap: var(--s3); }
 .fye .pop__done .btn { margin-top: var(--s3); }
 
-/* ---- reach panel (Contact us popup) ------------------------------------- */
-.fye .pop__reach { display: flex; flex-direction: column; gap: var(--s4); }
-.fye .pop__ways {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--s2);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-/* The address is the one value too long to share a row at this width. */
-.fye .pop__ways-wide { grid-column: 1 / -1; }
-.fye .pop__way {
-  display: flex;
-  align-items: center;
-  gap: var(--s3);
-  min-height: 56px;
-  padding: var(--s2) var(--s3);
-  border: var(--hairline);
-  color: var(--ink);
-  font-size: var(--fs-small);
-  line-height: 1.3;
-  text-decoration: none;
-  transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease);
-}
-.fye .pop__way:hover { border-color: var(--teal); background: var(--ivory); }
-.fye .pop__way :where(svg) { flex: 0 0 auto; color: var(--teal); }
-.fye .pop__way > span { display: flex; flex-direction: column; min-width: 0; overflow-wrap: anywhere; }
-.fye .pop__way-label {
-  font-size: var(--fs-eyebrow);
-  font-weight: var(--fw-medium);
-  letter-spacing: var(--tr-button);
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
-/* A hairline either side of a short uppercase line: the form is the other
-   way in, not a continuation of the tiles. */
-.fye .pop__or {
-  display: flex;
-  align-items: center;
-  gap: var(--s3);
-  margin: var(--s2) 0 0;
-  font-size: var(--fs-eyebrow);
-  font-weight: var(--fw-medium);
-  letter-spacing: var(--tr-button);
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
-.fye .pop__or::before,
-.fye .pop__or::after { content: ""; flex: 1; border-top: var(--hairline); }
+/* ---- send row: button, then the reassurance line ------------------------ */
+.fye .pop__send { display: flex; flex-direction: column; gap: var(--s4); margin-top: var(--s2); }
+.fye .pop__send .pop__submit { margin-top: 0; }
+
+.fye .pop__errors:focus { outline: var(--focus-ring); outline-offset: 2px; }
 
 /* ---- reflow: 749, the theme's own middle breakpoint --------------------- */
 @media (max-width: 749px) {
@@ -481,16 +525,169 @@
   .fye .pop__media { height: 180px; }
   .fye .pop__media :where(img) { position: static; height: 180px; }
   .fye .pop__body { padding: var(--s5); }
-  /* Contact us: tiles first, no photograph, and the whole dialog scrolls.
-     The panel is taller than a phone, and a body capped at the dialog's
-     height would clip its own foot. */
-  .fye .pop__in--reach .pop__media { display: none; }
-  .fye .pop:has(.pop__in--reach) { overflow-y: auto; }
-  .fye .pop__in--reach .pop__body { max-height: none; overflow: visible; }
 }
 @media (max-width: 560px) {
   .fye .pop__pair { grid-template-columns: 1fr; }
+}
+
+/* ============================================================================
+   CONTACT US: TWO COLUMNS (25/09/2026). Reach panel left on teal, form right
+   on white. Everything below is scoped to .pop--reach / .pop__reach, so the
+   guide and bespoke popups are untouched. Geometry literals are chosen, not
+   measured; see the file comment.
+   ========================================================================== */
+.fye .pop--reach { width: min(960px, calc(100vw - (2 * var(--pad-x)))); }
+.fye .pop__in--reach { grid-template-columns: 400px minmax(0, 1fr); }
+
+.fye .pop__bar {
+  position: absolute;
+  top: var(--s2);
+  right: var(--s2);
+  z-index: 2;
+  display: flex;
+  justify-content: flex-end;
+  height: 0;
+}
+.fye .pop__bar .pop__close { position: static; }
+.fye .pop__close:active { color: var(--sage-deep); }
+
+/* ---- left: every way to reach us ---------------------------------------- */
+.fye .pop__reach {
+  display: flex;
+  flex-direction: column;
+  padding: var(--s7);
+  background: var(--teal);
+  color: var(--on-dark);
+  overflow: hidden;              /* the fast path never scrolls on desktop */
+}
+.fye .pop__reach .eyebrow { margin-bottom: var(--s2); color: var(--on-dark-soft); }
+.fye .pop__reach .pop__title { margin: 0 0 var(--s3); color: var(--on-dark); }
+.fye .pop__reach .pop__intro { margin-bottom: var(--s5); color: var(--on-dark); font-weight: var(--fw-light); line-height: 1.5; }
+.fye .pop__reach :focus-visible { outline: 2px solid var(--ivory); outline-offset: 2px; }
+
+.fye .pop__ways {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line-on-dark);
+}
+.fye .pop__ways > li { border-bottom: 1px solid var(--line-on-dark); }
+.fye .pop__way {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  min-height: 52px;
+  padding: var(--s1) 0;
+  color: var(--on-dark);
+  font-size: var(--fs-small);
+  line-height: 1.35;
+  text-decoration: none;
+}
+.fye .pop__way-icon {
+  display: flex;
+  flex: 0 0 36px;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  border: 1px solid var(--line-on-dark);
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.fye .pop__way-text { display: flex; flex: 1; flex-direction: column; gap: 2px; min-width: 0; overflow-wrap: anywhere; }
+.fye .pop__way-label {
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--on-dark-soft);
+}
+.fye .pop__way-go { display: flex; opacity: 0; transition: opacity var(--dur) var(--ease); }
+.fye .pop__way:hover .pop__way-icon { background: var(--sage); border-color: var(--sage); color: var(--teal); }
+.fye .pop__way:active .pop__way-icon { background: var(--sage-deep); border-color: var(--sage-deep); color: var(--on-dark); }
+.fye .pop__way:hover .pop__way-go,
+.fye .pop__way:focus-visible .pop__way-go { opacity: 1; }
+
+.fye .pop__hours { margin: var(--s3) 0 0; font-size: var(--fs-fine); line-height: 1.4; color: var(--on-dark-soft); }
+
+/* Filled on teal is ivory, as on .band--teal. The panel is not a band, so the
+   band rule does not reach it and is restated here. */
+.fye .pop__book { display: flex; flex-direction: column; gap: var(--s2); margin-top: auto; padding-top: var(--s5); }
+.fye .pop__book .btn { background: var(--ivory); border-color: var(--ivory); color: var(--teal); }
+.fye .pop__book .btn:hover { background: var(--sage); border-color: var(--sage); color: var(--teal); }
+.fye .pop__book .btn:active { background: var(--sage-deep); border-color: var(--sage-deep); color: var(--ivory); }
+.fye .pop__book-note { margin: 0; font-size: var(--fs-fine); line-height: 1.4; color: var(--on-dark-soft); }
+
+/* ---- right: the form ---------------------------------------------------- */
+.fye .pop--reach .pop__body { padding: var(--s7) var(--s9) var(--s7) var(--s7); overscroll-behavior: contain; }
+.fye .pop__formtitle {
+  margin: 0 0 var(--s1);
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-regular);
+  letter-spacing: var(--tr-h2);
+  line-height: var(--lh-heading);
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.fye .pop--reach .pop__form { gap: var(--s3); }
+/* Core's field focus is a sage border only, under 3:1 on white. This popup
+   is the main conversion point, so it gets the full ring. */
+.fye .pop--reach :where(input, select, textarea):focus-visible { outline: var(--focus-ring); outline-offset: 2px; border-color: var(--teal); }
+.fye .pop--reach :where(input[aria-invalid='true']) { border-color: var(--teal); }
+.fye .pop--reach .pop__send { flex-direction: row; align-items: center; gap: var(--s5); margin-top: var(--s1); }
+.fye .pop--reach .pop__send .btn { flex: none; width: auto; }
+.fye .pop--reach .pop__send .pop__note { max-width: 30ch; text-align: left; }
+
+/* ---- thank you: the form column only; the reach panel stays -------------- */
+.fye .pop--reach .pop__done { align-items: flex-start; gap: var(--s4); padding-block: var(--s10); }
+.fye .pop--reach .pop__done:focus { outline: none; }
+.fye .pop--reach .pop__done .pop__intro { margin: 0; max-width: 34ch; font-size: var(--fs-body); font-weight: var(--fw-light); color: var(--ink); }
+.fye .pop--reach .pop__done .btn { margin-top: var(--s2); }
+.fye .pop__done-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: var(--hairline);
+  color: var(--teal);
+}
+
+/* ---- 900: one column, reach first, the whole dialog scrolls as one ------- */
+@media (max-width: 900px) {
+  .fye .pop--reach { overflow-y: auto; overscroll-behavior: contain; }
+  .fye .pop__in--reach { grid-template-columns: 1fr; }
+  .fye .pop--reach .pop__bar { position: sticky; top: 0; right: auto; padding: var(--s2) var(--s2) 0 0; }
+  /* Its own teal tile, so it reads over the teal panel and the white form. */
+  .fye .pop--reach .pop__close { background: var(--teal); color: var(--on-dark); transition: background var(--dur) var(--ease), color var(--dur) var(--ease); }
+  .fye .pop--reach .pop__close:hover { background: var(--sage); color: var(--teal); }
+  .fye .pop--reach .pop__close:active { background: var(--sage-deep); color: var(--on-dark); }
+  .fye .pop--reach .pop__close:focus-visible { outline: 2px solid var(--ivory); outline-offset: -4px; }
+  .fye .pop__reach { padding: var(--s8) var(--s8) var(--s7); overflow: visible; }
+  .fye .pop__reach .pop__intro { max-width: 56ch; }
+  .fye .pop__ways { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s6); }
+  .fye .pop__book { flex-direction: row; flex-wrap: wrap; align-items: center; gap: var(--s5); margin-top: 0; }
+  .fye .pop__book .btn { width: auto; }
+  .fye .pop--reach .pop__body { max-height: none; overflow: visible; padding: var(--s7) var(--s8) var(--s8); }
+  .fye .pop--reach .pop__done { padding-block: var(--s4); }
+}
+
+/* ---- 560: full-screen sheet; rows and pairs stack ----------------------- */
+@media (max-width: 560px) {
+  .fye .pop--reach { width: 100%; max-width: 100%; height: 100%; max-height: 100%; margin: 0; }
+  .fye .pop__reach { padding: var(--s6); }
+  .fye .pop__reach .pop__title { margin-bottom: var(--s2); padding-right: var(--s8); }
+  .fye .pop__reach .pop__intro { margin-bottom: var(--s4); }
   .fye .pop__ways { grid-template-columns: 1fr; }
+  .fye .pop__way { min-height: 56px; }
+  .fye .pop__way-go { opacity: 1; }   /* no hover on touch: show the affordance */
+  .fye .pop__book { flex-direction: column; align-items: stretch; gap: var(--s2); }
+  .fye .pop__book .btn { width: 100%; }
+  .fye .pop--reach .pop__body { padding: var(--s7) var(--s6) var(--s8); }
+  .fye .pop--reach .pop__send { flex-direction: column; align-items: stretch; gap: var(--s3); }
+  .fye .pop--reach .pop__send .btn { width: 100%; }
+  .fye .pop--reach .pop__send .pop__note { max-width: none; }
 }
 
 /* ----------------------------------------------------------------------------
@@ -537,13 +734,15 @@
         { "type": "text", "id": "heading", "label": "Heading", "default": "Get in touch" },
         { "type": "richtext", "id": "intro", "label": "Introduction" },
         { "type": "header", "content": "Contact details" },
-        { "type": "checkbox", "id": "show_contact", "label": "Show contact details and booking button", "default": false, "info": "For the Contact us popup. Adds call, WhatsApp, text and email tiles and a booking button above the form." },
+        { "type": "checkbox", "id": "show_contact", "label": "Show contact details and booking button", "default": false, "info": "For the Contact us popup. Two columns: call, WhatsApp, text, email and the booking button on teal beside the form. The photograph is not shown." },
         { "type": "text", "id": "phone", "label": "Phone number", "default": "0208 178 6687" },
         { "type": "text", "id": "mobile", "label": "WhatsApp and text number", "default": "07840 042922" },
         { "type": "text", "id": "email", "label": "Email address", "default": "hello@foryoureternity.com" },
         { "type": "text", "id": "book_label", "label": "Booking button label", "default": "Book consultation" },
         { "type": "url", "id": "book_url", "label": "Booking link" },
-        { "type": "text", "id": "reach_divider", "label": "Line above the form", "default": "Or send us a message" },
+        { "type": "text", "id": "book_note", "label": "Line under the booking button", "default": "Free, in person in London or by phone or video" },
+        { "type": "text", "id": "hours", "label": "Opening hours", "default": "Mon to Fri, 9am to 6pm" },
+        { "type": "text", "id": "reach_divider", "label": "Form heading", "default": "Send us a message" },
         { "type": "header", "content": "Form" },
         { "type": "text", "id": "button_label", "label": "Button label", "default": "Send" },
         { "type": "checkbox", "id": "show_message", "label": "Include a message box", "default": false, "info": "On for enquiries, off for guide requests." },

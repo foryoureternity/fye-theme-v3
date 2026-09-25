@@ -2936,9 +2936,17 @@
     /* Only reopen when this popup is ACTUALLY showing its success panel.
        Without this test a stale key reopens an empty form in the visitor's
        face, which is exactly the bug this patch exists to fix. */
-    if (!el.querySelector('[data-fye-popup-done]')) return;
+    /* 25/09/2026: a send Shopify REFUSED also reopens, on its error. Before
+       this the page reloaded with the message inside a closed dialog and the
+       visitor had no idea the enquiry had not gone. */
+    var err = el.querySelector('[data-fye-popup-error]');
+    if (!el.querySelector('[data-fye-popup-done]') && !err) return;
 
     open(el);
+    var land = err || el.querySelector('[data-fye-popup-done]');
+    if (land) {
+      try { land.focus({ preventScroll: true }); } catch (e) { land.focus(); }
+    }
   }
 
   /* Arriving on any URL ending #popup-<key> (an email, an ad, the contact

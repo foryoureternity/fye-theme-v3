@@ -25,8 +25,8 @@
         "button_link": "shopify://pages/engagement-rings",
         "button2_label": "Shop wedding rings",
         "button2_link": "shopify://pages/wedding-rings",
-        "link_label": "Or book a free London or online consultation",
-        "link_url": "https://calendar.app.google/UKFkGvMLzAYEviqy8",
+        "link_label": "Or contact us to book a free consultation",
+        "link_url": "/pages/contact-us#popup-contact",
         "align": "left",
         "band": "ivory"
       }
@@ -223,8 +223,8 @@
         "card_a_cta_link": "shopify://collections/engagement-rings",
         "card_b_title": "Talk it through first",
         "card_b_lede": "A free conversation with us before you decide anything.",
-        "card_b_cta_label": "Book a free consultation",
-        "card_b_cta_link": "https://calendar.app.google/UKFkGvMLzAYEviqy8",
+        "card_b_cta_label": "Contact us",
+        "card_b_cta_link": "/pages/contact-us#popup-contact",
         "card_b_popup": false,
         "ground": "ivory"
       }
@@ -613,8 +613,8 @@
         "eyebrow": "Personal guidance",
         "heading": "Still unsure where to start?",
         "lead": "Book a free consultation — in person, by phone or video.",
-        "btn_label": "Book a free consultation",
-        "btn_link": "https://calendar.app.google/UKFkGvMLzAYEviqy8",
+        "btn_label": "Contact us",
+        "btn_link": "/pages/contact-us#popup-contact",
         "btn2_label": "",
         "btn2_link": "",
         "btn2_new_tab": false

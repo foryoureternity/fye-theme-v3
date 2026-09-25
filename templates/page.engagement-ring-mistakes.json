@@ -169,8 +169,8 @@
         "eyebrow": "The Best Insurance Against All Ten",
         "heading": "Talk to Someone Before You Buy",
         "body": "<p>A free 20-minute call costs nothing and heads off most of this list. Tell us the budget, the hand, the lifestyle and what they already wear, and we will tell you honestly what makes sense, including when the answer is to spend less.</p>",
-        "link": "/pages/contact-us",
-        "link_label": "Book a free consultation"
+        "link": "/pages/contact-us#popup-contact",
+        "link_label": "Contact us"
       }
     },
     "faq": {

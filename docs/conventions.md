@@ -275,6 +275,11 @@ figures for every existing pairing are in `fye-core.css`.
   pattern above.** `showModal()` brings a focus trap, an inert background and
   Escape; hand-rolling those over a form is about forty lines of JS that would
   need testing. Drawers are unchanged, and this is not a precedent for them.
+- **A link can open a popup by its URL.** A customiser URL setting cannot
+  carry `data-fye-popup`, so fye-ui.js also treats an `<a>` whose href ends
+  `#popup-<key>` as a trigger (25/09/2026, the Contact us rollout). Point the
+  path at a real page, `/pages/contact-us#popup-contact`, so the link still
+  goes somewhere sensible when JS fails.
 - **A trigger keeps its `href`.** The popup JS calls `preventDefault()` only
   when a matching popup actually exists, so an enquiry button remains an
   ordinary link when JavaScript fails and when a key drifts.

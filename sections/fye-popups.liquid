@@ -53,6 +53,23 @@
   Layout is the Klaviyo popup Ed signed off: photograph left at a third, form
   right, stacking to photo-on-top under 749px. Its champagne button is NOT
   carried over — buttons in this system are teal filled, sage on hover.
+
+  THE CONTACT US POPUP (key `contact`): 25/09/2026, W275 / W417
+  Ed replaced every "Book consultation" button on the site with "Contact us",
+  which opens this. A popup with `show_contact` on gets a reach panel above
+  the form: tap-to-call, WhatsApp, a text message, email, and the Book
+  consultation button to the Google diary. Someone who would happily just ring
+  is no longer made to fill in a form first.
+    - The header's Book appointment buttons deliberately still go straight to
+      the diary (Ed, same day): a visitor reaching for the header is ready to
+      book. The contact page keeps its own row too; it already is this popup.
+    - Numbers are typed as people read them ("0208 178 6687"); the tel:, sms:
+      and wa.me forms are derived below, so there is one value to change.
+    - Under 749px the photograph is dropped for this popup so the tap-to-act
+      tiles come first, and the dialog scrolls as a whole.
+  URL settings cannot carry a data attribute, so most of the rewired buttons
+  open this through the `#popup-<key>` link hook in fye-ui.js: their link is
+  `/pages/contact-us#popup-contact`, which is also where they land without JS.
 {%- endcomment -%}
 
 {%- for block in section.blocks -%}
@@ -82,13 +99,33 @@
       sessionStorage, because the redirect carries no popup key.
     endcomment
     assign journey_list = b.journey_options | split: ','
+
+    comment
+      Reach panel (Contact us popup). UK numbers are entered as read; a
+      leading 0 becomes +44 for tel: and sms:, and 44 for wa.me.
+    endcomment
+    assign has_reach = false
+    if b.show_contact
+      assign has_reach = true
+    endif
+    assign tel = b.phone | remove: ' '
+    assign tel_first = tel | slice: 0
+    if tel_first == '0'
+      assign tel = tel | remove_first: '0' | prepend: '+44'
+    endif
+    assign mob = b.mobile | remove: ' '
+    assign mob_first = mob | slice: 0
+    if mob_first == '0'
+      assign mob = mob | remove_first: '0' | prepend: '+44'
+    endif
+    assign wa = mob | remove: '+'
   -%}
 
   <dialog class="pop" id="fye-popup-{{ uid }}"
           data-fye-popup-panel="{{ key }}"
           data-fye-popup-label="{{ email_line | escape }}"
           aria-label="{{ heading | escape }}" {{ block.shopify_attributes }}>
-    <div class="pop__in{% if b.image == blank %} pop__in--noimage{% endif %}">
+    <div class="pop__in{% if b.image == blank %} pop__in--noimage{% endif %}{% if has_reach %} pop__in--reach{% endif %}">
 
       {%- if b.image != blank -%}
         <div class="pop__media">
@@ -138,6 +175,50 @@
             <p class="pop__title" role="heading" aria-level="2">{{ heading }}</p>
             {%- if b.intro != blank -%}
               <div class="pop__intro">{{ b.intro }}</div>
+            {%- endif -%}
+
+            {%- if has_reach -%}
+              {%- comment -%}
+                Tile labels are structural names for the channel, like "Home"
+                in a breadcrumb; the values are settings.
+              {%- endcomment -%}
+              <div class="pop__reach">
+                <ul class="pop__ways">
+                  {%- if b.phone != blank -%}
+                    <li><a class="pop__way" href="tel:{{ tel }}">
+                      {%- render 'icon', name: 'phone', size: 20 -%}
+                      <span><span class="pop__way-label">Call</span>{{ b.phone }}</span>
+                    </a></li>
+                  {%- endif -%}
+                  {%- if b.mobile != blank -%}
+                    <li><a class="pop__way" href="https://wa.me/{{ wa }}" target="_blank" rel="noopener">
+                      {%- render 'icon', name: 'message', size: 20 -%}
+                      <span><span class="pop__way-label">WhatsApp</span>{{ b.mobile }}</span>
+                    </a></li>
+                    <li><a class="pop__way" href="sms:{{ mob }}">
+                      {%- render 'icon', name: 'sms', size: 20 -%}
+                      <span><span class="pop__way-label">Text us</span>{{ b.mobile }}</span>
+                    </a></li>
+                  {%- endif -%}
+                  {%- if b.email != blank -%}
+                    <li class="pop__ways-wide"><a class="pop__way" href="mailto:{{ b.email }}">
+                      {%- render 'icon', name: 'mail', size: 20 -%}
+                      <span><span class="pop__way-label">Email</span>{{ b.email }}</span>
+                    </a></li>
+                  {%- endif -%}
+                </ul>
+
+                {%- if b.book_url != blank -%}
+                  <a class="btn btn--outline btn--block" href="{{ b.book_url }}" target="_blank" rel="noopener">
+                    {%- render 'icon', name: 'calendar', size: 18 -%}
+                    {{ b.book_label | default: 'Book consultation' }}
+                  </a>
+                {%- endif -%}
+
+                {%- if b.reach_divider != blank -%}
+                  <p class="pop__or">{{ b.reach_divider }}</p>
+                {%- endif -%}
+              </div>
             {%- endif -%}
 
             {%- if form.errors -%}
@@ -343,15 +424,73 @@
 .fye .pop__done { display: flex; flex-direction: column; gap: var(--s3); }
 .fye .pop__done .btn { margin-top: var(--s3); }
 
+/* ---- reach panel (Contact us popup) ------------------------------------- */
+.fye .pop__reach { display: flex; flex-direction: column; gap: var(--s4); }
+.fye .pop__ways {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* The address is the one value too long to share a row at this width. */
+.fye .pop__ways-wide { grid-column: 1 / -1; }
+.fye .pop__way {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  min-height: 56px;
+  padding: var(--s2) var(--s3);
+  border: var(--hairline);
+  color: var(--ink);
+  font-size: var(--fs-small);
+  line-height: 1.3;
+  text-decoration: none;
+  transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+.fye .pop__way:hover { border-color: var(--teal); background: var(--ivory); }
+.fye .pop__way :where(svg) { flex: 0 0 auto; color: var(--teal); }
+.fye .pop__way > span { display: flex; flex-direction: column; min-width: 0; overflow-wrap: anywhere; }
+.fye .pop__way-label {
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-button);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+/* A hairline either side of a short uppercase line: the form is the other
+   way in, not a continuation of the tiles. */
+.fye .pop__or {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  margin: var(--s2) 0 0;
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-button);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.fye .pop__or::before,
+.fye .pop__or::after { content: ""; flex: 1; border-top: var(--hairline); }
+
 /* ---- reflow: 749, the theme's own middle breakpoint --------------------- */
 @media (max-width: 749px) {
   .fye .pop__in { grid-template-columns: 1fr; }
   .fye .pop__media { height: 180px; }
   .fye .pop__media :where(img) { position: static; height: 180px; }
   .fye .pop__body { padding: var(--s5); }
+  /* Contact us: tiles first, no photograph, and the whole dialog scrolls.
+     The panel is taller than a phone, and a body capped at the dialog's
+     height would clip its own foot. */
+  .fye .pop__in--reach .pop__media { display: none; }
+  .fye .pop:has(.pop__in--reach) { overflow-y: auto; }
+  .fye .pop__in--reach .pop__body { max-height: none; overflow: visible; }
 }
 @media (max-width: 560px) {
   .fye .pop__pair { grid-template-columns: 1fr; }
+  .fye .pop__ways { grid-template-columns: 1fr; }
 }
 
 /* ----------------------------------------------------------------------------
@@ -397,6 +536,14 @@
         { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "For Your Eternity" },
         { "type": "text", "id": "heading", "label": "Heading", "default": "Get in touch" },
         { "type": "richtext", "id": "intro", "label": "Introduction" },
+        { "type": "header", "content": "Contact details" },
+        { "type": "checkbox", "id": "show_contact", "label": "Show contact details and booking button", "default": false, "info": "For the Contact us popup. Adds call, WhatsApp, text and email tiles and a booking button above the form." },
+        { "type": "text", "id": "phone", "label": "Phone number", "default": "0208 178 6687" },
+        { "type": "text", "id": "mobile", "label": "WhatsApp and text number", "default": "07840 042922" },
+        { "type": "text", "id": "email", "label": "Email address", "default": "hello@foryoureternity.com" },
+        { "type": "text", "id": "book_label", "label": "Booking button label", "default": "Book consultation" },
+        { "type": "url", "id": "book_url", "label": "Booking link" },
+        { "type": "text", "id": "reach_divider", "label": "Line above the form", "default": "Or send us a message" },
         { "type": "header", "content": "Form" },
         { "type": "text", "id": "button_label", "label": "Button label", "default": "Send" },
         { "type": "checkbox", "id": "show_message", "label": "Include a message box", "default": false, "info": "On for enquiries, off for guide requests." },

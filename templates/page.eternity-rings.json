@@ -34,8 +34,8 @@
         "btn_book": {
           "type": "button",
           "settings": {
-            "label": "Book consultation",
-            "link": "https://calendar.app.google/UKFkGvMLzAYEviqy8",
+            "label": "Contact us",
+            "link": "/pages/contact-us#popup-contact",
             "style": "btn"
           }
         }
@@ -142,8 +142,8 @@
         "btn_book": {
           "type": "button",
           "settings": {
-            "label": "Book consultation",
-            "link": "https://calendar.app.google/UKFkGvMLzAYEviqy8",
+            "label": "Contact us",
+            "link": "/pages/contact-us#popup-contact",
             "style": "btn"
           }
         }
@@ -265,8 +265,8 @@
         "eyebrow": "Personal guidance",
         "heading": "Still unsure where to start?",
         "lead": "Book a free consultation — in person, by phone or video.",
-        "btn_label": "Book a free consultation",
-        "btn_link": "https://calendar.app.google/UKFkGvMLzAYEviqy8"
+        "btn_label": "Contact us",
+        "btn_link": "/pages/contact-us#popup-contact"
       }
     }
   },

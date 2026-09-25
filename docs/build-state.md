@@ -3311,3 +3311,35 @@ land before index.json; `ship` handles that.
   face-to-face "by appointment in London".
 - Internal link: the "Book a Consultation" card on create-your-own-ring now
   points here instead of /pages/contact-us.
+
+## 25/09/2026: Contact us replaces every Book consultation button (W275, W417)
+
+- Ed's call: every "Book consultation" button becomes **Contact us** and opens
+  a popup with the phone, WhatsApp, a text message link, email, the enquiry
+  form and a **Book consultation** button to the Google diary.
+- Kept on direct booking, by Ed's decision: the header's Book appointment
+  buttons (desktop bar and mobile drawer: someone reaching for the header is
+  ready to book) and the contact page's own appointment row (that page already
+  is the popup). The create-your-own-ring "Book a Consultation" card still
+  links to /pages/london-consultation, since that is an internal link to the
+  landing page, not a booking button.
+- `fye-popups`: the `consultation` block is now the Contact us popup, key
+  **`contact`**. New per-block settings `show_contact`, `phone`, `mobile`,
+  `email`, `book_label`, `book_url`, `reach_divider` render a reach panel above
+  the form. Numbers are entered as read; tel/sms/wa.me forms are derived.
+  Under 749px that popup drops its photograph and the dialog scrolls whole.
+- `snippets/icon.liquid` gains `sms`. `fye-two-ways` now emits
+  `data-fye-popup="contact"`.
+- **New link hook in `fye-ui.js`:** any `<a>` whose href ends `#popup-<key>`
+  opens that popup (only when it exists, otherwise it is a normal link), and a
+  page loaded with that hash opens it once. Needed because URL settings cannot
+  carry a data attribute. The 25 rewired buttons all use
+  `/pages/contact-us#popup-contact`, so JS off lands on the contact page.
+- Templates changed: index, about-us, downloadable-guides, jewellery-guides,
+  loose-diamond-gems, london-consultation, ring-matchmaker, engagement-rings,
+  eternity-rings, wedding-rings, engagement-ring-mistakes and the five guides'
+  related cards; footer CTA in `footer-group.json`.
+- Ship with `./tools/fye ship`. `nudge` does not touch `sections/*.json`, so if
+  `footer-group.json` lands before the new `fye-popups` schema, re-save it once.
+- Not done here: "book a consultation" wording inside articles, page bodies and
+  product descriptions (store content) is a separate pass.

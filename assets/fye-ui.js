@@ -2808,6 +2808,22 @@
       return;
     }
 
+    /* LINK HOOK, 25/09/2026 (the Contact us rollout, W417). A URL setting in
+       the customiser cannot carry a data attribute, so a link whose href ends
+       in #popup-<key> opens that popup too. Twenty-odd buttons use
+       /pages/contact-us#popup-contact: the popup when JS runs, the contact
+       page when it does not. Same rule as above: no popup, no swallow. */
+    var hashLink = e.target.closest('a[href*="#popup-"]');
+    if (hashLink) {
+      var hm = /#popup-([A-Za-z0-9_-]+)$/.exec(hashLink.getAttribute('href') || '');
+      var hp = hm ? panel(hm[1]) : null;
+      if (hp) {
+        e.preventDefault();
+        open(hp);
+        return;
+      }
+    }
+
     if (e.target.closest('[data-fye-popup-close]')) {
       close(e.target.closest('dialog'));
       return;
@@ -2925,10 +2941,25 @@
     open(el);
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', reopenAfterSend);
-  } else {
+  /* Arriving on any URL ending #popup-<key> (an email, an ad, the contact
+     page reached with JS off and then on) opens that popup once. A success
+     reopen above takes precedence. */
+  function openFromHash() {
+    var m = /^#popup-([A-Za-z0-9_-]+)$/.exec(window.location.hash || '');
+    if (!m) return;
+    var el = panel(m[1]);
+    if (el && !el.open) open(el);
+  }
+
+  function onReady() {
     reopenAfterSend();
+    openFromHash();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', onReady);
+  } else {
+    onReady();
   }
 })();
 

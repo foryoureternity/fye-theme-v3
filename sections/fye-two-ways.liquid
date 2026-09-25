@@ -103,11 +103,12 @@
         {%- if s.card_b_cta_label != blank -%}
           {%- if s.card_b_popup or s.card_b_cta_link == blank -%}
             {%- comment -%}
-              Opens the consultation popup. The popup itself is build-state
-              job 6; until it exists this button has nothing to open, so a link
-              set here wins over the popup flag.
+              Opens the Contact us popup (key `contact`, 25/09/2026; the old
+              `consultation` popup became it). A link set here normally wins,
+              and `/pages/contact-us#popup-contact` opens the same popup via
+              the link hook in fye-ui.js, which is how the homepage does it.
             {%- endcomment -%}
-            <button type="button" class="btn tways__cta" data-fye-popup="consultation">{{ s.card_b_cta_label }}</button>
+            <button type="button" class="btn tways__cta" data-fye-popup="contact">{{ s.card_b_cta_label }}</button>
           {%- else -%}
             <a class="btn tways__cta" href="{{ s.card_b_cta_link }}">{{ s.card_b_cta_label }}</a>
           {%- endif -%}

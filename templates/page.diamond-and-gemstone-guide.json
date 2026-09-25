@@ -334,10 +334,10 @@
           "type": "card",
           "settings": {
             "kicker": "Talk to Us",
-            "title": "Book a Consultation",
+            "title": "Contact Us",
             "desc": "Free, 20 minutes, online or in London.",
-            "cta": "Get in touch",
-            "link": "/pages/contact-us"
+            "cta": "Contact us",
+            "link": "/pages/contact-us#popup-contact"
           }
         }
       },

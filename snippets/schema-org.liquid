@@ -65,6 +65,8 @@
     guessed URL. `site_url` carries the trailing slash so the entity URL
     matches the homepage canonical exactly. @id values are unchanged, as
     other schema on the site points at them.
+    25/09/2026: Google Business Profile added to sameAs as its stable
+    Maps CID URL (ludocid 128471562827034776), not a share short link.
   endcomment
   assign site_url = shop.url | append: '/'
 -%}
@@ -101,7 +103,8 @@
   "sameAs": [
     "https://www.instagram.com/foryoureternityjewellery/",
     "https://uk.trustpilot.com/review/foryoureternity.com",
-    "https://find-and-update.company-information.service.gov.uk/company/16261484"
+    "https://find-and-update.company-information.service.gov.uk/company/16261484",
+    "https://maps.google.com/?cid=128471562827034776"
   ],
   "potentialAction": {
     "@type": "ReserveAction",

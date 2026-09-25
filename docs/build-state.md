@@ -3292,3 +3292,6 @@ the Claude Doc "Ranking #1 for For Your Eternity" (25/09/2026).
 
 JSON templates changed, so ship with `./tools/fye ship`. The hero setting must
 land before index.json; `ship` handles that.
+- 25/09/2026 (later): `schema-org` sameAs gains the Google Business Profile as
+  https://maps.google.com/?cid=128471562827034776. Liquid only, so
+  `./tools/fye push` is enough.

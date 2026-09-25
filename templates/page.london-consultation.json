@@ -1,0 +1,359 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Engagement Ring Consultations in London"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>Free, personal consultations with For Your Eternity, face to face in London or online.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/couple-engagement-ring-consultation-showroom.png",
+        "use_specify_image": true,
+        "overlay": 32,
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "variant": "default",
+        "eyebrow": "Talk to a Jeweller",
+        "heading": "A Conversation Before Anything Else",
+        "body": "<p>For Your Eternity is an independent London jeweller making ethical engagement rings, wedding rings, eternity rings and bespoke fine jewellery. Every ring starts with a conversation, and every conversation is with us directly: Edward and the team, not a sales floor or a call centre.</p><p>A consultation is the easiest way to turn a rough idea into a clear plan. Whether you already know the stone you want or are starting from nothing, we help you understand the options, set a realistic budget and timeline, and see real stones before you decide.</p>"
+      }
+    },
+    "steps": {
+      "type": "fye-terms",
+      "blocks": {
+        "s1": {
+          "type": "term",
+          "settings": {
+            "heading": "Book a time",
+            "body": "<p>Choose a slot in our calendar, or message us by phone, email or WhatsApp. Tell us roughly what you have in mind and when you need it.</p>",
+            "number": "01",
+            "meta": "Takes a minute"
+          }
+        },
+        "s2": {
+          "type": "term",
+          "settings": {
+            "heading": "The first conversation",
+            "body": "<p>A free 20-minute consultation by video, phone or face to face in London. We talk through budget, style, stone, setting, metal and timing, and answer every question you bring.</p>",
+            "number": "02",
+            "meta": "Free, no obligation"
+          }
+        },
+        "s3": {
+          "type": "term",
+          "settings": {
+            "heading": "Stone options",
+            "body": "<p>We search our network for stones that match your brief and send three to five options with images, video and grading reports, so you can compare them properly.</p>",
+            "number": "03",
+            "meta": "3 to 10 working days"
+          }
+        },
+        "s4": {
+          "type": "term",
+          "settings": {
+            "heading": "Design",
+            "body": "<p>For a bespoke piece we prepare a 3D render so you can see the ring from every angle. Changes are free, and we keep refining until it is right.</p>",
+            "number": "04",
+            "meta": "5 to 10 working days"
+          }
+        },
+        "s5": {
+          "type": "term",
+          "settings": {
+            "heading": "Making and handover",
+            "body": "<p>Once the design is confirmed, making normally takes two to four weeks. The finished ring comes by fully insured courier, or we can arrange to hand it to you in person.</p>",
+            "number": "05",
+            "meta": "2 to 4 weeks"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "settings": {
+        "band": "ivory",
+        "columns": "1",
+        "numbering": "numbers",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "How It Works",
+        "heading": "From First Call to Finished Ring",
+        "intro": "",
+        "note": ""
+      }
+    },
+    "ways": {
+      "type": "fye-terms",
+      "blocks": {
+        "w1": {
+          "type": "term",
+          "settings": {
+            "heading": "Face to face in London",
+            "body": "<p>We can arrange a face-to-face meeting in London, by appointment, to look at stones and settings together. Tell us which part of London suits you when you book.</p>"
+          }
+        },
+        "w2": {
+          "type": "term",
+          "settings": {
+            "heading": "Video call",
+            "body": "<p>The most popular option. We share stones, renders and samples on screen, and you can join from anywhere in the UK.</p>"
+          }
+        },
+        "w3": {
+          "type": "term",
+          "settings": {
+            "heading": "Phone",
+            "body": "<p>A straightforward conversation if you already know roughly what you want and would like to talk it through.</p>"
+          }
+        },
+        "w4": {
+          "type": "term",
+          "settings": {
+            "heading": "WhatsApp or email",
+            "body": "<p>If you would rather go at your own pace, send photos and questions whenever suits you and we will reply personally.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "w1",
+        "w2",
+        "w3",
+        "w4"
+      ],
+      "settings": {
+        "band": "white",
+        "columns": "2",
+        "numbering": "none",
+        "narrow": false,
+        "show_head": true,
+        "eyebrow": "Four Ways to Meet",
+        "heading": "In Person, On Screen or By Message",
+        "intro": "Choose whichever suits you. The advice is the same whichever way we speak.",
+        "note": ""
+      }
+    },
+    "promise": {
+      "type": "fye-callout",
+      "settings": {
+        "band": "ivory",
+        "style": "default",
+        "narrow": true,
+        "eyebrow": "Every Ring",
+        "heading": "What Comes With It",
+        "body": "<p>Every centre diamond is certified by GIA or IGI, and our metals are recycled or come from suppliers certified to recognised responsible sourcing standards.</p><p>Every ring is covered by a lifetime warranty against manufacturing defects, with one free resize in the first year and free inspection and cleaning for life.</p>"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Is the consultation free?",
+            "a": "<p>Yes. The first consultation is free and there is no obligation to buy. If your project needs more time, we arrange a longer conversation with no time limit and no pressure.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Where do face-to-face consultations take place?",
+            "a": "<p>We do not have a walk-in showroom, so every face-to-face meeting is arranged by appointment in London. Let us know when you book and we will agree a time and place that suits you.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I bring my partner, or keep it a surprise?",
+            "a": "<p>Either works. Many couples choose together, and many people plan a proposal on their own. If it is a surprise, we can help you work out ring size and style discreetly.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Do you work with natural and lab-grown diamonds?",
+            "a": "<p>Yes, both. Every centre diamond comes with a GIA or IGI grading report, and we also source sapphires and other coloured gemstones.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "How long does a ring take?",
+            "a": "<p>Once the design is confirmed, making normally takes between two and four weeks. Allowing five weeks or more from first contact gives time for sourcing and design without any rush.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "What should I bring to the consultation?",
+            "a": "<p>A rough budget, a ring size if you know it, any photographs or screenshots of rings you like, and your date if you have one. None of it is essential; we can start from a conversation.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "q": "Do you deliver outside London?",
+            "a": "<p>Yes, anywhere in the UK, by fully insured courier with signature on delivery. We do not currently deliver outside the UK.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7"
+      ],
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "show_head": true,
+        "eyebrow": "Common Questions",
+        "heading": "Consultation Questions",
+        "intro": "",
+        "open_first": false,
+        "emit_schema": true
+      }
+    },
+    "cta": {
+      "type": "fye-consultation",
+      "blocks": {
+        "phone": {
+          "type": "contact",
+          "settings": {
+            "type": "phone",
+            "label": "0208 178 6687",
+            "link": "tel:+442081786687"
+          }
+        },
+        "email": {
+          "type": "contact",
+          "settings": {
+            "type": "email",
+            "label": "hello@foryoureternity.com",
+            "link": "mailto:hello@foryoureternity.com"
+          }
+        },
+        "whatsapp": {
+          "type": "contact",
+          "settings": {
+            "type": "whatsapp",
+            "label": "WhatsApp",
+            "link": "https://wa.me/447840042922"
+          }
+        }
+      },
+      "block_order": [
+        "phone",
+        "email",
+        "whatsapp"
+      ],
+      "settings": {
+        "band": "teal",
+        "eyebrow": "Free and Personal",
+        "heading": "Book Your Consultation",
+        "lead": "Pick a time that suits you, face to face in London or online. There is no charge and no obligation.",
+        "btn_label": "Book a free consultation",
+        "btn_link": "https://calendar.app.google/UKFkGvMLzAYEviqy8"
+      }
+    },
+    "related": {
+      "type": "fye-related",
+      "blocks": {
+        "r1": {
+          "type": "card",
+          "settings": {
+            "kicker": "Bespoke",
+            "title": "The Bespoke Process",
+            "desc": "Every stage of a made-for-you ring, in order.",
+            "cta": "Read more",
+            "link": "/pages/create-your-own-ring"
+          }
+        },
+        "r2": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Stone",
+            "title": "Lab-Grown Diamonds",
+            "desc": "How they compare with natural, honestly explained.",
+            "cta": "Read more",
+            "link": "/pages/lab-grown-diamonds"
+          }
+        },
+        "r3": {
+          "type": "card",
+          "settings": {
+            "kicker": "The Ring",
+            "title": "Getting the Size Right",
+            "desc": "Including how to find it in secret.",
+            "cta": "Read more",
+            "link": "/pages/find-your-ring-size"
+          }
+        },
+        "r4": {
+          "type": "card",
+          "settings": {
+            "kicker": "About Us",
+            "title": "About For Your Eternity",
+            "desc": "Who we are and how we work.",
+            "cta": "Read more",
+            "link": "/pages/about-us"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "band": "ivory",
+        "show_head": true,
+        "eyebrow": "Before You Book",
+        "heading": "Useful Reading"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "intro",
+    "steps",
+    "ways",
+    "promise",
+    "faq",
+    "cta",
+    "related"
+  ]
+}

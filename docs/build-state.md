@@ -3295,3 +3295,19 @@ land before index.json; `ship` handles that.
 - 25/09/2026 (later): `schema-org` sameAs gains the Google Business Profile as
   https://maps.google.com/?cid=128471562827034776. Liquid only, so
   `./tools/fye push` is enough.
+
+## 25/09/2026 — London consultation page (W171, also covers W280)
+
+- New `templates/page.london-consultation.json`, built only from existing
+  sections: heading-template, fye-rich-text, fye-terms x2 (5 numbered steps;
+  4 ways to meet), fye-callout, fye-faq (7 Q&As, emit_schema), fye-consultation
+  (calendar booking link + phone/email/WhatsApp), fye-related. Every select
+  value checked against its schema; the validator reports no faults for it.
+- Shopify page `london-consultation` (gid 762620182912) created UNPUBLISHED
+  with SEO title "Engagement Ring Consultation in London | For Your Eternity"
+  and a brand-first meta description. After the ship, set templateSuffix
+  `london-consultation` and publish.
+- Copy rules held: no street address (W169), no showroom, no price claims,
+  face-to-face "by appointment in London".
+- Internal link: the "Book a Consultation" card on create-your-own-ring now
+  points here instead of /pages/contact-us.

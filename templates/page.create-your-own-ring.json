@@ -306,7 +306,7 @@
           "type": "qa",
           "settings": {
             "q": "Do you ship internationally?",
-            "a": "<p>Yes, by fully insured courier with signature on delivery. There may be additional costs for customs duty, import taxes or handling depending on the country, and we will guide you through the paperwork.</p>"
+            "a": "<p>Not at the moment. We deliver within the UK only, by fully insured courier with signature on delivery.</p>"
           }
         }
       },

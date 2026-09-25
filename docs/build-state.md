@@ -3262,3 +3262,33 @@ JSON templates changed, so ship with `./tools/fye ship`, not `push`.
 JSON templates changed, so ship with `./tools/fye ship`.
 
 - 23/09/2026 (store data, no theme change): W399 done. All 99 collection descriptions now say "a complimentary resize in the first year" (was "complimentary resizing for one year / for a year"). W392 reviewed: Agentic Storefronts live (ChatGPT, Meta AI, Copilot, Other; Shop off), Knowledge Base app not installed.
+
+## 25/09/2026 — brand search: "For Your Eternity" first (W406, W407, W408)
+
+Google auto-corrects "for your eternity" to the anime To Your Eternity. Plan in
+the Claude Doc "Ranking #1 for For Your Eternity" (25/09/2026).
+
+- **W406, homepage h1.** `fye-hero` gains `logo_words_position` (end|start,
+  default end). `start` puts the visually-hidden wordmark words at the START
+  of the h1 ("For Your Eternity: Beautifully made..."), with no visual change.
+  Homepage set to `start`; the three landing pages keep `end` because their
+  headings run into the wordmark. Homepage subheading now opens "For Your
+  Eternity is an independent London jeweller:".
+  The homepage `<title>` and meta description are NOT theme: they come from
+  Online Store > Preferences (`page_title` / `page_description`). Change
+  those in admin, not here. Both changed in Preferences 25/09/2026, live.
+- **W407, schema.** `schema-org`: JewelryStore gains legalName, alternateName
+  ("For Your Eternity Jewellery"; NOT "FYE", which Ed says is only his own
+  shorthand),
+  a Companies House `identifier` (16261484, verified on Companies House
+  25/09/2026), a brand-first description, and Trustpilot + Companies House in
+  sameAs. WebSite gains alternateName. Both `url`s now carry the trailing slash
+  to match the canonical; @ids unchanged. Add Facebook, Pinterest, LinkedIn and
+  the Business Profile to sameAs only once their real URLs are confirmed.
+- **W408, About.** Title already led with the brand ("About For Your Eternity |
+  London Fine Jeweller"); the h1 already contains the phrase. Lead paragraph
+  now opens "For Your Eternity is an independent London jewellery house:"
+  (was an em dash sentence with no brand name).
+
+JSON templates changed, so ship with `./tools/fye ship`. The hero setting must
+land before index.json; `ship` handles that.

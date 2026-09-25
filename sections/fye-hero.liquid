@@ -57,6 +57,21 @@
     so the sentence is read once and looks exactly as before.
   endcomment
   assign logo_words = s.logo_alt | default: shop.name | strip_html
+
+  comment
+    25/09/2026 (W406): `logo_words_first` moves those hidden words to the
+    START of the h1, with no visual change. Google auto-corrects "for your
+    eternity" to the anime To Your Eternity, and the homepage h1 was 15
+    words of tagline with the brand as its last word. The h1 is one of the
+    strongest signals Google uses to decide what a site is called, so on
+    the homepage it now reads "For Your Eternity: Beautifully made...".
+    The landing pages keep the default, where the heading is written to
+    run into the wordmark ("Wedding rings by" [FOR YOUR ETERNITY]).
+  endcomment
+  assign logo_words_first = false
+  if s.logo_url != blank and s.logo_words_position == 'start'
+    assign logo_words_first = true
+  endif
 -%}
 
 <div class="band band--{{ band }} hero hero--{{ align }}{% if has_img %} hero--media{% endif %}">
@@ -83,7 +98,11 @@
     {%- endif -%}
 
     {%- if s.heading != blank -%}
-      <h1 class="hero__title hero__title--{{ hstyle }}">{{ s.heading }}{% if s.logo_url != blank %} <span class="visually-hidden">{{ logo_words }}</span>{% endif %}</h1>
+      {%- if logo_words_first -%}
+        <h1 class="hero__title hero__title--{{ hstyle }}"><span class="visually-hidden">{{ logo_words }}: </span>{{ s.heading }}</h1>
+      {%- else -%}
+        <h1 class="hero__title hero__title--{{ hstyle }}">{{ s.heading }}{% if s.logo_url != blank %} <span class="visually-hidden">{{ logo_words }}</span>{% endif %}</h1>
+      {%- endif -%}
     {%- endif -%}
 
     {%- comment -%}
@@ -235,6 +254,14 @@
     { "type": "header", "content": "Logo" },
     { "type": "text", "id": "logo_url", "label": "Logo URL", "info": "A file URL. Shown above the heading." },
     { "type": "text", "id": "logo_alt", "label": "Logo description" },
+    {
+      "type": "select", "id": "logo_words_position", "label": "Logo words in the heading", "default": "end",
+      "info": "Where the logo description is read in the heading by search engines and screen readers. Looks the same either way.",
+      "options": [
+        { "value": "end",   "label": "After the heading" },
+        { "value": "start", "label": "Before the heading" }
+      ]
+    },
     { "type": "range", "id": "logo_width", "label": "Logo width", "default": 250, "min": 100, "max": 400, "step": 10, "unit": "px" },
     { "type": "header", "content": "Buttons" },
     { "type": "text", "id": "button_label", "label": "Button label" },

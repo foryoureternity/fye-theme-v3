@@ -53,6 +53,20 @@
     assign has_assets = true
   endif
   assign brand_logo = shop.brand.logo | image_url: width: 600
+
+  comment
+    25/09/2026 (W407): brand disambiguation. Google auto-corrects "for your
+    eternity" to the anime To Your Eternity because it has little evidence
+    the phrase is a business. legalName, alternateName, the Companies House
+    identifier and a wider sameAs tie the name to one verifiable company.
+    sameAs lists ONLY profiles confirmed to exist and to show matching
+    details: add Facebook, Pinterest, LinkedIn and the Google Business
+    Profile here once their real URLs are confirmed (W239, W170), never a
+    guessed URL. `site_url` carries the trailing slash so the entity URL
+    matches the homepage canonical exactly. @id values are unchanged, as
+    other schema on the site points at them.
+  endcomment
+  assign site_url = shop.url | append: '/'
 -%}
 <script type="application/ld+json">
 {
@@ -60,8 +74,15 @@
   "@type": "JewelryStore",
   "@id": "{{ shop.url }}/#business",
   "name": {{ shop.name | json }},
-  "description": "Ethical engagement, wedding and eternity rings from a London jeweller. GIA/IGI-certified natural and lab-grown diamonds, transparent pricing, in-person and online consultations.",
-  "url": "{{ shop.url }}",
+  "legalName": "For Your Eternity Ltd",
+  "alternateName": "For Your Eternity Jewellery",
+  "description": "For Your Eternity is an independent London jeweller making ethical engagement, wedding and eternity rings. GIA/IGI-certified natural and lab-grown diamonds, transparent pricing, in-person and online consultations.",
+  "url": "{{ site_url }}",
+  "identifier": {
+    "@type": "PropertyValue",
+    "propertyID": "Companies House company number",
+    "value": "16261484"
+  },
   {%- if has_assets -%}
   "logo": "{{ logo_square | split: '//' | last | prepend: 'https://' }}",
   "image": "{{ logo_wide | split: '//' | last | prepend: 'https://' }}",
@@ -78,7 +99,9 @@
     { "@type": "Country", "name": "United Kingdom" }
   ],
   "sameAs": [
-    "https://www.instagram.com/foryoureternityjewellery/"
+    "https://www.instagram.com/foryoureternityjewellery/",
+    "https://uk.trustpilot.com/review/foryoureternity.com",
+    "https://find-and-update.company-information.service.gov.uk/company/16261484"
   ],
   "potentialAction": {
     "@type": "ReserveAction",
@@ -101,7 +124,8 @@
   "@type": "WebSite",
   "@id": "{{ shop.url }}/#website",
   "name": {{ shop.name | json }},
-  "url": "{{ shop.url }}",
+  "alternateName": ["For Your Eternity Jewellery", "foryoureternity.com"],
+  "url": "{{ site_url }}",
   "inLanguage": "en-GB",
   "publisher": { "@id": "{{ shop.url }}/#business" }
 }

@@ -3411,3 +3411,5 @@ land before index.json; `ship` handles that.
   <img> above its own ::after overlay. `.hero__img` is now position: static.
   Also: display headings `text-wrap: balance`; eyebrow one size up on the
   bottom-copy hero.
+- 26/09/2026: homepage scrim 30% (Ed's value), via `.hero--bottom .hero__media`
+  in fye-hero.liquid. Ring pages unchanged at 55%.

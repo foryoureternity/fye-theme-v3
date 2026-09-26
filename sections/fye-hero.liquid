@@ -297,6 +297,11 @@
    edge with dead photograph under it. Same device as the band-after-band
    reset in fye-core.css; the row supplies its own breathing room below. */
 .fye .hero--bottom:has(.hero__cats) { padding-block-end: 0; }
+/* 30%, not 55% (Ed, 26/09/2026, tuned by eye in the browser on the live
+   homepage). Keyed to the bottom-copy layout because only the homepage uses
+   it; the ring pages keep 55%. Below AA for the small ivory type on the
+   palest parts of the photograph: a lighter wash chosen deliberately. */
+.fye .hero--bottom .hero__media { --scrim: rgba(35, 61, 71, 0.30); }
 @media (max-width: 900px) { .fye .hero--bottom { min-height: 620px; } }
 @media (max-width: 560px) { .fye .hero--bottom { min-height: 600px; gap: var(--s7); } }
 

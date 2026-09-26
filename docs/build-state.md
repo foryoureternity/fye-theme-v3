@@ -3426,3 +3426,6 @@ land before index.json; `ship` handles that.
   center -> left, at Ed's request.
 - Brand check of the live homepage 26/09: title, meta, og:title, H1 hidden
   brand prefix, schema all still brand-first. Ship with `./tools/fye ship`.
+- 26/09/2026: `feature_columns2` monogram on desktop (>=901px) capped at
+  240px with --s5 (20px) top and bottom margin, Ed's spec. Liquid only:
+  `./tools/fye push`.

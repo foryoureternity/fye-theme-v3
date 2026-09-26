@@ -153,6 +153,13 @@
 @media (max-width: 900px) {
   .fye .fcols__col { grid-column: 1 / -1; }
 }
+
+/* 26/09/2026, Ed's spec: on desktop the monogram is capped at 240px with
+   20px (--s5) above and below. Only the homepage "Why choose" strip uses
+   this section, so the base rule is the right place. Mobile keeps 320px. */
+@media (min-width: 901px) {
+  .fye .fcols__media { max-width: 240px; margin-block: var(--s5); }
+}
 {% endstylesheet %}
 
 {% schema %}

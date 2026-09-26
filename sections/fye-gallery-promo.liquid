@@ -30,6 +30,14 @@
     assign ground = 'white'
   endunless
   assign secs = s.rotate_seconds | default: 5
+
+  comment
+    26/09/2026: `heading` is a richtext setting so a line break can be
+    placed, but richtext wraps its value in <p>, which put a <p> inside the
+    <h2> (invalid nesting). Strip the paragraph tags and keep the <br>.
+    `.gpromo__heading :where(p)` had margin 0, so nothing moves visually.
+  endcomment
+  assign heading_html = s.heading | remove: '<p>' | remove: '</p>'
   assign rotate = false
   if section.blocks.size > 1
     assign rotate = true
@@ -44,7 +52,7 @@
         <p class="eyebrow">{{ s.eyebrow }}</p>
       {%- endif -%}
       {%- if s.heading != blank -%}
-        <h2 class="gpromo__heading">{{ s.heading }}</h2>
+        <h2 class="gpromo__heading">{{ heading_html }}</h2>
       {%- endif -%}
       {%- if s.body != blank -%}
         <div class="gpromo__body">{{ s.body }}</div>

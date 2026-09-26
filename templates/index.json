@@ -185,7 +185,7 @@
       ],
       "settings": {
         "top_heading": "",
-        "text_align": "center",
+        "text_align": "left",
         "pad": "tight",
         "band": "teal"
       }
@@ -487,7 +487,7 @@
         "placeholder": "Bespoke design",
         "eyebrow": "Bespoke design",
         "heading": "Designed with you",
-        "body": "<p>Tell us what you have in mind. We'll source the perfect stone, refine the design, and craft your ring in London.</p><p><em>Every commission is guided personally by our founder — from first sketch to final polish.</em></p>",
+        "body": "<p>Tell us what you have in mind. We'll source the perfect stone, refine the design, and craft your ring in London.</p><p><em>Every commission is guided personally by our founder, from first sketch to final polish.</em></p>",
         "reverse": true,
         "full_bleed": true,
         "band": "sage"
@@ -532,7 +532,7 @@
       "settings": {
         "eyebrow": "From our workshop",
         "heading": "<p>Pieces we've<br/>already made</p>",
-        "body": "<p>Engagement rings, wedding pairs and pendants we've made for our clients — some chosen from our collections, some designed from scratch, most somewhere in between. Use the gallery to see what's possible, then tell us where you'd like to start.</p>",
+        "body": "<p>Engagement rings, wedding pairs and pendants we've made for our clients: some chosen from our collections, some designed from scratch, most somewhere in between. Use the gallery to see what's possible, then tell us where you'd like to start.</p>",
         "cta_label": "View the gallery",
         "cta_link": "shopify://pages/jewellery-gallery",
         "rotate_seconds": 5,
@@ -633,7 +633,7 @@
       ],
       "settings": {
         "heading": "Free expert guides",
-        "subtext": "<p>Six expert guides — read online or take the free PDF, whatever stage you're at.</p>",
+        "subtext": "<p>Six expert guides: read online or take the free PDF, whatever stage you're at.</p>",
         "button_label": "View guide",
         "background": "teal"
       }
@@ -685,7 +685,7 @@
         "band": "teal",
         "eyebrow": "Personal guidance",
         "heading": "Still unsure where to start?",
-        "lead": "Book a free consultation — in person, by phone or video.",
+        "lead": "Book a free consultation in person, by phone or by video.",
         "btn_label": "Contact us",
         "btn_link": "/pages/contact-us#popup-contact",
         "btn2_label": "",

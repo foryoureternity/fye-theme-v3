@@ -3413,3 +3413,16 @@ land before index.json; `ship` handles that.
   bottom-copy hero.
 - 26/09/2026: homepage scrim 30% (Ed's value), via `.hero--bottom .hero__media`
   in fye-hero.liquid. Ring pages unchanged at 55%.
+
+## 26/09/2026 — homepage tidy after Ed's hero changes
+
+- Em dashes removed from homepage copy (4 in `index.json`) and from the
+  sitewide groups: footer mission, the guide-download and enquiry popups in
+  `footer-group.json` (10), and the Diamonds mega-menu "Shop by Shape: All 25
+  Cuts" label in `header-group.json`.
+- `fye-gallery-promo`: richtext heading's <p> stripped so the <h2> holds no
+  paragraph (invalid nesting); margin was already 0, no visual change.
+- "Why choose For Your Eternity?" strip (`feature_columns2`) text_align
+  center -> left, at Ed's request.
+- Brand check of the live homepage 26/09: title, meta, og:title, H1 hidden
+  brand prefix, schema all still brand-first. Ship with `./tools/fye ship`.

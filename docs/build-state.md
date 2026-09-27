@@ -3604,3 +3604,7 @@ overrides it), so every product page shows the new layout to everyone.
 - **Loose stone delivery estimate** (Ed, same day): 2 to 3 weeks from the
   next working day, the same `unit: 'weeks'` mechanism as rings;
   fye-stone-product's `pdx_lead_min` / `pdx_lead_max` now mean weeks.
+- **Loose stone "Need it sooner?"** (Ed, same day): "Some stones we can obtain
+  much faster, potentially by the next working day. Enquire and we will see
+  what we can do." The link opens the enquiry popup with About: Faster
+  delivery. Rings keep the general line.

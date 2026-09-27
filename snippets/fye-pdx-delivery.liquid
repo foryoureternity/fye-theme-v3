@@ -19,7 +19,11 @@
   that Monday lands on a Monday. Without it, lead_min and lead_max are
   working days from today (loose stones).
 
-  Parameters: lead_min, lead_max, unit (optional), sub (the line beneath)
+  soon: 'stone' (Ed, 27/09/2026) swaps the "Need it sooner?" line for the
+  loose-stone version: some stones can be had much faster, potentially the
+  next working day, so enquire.
+
+  Parameters: lead_min, lead_max, unit (optional), soon (optional), sub
 {%- endcomment -%}
 {%- liquid
   assign unit_words = 'working days'
@@ -32,5 +36,9 @@
   {%- if sub != blank -%}
     <p class="pdx__delivsub">{{ sub }}</p>
   {%- endif -%}
-  <p class="pdx__delivsoon">Need it sooner? <a href="/pages/contact-us#popup-contact" data-fye-popup="pdx-enquire">Contact us here</a> and we may be able to accommodate you.</p>
+  {%- if soon == 'stone' -%}
+    <p class="pdx__delivsoon">Need it sooner? Some stones we can obtain much faster, potentially by the next working day. <a href="/pages/contact-us#popup-contact" data-fye-popup="pdx-enquire" data-pdx-enquire-topic="Faster delivery">Enquire</a> and we will see what we can do.</p>
+  {%- else -%}
+    <p class="pdx__delivsoon">Need it sooner? <a href="/pages/contact-us#popup-contact" data-fye-popup="pdx-enquire">Contact us here</a> and we may be able to accommodate you.</p>
+  {%- endif -%}
 </div>

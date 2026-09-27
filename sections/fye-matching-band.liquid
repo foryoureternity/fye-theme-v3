@@ -97,25 +97,6 @@
   if s.show_pair and handles.size == 1 and p.featured_image != blank
     assign pair_media = true
   endif
-
-  comment
-    ── THE PRIVATE PREVIEW VIEW (27/09/2026) ──
-    templates/product.pdx.json (?view=pdx) serves every product type from one
-    template, so it cannot carry the reversed wording that product.plain.json
-    and product.gemset.json set for a band's own page. In that view only, the
-    product's REAL template decides, which is the same per-template rule as
-    everywhere else, read one step removed. Remove with product.pdx.json.
-  endcomment
-  assign band_heading = s.heading
-  assign band_note = s.note
-  assign band_cta = s.cta_label
-  if template.suffix == 'pdx'
-    if p.template_suffix == 'plain' or p.template_suffix == 'gemset'
-      assign band_heading = 'The ring this band was made for'
-      assign band_note = 'This band is shaped to sit flush against it.'
-      assign band_cta = 'View the ring'
-    endif
-  endif
 -%}
 
 {%- if handles.size > 0 -%}
@@ -124,8 +105,8 @@
       {%- render 'sect-head',
             show: true,
             eyebrow: s.eyebrow,
-            heading: band_heading,
-            intro: band_note,
+            heading: s.heading,
+            intro: s.note,
             align: s.align,
             flank: s.flank -%}
 
@@ -197,7 +178,7 @@
                   {%- endif -%}
                 </span>
 
-                {%- if band_cta != blank -%}
+                {%- if s.cta_label != blank -%}
                   {%- comment -%}
                     Styled as a button but it is a span inside the card's own
                     anchor — a nested <a> would be invalid and would give
@@ -208,7 +189,7 @@
                     and finger size chosen, so its product page is the only
                     honest destination.
                   {%- endcomment -%}
-                  <span class="btn btn--outline mband__cta">{{ band_cta }}</span>
+                  <span class="btn btn--outline mband__cta">{{ s.cta_label }}</span>
                 {%- endif -%}
               </span>
             </a>

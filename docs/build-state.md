@@ -3564,3 +3564,18 @@ the three `template.suffix == 'pdx'` blocks (main-product, fye-stone-product,
 fye-matching-band). Tracked as W434.
 
 Ship: a template changed, so `./tools/fye ship "Private preview view for product redesign"`.
+
+### LIVE (27/09/2026)
+
+Ed: "I'm happy with the product pages. Put them all live." `pdx_mode`
+defaults to `"live"` in main-product and fye-stone-product (no template
+overrides it), so every product page shows the new layout to everyone.
+
+- **Way back:** theme editor, product page section, "Page layout" → Show the
+  new layout to: **No one**. The old markup is still in both sections behind
+  the `{% else %}`. Removing it (and the gate) is a later tidy, once the new
+  page has settled.
+- **The `?view=pdx` preview is retired** (W434): templates/product.pdx.json
+  deleted, and the three `template.suffix == 'pdx'` blocks removed
+  (main-product, fye-stone-product, fye-matching-band). fye-matching-band is
+  back to exactly its pre-preview file.

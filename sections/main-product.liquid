@@ -286,12 +286,12 @@
   endif
 
   comment
-    ── THE NEW LAYOUT, BEHIND A GATE (27/09/2026) ──
-    The CRO redesign renders from snippets/fye-pdx-ring.liquid, and only for
-    the people testing it: `pdx_mode` "preview" shows it to a signed-in
-    customer whose email is in `pdx_emails` or who carries the `pdp-preview`
-    tag, and in the theme editor. Everyone else gets the page below exactly
-    as it was. "live" shows it to everyone; "off" to no one.
+    ── THE NEW LAYOUT (built 27/09/2026, LIVE 27/09/2026) ──
+    The CRO redesign renders from snippets/fye-pdx-ring.liquid. `pdx_mode`
+    defaults to "live" (Ed, 27/09/2026: everyone). "off" brings back the
+    page below, which is kept intact as the way back until the new one has
+    proved itself; "preview" shows the new page only to a signed-in customer
+    in `pdx_emails` or tagged `pdp-preview`, and in the theme editor.
 
     Signed-in pages are never served from Shopify's shared page cache, so a
     tester's view cannot leak to a visitor. The same four lines sit in
@@ -311,26 +311,8 @@
       endif
     endif
   endif
-
-  comment
-    ── THE PRIVATE PREVIEW VIEW (27/09/2026) ──
-    Liquid cannot see a Shopify ADMIN login, only a customer one, so the gate
-    above cannot recognise Ed browsing as staff. templates/product.pdx.json is
-    the way round it: any product URL with ?view=pdx renders that template,
-    which sets pdx_mode "live" and so shows the new layout to whoever holds
-    the link, while the plain URL stays untouched. The view carries this
-    section AND fye-stone-product, so one link works on rings and stones;
-    each section stands aside for the other's products, decided by the
-    product's real template (diamond = a loose stone, as everywhere else).
-    Remove with product.pdx.json when the layout goes live.
-  endcomment
-  assign pdx_away = false
-  if template.suffix == 'pdx' and p.template_suffix == 'diamond'
-    assign pdx_away = true
-  endif
 -%}
-{%- if pdx_away -%}
-{%- elsif pdx -%}
+{%- if pdx -%}
   {%- render 'fye-pdx-ring',
     product: p,
     settings: s,
@@ -2600,10 +2582,10 @@
     }
 ,
 
-    { "type": "header", "content": "New page layout (preview)" },
+    { "type": "header", "content": "Page layout" },
     {
       "type": "paragraph",
-      "content": "The redesigned product page, 27/09/2026. While this is on Testers only, a signed-in customer whose email is listed below (or who is tagged pdp-preview) sees it, plus the theme editor. Everyone else sees the page as it was. Set Everyone to put it live."
+      "content": "The redesigned product page, live since 27/09/2026. Set No one to go back to the previous page. Testers only shows it to a signed-in customer listed below (or tagged pdp-preview) and in the theme editor."
     },
     {
       "type": "select",
@@ -2614,7 +2596,7 @@
         { "value": "live", "label": "Everyone" },
         { "value": "off", "label": "No one" }
       ],
-      "default": "preview"
+      "default": "live"
     },
     { "type": "text", "id": "pdx_emails", "label": "Tester emails", "default": "edward@foryoureternity.com", "info": "Comma separated. Customers tagged pdp-preview also see it." },
     { "type": "text", "id": "pdx_made_line", "label": "Eyebrow line", "default": "Handmade in the UK" },

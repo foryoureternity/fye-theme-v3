@@ -169,7 +169,7 @@
   assign spin = mf.video_url
 
   comment
-    ── THE NEW LAYOUT, BEHIND A GATE (27/09/2026) ──
+    ── THE NEW LAYOUT (built 27/09/2026, LIVE 27/09/2026: pdx_mode "live") ──
     Same four lines as main-product, duplicated rather than captured
     (conventions §4). "preview" shows snippets/fye-pdx-stone.liquid to a
     signed-in tester (email in pdx_emails, or tagged pdp-preview) and in the
@@ -189,20 +189,8 @@
       endif
     endif
   endif
-
-  comment
-    ── THE PRIVATE PREVIEW VIEW (27/09/2026) ──
-    templates/product.pdx.json (?view=pdx) carries this section and
-    main-product, so one link previews rings and stones; this one stands
-    aside for anything not on the diamond template. Full note in main-product.
-  endcomment
-  assign pdx_away = false
-  if template.suffix == 'pdx' and p.template_suffix != 'diamond'
-    assign pdx_away = true
-  endif
 -%}
-{%- if pdx_away -%}
-{%- elsif pdx -%}
+{%- if pdx -%}
   {%- render 'fye-pdx-stone', product: p, settings: s -%}
 {%- else -%}
 
@@ -823,10 +811,10 @@
       "default": "Every stone is supplied with its certificate. Free insured UK delivery."
     },
 
-    { "type": "header", "content": "New page layout (preview)" },
+    { "type": "header", "content": "Page layout" },
     {
       "type": "paragraph",
-      "content": "The redesigned stone page, 27/09/2026. While this is on Preview, only a signed-in customer whose email is listed below (or who is tagged pdp-preview) sees it, plus the theme editor. Everyone else sees the page above. Set Live to show it to everyone."
+      "content": "The redesigned stone page, live since 27/09/2026. Set No one to go back to the previous page. Testers only shows it to a signed-in customer listed below (or tagged pdp-preview) and in the theme editor."
     },
     {
       "type": "select",
@@ -837,7 +825,7 @@
         { "value": "live", "label": "Everyone" },
         { "value": "off", "label": "No one" }
       ],
-      "default": "preview"
+      "default": "live"
     },
     { "type": "text", "id": "pdx_emails", "label": "Tester emails", "default": "edward@foryoureternity.com", "info": "Comma separated. Customers tagged pdp-preview also see it." },
     { "type": "number", "id": "pdx_lead_min", "label": "Delivery, fewest working days", "default": 3 },

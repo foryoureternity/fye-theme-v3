@@ -3474,10 +3474,13 @@ cannot leak.
 
 ### Deliberate departures from the handoff, and why
 
-- **Centre "Choose a diamond" and sides "Choose a pair" / F/G VS open
-  preselected**, as the screens show. This reverses the 31/08 "nothing
-  selected" rule for the new layout only; the add button still reads
-  "Choose centre diamond" until a stone is picked.
+- **Nothing is preselected on the centre or side choosers** (Ed, 27/09/2026,
+  reversing the first build, which opened on "Choose a diamond" and "Choose a
+  pair" / F/G VS as the screens show). Choosing "Choose a diamond" opens the
+  picker at once, unless a stone is already chosen.
+- **The gallery is sticky on desktop** (Ed, 27/09/2026, "as they used to"),
+  so the reassurance tiles moved from under it to the right-hand column,
+  between the two halves of the buy box, the order the phone already had.
 - **Eternity and wedding bands say "Diamond quality"**, not "Shoulder
   diamonds": an eternity ring has no shoulders.
 - **The picker keeps its Filters disclosure** (carat, budget, colour,

@@ -1224,9 +1224,9 @@ a.visually-hidden:focus-visible {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   grid-template-areas:
     "gallery buya"
-    "assure  buya"
-    ".       buyb";
-  grid-template-rows: auto 1fr auto;
+    "gallery assure"
+    "gallery buyb";
+  grid-template-rows: auto auto 1fr;
   column-gap: var(--s10);
   row-gap: var(--s6);
   align-items: start;
@@ -1662,6 +1662,27 @@ a.visually-hidden:focus-visible {
    to choose (the old page does the same; left alone behind the gate). The
    doubled attribute lifts this above any two-class rule without !important. */
 .fye .pdx [hidden][hidden] { display: none; }
+
+/* ---- sticky gallery (Ed, 27/09/2026: "as they used to") -----------------
+   The same rule the old page has (main-product and fye-stone-product, Ed
+   01/09/2026): the photographs stay on screen while the buy box scrolls,
+   and stop at the foot of .pdx__top because a sticky element cannot leave
+   its grid area. That is why the gallery's area now spans all three rows
+   and the reassurance tiles moved into the right-hand column, between the
+   two halves of the buy box: under a sticky gallery they would have been
+   ridden over. The phone order (gallery, buy box, tiles, the rest) was
+   already this, so desktop now matches it.
+
+   The width cap keeps the whole gallery, thumbnails included, inside the
+   window while it is stuck; the stage is square, so capping width caps
+   height. Needs .pdx__top's `align-items: start`. Desktop only. */
+@media (min-width: 901px) {
+  .fye .pdx__gallery {
+    position: sticky;
+    top: var(--s5);
+    max-width: calc(100vh - 180px);
+  }
+}
 
 /* ---- breakpoints: 900, 560. Media queries last. ------------------------- */
 @media (max-width: 900px) {

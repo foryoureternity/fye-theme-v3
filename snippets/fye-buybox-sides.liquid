@@ -66,9 +66,9 @@
 
   ── layout: 'pdx' (27/09/2026, the CRO redesign) ──────────────────────
 
-  Passed only by fye-pdx-ring, behind the preview gate. "Choose a pair"
-  opens preselected with F/G VS chosen, as the handoff screens show (and as
-  live did); the chips become priced tiles and the heading carries the mode.
+  Passed only by fye-pdx-ring, behind the preview gate. Nothing is chosen on
+  arrival, neither the mode nor a quality (Ed, 27/09/2026, overriding the
+  handoff screens, which opened on "Choose a pair" with F/G VS); the chips become priced tiles and the heading carries the mode.
   Hooks and cart lines are unchanged. Without it, this file is as before.
 
   Parameters: product, settings (the section's), layout (optional)
@@ -118,13 +118,12 @@
 -%}
 
 <div class="pdp__choose{% if pdx %} pdx__choose{% endif %}"
-     data-fye-sides{% if pdx %}
-     data-mode="required"{% endif %}
+     data-fye-sides
      data-fee-variant="{{ s.sides_fee_variant_id }}"
      data-fee-price="{{ s.sides_fee_price_pennies | default: 0 }}">
 
   {%- if pdx -%}
-    <p class="pdx__label">{{ s.sides_heading | default: 'Side diamonds' }} <span class="pdx__labelval" data-pdx-mode-now>{{ s.sides_required_label | default: 'Choose a pair' }}</span></p>
+    <p class="pdx__label">{{ s.sides_heading | default: 'Side diamonds' }} <span class="pdx__labelval" data-pdx-mode-now>Choose one</span></p>
     <p class="pdx__help">A matched pair of {{ cut }} diamonds, {{ pair_ct }}ct combined, one either side of the centre stone.</p>
   {%- else -%}
     <p class="pdp__label">{{ s.sides_heading | default: 'Side diamonds' }}</p>
@@ -135,9 +134,9 @@
 
   <div class="pdp__modes" role="radiogroup" aria-label="{{ s.sides_heading | default: 'Side diamonds' | escape }}">
     <button type="button"
-            class="pdp__mode{% if pdx %} is-on{% endif %}"
+            class="pdp__mode"
             role="radio"
-            aria-checked="{% if pdx %}true{% else %}false{% endif %}"
+            aria-checked="false"
             data-fye-sides-mode="required">
       <span class="pdp__radio" aria-hidden="true"></span>
       <span class="pdp__modetitle">{{ s.sides_required_label | default: 'Choose a pair' }}</span>
@@ -173,7 +172,7 @@
   <input type="hidden" name="properties[Side Diamonds]" value="" data-fye-sides-prop disabled>
 
   {%- comment -%} ---- Mode: choose a pair ---- {%- endcomment -%}
-  <div class="pdp__modebody" data-fye-sides-body="required"{% unless pdx %} hidden{% endunless %}>
+  <div class="pdp__modebody" data-fye-sides-body="required" hidden>
     {%- if pdx -%}
       <p class="pdp__choosenote">Choose the quality of your pair. Priced per pair, supplied and set with your ring.</p>
     {%- else -%}
@@ -201,16 +200,10 @@
           endfor
         -%}
         {%- if found != nil and found.available -%}
-          {%- liquid
-            assign chip_on = false
-            if pdx and quality == 'F/G VS'
-              assign chip_on = true
-            endif
-          -%}
           <button type="button"
-                  class="pdp__chip{% if chip_on %} is-on{% endif %}"
+                  class="pdp__chip"
                   role="radio"
-                  aria-checked="{{ chip_on }}"
+                  aria-checked="false"
                   data-fye-side-qual="{{ quality | escape }}"
                   data-fye-side-variant="{{ found.id }}"
                   data-fye-side-price="{{ found.price }}"

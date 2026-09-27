@@ -101,9 +101,10 @@
   ── layout: 'pdx' (27/09/2026, the CRO redesign) ──────────────────────
 
   Passed only by fye-pdx-ring, behind the preview gate. It changes the
-  dress, never the hooks: "Choose a diamond" opens PRESELECTED (the handoff
-  screens show it so, with the mist panel open), the heading carries the
-  chosen mode, the suitability line is the shorter "Suits a round centre
+  dress, never the hooks: no mode is chosen on arrival (Ed, 27/09/2026,
+  overriding the handoff screens, which opened on "Choose a diamond"), and
+  choosing "Choose a diamond" opens the picker straight away (fye-ui.js); the
+  heading carries the chosen mode, the suitability line is the shorter "Suits a round centre
   diamond, 0.8–1.3ct.", "We'll help you choose" opens the product enquiry
   popup, and the picker gains a footer line with the ring total. Without
   the parameter this file renders exactly as before.
@@ -255,8 +256,7 @@
 -%}
 
 <div class="pdp__choose{% if pdx %} pdx__choose{% endif %}"
-     data-fye-centre{% if pdx %}
-     data-mode="required"{% endif %}
+     data-fye-centre
      data-shape="{{ shapes | escape }}"
      data-shape-filter="{{ shape_filter }}"
      data-carat-min="{{ ct_min }}"
@@ -267,7 +267,7 @@
      data-fee-price="{{ s.centre_fee_price_pennies | default: 0 }}">
 
   {%- if pdx -%}
-    <p class="pdx__label">{{ s.centre_heading | default: 'Centre diamond' }} <span class="pdx__labelval" data-pdx-mode-now>{{ s.centre_required_label | default: 'Choose a diamond' }}</span></p>
+    <p class="pdx__label">{{ s.centre_heading | default: 'Centre diamond' }} <span class="pdx__labelval" data-pdx-mode-now>Choose one</span></p>
     <p class="pdx__help">{{ suitability }}</p>
   {%- else -%}
     <p class="pdp__label">{{ s.centre_heading | default: 'Centre diamond' }}</p>
@@ -276,9 +276,9 @@
 
   <div class="pdp__modes" role="radiogroup" aria-label="{{ s.centre_heading | default: 'Centre diamond' | escape }}">
     <button type="button"
-            class="pdp__mode{% if pdx %} is-on{% endif %}"
+            class="pdp__mode"
             role="radio"
-            aria-checked="{% if pdx %}true{% else %}false{% endif %}"
+            aria-checked="false"
             data-fye-centre-mode="required">
       <span class="pdp__radio" aria-hidden="true"></span>
       <span class="pdp__modetitle">{{ s.centre_required_label | default: 'Choose a diamond' }}</span>
@@ -322,7 +322,7 @@
     Hidden on load like the other two: no mode is selected until the shopper
     picks one.
   {%- endcomment -%}
-  <div class="pdp__modebody" data-fye-centre-body="required"{% unless pdx %} hidden{% endunless %}>
+  <div class="pdp__modebody" data-fye-centre-body="required" hidden>
     <p class="pdp__choosenote">
       Add a certified {{ stone_words }} diamond to complete this ring.
       {{ ct_min }}–{{ ct_max }}ct suits this setting.

@@ -1372,9 +1372,17 @@
       var kind = isCentre ? 'centre' : 'sides';
       var panel = tile.closest('[data-fye-' + kind + ']');
       if (panel) {
-        setMode(panel, kind, tile.getAttribute('data-fye-' + kind + '-mode'));
+        var newMode = tile.getAttribute('data-fye-' + kind + '-mode');
+        setMode(panel, kind, newMode);
         if (isCentre) paintStone(panel);
         renderForm(panel);
+        /* Redesigned page only (Ed, 27/09/2026): choosing "Choose a diamond"
+           IS asking to see the diamonds, so the picker opens at once rather
+           than waiting for a second press. Not when a stone is already
+           chosen: coming back to this mode should find it, not a modal. */
+        if (isCentre && newMode === 'required' && !stoneOf(panel) && panel.closest('.pdx')) {
+          openPicker(panel);
+        }
       }
       return;
     }
@@ -1836,9 +1844,9 @@
     document.querySelectorAll('form [data-fye-variants]').forEach(function (island) {
       var form = island.closest('form');
       if (!form) return;
-      /* The redesigned page opens with "Choose a diamond" already chosen, so
-         the stone count and the picker button need the feed straight away,
-         exactly as if the tile had been tapped. */
+      /* Only reached if a page opens with "Choose a diamond" already chosen
+         (none does since 27/09/2026): the stone count and the picker button
+         then need the feed straight away, as if the tile had been tapped. */
       var centre = centreOf(form);
       if (centre && modeOf(centre) === 'required') ensureStones(centre);
       render(form);

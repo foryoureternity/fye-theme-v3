@@ -3596,3 +3596,8 @@ overrides it), so every product page shows the new layout to everyone.
   sourced for the order. A `pdx_acc_delivery` value set in the theme editor
   replaces the default entirely.
   ("defect", not "issue": Ed, same day.)
+- **Ring delivery estimate** (Ed, same day): 3 to 4 WEEKS from the next
+  working day, not 10 to 14 working days. `pdx_lead_min` / `pdx_lead_max` in
+  main-product now mean weeks (IDs unchanged; no template had set them), and
+  fye-pdx-delivery takes `unit: 'weeks'`. Loose stones keep 3 to 5 working
+  days.

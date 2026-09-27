@@ -14,10 +14,21 @@
   "Need it sooner?" opens the product enquiry popup, falling back to the
   Contact us popup's page when that popup is absent.
 
-  Parameters: lead_min, lead_max (working days), sub (the line beneath)
+  unit: 'weeks' (rings, Ed 27/09/2026) counts WEEKS from the next working
+  day: an order on a Friday evening starts on Monday, and 3 to 4 weeks from
+  that Monday lands on a Monday. Without it, lead_min and lead_max are
+  working days from today (loose stones).
+
+  Parameters: lead_min, lead_max, unit (optional), sub (the line beneath)
 {%- endcomment -%}
-<div class="pdx__deliv" data-pdx-delivery data-min="{{ lead_min }}" data-max="{{ lead_max }}">
-  <p class="pdx__delivwhen">Estimated delivery: <strong data-pdx-delivery-dates>{{ lead_min }}–{{ lead_max }} working days</strong></p>
+{%- liquid
+  assign unit_words = 'working days'
+  if unit == 'weeks'
+    assign unit_words = 'weeks'
+  endif
+-%}
+<div class="pdx__deliv" data-pdx-delivery data-min="{{ lead_min }}" data-max="{{ lead_max }}"{% if unit == 'weeks' %} data-unit="weeks"{% endif %}>
+  <p class="pdx__delivwhen">Estimated delivery: <strong data-pdx-delivery-dates>{{ lead_min }}–{{ lead_max }} {{ unit_words }}</strong></p>
   {%- if sub != blank -%}
     <p class="pdx__delivsub">{{ sub }}</p>
   {%- endif -%}

@@ -344,8 +344,11 @@
   comment
     ── Lead time, words for the page ──
   endcomment
-  assign lead_min = s.pdx_lead_min | default: 10
-  assign lead_max = s.pdx_lead_max | default: 14
+  comment
+    WEEKS, counted from the next working day (Ed, 27/09/2026): 3 to 4.
+  endcomment
+  assign lead_min = s.pdx_lead_min | default: 3
+  assign lead_max = s.pdx_lead_max | default: 4
 
   comment
     ── Plain ring siblings for "Other versions" ──
@@ -973,7 +976,7 @@
             assign deliv_sub = 'Free insured UK delivery · Free first resize within 12 months'
           endif
         -%}
-        {%- render 'fye-pdx-delivery', lead_min: lead_min, lead_max: lead_max, sub: deliv_sub -%}
+        {%- render 'fye-pdx-delivery', lead_min: lead_min, lead_max: lead_max, unit: 'weeks', sub: deliv_sub -%}
         </div>
       {%- endform -%}
 

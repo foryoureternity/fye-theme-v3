@@ -4185,8 +4185,16 @@
       var out = block.querySelector('[data-pdx-delivery-dates]');
       if (!out || !(lo > 0) || !(hi >= lo)) return;
       var now = new Date();
-      var a = addWorkingDays(now, lo);
-      var b = addWorkingDays(now, hi);
+      var a, b;
+      if (block.getAttribute('data-unit') === 'weeks') {
+        /* Rings (Ed, 27/09/2026): whole weeks from the next working day. */
+        var start = addWorkingDays(now, 1);
+        a = new Date(start.getTime()); a.setDate(a.getDate() + lo * 7);
+        b = new Date(start.getTime()); b.setDate(b.getDate() + hi * 7);
+      } else {
+        a = addWorkingDays(now, lo);
+        b = addWorkingDays(now, hi);
+      }
       var month = function (d) { return d.toLocaleDateString('en-GB', { month: 'long' }); };
       out.textContent = month(a) === month(b)
         ? a.getDate() + '–' + b.getDate() + ' ' + month(b)

@@ -265,6 +265,11 @@
 .fye .band--tight    { --sect-y: var(--sect-y-tight); }
 .fye .band--flush-top    { padding-block-start: 0; }
 .fye .band--flush-bottom { padding-block-end: 0; }
+/* A page's opening band that starts with a breadcrumb (the product and stone
+   pages). The full --sect-y above a one-line crumb read as a hole under the
+   menu bar (Ed, 27/09/2026), so the top is one step of the spacing scale.
+   The bottom keeps the section rhythm. */
+.fye .band--lead         { padding-block-start: var(--s6); }
 .fye .band--bleed    { padding-inline: 0; }
 
 /* Consecutive same-colour bands collapse their shared padding, so two ivory
@@ -1628,6 +1633,35 @@ a.visually-hidden:focus-visible {
 
 /* ---- the product enquiry popup: a narrower .pop ------------------------- */
 .fye .pdx-enq { width: min(620px, calc(100vw - (2 * var(--pad-x)))); }
+/* The offer claim: the shopper's statement, set large on the mist panel
+   the offer box itself uses, with a teal rule so it reads as a declaration
+   rather than a hint. Full ink throughout (ink-soft is at the AA limit on
+   mist). */
+/* The popup's close button sits over the top-right corner, so a long
+   heading ("Claim your 10% offer" on a phone) must stop short of it. */
+.fye .pdx-enq .pop__title { padding-inline-end: var(--s8); }
+.fye .pdx-enq__claim {
+  margin: 0 0 var(--s5);
+  padding: var(--s5);
+  background: var(--mist);
+  border-inline-start: 3px solid var(--teal);
+}
+.fye .pdx-enq__claim p { margin: 0; }
+.fye .pdx-enq__claimkicker {
+  font-size: var(--fs-pdx-meta);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.fye .pdx-enq__claimline {
+  margin-top: var(--s2);
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  line-height: 1.4;
+  color: var(--teal);
+}
+.fye .pdx .pdx-enq__claimfield { margin: var(--s4) 0 0; }
+.fye .pdx-enq__opt { font-weight: var(--fw-regular); text-transform: none; letter-spacing: 0; }
 .fye .pdx-enq__strip {
   display: flex;
   align-items: center;

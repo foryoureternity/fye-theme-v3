@@ -4247,6 +4247,20 @@
     root.querySelectorAll('[data-pdx-enq-sel]').forEach(function (el) { el.textContent = words; });
     root.querySelectorAll('[data-pdx-enq-selection]').forEach(function (el) { el.value = words; });
     var topic = trigger && trigger.getAttribute('data-pdx-enquire-topic');
+
+    /* The offer claim (Ed, 27/09/2026): opened from "Claim your offer", the
+       popup retitles itself and states the claim in the shopper's voice, and
+       the "About" line in the email carries that same sentence. Opened from
+       anywhere else it is the plain enquiry again, with the claim hidden and
+       its order field emptied so a stale value cannot ride along. */
+    var claim = trigger && trigger.getAttribute('data-pdx-claim');
+    root.querySelectorAll('[data-pdx-enq-claim]').forEach(function (el) { el.hidden = !claim; });
+    root.querySelectorAll('[data-pdx-enq-claim-line]').forEach(function (el) { el.textContent = claim ? '\u201C' + claim + '\u201D' : ''; });
+    if (!claim) root.querySelectorAll('[data-pdx-enq-order]').forEach(function (el) { el.value = ''; });
+    root.querySelectorAll('[data-pdx-enq-heading]').forEach(function (el) {
+      el.textContent = claim ? (trigger.getAttribute('data-pdx-claim-title') || 'Claim your offer') : el.getAttribute('data-default');
+    });
+    if (claim) topic = 'Offer claim. ' + claim;
     root.querySelectorAll('[data-pdx-enq-topic]').forEach(function (el) { el.value = topic || ''; });
   }
 

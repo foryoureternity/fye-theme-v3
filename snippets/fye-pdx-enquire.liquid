@@ -54,7 +54,7 @@
             <button class="btn btn--outline" type="button" data-fye-popup-close>Close</button>
           </div>
         {%- else -%}
-          <p class="pop__title" role="heading" aria-level="2">Enquire about this {{ noun }}</p>
+          <p class="pop__title" role="heading" aria-level="2" data-pdx-enq-heading data-default="Enquire about this {{ noun }}">Enquire about this {{ noun }}</p>
           <div class="pop__intro"><p>A jeweller will reply personally, usually within one working day.</p></div>
 
           {%- if form.errors -%}
@@ -62,6 +62,22 @@
               <p>{{ form.errors | default_errors }}</p>
             </div>
           {%- endif -%}
+
+          {%- comment -%}
+            The offer claim (Ed, 27/09/2026). Shown only when the popup is
+            opened from "Claim your offer": fye-ui.js writes the shopper's
+            statement here from the button's data-pdx-claim, and the same
+            sentence travels in the email as the "About" line. The order
+            field is optional; an empty field is left out of the email.
+          {%- endcomment -%}
+          <div class="pdx-enq__claim" data-pdx-enq-claim hidden>
+            <p class="pdx-enq__claimkicker">Your claim</p>
+            <p class="pdx-enq__claimline" data-pdx-enq-claim-line></p>
+            <div class="pop__field pdx-enq__claimfield">
+              <label for="pdx-enq-order">Name or order number your engagement ring was bought under <span class="pdx-enq__opt">(optional)</span></label>
+              <input id="pdx-enq-order" type="text" data-fye-popup-line="Engagement ring bought under" data-pdx-enq-order>
+            </div>
+          </div>
 
           <div class="pdx-enq__strip">
             {%- if p.featured_image != blank -%}

@@ -368,7 +368,7 @@
   assign metal_slug = metal_now | handle
 -%}
 
-<section class="band band--white pdx pdx--ring" data-screen-label="Product" data-fye-pdx
+<section class="band band--white band--lead pdx pdx--ring" data-screen-label="Product" data-fye-pdx
          data-noun="{{ s.pdx_noun | default: 'ring' }}"
          data-offer-pct="{{ s.pdx_offer_pct | default: 10 }}">
   <div class="wrap">
@@ -1014,7 +1014,7 @@
 
           <details class="pdx__acc">
             <summary class="pdx__accsum">Delivery &amp; returns</summary>
-            <div class="pdx__accbody">{{ s.pdx_acc_delivery | default: '<p>Each ring is handmade to order in the UK and delivered free, fully insured.</p>' }}</div>
+            <div class="pdx__accbody">{{ s.pdx_acc_delivery | default: '<p>Each ring is handmade to order in the UK and delivered free, fully insured.</p><p>As every ring is made to order, and its diamonds and other stones are sourced individually for that piece, returns are not offered, except in the case of a manufacturing issue.</p>' }}</div>
           </details>
 
           <details class="pdx__acc">

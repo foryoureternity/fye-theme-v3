@@ -3579,3 +3579,19 @@ overrides it), so every product page shows the new layout to everyone.
   deleted, and the three `template.suffix == 'pdx'` blocks removed
   (main-product, fye-stone-product, fye-matching-band). fye-matching-band is
   back to exactly its pre-preview file.
+- **Gap under the menu bar** (Ed, same day): both pages' opening band carries
+  a new core modifier, `.band--lead`, whose top padding is `--s6` (24px)
+  instead of `--sect-y` (80px desktop). The old pages are untouched.
+- **"Claim your offer" popup** (Ed, same day): opened from that button, the
+  enquiry popup is retitled "Claim your 10% offer" and shows, on a mist
+  panel, "I bought my engagement ring from For Your Eternity and I would like
+  to claim my 10% off this ring." That sentence is also the email's "About"
+  line, and an optional field asks for the name or order number the
+  engagement ring was bought under. Opened from anywhere else, the popup is
+  the plain enquiry. The figure follows `pdx_offer_pct`.
+- **Returns wording** (Ed, same day), in the "Delivery & returns" accordion
+  defaults: rings, "As every ring is made to order, and its diamonds and other
+  stones are sourced individually for that piece, returns are not offered,
+  except in the case of a manufacturing issue."; stones, the same for a stone
+  sourced for the order. A `pdx_acc_delivery` value set in the theme editor
+  replaces the default entirely.

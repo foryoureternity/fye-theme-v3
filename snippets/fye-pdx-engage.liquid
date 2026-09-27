@@ -111,6 +111,12 @@
     assign offer_line = 'You may qualify for ' | append: pct | append: '% off ' | append: ring_words | append: '.'
     assign offer_cta = 'Claim your offer'
     assign offer_link = s.pdx_offer_link
+    comment
+      The popup states the claim in the shopper's own voice, so the enquiry
+      reads as a claim rather than a question (Ed, 27/09/2026).
+    endcomment
+    assign claim_title = 'Claim your ' | append: pct | append: '% offer'
+    assign claim_line = 'I bought my engagement ring from For Your Eternity and I would like to claim my ' | append: pct | append: '% off ' | append: ring_words | append: '.'
   endif
 -%}
 
@@ -185,7 +191,8 @@
     {%- if offer_link != blank -%}
       <a class="pdx__caps" href="{{ offer_link }}">{{ offer_cta }}</a>
     {%- else -%}
-      <a class="pdx__caps" href="/pages/contact-us#popup-contact" data-fye-popup="pdx-enquire" data-pdx-enquire-topic="{{ offer_title | escape }}">{{ offer_cta }}</a>
+      <a class="pdx__caps" href="/pages/contact-us#popup-contact" data-fye-popup="pdx-enquire" data-pdx-enquire-topic="{{ offer_title | escape }}"
+         {%- if claim_line != blank %} data-pdx-claim="{{ claim_line | escape }}" data-pdx-claim-title="{{ claim_title | escape }}"{% endif %}>{{ offer_cta }}</a>
     {%- endif -%}
   </div>
 {%- endif -%}

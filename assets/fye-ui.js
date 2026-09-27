@@ -2564,8 +2564,30 @@
     if (!item || !item.handle) return;
 
     item.id = identify(item);
-    if (store.has(item.id)) store.remove(item.id);
-    else store.add(item);
+    if (store.has(item.id)) {
+      store.remove(item.id);
+    } else {
+      store.add(item);
+      /* W442: counted as a shop event; see ENGAGEMENT TRACKING below. */
+      if (window.FYE && window.FYE.track) {
+        var wf = null;
+        if (ctx === 'form') {
+          wf = btn.closest('form');
+          if (!wf) {
+            var isl = document.querySelector('form [data-fye-variants]');
+            wf = isl ? isl.closest('form') : null;
+          }
+        }
+        var priced = wf && wf.__pdxPriced;
+        window.FYE.track('fye_wishlist_add', {
+          handle: item.handle,
+          variant_id: item.variant,
+          title: item.title,
+          price: priced && priced.total ? (priced.total / 100).toFixed(2) : '',
+          context: ctx === 'form' ? 'product page' : 'product card'
+        });
+      }
+    }
     paintAll();
   });
 
@@ -3910,12 +3932,16 @@
 (function () {
   'use strict';
 
+  /* A link only counts as contacting US when it names a recipient. The
+     product page's share panel (W442) uses mailto:?, sms:? and wa.me/?text=
+     with no recipient, to send the ring to a friend; those are shares, counted
+     as fye_share, and must not inflate contact taps. */
   function channelOf(href) {
     var h = (href || '').toLowerCase();
     if (h.indexOf('tel:') === 0) return 'call';
-    if (h.indexOf('sms:') === 0) return 'sms';
-    if (h.indexOf('mailto:') === 0) return 'email';
-    if (/^https?:\/\/(wa\.me|api\.whatsapp\.com|web\.whatsapp\.com)\//.test(h)) return 'whatsapp';
+    if (/^sms:\+?\d/.test(h)) return 'sms';
+    if (/^mailto:[^?]/.test(h)) return 'email';
+    if (/^https?:\/\/wa\.me\/\+?\d/.test(h) || /^https?:\/\/(api|web)\.whatsapp\.com\/send\/?\?(.*&)?phone=\+?\d/.test(h)) return 'whatsapp';
     if (/^https?:\/\/calendar\.app\.google\//.test(h) || /^https?:\/\/calendar\.google\.com\/calendar\/appointments/.test(h)) return 'book_consultation';
     return null;
   }
@@ -3935,7 +3961,7 @@
   document.addEventListener('click', function (e) {
     if (!e.target || !e.target.closest) return;
     var a = e.target.closest('a[href]');
-    if (!a) return;
+    if (!a || a.closest('[data-pdx-share-panel]')) return;
     var channel = channelOf(a.getAttribute('href'));
     if (!channel) return;
 
@@ -4443,4 +4469,67 @@
     boot();
   }
   document.addEventListener('shopify:section:load', boot);
+})();
+
+
+/* ============================================================================
+   ENGAGEMENT TRACKING: 27/09/2026 (W442)
+   ----------------------------------------------------------------------------
+   The same route as CONTACT CLICK TRACKING above: the theme publishes Shopify
+   customer events and sends nothing to Google or Meta itself. The "FYE
+   enquiry tracking" custom pixel (v5) subscribes and forwards them, so consent
+   is handled in one place.
+
+     fye_wishlist_add   a heart that SAVES (not one that removes), with the
+                        handle, variant, title and, on a product page, the
+                        configured total in pounds; published from the
+                        wishlist block above
+     fye_share          a share-panel link: email, whatsapp, sms, facebook,
+                        pinterest, copy
+     fye_offer_claim    "Claim your offer" opening the enquiry popup
+
+   Add to bag is deliberately not here: Shopify's own standard event
+   (product_added_to_cart) already reaches GA4 through the Google & YouTube
+   app, and a second event would double count it.
+
+   publish() is a no-op without the pixel or without consent; nothing on the
+   page depends on it.
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  window.FYE = window.FYE || {};
+  window.FYE.track = function (name, data) {
+    try {
+      var an = window.Shopify && window.Shopify.analytics;
+      if (an && typeof an.publish === 'function') {
+        data = data || {};
+        data.page_path = window.location.pathname;
+        an.publish(name, data);
+      }
+    } catch (err) {}
+  };
+
+  function productOf(el) {
+    var root = el.closest('[data-fye-pdx]') || document;
+    var form = root.querySelector('form [data-fye-variants]');
+    form = form ? form.closest('form') : null;
+    var title = root.querySelector('[data-fye-product-title]');
+    return {
+      handle: (window.location.pathname.split('/products/')[1] || '').split('/')[0],
+      title: title ? title.textContent.trim() : ''
+    };
+  }
+
+  document.addEventListener('click', function (e) {
+    if (!e.target || !e.target.closest) return;
+    var el = e.target.closest('[data-pdx-share-to], [data-pdx-claim]');
+    if (!el) return;
+    var p = productOf(el);
+    if (el.hasAttribute('data-pdx-share-to')) {
+      window.FYE.track('fye_share', { method: el.getAttribute('data-pdx-share-to'), handle: p.handle, title: p.title });
+    } else {
+      window.FYE.track('fye_offer_claim', { offer: el.getAttribute('data-pdx-claim-title') || 'offer', handle: p.handle, title: p.title });
+    }
+  }, true);
 })();

@@ -3608,3 +3608,27 @@ overrides it), so every product page shows the new layout to everyone.
   much faster, potentially by the next working day. Enquire and we will see
   what we can do." The link opens the enquiry popup with About: Faster
   delivery. Rings keep the general line.
+
+## 27/09/2026: tracking the redesigned product pages (W442)
+
+- `assets/fye-ui.js` publishes three more Shopify customer events, the same
+  route as W420's `fye_contact_click` (the theme sends nothing to Google or
+  Meta): `fye_wishlist_add` (a heart that saves; handle, variant, title,
+  configured total on a product page), `fye_share` (method: email, whatsapp,
+  sms, facebook, pinterest, copy) and `fye_offer_claim`. `window.FYE.track`
+  is the helper.
+- The product enquiry popup's hidden "About" field now has
+  `id="pdx-enq-topic"`, which the pixel reads to tell an offer claim and a
+  faster-delivery enquiry from a plain product enquiry.
+- Pixel v5 (FYE_enquiry_tracking_pixel_v5.js in the project folder; Ed pastes
+  it over v4 in Settings > Customer events): names `pop-form-pdx-enquire`
+  ("Product enquiry", "Offer claim" or "Faster delivery enquiry") so it gets
+  enhanced-conversion data; forwards the three events to GA4 (add_to_wishlist,
+  share, offer_claim_start) and Meta (AddToWishlist, Share, OfferClaimStart).
+- Add to bag is left to the Google & YouTube app's standard add_to_cart.
+- Renaming `pop-form-pdx-enquire` or `pdx-enq-topic` breaks the pixel
+  silently. Change both together.
+- W420's contact-tap tracker now counts a link only when it names a
+  recipient (tel:, sms:<number>, mailto:<address>, wa.me/<number> or
+  whatsapp.com/send?phone=), and ignores the share panel. Before this, a
+  WhatsApp share of a ring would have been counted as a WhatsApp contact.

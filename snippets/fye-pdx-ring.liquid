@@ -35,6 +35,9 @@
       product title.
     · SKU and Categories leave the top; SKU moves into Ring details.
     · Size is never preselected: plain rings used to open on size A.
+    · Every ring but a plain band opens on 18ct gold (Ed, 27/09/2026),
+      cheapest natural grade within 18ct; W831 alone picked the cheapest
+      natural variant in any metal, which was usually palladium.
     · The Diamond Quality select becomes priced chips ("Shoulder diamonds").
     · Nothing is preselected on the centre or side choosers: Ed's 31/08
       "nothing selected" rule, restated 27/09/2026 over the handoff screens
@@ -180,6 +183,40 @@
       assign quality_idx = forloop.index0
     endif
   endfor
+
+  comment
+    ── Open on 18ct gold (Ed, 27/09/2026) ──
+    Every ring except a plain wedding band opens on 18ct gold, at the
+    cheapest NATURAL grade in 18ct: main-product's W831 rule, applied within
+    that one metal. The gold colour is the first of the gold swatches
+    (Yellow), as before. Left alone when ?variant= chose the ring (shared
+    links, back from the bag), and when no 18ct variant is for sale, which
+    falls back to W831's pick. Matches "18k Gold" and "18ct Gold" spellings.
+  endcomment
+  unless is_plain or p.selected_variant or metal_idx < 0
+    assign gold18 = nil
+    for var in p.variants
+      unless var.available
+        continue
+      endunless
+      assign var_metal = var.options[metal_idx] | downcase
+      unless var_metal contains '18k' or var_metal contains '18ct'
+        continue
+      endunless
+      assign grade = var.title | split: ' / ' | last | downcase
+      if grade contains 'lab'
+        continue
+      endif
+      if gold18 == nil
+        assign gold18 = var
+      elsif var.price < gold18.price
+        assign gold18 = var
+      endif
+    endfor
+    if gold18 != nil
+      assign current = gold18
+    endif
+  endunless
 
   assign v_metal = ''
   assign v_quality = ''
@@ -410,7 +447,7 @@
           <ul class="pdx__thumbs">
             {%- for media in p.media limit: 8 -%}
               <li>
-                <button class="pdp__thumb pdx__thumb{% if forloop.first %} is-on{% endif %}"
+                <button class="pdx__thumb{% if forloop.first %} is-on{% endif %}"
                         type="button"
                         data-fye-thumb="{{ forloop.index0 }}"
                         aria-label="View image {{ forloop.index }}">
@@ -424,7 +461,7 @@
             {%- endfor -%}
             {%- if cf.spin_360 != blank -%}
               <li>
-                <button class="pdp__thumb pdx__thumb pdx__thumb--spin"
+                <button class="pdx__thumb pdx__thumb--spin"
                         type="button"
                         data-fye-thumb="spin"
                         aria-label="View in 360 degrees">

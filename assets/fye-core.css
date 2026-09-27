@@ -1299,7 +1299,12 @@ a.visually-hidden:focus-visible {
   background: var(--white);
 }
 .fye .pdx__stage--stone ~ .pdx__thumbs .pdx__thumb { background: var(--stone-ground); }
-.fye .pdx__thumb img { width: 100%; height: 100%; object-fit: cover; }
+/* `contain`, not `cover`: a photograph that is not square shows whole, on
+   the tile's own ground, rather than losing its top and bottom. The tiles
+   no longer carry .pdp__thumb either: main-product's stylesheet loads after
+   this file, so its `width: 96px` beat ours and left a 96 x 72 tile that
+   cropped every ring (Ed, 27/09/2026). */
+.fye .pdx__thumb img { width: 100%; height: 100%; object-fit: contain; }
 .fye .pdx__thumb.is-on { border-color: var(--teal); }
 .fye .pdx__thumb:hover { border-color: var(--sage); }
 .fye .pdx__spinbadge {

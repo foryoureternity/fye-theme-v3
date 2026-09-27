@@ -3478,6 +3478,13 @@ cannot leak.
   reversing the first build, which opened on "Choose a diamond" and "Choose a
   pair" / F/G VS as the screens show). Choosing "Choose a diamond" opens the
   picker at once, unless a stone is already chosen.
+- **Every ring except a plain band opens on 18ct gold** (Ed, 27/09/2026),
+  at the cheapest natural grade within 18ct, Yellow as the colour. Not when
+  `?variant=` chose the ring. New layout only; the old page keeps W831.
+- **Thumbnails** no longer carry `.pdp__thumb`: main-product's stylesheet
+  loads after fye-core.css, so its `width: 96px` won and made 96 x 72 tiles
+  that cropped the top off every ring. Now 72px square, `object-fit: contain`.
+- **Enquiry "When do you need it?"** reads "Less than 1 month" (Ed).
 - **The gallery is sticky on desktop** (Ed, 27/09/2026, "as they used to"),
   so the reassurance tiles moved from under it to the right-hand column,
   between the two halves of the buy box, the order the phone already had.

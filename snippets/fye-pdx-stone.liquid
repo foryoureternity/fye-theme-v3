@@ -337,7 +337,7 @@
           <ul class="pdx__thumbs">
             {%- for media in p.media limit: 6 -%}
               <li>
-                <button class="pdp__thumb pdx__thumb{% if forloop.first %} is-on{% endif %}"
+                <button class="pdx__thumb{% if forloop.first %} is-on{% endif %}"
                         type="button"
                         data-fye-thumb="{{ forloop.index0 }}"
                         aria-label="View image {{ forloop.index }}">
@@ -347,7 +347,7 @@
             {%- endfor -%}
             {%- if spin != blank -%}
               <li>
-                <button class="pdp__thumb pdx__thumb pdx__thumb--spin"
+                <button class="pdx__thumb pdx__thumb--spin"
                         type="button"
                         data-fye-thumb="spin"
                         aria-label="View in 360 degrees">

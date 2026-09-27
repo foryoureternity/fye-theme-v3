@@ -3526,3 +3526,31 @@ have swallowed the code after it), a unary minus on a variable, and the list
 family_carat. It is not Shopify: check the live page signed in.
 
 Ship: no JSON template changed, so `./tools/fye push "Product page redesign behind preview gate"` is enough.
+
+### Private preview link: `?view=pdx` (27/09/2026, same day)
+
+The sign-in gate did not work for Ed: he browses as a Shopify **admin**, has no
+customer account, and Liquid cannot see an admin login at all. So the preview
+moved to an alternate template anyone with the link can open:
+
+- `templates/product.pdx.json` holds `main-product` AND `fye-stone-product`,
+  both with `pdx_mode: "live"`, then related and band. Add `?view=pdx` to ANY
+  product URL (ring or stone) to see the new layout. The plain URL is
+  unchanged for everyone, and the canonical stays the plain product URL.
+- Each section stands aside for the other's products in that view, decided by
+  the product's REAL template: `template.suffix == 'pdx'` and
+  `product.template_suffix == 'diamond'` means a loose stone.
+- Things the per-template settings did that one template cannot, now read
+  from `product.template_suffix` in the view only: the band's reversed
+  wording on plain and gemset ("The ring this band was made for", in
+  fye-matching-band), and "Weight" rather than "Centre" on gemset family chips
+  (fye-pdx-ring). The related row's fallback heading reads "More from this
+  collection" on every product in the view.
+- The sign-in gate is still there and harmless.
+
+**At go-live:** set `pdx_mode` defaults to `"live"`, delete
+`templates/product.pdx.json` (Ed, in the code editor or Finder), and remove
+the three `template.suffix == 'pdx'` blocks (main-product, fye-stone-product,
+fye-matching-band). Tracked as W434.
+
+Ship: a template changed, so `./tools/fye ship "Private preview view for product redesign"`.

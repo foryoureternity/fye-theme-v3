@@ -872,7 +872,8 @@
           {%- else -%}
             {%- assign fam = fye.family.value -%}
             {%- if fam != blank and fam.size > 1 -%}
-              {%- if s.carat_scale == 'Diamond weight' -%}
+              {%- comment -%} product.template_suffix: the ?view=pdx preview template carries no carat_scale of its own {%- endcomment -%}
+              {%- if s.carat_scale == 'Diamond weight' or product.template_suffix == 'gemset' -%}
                 {%- assign fam_label = 'Weight' -%}
               {%- else -%}
                 {%- assign fam_label = 'Centre' -%}

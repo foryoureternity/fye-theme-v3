@@ -189,8 +189,20 @@
       endif
     endif
   endif
+
+  comment
+    ── THE PRIVATE PREVIEW VIEW (27/09/2026) ──
+    templates/product.pdx.json (?view=pdx) carries this section and
+    main-product, so one link previews rings and stones; this one stands
+    aside for anything not on the diamond template. Full note in main-product.
+  endcomment
+  assign pdx_away = false
+  if template.suffix == 'pdx' and p.template_suffix != 'diamond'
+    assign pdx_away = true
+  endif
 -%}
-{%- if pdx -%}
+{%- if pdx_away -%}
+{%- elsif pdx -%}
   {%- render 'fye-pdx-stone', product: p, settings: s -%}
 {%- else -%}
 

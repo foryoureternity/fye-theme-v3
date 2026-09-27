@@ -311,8 +311,26 @@
       endif
     endif
   endif
+
+  comment
+    ── THE PRIVATE PREVIEW VIEW (27/09/2026) ──
+    Liquid cannot see a Shopify ADMIN login, only a customer one, so the gate
+    above cannot recognise Ed browsing as staff. templates/product.pdx.json is
+    the way round it: any product URL with ?view=pdx renders that template,
+    which sets pdx_mode "live" and so shows the new layout to whoever holds
+    the link, while the plain URL stays untouched. The view carries this
+    section AND fye-stone-product, so one link works on rings and stones;
+    each section stands aside for the other's products, decided by the
+    product's real template (diamond = a loose stone, as everywhere else).
+    Remove with product.pdx.json when the layout goes live.
+  endcomment
+  assign pdx_away = false
+  if template.suffix == 'pdx' and p.template_suffix == 'diamond'
+    assign pdx_away = true
+  endif
 -%}
-{%- if pdx -%}
+{%- if pdx_away -%}
+{%- elsif pdx -%}
   {%- render 'fye-pdx-ring',
     product: p,
     settings: s,

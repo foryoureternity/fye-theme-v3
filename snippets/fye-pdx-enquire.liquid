@@ -21,9 +21,10 @@
   box, so the enquiry says which metal, quality, size and stone the shopper
   was looking at. With JS off they carry the product title and URL.
 
-  "How would you like to talk?" posts as its own line. Consultation is one of
-  the four, as the handoff has it; a shopper who wants the diary straight
-  away still has the Contact us popup's Book consultation button.
+  "How would you like to talk?" posts as its own line: Call me, WhatsApp or
+  Email. The handoff's fourth, Consultation, was removed (Ed, 27/09/2026); a
+  shopper who wants the diary still has the Contact us popup's Book
+  consultation button.
 
   No consent tickbox: the handoff drops it on this form, and nothing here
   subscribes anyone to anything.
@@ -79,7 +80,7 @@
           <fieldset class="pdx-enq__how">
             <legend class="pdx-enq__legend">How would you like to talk?</legend>
             <div class="pdx-enq__seg" role="radiogroup" aria-label="How would you like to talk?">
-              {%- assign ways = 'Call me,WhatsApp,Email,Consultation' | split: ',' -%}
+              {%- assign ways = 'Call me,WhatsApp,Email' | split: ',' -%}
               {%- for w in ways -%}
                 <button type="button" role="radio" class="pdx-enq__way{% if forloop.first %} is-on{% endif %}" aria-checked="{% if forloop.first %}true{% else %}false{% endif %}" data-pdx-way="{{ w }}">{{ w }}</button>
               {%- endfor -%}

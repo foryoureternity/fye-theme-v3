@@ -1648,7 +1648,7 @@ a.visually-hidden:focus-visible {
   letter-spacing: var(--tr-eyebrow);
   text-transform: uppercase;
 }
-.fye .pdx-enq__seg { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.fye .pdx-enq__seg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .fye .pdx-enq__way {
   min-height: 44px;
   padding: 0 var(--s2);
@@ -1713,7 +1713,4 @@ a.visually-hidden:focus-visible {
   .fye .pdx__offer { flex-direction: column; align-items: flex-start; }
   .fye .pdx__offerextra { display: none; }
   .fye .pdx__specs > div { grid-template-columns: 112px minmax(0, 1fr); }
-  .fye .pdx-enq__seg { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .fye .pdx-enq__way:nth-child(3) { border-inline-start: var(--hairline); }
-  .fye .pdx-enq__way:nth-child(n+3) { border-top: 0; }
 }

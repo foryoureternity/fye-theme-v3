@@ -98,7 +98,17 @@
       "Setting service"
       "Waiver"
 
-  Parameters: product, settings (the section's)
+  ── layout: 'pdx' (27/09/2026, the CRO redesign) ──────────────────────
+
+  Passed only by fye-pdx-ring, behind the preview gate. It changes the
+  dress, never the hooks: "Choose a diamond" opens PRESELECTED (the handoff
+  screens show it so, with the mist panel open), the heading carries the
+  chosen mode, the suitability line is the shorter "Suits a round centre
+  diamond, 0.8–1.3ct.", "We'll help you choose" opens the product enquiry
+  popup, and the picker gains a footer line with the ring total. Without
+  the parameter this file renders exactly as before.
+
+  Parameters: product, settings (the section's), layout (optional)
 {%- endcomment -%}
 {%- liquid
   assign s = settings
@@ -234,10 +244,19 @@
   if s.centre_fee_price_pennies > 0
     assign show_centre_fee_price = true
   endif
+
+  assign pdx = false
+  if layout == 'pdx'
+    assign pdx = true
+    if p.metafields.custom.centre_suitability == blank
+      assign suitability = 'Suits ' | append: article | append: ' ' | append: stone_words | append: ' cut centre diamond, ' | append: ct_min | append: '–' | append: ct_max | append: 'ct.'
+    endif
+  endif
 -%}
 
-<div class="pdp__choose"
-     data-fye-centre
+<div class="pdp__choose{% if pdx %} pdx__choose{% endif %}"
+     data-fye-centre{% if pdx %}
+     data-mode="required"{% endif %}
      data-shape="{{ shapes | escape }}"
      data-shape-filter="{{ shape_filter }}"
      data-carat-min="{{ ct_min }}"
@@ -247,14 +266,19 @@
      data-fee-variant="{{ s.centre_fee_variant_id }}"
      data-fee-price="{{ s.centre_fee_price_pennies | default: 0 }}">
 
-  <p class="pdp__label">{{ s.centre_heading | default: 'Centre diamond' }}</p>
-  <p class="pdp__choosenote">{{ suitability }}</p>
+  {%- if pdx -%}
+    <p class="pdx__label">{{ s.centre_heading | default: 'Centre diamond' }} <span class="pdx__labelval" data-pdx-mode-now>{{ s.centre_required_label | default: 'Choose a diamond' }}</span></p>
+    <p class="pdx__help">{{ suitability }}</p>
+  {%- else -%}
+    <p class="pdp__label">{{ s.centre_heading | default: 'Centre diamond' }}</p>
+    <p class="pdp__choosenote">{{ suitability }}</p>
+  {%- endif -%}
 
   <div class="pdp__modes" role="radiogroup" aria-label="{{ s.centre_heading | default: 'Centre diamond' | escape }}">
     <button type="button"
-            class="pdp__mode"
+            class="pdp__mode{% if pdx %} is-on{% endif %}"
             role="radio"
-            aria-checked="false"
+            aria-checked="{% if pdx %}true{% else %}false{% endif %}"
             data-fye-centre-mode="required">
       <span class="pdp__radio" aria-hidden="true"></span>
       <span class="pdp__modetitle">{{ s.centre_required_label | default: 'Choose a diamond' }}</span>
@@ -298,7 +322,7 @@
     Hidden on load like the other two: no mode is selected until the shopper
     picks one.
   {%- endcomment -%}
-  <div class="pdp__modebody" data-fye-centre-body="required" hidden>
+  <div class="pdp__modebody" data-fye-centre-body="required"{% unless pdx %} hidden{% endunless %}>
     <p class="pdp__choosenote">
       Add a certified {{ stone_words }} diamond to complete this ring.
       {{ ct_min }}–{{ ct_max }}ct suits this setting.
@@ -323,10 +347,17 @@
       {{ s.centre_picker_label | default: 'Choose your diamond' }}
     </button>
 
-    <p class="pdp__hint fine" data-fye-stone-help hidden>
-      Not sure? <a href="{{ s.centre_help_link | default: '/pages/contact-us' }}" data-fye-popup="enquire">We will help you choose</a> — or
-      <a href="/collections/{{ browse_handle }}">browse every {{ browse_words }} diamond</a>.
-    </p>
+    {%- if pdx -%}
+      <p class="pdp__hint fine" data-fye-stone-help hidden>
+        Not sure? <a href="/pages/contact-us#popup-contact" data-fye-popup="pdx-enquire">We'll help you choose</a>, or
+        <a href="/collections/{{ browse_handle }}">browse every {{ browse_words }} diamond</a>.
+      </p>
+    {%- else -%}
+      <p class="pdp__hint fine" data-fye-stone-help hidden>
+        Not sure? <a href="{{ s.centre_help_link | default: '/pages/contact-us' }}" data-fye-popup="enquire">We will help you choose</a> — or
+        <a href="/collections/{{ browse_handle }}">browse every {{ browse_words }} diamond</a>.
+      </p>
+    {%- endif -%}
   </div>
 
   {%- comment -%} ---- Mode: supply your own ---- {%- endcomment -%}
@@ -472,6 +503,9 @@
       <div class="pdp__stones" data-fye-picker-results></div>
 
       <div class="pdp__modalfoot">
+        {%- if pdx -%}
+          <p class="pdx__pending" data-pdx-pending aria-live="polite">Select a stone to see your ring total.</p>
+        {%- endif -%}
         <button type="button" class="btn btn--outline" data-fye-picker-more hidden>Show more stones</button>
         <button type="button" class="btn" data-fye-picker-confirm disabled>Use this diamond</button>
       </div>

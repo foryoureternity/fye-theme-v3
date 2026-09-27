@@ -1,0 +1,1003 @@
+{%- comment -%}
+  fye-pdx-ring: the redesigned ring product page (CRO handoff, 27/09/2026).
+
+  Rendered by main-product INSTEAD OF its own markup when the preview gate is
+  open (see `pdx` in main-product). Nothing here runs for a visitor while the
+  gate is on "preview", so the live page is untouched until Ed flips it.
+
+  Source: Claude Design handoff "Product page CRO redesign", 27/09/2026.
+  README plus desktop/mobile screens for plain, engagement, trilogy and
+  eternity rings. The prototypes rendered some components twice for mobile;
+  this does not (conventions §3). The page grid moves the reassurance tiles
+  between columns with grid areas instead.
+
+  ── WHAT IS REUSED, UNCHANGED ─────────────────────────────────────────────
+
+  Every behaviour hangs off the same data-fye-* hooks the old page used, so
+  price, cart lines, the picker, the wishlist and ?fyec= links run through
+  the one code path in fye-ui.js:
+
+    [data-fye-variants] [data-fye-option] [data-fye-variant-id]
+    [data-fye-metal-input] [data-fye-quality] [data-fye-gold-input]
+    [data-fye-price] [data-fye-atc] [data-fye-sku] [data-fye-size]
+    fye-buybox-centre / -sides / -finish   (with layout: 'pdx')
+
+  The new pieces talk to fye-ui.js through one event, `fye:priced`, which
+  render() fires after every repaint. The PDX block at the end of fye-ui.js
+  listens and paints the live summary, the carat and shoulder chip prices,
+  the "Add to bag · £x" label and the offer saving from it.
+
+  ── WHAT CHANGED FROM THE OLD BUY BOX, AND WHY ────────────────────────────
+
+    · One live price at the top. "Price range" and "Selected price" are gone.
+    · Short Title Case name (custom.short_title, else a rule, see below).
+      The <title> and meta are untouched: W396 still sets them from the full
+      product title.
+    · SKU and Categories leave the top; SKU moves into Ring details.
+    · Size is never preselected: plain rings used to open on size A.
+    · The Diamond Quality select becomes priced chips ("Shoulder diamonds").
+    · Centre "Choose a diamond" and side "Choose a pair" (F/G VS) are
+      preselected, as the handoff screens show. This REVERSES Ed's 31/08
+      "nothing selected" rule for this layout only; the add button still
+      says "Choose centre diamond" and opens the picker until a stone is
+      picked, so nobody reaches the basket without deciding.
+    · The carat stepper becomes "Other versions of this ring".
+    · Contact button → Speak to us panel → product enquiry popup.
+
+  ── SHORT TITLE ───────────────────────────────────────────────────────────
+
+    custom.short_title, if someone writes one; else
+    plain rings: "<profile> Wedding Ring" ("Concave Wedding Ring"); else
+    the product title up to its first comma, which drops the carat tail
+    ("Claw-Set Full Eternity Ring, 1.55ct total" → "Claw-Set Full Eternity
+    Ring"). The carat goes into the summary line instead.
+
+  ── W803 IS HONOURED HERE WITHOUT THE SETTING ─────────────────────────────
+
+  fye-buybox-eternity hides the quality row behind `hide_flat_quality`, a
+  setting main-product's schema never declared, so on v3 the hide has never
+  actually run. This layout applies the same two-test rule unconditionally,
+  because the handoff asks for it. The old page is left as it is.
+
+  Parameters: product, settings, current, crumb_col, is_plain, can_switch,
+  profile_slug, width_slug, weight_slug, metal_now, carat_now, colour_now,
+  carat_digits, show_centre, show_sides, all computed by main-product.
+{%- endcomment -%}
+{%- liquid
+  assign s = settings
+  assign p = product
+  assign cf = p.metafields.custom
+  assign fye = p.metafields.fye
+  assign gx = p.metafields.gemex
+  assign tags_down = p.tags | join: '~' | downcase | prepend: '~' | append: '~'
+
+  comment
+    The breadcrumb's middle step. main-product falls back to the product's
+    first collection, which on some rings is the search app's own
+    "[XCloud Search app] All products". Skip that and anything like it.
+  endcomment
+  if crumb_col.handle contains 'cloud-search'
+    assign crumb_col = nil
+    for c in p.collections
+      unless c.handle == 'all' or c.handle contains 'cloud-search'
+        assign crumb_col = c
+        break
+      endunless
+    endfor
+  endif
+
+  comment
+    ── What kind of ring ──
+    Tags, not product.type, which is blank on many products (memory:
+    shopify-product-type-unreliable). Only one tag is needed for each call.
+  endcomment
+  assign is_trilogy = false
+  if tags_down contains '~trilogy ring~'
+    assign is_trilogy = true
+  endif
+  assign is_full_eternity = false
+  if tags_down contains '~full eternity ring~'
+    assign is_full_eternity = true
+  endif
+  assign is_eternity = false
+  if tags_down contains '~full eternity ring~' or tags_down contains '~half eternity ring~' or tags_down contains '~eternity~'
+    assign is_eternity = true
+  endif
+  assign is_engagement = false
+  if show_centre or tags_down contains '~engagement ring~'
+    assign is_engagement = true
+  endif
+
+  assign type_word = p.type | default: cf.ring_type.value.first | default: 'Ring'
+
+  comment
+    ── Short title ──
+  endcomment
+  assign short_title = cf.short_title | append: ''
+  if short_title == blank
+    if is_plain and cf.ring_profile != blank
+      assign short_title = cf.ring_profile | append: ' Wedding Ring'
+    else
+      assign short_title = p.title | split: ',' | first | strip
+    endif
+  endif
+
+  comment
+    ── The summary tail: what the ring IS beyond metal and quality ──
+    Plain: width and weight. A centre-stone ring: "1ct round", or on a
+    trilogy "0.5ct centre · 1ct total". Otherwise the total diamond weight.
+  endcomment
+  capture cw_label
+    render 'fye-carat-label', value: p.metafields.filters.centre_weight.value
+  endcapture
+  assign cw_label = cw_label | strip
+  capture tdw_label
+    render 'fye-carat-label', value: gx.total_diamond_weight
+  endcapture
+  assign tdw_label = tdw_label | strip
+
+  assign centre_word = fye.centre_shape | append: '' | split: ',' | first | strip | downcase
+  if centre_word == blank
+    assign centre_word = gx.centre_stone_cut | append: '' | downcase
+  endif
+
+  assign tail = ''
+  if is_plain
+    assign weight_word = cf.ring_weight | append: '' | downcase | capitalize
+    assign tail = p.metafields.filters.band_width | append: ''
+    if weight_word != blank
+      assign tail = tail | append: ' · ' | append: weight_word
+    endif
+  elsif is_trilogy and cw_label != blank
+    assign tail = cw_label | append: 'ct centre'
+    if tdw_label != blank
+      assign tail = tail | append: ' · ' | append: tdw_label | append: 'ct total'
+    endif
+  elsif cw_label != blank
+    assign tail = cw_label | append: 'ct'
+    if centre_word != blank
+      assign tail = tail | append: ' ' | append: centre_word
+    endif
+  elsif tdw_label != blank
+    assign tail = tdw_label | append: 'ct total'
+  endif
+
+  comment
+    ── The metal and quality options (non-plain rings) ──
+    Same discovery as fye-buybox-eternity, reading the SAME `current` so the
+    highlighted chip and the price describe one ring.
+  endcomment
+  assign metal_opt = nil
+  assign quality_opt = nil
+  assign metal_idx = -1
+  assign quality_idx = -1
+  for option in p.options_with_values
+    if option.name == 'Metal'
+      assign metal_opt = option
+      assign metal_idx = forloop.index0
+    elsif option.name contains 'Quality'
+      assign quality_opt = option
+      assign quality_idx = forloop.index0
+    endif
+  endfor
+
+  assign v_metal = ''
+  assign v_quality = ''
+  if metal_idx >= 0
+    assign v_metal = current.options[metal_idx]
+  endif
+  if quality_idx >= 0
+    assign v_quality = current.options[quality_idx]
+  endif
+
+  assign v_is_gold = false
+  if v_metal contains 'Gold'
+    assign v_is_gold = true
+  endif
+
+  assign golds = s.gold_colours | default: 'Yellow Gold,White Gold,Rose Gold' | split: ','
+  assign gold_default = golds[0] | strip | split: ' ' | first
+
+  comment
+    The label the shopper reads: "14ct Yellow Gold", "Platinum". The option
+    value itself ("14k Gold") is never changed, label only (W325).
+  endcomment
+  if is_plain
+    assign metal_label = metal_now
+  elsif v_is_gold
+    assign metal_label = v_metal | replace: 'k Gold', 'ct' | replace: 'K Gold', 'ct' | append: ' ' | append: gold_default | append: ' Gold'
+  else
+    assign metal_label = v_metal
+  endif
+
+  assign preferred_karat = ''
+  assign gold_keys = ''
+  if metal_opt != nil
+    for value in metal_opt.values
+      if value contains 'Gold'
+        if preferred_karat == blank
+          assign preferred_karat = value
+        endif
+        assign kt = value | downcase | split: 'k' | first | strip
+        assign kt_num = kt | plus: 0
+        if kt_num > 0
+          assign label = kt | append: 'ct'
+          assign sort_key = kt
+          if kt.size == 1
+            assign sort_key = '0' | append: kt
+          endif
+        else
+          assign label = value | remove: ' Gold' | upcase
+          assign sort_key = '99'
+        endif
+        assign entry = sort_key | append: '|' | append: label | append: '|' | append: value
+        if gold_keys == blank
+          assign gold_keys = entry
+        else
+          assign gold_keys = gold_keys | append: '~' | append: entry
+        endif
+      endif
+    endfor
+  endif
+  assign gold_tiles = gold_keys | split: '~' | sort
+
+  comment
+    ── W803, unconditionally (see the header) ──
+    Two tests must agree: price flat across natural grades within every metal,
+    AND tagged `solitaire` + `plain shoulders`, matched whole.
+  endcomment
+  assign hide_quality = false
+  if quality_opt != nil
+    if quality_opt.values.size < 2
+      assign hide_quality = true
+    elsif tags_down contains '~solitaire~' and tags_down contains '~plain shoulders~'
+      assign flat = true
+      for m in metal_opt.values
+        assign first_price = -1
+        for var in p.variants
+          if var.options[metal_idx] == m
+            assign q = var.options[quality_idx] | downcase
+            unless q contains 'lab'
+              if first_price == -1
+                assign first_price = var.price
+              elsif var.price != first_price
+                assign flat = false
+                break
+              endif
+            endunless
+          endif
+        endfor
+        unless flat
+          break
+        endunless
+      endfor
+      if flat
+        assign hide_quality = true
+      endif
+    endif
+  endif
+
+  comment
+    "Shoulder diamonds" is what the grade means on an engagement ring and a
+    trilogy. On an eternity or a set wedding band every stone is graded by
+    it, so it keeps its plain name there.
+  endcomment
+  if is_engagement or is_trilogy
+    assign quality_heading = s.pdx_quality_heading | default: 'Shoulder diamonds'
+    if show_sides
+      assign quality_note = 'The quality of the diamonds set in the shoulders. Your centre diamond and side pair are chosen separately below.'
+    elsif show_centre
+      assign quality_note = 'The quality of the diamonds set in the shoulders. Your centre diamond is chosen separately below.'
+    else
+      assign quality_note = 'The quality of the diamonds set in the shoulders.'
+    endif
+  else
+    assign quality_heading = 'Diamond quality'
+    assign quality_note = ''
+  endif
+
+  comment
+    ── Sizes ──
+  endcomment
+  assign sizes = s.ring_sizes | default: 'A,A.5,B,B.5,C,C.5,D,D.5,E,E.5,F,F.5,G,G.5,H,H.5,I,I.5,J,J.5,K,K.5,L,L.5,M,M.5,N,N.5,O,O.5,P,P.5,Q,Q.5,R,R.5,S,S.5,T,T.5,U,U.5,V,V.5,W,W.5,X,X.5,Y,Y.5,Z,Z.5,Z+1,Z+1.5,Z+2,Z+2.5,Z+3,Z+3.5,Z+4,Z+4.5,Z+5,Z+5.5,Z+6,Z+6.5,Z+7,Z+7.5,Z+8,Z+8.5,Z+9,Z+9.5' | split: ','
+  assign threshold = s.surcharge_size | default: 'Q'
+  assign size_guide = s.size_guide_url | default: '/pages/find-your-ring-size'
+  assign sizer_url = s.pdx_sizer_url | default: '/pages/order-a-free-ring-sizer'
+
+  comment
+    ── Lead time, words for the page ──
+  endcomment
+  assign lead_min = s.pdx_lead_min | default: 10
+  assign lead_max = s.pdx_lead_max | default: 14
+
+  comment
+    ── Plain ring siblings for "Other versions" ──
+    Width and weight are separate PRODUCTS, found by constructing the handle
+    exactly as the metal switcher does. all_products allows twenty unique
+    handles a page: the metal switcher spends up to seven, this at most four
+    widths and two weights.
+
+    Widths come from a setting list; only the two either side of this ring
+    are looked up, and a handle that does not exist simply renders no chip.
+  endcomment
+  assign width_now = p.metafields.filters.band_width | append: '' | remove: 'mm'
+  assign width_list = s.pdx_widths | default: '1.5,2,2.5,3,3.5,4,4.5,5,6,7,8,9,10' | remove: ' ' | split: ','
+  assign width_at = -1
+  for w in width_list
+    if w == width_now
+      assign width_at = forloop.index0
+    endif
+  endfor
+  assign metal_slug = metal_now | handle
+-%}
+
+<section class="band band--white pdx pdx--ring" data-screen-label="Product" data-fye-pdx
+         data-noun="{{ s.pdx_noun | default: 'ring' }}"
+         data-offer-pct="{{ s.pdx_offer_pct | default: 10 }}">
+  <div class="wrap">
+
+    <nav class="pdp__crumbs" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="{{ routes.root_url }}">Home</a></li>
+        {%- if crumb_col -%}
+          <li><a href="{{ crumb_col.url }}">{{ crumb_col.title }}</a></li>
+        {%- endif -%}
+        <li><span aria-current="page">{{ short_title }}</span></li>
+      </ol>
+    </nav>
+    {%- render 'schema-breadcrumbs', mid_name: crumb_col.title, mid_url: crumb_col.url, last_name: p.title, last_url: canonical_url -%}
+
+    <div class="pdx__top">
+
+      {%- comment -%} ---- Gallery ---- {%- endcomment -%}
+      <div class="pdx__gallery" data-fye-gallery>
+        <div class="pdx__stage" data-fye-stage>
+          <div class="pdp__wish-over">
+            {%- render 'fye-wishlist-button', product: p, context: 'form', size: 'lg' -%}
+          </div>
+
+          {%- if p.media.size > 0 -%}
+            {%- for media in p.media limit: 8 -%}
+              {%- liquid
+                if forloop.first
+                  assign img_loading = 'eager'
+                  assign img_priority = 'high'
+                else
+                  assign img_loading = 'lazy'
+                  assign img_priority = 'auto'
+                endif
+                assign img_alt = media.alt | default: p.title
+              -%}
+              <div class="pdp__panel{% if forloop.first %} is-on{% endif %}" data-fye-panel="{{ forloop.index0 }}">
+                {{ media | image_url: width: 1400 | image_tag:
+                   loading: img_loading,
+                   fetchpriority: img_priority,
+                   widths: '400,600,900,1200,1400',
+                   sizes: '(max-width: 900px) 100vw, 50vw',
+                   alt: img_alt,
+                   class: 'pdx__img' }}
+              </div>
+            {%- endfor -%}
+          {%- else -%}
+            <div class="pdp__panel is-on pdx__empty"></div>
+          {%- endif -%}
+
+          {%- if cf.spin_360 != blank -%}
+            <div class="pdp__panel pdp__panel--spin" data-fye-panel="spin">
+              <div class="Sirv pdx__spin"
+                   data-fye-spin
+                   data-src="{{ cf.spin_360 }}"
+                   data-options="autospin: off; hint.text: Drag to rotate; hint.type: drag;"></div>
+            </div>
+          {%- endif -%}
+
+          {%- comment -%}
+            "Shown in 14ct Rose Gold": plain rings only, where the photograph
+            IS the metal of this product. A set ring's photograph may be any
+            colour, so it would be a claim the image cannot back.
+          {%- endcomment -%}
+          {%- if is_plain and metal_now != blank -%}
+            <p class="pdx__tag">Shown in {{ metal_now }}</p>
+          {%- endif -%}
+        </div>
+
+        {%- comment -%}
+          Real photographs and the 360 only. The handoff's dashed "On hand /
+          browse files" tiles were empty design-tool slots, not a feature, and
+          are deliberately not built (Ed, 27/09/2026).
+        {%- endcomment -%}
+        {%- if p.media.size > 1 or cf.spin_360 != blank -%}
+          <ul class="pdx__thumbs">
+            {%- for media in p.media limit: 8 -%}
+              <li>
+                <button class="pdp__thumb pdx__thumb{% if forloop.first %} is-on{% endif %}"
+                        type="button"
+                        data-fye-thumb="{{ forloop.index0 }}"
+                        aria-label="View image {{ forloop.index }}">
+                  {{ media | image_url: width: 160 | image_tag:
+                     loading: 'lazy',
+                     widths: '80,160',
+                     sizes: '72px',
+                     alt: '' }}
+                </button>
+              </li>
+            {%- endfor -%}
+            {%- if cf.spin_360 != blank -%}
+              <li>
+                <button class="pdp__thumb pdx__thumb pdx__thumb--spin"
+                        type="button"
+                        data-fye-thumb="spin"
+                        aria-label="View in 360 degrees">
+                  {{ p.featured_image | image_url: width: 160 | image_tag:
+                     loading: 'lazy',
+                     widths: '80,160',
+                     sizes: '72px',
+                     alt: '' }}
+                  <span class="pdx__spinbadge" aria-hidden="true">360°</span>
+                </button>
+              </li>
+            {%- endif -%}
+          </ul>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%}
+        ---- Reassurance ----
+        Beside the thumbnails on desktop, after the delivery block on a phone.
+        One copy; the page grid moves it (see .pdx__top).
+      {%- endcomment -%}
+      <div class="pdx__assurewrap">
+        {%- if is_full_eternity -%}
+          {%- render 'fye-pdx-assure', kind: 'full-eternity' -%}
+        {%- else -%}
+          {%- render 'fye-pdx-assure', kind: 'ring' -%}
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} ---- Buy box, part one: the decision ---- {%- endcomment -%}
+      {%- form 'product', p, class: 'pdx__buy pdx__buy--a', id: 'pdp-form' -%}
+        <input type="hidden" name="id" value="{{ current.id }}" data-fye-variant-id>
+
+        <script type="application/json" data-fye-variants>
+          [
+            {%- for v in p.variants -%}
+              {"id":{{ v.id }},"title":{{ v.title | json }},"price":{{ v.price | json }},"sku":{{ v.sku | json }},"available":{{ v.available }}}{%- unless forloop.last -%},{%- endunless -%}
+            {%- endfor -%}
+          ]
+        </script>
+
+        <div class="pdx__head">
+        <p class="pdx__eyebrow">{{ type_word }} · {{ s.pdx_made_line | default: 'Handmade in the UK' }}</p>
+        <h1 class="pdx__title" data-fye-product-title>{{ short_title }}</h1>
+
+        <p class="pdx__summary" data-pdx-summary>
+          <span data-pdx-sum-metal>{{ metal_label }}</span>
+          {%- if quality_opt != nil and hide_quality == false -%}
+            <span aria-hidden="true"> · </span><span data-pdx-sum-qual>{{ v_quality }}</span>
+          {%- endif -%}
+          {%- if tail != blank -%}
+            <span aria-hidden="true"> · </span><span>{{ tail }}</span>
+          {%- endif -%}
+        </p>
+
+        <p class="pdx__price" data-fye-price aria-live="polite">{{ current.price | money }}</p>
+        {%- if show_centre -%}
+          <p class="pdx__pricenote">{{ s.pdx_setting_note | default: 'Setting price · Centre diamond not included' }}</p>
+        {%- endif -%}
+        <p class="pdx__micro">{{ s.pdx_micro | default: 'VAT included · Handmade to order in the UK · Free insured delivery' }}</p>
+        </div>
+
+        <hr class="pdx__rule">
+
+        {%- comment -%} ---- Metal ---- {%- endcomment -%}
+        {%- if is_plain -%}
+          {%- if can_switch -%}
+            {%- liquid
+              assign colours = 'Yellow Gold,White Gold,Rose Gold,Platinum' | split: ','
+              assign carats = '9ct,14ct,18ct' | split: ','
+              assign plain_golds = 'Yellow Gold,White Gold,Rose Gold' | split: ','
+            -%}
+            <div class="pdx__field">
+              <p class="pdx__label">Metal <span class="pdx__labelval">{{ metal_now }}</span></p>
+              <ul class="pdp__colours">
+                {%- for colour in colours -%}
+                  {%- liquid
+                    assign is_gold = false
+                    if plain_golds contains colour
+                      assign is_gold = true
+                    endif
+                    if is_gold
+                      assign target_metal = carat_digits | append: 'ct ' | append: colour
+                      assign tone = colour | split: ' ' | first | downcase | prepend: '-' | prepend: carat_digits | prepend: '--metal-'
+                    else
+                      assign target_metal = colour
+                      assign tone = '--metal-platinum'
+                    endif
+                    assign sib_handle = target_metal | handle | append: '-' | append: profile_slug | append: '-wedding-ring-' | append: width_slug | append: '-' | append: weight_slug
+                    assign sib = all_products[sib_handle]
+                  -%}
+                  <li>
+                    {%- if colour == colour_now -%}
+                      <span class="pdp__colour is-current" style="--sw: var({{ tone }});" aria-current="true">
+                        <span class="pdp__dot"></span><span class="pdp__colourname">{{ colour }}</span>
+                      </span>
+                    {%- elsif sib != blank -%}
+                      <a class="pdp__colour" href="{{ sib.url }}" style="--sw: var({{ tone }});">
+                        <span class="pdp__dot"></span><span class="pdp__colourname">{{ colour }}</span>
+                      </a>
+                    {%- else -%}
+                      <span class="pdp__colour is-off" style="--sw: var({{ tone }});">
+                        <span class="pdp__dot"></span><span class="pdp__colourname">{{ colour }}</span>
+                        <span class="visually-hidden">not made in this profile and width</span>
+                      </span>
+                    {%- endif -%}
+                  </li>
+                {%- endfor -%}
+              </ul>
+
+              {%- if plain_golds contains colour_now -%}
+                <ul class="pdx__carats">
+                  {%- for carat in carats -%}
+                    {%- liquid
+                      assign target_metal = carat | append: ' ' | append: colour_now
+                      assign sib_handle = target_metal | handle | append: '-' | append: profile_slug | append: '-wedding-ring-' | append: width_slug | append: '-' | append: weight_slug
+                      assign sib = all_products[sib_handle]
+                    -%}
+                    <li>
+                      {%- if carat == carat_now -%}
+                        <span class="pdx__ctile is-current" aria-current="true">
+                          <span class="pdx__ctilename">{{ carat | upcase }}</span>
+                          <span class="pdx__ctileprice" data-pdx-live-price>{{ current.price | money }}</span>
+                        </span>
+                      {%- elsif sib != blank -%}
+                        <a class="pdx__ctile" href="{{ sib.url }}">
+                          <span class="pdx__ctilename">{{ carat | upcase }}</span>
+                          <span class="pdx__ctileprice">{{ sib.price | money }}</span>
+                        </a>
+                      {%- else -%}
+                        <span class="pdx__ctile is-off">
+                          <span class="pdx__ctilename">{{ carat | upcase }}</span>
+                          <span class="pdx__ctileprice">Not made</span>
+                        </span>
+                      {%- endif -%}
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+        {%- elsif metal_opt != nil -%}
+          <div class="pdx__field">
+            <p class="pdx__label">Metal <span class="pdx__labelval" data-fye-metal-label>{{ metal_label }}</span></p>
+
+            <ul class="pdp__colours" data-fye-metals data-preferred-karat="{{ preferred_karat | escape }}">
+              {%- for colour in golds -%}
+                {%- liquid
+                  assign name = colour | strip
+                  assign key = name | split: ' ' | first
+                  assign tone = key | downcase | prepend: '--metal-18-'
+                -%}
+                <li>
+                  <button type="button"
+                          class="pdp__colour{% if v_is_gold and forloop.first %} is-current{% endif %}"
+                          style="--sw: var({{ tone }});"
+                          data-fye-gold="{{ key | escape }}">
+                    <span class="pdp__dot"></span>
+                    <span class="pdp__colourname">{{ name }}</span>
+                  </button>
+                </li>
+              {%- endfor -%}
+              {%- for value in metal_opt.values -%}
+                {%- unless value contains 'Gold' -%}
+                  {%- liquid
+                    if value == 'Platinum'
+                      assign tone = '--metal-platinum'
+                    else
+                      assign tone = '--metal-palladium'
+                    endif
+                  -%}
+                  <li>
+                    <button type="button"
+                            class="pdp__colour{% if value == v_metal %} is-current{% endif %}"
+                            style="--sw: var({{ tone }});"
+                            data-fye-metal="{{ value | escape }}">
+                      <span class="pdp__dot"></span>
+                      <span class="pdp__colourname">{{ value }}</span>
+                    </button>
+                  </li>
+                {%- endunless -%}
+              {%- endfor -%}
+            </ul>
+
+            {%- comment -%}
+              Carat tiles carry their own price, filled by fye-ui.js from the
+              variant for that carat at the current quality. Hidden, not
+              absent, on platinum and palladium, so the script can reveal it.
+            {%- endcomment -%}
+            <ul class="pdx__carats" data-fye-karatrow{% unless v_is_gold %} hidden{% endunless %}>
+              {%- for tile in gold_tiles -%}
+                {%- assign bits = tile | split: '|' -%}
+                {%- if bits[2] == blank -%}{%- continue -%}{%- endif -%}
+                <li>
+                  <button type="button"
+                          class="pdx__ctile{% if bits[2] == v_metal %} is-current{% endif %}"
+                          data-fye-metal="{{ bits[2] | escape }}">
+                    <span class="pdx__ctilename">{{ bits[1] | upcase }}</span>
+                    <span class="pdx__ctileprice" data-pdx-metal-price="{{ bits[2] | escape }}"></span>
+                  </button>
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+
+          <input type="hidden"
+                 name="properties[Gold colour]"
+                 value="{{ gold_default | escape }}"
+                 data-fye-gold-input
+                 {% unless v_is_gold %}disabled{% endunless %}>
+
+          {%- comment -%} MUST precede the quality control: fye-ui.js joins [data-fye-option] in DOM order. {%- endcomment -%}
+          <input type="hidden" value="{{ v_metal | escape }}" data-fye-option data-fye-metal-input>
+        {%- endif -%}
+
+        {%- comment -%} ---- Shoulder diamonds / diamond quality ---- {%- endcomment -%}
+        {%- if quality_opt != nil -%}
+          {%- comment -%}
+            The value that posts. A hidden input, never a removed control:
+            the variant matcher needs one value per option, in order.
+          {%- endcomment -%}
+          <input type="hidden"
+                 name="options[{{ quality_opt.name | escape }}]"
+                 value="{{ v_quality | escape }}"
+                 data-fye-option
+                 data-fye-quality>
+
+          {%- unless hide_quality -%}
+            <div class="pdx__field" data-pdx-quals>
+              <div class="pdx__fieldhead">
+                <div class="pdx__labelrow">
+                  <p class="pdx__label">{{ quality_heading }} <span class="pdx__labelval" data-pdx-qual-now>{{ v_quality }}</span></p>
+                  <a class="pdx__textlink" href="{{ s.quality_help_url | default: '/pages/diamond-4cs' }}">{{ s.pdx_quality_help | default: 'The 4Cs explained' }}</a>
+                </div>
+                {%- if quality_note != blank -%}
+                  <p class="pdx__help">{{ quality_note }}</p>
+                {%- endif -%}
+              </div>
+              <div class="pdx__qgrid" role="radiogroup" aria-label="{{ quality_heading | escape }}">
+                {%- for value in quality_opt.values -%}
+                  {%- liquid
+                    assign vq = value | downcase
+                    if vq contains 'lab'
+                      assign origin_word = 'Lab-grown'
+                    else
+                      assign origin_word = 'Natural'
+                    endif
+                  -%}
+                  <button type="button"
+                          class="pdx__qtile{% if value == v_quality %} is-on{% endif %}"
+                          role="radio"
+                          aria-checked="{% if value == v_quality %}true{% else %}false{% endif %}"
+                          data-pdx-qual="{{ value | escape }}">
+                    <span class="pdx__qname">{{ value }}</span>
+                    <span class="pdx__qorigin">{{ origin_word }}</span>
+                    <span class="pdx__qprice" data-pdx-qual-price></span>
+                  </button>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endunless -%}
+        {%- endif -%}
+
+        {%- comment -%} ---- The stone choosers, in the new dress ---- {%- endcomment -%}
+        {%- if show_centre -%}
+          {%- render 'fye-buybox-centre', product: p, settings: s, layout: 'pdx' -%}
+        {%- endif -%}
+        {%- if show_sides -%}
+          {%- render 'fye-buybox-sides', product: p, settings: s, layout: 'pdx' -%}
+        {%- endif -%}
+
+        {%- comment -%}
+          ---- Ring size ----
+          NEVER PRESELECTED. Plain rings: the size IS the variant option, so
+          the select carries data-fye-option; until it is chosen fye-ui.js
+          prices the page off the opening variant, and the browser's own
+          `required` check stops the form posting without one. Every other
+          ring: a line-item property, with the oversize surcharge flag.
+        {%- endcomment -%}
+        <div class="pdx__field">
+          <div class="pdx__labelrow">
+            <label class="pdx__label" for="pdx-size">Ring size</label>
+            <a class="pdx__textlink" href="{{ size_guide }}">{{ s.pdx_size_guide_label | default: 'Size guide' }}</a>
+          </div>
+
+          {%- if is_plain -%}
+            {%- assign size_option = nil -%}
+            {%- for option in p.options_with_values -%}
+              {%- if option.name contains 'Size' -%}{%- assign size_option = option -%}{%- endif -%}
+            {%- endfor -%}
+            {%- if size_option != nil -%}
+              <select class="pdx__select" id="pdx-size" name="options[{{ size_option.name | escape }}]" data-fye-option required>
+                <option value="">{{ s.pdx_size_placeholder | default: 'Select your UK size' }}</option>
+                {%- for value in size_option.values -%}
+                  <option value="{{ value | escape }}"{% if p.selected_variant and current.title == value %} selected{% endif %}>{{ value }}</option>
+                {%- endfor -%}
+              </select>
+            {%- endif -%}
+          {%- else -%}
+            <select class="pdx__select"
+                    id="pdx-size"
+                    name="properties[Ring size]"
+                    data-fye-size
+                    data-threshold="{{ threshold }}"
+                    required>
+              <option value="">{{ s.pdx_size_placeholder | default: 'Select your UK size' }}</option>
+              {%- for size in sizes -%}
+                <option>{{ size | strip }}</option>
+              {%- endfor -%}
+            </select>
+            <input type="hidden" name="properties[_size_surcharge]" value="Yes" data-fye-surcharge disabled>
+            <p class="pdx__help" data-fye-surcharge-note hidden>
+              {{ s.surcharge_note | default: 'Sizes above Q use more metal, so a 10% surcharge applies. It is shown in the cart.' }}
+            </p>
+          {%- endif -%}
+
+          {%- if is_full_eternity -%}
+            <div class="pdx__sizebox pdx__sizebox--careful">
+              {%- render 'icon', name: 'info', size: 20 -%}
+              <div>
+                <p class="pdx__sizeboxtitle">Please choose your size carefully</p>
+                <p>Full eternity rings cannot be resized because stones are set around the entire band. If you're unsure of your size, order a free ring sizer before placing your order.</p>
+                <a class="pdx__caps" href="{{ sizer_url }}">Order a free ring sizer</a>
+              </div>
+            </div>
+          {%- else -%}
+            <div class="pdx__sizebox">
+              <p>Not sure of your size? We'll send you a <strong>free ring sizer</strong>. Every ring also includes one complimentary resize within the first year.</p>
+              <a class="pdx__caps" href="{{ sizer_url }}">Order sizer</a>
+            </div>
+          {%- endif -%}
+        </div>
+
+        {%- comment -%} ---- Finish, plain rings only ---- {%- endcomment -%}
+        {%- if is_plain -%}
+          {%- render 'fye-buybox-finish', product: p, settings: s, layout: 'pdx' -%}
+        {%- endif -%}
+
+        {%- comment -%}
+          ---- Engraving ----
+          The same fee line and the same disabled-when-off inputs as before.
+          The checkbox row is a button with data-fye-engrave-set="toggle",
+          which fye-ui.js flips between yes and no through the one handler.
+          The font is a hidden input the tiles write to; a set of radios would
+          all be read by ringProps(), which only skips unticked CHECKBOXES.
+        {%- endcomment -%}
+        {%- if s.engraving and s.engraving_variant_id != blank -%}
+          {%- assign font_list = s.engraving_fonts | default: 'Classic Script|Elegant Serif|Modern Sans|Block Capitals' | split: '|' -%}
+          <div class="pdx__engrave"
+               data-fye-engrave
+               data-fee-variant="{{ s.engraving_variant_id }}"
+               data-fee-price="{{ s.engraving_price_pennies | default: 5500 }}">
+            <button type="button" class="pdx__check" role="checkbox" aria-checked="false" data-fye-engrave-set="toggle">
+              <span class="pdx__box" aria-hidden="true">{%- render 'icon', name: 'check', size: 14 -%}</span>
+              <span class="pdx__checklabel">{{ s.pdx_engrave_label | default: 'Add a personal engraving inside the band' }}</span>
+              <span class="pdx__checkprice">{{ s.engraving_price_label | default: '+£55' }}</span>
+            </button>
+
+            <div class="pdx__engravebody" data-fye-engrave-body hidden>
+              <div class="pdx__engraverow">
+                <label class="visually-hidden" for="pdx-engrave-text">Your engraving</label>
+                <input class="pdx__input"
+                       id="pdx-engrave-text"
+                       type="text"
+                       name="properties[Engraving]"
+                       data-fye-engrave-text
+                       maxlength="{{ s.engraving_max | default: 35 }}"
+                       placeholder="{{ s.engraving_placeholder | default: 'Engraving (35 characters max)' | escape }}"
+                       disabled>
+                <span class="pdx__count" data-fye-engrave-count>0/{{ s.engraving_max | default: 35 }}</span>
+              </div>
+
+              <input type="hidden" name="properties[Engraving font]" value="{{ font_list[1] | default: font_list[0] | strip | escape }}" data-fye-engrave-font data-pdx-font-input disabled>
+              <div class="pdx__fonts" role="radiogroup" aria-label="Engraving font">
+                {%- for f in font_list -%}
+                  {%- assign fname = f | strip -%}
+                  {%- assign fkey = fname | handle -%}
+                  <button type="button"
+                          class="pdx__font pdx__font--{{ fkey }}{% if forloop.index == 2 %} is-on{% endif %}"
+                          role="radio"
+                          aria-checked="{% if forloop.index == 2 %}true{% else %}false{% endif %}"
+                          data-pdx-font="{{ fname | escape }}">
+                    <span class="pdx__fontsample" data-pdx-font-sample>{{ s.pdx_engrave_sample | default: 'Always & forever' }}</span>
+                    <span class="pdx__fontname">{{ fname }}</span>
+                  </button>
+                {%- endfor -%}
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- comment -%}
+          ---- Other versions of this ring ----
+          Plain rings: width and weight siblings, by handle. Everything else:
+          the design family (fye.family), labelled by fye.family_carat, the
+          same data the old carat stepper used. A row with no siblings is not
+          drawn, and the block disappears if no row is.
+        {%- endcomment -%}
+        {%- capture versions_rows -%}
+          {%- if is_plain and can_switch -%}
+            {%- if width_at >= 0 -%}
+              {%- capture width_chips -%}
+                {%- assign w_from = width_at | minus: 2 -%}
+                {%- assign w_to = width_at | plus: 2 -%}
+                {%- for w in width_list -%}
+                  {%- assign wi = forloop.index0 -%}
+                  {%- if wi < w_from or wi > w_to -%}{%- continue -%}{%- endif -%}
+                  {%- if wi == width_at -%}
+                    <span class="pdx__vchip is-current" aria-current="true">{{ w }}mm</span>
+                  {%- else -%}
+                    {%- assign w_slug = w | remove: '.' | append: 'mm' -%}
+                    {%- assign sib_handle = metal_slug | append: '-' | append: profile_slug | append: '-wedding-ring-' | append: w_slug | append: '-' | append: weight_slug -%}
+                    {%- assign sib = all_products[sib_handle] -%}
+                    {%- if sib != blank -%}
+                      <a class="pdx__vchip" href="{{ sib.url }}">{{ w }}mm</a>
+                    {%- endif -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endcapture -%}
+              {%- if width_chips contains '<a ' -%}
+                <div class="pdx__vrow"><span class="pdx__vlabel">Width</span><div class="pdx__vchips">{{ width_chips }}</div></div>
+              {%- endif -%}
+            {%- endif -%}
+
+            {%- capture weight_chips -%}
+              {%- assign weights = 'light|Light,medium|Medium,heavy|Heavy' | split: ',' -%}
+              {%- for wt in weights -%}
+                {%- assign wbits = wt | split: '|' -%}
+                {%- if wbits[0] == weight_slug -%}
+                  <span class="pdx__vchip is-current" aria-current="true">{{ wbits[1] }}</span>
+                {%- else -%}
+                  {%- assign sib_handle = metal_slug | append: '-' | append: profile_slug | append: '-wedding-ring-' | append: width_slug | append: '-' | append: wbits[0] -%}
+                  {%- assign sib = all_products[sib_handle] -%}
+                  {%- if sib != blank -%}
+                    <a class="pdx__vchip" href="{{ sib.url }}">{{ wbits[1] }}</a>
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endcapture -%}
+            {%- if weight_chips contains '<a ' -%}
+              <div class="pdx__vrow"><span class="pdx__vlabel">Weight</span><div class="pdx__vchips">{{ weight_chips }}</div></div>
+            {%- endif -%}
+
+          {%- else -%}
+            {%- assign fam = fye.family.value -%}
+            {%- if fam != blank and fam.size > 1 -%}
+              {%- if s.carat_scale == 'Diamond weight' -%}
+                {%- assign fam_label = 'Weight' -%}
+              {%- else -%}
+                {%- assign fam_label = 'Centre' -%}
+              {%- endif -%}
+              {%- capture fam_chips -%}
+                {%- assign seen = '~' -%}
+                {%- for m in fam limit: 8 -%}
+                  {%- if m == blank -%}{%- continue -%}{%- endif -%}
+                  {%- comment -%}
+                    family_carat is a LIST (list.number_decimal) on the live
+                    store, so its first entry is the weight. A single number
+                    has no .first and falls through to itself.
+                  {%- endcomment -%}
+                  {%- assign m_fc = m.metafields.fye.family_carat.value.first | default: m.metafields.fye.family_carat.value -%}
+                  {%- capture m_ct -%}{%- render 'fye-carat-label', value: m_fc -%}{%- endcapture -%}
+                  {%- assign m_ct = m_ct | strip -%}
+                  {%- if m.handle == p.handle -%}
+                    <span class="pdx__vchip is-current" aria-current="true">{% if m_ct != blank %}{{ m_ct }}ct{% else %}This ring{% endif %}</span>
+                  {%- else -%}
+                    {%- if m_ct == blank -%}{%- continue -%}{%- endif -%}
+                    {%- assign key = '~' | append: m_ct | append: '~' -%}
+                    {%- if seen contains key -%}{%- continue -%}{%- endif -%}
+                    {%- assign seen = seen | append: m_ct | append: '~' -%}
+                    <a class="pdx__vchip" href="{{ m.url }}">{{ m_ct }}ct</a>
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endcapture -%}
+              {%- if fam_chips contains '<a ' -%}
+                <div class="pdx__vrow"><span class="pdx__vlabel">{{ fam_label }}</span><div class="pdx__vchips">{{ fam_chips }}</div></div>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endif -%}
+        {%- endcapture -%}
+
+        {%- if versions_rows contains 'pdx__vrow' -%}
+          <nav class="pdx__versions" aria-label="{{ s.pdx_versions_label | default: 'Other versions of this ring' | escape }}">
+            <p class="pdx__vhead">{{ s.pdx_versions_label | default: 'Other versions of this ring' }}</p>
+            {{ versions_rows }}
+          </nav>
+        {%- endif -%}
+
+        {%- comment -%}
+          ---- The button ----
+          Its words come from fye-ui.js: "Choose centre diamond" while a
+          stone is outstanding, otherwise "Add to bag · £total". The markup
+          holds the plain label because render() remembers it as the default.
+        {%- endcomment -%}
+        <div class="pdx__buyfoot">
+        <button class="btn btn--block pdx__atc" type="submit" name="add" data-fye-atc{% unless current.available %} disabled{% endunless %}>
+          {%- if current.available -%}
+            {{ s.atc_label | default: 'Add to bag' }}
+          {%- else -%}
+            {{ s.mto_label | default: 'Made to order, enquire' }}
+          {%- endif -%}
+        </button>
+
+        {%- liquid
+          if is_full_eternity
+            assign deliv_sub = 'Free insured UK delivery · Free ring sizer before you order'
+          else
+            assign deliv_sub = 'Free insured UK delivery · Free first resize within 12 months'
+          endif
+        -%}
+        {%- render 'fye-pdx-delivery', lead_min: lead_min, lead_max: lead_max, sub: deliv_sub -%}
+        </div>
+      {%- endform -%}
+
+      {%- comment -%} ---- Buy box, part two: reassurance and reference ---- {%- endcomment -%}
+      <div class="pdx__buy pdx__buy--b">
+        {%- render 'fye-pdx-engage', product: p, settings: s, context: 'form', noun: 'ring', offer: 'ring', is_plain: is_plain, is_engagement: is_engagement -%}
+
+        <div class="pdx__accs">
+          <details class="pdx__acc" open>
+            <summary class="pdx__accsum">{{ s.pdx_details_heading | default: 'Ring details' }}</summary>
+            <div class="pdx__accbody">
+              {%- if p.description != blank -%}
+                <div class="pdx__story rte">{{ p.description }}</div>
+              {%- endif -%}
+              <dl class="pdx__specs">
+                {%- if is_plain -%}
+                  {%- if metal_now != blank -%}<div><dt>Metal</dt><dd>{{ metal_now }}</dd></div>{%- endif -%}
+                  {%- if cf.ring_profile != blank -%}<div><dt>Profile</dt><dd>{{ cf.ring_profile }}</dd></div>{%- endif -%}
+                  {%- if p.metafields.filters.band_width != blank -%}<div><dt>Width</dt><dd>{{ p.metafields.filters.band_width }}</dd></div>{%- endif -%}
+                  {%- if cf.ring_weight != blank -%}<div><dt>Weight</dt><dd>{{ cf.ring_weight }}</dd></div>{%- endif -%}
+                  {%- if size_option != nil and size_option.values.size > 1 -%}
+                    <div><dt>Sizes</dt><dd>UK {{ size_option.values.first }} to {{ size_option.values.last }}</dd></div>
+                  {%- endif -%}
+                {%- else -%}
+                  {%- if gx.style != blank -%}<div><dt>Style</dt><dd>{{ gx.style }}</dd></div>{%- endif -%}
+                  {%- if gx.setting != blank -%}<div><dt>Setting</dt><dd>{{ gx.setting }}</dd></div>{%- endif -%}
+                  {%- if gx.centre_stone_cut != blank -%}
+                    <div><dt>Centre stone</dt><dd>{{ gx.centre_stone_cut }}{% if cw_label != blank %}, {{ cw_label }}ct{% endif %}</dd></div>
+                  {%- endif -%}
+                  {%- if tdw_label != blank -%}<div><dt>Total diamonds</dt><dd>{{ tdw_label }}ct</dd></div>{%- endif -%}
+                  {%- if metal_opt != nil -%}<div><dt>Metal</dt><dd data-pdx-sum-metal>{{ metal_label }}</dd></div>{%- endif -%}
+                  {%- if quality_opt != nil and hide_quality == false -%}<div><dt>{{ quality_heading }}</dt><dd data-pdx-sum-qual>{{ v_quality }}</dd></div>{%- endif -%}
+                {%- endif -%}
+                {%- if current.sku != blank -%}<div><dt>SKU</dt><dd data-fye-sku>{{ current.sku }}</dd></div>{%- endif -%}
+              </dl>
+            </div>
+          </details>
+
+          <details class="pdx__acc">
+            <summary class="pdx__accsum">Delivery &amp; returns</summary>
+            <div class="pdx__accbody">{{ s.pdx_acc_delivery | default: '<p>Each ring is handmade to order in the UK and delivered free, fully insured.</p>' }}</div>
+          </details>
+
+          <details class="pdx__acc">
+            {%- if is_full_eternity -%}
+              <summary class="pdx__accsum">Sizing</summary>
+              <div class="pdx__accbody">{{ s.pdx_acc_sizing_full | default: '<p>Full eternity rings cannot be resized, because stones are set around the entire band. Please confirm your size with a free ring sizer before ordering.</p>' }}</div>
+            {%- else -%}
+              <summary class="pdx__accsum">Sizing &amp; resizing</summary>
+              <div class="pdx__accbody">{{ s.pdx_acc_sizing | default: '<p>Order a free ring sizer if you are unsure. Every ring includes a complimentary resize within the first year.</p>' }}</div>
+            {%- endif -%}
+          </details>
+
+          <details class="pdx__acc">
+            <summary class="pdx__accsum">Hallmarking &amp; ethics</summary>
+            <div class="pdx__accbody">{{ s.pdx_acc_ethics | default: '<p>Every ring is independently hallmarked and supplied with a certificate of authenticity. Ethically sourced, independently certified, fairly priced.</p>' }}</div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- render 'fye-pdx-enquire', product: p, noun: 'ring', price: current.price -%}
+</section>

@@ -167,7 +167,32 @@
   endif
 
   assign spin = mf.video_url
+
+  comment
+    ── THE NEW LAYOUT, BEHIND A GATE (27/09/2026) ──
+    Same four lines as main-product, duplicated rather than captured
+    (conventions §4). "preview" shows snippets/fye-pdx-stone.liquid to a
+    signed-in tester (email in pdx_emails, or tagged pdp-preview) and in the
+    theme editor; everyone else gets the page below, unchanged.
+  endcomment
+  assign pdx = false
+  if s.pdx_mode == 'live'
+    assign pdx = true
+  elsif s.pdx_mode != 'off'
+    if request.design_mode
+      assign pdx = true
+    elsif customer
+      assign pdx_email = customer.email | downcase | strip
+      assign pdx_list = s.pdx_emails | default: 'edward@foryoureternity.com' | downcase | remove: ' ' | split: ','
+      if pdx_list contains pdx_email or customer.tags contains 'pdp-preview'
+        assign pdx = true
+      endif
+    endif
+  endif
 -%}
+{%- if pdx -%}
+  {%- render 'fye-pdx-stone', product: p, settings: s -%}
+{%- else -%}
 
 <section class="band band--white stone" data-screen-label="Loose stone">
   <div class="wrap">
@@ -479,6 +504,7 @@
     {%- endif -%}
   </div>
 </section>
+{%- endif -%}
 
 {% stylesheet %}
 .fye .stone__top {
@@ -727,6 +753,19 @@
     margin-bottom: var(--s4);
   }
 }
+
+/* ---- the redesigned page (fye-pdx-stone), 27/09/2026 ---------------------
+   Behind the preview gate. The shell is in fye-core.css (.pdx); only the
+   characteristics table is this page's own. Hairline rows, key soft, value
+   medium, as the handoff. */
+.fye .pdx__spec { width: 100%; border-collapse: collapse; font-size: var(--fs-small); }
+.fye .pdx__spec caption { padding-bottom: var(--s3); text-align: start; }
+.fye .pdx__spec tr { border-top: var(--hairline); }
+.fye .pdx__spec tr:last-child { border-bottom: var(--hairline); }
+.fye .pdx__spec th,
+.fye .pdx__spec td { padding: var(--s3) 0; text-align: start; vertical-align: top; }
+.fye .pdx__spec th { width: 50%; font-weight: var(--fw-light); color: var(--ink-soft); }
+.fye .pdx__spec td { font-weight: var(--fw-medium); }
 {% endstylesheet %}
 
 {% schema %}
@@ -770,7 +809,39 @@
       "id": "reassurance",
       "label": "Reassurance line",
       "default": "Every stone is supplied with its certificate. Free insured UK delivery."
-    }
+    },
+
+    { "type": "header", "content": "New page layout (preview)" },
+    {
+      "type": "paragraph",
+      "content": "The redesigned stone page, 27/09/2026. While this is on Preview, only a signed-in customer whose email is listed below (or who is tagged pdp-preview) sees it, plus the theme editor. Everyone else sees the page above. Set Live to show it to everyone."
+    },
+    {
+      "type": "select",
+      "id": "pdx_mode",
+      "label": "Show the new layout to",
+      "options": [
+        { "value": "preview", "label": "Testers only" },
+        { "value": "live", "label": "Everyone" },
+        { "value": "off", "label": "No one" }
+      ],
+      "default": "preview"
+    },
+    { "type": "text", "id": "pdx_emails", "label": "Tester emails", "default": "edward@foryoureternity.com", "info": "Comma separated. Customers tagged pdp-preview also see it." },
+    { "type": "number", "id": "pdx_lead_min", "label": "Delivery, fewest working days", "default": 3 },
+    { "type": "number", "id": "pdx_lead_max", "label": "Delivery, most working days", "default": 5 },
+    { "type": "text", "id": "pdx_actual_tag", "label": "Photograph tag", "default": "Actual stone", "info": "Shown over the photograph. Clear it if the photographs are not of the stone itself." },
+    { "type": "text", "id": "pdx_reviews_rating", "label": "Review rating", "info": "For example 4.9. Leave empty to hide the review strip. A product's own review data wins." },
+    { "type": "text", "id": "pdx_reviews_count", "label": "Number of reviews" },
+    { "type": "text", "id": "pdx_reviews_quote", "label": "Review quote" },
+    { "type": "url", "id": "pdx_reviews_url", "label": "All reviews link" },
+    { "type": "text", "id": "pdx_phone", "label": "Phone number", "default": "0208 178 6687" },
+    { "type": "text", "id": "pdx_whatsapp", "label": "WhatsApp number", "default": "07840 042922" },
+    { "type": "text", "id": "pdx_hours", "label": "Opening hours", "default": "Mon–Fri, 9am–6pm" },
+    { "type": "textarea", "id": "pdx_talk_copy", "label": "Speak to us wording" },
+    { "type": "richtext", "id": "pdx_acc_delivery", "label": "Delivery and returns" },
+    { "type": "richtext", "id": "pdx_acc_setting", "label": "Setting your stone" },
+    { "type": "richtext", "id": "pdx_acc_ethics", "label": "Certification and ethics" }
   ],
   "presets": [{ "name": "Loose stone" }]
 }

@@ -97,7 +97,25 @@
   which saves what the buy box currently holds, via context: 'form' — picks
   the finish up with no change to fye-wishlist-button.
 
-  Parameters: product, settings (the section's)
+  ── layout: 'pdx' (27/09/2026, the CRO redesign) ──────────────────────
+
+  Passed only by fye-pdx-ring, behind the preview gate. The No/Yes toggle is
+  replaced by the handoff's four cards: Polished, Matt and Vertical Brushed
+  as quick picks (a tap applies them, no modal), and a fourth "View more
+  finishes" card that opens the same picker. A finish chosen in the picker
+  that is not one of the three shows on that fourth card.
+
+  The picker gains CATEGORY CHIPS (All, Polished, Matt & brushed, Part matt,
+  Edge details, Lines & patterns) beside the search, and a ring total in its
+  footer. This reverses the 18/09 "deliberately not grouped" call for this
+  layout only, because Ed's redesign asks for it; search still covers every
+  finish and "All" is the default. The handoff named five categories and
+  left half the list in none of them, so a sixth, "Lines & patterns", holds
+  the grooves, milled, frosted motif and hand engraved finishes. `data-cat`
+  on each tile is the only change the old layout sees, and it reads nothing
+  from it.
+
+  Parameters: product, settings (the section's), layout (optional)
 {%- endcomment -%}
 {%- liquid
   assign p = product
@@ -141,6 +159,19 @@
   assign var_hand = s.finish_engraved_variant_id | default: '59922131714432'
   assign label_plain = fee_plain | money_without_trailing_zeros
   assign label_hand = fee_hand | money_without_trailing_zeros
+
+  assign pdx = false
+  if layout == 'pdx'
+    assign pdx = true
+  endif
+
+  comment
+    Category per HM number, for the pdx picker's chips. Anything not listed
+    is a line or pattern. Polished has its own chip and no HM number.
+  endcomment
+  assign cat_matt = '~24~67~69~68~86~65~66~'
+  assign cat_part = '~19~35~30~'
+  assign cat_edge = '~6~2~38~39~25~5~47~94~22~23~3~4~46~84~85~'
 -%}
 
 {%- capture finish_rows -%}
@@ -199,8 +230,39 @@
   fye-finish.js rewrites both as the applied finish changes, and fye-ui.js
   reads them here the same way it reads engraving's.
 {%- endcomment -%}
-<div class="pdp__finish" data-fye-finish data-fee-price="0" data-fee-variant="">
+<div class="pdp__finish{% if pdx %} pdx__finish{% endif %}" data-fye-finish data-fee-price="0" data-fee-variant="">
 
+  {%- if pdx -%}
+    {%- comment -%}
+      The three quick picks are the Polished tile plus HM 24 and HM 67, named
+      by their property string so fye-finish.js finds the matching tile in
+      the picker and applies it through the same code path.
+    {%- endcomment -%}
+    {%- assign more_count = finishes.size | minus: 2 -%}
+    <p class="pdx__label">{{ s.finish_label | default: 'Finish' }} <span class="pdx__labelval"><span data-fye-finish-name>Polished</span> · <span data-pdx-finish-price>Standard</span></span></p>
+    <div class="pdx__fquick" role="radiogroup" aria-label="{{ s.finish_label | default: 'Finish' | escape }}">
+      <button type="button" class="pdx__fcard is-on" role="radio" aria-checked="true" data-fye-finish-quick="Polished">
+        <span class="pdx__fcardimg"><img src="{{ polished_tile }}" alt="" width="112" height="112" loading="lazy"></span>
+        <span class="pdx__fcardname">Polished</span>
+        <span class="pdx__fcardprice">Standard</span>
+      </button>
+      {%- assign quick = 'Matt|24|matt,Vertical Brushed|67|vertical-brushed' | split: ',' -%}
+      {%- for qrow in quick -%}
+        {%- assign qb = qrow | split: '|' -%}
+        {%- assign q_img = 'rf-finish-' | append: qb[2] | append: tone | append: '.jpg' -%}
+        <button type="button" class="pdx__fcard" role="radio" aria-checked="false" data-fye-finish-quick="{{ qb[0] }} (HM {{ qb[1] }})">
+          <span class="pdx__fcardimg"><img src="{{ q_img | file_url }}" alt="" width="112" height="112" loading="lazy"></span>
+          <span class="pdx__fcardname">{{ qb[0] }}</span>
+          <span class="pdx__fcardprice">+{{ label_plain }}</span>
+        </button>
+      {%- endfor -%}
+      <button type="button" class="pdx__fcard pdx__fcard--more" data-fye-finish-open data-fye-finish-more>
+        <span class="pdx__fcardmore" data-fye-finish-more-name>View more finishes</span>
+        <span class="pdx__fcardprice" data-fye-finish-more-meta data-default="{{ more_count }} additional options">{{ more_count }} additional options</span>
+      </button>
+    </div>
+    <p class="pdx__help">{{ s.pdx_finish_help | default: 'Every ring is polished as standard. Finishes are cut into the outside of the band, which is separate from engraving a message inside.' }}</p>
+  {%- else -%}
   <div class="pdp__finishhead">
     <p class="pdp__label">
       {{ s.finish_label | default: 'Custom finish' }}
@@ -236,6 +298,7 @@
       </button>
     </span>
   </div>
+  {%- endif -%}
 
   {%- comment -%}
     Always enabled, always sent — see the header. Its value is rewritten by
@@ -271,6 +334,15 @@
         </button>
       </div>
 
+      {%- if pdx -%}
+        <div class="pdx__fcats" role="group" aria-label="Finish type">
+          {%- assign cats = 'all|All,polished|Polished,matt|Matt & brushed,part|Part matt,edge|Edge details,lines|Lines & patterns' | split: ',' -%}
+          {%- for c in cats -%}
+            {%- assign cb = c | split: '|' -%}
+            <button type="button" class="pdx__fcat{% if forloop.first %} is-on{% endif %}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}" data-fye-finish-cat="{{ cb[0] }}">{{ cb[1] }}</button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
       <div class="pdp__modaltools">
         <label class="visually-hidden" for="pdp-finish-search">Search finishes</label>
         <input class="pdp__input pdp__finishsearch"
@@ -302,7 +374,8 @@
                 data-fee="0"
                 data-fee-variant=""
                 data-fee-label=""
-                data-search="polished default standard">
+                data-search="polished default standard"
+                data-cat="polished">
           <span class="pdp__ftileimg">
             <img src="{{ polished_tile }}"
                  alt="A polished {{ metal_now | escape }} band"
@@ -332,6 +405,16 @@
             pattern picks up the right price by being named like its fellows.
           {%- endcomment -%}
           {%- liquid
+            assign hm_key = '~' | append: hm | append: '~'
+            if cat_matt contains hm_key
+              assign cat = 'matt'
+            elsif cat_part contains hm_key
+              assign cat = 'part'
+            elsif cat_edge contains hm_key
+              assign cat = 'edge'
+            else
+              assign cat = 'lines'
+            endif
             assign fee = fee_plain
             assign fee_label = label_plain
             assign fee_variant = var_plain
@@ -353,7 +436,8 @@
                   data-fee="{{ fee }}"
                   data-fee-variant="{{ fee_variant }}"
                   data-fee-label="+{{ fee_label }}"
-                  data-search="{{ name | downcase | escape }} hm{{ hm }} {{ hm }}">
+                  data-search="{{ name | downcase | escape }} hm{{ hm }} {{ hm }}"
+                  data-cat="{{ cat }}">
             <span class="pdp__ftileimg">
               <img src="{{ asset_name | file_url }}"
                    alt="{{ name | escape }} finish on a {{ metal_now | escape }} band"
@@ -392,6 +476,9 @@
             <span class="pdp__finishmeta" data-fye-finish-draftmeta>The standard finish, no extra work</span>
           </span>
         </span>
+        {%- if pdx -%}
+          <span class="pdx__pending" data-pdx-finish-total aria-live="polite"></span>
+        {%- endif -%}
         <span class="pdp__finishbtns">
           <button type="button" class="btn btn--outline" data-fye-finish-cancel>Cancel</button>
           <button type="button" class="btn" data-fye-finish-confirm>{{ s.finish_confirm_label | default: 'Confirm finish' }}</button>

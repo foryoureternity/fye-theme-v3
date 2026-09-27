@@ -1221,9 +1221,52 @@
 
   /* ---- render ---------------------------------------------------------- */
 
+  /* The variant the page opened on, by the hidden id. Used ONLY while an
+     option is still unanswered, which happens on one page: the redesigned
+     plain ring page (fye-pdx-ring), whose size select opens empty. Until a
+     size is chosen the page is priced off the opening variant, so the price,
+     engraving and finish still add up; the select's own `required` stops the
+     form posting. Every other page has no empty option, so never gets here. */
+  function provisionalVariant(form) {
+    var variants = variantsOf(form);
+    var id = form.querySelector('[data-fye-variant-id]');
+    if (!variants || !id) return null;
+    var hasEmpty = Array.prototype.some.call(
+      form.querySelectorAll('[data-fye-option]'),
+      function (sel) { return !sel.value; }
+    );
+    if (!hasEmpty) return null;
+    var match = null;
+    variants.forEach(function (v) { if (String(v.id) === String(id.value)) match = v; });
+    return match;
+  }
+
+  /* render() paints, then announces. `fye:priced` carries the numbers the
+     paint used, so the redesigned page (PDX block, end of this file) can show
+     them without a second copy of the price maths. Nothing on the old page
+     listens for it. */
   function render(form) {
+    var out = paintPrice(form);
+    if (!out) return;
+    form.__pdxPriced = out;
+    var ev;
+    try {
+      ev = new CustomEvent('fye:priced', { bubbles: true, detail: out });
+    } catch (e) {
+      ev = document.createEvent('CustomEvent');
+      ev.initCustomEvent('fye:priced', true, false, out);
+    }
+    form.dispatchEvent(ev);
+  }
+
+  function paintPrice(form) {
+    var provisional = false;
     var v = chosenVariant(form);
-    if (!v) return;
+    if (!v) {
+      v = provisionalVariant(form);
+      provisional = !!v;
+    }
+    if (!v) return null;
 
     var id = form.querySelector('[data-fye-variant-id]');
     if (id) id.value = v.id;
@@ -1243,14 +1286,26 @@
     var sku = document.querySelector('[data-fye-sku]');
     if (sku && v.sku) sku.textContent = v.sku;
 
+    var need = requirement(form);
+    var out = {
+      variant: v,
+      base: base,
+      total: total,
+      centre: centreAddOn(form),
+      sides: sidesAddOn(form),
+      engrave: engraveFee(form),
+      finish: finishFee(form),
+      need: need,
+      provisional: provisional
+    };
+
     var atc = form.querySelector('[data-fye-atc]');
-    if (!atc) return;
+    if (!atc) return out;
 
     if (!atc.getAttribute('data-label-default')) {
       atc.setAttribute('data-label-default', atc.textContent.trim());
     }
 
-    var need = requirement(form);
     if (!v.available) {
       atc.disabled = true;
       atc.textContent = atc.getAttribute('data-label-default');
@@ -1261,6 +1316,7 @@
       atc.disabled = false;
       atc.textContent = atc.getAttribute('data-label-default');
     }
+    return out;
   }
 
   function renderForm(el) {
@@ -1426,10 +1482,14 @@
     if (!block) return;
 
     var want = seg.getAttribute('data-fye-engrave-set');
+    /* "toggle" is the redesigned page's single checkbox row (fye-pdx-ring):
+       it flips whatever the block currently is, then runs the same path. */
+    if (want === 'toggle') want = block.getAttribute('data-on') === 'yes' ? 'no' : 'yes';
     block.setAttribute('data-on', want);
 
     block.querySelectorAll('[data-fye-engrave-set]').forEach(function (b) {
-      var on = b.getAttribute('data-fye-engrave-set') === want;
+      var val = b.getAttribute('data-fye-engrave-set');
+      var on = val === 'toggle' ? want === 'yes' : val === want;
       b.classList.toggle('is-on', on);
       b.setAttribute('aria-checked', on ? 'true' : 'false');
     });
@@ -1693,6 +1753,10 @@
     var eng = form.querySelector('[data-fye-engrave]');
     if (eng && cfg.engrave) {
       var seg = eng.querySelector('[data-fye-engrave-set="' + cfg.engrave.on + '"]');
+      /* The redesigned page has one toggle, not a Yes and a No: click it only
+         when it would move the block to the saved state. */
+      var tog = eng.querySelector('[data-fye-engrave-set="toggle"]');
+      if (!seg && tog && (eng.getAttribute('data-on') || 'no') !== cfg.engrave.on) seg = tog;
       if (seg) seg.click();
       Object.keys(cfg.engrave.fields || {}).forEach(function (name) {
         var f = eng.querySelector('[name="' + name + '"]');
@@ -1771,7 +1835,13 @@
   function boot() {
     document.querySelectorAll('form [data-fye-variants]').forEach(function (island) {
       var form = island.closest('form');
-      if (form) render(form);
+      if (!form) return;
+      /* The redesigned page opens with "Choose a diamond" already chosen, so
+         the stone count and the picker button need the feed straight away,
+         exactly as if the tile had been tapped. */
+      var centre = centreOf(form);
+      if (centre && modeOf(centre) === 'required') ensureStones(centre);
+      render(form);
     });
   }
 
@@ -3872,4 +3942,475 @@
       }
     } catch (err) {}
   }, true);
+})();
+
+
+/* ============================================================================
+   PDX: THE REDESIGNED PRODUCT PAGE, 27/09/2026
+   snippets/fye-pdx-ring.liquid, fye-pdx-stone.liquid and the fye-pdx-*
+   snippets they share. Behind a preview gate in main-product and
+   fye-stone-product: a visitor never has a [data-fye-pdx] on the page, so
+   everything here returns at its first line for them.
+
+   ── ONE SOURCE FOR EVERY NUMBER ────────────────────────────────────────────
+
+   This block computes no totals of its own. productPage's render() fires
+   `fye:priced` on the buy-box form after every repaint, carrying the variant,
+   the ring price and the total it just painted. Everything below is painted
+   from that, so the headline price, the "Add to bag · £x" label, the offer
+   saving and the enquiry popup cannot disagree with the cart.
+
+   The chip prices (carat, shoulder quality) are the one thing it looks up:
+   the price of the variant that chip WOULD select, from the same variants
+   island render() reads. A chip for a combination that is not made says so
+   and is disabled, rather than pointing at a variant that does not exist.
+
+   ── WHAT IT DOES ───────────────────────────────────────────────────────────
+
+     live summary, metal label, quality label     from the current options
+     carat and shoulder-diamond chip prices       variant lookups
+     "Add to bag · £total"                         appended after render()
+     the chosen mode beside each chooser heading  "Choose a diamond"
+     the picker footer's ring total               pending stone + total
+     engraving font tiles and their preview text  a hidden input
+     delivery dates                               today + N–M working days
+     share panel links                            built at the click
+     the enquiry popup's product line             filled as it opens
+
+   productPage's boot() runs before this block exists, so its first
+   `fye:priced` has already fired by the time the listener is added. boot()
+   below repaints from the figures it left on the form (form.__pdxPriced).
+   ========================================================================== */
+(function pdx() {
+  if (!document.querySelector('[data-fye-pdx]')) return;
+
+  function money(pennies) {
+    return '£' + ((Number(pennies) || 0) / 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  function rootOf(el) { return el && el.closest ? el.closest('[data-fye-pdx]') : null; }
+
+  function variantsOf(form) {
+    var island = form && form.querySelector('[data-fye-variants]');
+    if (!island) return [];
+    try { return JSON.parse(island.textContent); } catch (e) { return []; }
+  }
+
+  /* "14k Gold" + "Yellow" → "14ct Yellow Gold". Label only; the option value
+     posted to Shopify is never touched (W325). */
+  function niceMetal(form) {
+    var metal = form.querySelector('[data-fye-metal-input]');
+    if (!metal) return '';
+    var v = metal.value || '';
+    if (!/gold/i.test(v)) return v;
+    var gold = form.querySelector('[data-fye-gold-input]');
+    var kt = (/(\d+)/.exec(v) || [])[1];
+    var colour = gold && gold.value ? gold.value + ' ' : '';
+    return (kt ? kt + 'ct ' : '') + colour + 'Gold';
+  }
+
+  /* Price of the variant with this metal and quality, or null if not made. */
+  function priceFor(form, metal, quality) {
+    var hasQ = !!form.querySelector('[data-fye-quality]');
+    var want = hasQ ? metal + ' / ' + quality : metal;
+    var hit = null;
+    variantsOf(form).forEach(function (v) { if (v.title === want && v.available) hit = v; });
+    return hit ? hit.price : null;
+  }
+
+  /* ---- paint from fye:priced ------------------------------------------ */
+
+  function paint(form, d) {
+    var root = rootOf(form);
+    if (!root || !d) return;
+
+    var metalInput = form.querySelector('[data-fye-metal-input]');
+    var qualInput = form.querySelector('[data-fye-quality]');
+    var metal = metalInput ? metalInput.value : '';
+    var quality = qualInput ? qualInput.value : '';
+
+    /* The button: its default label, then the total. requirement() owns the
+       words while something is outstanding, so they are left alone. */
+    var atc = form.querySelector('[data-fye-atc]');
+    if (atc && !atc.disabled && !d.need && d.variant && d.variant.available) {
+      var base = atc.getAttribute('data-label-default') || atc.textContent;
+      atc.textContent = base + ' · ' + money(d.total);
+    }
+
+    /* Summary, metal and quality words, wherever they appear. */
+    var nice = niceMetal(form);
+    if (nice) {
+      root.querySelectorAll('[data-pdx-sum-metal], [data-fye-metal-label]').forEach(function (el) {
+        el.textContent = nice;
+      });
+    }
+    if (quality) {
+      root.querySelectorAll('[data-pdx-sum-qual], [data-pdx-qual-now]').forEach(function (el) {
+        el.textContent = quality;
+      });
+    }
+
+    /* Plain rings: the current carat tile shows the live ring price. */
+    root.querySelectorAll('[data-pdx-live-price]').forEach(function (el) {
+      el.textContent = money(d.base);
+    });
+
+    /* Carat tiles on a Metal x Quality ring. */
+    if (metalInput) {
+      root.querySelectorAll('[data-pdx-metal-price]').forEach(function (el) {
+        var m = el.getAttribute('data-pdx-metal-price');
+        var p = priceFor(form, m, quality);
+        el.textContent = p == null ? 'Not made' : money(p);
+        var tile = el.closest('button');
+        if (tile) tile.disabled = p == null && m !== metal;
+      });
+    }
+
+    /* Shoulder-diamond tiles: "Included" on the chosen grade, the difference
+       on the others, at the current metal. */
+    if (qualInput) {
+      var now = priceFor(form, metal, quality);
+      root.querySelectorAll('[data-pdx-qual]').forEach(function (tile) {
+        var q = tile.getAttribute('data-pdx-qual');
+        var on = q === quality;
+        tile.classList.toggle('is-on', on);
+        tile.setAttribute('aria-checked', on ? 'true' : 'false');
+
+        var out = tile.querySelector('[data-pdx-qual-price]');
+        var p = priceFor(form, metal, q);
+        tile.disabled = p == null && !on;
+        if (!out) return;
+        if (on) { out.textContent = 'Included'; return; }
+        if (p == null) { out.textContent = 'Not made in this metal'; return; }
+        if (now == null) { out.textContent = money(p); return; }
+        var diff = p - now;
+        out.textContent = diff === 0 ? 'Same price' : (diff > 0 ? '+' : '−') + money(Math.abs(diff));
+      });
+    }
+
+    /* The mode each chooser is in, beside its heading. */
+    root.querySelectorAll('[data-fye-centre], [data-fye-sides]').forEach(function (panel) {
+      var label = panel.querySelector('[data-pdx-mode-now]');
+      var tile = panel.querySelector('.pdp__mode.is-on .pdp__modetitle');
+      if (label) label.textContent = tile ? tile.textContent.trim() : 'Choose one';
+
+      var opener = panel.querySelector('[data-fye-picker-open]');
+      if (opener) {
+        if (!opener.getAttribute('data-pdx-label')) opener.setAttribute('data-pdx-label', opener.textContent.trim());
+        opener.textContent = panel.getAttribute('data-stone') ? 'Change diamond' : opener.getAttribute('data-pdx-label');
+      }
+    });
+
+    /* The offer's saving, from the live total. */
+    var pct = parseFloat(root.getAttribute('data-offer-pct')) || 0;
+    root.querySelectorAll('[data-pdx-offer-saving]').forEach(function (el) {
+      el.textContent = money(Math.round(d.total * pct / 100));
+      var extra = el.closest('[data-pdx-offer-extra]');
+      if (extra) extra.hidden = !pct;
+    });
+
+    root.querySelectorAll('[data-pdx-enq-price]').forEach(function (el) {
+      el.textContent = money(d.total);
+    });
+
+    paintFonts(root);
+  }
+
+  function paintFonts(root) {
+    var input = root.querySelector('[data-pdx-font-input]');
+    var text = root.querySelector('[data-fye-engrave-text]');
+    var sample = text && text.value.trim();
+    root.querySelectorAll('[data-pdx-font]').forEach(function (tile) {
+      var on = input && tile.getAttribute('data-pdx-font') === input.value;
+      tile.classList.toggle('is-on', !!on);
+      tile.setAttribute('aria-checked', on ? 'true' : 'false');
+      var s = tile.querySelector('[data-pdx-font-sample]');
+      if (!s) return;
+      if (!s.getAttribute('data-default')) s.setAttribute('data-default', s.textContent);
+      s.textContent = sample || s.getAttribute('data-default');
+    });
+  }
+
+  document.addEventListener('fye:priced', function (e) {
+    paint(e.target, e.detail);
+  });
+
+  /* ---- the picker's footer: pending stone and ring total --------------- */
+
+  function paintPending(panel) {
+    var out = panel.querySelector('[data-pdx-pending]');
+    if (!out) return;
+    var form = panel.closest('form');
+    var st = panel.__fyePk;
+    var sel = st && st.sel;
+    var stone = null;
+    (panel.__fyeStones || []).forEach(function (d) {
+      if (sel && String(d.variantId) === String(sel)) stone = d;
+    });
+    if (!stone || !form || !form.__pdxPriced) {
+      out.textContent = 'Select a stone to see your ring total.';
+      return;
+    }
+    var last = form.__pdxPriced;
+    var name = [stone.shape, stone.carat ? stone.carat + 'ct' : '', stone.colour, stone.clarity]
+      .filter(Boolean).join(' ');
+    out.textContent = name + ' · ring total ' + money(last.total - last.centre + (Number(stone.price) || 0));
+  }
+
+  /* ---- delivery dates -------------------------------------------------- */
+
+  function addWorkingDays(from, n) {
+    var d = new Date(from.getTime());
+    var k = 0;
+    while (k < n) {
+      d.setDate(d.getDate() + 1);
+      var day = d.getDay();
+      if (day !== 0 && day !== 6) k++;
+    }
+    return d;
+  }
+
+  function paintDelivery(scope) {
+    (scope || document).querySelectorAll('[data-pdx-delivery]').forEach(function (block) {
+      var lo = parseInt(block.getAttribute('data-min'), 10);
+      var hi = parseInt(block.getAttribute('data-max'), 10);
+      var out = block.querySelector('[data-pdx-delivery-dates]');
+      if (!out || !(lo > 0) || !(hi >= lo)) return;
+      var now = new Date();
+      var a = addWorkingDays(now, lo);
+      var b = addWorkingDays(now, hi);
+      var month = function (d) { return d.toLocaleDateString('en-GB', { month: 'long' }); };
+      out.textContent = month(a) === month(b)
+        ? a.getDate() + '–' + b.getDate() + ' ' + month(b)
+        : a.getDate() + ' ' + month(a) + ' – ' + b.getDate() + ' ' + month(b);
+    });
+  }
+
+  /* ---- what the shopper has chosen, in words --------------------------- */
+
+  function selectionWords(root) {
+    var bits = [];
+    var sum = root.querySelector('[data-pdx-summary]');
+    if (sum) bits.push(sum.textContent.replace(/\s+/g, ' ').trim());
+
+    var form = root.querySelector('form [data-fye-variants]');
+    form = form ? form.closest('form') : root.querySelector('form');
+    if (!form) return bits.join(' · ');
+
+    var size = form.querySelector('#pdx-size');
+    if (size && size.value) bits.push('Size ' + size.value);
+
+    var centre = form.querySelector('[data-fye-centre]');
+    if (centre) {
+      var raw = centre.getAttribute('data-stone');
+      var mode = centre.getAttribute('data-mode');
+      if (mode === 'required' && raw) {
+        try {
+          var st = JSON.parse(raw);
+          bits.push('Centre: ' + [st.shape, st.carat ? st.carat + 'ct' : '', st.colour, st.clarity, st.origin]
+            .filter(Boolean).join(' '));
+        } catch (e) {}
+      } else if (mode === 'supplied') {
+        bits.push('Centre: own diamond');
+      } else if (mode === 'none') {
+        bits.push('Centre: semi-mount only');
+      }
+    }
+
+    var chip = form.querySelector('[data-fye-sides] [data-fye-side-qual].is-on');
+    var sidesMode = form.querySelector('[data-fye-sides]');
+    if (sidesMode && sidesMode.getAttribute('data-mode') === 'required' && chip) {
+      bits.push('Side pair: ' + chip.getAttribute('data-fye-side-qual'));
+    }
+
+    var finish = form.querySelector('[data-fye-finish-prop]');
+    if (finish && finish.value && finish.value !== 'Polished') bits.push('Finish: ' + finish.value);
+
+    var eng = form.querySelector('[data-fye-engrave]');
+    if (eng && eng.getAttribute('data-on') === 'yes') {
+      var t = eng.querySelector('[data-fye-engrave-text]');
+      bits.push('Engraving' + (t && t.value ? ': "' + t.value + '"' : ''));
+    }
+    return bits.join(' · ');
+  }
+
+  function fillEnquiry(root, trigger) {
+    var words = selectionWords(root);
+    root.querySelectorAll('[data-pdx-enq-sel]').forEach(function (el) { el.textContent = words; });
+    root.querySelectorAll('[data-pdx-enq-selection]').forEach(function (el) { el.value = words; });
+    var topic = trigger && trigger.getAttribute('data-pdx-enquire-topic');
+    root.querySelectorAll('[data-pdx-enq-topic]').forEach(function (el) { el.value = topic || ''; });
+  }
+
+  /* ---- share ------------------------------------------------------------ */
+
+  function shareUrl(root) {
+    var url = window.location.origin + window.location.pathname;
+    var form = root.querySelector('form [data-fye-variants]');
+    form = form ? form.closest('form') : null;
+    var last = form && form.__pdxPriced;
+    if (last && last.variant && !last.provisional) url += '?variant=' + last.variant.id;
+    return url;
+  }
+
+  function buildShare(root) {
+    var panel = root.querySelector('[data-pdx-share-panel]');
+    if (!panel) return;
+    var title = root.querySelector('[data-fye-product-title]');
+    var name = title ? title.textContent.trim() : document.title;
+    var sum = root.querySelector('[data-pdx-summary]');
+    var line = sum ? sum.textContent.replace(/\s+/g, ' ').trim() : '';
+    var url = shareUrl(root);
+    var msg = 'Take a look at this from For Your Eternity: ' + name + (line ? ', ' + line : '') + ' ';
+    var e = encodeURIComponent;
+    var hrefs = {
+      email: 'mailto:?subject=' + e(name + ' from For Your Eternity') + '&body=' + e(msg + url),
+      whatsapp: 'https://wa.me/?text=' + e(msg + url),
+      sms: 'sms:?&body=' + e(msg + url),
+      facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + e(url),
+      pinterest: 'https://pinterest.com/pin/create/button/?url=' + e(url) + '&description=' + e(msg)
+    };
+    panel.querySelectorAll('a[data-pdx-share-to]').forEach(function (a) {
+      var h = hrefs[a.getAttribute('data-pdx-share-to')];
+      if (h) a.setAttribute('href', h);
+    });
+    panel.setAttribute('data-url', url);
+  }
+
+  function copyText(text, done) {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+      return;
+    }
+    fallback();
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (err) {}
+      document.body.removeChild(ta);
+      done();
+    }
+  }
+
+  /* ---- clicks ----------------------------------------------------------- */
+
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest) return;
+    var root = rootOf(e.target);
+    var el;
+
+    /* Enquiry popup: fill the product line as it opens. The popup block
+       above has already opened it by now; this only writes into it. The
+       popup lives inside the section, so the root is the same. */
+    if ((el = e.target.closest('[data-fye-popup="pdx-enquire"]'))) {
+      var r = rootOf(el) || document.querySelector('[data-fye-pdx]');
+      if (r) fillEnquiry(r, el);
+      return;
+    }
+
+    if (!root) return;
+
+    if ((el = e.target.closest('[data-pdx-qual]'))) {
+      var form = el.closest('form');
+      var input = form && form.querySelector('[data-fye-quality]');
+      if (!input || el.disabled) return;
+      input.value = el.getAttribute('data-pdx-qual');
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+      return;
+    }
+
+    if ((el = e.target.closest('[data-pdx-font]'))) {
+      var fi = root.querySelector('[data-pdx-font-input]');
+      if (fi) fi.value = el.getAttribute('data-pdx-font');
+      paintFonts(root);
+      return;
+    }
+
+    if ((el = e.target.closest('[data-pdx-share]'))) {
+      var panel = root.querySelector('[data-pdx-share-panel]');
+      if (!panel) return;
+      var open = panel.hidden;
+      if (open) buildShare(root);
+      panel.hidden = !open;
+      el.setAttribute('aria-expanded', open ? 'true' : 'false');
+      el.classList.toggle('is-on', open);
+      var lbl = panel.querySelector('[data-pdx-copy-label]');
+      if (lbl) lbl.textContent = 'Copy link';
+      return;
+    }
+
+    if ((el = e.target.closest('[data-pdx-share-to="copy"]'))) {
+      var sp = el.closest('[data-pdx-share-panel]');
+      var url = (sp && sp.getAttribute('data-url')) || shareUrl(root);
+      copyText(url, function () {
+        var l = el.querySelector('[data-pdx-copy-label]');
+        if (l) l.textContent = 'Copied';
+      });
+      return;
+    }
+
+    if ((el = e.target.closest('[data-pdx-way]'))) {
+      var group = el.closest('.pdx-enq__how');
+      if (!group) return;
+      group.querySelectorAll('[data-pdx-way]').forEach(function (b) {
+        var on = b === el;
+        b.classList.toggle('is-on', on);
+        b.setAttribute('aria-checked', on ? 'true' : 'false');
+      });
+      var wi = group.querySelector('[data-pdx-way-input]');
+      if (wi) wi.value = el.getAttribute('data-pdx-way');
+      return;
+    }
+
+    /* The wishlist heart saves the configured ring, which needs a size on a
+       plain ring (the size IS the variant). Rather than a heart that quietly
+       does nothing, point at the question. */
+    if ((el = e.target.closest('[data-fye-wish="form"]'))) {
+      var wf = document.querySelector('[data-fye-pdx] form [data-fye-variants]');
+      wf = wf ? wf.closest('form') : null;
+      var empty = wf && wf.querySelector('select[data-fye-option][required]');
+      if (empty && !empty.value && empty.reportValidity) empty.reportValidity();
+      return;
+    }
+
+  });
+
+  /* The picker's footer. Picking a card makes productPage repaint the grid,
+     which REPLACES the card that was clicked, so by the time a bubbling
+     listener runs the target is detached and closest() finds nothing. So
+     after any click, once productPage has finished, every centre panel on
+     the page repaints its footer from its own state. Cheap: two panels at
+     most, a few string joins each. */
+  document.addEventListener('click', function () {
+    setTimeout(function () {
+      document.querySelectorAll('[data-fye-pdx] [data-fye-centre]').forEach(paintPending);
+    }, 0);
+  });
+
+  document.addEventListener('input', function (e) {
+    if (!e.target.closest) return;
+    var root = rootOf(e.target);
+    if (root && e.target.closest('[data-fye-engrave-text]')) paintFonts(root);
+  });
+
+  /* ---- first paint ------------------------------------------------------ */
+
+  function boot() {
+    paintDelivery(document);
+    document.querySelectorAll('[data-fye-pdx] form').forEach(function (form) {
+      if (form.__pdxPriced) paint(form, form.__pdxPriced);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+  document.addEventListener('shopify:section:load', boot);
 })();

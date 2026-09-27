@@ -1180,3 +1180,514 @@ a.visually-hidden:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   .fye .acard:hover .acard__media :where(img) { transform: none; }
 }
+
+
+/* ============================================================================
+   PRODUCT PAGE REDESIGN: the shared shell (.pdx), 27/09/2026
+   ----------------------------------------------------------------------------
+   Claude Design handoff "Product page CRO redesign". Two sections render it,
+   main-product (through snippets/fye-pdx-ring) and fye-stone-product
+   (through fye-pdx-stone), which is what earns it a place in core
+   (conventions §2). Ring-only pieces live in main-product's stylesheet.
+
+   Behind a preview gate: nothing in this block matches on a page a visitor
+   sees until the gate is set to Everyone.
+
+   THE PAGE GRID moves the reassurance tiles. Desktop: gallery then tiles in
+   the left column, the buy box down the right. At 900 and below, one column:
+   gallery, buy box part A (to the delivery block), tiles, part B. One copy
+   of the tiles, moved by grid areas (conventions §3, and the handoff's own
+   instruction).
+
+   The type sizes below are the handoff's, measured off its 1320px screens;
+   the few that are not already core tokens are added to :root here rather
+   than typed as literals, so a section can never drift from them.
+   ========================================================================== */
+
+:root {
+  --fs-pdx-title:    clamp(28px, 3vw, 38px);   /* handoff: short Title Case name */
+  --fs-pdx-title-mb: 30px;
+  --fs-pdx-price:    30px;
+  --fs-pdx-lead:     16px;                      /* the live summary line */
+  --fs-pdx-meta:     12px;                      /* eyebrow, labels, chips */
+  --fs-pdx-meta-mb:  10px;
+  --pdx-thumb:       72px;
+  --pdx-thumb-mb:    58px;
+  --pdx-chip-h:      28px;
+  --pdx-chip-h-mb:   42px;                      /* a touch target on a phone */
+  --pdx-atc-h:       56px;
+  --stone-ground:    #D2D6D6;                   /* the handoff's stone photo ground */
+}
+
+.fye .pdx__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-areas:
+    "gallery buya"
+    "assure  buya"
+    ".       buyb";
+  grid-template-rows: auto 1fr auto;
+  column-gap: var(--s10);
+  row-gap: var(--s6);
+  align-items: start;
+}
+.fye .pdx__gallery   { grid-area: gallery; min-width: 0; }
+.fye .pdx__assurewrap{ grid-area: assure; min-width: 0; }
+.fye .pdx__buy--a    { grid-area: buya; }
+.fye .pdx__buy--b    { grid-area: buyb; }
+
+.fye .pdx__buy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s6);
+  min-width: 0;
+  margin: 0;
+}
+
+/* ---- gallery ------------------------------------------------------------ */
+.fye .pdx__stage {
+  position: relative;
+  border: var(--hairline);
+  background: var(--white);
+}
+.fye .pdx__stage--stone { background: var(--stone-ground); }
+.fye .pdx__img,
+.fye .pdx__empty,
+.fye .pdx__spin {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 0;
+}
+.fye .pdx__stage .pdp__wish-over { top: var(--s3); right: var(--s3); }
+.fye .pdx__stage .wish--lg { width: 44px; height: 44px; }
+.fye .pdx__stage .wish--lg svg { width: 26px; height: 26px; }
+
+.fye .pdx__tag {
+  position: absolute;
+  left: var(--s4);
+  bottom: var(--s4);
+  z-index: 1;
+  margin: 0;
+  padding: var(--s2) var(--s3);
+  background: var(--ivory);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.fye .pdx__thumbs {
+  display: flex;
+  gap: var(--s3);
+  margin: var(--s3) 0 0;
+  padding: 0 0 var(--s1);
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.fye .pdx__thumbs > li { flex: 0 0 auto; margin: 0; }
+.fye .pdx__thumb {
+  position: relative;
+  display: block;
+  width: var(--pdx-thumb);
+  height: var(--pdx-thumb);
+  padding: 0;
+  border: var(--hairline);
+  background: var(--white);
+}
+.fye .pdx__stage--stone ~ .pdx__thumbs .pdx__thumb { background: var(--stone-ground); }
+.fye .pdx__thumb img { width: 100%; height: 100%; object-fit: cover; }
+.fye .pdx__thumb.is-on { border-color: var(--teal); }
+.fye .pdx__thumb:hover { border-color: var(--sage); }
+.fye .pdx__spinbadge {
+  position: absolute;
+  right: var(--s1);
+  bottom: var(--s1);
+  font-size: 10px;                 /* measured, as .pdp__spinbadge */
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.08em;
+  color: var(--ink);
+}
+
+/* ---- reassurance tiles: 1px hairlines are the gaps ---------------------- */
+.fye .pdx__assure {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--line);
+  border: var(--hairline);
+}
+.fye .pdx__assuretile {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: var(--s3);
+  align-items: start;
+  margin: 0;
+  padding: var(--s4) var(--s4);
+  background: var(--white);
+}
+.fye .pdx__assuretile .icon { width: 22px; height: 22px; }
+.fye .pdx__assuretxt { display: flex; flex-direction: column; gap: 2px; }
+.fye .pdx__assuretitle { font-size: var(--fs-small); font-weight: var(--fw-medium); line-height: 1.35; }
+.fye .pdx__assuresub { font-size: var(--fs-fine); color: var(--ink-soft); line-height: 1.4; }
+
+/* ---- the head of the buy box -------------------------------------------- */
+.fye .pdx__head { display: flex; flex-direction: column; gap: var(--s2); }
+.fye .pdx__head p { margin: 0; }
+.fye .pdx__eyebrow {
+  margin: 0;
+  font-size: var(--fs-pdx-meta);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.fye .pdx__title {
+  margin: 0;
+  font-size: var(--fs-pdx-title);
+  letter-spacing: var(--tr-h1);
+  line-height: 1.15;
+  text-transform: none;
+  text-wrap: balance;
+}
+.fye .pdx__summary {
+  font-size: var(--fs-pdx-lead);
+  font-weight: var(--fw-light);
+}
+.fye .pdx__price {
+  padding-top: var(--s2);
+  font-size: var(--fs-pdx-price);
+  font-weight: var(--fw-regular);
+  line-height: 1.2;
+}
+.fye .pdx__pricenote {
+  font-size: var(--fs-fine);
+  font-weight: var(--fw-medium);
+}
+.fye .pdx__micro {
+  font-size: var(--fs-fine);
+  color: var(--ink-soft);
+}
+.fye .pdx__rule { margin: 0; border: 0; border-top: var(--hairline); }
+
+/* ---- labels and fields, shared by both pages ---------------------------- */
+.fye .pdx__field { display: flex; flex-direction: column; gap: var(--s3); }
+.fye .pdx__field[hidden] { display: none; }
+.fye .pdx__labelrow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s4);
+}
+.fye .pdx__label {
+  margin: 0;
+  font-size: var(--fs-pdx-meta);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink);
+  text-align: start;
+}
+.fye .pdx__labelval {
+  margin-inline-start: var(--s2);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-light);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink-soft);
+}
+.fye .pdx__fieldhead { display: flex; flex-direction: column; gap: var(--s1); }
+.fye .pdx__help {
+  margin: 0;
+  font-size: var(--fs-fine);
+  color: var(--ink-soft);
+}
+.fye .pdx__help[hidden] { display: none; }
+.fye .pdx__textlink {
+  font-size: var(--fs-fine);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+}
+.fye .pdx__caps {
+  flex: 0 0 auto;
+  font-size: var(--fs-pdx-meta);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ---- other versions / similar stones ------------------------------------ */
+.fye .pdx__versions { display: flex; flex-direction: column; gap: var(--s3); }
+.fye .pdx__vhead {
+  margin: 0;
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.fye .pdx__vrow {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr);
+  gap: var(--s3);
+  align-items: center;
+}
+.fye .pdx__vlabel {
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.fye .pdx__vchips { display: flex; flex-wrap: wrap; gap: var(--s2); }
+.fye .pdx__vchip {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--pdx-chip-h);
+  padding: 0 var(--s3);
+  border: var(--hairline);
+  font-size: var(--fs-pdx-meta);
+  color: var(--ink-soft);
+}
+.fye a.pdx__vchip:hover { border-color: var(--sage); color: var(--ink); }
+.fye .pdx__vchip.is-current { border-color: var(--teal); color: var(--ink); font-weight: var(--fw-medium); }
+
+/* ---- the button and the delivery block ---------------------------------- */
+.fye .pdx__atc { min-height: var(--pdx-atc-h); }
+.fye .pdx__atc[disabled] { opacity: 0.55; cursor: not-allowed; }
+
+.fye .pdx__buyfoot { display: flex; flex-direction: column; gap: var(--s3); }
+.fye .pdx__deliv { display: flex; flex-direction: column; gap: var(--s1); }
+.fye .pdx__deliv p { margin: 0; }
+.fye .pdx__delivwhen { font-size: var(--fs-small); font-weight: var(--fw-regular); }
+.fye .pdx__delivwhen strong { font-weight: var(--fw-semi); }
+.fye .pdx__delivsub { font-size: var(--fs-fine); color: var(--ink-soft); }
+.fye .pdx__delivsoon { font-size: var(--fs-fine); }
+.fye .pdx__delivsoon a { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---- reviews ------------------------------------------------------------ */
+.fye .pdx__reviews {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  padding: var(--s4) 0;
+  border-top: var(--hairline);
+  border-bottom: var(--hairline);
+}
+.fye .pdx__reviews p { margin: 0; }
+.fye .pdx__reviewhead { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2); font-size: var(--fs-small); }
+.fye .pdx__stars { display: inline-flex; gap: 2px; color: var(--teal); }
+.fye .pdx__stars .icon { width: 15px; height: 15px; fill: currentColor; }
+.fye .pdx__rating { font-weight: var(--fw-medium); }
+.fye .pdx__reviewlink { margin-inline-start: auto; }
+.fye .pdx__reviewquote { font-size: var(--fs-small); font-style: italic; }
+.fye .pdx__reviewwho { font-size: var(--fs-pdx-meta); color: var(--ink-soft); }
+
+/* ---- wishlist and share ------------------------------------------------- */
+.fye .pdx__sharewrap { display: flex; flex-direction: column; gap: var(--s3); }
+.fye .pdx__pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s3);
+}
+.fye .pdx__pair .wish--labelled,
+.fye .pdx__sharebtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s2);
+  width: 100%;
+  min-height: 48px;
+  padding: 0 var(--s3);
+  border: var(--hairline);
+  background: var(--white);
+  font-family: var(--font-body);
+  font-size: var(--fs-fine);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-button);
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.fye .pdx__sharebtn:hover { border-color: var(--sage); color: var(--sage); }
+.fye .pdx__sharebtn.is-on { border-color: var(--teal); }
+.fye .pdx__sharebtn .icon,
+.fye .pdx__pair .wish .icon { width: 16px; height: 16px; }
+
+.fye .pdx__share {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s2);
+  padding: var(--s4);
+  background: var(--ivory);
+}
+.fye .pdx__share[hidden] { display: none; }
+.fye .pdx__shareto {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  min-height: 44px;
+  padding: 0 var(--s3);
+  border: 0;
+  background: var(--white);
+  font-family: var(--font-body);
+  font-size: var(--fs-fine);
+  color: var(--ink);
+  text-align: start;
+}
+.fye .pdx__shareto:hover { color: var(--sage); }
+
+/* ---- speak to us: ivory, and visibly quieter than Add to bag ------------ */
+.fye .pdx__talk {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  padding: var(--s6);
+  background: var(--ivory);
+}
+.fye .pdx__talk p { margin: 0; }
+.fye .pdx__talkeyebrow {
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.fye .pdx__talktitle { margin: 0; font-size: var(--fs-h4); }
+.fye .pdx__talkcopy { font-size: var(--fs-small); }
+.fye .pdx__talkbtn { align-self: flex-start; }
+.fye .pdx__talkways {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2) var(--s5);
+  padding-top: var(--s3);
+  border-top: var(--hairline);
+  font-size: var(--fs-fine);
+}
+.fye .pdx__talkways a { text-decoration: underline; text-underline-offset: 3px; }
+.fye .pdx__talkways span { color: var(--ink-soft); }
+
+/* ---- the offer box ------------------------------------------------------ */
+.fye .pdx__offer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s5);
+  padding: var(--s5);
+  background: var(--mist);
+}
+.fye .pdx__offer p { margin: 0; }
+/* ink-soft on mist is at the AA limit (fye-core), so the box uses full ink. */
+.fye .pdx__offertitle { font-size: var(--fs-small); font-weight: var(--fw-medium); }
+.fye .pdx__offerline { font-size: var(--fs-fine); }
+.fye .pdx__offerextra[hidden] { display: none; }
+
+/* ---- accordions: native <details>, no script ---------------------------- */
+.fye .pdx__accs { display: flex; flex-direction: column; margin-top: var(--s4); }
+.fye .pdx__acc { border-bottom: var(--hairline); }
+.fye .pdx__accsum {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 60px;
+  cursor: pointer;
+  list-style: none;
+  font-size: var(--fs-pdx-meta);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+}
+.fye .pdx__accsum::-webkit-details-marker { display: none; }
+.fye .pdx__accsum::after { content: '+'; font-size: var(--fs-body); font-weight: var(--fw-light); }
+.fye .pdx__acc[open] > .pdx__accsum::after { content: '\2212'; }
+.fye .pdx__accbody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+  padding-bottom: var(--s5);
+  font-size: var(--fs-small);
+}
+.fye .pdx__accbody p { margin: 0; }
+.fye .pdx__specs { display: flex; flex-direction: column; gap: var(--s2); margin: 0; }
+.fye .pdx__specs > div { display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: var(--s4); }
+.fye .pdx__specs dt { color: var(--ink-soft); }
+.fye .pdx__specs dd { margin: 0; }
+
+/* ---- the product enquiry popup: a narrower .pop ------------------------- */
+.fye .pdx-enq { width: min(620px, calc(100vw - (2 * var(--pad-x)))); }
+.fye .pdx-enq__strip {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  padding: var(--s3);
+  background: var(--ivory);
+}
+.fye .pdx-enq__thumb { width: 64px; height: 64px; object-fit: cover; background: var(--white); }
+.fye .pdx-enq__words { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.fye .pdx-enq__name { font-size: var(--fs-small); font-weight: var(--fw-medium); }
+.fye .pdx-enq__sel { font-size: var(--fs-fine); color: var(--ink-soft); }
+.fye .pdx-enq__how { margin: 0; padding: 0; border: 0; min-width: 0; }
+.fye .pdx-enq__legend {
+  margin-bottom: var(--s2);
+  padding: 0;
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+}
+.fye .pdx-enq__seg { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.fye .pdx-enq__way {
+  min-height: 44px;
+  padding: 0 var(--s2);
+  border: var(--hairline);
+  background: var(--white);
+  font-family: var(--font-body);
+  font-size: var(--fs-fine);
+  color: var(--ink);
+}
+.fye .pdx-enq__way + .pdx-enq__way { border-inline-start: 0; }
+.fye .pdx-enq__way.is-on { background: var(--teal); border-color: var(--teal); color: var(--ivory); }
+
+/* [hidden] means hidden inside the new page. `.btn` sets a display, which
+   out-ranks the browser's own [hidden] rule, so "Choose your diamond" and
+   "Show more stones" were drawn before the feed had said there was anything
+   to choose (the old page does the same; left alone behind the gate). The
+   doubled attribute lifts this above any two-class rule without !important. */
+.fye .pdx [hidden][hidden] { display: none; }
+
+/* ---- breakpoints: 900, 560. Media queries last. ------------------------- */
+@media (max-width: 900px) {
+  .fye .pdx__top {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "gallery" "buya" "assure" "buyb";
+    grid-template-rows: none;
+    row-gap: var(--s7);
+  }
+}
+
+@media (max-width: 560px) {
+  .fye .pdx__eyebrow { font-size: var(--fs-pdx-meta-mb); letter-spacing: 0.12em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .fye .pdx__title { font-size: var(--fs-pdx-title-mb); letter-spacing: 0.02em; line-height: 1.12; }
+  .fye .pdx__thumb { width: var(--pdx-thumb-mb); height: var(--pdx-thumb-mb); }
+  .fye .pdx__thumbs { gap: var(--s2); }
+  .fye .pdx__vchip { min-height: var(--pdx-chip-h-mb); padding: 0 var(--s4); }
+  .fye .pdx__delivwhen { font-size: var(--fs-pdx-lead); }
+  .fye .pdx__pair .wish--labelled,
+  .fye .pdx__sharebtn { font-size: var(--fs-eyebrow); letter-spacing: 0.12em; }
+  .fye .pdx__share { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fye .pdx__talkbtn { align-self: stretch; }
+  .fye .pdx__offer { flex-direction: column; align-items: flex-start; }
+  .fye .pdx__offerextra { display: none; }
+  .fye .pdx__specs > div { grid-template-columns: 112px minmax(0, 1fr); }
+  .fye .pdx-enq__seg { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fye .pdx-enq__way:nth-child(3) { border-inline-start: var(--hairline); }
+  .fye .pdx-enq__way:nth-child(n+3) { border-top: 0; }
+}

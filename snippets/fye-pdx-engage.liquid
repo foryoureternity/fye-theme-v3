@@ -1,0 +1,191 @@
+{%- comment -%}
+  fye-pdx-engage: everything after the buy decision on the redesigned
+  product page (CRO handoff, 27/09/2026): the review strip, Wishlist and
+  Share, Speak to us, and the offer box. Rendered by fye-pdx-ring and
+  fye-pdx-stone, before their accordions.
+
+  ── REVIEWS ONLY WHEN THEY ARE REAL ───────────────────────────────────────
+
+  The handoff's "4.9 · 187 customer reviews" was placeholder data. Ed,
+  27/09/2026: hide until real. So the strip renders from, in order:
+    1. the product's own standard review metafields (reviews.rating and
+       reviews.rating_count), which any review app writes; else
+    2. the section's pdx_reviews_rating / _count / _quote / _url settings,
+       for a store-wide figure such as Trustpilot; else
+    3. nothing at all.
+  No number is ever invented here.
+
+  ── SHARE ─────────────────────────────────────────────────────────────────
+
+  An inline ivory panel, not a popup. Links are built by fye-ui.js at the
+  moment of the click, so the message carries the live summary line and the
+  URL carries ?variant= and the chosen size where there is one. With JS off
+  the panel stays closed and the button does nothing, which costs nothing.
+
+  ── THE OFFER BOX ─────────────────────────────────────────────────────────
+
+  Ed, 27/09/2026: the returning-customer offer is 10%, not the handoff's 20%.
+  The figure is a setting (pdx_offer_pct). Its button opens the product
+  enquiry popup unless pdx_offer_link is set, because there is no offer page
+  yet. The "That's £x off" line is painted by fye-ui.js from the live price
+  and dropped under 560px, as the handoff's mobile copy is.
+
+  "From FYE" in the handoff is rewritten "from us": FYE is Ed's own
+  shorthand, not a name customers use (Ed, 25/09/2026).
+
+  Parameters: product, settings, context ('form' on rings, 'card' on stones),
+    noun ('ring' | 'diamond' | 'sapphire' …), offer ('ring' | 'stone'),
+    is_plain, is_engagement, stone_words (stones: "0.31ct round"),
+    offer_url (stones: the settings collection for this shape)
+{%- endcomment -%}
+{%- liquid
+  assign s = settings
+  assign p = product
+
+  comment
+    ── Reviews ──
+  endcomment
+  assign r_rating = ''
+  assign r_count = ''
+  assign r_quote = ''
+  assign r_url = ''
+  if p.metafields.reviews.rating.value != blank
+    assign r_rating = p.metafields.reviews.rating.value.rating | round: 1
+    assign r_count = p.metafields.reviews.rating_count.value
+  elsif s.pdx_reviews_rating != blank
+    assign r_rating = s.pdx_reviews_rating
+    assign r_count = s.pdx_reviews_count
+    assign r_quote = s.pdx_reviews_quote
+    assign r_url = s.pdx_reviews_url
+  endif
+
+  comment
+    ── Speak to us: numbers as read, links derived (as fye-popups does) ──
+  endcomment
+  assign phone = s.pdx_phone | default: '0208 178 6687'
+  assign mobile = s.pdx_whatsapp | default: '07840 042922'
+  assign tel = phone | remove: ' '
+  assign tel_first = tel | slice: 0
+  if tel_first == '0'
+    assign tel = tel | remove_first: '0' | prepend: '+44'
+  endif
+  assign wa = mobile | remove: ' '
+  assign wa_first = wa | slice: 0
+  if wa_first == '0'
+    assign wa = wa | remove_first: '0' | prepend: '44'
+  endif
+  assign wa = wa | remove: '+'
+
+  if noun == 'ring'
+    assign talk_copy = s.pdx_talk_copy | default: "Book a consultation in person in London or online. We'll help you choose the metal, the diamond and the size, and answer any questions before you commit."
+  else
+    assign talk_copy = s.pdx_talk_copy | default: "Book a consultation in person in London or online. We'll help you compare stones and choose the right setting."
+  endif
+
+  comment
+    ── Offer ──
+  endcomment
+  assign pct = s.pdx_offer_pct | default: 10
+  assign show_offer = true
+  if pct == 0
+    assign show_offer = false
+  endif
+  if offer == 'stone'
+    assign offer_title = 'Want this ' | append: noun | append: ' set in a ring?'
+    assign offer_line = 'Choose a handmade setting that suits a ' | append: stone_words | append: ' ' | append: noun | append: '.'
+    assign offer_cta = 'Browse settings'
+    assign offer_link = offer_url | default: s.setting_link | default: '/collections/engagement-rings'
+    assign show_offer = true
+  elsif is_engagement
+    assign offer_title = 'Planning your wedding rings too?'
+    assign offer_line = 'Buy your engagement ring from us and enjoy ' | append: pct | append: '% off your wedding rings.'
+    assign offer_cta = 'How it works'
+    assign offer_link = s.pdx_offer_link
+  else
+    if is_plain
+      assign ring_words = 'this wedding ring'
+    else
+      assign ring_words = 'this ring'
+    endif
+    assign offer_title = 'Already bought your engagement ring from us?'
+    assign offer_line = 'You may qualify for ' | append: pct | append: '% off ' | append: ring_words | append: '.'
+    assign offer_cta = 'Claim your offer'
+    assign offer_link = s.pdx_offer_link
+  endif
+-%}
+
+{%- if r_rating != blank -%}
+  <div class="pdx__reviews">
+    <p class="pdx__reviewhead">
+      <span class="pdx__stars" aria-hidden="true">
+        {%- for i in (1..5) -%}{%- render 'icon', name: 'star', size: 15 -%}{%- endfor -%}
+      </span>
+      <span class="pdx__rating">{{ r_rating }}</span>
+      {%- if r_count != blank -%}
+        <span class="pdx__ratingcount">· {{ r_count }} customer reviews</span>
+      {%- endif -%}
+      <span class="visually-hidden">Rated {{ r_rating }} out of 5</span>
+      {%- if r_url != blank -%}
+        <a class="pdx__textlink pdx__reviewlink" href="{{ r_url }}" target="_blank" rel="noopener">Read all reviews ›</a>
+      {%- endif -%}
+    </p>
+    {%- if r_quote != blank -%}
+      <p class="pdx__reviewquote">“{{ r_quote }}”</p>
+      <p class="pdx__reviewwho">Verified customer</p>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+<div class="pdx__sharewrap">
+<div class="pdx__pair">
+  {%- if context == 'form' -%}
+    {%- render 'fye-wishlist-button', product: p, context: 'form', label: 'Add to wishlist' -%}
+  {%- else -%}
+    {%- render 'fye-wishlist-button', product: p, label: 'Add to wishlist' -%}
+  {%- endif -%}
+  <button type="button" class="pdx__sharebtn" data-pdx-share aria-expanded="false" aria-controls="pdx-share-panel">
+    {%- render 'icon', name: 'share', size: 16 -%}
+    <span>Share this {{ noun }}</span>
+  </button>
+</div>
+
+<div class="pdx__share" id="pdx-share-panel" data-pdx-share-panel hidden>
+  <a class="pdx__shareto" href="#" data-pdx-share-to="email">{%- render 'icon', name: 'mail', size: 18 -%}<span>Email</span></a>
+  <a class="pdx__shareto" href="#" data-pdx-share-to="whatsapp" target="_blank" rel="noopener">{%- render 'icon', name: 'message', size: 18 -%}<span>WhatsApp</span></a>
+  <a class="pdx__shareto" href="#" data-pdx-share-to="sms">{%- render 'icon', name: 'sms', size: 18 -%}<span>Text</span></a>
+  <a class="pdx__shareto" href="#" data-pdx-share-to="facebook" target="_blank" rel="noopener">{%- render 'icon', name: 'facebook', size: 18 -%}<span>Facebook</span></a>
+  <a class="pdx__shareto" href="#" data-pdx-share-to="pinterest" target="_blank" rel="noopener">{%- render 'icon', name: 'pinterest', size: 18 -%}<span>Pinterest</span></a>
+  <button type="button" class="pdx__shareto" data-pdx-share-to="copy">{%- render 'icon', name: 'link', size: 18 -%}<span data-pdx-copy-label>Copy link</span></button>
+</div>
+</div>
+
+<div class="pdx__talk">
+  <p class="pdx__talkeyebrow">{{ s.pdx_talk_eyebrow | default: 'Prefer to talk it through?' }}</p>
+  <h2 class="pdx__talktitle">{{ s.pdx_talk_heading | default: 'Speak to us' }}</h2>
+  <p class="pdx__talkcopy">{{ talk_copy }}</p>
+  <a class="btn btn--outline pdx__talkbtn" href="/pages/contact-us#popup-contact" data-fye-popup="pdx-enquire">Enquire about this {{ noun }}</a>
+  <p class="pdx__talkways">
+    <a href="tel:{{ tel }}">{{ phone }}</a>
+    <a href="https://wa.me/{{ wa }}" target="_blank" rel="noopener">Message on WhatsApp<span class="visually-hidden"> (opens in a new tab)</span></a>
+    <span>{{ s.pdx_hours | default: 'Mon–Fri, 9am–6pm' }}</span>
+  </p>
+</div>
+
+{%- if show_offer -%}
+  <div class="pdx__offer" data-pdx-offer>
+    <div class="pdx__offertxt">
+      <p class="pdx__offertitle">{{ offer_title }}</p>
+      <p class="pdx__offerline">
+        {{ offer_line }}
+        {%- if offer == 'ring' and is_engagement == false %}
+          <span class="pdx__offerextra" data-pdx-offer-extra hidden>That's <span data-pdx-offer-saving></span> off this ring.</span>
+        {%- endif -%}
+      </p>
+    </div>
+    {%- if offer_link != blank -%}
+      <a class="pdx__caps" href="{{ offer_link }}">{{ offer_cta }}</a>
+    {%- else -%}
+      <a class="pdx__caps" href="/pages/contact-us#popup-contact" data-fye-popup="pdx-enquire" data-pdx-enquire-topic="{{ offer_title | escape }}">{{ offer_cta }}</a>
+    {%- endif -%}
+  </div>
+{%- endif -%}

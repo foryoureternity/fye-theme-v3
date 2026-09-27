@@ -1,0 +1,25 @@
+{%- comment -%}
+  fye-pdx-delivery: the estimated delivery block under Add to bag on the
+  redesigned product page (CRO handoff, 27/09/2026).
+
+  The dates are computed IN THE BROWSER by fye-ui.js: today plus lead_min to
+  lead_max working days, weekends skipped, printed "9–15 October" or
+  "30 September – 2 October". Liquid cannot do this honestly, because the
+  page is cached and "today" would be whenever it was last rendered. With JS
+  off, the fallback says the same thing in working days.
+
+  Bank holidays are NOT skipped. Across a holiday the window reads a day
+  early; the range already absorbs that, and "Need it sooner?" is the escape.
+
+  "Need it sooner?" opens the product enquiry popup, falling back to the
+  Contact us popup's page when that popup is absent.
+
+  Parameters: lead_min, lead_max (working days), sub (the line beneath)
+{%- endcomment -%}
+<div class="pdx__deliv" data-pdx-delivery data-min="{{ lead_min }}" data-max="{{ lead_max }}">
+  <p class="pdx__delivwhen">Estimated delivery: <strong data-pdx-delivery-dates>{{ lead_min }}–{{ lead_max }} working days</strong></p>
+  {%- if sub != blank -%}
+    <p class="pdx__delivsub">{{ sub }}</p>
+  {%- endif -%}
+  <p class="pdx__delivsoon">Need it sooner? <a href="/pages/contact-us#popup-contact" data-fye-popup="pdx-enquire">Contact us here</a> and we may be able to accommodate you.</p>
+</div>

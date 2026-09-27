@@ -64,7 +64,14 @@
   part of product-block.js past the readable limit. Confirm with Ed before
   go-live: a mismatched key means the workshop does not see the instruction.
 
-  Parameters: product, settings (the section's)
+  ── layout: 'pdx' (27/09/2026, the CRO redesign) ──────────────────────
+
+  Passed only by fye-pdx-ring, behind the preview gate. "Choose a pair"
+  opens preselected with F/G VS chosen, as the handoff screens show (and as
+  live did); the chips become priced tiles and the heading carries the mode.
+  Hooks and cart lines are unchanged. Without it, this file is as before.
+
+  Parameters: product, settings (the section's), layout (optional)
 {%- endcomment -%}
 {%- liquid
   assign s = settings
@@ -102,24 +109,35 @@
     plain-ring metal switcher (up to 8) never runs on a trilogy, so there is
     headroom. Anything else added to this page counts against the same cap.
   endcomment
+  assign pdx = false
+  if layout == 'pdx'
+    assign pdx = true
+  endif
+
   assign addons = 'trilogy-side-diamonds-devvs*D/E VVS,trilogy-side-diamonds-fgvs*F/G VS,trilogy-side-diamonds-gsi*G Si,trilogy-side-diamonds-lab*Lab-grown D VVS' | split: ','
 -%}
 
-<div class="pdp__choose"
-     data-fye-sides
+<div class="pdp__choose{% if pdx %} pdx__choose{% endif %}"
+     data-fye-sides{% if pdx %}
+     data-mode="required"{% endif %}
      data-fee-variant="{{ s.sides_fee_variant_id }}"
      data-fee-price="{{ s.sides_fee_price_pennies | default: 0 }}">
 
-  <p class="pdp__label">{{ s.sides_heading | default: 'Side diamonds' }}</p>
-  <p class="pdp__choosenote">
-    A matched pair of {{ cut }} diamonds, {{ pair_ct }}ct combined, one set either side of the centre stone.
-  </p>
+  {%- if pdx -%}
+    <p class="pdx__label">{{ s.sides_heading | default: 'Side diamonds' }} <span class="pdx__labelval" data-pdx-mode-now>{{ s.sides_required_label | default: 'Choose a pair' }}</span></p>
+    <p class="pdx__help">A matched pair of {{ cut }} diamonds, {{ pair_ct }}ct combined, one either side of the centre stone.</p>
+  {%- else -%}
+    <p class="pdp__label">{{ s.sides_heading | default: 'Side diamonds' }}</p>
+    <p class="pdp__choosenote">
+      A matched pair of {{ cut }} diamonds, {{ pair_ct }}ct combined, one set either side of the centre stone.
+    </p>
+  {%- endif -%}
 
   <div class="pdp__modes" role="radiogroup" aria-label="{{ s.sides_heading | default: 'Side diamonds' | escape }}">
     <button type="button"
-            class="pdp__mode"
+            class="pdp__mode{% if pdx %} is-on{% endif %}"
             role="radio"
-            aria-checked="false"
+            aria-checked="{% if pdx %}true{% else %}false{% endif %}"
             data-fye-sides-mode="required">
       <span class="pdp__radio" aria-hidden="true"></span>
       <span class="pdp__modetitle">{{ s.sides_required_label | default: 'Choose a pair' }}</span>
@@ -155,8 +173,12 @@
   <input type="hidden" name="properties[Side Diamonds]" value="" data-fye-sides-prop disabled>
 
   {%- comment -%} ---- Mode: choose a pair ---- {%- endcomment -%}
-  <div class="pdp__modebody" data-fye-sides-body="required" hidden>
-    <p class="pdp__choosenote">Choose the quality of your pair — priced per pair, supplied and set with your ring.</p>
+  <div class="pdp__modebody" data-fye-sides-body="required"{% unless pdx %} hidden{% endunless %}>
+    {%- if pdx -%}
+      <p class="pdp__choosenote">Choose the quality of your pair. Priced per pair, supplied and set with your ring.</p>
+    {%- else -%}
+      <p class="pdp__choosenote">Choose the quality of your pair — priced per pair, supplied and set with your ring.</p>
+    {%- endif -%}
 
     <div class="pdp__chips pdp__sidechips" role="radiogroup" aria-label="Side diamond quality">
       {%- assign rendered = 0 -%}
@@ -179,10 +201,16 @@
           endfor
         -%}
         {%- if found != nil and found.available -%}
+          {%- liquid
+            assign chip_on = false
+            if pdx and quality == 'F/G VS'
+              assign chip_on = true
+            endif
+          -%}
           <button type="button"
-                  class="pdp__chip"
+                  class="pdp__chip{% if chip_on %} is-on{% endif %}"
                   role="radio"
-                  aria-checked="false"
+                  aria-checked="{{ chip_on }}"
                   data-fye-side-qual="{{ quality | escape }}"
                   data-fye-side-variant="{{ found.id }}"
                   data-fye-side-price="{{ found.price }}"

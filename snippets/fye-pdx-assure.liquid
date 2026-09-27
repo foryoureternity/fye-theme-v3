@@ -1,0 +1,44 @@
+{%- comment -%}
+  fye-pdx-assure: the four reassurance tiles on the redesigned product page
+  (CRO handoff, 27/09/2026). Rendered by fye-pdx-ring and fye-pdx-stone.
+
+  Beside the thumbnails on desktop, after the delivery block on a phone. The
+  page grid moves the ONE copy; it is never rendered twice.
+
+  Copy is the handoff's, and every claim on it is one FYE already makes
+  elsewhere: free insured UK delivery, a complimentary resize in the first
+  year (W399), handmade to order, UK hallmarked.
+
+  Full eternity rings swap the resize tile for the sizer, because they
+  cannot be resized. Loose stones get their own four.
+
+  Parameters: kind: 'ring' (default) | 'full-eternity' | 'stone';
+              cert: the lab name, stones only ("IGI" gives "IGI certified")
+{%- endcomment -%}
+{%- liquid
+  case kind
+    when 'stone'
+      assign cert_title = 'Certified'
+      if cert != blank
+        assign cert_title = cert | append: ' certified'
+      endif
+      assign rows = 'shipping|Free insured delivery|Fully tracked across the UK~doc|' | append: cert_title | append: '|Certificate supplied~ethical|Responsibly sourced|Traceable origin~ring|Set it with us|Handmade settings in the UK'
+    when 'full-eternity'
+      assign rows = "shipping|Free insured delivery|Fully tracked across the UK~refresh|Free ring sizer|Size carefully: full eternity rings cannot be resized~hand|Handmade to order|Crafted for you in the UK~certificate|UK hallmarked|With certificate of authenticity"
+    else
+      assign rows = "shipping|Free insured delivery|Fully tracked across the UK~refresh|Free resize, first year|If the fit isn't right, we'll adjust it~hand|Handmade to order|Crafted for you in the UK~certificate|UK hallmarked|With certificate of authenticity"
+  endcase
+  assign tiles = rows | split: '~'
+-%}
+<ul class="pdx__assure">
+  {%- for tile in tiles -%}
+    {%- assign bits = tile | split: '|' -%}
+    <li class="pdx__assuretile">
+      {%- render 'icon', name: bits[0], size: 22 -%}
+      <span class="pdx__assuretxt">
+        <span class="pdx__assuretitle">{{ bits[1] }}</span>
+        <span class="pdx__assuresub">{{ bits[2] }}</span>
+      </span>
+    </li>
+  {%- endfor -%}
+</ul>

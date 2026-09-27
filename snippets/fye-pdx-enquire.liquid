@@ -1,0 +1,135 @@
+{%- comment -%}
+  fye-pdx-enquire: the product enquiry popup on the redesigned product page
+  (CRO handoff §8, 27/09/2026). Rendered once per page by fye-pdx-ring and
+  fye-pdx-stone, OUTSIDE the product form (forms cannot nest).
+
+  It is an ordinary fye-popups dialog in every way that matters, so it needs
+  no new plumbing:
+    · key `pdx-enquire`, opened by any data-fye-popup="pdx-enquire" (Speak to
+      us, "Need it sooner?", "We'll help you choose", the offer box);
+    · Shopify's own {% form 'contact' %}, so an enquiry arrives at hello@
+      like every other;
+    · fye-ui.js composes contact[body] on submit from every
+      [data-fye-popup-line] field, the message and the page it came from,
+      because custom contact[] fields do not show usefully in the email
+      (fye-popups header);
+    · after sending, the same reopen-on-success and reopen-on-error.
+  It reuses the .pop classes from fye-popups' stylesheet for the same reason.
+
+  What is new: the product strip at the top and the "Product" and "Selection"
+  lines are filled by fye-ui.js AT THE MOMENT IT OPENS, from the live buy
+  box, so the enquiry says which metal, quality, size and stone the shopper
+  was looking at. With JS off they carry the product title and URL.
+
+  "How would you like to talk?" posts as its own line. Consultation is one of
+  the four, as the handoff has it; a shopper who wants the diary straight
+  away still has the Contact us popup's Book consultation button.
+
+  No consent tickbox: the handoff drops it on this form, and nothing here
+  subscribes anyone to anything.
+
+  Parameters: product, noun ('ring' | 'diamond' | …), price (pennies)
+{%- endcomment -%}
+{%- liquid
+  assign p = product
+  assign label = 'Product enquiry: ' | append: p.title
+-%}
+<dialog class="pop pdx-enq" id="fye-popup-pdx-enquire"
+        data-fye-popup-panel="pdx-enquire"
+        data-fye-popup-label="{{ label | escape }}"
+        aria-label="Enquire about this {{ noun }}">
+  <div class="pop__in pop__in--noimage">
+    <div class="pop__body">
+      <button class="pop__close" type="button" data-fye-popup-close aria-label="Close">
+        {%- render 'icon', name: 'close', size: 18 -%}
+      </button>
+
+      {%- form 'contact', id: 'pop-form-pdx-enquire', class: 'pop__form' -%}
+        {%- if form.posted_successfully? -%}
+          <div class="pop__done" data-fye-popup-done tabindex="-1">
+            <span class="pop__done-mark">{%- render 'icon', name: 'check', size: 22 -%}</span>
+            <p class="pop__title" role="heading" aria-level="2">Thank you</p>
+            <div class="pop__intro"><p>A jeweller will reply personally, usually within one working day.</p></div>
+            <button class="btn btn--outline" type="button" data-fye-popup-close>Close</button>
+          </div>
+        {%- else -%}
+          <p class="pop__title" role="heading" aria-level="2">Enquire about this {{ noun }}</p>
+          <div class="pop__intro"><p>A jeweller will reply personally, usually within one working day.</p></div>
+
+          {%- if form.errors -%}
+            <div class="pop__errors" id="pop-err-pdx-enquire" role="alert" tabindex="-1" data-fye-popup-error>
+              <p>{{ form.errors | default_errors }}</p>
+            </div>
+          {%- endif -%}
+
+          <div class="pdx-enq__strip">
+            {%- if p.featured_image != blank -%}
+              {{ p.featured_image | image_url: width: 128 | image_tag: loading: 'lazy', width: 64, height: 64, alt: '', class: 'pdx-enq__thumb' }}
+            {%- endif -%}
+            <span class="pdx-enq__words">
+              <span class="pdx-enq__name"><span data-pdx-enq-title>{{ p.title }}</span> · <span data-pdx-enq-price>{{ price | money }}</span></span>
+              <span class="pdx-enq__sel" data-pdx-enq-sel></span>
+            </span>
+          </div>
+
+          <input type="hidden" value="{{ p.title | escape }} ({{ shop.url }}{{ p.url }})" data-fye-popup-line="Product" data-pdx-enq-product>
+          <input type="hidden" value="" data-fye-popup-line="Selection" data-pdx-enq-selection>
+          <input type="hidden" value="" data-fye-popup-line="About" data-pdx-enq-topic>
+
+          <fieldset class="pdx-enq__how">
+            <legend class="pdx-enq__legend">How would you like to talk?</legend>
+            <div class="pdx-enq__seg" role="radiogroup" aria-label="How would you like to talk?">
+              {%- assign ways = 'Call me,WhatsApp,Email,Consultation' | split: ',' -%}
+              {%- for w in ways -%}
+                <button type="button" role="radio" class="pdx-enq__way{% if forloop.first %} is-on{% endif %}" aria-checked="{% if forloop.first %}true{% else %}false{% endif %}" data-pdx-way="{{ w }}">{{ w }}</button>
+              {%- endfor -%}
+            </div>
+            <input type="hidden" name="contact[Preferred contact]" value="Call me" data-fye-popup-line="Preferred contact" data-pdx-way-input>
+          </fieldset>
+
+          <div class="pop__pair">
+            <div class="pop__field">
+              <label for="pdx-enq-name">Name</label>
+              <input id="pdx-enq-name" type="text" name="contact[name]" autocomplete="name" data-fye-popup-line="Name" required>
+            </div>
+            <div class="pop__field">
+              <label for="pdx-enq-email">Email address</label>
+              <input id="pdx-enq-email" type="email" name="contact[email]" autocomplete="email" required
+                     {%- if form.errors contains 'email' %} aria-invalid="true" aria-describedby="pop-err-pdx-enquire"{% endif %}>
+            </div>
+          </div>
+
+          <div class="pop__pair">
+            <div class="pop__field">
+              <label for="pdx-enq-phone">Phone</label>
+              <input id="pdx-enq-phone" type="tel" name="contact[phone]" autocomplete="tel" data-fye-popup-line="Phone">
+            </div>
+            <div class="pop__field">
+              <label for="pdx-enq-when">When do you need it?</label>
+              <select id="pdx-enq-when" name="contact[When needed]" data-fye-popup-line="When needed">
+                <option>Not sure yet</option>
+                <option>Within 1 month</option>
+                <option>1 to 3 months</option>
+                <option>3 to 6 months</option>
+                <option>6 months or more</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="pop__field">
+            <label for="pdx-enq-message">Message</label>
+            <textarea id="pdx-enq-message" name="contact[Message]" rows="3" data-fye-popup-message
+                      placeholder="Anything we should know: a date, a budget, a question about this {{ noun }}"></textarea>
+          </div>
+
+          <input type="hidden" name="contact[body]" value="{{ label | escape }} (sent from {{ request.path }})" data-fye-popup-body>
+
+          <div class="pop__send">
+            <button class="btn btn--block pop__submit" type="submit">Send enquiry</button>
+            <p class="pop__note">Your details are kept private and used only to reply to you.</p>
+          </div>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+  </div>
+</dialog>

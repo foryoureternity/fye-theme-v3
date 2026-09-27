@@ -3429,3 +3429,100 @@ land before index.json; `ship` handles that.
 - 26/09/2026: `feature_columns2` monogram on desktop (>=901px) capped at
   240px with --s5 (20px) top and bottom margin, Ed's spec. Liquid only:
   `./tools/fye push`.
+
+## 27/09/2026: product page redesign (CRO handoff), behind a preview gate
+
+Claude Design handoff "Product page CRO redesign" built for every ring template
+(plain, engagement, trilogy, eternity, gents, diamond-ring) and the loose stone
+page. **Nothing changes for visitors.** The new layout renders only for:
+
+- a signed-in customer whose email is in the section setting `pdx_emails`
+  (default `edward@foryoureternity.com`), or any customer tagged `pdp-preview`;
+- the theme editor.
+
+`pdx_mode` (main-product and fye-stone-product): `preview` (default) / `live`
+/ `off`. **To go live, change that schema default to `"live"` in both
+sections and push.** No template holds the setting, so the default decides.
+Signed-in pages are never served from Shopify's shared cache, so the preview
+cannot leak.
+
+### Files
+
+| File | What |
+|---|---|
+| `snippets/fye-pdx-ring.liquid` | New. The ring page: gallery, reassurance, buy box A (to delivery), buy box B |
+| `snippets/fye-pdx-stone.liquid` | New. The loose diamond / gemstone page. Table is still an allow-list |
+| `snippets/fye-pdx-assure.liquid` | New. The 2x2 reassurance tiles (ring / full eternity / stone copy) |
+| `snippets/fye-pdx-delivery.liquid` | New. Estimated delivery: dates computed in the browser, working days |
+| `snippets/fye-pdx-engage.liquid` | New. Reviews (only if real), Wishlist + Share, Speak to us, offer box |
+| `snippets/fye-pdx-enquire.liquid` | New. Product enquiry popup, key `pdx-enquire`, a Shopify contact form |
+| `sections/main-product.liquid` | Gate + render; the old markup wrapped in `{% else %}`, untouched. Ring-only `.pdx` CSS; new settings under "New page layout (preview)" |
+| `sections/fye-stone-product.liquid` | Same gate; stone table CSS; settings |
+| `snippets/fye-buybox-centre / -sides / -finish` | New optional `layout: 'pdx'`. Without it they render exactly as before |
+| `snippets/icon.liquid` | + refresh, hand, doc, ring, info, share, link, facebook, pinterest |
+| `assets/fye-core.css` | + `.pdx` shell (shared by both sections) and its tokens |
+| `assets/fye-ui.js` | render() split into paintPrice() + a `fye:priced` event; provisional variant while an option is empty; engraving `toggle`; boot starts the feed for a preselected centre; new PDX block at the end |
+| `assets/fye-finish.js` | Quick-pick cards, category chips, ring total in the picker footer |
+
+### Decisions (Ed, 27/09/2026)
+
+- Preview behind sign-in until tested. Reviews strip hidden until real data
+  (product `reviews.*` metafields or the `pdx_reviews_*` settings). Offer is
+  **10%**, not the handoff's 20%. No "On hand / browse files" thumbnails: they
+  were design-tool placeholders.
+- "From FYE" in the handoff copy reads "from us": FYE is Ed's shorthand.
+
+### Deliberate departures from the handoff, and why
+
+- **Centre "Choose a diamond" and sides "Choose a pair" / F/G VS open
+  preselected**, as the screens show. This reverses the 31/08 "nothing
+  selected" rule for the new layout only; the add button still reads
+  "Choose centre diamond" until a stone is picked.
+- **Eternity and wedding bands say "Diamond quality"**, not "Shoulder
+  diamonds": an eternity ring has no shoulders.
+- **The picker keeps its Filters disclosure** (carat, budget, colour,
+  clarity, certificate); the handoff showed only origin and sort.
+- **Finish categories gain a sixth, "Lines & patterns"**; the handoff's five
+  left grooves, milled, frosted motifs and hand engraved in none.
+- **Plain ring widths**: the two either side of this ring (setting
+  `pdx_widths`). No "Band depth" or "Approx. weight" rows: there is no data.
+- **Eternity "Other versions"** shows only the design family (fye.family).
+  Width, stone and coverage siblings have no data to find them by.
+- **Stone "Similar stones"**: neighbouring colours only, found by swapping the
+  colour in the handle. No carat row.
+- **No sticky gallery** in the new layout; the grid moves the tiles instead.
+- **Related products band unchanged** (handoff §11). It still says "Similar
+  Rings" / "You may also like"; the new eyebrows, five-up eternity row and
+  short mobile titles are a follow-up.
+
+### Found on the way
+
+- **`fye.family_carat` is `list.number_decimal`** on the live store (value
+  `["1.0"]`), so `fye-carat-label` receives a LIST, `| plus: 0` makes it 0,
+  and the OLD page's carat stepper prints no weights at all. The new page takes
+  `.value.first`. The old stepper is left alone behind the gate.
+- **W803 has never run on v3.** fye-buybox-eternity reads
+  `s.hide_flat_quality`, which main-product's schema never declared, so the
+  quality row shows on every plain-shoulder solitaire. The new page applies
+  the two-test rule unconditionally.
+- **`[hidden]` loses to `.btn`**, so on the OLD page "Choose your diamond" and
+  "Show more stones" draw before the feed has said there is anything. Fixed in
+  the new layout only (`.fye .pdx [hidden][hidden]`).
+- **The breadcrumb can read "[XCloud Search app] All products"** where that is
+  a product's first collection (fet13351). The new layout skips it.
+
+### Verified before handing over
+
+No Liquid tooling reaches this sandbox (npm, RubyGems and Go are blocked), so
+a small Liquid interpreter rendered both sections against real product data
+(pulled 27/09 from eng33980-smt, trl20538-smt, fet13351,
+14ct-rose-gold-concave-wedding-ring-25mm-heavy and an asscher lab stone) and
+Playwright drove the pages: gate on/off, price and label updates, carat and
+shoulder chip prices, the picker to the cart post, engraving, finish quick
+picks and categories, share, the enquiry popup, and the OLD layouts' price,
+engraving and finish still working. It caught three real faults before they
+shipped: an inline `comment … endcomment` inside `{% liquid %}` (Shopify would
+have swallowed the code after it), a unary minus on a variable, and the list
+family_carat. It is not Shopify: check the live page signed in.
+
+Ship: no JSON template changed, so `./tools/fye push "Product page redesign behind preview gate"` is enough.

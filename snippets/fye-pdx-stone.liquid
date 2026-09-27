@@ -1,0 +1,464 @@
+{%- comment -%}
+  fye-pdx-stone: the redesigned loose diamond and gemstone page (CRO
+  handoff §10, 27/09/2026). Rendered by fye-stone-product INSTEAD OF its own
+  markup when the preview gate is open; see `pdx` there.
+
+  Same shell as the ring page (fye-pdx-ring): gallery and reassurance on the
+  left, buy box on the right, the reassurance tiles moving under the
+  delivery block on a phone.
+
+  ── WHAT CARRIES OVER FROM fye-stone-product, AND MUST ────────────────────
+
+    · THE TABLE IS AN ALLOW-LIST. fye holds trade_cost, price_multiple and
+      nivoda_id beside the display fields. Every row below is named. Never
+      loop the namespace (build-state, 01/09/2026).
+    · The certificate SERIAL is never shown (Ed, 01/09/2026). The handoff
+      goes further: NO external certificate link and no certificate
+      thumbnail either, so the lab name is plain text here.
+    · fye.stone_family decides diamond / fancy / gemstone, and the noun.
+    · No engraving, no size, no JS needed to buy: the form posts one id.
+
+  ── NEW ───────────────────────────────────────────────────────────────────
+
+    · Short title: the product title up to the carat ("Asscher Lab-Grown
+      Diamond 0.50ct D VVS1" → "Asscher Lab-Grown Diamond"); the carat and
+      grades move to the line beneath.
+    · "Similar stones": the same stone in the neighbouring colours, found by
+      swapping the colour in this product's own handle, which is built
+      <shape>-<origin>-diamond-<ct>-<colour>-<clarity>. Up to four lookups.
+      A handle that does not follow that shape, or a colour nobody stocks,
+      simply renders no chip. The handoff's carat row is not built: stones
+      are not stocked at neighbouring carats in any predictable way, and a
+      guessed lookup would spend all_products for nothing.
+    · The offer box points at this shape's engagement settings collection
+      ("round-brilliant-engagement-rings", "<shape>-cut-engagement-rings"),
+      checked to exist, else the section's setting_link, else all
+      engagement rings.
+
+  Parameters: product, settings
+{%- endcomment -%}
+{%- liquid
+  assign s = settings
+  assign p = product
+  assign mf = p.metafields.fye
+  assign v = p.selected_or_first_available_variant
+
+  assign family = mf.stone_family
+  assign is_gem = false
+  assign is_fancy = false
+  if family == 'Gemstone'
+    assign is_gem = true
+  elsif family == 'Fancy Colour Diamond'
+    assign is_fancy = true
+  endif
+
+  capture fancy_phrase
+    if mf.fancy_intensity != blank
+      echo mf.fancy_intensity
+      echo ' '
+    endif
+    if mf.fancy_overtone != blank
+      echo mf.fancy_overtone
+      echo ' '
+    endif
+    echo mf.fancy_hue
+  endcapture
+  assign fancy_phrase = fancy_phrase | strip
+
+  capture ct
+    render 'fye-carat-label', value: mf.carat.value
+  endcapture
+  assign ct = ct | strip
+
+  assign crumb_col = collection
+  unless crumb_col
+    for c in p.collections
+      unless c.handle == 'all' or c.handle contains 'cloud-search'
+        assign crumb_col = c
+        break
+      endunless
+    endfor
+  endunless
+
+  assign noun = 'diamond'
+  if is_gem
+    assign noun = 'gemstone'
+    if mf.gem_type != blank
+      assign noun = mf.gem_type | downcase
+    endif
+  endif
+
+  comment
+    ── Short title: words up to the first "<number>ct" ──
+  endcomment
+  assign short_title = p.metafields.custom.short_title | append: ''
+  if short_title == blank
+    assign words = p.title | split: ' '
+    for word in words
+      assign first_char = word | slice: 0
+      if '0123456789' contains first_char and word contains 'ct'
+        break
+      endif
+      if short_title == blank
+        assign short_title = word
+      else
+        assign short_title = short_title | append: ' ' | append: word
+      endif
+    endfor
+    if short_title == blank
+      assign short_title = p.title
+    endif
+  endif
+
+  comment
+    ── The line under the title: "0.31ct · F colour · VVS1 clarity" ──
+  endcomment
+  assign sub_bits = ''
+  if ct != blank
+    assign sub_bits = ct | append: 'ct'
+  endif
+  assign colour_words = ''
+  if is_fancy and fancy_phrase != blank
+    assign colour_words = fancy_phrase
+  elsif mf.colour != blank
+    if is_gem
+      assign colour_words = mf.colour
+    else
+      assign colour_words = mf.colour | append: ' colour'
+    endif
+  endif
+  assign clarity_words = ''
+  if mf.clarity != blank
+    if is_gem
+      assign clarity_words = mf.clarity
+    else
+      assign clarity_words = mf.clarity | append: ' clarity'
+    endif
+  endif
+  assign sub = sub_bits
+  for w in (1..2)
+    if w == 1
+      assign piece = colour_words
+    else
+      assign piece = clarity_words
+    endif
+    if piece != blank
+      if sub == blank
+        assign sub = piece
+      else
+        assign sub = sub | append: ' · ' | append: piece
+      endif
+    endif
+  endfor
+
+  comment
+    ── Certificate wording: "OTHER" reads as independent ──
+  endcomment
+  assign lab = mf.cert_lab | append: ''
+  if lab == 'OTHER'
+    assign lab_words = 'Independent'
+    assign cert_title = ''
+  else
+    assign lab_words = lab
+    assign cert_title = lab
+  endif
+
+  comment
+    ── Eyebrow: "Lab-grown diamond · IGI certified" ──
+  endcomment
+  assign eyebrow = ''
+  if mf.origin != blank
+    assign eyebrow = mf.origin | append: ' '
+  endif
+  if is_gem
+    assign eyebrow = eyebrow | append: noun
+  elsif is_fancy
+    assign eyebrow = eyebrow | append: 'fancy colour diamond'
+  else
+    assign eyebrow = eyebrow | append: 'diamond'
+  endif
+  if lab_words != blank
+    assign eyebrow = eyebrow | append: ' · ' | append: lab_words | append: ' certified'
+  endif
+
+  if lab_words == 'Independent' or lab_words == blank
+    assign report_line = 'Every stone is supplied with its independent grading report.'
+    assign micro_cert = 'Certificate included'
+  else
+    assign report_line = 'Every stone is supplied with its ' | append: lab_words | append: ' grading report.'
+    assign micro_cert = lab_words | append: ' certificate included'
+  endif
+
+  comment
+    ── Settings collection for this shape ──
+  endcomment
+  assign shape_down = mf.shape | append: '' | downcase
+  if shape_down == 'round'
+    assign set_handle = 'round-brilliant-engagement-rings'
+  else
+    assign set_handle = shape_down | handle | append: '-cut-engagement-rings'
+  endif
+  assign set_col = collections[set_handle]
+  if set_col != blank and set_col.products_count > 0
+    assign offer_url = set_col.url
+  else
+    assign offer_url = s.setting_link
+  endif
+  assign stone_words = sub | split: ' · ' | first | append: ' ' | append: shape_down
+
+  comment
+    ── Similar stones: neighbouring colours, by handle ──
+    Only on a white diamond whose handle ends -<colour>-<clarity>.
+  endcomment
+  assign colour_chips = ''
+  unless is_gem or is_fancy
+    assign c_now = mf.colour | append: '' | downcase
+    assign cl_now = mf.clarity | append: '' | downcase
+    assign tail_now = '-' | append: c_now | append: '-' | append: cl_now
+    assign tail_len = tail_now.size
+    comment
+      Liquid has no unary minus on a variable, so the offset is computed.
+    endcomment
+    assign tail_from = 0 | minus: tail_len
+    assign h_tail = p.handle | slice: tail_from, tail_len
+    if c_now != blank and h_tail == tail_now
+      assign scale = 'd,e,f,g,h,i,j,k' | split: ','
+      assign at = -1
+      for c in scale
+        if c == c_now
+          assign at = forloop.index0
+        endif
+      endfor
+      if at >= 0
+        capture colour_chips
+          for c in scale
+            assign ci = forloop.index0
+            assign lo = at | minus: 2
+            assign hi = at | plus: 2
+            if ci < lo or ci > hi
+              continue
+            endif
+            if ci == at
+              echo '<span class="pdx__vchip is-current" aria-current="true">'
+              echo c | upcase
+              echo '</span>'
+            else
+              assign new_tail = '-' | append: c | append: '-' | append: cl_now
+              assign sib_handle = p.handle | replace_last: tail_now, new_tail
+              assign sib = all_products[sib_handle]
+              if sib != blank and sib.available
+                echo '<a class="pdx__vchip" href="'
+                echo sib.url
+                echo '">'
+                echo c | upcase
+                echo '</a>'
+              endif
+            endif
+          endfor
+        endcapture
+      endif
+    endif
+  endunless
+
+  assign lead_min = s.pdx_lead_min | default: 3
+  assign lead_max = s.pdx_lead_max | default: 5
+  assign spin = mf.video_url
+
+  if lab_words != blank and lab_words != 'Independent'
+    assign deliv_sub = 'Free insured UK delivery · Supplied with its ' | append: lab_words | append: ' certificate'
+  else
+    assign deliv_sub = 'Free insured UK delivery · Supplied with its certificate'
+  endif
+-%}
+
+<section class="band band--white pdx pdx--stone" data-screen-label="Loose stone" data-fye-pdx data-noun="{{ noun }}">
+  <div class="wrap">
+
+    <nav class="pdp__crumbs stone__crumbs" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="{{ routes.root_url }}">Home</a></li>
+        {%- if crumb_col -%}
+          <li><a href="{{ crumb_col.url }}">{{ crumb_col.title }}</a></li>
+        {%- endif -%}
+        <li><span aria-current="page">{{ short_title }}</span></li>
+      </ol>
+    </nav>
+    {%- render 'schema-breadcrumbs', mid_name: crumb_col.title, mid_url: crumb_col.url, last_name: p.title, last_url: canonical_url -%}
+
+    <div class="pdx__top">
+
+      <div class="pdx__gallery" data-fye-gallery>
+        <div class="pdx__stage pdx__stage--stone" data-fye-stage>
+          <div class="pdp__wish-over">
+            {%- render 'fye-wishlist-button', product: p, size: 'lg' -%}
+          </div>
+          {%- if p.media.size > 0 -%}
+            {%- for media in p.media limit: 6 -%}
+              {%- liquid
+                if forloop.first
+                  assign img_loading = 'eager'
+                  assign img_priority = 'high'
+                else
+                  assign img_loading = 'lazy'
+                  assign img_priority = 'auto'
+                endif
+                assign img_alt = media.alt | default: p.title
+              -%}
+              <div class="pdp__panel{% if forloop.first %} is-on{% endif %}" data-fye-panel="{{ forloop.index0 }}">
+                {{ media | image_url: width: 1200 | image_tag:
+                   loading: img_loading,
+                   fetchpriority: img_priority,
+                   widths: '400,600,900,1200',
+                   sizes: '(max-width: 900px) 100vw, 50vw',
+                   alt: img_alt,
+                   class: 'pdx__img' }}
+              </div>
+            {%- endfor -%}
+            {%- if s.pdx_actual_tag != blank -%}
+              <p class="pdx__tag">{{ s.pdx_actual_tag }}</p>
+            {%- endif -%}
+          {%- else -%}
+            <div class="pdp__panel is-on pdx__empty"></div>
+          {%- endif -%}
+
+          {%- if spin != blank -%}
+            <div class="pdp__panel pdp__panel--spin" data-fye-panel="spin">
+              <iframe class="pdx__spin"
+                      src="{{ spin }}"
+                      title="360° view of {{ p.title | escape }}"
+                      loading="lazy"
+                      frameborder="0"
+                      allowfullscreen></iframe>
+            </div>
+          {%- endif -%}
+        </div>
+
+        {%- if p.media.size > 1 or spin != blank -%}
+          <ul class="pdx__thumbs">
+            {%- for media in p.media limit: 6 -%}
+              <li>
+                <button class="pdp__thumb pdx__thumb{% if forloop.first %} is-on{% endif %}"
+                        type="button"
+                        data-fye-thumb="{{ forloop.index0 }}"
+                        aria-label="View image {{ forloop.index }}">
+                  {{ media | image_url: width: 160 | image_tag: loading: 'lazy', widths: '80,160', sizes: '72px', alt: '' }}
+                </button>
+              </li>
+            {%- endfor -%}
+            {%- if spin != blank -%}
+              <li>
+                <button class="pdp__thumb pdx__thumb pdx__thumb--spin"
+                        type="button"
+                        data-fye-thumb="spin"
+                        aria-label="View in 360 degrees">
+                  {%- if p.featured_image != blank -%}
+                    {{ p.featured_image | image_url: width: 160 | image_tag: loading: 'lazy', widths: '80,160', sizes: '72px', alt: '' }}
+                  {%- endif -%}
+                  <span class="pdx__spinbadge" aria-hidden="true">360°</span>
+                </button>
+              </li>
+            {%- endif -%}
+          </ul>
+        {%- endif -%}
+      </div>
+
+      <div class="pdx__assurewrap">
+        {%- render 'fye-pdx-assure', kind: 'stone', cert: cert_title -%}
+      </div>
+
+      {%- form 'product', p, class: 'pdx__buy pdx__buy--a' -%}
+        <input type="hidden" name="id" value="{{ v.id }}">
+
+        <div class="pdx__head">
+        <p class="pdx__eyebrow">{{ eyebrow }}</p>
+        <h1 class="pdx__title" data-fye-product-title>{{ short_title }}</h1>
+        {%- if sub != blank -%}
+          <p class="pdx__summary" data-pdx-summary>{{ sub }}</p>
+        {%- endif -%}
+        <p class="pdx__price">{{ v.price | money }}</p>
+        <p class="pdx__micro">VAT included · {{ micro_cert }} · Free insured delivery</p>
+        </div>
+
+        <hr class="pdx__rule">
+
+        {%- comment -%} EXPLICIT ROWS ONLY. See the header. {%- endcomment -%}
+        <div class="pdx__field">
+        <table class="pdx__spec">
+          <caption class="pdx__label">{{ s.spec_heading | default: 'Stone characteristics' }}</caption>
+          <tbody>
+            {%- if mf.shape != blank -%}<tr><th scope="row">Shape</th><td>{{ mf.shape }}</td></tr>{%- endif -%}
+            {%- if ct != blank -%}<tr><th scope="row">Carat</th><td>{{ ct }}ct</td></tr>{%- endif -%}
+            {%- if is_fancy -%}
+              {%- if fancy_phrase != blank -%}<tr><th scope="row">Colour</th><td>{{ fancy_phrase }}</td></tr>{%- endif -%}
+            {%- elsif mf.colour != blank -%}
+              <tr><th scope="row">Colour</th><td>{{ mf.colour }}{%- if mf.colour_shade != blank %} · {{ mf.colour_shade }}{% endif -%}</td></tr>
+            {%- endif -%}
+            {%- if mf.clarity != blank -%}<tr><th scope="row">Clarity</th><td>{{ mf.clarity }}</td></tr>{%- endif -%}
+            {%- if mf.cut != blank -%}<tr><th scope="row">Cut</th><td>{{ mf.cut }}</td></tr>{%- endif -%}
+            {%- if mf.polish != blank -%}<tr><th scope="row">Polish</th><td>{{ mf.polish }}</td></tr>{%- endif -%}
+            {%- if mf.symmetry != blank -%}<tr><th scope="row">Symmetry</th><td>{{ mf.symmetry }}</td></tr>{%- endif -%}
+            {%- if mf.fluorescence != blank -%}<tr><th scope="row">Fluorescence</th><td>{{ mf.fluorescence }}</td></tr>{%- endif -%}
+            {%- if mf.gem_type != blank -%}<tr><th scope="row">Gemstone</th><td>{{ mf.gem_type }}</td></tr>{%- endif -%}
+            {%- if mf.treatment != blank -%}<tr><th scope="row">Treatment</th><td>{{ mf.treatment }}</td></tr>{%- endif -%}
+            {%- if mf.mine_origin != blank -%}<tr><th scope="row">Mine origin</th><td>{{ mf.mine_origin }}</td></tr>{%- endif -%}
+            {%- if mf.origin != blank -%}<tr><th scope="row">Origin</th><td>{{ mf.origin }}</td></tr>{%- endif -%}
+            {%- if lab_words != blank -%}<tr><th scope="row">Certificate</th><td>{{ lab_words }}</td></tr>{%- endif -%}
+            {%- if v.sku != blank -%}<tr><th scope="row">Reference</th><td>{{ v.sku }}</td></tr>{%- endif -%}
+          </tbody>
+        </table>
+        <p class="pdx__help">{{ report_line }}</p>
+        </div>
+
+        {%- if colour_chips contains '<a ' -%}
+          <nav class="pdx__versions" aria-label="Similar stones">
+            <p class="pdx__vhead">Similar stones</p>
+            <div class="pdx__vrow"><span class="pdx__vlabel">Colour</span><div class="pdx__vchips">{{ colour_chips }}</div></div>
+          </nav>
+        {%- endif -%}
+
+        <div class="pdx__buyfoot">
+        <button class="btn btn--block pdx__atc" type="submit" name="add"{% unless v.available %} disabled{% endunless %}>
+          {%- if v.available -%}
+            {{ s.atc_label | default: 'Add to bag' }} · {{ v.price | money }}
+          {%- else -%}
+            {{ s.mto_label | default: 'Reserved, ask about similar stones' }}
+          {%- endif -%}
+        </button>
+
+        {%- render 'fye-pdx-delivery', lead_min: lead_min, lead_max: lead_max, sub: deliv_sub -%}
+        </div>
+      {%- endform -%}
+
+      <div class="pdx__buy pdx__buy--b">
+        {%- render 'fye-pdx-engage', product: p, settings: s, context: 'card', noun: noun, offer: 'stone', stone_words: stone_words, offer_url: offer_url -%}
+
+        <div class="pdx__accs">
+          <details class="pdx__acc" open>
+            <summary class="pdx__accsum">About this {{ noun }}</summary>
+            <div class="pdx__accbody">
+              {%- if p.description != blank -%}
+                <div class="pdx__story rte">{{ p.description }}</div>
+              {%- else -%}
+                <p>{{ p.title }}.{% if mf.origin == 'Lab-grown' and is_gem == false %} Chemically and optically identical to a mined diamond.{% endif %}</p>
+              {%- endif -%}
+            </div>
+          </details>
+          <details class="pdx__acc">
+            <summary class="pdx__accsum">Delivery &amp; returns</summary>
+            <div class="pdx__accbody">{{ s.pdx_acc_delivery | default: '<p>Every stone is delivered free and fully insured, with its grading report.</p>' }}</div>
+          </details>
+          <details class="pdx__acc">
+            <summary class="pdx__accsum">Setting your {{ noun }}</summary>
+            <div class="pdx__accbody">{{ s.pdx_acc_setting | default: '<p>Add this stone to any of our settings and we will handmake the ring around it in the UK.</p>' }}</div>
+          </details>
+          <details class="pdx__acc">
+            <summary class="pdx__accsum">Certification &amp; ethics</summary>
+            <div class="pdx__accbody">{{ s.pdx_acc_ethics | default: '<p>Every stone is independently graded and supplied with its certificate.</p>' }}</div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- render 'fye-pdx-enquire', product: p, noun: noun, price: v.price -%}
+</section>

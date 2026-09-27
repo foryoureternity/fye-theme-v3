@@ -25,6 +25,21 @@
 
    Cancel and Escape throw the draft away. Confirm promotes it. That is the
    whole reason they are not one variable.
+
+   THE PDX LAYOUT (27/09/2026, CRO redesign, behind the preview gate) adds:
+
+     [data-fye-finish-quick="<prop>"]  a quick-pick card; a tap APPLIES the
+                                       tile whose data-prop matches, no modal
+     [data-fye-finish-more]            the fourth card; shows a picked finish
+                                       that is not one of the quick three
+     [data-pdx-finish-price]           "Standard" or "+£50" beside the name
+     [data-fye-finish-cat="<cat>"]     category chips in the picker, working
+                                       with the search, never instead of it
+     [data-pdx-finish-total]           the ring total for the draft finish,
+                                       from the price fye-ui.js last painted
+
+   All of it is absent from the old layout, and every lookup below tolerates
+   that, so the old page behaves exactly as it did.
 */
 (function () {
   'use strict';
@@ -68,6 +83,13 @@
     meta: q('[data-fye-finish-draftmeta]')
   };
 
+  var quicks = all('[data-fye-finish-quick]');
+  var more = q('[data-fye-finish-more]');
+  var priceOut = q('[data-pdx-finish-price]');
+  var totalOut = q('[data-pdx-finish-total]');
+  var cats = all('[data-fye-finish-cat]');
+  var cat = 'all';
+
   var applied = tiles[0] || null;   /* the Polished tile */
   var draft = applied;
   var lastFocus = null;
@@ -108,6 +130,24 @@
     if (out.meta) out.meta.textContent = metaOf(f);
     if (out.thumb && f.src) out.thumb.src = f.src;
     if (reset) reset.hidden = f.isPolished;
+    if (priceOut) priceOut.textContent = f.isPolished ? 'Standard' : (f.feeLabel || '');
+
+    /* Quick cards, and the fourth card when the finish is not one of them. */
+    var quickHit = false;
+    quicks.forEach(function (c) {
+      var on = c.getAttribute('data-fye-finish-quick') === f.prop;
+      if (on) quickHit = true;
+      c.classList.toggle('is-on', on);
+      c.setAttribute('aria-checked', on ? 'true' : 'false');
+    });
+    if (more) {
+      var moreName = more.querySelector('[data-fye-finish-more-name]');
+      var moreMeta = more.querySelector('[data-fye-finish-more-meta]');
+      var custom = !quickHit && !f.isPolished;
+      more.classList.toggle('is-on', custom);
+      if (moreName) moreName.textContent = custom ? f.name : 'View more finishes';
+      if (moreMeta) moreMeta.textContent = custom ? (f.feeLabel + ' · Change') : (moreMeta.getAttribute('data-default') || '');
+    }
 
     /* The uplift travels on the root, which is where fye-ui.js reads it for
        the selected price and for the cart line — the same two attributes
@@ -132,6 +172,21 @@
       t.classList.toggle('is-on', on);
       t.setAttribute('aria-checked', on ? 'true' : 'false');
     });
+
+    /* Ring total for the draft: the total fye-ui.js last painted, less the
+       applied finish's fee, plus the draft's. Read, never recomputed. */
+    if (totalOut) {
+      var form = root.closest('form');
+      var last = form && form.__pdxPriced;
+      if (last) {
+        var sum = last.total - (parseInt(read(applied).fee, 10) || 0) + (parseInt(f.fee, 10) || 0);
+        totalOut.textContent = 'Ring total ' + money(sum);
+      }
+    }
+  }
+
+  function money(pennies) {
+    return '£' + (pennies / 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
 
   /* ---- the toggle -------------------------------------------------------
@@ -160,6 +215,8 @@
     lastFocus = document.activeElement;
     draft = applied;
     paintDraft();
+    cat = 'all';
+    if (cats.length) setCat('all');
     filter('');
     if (search) search.value = '';
     modal.hidden = false;
@@ -197,16 +254,31 @@
 
     tiles.forEach(function (tile) {
       var hay = tile.getAttribute('data-search') || '';
-      var hit = !t || hay.indexOf(t) > -1;
+      var inCat = cat === 'all' || tile.getAttribute('data-cat') === cat;
+      var hit = inCat && (!t || hay.indexOf(t) > -1);
       tile.hidden = !hit;
       if (hit) shown++;
     });
 
     if (count) {
-      count.textContent = t
-        ? shown + (shown === 1 ? ' match' : ' matches')
-        : tiles.length + ' finishes';
+      if (cats.length) {
+        count.textContent = shown + ' of ' + tiles.length + ' finishes';
+      } else {
+        count.textContent = t
+          ? shown + (shown === 1 ? ' match' : ' matches')
+          : tiles.length + ' finishes';
+      }
     }
+  }
+
+  function setCat(next) {
+    cat = next || 'all';
+    cats.forEach(function (c) {
+      var on = c.getAttribute('data-fye-finish-cat') === cat;
+      c.classList.toggle('is-on', on);
+      c.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    filter(search ? search.value : '');
   }
 
   /* ---- wiring ----------------------------------------------------------- */
@@ -224,6 +296,24 @@
         paintApplied();
         close();
       }
+      return;
+    }
+
+    if ((el = e.target.closest('[data-fye-finish-quick]'))) {
+      var want = el.getAttribute('data-fye-finish-quick');
+      var hitTile = null;
+      tiles.forEach(function (t) { if (t.getAttribute('data-prop') === want) hitTile = t; });
+      if (hitTile) {
+        applied = hitTile;
+        draft = hitTile;
+        paintApplied();
+        paintDraft();
+      }
+      return;
+    }
+
+    if ((el = e.target.closest('[data-fye-finish-cat]'))) {
+      setCat(el.getAttribute('data-fye-finish-cat'));
       return;
     }
 

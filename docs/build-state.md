@@ -3601,3 +3601,6 @@ overrides it), so every product page shows the new layout to everyone.
   main-product now mean weeks (IDs unchanged; no template had set them), and
   fye-pdx-delivery takes `unit: 'weeks'`. Loose stones keep 3 to 5 working
   days.
+- **Loose stone delivery estimate** (Ed, same day): 2 to 3 weeks from the
+  next working day, the same `unit: 'weeks'` mechanism as rings;
+  fye-stone-product's `pdx_lead_min` / `pdx_lead_max` now mean weeks.

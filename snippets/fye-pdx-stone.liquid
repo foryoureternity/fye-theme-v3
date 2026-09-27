@@ -260,8 +260,11 @@
     endif
   endunless
 
-  assign lead_min = s.pdx_lead_min | default: 3
-  assign lead_max = s.pdx_lead_max | default: 5
+  comment
+    WEEKS, counted from the next working day (Ed, 27/09/2026): 2 to 3.
+  endcomment
+  assign lead_min = s.pdx_lead_min | default: 2
+  assign lead_max = s.pdx_lead_max | default: 3
   assign spin = mf.video_url
 
   if lab_words != blank and lab_words != 'Independent'
@@ -425,7 +428,7 @@
           {%- endif -%}
         </button>
 
-        {%- render 'fye-pdx-delivery', lead_min: lead_min, lead_max: lead_max, sub: deliv_sub -%}
+        {%- render 'fye-pdx-delivery', lead_min: lead_min, lead_max: lead_max, unit: 'weeks', sub: deliv_sub -%}
         </div>
       {%- endform -%}
 

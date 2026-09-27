@@ -3592,6 +3592,7 @@ overrides it), so every product page shows the new layout to everyone.
 - **Returns wording** (Ed, same day), in the "Delivery & returns" accordion
   defaults: rings, "As every ring is made to order, and its diamonds and other
   stones are sourced individually for that piece, returns are not offered,
-  except in the case of a manufacturing issue."; stones, the same for a stone
+  except in the case of a manufacturing defect."; stones, the same for a stone
   sourced for the order. A `pdx_acc_delivery` value set in the theme editor
   replaces the default entirely.
+  ("defect", not "issue": Ed, same day.)

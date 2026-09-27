@@ -50,12 +50,12 @@
           <div class="pop__done" data-fye-popup-done tabindex="-1">
             <span class="pop__done-mark">{%- render 'icon', name: 'check', size: 22 -%}</span>
             <p class="pop__title" role="heading" aria-level="2">Thank you</p>
-            <div class="pop__intro"><p>A jeweller will reply personally, usually within one working day.</p></div>
+            <div class="pop__intro"><p>One of our team will reply personally, usually within one working day.</p></div>
             <button class="btn btn--outline" type="button" data-fye-popup-close>Close</button>
           </div>
         {%- else -%}
           <p class="pop__title" role="heading" aria-level="2" data-pdx-enq-heading data-default="Enquire about this {{ noun }}">Enquire about this {{ noun }}</p>
-          <div class="pop__intro"><p>A jeweller will reply personally, usually within one working day.</p></div>
+          <div class="pop__intro"><p>One of our team will reply personally, usually within one working day.</p></div>
 
           {%- if form.errors -%}
             <div class="pop__errors" id="pop-err-pdx-enquire" role="alert" tabindex="-1" data-fye-popup-error>

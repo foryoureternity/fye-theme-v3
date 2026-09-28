@@ -195,6 +195,19 @@
         non-product branch is left byte-identical to what it replaced, because
         that one is proven correct.
       endcomment
+    endif
+
+    comment
+      28/09/2026: the decode below used to sit INSIDE the "From £" branch,
+      which left every product WITHOUT a description_tag unprotected. Those
+      take Shopify's auto-description from the body copy, which arrives
+      escaped just the same, so the tag carried "It&amp;#39;s" and Google
+      would show a literal "It&#39;s" (found live on /products/fet2226 after
+      the Semrush fixes shipped). The escaping is a property of the product
+      path, not of the price rewrite, so the decode now runs for every
+      product. Decoding a string that holds no entities changes nothing.
+    endcomment
+    if fye_page_type == 'product'
       assign fye_description = fye_description | replace: '&amp;', '&' | replace: '&lt;', '<' | replace: '&gt;', '>' | replace: '&quot;', '"' | replace: '&#39;', "'"
     endif
 

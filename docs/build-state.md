@@ -3715,3 +3715,18 @@ Admin data (already live, no push needed):
 
 Ship: `./tools/fye ship "Semrush fixes: schema type, titles, read more, links, collection guide"`
 (a new section and the template that uses it, so ship, not push).
+
+### 28/09/2026 later: Semrush fixes verified live, plus one follow-up
+
+- Verified after Ed's ship: OnlineStore + WebSite schema on the homepage,
+  titles within 65 characters with the pipe suffix, "Read more: <title>"
+  link text (hidden span 1x1px, no visual change), diamond-shapes links to
+  stone-settings, no redirecting links left on the three landing pages, ring
+  size H1 "Ring Size Guide", buying guide rendering on all six collections
+  and absent where the metafield is empty.
+- Follow-up in `layout/theme.liquid`: the product entity decode moved out of
+  the "From £" branch so it runs for every product. Products with no
+  description_tag were emitting a double-escaped apostrophe
+  (`It&amp;#39;s`) in the meta description, e.g. /products/fet2226.
+- Ship: `./tools/fye push "Meta description: decode entities on every product"`
+  (layout only, so push is enough).

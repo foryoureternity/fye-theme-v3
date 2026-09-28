@@ -3735,3 +3735,22 @@ Ship: `./tools/fye ship "Semrush fixes: schema type, titles, read more, links, c
   pages and collections also emitting `&amp;amp;` / `&amp;#39;` in the meta
   description (e.g. /collections/diamond-wedding-rings, /pages/emerald-guide).
   Ship: `./tools/fye push "Meta description: decode entities on every page type"`.
+
+## 28/09/2026: price-led wording removed (Searchable review, step 5)
+
+Ed approved all. The never-sell-on-price rule (fye-never-sell-on-price):
+- index.json trust row: "Direct pricing, no retail markups" -> "Every price
+  explained, fixed before we make" (label "Fair & transparent" unchanged).
+- page.about-us.json: "too much mark-up" -> "too much jargon"; em dash in the
+  next sentence -> comma.
+- engagement-ring-styles, ring-engraving, create-your-own-ring (the W356
+  three), wedding-band-pairing and eternity-ring-stacking: the "cheaper"
+  arguments rewritten around the result.
+- Engagement, wedding and eternity landing FAQ "Do you offer financing or
+  payment plans?" claimed interest-free instalments and BNPL, which FYE does
+  not offer and the T&Cs contradict. Now: agreed deposit on bespoke, balance
+  before dispatch, no credit or finance. Ed is looking for a BNPL provider
+  (possibly PayPal); update this FAQ when one is live.
+- Left as education (allowed by the rule): gemstone-guide price notes, the
+  budget guide, and the blog FAQ "Is it cheaper to buy online?".
+Ship: `./tools/fye ship "Price-led wording removed; financing FAQ corrected"`.

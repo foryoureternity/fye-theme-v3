@@ -206,10 +206,16 @@
       the Semrush fixes shipped). The escaping is a property of the product
       path, not of the price rewrite, so the decode now runs for every
       product. Decoding a string that holds no entities changes nothing.
+
+      And not only products. A sweep of all 372 page, collection and article
+      URLs the same day found 16 more double-escaped descriptions, on pages
+      and collections alike (/collections/diamond-wedding-rings among them,
+      the very page the W335 note above held up as proof the non-product
+      path was correct: it is not, or no longer is). page_description comes
+      in escaped on every page type, so the decode runs unconditionally and
+      the single `escape` on the meta tag produces the correct markup.
     endcomment
-    if fye_page_type == 'product'
-      assign fye_description = fye_description | replace: '&amp;', '&' | replace: '&lt;', '<' | replace: '&gt;', '>' | replace: '&quot;', '"' | replace: '&#39;', "'"
-    endif
+    assign fye_description = fye_description | replace: '&amp;', '&' | replace: '&lt;', '<' | replace: '&gt;', '>' | replace: '&quot;', '"' | replace: '&#39;', "'"
 
     comment
       28/09/2026 (W456): no em dashes in search snippets, which is Ed's house

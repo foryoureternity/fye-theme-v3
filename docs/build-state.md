@@ -3730,3 +3730,8 @@ Ship: `./tools/fye ship "Semrush fixes: schema type, titles, read more, links, c
   (`It&amp;#39;s`) in the meta description, e.g. /products/fet2226.
 - Ship: `./tools/fye push "Meta description: decode entities on every product"`
   (layout only, so push is enough).
+- Second follow-up the same day: the decode now runs on EVERY page type, not
+  just products. A sweep of all 372 page/collection/article URLs found 16
+  pages and collections also emitting `&amp;amp;` / `&amp;#39;` in the meta
+  description (e.g. /collections/diamond-wedding-rings, /pages/emerald-guide).
+  Ship: `./tools/fye push "Meta description: decode entities on every page type"`.

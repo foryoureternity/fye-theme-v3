@@ -3632,3 +3632,22 @@ overrides it), so every product page shows the new layout to everyone.
   recipient (tel:, sms:<number>, mailto:<address>, wa.me/<number> or
   whatsapp.com/send?phone=), and ignores the share panel. Before this, a
   WhatsApp share of a ring would have been counted as a WhatsApp contact.
+
+## 28/09/2026: workshop wording (Searchable review, step 1)
+
+- Ed's confirmed wording (25/09/2026) is "in our workshop in London or our
+  workshop in Birmingham". Two places still claimed a single Hatton Garden
+  workshop, and AI assistants were repeating it:
+  - `templates/llms.txt.liquid` key facts: now "Pieces are hand-finished in
+    our workshop in London or our workshop in Birmingham, then hallmarked."
+    The "Founded in London in 2024" line stays (Ed, same day).
+  - `snippets/schema-service.liquid` description: same wording.
+- `templates/page.about-us.json`: one em dash in the aftercare line replaced
+  with a comma. The same line still says "hallmarked at the London Assay
+  Office"; left as is until Ed confirms which assay office(s) hallmark.
+- Theme-wide grep: no other "Hatton Garden" in templates, sections or
+  snippets. The one blog article that mentions Hatton Garden
+  (should-you-buy-an-engagement-ring-online) uses it as a shopping district
+  in a comparison table, not a workshop claim, so it is unchanged.
+- Ship: `./tools/fye ship "Workshop wording: London or Birmingham"` (a JSON
+  template changed).

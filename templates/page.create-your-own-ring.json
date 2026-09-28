@@ -1,5 +1,16 @@
 {
   "sections": {
+    "fye_answer": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "mist",
+        "variant": "lede",
+        "narrow": true,
+        "eyebrow": "The short answer",
+        "heading": "How long does a custom engagement ring take?",
+        "body": "<p>Once your design is confirmed, making normally takes 2 to 4 weeks. Design and sourcing come first, so allowing at least five weeks overall is ideal. You start with a free consultation, in person across London or by video, see sketches and renders until the design is right, and receive a fixed quote before anything is made.</p>"
+      }
+    },
     "heading": {
       "type": "heading-template",
       "blocks": {
@@ -49,7 +60,7 @@
         "narrow": true,
         "eyebrow": "Two Routes",
         "heading": "Already Designed, or Made With You",
-        "body": "<p>You can choose an already-designed ring through the website when the design, size and fit are straightforward. Or you can work with us on a bespoke piece when the stone, setting, shape or proportions need more thought.</p><p>Both routes are made to order and hand-finished in our London workshop. What follows is what happens on the bespoke route, in order, with honest timings.</p>"
+        "body": "<p>You can choose an already-designed ring through the website when the design, size and fit are straightforward. Or you can work with us on a bespoke piece when the stone, setting, shape or proportions need more thought.</p><p>Both routes are made to order and hand-finished in our workshop in London or our workshop in Birmingham. What follows is what happens on the bespoke route, in order, with honest timings.</p>"
       }
     },
     "steps": {
@@ -95,7 +106,7 @@
           "type": "term",
           "settings": {
             "heading": "Casting and setting",
-            "body": "<p>Once you approve the design, the ring is cast in your chosen metal, hand-finished by our setters in our London workshop, and the stone is set.</p>",
+            "body": "<p>Once you approve the design, the ring is cast in your chosen metal, hand-finished by our setters in our workshop in London or our workshop in Birmingham, and the stone is set.</p>",
             "number": "05",
             "meta": "2 to 4 weeks"
           }
@@ -424,7 +435,7 @@
   },
   "order": [
     "heading",
-    "nav_top",
+    "nav_top", "fye_answer",
     "intro",
     "steps",
     "timing",

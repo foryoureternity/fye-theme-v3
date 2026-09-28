@@ -1,5 +1,16 @@
 {
   "sections": {
+    "fye_answer": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "mist",
+        "variant": "lede",
+        "narrow": true,
+        "eyebrow": "The short answer",
+        "heading": "How can I tell if a diamond is ethically sourced?",
+        "body": "<p>Ask what the jeweller can actually document about the stone's origin, not only whether it is conflict-free. Every natural diamond we supply comes through the Kimberley Process, which keeps conflict diamonds out of the legitimate supply chain, and some stones now carry stronger traceability back towards the mine. Lab-grown diamonds avoid mining altogether. We are specific about what can be documented for each stone, and what currently cannot.</p>"
+      }
+    },
     "heading": {
       "type": "heading-template",
       "blocks": {
@@ -333,7 +344,7 @@
   },
   "order": [
     "heading",
-    "nav_top",
+    "nav_top", "fye_answer",
     "intro",
     "pillars",
     "promise",

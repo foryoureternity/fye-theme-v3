@@ -13,7 +13,7 @@
       "type": "heading-template",
       "blocks": {
         "crumbs": { "type": "3", "settings": {} },
-        "title": { "type": "1", "settings": { "heading": "Gallery" } },
+        "title": { "type": "1", "settings": { "heading": "Past Pieces: Rings We Have Made" } },
         "sub": {
           "type": "2",
           "settings": {
@@ -31,6 +31,18 @@
       }
     },
 
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "variant": "lede",
+        "narrow": true,
+        "eyebrow": "Past pieces",
+        "heading": "Real commissions, made for our clients",
+        "body": "<p>Every piece in this gallery was made to order for a client, in our workshop in London or our workshop in Birmingham. Some began as designs from our collections, some were designed from scratch, and most sit somewhere in between. Filter by ring type to see what is possible, then <a href=\"/pages/contact-us\">tell us where you would like to start</a>.</p>"
+      }
+    },
+
     "gallery": {
       "type": "past-pieces-gallery",
       "name": "Past Pieces gallery",
@@ -43,7 +55,7 @@
       }
     }
   },
-  "order": ["heading", "gallery"]
+  "order": ["heading", "intro", "gallery"]
 }
 
 

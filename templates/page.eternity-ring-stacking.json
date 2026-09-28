@@ -1,5 +1,16 @@
 {
   "sections": {
+    "fye_answer": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "mist",
+        "variant": "lede",
+        "narrow": true,
+        "eyebrow": "The short answer",
+        "heading": "Which eternity rings sit flush against an engagement ring?",
+        "body": "<p>It depends on the clearance under the engagement ring's setting. High-set and cathedral settings usually leave room for a straight eternity band to sit flush; low-set settings and halos often need a curved or shaped band, or a slim plain spacer. Two diamond bands should never rub directly against each other, so we check the fit of the whole stack before recommending a style.</p>"
+      }
+    },
     "heading": {
       "type": "heading-template",
       "blocks": {
@@ -342,7 +353,7 @@
   },
   "order": [
     "heading",
-    "nav_top",
+    "nav_top", "fye_answer",
     "intro",
     "options",
     "checks",

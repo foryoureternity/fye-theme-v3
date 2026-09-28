@@ -3754,3 +3754,23 @@ Ed approved all. The never-sell-on-price rule (fye-never-sell-on-price):
 - Left as education (allowed by the rule): gemstone-guide price notes, the
   budget guide, and the blog FAQ "Is it cheaper to buy online?".
 Ship: `./tools/fye ship "Price-led wording removed; financing FAQ corrected"`.
+
+## 28/09/2026: AI answer boxes, workshop wording sweep, gallery intro (Searchable review)
+
+- New `fye_answer` section (type fye-rich-text, band mist, variant lede,
+  eyebrow "The short answer", the question as the heading) placed straight
+  after nav_top on nine guides whose questions AI assistants were answering
+  without citing FYE: lab-grown-diamonds, diamond-certification,
+  ethical-sourcing, eternity-ring-coverage, eternity-ring-stacking,
+  wedding-band-pairing, create-your-own-ring, find-your-ring-size,
+  ring-profiles-and-widths. Every answer restates what the page already says;
+  none adds a new claim. Emerald guide skipped: it is at the 25-section limit.
+- "London workshop" (8 places, 7 templates) -> "our workshop in London or our
+  workshop in Birmingham" (Ed's wording, 25/09/2026); ring-care-servicing says
+  "our workshops in London and Birmingham".
+- llms.txt policies list gains the new Shipping policy (/policies/shipping-policy,
+  published in admin 28/09/2026).
+- page.past-pieces.json (/pages/jewellery-gallery): H1 "Gallery" -> "Past
+  Pieces: Rings We Have Made" (matches the admin SEO title) and a short intro
+  section with an H2, because the page had no H2 and no opening statement.
+Ship: `./tools/fye ship "AI answer boxes, workshop wording, gallery intro"`.

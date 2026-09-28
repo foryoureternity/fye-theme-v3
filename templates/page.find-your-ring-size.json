@@ -9,6 +9,17 @@
  */
 {
   "sections": {
+    "fye_answer": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "mist",
+        "variant": "lede",
+        "narrow": true,
+        "eyebrow": "The short answer",
+        "heading": "How do I find out my ring size?",
+        "body": "<p>The most reliable way is a physical ring sizer, which we post free anywhere in the UK with no obligation. Measure at the end of the day when your fingers are warm, check the size more than once, and remember that the width of the ring changes how it fits. If the ring is a surprise, a ring they already wear on the same finger is the next best guide, and resizing is complimentary for the first year.</p>"
+      }
+    },
     "heading": {
       "type": "heading-template",
       "blocks": {
@@ -655,7 +666,7 @@
   },
   "order": [
     "heading",
-    "nav_top",
+    "nav_top", "fye_answer",
     "intro",
     "methods",
     "chart",

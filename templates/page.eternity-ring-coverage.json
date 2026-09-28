@@ -1,5 +1,16 @@
 {
   "sections": {
+    "fye_answer": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "mist",
+        "variant": "lede",
+        "narrow": true,
+        "eyebrow": "The short answer",
+        "heading": "What is the difference between a full and a half eternity ring?",
+        "body": "<p>A full eternity ring has stones all the way round the band; a half eternity has them across the top. Because a ring is seen from above, a half eternity reads as fully set in everyday wear, with a smoother underside and the option to resize later. A full eternity usually cannot be resized in the conventional way, so the size needs to be certain before it is made.</p>"
+      }
+    },
     "heading": {
       "type": "heading-template",
       "blocks": {
@@ -393,7 +404,7 @@
   },
   "order": [
     "heading",
-    "nav_top",
+    "nav_top", "fye_answer",
     "intro",
     "table",
     "half",

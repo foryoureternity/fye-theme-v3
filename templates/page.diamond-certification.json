@@ -1,5 +1,16 @@
 {
   "sections": {
+    "fye_answer": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "mist",
+        "variant": "lede",
+        "narrow": true,
+        "eyebrow": "The short answer",
+        "heading": "How do I check a diamond's certificate before buying?",
+        "body": "<p>Ask for the grading report number and look it up on the issuing laboratory's own website, such as GIA or IGI, then check that the details match the stone you are being shown, including any laser inscription on the girdle. A grading report is an independent description of the stone, not a valuation. Every centre stone we supply comes with an independent laboratory grading report.</p>"
+      }
+    },
     "heading": {
       "type": "heading-template",
       "blocks": {
@@ -455,7 +466,7 @@
   },
   "order": [
     "heading",
-    "nav_top",
+    "nav_top", "fye_answer",
     "intro",
     "labs",
     "confirms",

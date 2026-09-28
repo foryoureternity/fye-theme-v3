@@ -1,5 +1,16 @@
 {
   "sections": {
+    "fye_answer": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "mist",
+        "variant": "lede",
+        "narrow": true,
+        "eyebrow": "The short answer",
+        "heading": "Should I choose a lab-grown or a natural diamond?",
+        "body": "<p>Both are real diamonds, with the same chemical and optical nature, graded by the same laboratories on the same Four Cs. The differences that matter are origin and rarity: a natural diamond formed in the earth and carries geological scarcity, while a lab-grown diamond is grown in controlled conditions. We offer both, independently graded by GIA or IGI, and explain the trade-offs plainly so you can choose for yourself.</p>"
+      }
+    },
     "heading": {
       "type": "heading-template",
       "blocks": {
@@ -480,7 +491,7 @@
   },
   "order": [
     "heading",
-    "nav_top",
+    "nav_top", "fye_answer",
     "intro",
     "comparison",
     "natural",

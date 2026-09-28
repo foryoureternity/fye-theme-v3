@@ -1,5 +1,16 @@
 {
   "sections": {
+    "fye_answer": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "mist",
+        "variant": "lede",
+        "narrow": true,
+        "eyebrow": "The short answer",
+        "heading": "Can a wedding band be shaped to fit my engagement ring?",
+        "body": "<p>Yes. Whether you need a straight, shaped or fitted band depends on the clearance under the engagement ring's setting rather than its overall height. Low-profile settings block a straight band and leave a wedge-shaped gap, so they need a curved, contoured or fitted band; high-set and cathedral settings usually let a straight band sit flush. A shaped band set with stones is bespoke work, so it is best designed alongside the engagement ring.</p>"
+      }
+    },
     "heading": {
       "type": "heading-template",
       "blocks": {
@@ -402,7 +413,7 @@
   },
   "order": [
     "heading",
-    "nav_top",
+    "nav_top", "fye_answer",
     "intro",
     "three",
     "clearance",

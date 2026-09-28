@@ -1,5 +1,16 @@
 {
   "sections": {
+    "fye_answer": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "mist",
+        "variant": "lede",
+        "narrow": true,
+        "eyebrow": "The short answer",
+        "heading": "Court or flat court: which wedding ring is more comfortable?",
+        "body": "<p>Both have a curved comfort interior, which is what makes a band easy to wear all day. A traditional court is domed inside and out, soft and classic; a flat court has a flat outside for a more modern look with the same easy daily wear. The choice is mostly about the look you prefer, with width and depth then fine-tuning the feel.</p>"
+      }
+    },
     "heading": {
       "type": "heading-template",
       "blocks": {
@@ -531,7 +542,7 @@
   },
   "order": [
     "heading",
-    "nav_top",
+    "nav_top", "fye_answer",
     "intro",
     "profiles",
     "profile_links",

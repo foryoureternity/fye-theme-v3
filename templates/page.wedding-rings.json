@@ -264,7 +264,7 @@
         "left_heading": "Have more questions to ask?",
         "left_text": "<p>We’re here to help. If you have any questions about our rings, designs, or ethical sourcing, feel free to reach out — our experts are happy to guide you.</p>",
         "left_btn": "Enquire now",
-        "left_url": "shopify://pages/contact",
+        "left_url": "shopify://pages/contact-us",
         "emit_schema": true,
         "band": "white"
       }

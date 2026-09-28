@@ -24,6 +24,12 @@
         "from_price": ""
       }
     },
+    "fye_collection_guide": {
+      "type": "fye-collection-guide",
+      "settings": {
+        "band": "ivory"
+      }
+    },
     "main": {
       "type": "main-collection",
       "blocks": {
@@ -68,7 +74,8 @@
   },
   "order": [
     "fye_collection_intro",
-    "main"
+    "main",
+    "fye_collection_guide"
   ]
 }
 

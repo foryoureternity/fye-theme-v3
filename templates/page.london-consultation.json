@@ -222,7 +222,7 @@
           "type": "qa",
           "settings": {
             "q": "Do you deliver outside London?",
-            "a": "<p>Yes, anywhere in the UK, by fully insured courier with signature on delivery. We do not currently deliver outside the UK.</p>"
+            "a": "<p>Yes, anywhere in the UK, free, by fully insured courier with signature on delivery. We can also ship internationally by arrangement: please contact us before you order so we can agree shipping, customs clearance, import VAT and duty.</p>"
           }
         }
       },

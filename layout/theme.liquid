@@ -89,14 +89,44 @@
     no global.title_tag of its own, use the whole product.title instead.
     Search engines shorten long titles for display on their own; they never
     need us to do it for them. A title_tag set in admin still wins.
+
+    28/09/2026 (W447): one rule for the brand suffix, " | For Your Eternity".
+    It was Shopify's default en dash, so any page without its own SEO title
+    (every product, most articles and pages) ended " – For Your Eternity"
+    while the hand-set SEO titles ended with a pipe. And the suffix now goes
+    on ONLY IF THE WHOLE TITLE STAYS WITHIN 65 CHARACTERS. Semrush flagged
+    43 guide, article and collection titles as too long, and in every one the
+    overflow was the brand, not the words people search for; Google shows the
+    site name above the URL anyway. So a suffix already typed into an admin
+    SEO title is stripped first, the tag and page-number parts are added, and
+    the brand goes back on if it fits. The homepage title starts with the
+    brand, so it is left alone. og:title still gets fye_title unchanged.
+    Do not "fix" long titles by rewriting them in admin: shorten the words
+    only if the title is over 65 characters WITHOUT the brand.
   {%- endcomment -%}
   {%- liquid
     assign fye_title = page_title
     if fye_page_type == 'product' and product != blank and product.metafields.global.title_tag == blank
       assign fye_title = product.title
     endif
+    assign fye_brand = ' | ' | append: shop.name
+    assign fye_doc_title = fye_title | remove: fye_brand
+    if current_tags
+      assign fye_tag_list = current_tags | join: ', '
+      assign fye_doc_title = fye_doc_title | append: ' – ' | append: fye_tag_list
+    endif
+    if current_page != 1
+      assign fye_page_word = 'general.page' | t
+      assign fye_doc_title = fye_doc_title | append: ' – ' | append: fye_page_word | append: ' ' | append: current_page
+    endif
+    unless fye_doc_title contains shop.name
+      assign fye_branded = fye_doc_title | append: fye_brand
+      if fye_branded.size <= 65
+        assign fye_doc_title = fye_branded
+      endif
+    endunless
   -%}
-  <title>{{ fye_title }}{% if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.page' | t }} {{ current_page }}{% endif %}{% unless fye_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>
+  <title>{{ fye_doc_title }}</title>
   {%- comment -%}
     W335, 10/09/2026 — the description is COMPUTED, not printed straight from
     the metafield.
@@ -167,6 +197,16 @@
       endcomment
       assign fye_description = fye_description | replace: '&amp;', '&' | replace: '&lt;', '<' | replace: '&gt;', '>' | replace: '&quot;', '"' | replace: '&#39;', "'"
     endif
+
+    comment
+      28/09/2026 (W456): no em dashes in search snippets, which is Ed's house
+      style. 1,189 ring descriptions carry one in their body copy (Gemex
+      templates such as "Centre stone: None — diamond band"), and 86 of those
+      have no description_tag, so Shopify's auto-description put the dash in
+      the snippet. A comma reads correctly in every pattern found. The body
+      copy itself is a separate data pass.
+    endcomment
+    assign fye_description = fye_description | replace: ' — ', ', ' | replace: '—', ', '
   -%}
   {%- if fye_description != blank -%}
     <meta name="description" content="{{ fye_description | escape }}">

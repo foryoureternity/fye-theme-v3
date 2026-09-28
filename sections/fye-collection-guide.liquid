@@ -1,0 +1,55 @@
+{%- comment -%}
+  fye-collection-guide — buying guidance below the product grid, from the
+  collection's own `custom.buying_guide` metafield (rich text).
+
+  Added 28/09/2026 (W450). Semrush's rankings showed six collections on pages
+  5 to 8 of Google carrying about 130 words each, all of it in the intro band
+  above the grid. The intro stays short on purpose, because it sits above the
+  products; the depth goes here, after them, where it helps the shopper who
+  has scrolled the grid and is still deciding.
+
+  Content lives on the COLLECTION, not in this section's settings, because
+  collection.json is one template shared by every collection: a setting here
+  would print the same words on all of them. Edit it in Shopify admin under
+  the collection > Metafields > Buying guide. A collection with an empty
+  metafield renders nothing at all, so the section is safe on every
+  collection.
+
+  The copy is written to the never-sell-on-price rule: it argues from fit,
+  durability and the finished result, never from a saving.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign guide = collection.metafields.custom.buying_guide
+  assign band = s.band | default: 'ivory'
+-%}
+
+{%- if guide != blank -%}
+<section class="cguide band band--{{ band }}" data-screen-label="Collection buying guide">
+  <div class="wrap wrap--narrow">
+    <div class="prose cguide__body">{{ guide | metafield_tag }}</div>
+  </div>
+</section>
+{%- endif -%}
+
+{% stylesheet %}
+.fye .cguide__body :where(a) { text-decoration: underline; text-underline-offset: 3px; }
+.fye .cguide__body :where(h2, h3) { color: var(--ink); }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Collection buying guide",
+  "settings": [
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "ivory",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Ivory" },
+        { "value": "mist",  "label": "Mist" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Collection buying guide" }]
+}
+{% endschema %}

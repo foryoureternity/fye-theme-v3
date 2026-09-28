@@ -306,7 +306,7 @@
           "type": "qa",
           "settings": {
             "q": "Do you ship internationally?",
-            "a": "<p>Not at the moment. We deliver within the UK only, by fully insured courier with signature on delivery.</p>"
+            "a": "<p>Yes, by arrangement. Please contact us before you order so we can agree shipping, customs clearance, import VAT and duty. Delivery within the UK is free, by fully insured courier with signature on delivery.</p>"
           }
         }
       },

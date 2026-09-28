@@ -56,12 +56,15 @@
     {%- endif -%}
 
     {%- comment -%}
-      aria-label names the destination: a page of cards otherwise reads as
-      "Read more, Read more, Read more" to a screen reader and Lighthouse
-      flags every one (audit 02/09/2026, A2). The visible text is unchanged.
+      The destination is named in the link TEXT, visually hidden: a page of
+      cards otherwise reads as "Read more, Read more, Read more" to a screen
+      reader and Lighthouse flags every one (audit 02/09/2026, A2). It was an
+      aria-label until 28/09/2026 (W446), but crawlers and SEO tools read the
+      link text, not aria-label, so Semrush still reported 20 non-descriptive
+      anchors. The visible text is unchanged.
     {%- endcomment -%}
     {%- if show_more -%}
-      <a class="link acard__more" href="{{ article.url }}" aria-label="{{ label | escape }}: {{ alt }}">{{ label }}</a>
+      <a class="link acard__more" href="{{ article.url }}">{{ label }}<span class="visually-hidden">: {{ alt }}</span></a>
     {%- endif -%}
   </div>
 </article>

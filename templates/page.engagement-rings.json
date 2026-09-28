@@ -149,11 +149,11 @@
       "blocks": {
         "collection_item_kYmGPh": {
           "type": "collection_item",
-          "settings": { "image": "shopify://shop_images/icon101.svg", "collection_title": "Round brilliant", "collection_link": "shopify://collections/round-cut" }
+          "settings": { "image": "shopify://shop_images/icon101.svg", "collection_title": "Round brilliant", "collection_link": "shopify://collections/round-brilliant-engagement-rings" }
         },
         "collection_item_AmXkj3": {
           "type": "collection_item",
-          "settings": { "image": "shopify://shop_images/icon102.svg", "collection_title": "Oval", "collection_link": "shopify://collections/oval-cut" }
+          "settings": { "image": "shopify://shop_images/icon102.svg", "collection_title": "Oval", "collection_link": "shopify://collections/oval-cut-engagement-rings" }
         },
         "collection_item_PbdCT6": {
           "type": "collection_item",
@@ -173,11 +173,11 @@
         },
         "collection_item_9JiBx4": {
           "type": "collection_item",
-          "settings": { "image": "shopify://shop_images/icon107.svg", "collection_title": "Princess", "collection_link": "shopify://collections/princess-cut" }
+          "settings": { "image": "shopify://shop_images/icon107.svg", "collection_title": "Princess", "collection_link": "shopify://collections/princess-cut-engagement-rings" }
         },
         "collection_item_4Nbp8E": {
           "type": "collection_item",
-          "settings": { "image": "shopify://shop_images/icon108.svg", "collection_title": "Marquise", "collection_link": "shopify://collections/marquise-cut" }
+          "settings": { "image": "shopify://shop_images/icon108.svg", "collection_title": "Marquise", "collection_link": "shopify://collections/marquise-cut-engagement-rings" }
         },
         "collection_item_UqgqFp": {
           "type": "collection_item",
@@ -185,7 +185,7 @@
         },
         "collection_item_76hcJM": {
           "type": "collection_item",
-          "settings": { "image": "shopify://shop_images/icon110.svg", "collection_title": "Heart", "collection_link": "shopify://collections/heart-shaped-cut" }
+          "settings": { "image": "shopify://shop_images/icon110.svg", "collection_title": "Heart", "collection_link": "shopify://collections/heart-cut-engagement-rings" }
         }
       },
       "block_order": [
@@ -400,7 +400,7 @@
         "left_heading": "Have more questions to ask?",
         "left_text": "<p>We’re here to help. If you have any questions about our rings, designs, or ethical sourcing, feel free to reach out — our experts are happy to guide you.</p>",
         "left_btn": "Enquire now",
-        "left_url": "shopify://pages/contact",
+        "left_url": "shopify://pages/contact-us",
         "emit_schema": true,
         "band": "white"
       }

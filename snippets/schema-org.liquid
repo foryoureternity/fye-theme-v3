@@ -1,5 +1,5 @@
 {%- comment -%}
-  schema-org — JewelryStore structured data for the business.
+  schema-org — OnlineStore structured data for the business.
 
   Ported verbatim from the `custom-liquid` section on the old homepage, which
   is where it lived: a body section, at the bottom of the page, inside a
@@ -40,6 +40,17 @@
   PostalAddress because an audit tool reports one missing. The local signal
   is carried by areaServed, the Business Profile as a service-area business
   (W170) and the London consultation page (W171).
+
+  28/09/2026 (W445) — the type is now OnlineStore, not JewelryStore. Every
+  validator (Semrush flagged 83 of 83 pages) reads JewelryStore as a
+  LocalBusiness with a missing REQUIRED address, and a LocalBusiness with no
+  address earns no local feature in Google anyway, so the type was costing an
+  error on every page and buying nothing. OnlineStore is an Organization
+  subtype that Google documents for organisation markup and needs no address.
+  @id is unchanged, so every schema that points at #business still resolves.
+  priceRange and currenciesAccepted went with it: both are LocalBusiness
+  properties and would be unknown on OnlineStore. The decision above stands:
+  do not switch back to a LocalBusiness type to "restore" local signals.
 {%- endcomment -%}
 {%- liquid
   assign logo_square = 'fye-logo-square.png' | asset_url
@@ -73,7 +84,7 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "JewelryStore",
+  "@type": "OnlineStore",
   "@id": "{{ shop.url }}/#business",
   "name": {{ shop.name | json }},
   "legalName": "For Your Eternity Ltd",
@@ -94,8 +105,6 @@
   {%- endif -%}
   "email": "hello@foryoureternity.com",
   "telephone": "+442081786687",
-  "priceRange": "££",
-  "currenciesAccepted": "GBP",
   "areaServed": [
     { "@type": "City", "name": "London" },
     { "@type": "Country", "name": "United Kingdom" }
@@ -114,7 +123,7 @@
 }
 </script>
 {%- comment -%}
-  22/09/2026 (W388): WebSite entity. The JewelryStore above says who the
+  22/09/2026 (W388): WebSite entity. The OnlineStore above says who the
   business is; this says what the site is and ties it to that business by
   @id, which is how Google picks the site name shown in results and how
   answer engines connect the domain to the brand. No SearchAction: Google

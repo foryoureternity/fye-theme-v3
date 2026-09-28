@@ -3651,3 +3651,67 @@ overrides it), so every product page shows the new layout to everyone.
   in a comparison table, not a workshop claim, so it is unchanged.
 - Ship: `./tools/fye ship "Workshop wording: London or Birmingham"` (a JSON
   template changed).
+
+## 28/09/2026: international shipping by arrangement (Searchable review, step 4 follow-on)
+
+- Ed decided (same day): FYE can ship internationally, but the customer must
+  contact FYE before ordering to agree shipping, customs, import VAT and
+  duty; otherwise FYE may invoice extra costs and hold the item until paid.
+  UK delivery stays free. The T&Cs page, Terms of service and Refund policy
+  were updated in admin (not theme files).
+- Theme copy brought in line: `page.create-your-own-ring.json` FAQ q7 ("Do you
+  ship internationally?") and `page.london-consultation.json` ("Do you deliver
+  outside London?") no longer say UK only; `llms.txt.liquid` key facts now say
+  free insured delivery within the UK, international by arrangement.
+- Left as is, still true: "Fully tracked across the UK" in fye-pdx-assure and
+  the free ring sizer "anywhere in the UK".
+
+## 28/09/2026: Semrush review fixes (W445-W457)
+
+Theme (this push):
+- `snippets/schema-org.liquid` (W445): business node is `OnlineStore`, not
+  `JewelryStore`. JewelryStore is a LocalBusiness, every validator reads its
+  missing address as a required-field error (Semrush: 83 of 83 pages), and a
+  LocalBusiness with no address earns no local feature anyway. `@id` is
+  unchanged. `priceRange` and `currenciesAccepted` removed (LocalBusiness-only
+  properties). The no-address decision (W169) stands. Comment updated in the
+  article, page-article and llms.txt files that named JewelryStore.
+- `snippets/article-card.liquid`, `sections/latest-news-EM.liquid` (W446):
+  "Read more" links carry the article title as visually hidden link text
+  instead of an aria-label. Crawlers read link text, not aria-label. No
+  visual change.
+- `layout/theme.liquid` (W447): brand suffix is " | For Your Eternity" (was
+  Shopify's en dash) and is added ONLY when the whole title stays within 65
+  characters; a suffix typed into an admin SEO title is stripped first so the
+  rule is the same everywhere. og:title is unchanged.
+- `layout/theme.liquid` (W456): em dashes in the computed meta description
+  become commas (86 products had one via Shopify's auto-description).
+- `templates/page.diamond-shapes.json` (W454): card link /pages/ring-settings
+  (404) now /pages/stone-settings.
+- `templates/page.engagement-rings.json`, `page.wedding-rings.json`,
+  `page.eternity-rings.json` (W455): shape tiles point at the
+  [cut]-engagement-rings handles and contact links at contact-us, instead of
+  going through redirects.
+- `templates/page.find-your-ring-size.json` (W449): H1 "Ring Size Guide".
+- NEW `sections/fye-collection-guide.liquid` + `templates/collection.json`
+  (W450): buying guidance below the grid from the collection metafield
+  `custom.buying_guide` (rich text, definition created 28/09). Renders nothing
+  when the metafield is empty. Filled on tanzanite-engagement-rings,
+  morganite-engagement-rings, eternity-emerald-cut, eternity-princess,
+  toi-et-moi and loose-diamonds.
+
+Admin data (already live, no push needed):
+- Collection titles: toi-et-moi "Toi et Moi Engagement Rings",
+  eternity-princess "Princess Cut Eternity Rings", featured-wedding-rings
+  typo fixed; both Featured collections seo.hidden = 1.
+- Nine cut collection descriptions: links to redirected /collections/*-cut
+  handles fixed, em dashes removed. SEO descriptions without em dashes on
+  hidden-halo, toi-et-moi, princess-cut and marquise-cut engagement rings.
+- Page SEO: find-your-ring-size, contact-us, eternity-rings titles; meta
+  descriptions on contact-us, engagement-ring-style, engagement-rings,
+  wedding-rings, find-the-perfect-engagement-ring, and new title +
+  description on loose-diamonds-gems, order-a-free-ring-sizer,
+  jewellery-gallery. Five product description_tags without em dashes.
+
+Ship: `./tools/fye ship "Semrush fixes: schema type, titles, read more, links, collection guide"`
+(a new section and the template that uses it, so ship, not push).

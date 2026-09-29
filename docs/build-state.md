@@ -3774,3 +3774,8 @@ Ship: `./tools/fye ship "Price-led wording removed; financing FAQ corrected"`.
   Pieces: Rings We Have Made" (matches the admin SEO title) and a short intro
   section with an H2, because the page had no H2 and no opening statement.
 Ship: `./tools/fye ship "AI answer boxes, workshop wording, gallery intro"`.
+
+## 28/09/2026: About page credibility and em dashes (W470)
+- page.about-us.json: Meet Edward intro gains a second paragraph (worked for and with jewellers in London before 2024; hand-finished in our workshops; hallmarked at the London or Birmingham Assay Office).
+- Process step 04 now says "hallmarked at the London or Birmingham Assay Office".
+- All 9 em dashes on the About page replaced with commas or colons.

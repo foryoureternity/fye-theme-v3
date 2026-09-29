@@ -145,7 +145,7 @@
         "columns": "3",
         "eyebrow": "What we do",
         "heading": "A full-service jeweller",
-        "note": "Two workshops, one point of contact — from a first ring to the piece you inherit and want brought back to life."
+        "note": "Two workshops, one point of contact, from a first ring to the piece you inherit and want brought back to life."
       }
     },
 
@@ -161,8 +161,8 @@
         "caption": "Edward Marno, founder.",
         "eyebrow": "The person behind the work",
         "heading": "Meet Edward",
-        "intro": "<p>I'm Edward, and I run For Your Eternity. Every consultation, every stone, every quote — that's me. It means you get one person who knows your piece from the first conversation to the day it's collected.</p><p>We start by talking: what you like, what gets worn day to day, what you want to spend. Then I explain the trade-offs honestly until the decision feels obvious. Natural or lab-grown, 1.5ct or 0.7ct, platinum or gold — there's no wrong answer, only the right one for you.</p><p>And I'm still the one you call in five years, when it needs a clean, a resize, or a matching band. That's rather the point.</p>",
-        "sig": "Edward — Founder, For Your Eternity"
+        "intro": "<p>I'm Edward, and I run For Your Eternity. Every consultation, every stone, every quote: that's me. It means you get one person who knows your piece from the first conversation to the day it's collected.</p><p>Before starting For Your Eternity in 2024, I worked for and with a number of jewellers in London. Every piece we make is hand-finished in our workshops and independently hallmarked at the London or Birmingham Assay Office.</p><p>We start by talking: what you like, what gets worn day to day, what you want to spend. Then I explain the trade-offs honestly until the decision feels obvious. Natural or lab-grown, 1.5ct or 0.7ct, platinum or gold: there's no wrong answer, only the right one for you.</p><p>And I'm still the one you call in five years, when it needs a clean, a resize, or a matching band. That's rather the point.</p>",
+        "sig": "Edward, Founder, For Your Eternity"
       }
     },
 
@@ -185,7 +185,7 @@
             "image": "shopify://shop_images/fffg1_5.png",
             "image_alt": "Loose diamonds and rings laid out beside ring design drawings",
             "heading": "Explained plainly",
-            "body": "Diamond quality, settings, craftsmanship — explained plainly, so the choice is yours to make with confidence."
+            "body": "Diamond quality, settings, craftsmanship: explained plainly, so the choice is yours to make with confidence."
           }
         },
         "d3": {
@@ -249,7 +249,7 @@
           "settings": {
             "number": "04",
             "heading": "Made & cared for",
-            "body": "<p>Hand-finished in our workshop in London or our workshop in Birmingham, hallmarked at the London Assay Office, then insured to your door, with one free resize in the first year, free inspection and cleaning for life, and a lifetime warranty against manufacturing defects.</p>"
+            "body": "<p>Hand-finished in our workshop in London or our workshop in Birmingham, hallmarked at the London or Birmingham Assay Office, then insured to your door, with one free resize in the first year, free inspection and cleaning for life, and a lifetime warranty against manufacturing defects.</p>"
           }
         }
       },
@@ -260,7 +260,7 @@
         "show_head": true,
         "eyebrow": "How it works",
         "heading": "Four steps, no surprises",
-        "intro": "Whether you choose from the collection, commission something new, or remodel a piece you own — it starts with a conversation."
+        "intro": "Whether you choose from the collection, commission something new, or remodel a piece you own, it starts with a conversation."
       }
     },
 
@@ -380,7 +380,7 @@
       ],
       "settings": {
         "heading": "Free expert guides",
-        "subtext": "<p>Six expert guides — read online or take the free PDF, whatever stage you're at.</p>",
+        "subtext": "<p>Six expert guides: read online or take the free PDF, whatever stage you're at.</p>",
         "button_label": "View guide",
         "view_all_url": "shopify://pages/downloadable-guides",
         "background": "teal"
@@ -422,7 +422,7 @@
       "settings": {
         "eyebrow": "From our workshop",
         "heading": "<p>Pieces we've<br/>already made</p>",
-        "body": "<p>Engagement rings, wedding pairs and pendants we've made for our clients — some chosen from our collections, some designed from scratch, most somewhere in between. Use the gallery to see what's possible, then tell us where you'd like to start.</p>",
+        "body": "<p>Engagement rings, wedding pairs and pendants we've made for our clients: some chosen from our collections, some designed from scratch, most somewhere in between. Use the gallery to see what's possible, then tell us where you'd like to start.</p>",
         "cta_label": "View the gallery",
         "cta_link": "shopify://pages/jewellery-gallery",
         "rotate_seconds": 5,
@@ -445,7 +445,7 @@
         "band": "teal",
         "eyebrow": "Personal guidance",
         "heading": "Still unsure where to start?",
-        "lead": "Book a free consultation — in person, by phone or video.",
+        "lead": "Book a free consultation, in person, by phone or video.",
         "btn_label": "Contact us",
         "btn_link": "/pages/contact-us#popup-contact"
       }

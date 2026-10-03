@@ -447,6 +447,108 @@
 
 
 /* ============================================================================
+   MOBILE FILTER RAIL — 03/10/2026, Ed: "the filters take up so much space
+   before we get to the products".
+
+   Measured on /collections/engagement-rings at 375px before this: the rail
+   stood 3,322px and the first ring started 4,307px down the page.
+
+   Two things, both below 900px only (the rail's own breakpoint):
+
+   1. The rail is closed behind a "Filters" button. The section ships it closed
+      (CSS reads .is-open); this toggles the class and aria-expanded. The count
+      beside "Filters" is the number of ticked values, so a shopper can see a
+      filter is on without opening the panel.
+
+   2. Every filter GROUP starts collapsed and opens when its heading is tapped.
+      xCloud already collapses a sidebar group when its heading is clicked: it
+      removes the values from the DOM and swaps __collapse for __expand. So
+      this does not build a second accordion; it clicks each open heading once,
+      on the shopper's behalf, when the rail is drawn.
+      · A group with a ticked value is left open, so an active filter is never
+        hidden.
+      · A group the shopper opens or closes is remembered by name for the rest
+        of the page, because xCloud redraws the rail and would otherwise get
+        collapsed again under their finger. Programmatic clicks are told apart
+        from real ones by event.isTrusted.
+
+   Desktop is untouched: the rail is always shown and every group is open.
+   ========================================================================== */
+(function mobileFilterRail() {
+  var rail = document.querySelector('[data-fye-rail]');
+  if (!rail) return;
+
+  var mq = window.matchMedia('(max-width: 900px)');
+  var toggle = rail.querySelector('[data-fye-rail-toggle]');
+  var count = rail.querySelector('[data-fye-rail-count]');
+  var chosen = {};   /* group name -> true (open) / false (closed), shopper's own taps */
+
+  if (toggle) {
+    toggle.addEventListener('click', function () {
+      var open = !rail.classList.contains('is-open');
+      rail.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+
+  function groupIsOpen(group) {
+    return !!group.querySelector('.cloud-search-filter__collapse');
+  }
+
+  /* Remember a real tap on a group heading. Runs after xCloud's own handler
+     has toggled the group, hence the timeout. */
+  rail.addEventListener('click', function (e) {
+    if (!e.isTrusted || !e.target.closest) return;
+    var name = e.target.closest('.cloud-search-filter__name');
+    if (!name) return;
+    var group = name.closest('.cloud-search-filter');
+    if (!group) return;
+    var key = group.getAttribute('data-filter-name');
+    setTimeout(function () { chosen[key] = groupIsOpen(group); }, 0);
+  });
+
+  function settle() {
+    var sidebar = rail.querySelector('#cloud_search_filters_sidebar');
+    if (!sidebar) return;
+
+    if (count) {
+      var n = sidebar.querySelectorAll('.cloud-search-filter-value input:checked').length;
+      count.textContent = n ? '(' + n + ')' : '';
+      count.hidden = !n;
+    }
+
+    if (!mq.matches) return;
+
+    Array.prototype.forEach.call(sidebar.querySelectorAll('.cloud-search-filter'), function (group) {
+      var key = group.getAttribute('data-filter-name');
+      var want = Object.prototype.hasOwnProperty.call(chosen, key)
+        ? chosen[key]
+        : !!group.querySelector('input:checked');
+      if (groupIsOpen(group) !== want) {
+        var head = group.querySelector('.cloud-search-filter__name');
+        if (head) head.click();
+      }
+    });
+  }
+
+  function boot() {
+    settle();
+    var pending;
+    new MutationObserver(function () {
+      clearTimeout(pending);
+      pending = setTimeout(settle, 60);
+    }).observe(rail, { childList: true, subtree: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
+
+
+/* ============================================================================
    FILTER ICONS — 31/08/2026
    Metal swatches and ring-profile shapes in the xCloud filter rail.
 

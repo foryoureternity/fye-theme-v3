@@ -122,17 +122,27 @@
     <div class="coll__layout">
 
       <aside class="coll__rail">
-        <details class="coll__railbox" open>
-          <summary class="coll__railtoggle">
-            {%- if has_filter -%}
-              {{ s.fye_rail_title | default: 'Refine' }}
-            {%- else -%}
-              Refine
-            {%- endif -%}
+        {%- comment -%}
+          MOBILE FILTERS (Ed, 03/10/2026): below 900px the rail is a closed
+          panel behind one "Filters" button, so the products come first. It
+          was a <details open>, which put 3,300px of filters above the first
+          ring on a phone. A <details> cannot be closed on a phone and open on
+          a desktop without script before first paint, and sections carry no
+          inline script (conventions §6), so the open state is a class that
+          fye-ui.js toggles and the stylesheet reads. Above 900px the body is
+          shown whatever the class, exactly as before. Still ONE mount point.
+        {%- endcomment -%}
+        <div class="coll__railbox" data-fye-rail>
+          <button type="button"
+                  class="coll__railtoggle"
+                  aria-expanded="false"
+                  aria-controls="coll-railbody"
+                  data-fye-rail-toggle>
+            <span>Filters <span class="coll__railcount" data-fye-rail-count hidden></span></span>
             {%- render 'icon', name: 'chevron-down', class: 'icon--sm coll__railchev' -%}
-          </summary>
+          </button>
 
-          <div class="coll__railbody">
+          <div class="coll__railbody" id="coll-railbody">
             {%- if s.fye_rail_head -%}
               <div class="coll__railhead">
                 <p class="eyebrow">{{ s.fye_rail_title | default: 'Refine' }}</p>
@@ -166,7 +176,7 @@
               </div>
             {%- endif -%}
           </div>
-        </details>
+        </div>
       </aside>
 
       <div class="coll__main">
@@ -291,7 +301,7 @@
 /* The app's horizontal chip bar, injected above the page content on its own
    initiative: a "Filter" link plus a row of filter-name chips. We only want
    the rail. Live suppresses it too. Hiding it costs nothing on mobile — the
-   rail's own <details> summary is the filter trigger there. */
+   rail's own "Filters" button is the filter trigger there. */
 .cloud-search-page-controls,
 .fye .cloud-search-page-controls {
   display: none;
@@ -626,10 +636,11 @@
 
 /* --- rail ---------------------------------------------------------------- */
 
-/* The rail is one component at every width: a <details> that is forced open
-   above 900px with its summary hidden, and a real disclosure below it. Two
-   copies of the filter markup would give xCloud two mount points with the
-   same id, which is why this is not a show/hide pair. */
+/* The rail is one component at every width: always shown above 900px with its
+   button hidden, and a closed disclosure below it that the "Filters" button
+   opens (fye-ui.js sets .is-open). Two copies of the filter markup would give
+   xCloud two mount points with the same id, which is why this is not a
+   show/hide pair. */
 .fye .coll__railbox {
   border-bottom: var(--hairline);
 }
@@ -639,7 +650,14 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--s3);
+  width: 100%;
   min-height: 56px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-family: inherit;
+  text-align: start;
   font-size: var(--fs-fine);
   font-weight: var(--fw-medium);
   letter-spacing: var(--tr-button);
@@ -656,7 +674,7 @@
   transition: transform var(--dur) var(--ease);
 }
 
-.fye .coll__railbox[open] .coll__railchev {
+.fye .coll__railbox.is-open .coll__railchev {
   transform: rotate(180deg);
 }
 
@@ -858,10 +876,9 @@
 /* --- breakpoints. Media queries LAST, always. ---------------------------- */
 
 @media (min-width: 901px) {
-  /* Above the collapse the rail is not a disclosure at all: the summary goes,
-     and the body is forced visible whatever the element's open state, so a
-     visitor who collapsed it on a phone does not find a desktop page with no
-     filters. */
+  /* Above the collapse the rail is not a disclosure at all: the button goes,
+     and the body is shown whatever the open state, so a visitor who closed it
+     on a phone does not find a desktop page with no filters. */
   .fye .coll__railbox {
     border-bottom: 0;
   }
@@ -897,8 +914,14 @@
     gap: var(--s7);
   }
 
-  /* Stacked, there is no second column to line up with, and the summary is
-     already labelled "Refine" — so the head would repeat it. */
+  /* Closed until the "Filters" button opens it (Ed, 03/10/2026): the
+     products come first on a phone. */
+  .fye .coll__railbox:not(.is-open) .coll__railbody {
+    display: none;
+  }
+
+  /* Stacked, there is no second column to line up with, and the button
+     already says "Filters", so the head would repeat it. */
   .fye .coll__railhead {
     display: none;
   }

@@ -3803,3 +3803,17 @@ Ship: `./tools/fye ship "AI answer boxes, workshop wording, gallery intro"`.
 - Checked by rendering the liquid block in liquidjs against twelve mock
   rings, before and after. Expected live md5 313bed0c1f68d07c061438503ebb0895.
 Ship: `./tools/fye ship "Quality row names the stones it grades; trilogy pair priced once"`.
+
+## 03/10/2026: Mobile collection filters closed behind a "Filters" button
+- Ed: on a phone the filters filled the screen before the products. Measured on
+  /collections/engagement-rings at 375px: rail 3,322px, first ring at 4,307px.
+- sections/main-collection.liquid: the rail's `<details open>` became a div +
+  "Filters" button (`data-fye-rail`, `data-fye-rail-toggle`). Below 900px the
+  body is hidden until `.is-open`; above 900px nothing changes. One mount point.
+- assets/fye-ui.js, new MOBILE FILTER RAIL block: toggles the panel, shows the
+  ticked-filter count on the button, and below 900px collapses every xCloud
+  filter group by clicking its heading once (xCloud's own collapse), except
+  groups with a ticked value. Shopper taps are remembered by group name across
+  xCloud redraws. Tested live by running the group logic in the page: the rail
+  dropped from 3,322px to 788px with all seven groups closed.
+Ship: `./tools/fye ship "Mobile collection filters behind a Filters button"`.

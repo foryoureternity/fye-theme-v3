@@ -3779,3 +3779,27 @@ Ship: `./tools/fye ship "AI answer boxes, workshop wording, gallery intro"`.
 - page.about-us.json: Meet Edward intro gains a second paragraph (worked for and with jewellers in London before 2024; hand-finished in our workshops; hallmarked at the London or Birmingham Assay Office).
 - Process step 04 now says "hallmarked at the London or Birmingham Assay Office".
 - All 9 em dashes on the About page replaced with commas or colons.
+
+## 03/10/2026: Quality row named after the stones it grades; trilogy pair priced once (W480, W475)
+- snippets/fye-pdx-ring.liquid only. A client was shown "Shoulder diamonds" on
+  trl40363-rud, which has plain shoulders. New tag flags `has_set_shoulders`,
+  `has_plain_shoulders`, `is_halo` (whole store tags).
+- Heading: set shoulders "Shoulder diamonds"; other trilogies "Side diamonds";
+  other halos "Halo diamonds"; everything else "Diamond quality". Untagged
+  rings are no longer assumed to have shoulder diamonds.
+- W803 hide now keys on `has_plain_shoulders` + flat price. The old
+  `solitaire` + `plain shoulders` pair never matched the store's single tag
+  "Solitaire with Plain Shoulders", so 170 plain-shoulder mounts showed a
+  choice that changed nothing.
+- Ed's rule: a trilogy without set shoulders that has a real Diamond Quality
+  choice is grading the side pair, so the Side diamonds panel is suppressed
+  (73 rings). fye.side_stones left in place. Set-shoulder trilogies keep both.
+- Complete DIAMOND rings (tag Complete Engagement Ring, not coloured) are
+  headed "Diamond quality", and no complete ring shows the Side diamonds
+  panel (it is sold with its stones set). 75 trilogies lose the panel.
+- Same day, store data: centre-chooser metafields removed from the complete
+  trl5049 (Round 0.28-0.46), trl20818 (Round 0.2-0.33), trl20848 (Round
+  0.16-0.26), and their descriptions now say the centre is included.
+- Checked by rendering the liquid block in liquidjs against twelve mock
+  rings, before and after. Expected live md5 313bed0c1f68d07c061438503ebb0895.
+Ship: `./tools/fye ship "Quality row names the stones it grades; trilogy pair priced once"`.

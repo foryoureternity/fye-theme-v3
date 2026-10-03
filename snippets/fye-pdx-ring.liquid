@@ -111,6 +111,42 @@
     assign is_engagement = true
   endif
 
+  comment
+    ── Shoulders (W480, Ed 03/10/2026) ──
+    The Diamond Quality option grades whichever set diamonds a ring has
+    besides its centre. Calling it "Shoulder diamonds" is only true when the
+    ring is tagged with diamond-set shoulders; a client was shown shoulder
+    diamonds on trl40363-rud, which has plain shoulders.
+
+    Whole tags, spelled as the store spells them. "Solitaire with Plain
+    Shoulders" is ONE tag, which is why the old `solitaire` + `plain
+    shoulders` pair below never matched a single product (checked across
+    every ring 03/10/2026: no product carries "Plain Shoulders" alone).
+    Set shoulders win if a ring carries both kinds of tag.
+  endcomment
+  assign has_set_shoulders = false
+  if tags_down contains '~diamond-shouldered~' or tags_down contains '~pavé-shouldered~' or tags_down contains '~channel-shouldered~' or tags_down contains '~accent-shouldered~' or tags_down contains '~solitaire with diamond set shoulders~' or tags_down contains '~halo with diamond set shoulders~'
+    assign has_set_shoulders = true
+  endif
+  assign has_plain_shoulders = false
+  unless has_set_shoulders
+    if tags_down contains '~plain-shouldered~' or tags_down contains '~clean-shouldered~' or tags_down contains '~solitaire with plain shoulders~' or tags_down contains '~halo with plain shoulders~'
+      assign has_plain_shoulders = true
+    endif
+  endunless
+  assign is_complete = false
+  if tags_down contains '~complete engagement ring~'
+    assign is_complete = true
+  endif
+  assign is_coloured = false
+  if tags_down contains '~coloured stone ring~'
+    assign is_coloured = true
+  endif
+  assign is_halo = false
+  if tags_down contains '~halo with plain shoulders~' or tags_down contains '~halo with diamond set shoulders~' or tags_down contains '~halo~' or tags_down contains '~double-halo~' or tags_down contains '~hidden-halo~' or tags_down contains '~hidden halo~'
+    assign is_halo = true
+  endif
+
   assign type_word = p.type | default: cf.ring_type.value.first | default: 'Ring'
 
   comment
@@ -183,6 +219,32 @@
       assign quality_idx = forloop.index0
     endif
   endfor
+
+  comment
+    ── Trilogy side pair: priced once (W480/W475, Ed 03/10/2026) ──
+    On a trilogy WITHOUT diamond-set shoulders, a Diamond Quality option with
+    a real choice can only be grading the two side diamonds. Ed's rule: those
+    variants ARE the side-diamond choice, so the separate Side diamonds panel
+    goes, otherwise the pair is charged twice (trl40363-rud: £2,139 to £4,508
+    by grade, plus £295 to £718.50 again in the panel). A trilogy with set
+    shoulders keeps both: there the grade is the shoulders and the panel the
+    pair. fye.side_stones is left in place, so a ring re-collapsed to Metal
+    only gets its panel back with no data change.
+  endcomment
+  if show_sides and is_trilogy and quality_opt != nil
+    unless has_set_shoulders
+      if quality_opt.values.size > 1
+        assign show_sides = false
+      endif
+    endunless
+  endif
+  comment
+    A COMPLETE ring is sold with every stone set, so it never offers a side
+    pair either, whatever its shoulders (trl5049, Ed 03/10/2026).
+  endcomment
+  if show_sides and is_complete
+    assign show_sides = false
+  endif
 
   comment
     ── Open on 18ct gold (Ed, 27/09/2026) ──
@@ -281,13 +343,15 @@
   comment
     ── W803, unconditionally (see the header) ──
     Two tests must agree: price flat across natural grades within every metal,
-    AND tagged `solitaire` + `plain shoulders`, matched whole.
+    AND tagged with plain shoulders (has_plain_shoulders, W480: the old
+    `solitaire` + `plain shoulders` pair never matched the store's tags, so
+    170 plain-shoulder solitaires showed a choice that changed nothing).
   endcomment
   assign hide_quality = false
   if quality_opt != nil
     if quality_opt.values.size < 2
       assign hide_quality = true
-    elsif tags_down contains '~solitaire~' and tags_down contains '~plain shoulders~'
+    elsif has_plain_shoulders
       assign flat = true
       for m in metal_opt.values
         assign first_price = -1
@@ -315,22 +379,43 @@
   endif
 
   comment
-    "Shoulder diamonds" is what the grade means on an engagement ring and a
-    trilogy. On an eternity or a set wedding band every stone is graded by
-    it, so it keeps its plain name there.
+    ── What the grade is called (W480, Ed 03/10/2026) ──
+    Named after the stones it actually grades, from the tags above:
+      set shoulders         "Shoulder diamonds"
+      trilogy, otherwise    "Side diamonds" (the pair either side)
+      halo, otherwise       "Halo diamonds"
+      anything else         "Diamond quality", which is never untrue
+    A complete DIAMOND ring is "Diamond quality" ahead of all of these.
+    Eternity and set wedding bands fall to the last line, as before. A ring
+    with no shoulder tag at all is NOT assumed to have shoulder diamonds.
   endcomment
-  if is_engagement or is_trilogy
+  assign centre_line = ''
+  if show_centre
+    assign centre_line = ' Your centre diamond is chosen separately below.'
+  endif
+  if is_complete and is_coloured == false
+    comment
+      A complete diamond ring: the grade covers the diamonds it is sold
+      with, centre included, so no narrower name is true.
+    endcomment
+    assign quality_heading = 'Diamond quality'
+    assign quality_note = ''
+  elsif has_set_shoulders and is_engagement
     assign quality_heading = s.pdx_quality_heading | default: 'Shoulder diamonds'
     if show_sides
       assign quality_note = 'The quality of the diamonds set in the shoulders. Your centre diamond and side pair are chosen separately below.'
-    elsif show_centre
-      assign quality_note = 'The quality of the diamonds set in the shoulders. Your centre diamond is chosen separately below.'
     else
-      assign quality_note = 'The quality of the diamonds set in the shoulders.'
+      assign quality_note = 'The quality of the diamonds set in the shoulders.' | append: centre_line
     endif
+  elsif is_trilogy
+    assign quality_heading = 'Side diamonds'
+    assign quality_note = 'The quality of the two diamonds either side of the centre stone.' | append: centre_line
+  elsif is_halo and is_engagement
+    assign quality_heading = 'Halo diamonds'
+    assign quality_note = 'The quality of the diamonds set in the halo.' | append: centre_line
   else
     assign quality_heading = 'Diamond quality'
-    assign quality_note = ''
+    assign quality_note = centre_line | strip
   endif
 
   comment

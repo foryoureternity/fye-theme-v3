@@ -549,6 +549,28 @@
 
 
 /* ============================================================================
+   READ MORE — 03/10/2026. The collection intro on a phone shows its lead
+   paragraph and keeps the rest behind a button (fye-collection-intro). The
+   stylesheet does the hiding below 900px from .is-open on the scope; this only
+   flips the class, aria-expanded and the label. Generic on purpose: any
+   [data-fye-more] inside a [data-fye-more-scope] behaves the same way.
+   ========================================================================== */
+(function readMore() {
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest ? e.target.closest('[data-fye-more]') : null;
+    if (!btn) return;
+    var scope = btn.closest('[data-fye-more-scope]');
+    if (!scope) return;
+    var open = !scope.classList.contains('is-open');
+    scope.classList.toggle('is-open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    var label = btn.querySelector('[data-fye-more-label]');
+    if (label) label.textContent = open ? 'Read less' : 'Read more';
+  });
+})();
+
+
+/* ============================================================================
    FILTER ICONS — 31/08/2026
    Metal swatches and ring-profile shapes in the xCloud filter rail.
 

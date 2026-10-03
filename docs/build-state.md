@@ -3817,3 +3817,15 @@ Ship: `./tools/fye ship "Quality row names the stones it grades; trilogy pair pr
   xCloud redraws. Tested live by running the group logic in the page: the rail
   dropped from 3,322px to 788px with all seven groups closed.
 Ship: `./tools/fye ship "Mobile collection filters behind a Filters button"`.
+
+## 03/10/2026: Collection intro "Read more" on phones; duplicate "Filters" title hidden
+- sections/fye-collection-intro.liquid: below 900px only the lead paragraph
+  shows; the rest sits behind a "Read more" button (data-fye-more inside
+  data-fye-more-scope). Text stays in the DOM. Desktop unchanged.
+- sections/main-collection.liquid: xCloud's own "Filters" title
+  (.cloud-search-filters-sidebar__heading) hidden below 900px, under our button.
+- assets/fye-ui.js: READ MORE block, toggles .is-open, aria-expanded, label.
+- Measured by simulation on engagement-rings at 375px: products move from
+  1,042px to about 720px down.
+- Store data, same day: engagement-rings description's two em dashes replaced.
+Ship: `./tools/fye ship "Collection intro Read more on phones"`.

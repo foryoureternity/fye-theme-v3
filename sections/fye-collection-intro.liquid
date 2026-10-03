@@ -113,10 +113,24 @@
       </div>
 
       {%- if lead != blank -%}
-        <div class="cintro__copy">
+        <div class="cintro__copy" data-fye-more-scope>
           <div class="cintro__lead">{{ lead }}</div>
           {%- if rest != blank -%}
-            <div class="cintro__rest">{{ rest }}</div>
+            {%- comment -%}
+              READ MORE, phones only (Ed, 03/10/2026). Below 900px the rest of
+              the copy waits behind this button so the products are not pushed
+              a screen and a half down. The text stays in the page for search;
+              it is only not drawn until asked for. Above 900px the button is
+              not shown and the copy is always open.
+            {%- endcomment -%}
+            <div class="cintro__rest" id="cintro-rest-{{ section.id }}">{{ rest }}</div>
+            <button type="button"
+                    class="cintro__more"
+                    aria-expanded="false"
+                    aria-controls="cintro-rest-{{ section.id }}"
+                    data-fye-more>
+              <span class="link" data-fye-more-label>Read more</span>
+            </button>
           {%- endif -%}
         </div>
       {%- endif -%}
@@ -235,6 +249,22 @@
   border-bottom: 1px solid currentColor;
 }
 
+/* The Read more button exists only below 900px; see the breakpoint. It is a
+   44px target with the underline on the label, so the line sits under the
+   words rather than at the foot of the box. */
+.fye .cintro__more {
+  display: none;
+  align-self: flex-start;
+  align-items: center;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-family: inherit;
+  cursor: pointer;
+}
+
 /* --- centred variant ----------------------------------------------------- */
 
 .fye .cintro--centred {
@@ -268,6 +298,15 @@
      sitting directly under the breadcrumb. */
   .fye .cintro__headline {
     margin-top: 0;
+  }
+
+  /* Phones see the lead paragraph; the rest opens from Read more. */
+  .fye .cintro__copy:not(.is-open) .cintro__rest {
+    display: none;
+  }
+
+  .fye .cintro__more {
+    display: inline-flex;
   }
 }
 

@@ -17,7 +17,7 @@
         "sub": {
           "type": "2",
           "settings": {
-            "content": "<p>Six guides written by the people who make the rings — the Four Cs, profiles and finishes, eternity styles, coloured stones, and how to care for what you own. Take the PDF to read offline, or ask us anything it doesn't answer.</p>"
+            "content": "<p>Six guides written by the people who make the rings: the Four Cs, profiles and finishes, eternity styles, coloured stones, and how to care for what you own. Take the PDF to read offline, or ask us anything it doesn't answer.</p>"
           }
         }
       },
@@ -127,7 +127,7 @@
         "band": "teal",
         "eyebrow": "Personal guidance",
         "heading": "A question the guide doesn't answer?",
-        "lead": "Ask us directly — we reply to every message ourselves.",
+        "lead": "Ask us directly. We reply to every message ourselves.",
         "btn_label": "Contact us",
         "btn_link": "/pages/contact-us#popup-contact"
       }

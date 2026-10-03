@@ -3840,3 +3840,13 @@ Ship: `./tools/fye ship "Collection intro Read more on phones"`.
   the row via :has(). No JS change. Tested live by injecting the rule at
   375px: a real tap on the Eternity row opened its form.
 Ship: `./tools/fye ship "Guides tappable on phones"`.
+
+## 03/10/2026: Shape filter "Emerald"/"Round" icons; guides page em dashes
+- sections/main-collection.liquid: on the loose gemstone and diamond
+  collections the Shape filter values are "Emerald" and "Round" (rings use
+  "Emerald Cut" and "Round Brilliant"). "Emerald" picked up the emerald STONE's
+  green dot and "Round" had no icon. New rules scoped to any group whose name
+  contains "hape" give them the emerald-cut and round silhouettes; the Stone
+  type list keeps its dot. Tested by injection on /collections/gemstones.
+- templates/page.downloadable-guides.json: two em dashes replaced.
+Ship: `./tools/fye ship "Shape filter icons for Emerald and Round; guides page copy"`.

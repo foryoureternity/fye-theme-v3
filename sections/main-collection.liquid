@@ -547,6 +547,56 @@
   box-shadow: inset 0 0 0 1px var(--gem-edge), 0 0 0 2px var(--teal);
 }
 
+/* --- cut names that are also stone names (Ed, 03/10/2026) ---------------
+   On the loose gemstone and diamond collections the Shape filter says
+   "Emerald" and "Round", where the ring collections say "Emerald Cut" and
+   "Round Brilliant". Matched on the value alone, "Emerald" in a SHAPE list
+   picked up the emerald STONE's green dot, and "Round" got no icon at all.
+   Scoped to any group whose name contains "hape" (Shape, Stone shape), so the
+   Stone type list keeps its green dot. More specific than the dot rules,
+   their hover and their checked ring, so it wins all three states. */
+.fye .cloud-search-filter[data-filter-name*='hape'] .cloud-search-filter-value[data-filter-value='Emerald'] .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter[data-filter-name*='hape'] .cloud-search-filter-value[data-filter-value='Round'] .cloud-search-filter-value__name::before {
+  content: '';
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 26.4px;
+  height: 26.4px;
+  margin-right: 9px;
+  vertical-align: middle;
+  border-radius: 0;
+  box-shadow: none;
+  background: var(--gem-shape);
+  mask-position: center;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  transition: background-color var(--dur) var(--ease);
+}
+
+.fye .cloud-search-filter[data-filter-name*='hape'] .cloud-search-filter-value[data-filter-value='Emerald'] .cloud-search-filter-value__name::before {
+  mask-image: url(/cdn/shop/files/icon105.svg);
+  -webkit-mask-image: url(/cdn/shop/files/icon105.svg);
+}
+
+.fye .cloud-search-filter[data-filter-name*='hape'] .cloud-search-filter-value[data-filter-value='Round'] .cloud-search-filter-value__name::before {
+  mask-image: url(/cdn/shop/files/icon101.svg);
+  -webkit-mask-image: url(/cdn/shop/files/icon101.svg);
+}
+
+.fye .cloud-search-filter[data-filter-name*='hape'] .cloud-search-filter-value[data-filter-value='Emerald']:hover .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter[data-filter-name*='hape'] .cloud-search-filter-value[data-filter-value='Round']:hover .cloud-search-filter-value__name::before {
+  background-color: var(--sage);
+}
+
+.fye .cloud-search-filter[data-filter-name*='hape'] .cloud-search-filter-value[data-filter-value='Emerald']:has(input:checked) .cloud-search-filter-value__name::before,
+.fye .cloud-search-filter[data-filter-name*='hape'] .cloud-search-filter-value[data-filter-value='Round']:has(input:checked) .cloud-search-filter-value__name::before {
+  box-shadow: none;
+  background-color: var(--teal);
+}
+
 /* --- metal and profile icons, cloned in by fye-ui.js ---------------------
    Colour sits on the wrapper and reaches the SVG through currentColor, so
    hover and checked are one declaration each rather than one per icon. */

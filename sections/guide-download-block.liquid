@@ -182,9 +182,35 @@
     text-transform: uppercase;
     line-height: 1.45;
   }
-  /* Desktop-only: on a row there is no space, and the row itself is the link. */
-  .fye .guides__blurb,
-  .fye .guides__words .btn { display: none; }
+  /* The blurb goes: on a row there is no space for it. */
+  .fye .guides__blurb { display: none; }
+
+  /* THE ROW IS THE BUTTON (fixed 03/10/2026). This used to say "the row
+     itself is the link" and hide the button with display:none, but nothing
+     ever made the row a link, so on a phone no guide could be opened at all
+     (Ed, on an iPhone). Now the real button stays in the page, stretched over
+     the whole row and made invisible: the tap target is the full 68px row,
+     the button keeps its label for screen readers, and the popup script
+     needs no change because it is still the [data-fye-popup] element that is
+     tapped. The focus ring moves to the row. */
+  .fye .guides__item { position: relative; }
+  .fye .guides__words .btn {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .fye .guides__item:has(.btn:focus-visible) {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
 
   /* Decoration, so a mask rather than an icon — it must not become a second
      focus stop or be announced. */

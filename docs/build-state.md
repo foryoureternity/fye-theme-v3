@@ -3829,3 +3829,14 @@ Ship: `./tools/fye ship "Mobile collection filters behind a Filters button"`.
   1,042px to about 720px down.
 - Store data, same day: engagement-rings description's two em dashes replaced.
 Ship: `./tools/fye ship "Collection intro Read more on phones"`.
+
+## 03/10/2026: Guides could not be opened on a phone (guide-download-block)
+- Ed, iPhone, /pages/downloadable-guides: no guide was tappable. Below 768px
+  the button was display:none on the comment "the row itself is the link", but
+  nothing ever made the row a link, so every phone visitor was stuck. Same
+  section runs on the homepage, blog, articles and About.
+- Fix: the real [data-fye-popup] button stays, stretched invisibly over the
+  whole 68px row (position:absolute; inset:0; opacity:0); focus ring moves to
+  the row via :has(). No JS change. Tested live by injecting the rule at
+  375px: a real tap on the Eternity row opened its form.
+Ship: `./tools/fye ship "Guides tappable on phones"`.

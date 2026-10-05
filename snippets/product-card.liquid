@@ -125,7 +125,9 @@
       <span class="pcard__name">{{ product.title }}</span>
 
       <span class="pcard__price">
-        {%- if product.available == false -%}
+        {%- if product.tags contains 'Price on Request' -%}
+          <span class="pcard__now">Price on request</span>
+        {%- elsif product.available == false -%}
           <span class="pcard__sold">Sold out</span>
         {%- elsif on_sale -%}
           <span class="pcard__now">{{ product.price | money }}</span>

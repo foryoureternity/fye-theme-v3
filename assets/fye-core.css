@@ -1748,3 +1748,8 @@ a.visually-hidden:focus-visible {
   .fye .pdx__offerextra { display: none; }
   .fye .pdx__specs > div { grid-template-columns: 112px minmax(0, 1fr); }
 }
+
+/* Price on request (tag "Price on Request"): replaces price and Add to bag */
+.fye .por { border: 1px solid var(--line, #d9d4cc); padding: 1.25rem; margin: 1rem 0; text-align: center; }
+.fye .por__title { font-size: 1.15em; margin: 0 0 .5rem; }
+.fye .por__text { margin: 0 0 1rem; color: var(--ink-soft); }

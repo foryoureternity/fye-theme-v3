@@ -465,8 +465,12 @@
 
         <h1 class="pdp__title">{{ p.title }}</h1>
 
+        {%- assign por = false -%}
+        {%- if p.tags contains 'Price on Request' %}{% assign por = true %}{% endif -%}
         <p class="pdp__range">
-          {%- if p.price_varies -%}
+          {%- if por -%}
+            Price on request
+          {%- elsif p.price_varies -%}
             Price range {{ p.price_min | money }} – {{ p.price_max | money }}
           {%- else -%}
             {{ p.price | money }}
@@ -683,11 +687,18 @@
             </div>
           {%- endif -%}
 
-          <p class="pdp__selected">
+          <p class="pdp__selected"{% if por %} hidden{% endif %}>
             <span class="pdp__selectedkey">Selected price</span>
             <span class="pdp__selectedval" data-fye-price>{{ current.price | money }}</span>
           </p>
 
+          {%- if por -%}
+            <div class="por" role="note">
+              <p class="por__title">Please contact us for a price</p>
+              <p class="por__text">This ring is made to order and priced individually. Tell us your preferred metal and stone quality and we will reply with a quote.</p>
+              <a class="btn btn--block por__btn" href="/pages/contact-us" data-fye-popup="enquire">Contact us for a price</a>
+            </div>
+          {%- else -%}
           <button class="btn btn--block pdp__atc" type="submit" name="add" data-fye-atc{% unless current.available %} disabled{% endunless %}>
             {%- if current.available -%}
               {{ s.atc_label | default: 'Add to bag' }}
@@ -695,6 +706,7 @@
               {{ s.mto_label | default: 'Made to order — enquire' }}
             {%- endif -%}
           </button>
+          {%- endif -%}
         {%- endform -%}
 
         {%- if s.enquire_label != blank -%}

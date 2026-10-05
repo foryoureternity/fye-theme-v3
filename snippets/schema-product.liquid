@@ -125,6 +125,9 @@
   {%- if p.collections.size > 0 %}
   "category": {{ p.collections.first.title | json }},
   {%- endif %}
+  {%- if p.tags contains 'Price on Request' %}
+  "url": {{ canonical_url | json }}
+  {%- else %}
   "offers": {
     {%- if single_price %}
     "@type": "Offer",
@@ -146,6 +149,7 @@
       "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "GB" }
     }
   }
+  {%- endif %}
 }
 </script>
 {%- endunless -%}

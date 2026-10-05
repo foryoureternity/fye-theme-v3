@@ -605,7 +605,14 @@
           {%- endif -%}
         </p>
 
+        {%- assign por = false -%}
+        {%- if p.tags contains 'Price on Request' %}{% assign por = true %}{% endif -%}
+        {%- if por -%}
+          <p class="pdx__price">Price on request</p>
+          <span data-fye-price hidden></span>
+        {%- else -%}
         <p class="pdx__price" data-fye-price aria-live="polite">{{ current.price | money }}</p>
+        {%- endif -%}
         {%- if show_centre -%}
           <p class="pdx__pricenote">{{ s.pdx_setting_note | default: 'Setting price · Centre diamond not included' }}</p>
         {%- endif -%}
@@ -1046,6 +1053,13 @@
           holds the plain label because render() remembers it as the default.
         {%- endcomment -%}
         <div class="pdx__buyfoot">
+        {%- if por -%}
+          <div class="por" role="note">
+            <p class="por__title">Please contact us for a price</p>
+            <p class="por__text">This ring is made to order and priced individually. Tell us your preferred metal and stone quality and we will reply with a quote.</p>
+            <a class="btn btn--block por__btn" href="/pages/contact-us" data-fye-popup="enquire">Contact us for a price</a>
+          </div>
+        {%- else -%}
         <button class="btn btn--block pdx__atc" type="submit" name="add" data-fye-atc{% unless current.available %} disabled{% endunless %}>
           {%- if current.available -%}
             {{ s.atc_label | default: 'Add to bag' }}
@@ -1053,6 +1067,7 @@
             {{ s.mto_label | default: 'Made to order, enquire' }}
           {%- endif -%}
         </button>
+        {%- endif -%}
 
         {%- liquid
           if is_full_eternity

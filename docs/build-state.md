@@ -3850,3 +3850,22 @@ Ship: `./tools/fye ship "Guides tappable on phones"`.
   type list keeps its dot. Tested by injection on /collections/gemstones.
 - templates/page.downloadable-guides.json: two em dashes replaced.
 Ship: `./tools/fye ship "Shape filter icons for Emerald and Round; guides page copy"`.
+
+## 06/10/2026: NAJ member mark in the footer; Instagram and LinkedIn icons (W497)
+- From the Claude Design handoff "NAJ footer". sections/footer.liquid: new
+  `accreditation` block type (limit 3; image_picker or theme asset filename,
+  link, alt) rendered at the right-hand end of the legal bar after a line of
+  text (`accred_text`). Desktop: Tenor 15px +0.14em right-aligned beside a
+  240px mark, legal bar centred. Below 900px: stacks, 14px line, 200px mark.
+  Hover/focus: opacity 0.92 to 1, var(--dur). Links target=_blank rel=noopener,
+  deliberately not nofollow. max_blocks 6 to 9.
+- New `linkedin_url` setting + outline LinkedIn icon in the Talk to us social row.
+- assets/naj-member-tile.png: NAJ's official artwork rendered at 721x415 from
+  the supplied .ai, white tile inside its own gold border, transparent corners.
+  Never recolour, crop or show under 140px wide.
+- Tested: Liquid rendered in liquidjs with/without the block, link and picker
+  paths; layout screenshotted at 1440/1024/375.
+- TWO pushes, because footer-group.json names the new block type:
+  1. `./tools/fye push "Footer: accreditations slot and LinkedIn setting"`
+  2. wait a minute, then `./tools/fye run w497-footer-settings.mjs` and
+     `./tools/fye push "Footer: NAJ mark, Instagram and LinkedIn"`.

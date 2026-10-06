@@ -23,7 +23,20 @@
   chrome with its own ground, not a .band--sage content band.
 
   Link columns are BLOCKS with a link_list so they stay editable.
+
+  ACCREDITATIONS (06/10/2026, W497, Claude Design handoff "NAJ footer"):
+  right-hand end of the legal bar. Line of text + up to three marks, each an
+  `accreditation` block. A mark is an image_picker image or, failing that, a
+  theme asset filename (the NAJ tile ships as assets/naj-member-tile.png,
+  721x415, white tile inside NAJ's own gold border, transparent corners).
+  NAJ rules: never recolour, crop or redraw the mark, and never show it under
+  140px wide. Its rounded corners are NAJ's artwork, not a theme radius.
+  Links open in a new tab; deliberately NOT nofollow (a natural citation to
+  a trade body, and nofollow on an outbound link does nothing for our SEO).
 {%- endcomment -%}
+{%- liquid
+  assign accreds = section.blocks | where: 'type', 'accreditation'
+-%}
 
 <footer class="ftr">
   <div class="ftr__in">
@@ -68,6 +81,11 @@
           {%- if section.settings.instagram_url != blank -%}
             <a href="{{ section.settings.instagram_url }}" aria-label="Instagram" target="_blank" rel="noopener">
               <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.2" cy="6.8" r="0.9" fill="currentColor" stroke="none"></circle></svg>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.linkedin_url != blank -%}
+            <a href="{{ section.settings.linkedin_url }}" aria-label="LinkedIn" target="_blank" rel="noopener">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17"></rect><path d="M8.2 10.6v5.9"></path><circle cx="8.2" cy="7.9" r="0.9" fill="currentColor" stroke="none"></circle><path d="M11.6 16.5v-5.9"></path><path d="M11.6 13.2c0-1.6 1-2.7 2.4-2.7s2.2 1 2.2 2.7v3.3"></path></svg>
             </a>
           {%- endif -%}
           {%- if section.settings.whatsapp_url != blank -%}
@@ -130,6 +148,34 @@
             <li><a href="{{ link.url }}">{{ link.title }}</a></li>
           {%- endfor -%}
         </ul>
+      {%- endif -%}
+      {%- if accreds.size > 0 -%}
+        <div class="ftr__accred">
+          {%- if section.settings.accred_text != blank -%}
+            <p class="ftr__accred-line">{{ section.settings.accred_text }}</p>
+          {%- endif -%}
+          <div class="ftr__accred-marks">
+            {%- for block in accreds -%}
+              {%- liquid
+                assign b = block.settings
+                assign alt_text = b.alt | escape
+              -%}
+              {%- if b.image != blank or b.asset != blank -%}
+                {%- if b.link != blank -%}
+                  <a class="ftr__accred-mark" href="{{ b.link }}" target="_blank" rel="noopener" {{ block.shopify_attributes }}>
+                {%- else -%}
+                  <span class="ftr__accred-mark" {{ block.shopify_attributes }}>
+                {%- endif -%}
+                {%- if b.image != blank -%}
+                  {{ b.image | image_url: width: 480 | image_tag: alt: alt_text, loading: 'lazy', width: 240 }}
+                {%- else -%}
+                  <img src="{{ b.asset | asset_url }}" alt="{{ alt_text }}" width="721" height="415" loading="lazy">
+                {%- endif -%}
+                {%- if b.link != blank -%}</a>{%- else -%}</span>{%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
       {%- endif -%}
     </div>
 
@@ -288,6 +334,37 @@
 .fye .ftr__policies li { margin: 0; }
 .fye .ftr__policies a { font-size: 16px; font-weight: var(--fw-light); }
 
+/* Accreditations (W497). Sizes from the Claude Design handoff: line Tenor
+   15px +0.14em, max 220px; mark 240px desktop, 200px below 900px (never
+   under 140px, NAJ legibility). Hover/focus lifts opacity only; the mark
+   itself is never recoloured. */
+.fye .ftr__legal:has(.ftr__accred) { align-items: center; }
+.fye .ftr__accred {
+  display: flex; align-items: center; gap: var(--s6);
+  flex: none; margin-inline-start: auto;
+}
+.fye .ftr__accred-line {
+  margin: 0;
+  max-width: 220px;
+  font-family: var(--font-display);
+  font-size: 15px;
+  line-height: 1.5;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: right;
+  text-wrap: balance;
+}
+.fye .ftr__accred-marks { display: flex; flex-wrap: wrap; gap: var(--s4); }
+.fye .ftr__accred-mark {
+  display: block;
+  width: 240px;
+  opacity: 0.92;
+  transition: opacity var(--dur) var(--ease);
+}
+.fye .ftr__accred-mark:hover,
+.fye .ftr__accred-mark:focus-visible { opacity: 1; }
+.fye .ftr__accred-mark img { display: block; width: 100%; height: auto; }
+
 .fye .ftr__top {
   position: fixed; right: 0; bottom: 0; z-index: 30;
   width: 48px; height: 48px;
@@ -309,6 +386,10 @@
   .fye .ftr__brand { grid-template-columns: 1fr; padding-block: var(--s9); }
   .fye .ftr__signup { grid-column: 1; }
   .fye .ftr__strap { font-size: 24px; }
+  .fye .ftr__legal:has(.ftr__accred) { flex-direction: column; align-items: flex-start; }
+  .fye .ftr__accred { flex-direction: column; align-items: flex-start; gap: var(--s4); margin-inline-start: 0; }
+  .fye .ftr__accred-line { max-width: none; font-size: 14px; text-align: left; }
+  .fye .ftr__accred-mark { width: 200px; }
 }
 @media (max-width: 560px) {
   .fye .ftr__cols { grid-template-columns: 1fr; gap: var(--s7); }
@@ -390,7 +471,7 @@
 {% schema %}
 {
   "name": "Footer",
-  "max_blocks": 6,
+  "max_blocks": 9,
   "settings": [
     { "type": "header", "content": "Monogram" },
     {
@@ -405,6 +486,7 @@
     { "type": "text", "id": "email", "label": "Email", "default": "hello@foryoureternity.com" },
     { "type": "url", "id": "whatsapp_url", "label": "WhatsApp link" },
     { "type": "url", "id": "instagram_url", "label": "Instagram link" },
+    { "type": "url", "id": "linkedin_url", "label": "LinkedIn link" },
     { "type": "text", "id": "cta_label", "label": "Button label", "default": "Book consultation" },
     { "type": "url", "id": "cta_link", "label": "Button link" },
     { "type": "header", "content": "Brand row" },
@@ -415,7 +497,9 @@
     { "type": "text", "id": "signup_note", "label": "Note", "default": "New designs, guides and offers." },
     { "type": "header", "content": "Legal" },
     { "type": "richtext", "id": "legal", "label": "Company details" },
-    { "type": "link_list", "id": "policy_menu", "label": "Policy menu" }
+    { "type": "link_list", "id": "policy_menu", "label": "Policy menu" },
+    { "type": "header", "content": "Accreditations" },
+    { "type": "text", "id": "accred_text", "label": "Line beside the marks", "default": "A proud member of the National Association of Jewellers" }
   ],
   "blocks": [
     {
@@ -424,6 +508,17 @@
       "settings": [
         { "type": "text", "id": "heading", "label": "Heading" },
         { "type": "link_list", "id": "menu", "label": "Menu" }
+      ]
+    },
+    {
+      "type": "accreditation",
+      "name": "Accreditation mark",
+      "limit": 3,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Mark" },
+        { "type": "text", "id": "asset", "label": "Theme asset filename", "info": "Used when no image is picked, e.g. naj-member-tile.png" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "text", "id": "alt", "label": "Alt text" }
       ]
     }
   ],

@@ -41,13 +41,22 @@
             "heading": "Help & company",
             "menu": "footer-help"
           }
+        },
+        "accred_naj": {
+          "type": "accreditation",
+          "settings": {
+            "asset": "naj-member-tile.png",
+            "link": "https://www.naj.co.uk",
+            "alt": "Member of the National Association of Jewellers"
+          }
         }
       },
       "block_order": [
         "col_shop",
         "col_diamonds",
         "col_guides",
-        "col_help"
+        "col_help",
+        "accred_naj"
       ],
       "settings": {
         "talk_heading": "Talk to us",
@@ -55,7 +64,7 @@
         "hours": "Mon–Fri, 9am–6pm",
         "email": "hello@foryoureternity.com",
         "whatsapp_url": "https://wa.me/447840042922",
-        "instagram_url": "",
+        "instagram_url": "https://www.instagram.com/foryoureternityjewellery/",
         "cta_label": "Contact us",
         "cta_link": "/pages/contact-us#popup-contact",
         "strapline": "Beautiful jewellery. Ethically made. Fairly priced.",
@@ -63,10 +72,11 @@
         "signup_heading": "Keep up to date",
         "signup_note": "New designs, guides and offers.",
         "legal": "<p>© 2026 For Your Eternity Ltd - Company No. 16261484 - VAT No. 486 8865 12. A London jeweller offering in-person and online consultations across the London area. GIA & IGI certified stones.</p>",
-        "policy_menu": ""
+        "policy_menu": "",
+        "linkedin_url": "https://www.linkedin.com/company/for-your-eternity",
+        "accred_text": "A proud member of the National Association of Jewellers"
       }
     },
-
     "popups": {
       "type": "fye-popups",
       "name": "Popups",
@@ -292,5 +302,3 @@
     "popups"
   ]
 }
-
-

@@ -169,12 +169,14 @@
                       {%- else -%}
                         <p class="mm__zone-title">{{ b.zone1_title | default: 'Pre-Designed Rings' }}</p>
                       {%- endif -%}
+                      {%- if b.zone1_extra_url != blank -%}<span class="mm__head-links"><a class="mm__viewall mm__viewall--plain" href="{{ b.zone1_extra_url }}">{{ b.zone1_extra_label }}</a>{%- endif -%}
                       {%- if b.zone1_all_url != blank -%}
                         <a class="mm__viewall" href="{{ b.zone1_all_url }}">
                           {{ b.zone1_all_label | default: 'View all' }}
                           {% render 'icon', name: 'arrow-right', size: 16 %}
                         </a>
                       {%- endif -%}
+                      {%- if b.zone1_extra_url != blank -%}</span>{%- endif -%}
                     </div>
 
                     {%- comment -%}
@@ -239,9 +241,12 @@
                               {%- render 'mm-cuts', label: b.cuts_label -%}
                             {%- endif -%}
                           </div>
+                          {%- if b.shapes_second and forloop.first -%}
+                            {%- render 'mm-shapes', set: b.shape_set, label: b.shape_label -%}
+                          {%- endif -%}
                         {%- endfor -%}
 
-                        {%- unless b.shapes_first -%}
+                        {%- unless b.shapes_first or b.shapes_second -%}
                           {%- render 'mm-shapes', set: b.shape_set, label: b.shape_label -%}
                         {%- endunless -%}
 
@@ -258,6 +263,12 @@
                       </div>
                       {%- endif -%}
 
+                      {%- if b.zone1_notes != blank -%}
+                        <ul class="mm__notes">
+                          {%- assign notes = b.zone1_notes | split: '·' -%}
+                          {%- for n in notes -%}<li>{{ n | strip }}</li>{%- endfor -%}
+                        </ul>
+                      {%- endif -%}
                       {%- render 'mm-stones',
                           set: b.stone_set,
                           label: b.stone_label,
@@ -363,7 +374,9 @@
                 {% render 'icon', name: 'chevron-down', size: 16 %}
               </summary>
               <ul class="drawer__sub">
-                {%- if block.settings.url != blank -%}
+                {%- if block.settings.drawer_full and block.settings.zone1_all_url != blank -%}
+                  <li><a href="{{ block.settings.zone1_all_url }}">{{ block.settings.zone1_all_label }}</a></li>
+                {%- elsif block.settings.url != blank -%}
                   <li><a href="{{ block.settings.url }}">All {{ block.settings.title | downcase }}</a></li>
                 {%- endif -%}
                 {%- for child in dsub.links -%}
@@ -371,7 +384,25 @@
                   {%- for gc in child.links -%}
                     <li class="drawer__sub-deep"><a href="{{ gc.url }}">{{ gc.title }}</a></li>
                   {%- endfor -%}
+                  {%- if block.settings.drawer_full and block.settings.shapes_second and forloop.first and block.settings.shape_set == 'bracelet' -%}
+                    {%- comment -%} Shapes, in the same place as on desktop (parity rule). {%- endcomment -%}
+                    <li><span class="drawer__sub-head">{{ block.settings.shape_label | default: 'Shop by Shape' }}</span></li>
+                    {%- assign shp = 'Round|round-diamond-bracelets,Oval|oval-diamond-bracelets,Emerald|emerald-cut-diamond-bracelets,Princess|princess-cut-diamond-bracelets,Pear|pear-diamond-bracelets,Cushion|cushion-diamond-bracelets' | split: ',' -%}
+                    {%- for s in shp -%}{%- assign sb = s | split: '|' -%}<li class="drawer__sub-deep"><a href="/collections/{{ sb[1] }}">{{ sb[0] }}</a></li>{%- endfor -%}
+                  {%- endif -%}
                 {%- endfor -%}
+                {%- if block.settings.drawer_full -%}
+                  {%- if block.settings.zone1_extra_url != blank -%}
+                    <li><a href="{{ block.settings.zone1_extra_url }}">{{ block.settings.zone1_extra_label }}</a></li>
+                  {%- endif -%}
+                  {%- assign d_edu = linklists[block.settings.edu_menu] -%}
+                  {%- assign d_jew = linklists[block.settings.jewel_menu] -%}
+                  {%- if d_edu.links.size > 0 or d_jew.links.size > 0 -%}
+                    <li><span class="drawer__sub-head">{{ block.settings.side_title | default: 'Guides & Advice' }}</span></li>
+                    {%- for l in d_edu.links -%}<li class="drawer__sub-deep"><a href="{{ l.url }}">{{ l.title }}</a></li>{%- endfor -%}
+                    {%- for l in d_jew.links -%}<li class="drawer__sub-deep"><a href="{{ l.url }}">{{ l.title }}</a></li>{%- endfor -%}
+                  {%- endif -%}
+                {%- endif -%}
               </ul>
             </details>
           </li>
@@ -755,6 +786,24 @@
 /* Live's diamonds rail has no zone title; it starts at the card. Ours printed
    the guide name twice and pushed the Learn lists down. */
 .fye .mega:has(.mm__tab-in) .mm__side .mm__row-head--major { display: none; }
+
+/* Bracelets (09/10/2026): a second head link sits beside View all. */
+.fye .mm__head-links { display: inline-flex; align-items: baseline; gap: var(--s7); }
+.fye .mm__viewall--plain { gap: 0; }
+/* The reassurance strip under the bracelet columns, from zone1_notes. */
+.fye .mm__notes {
+  display: flex; flex-wrap: wrap; gap: 6px 10px;
+  margin: var(--s7) 0 0; padding: var(--s4) 0 0; list-style: none;
+  border-top: 1px solid rgba(35, 61, 71, 0.18);
+  font-size: 12px; letter-spacing: .04em; color: rgba(35, 61, 71, 0.72);
+}
+.fye .mm__notes li { margin: 0; }
+.fye .mm__notes li + li::before { content: "·"; margin-right: 10px; }
+.fye .drawer__sub-head {
+  display: block; padding-top: var(--s2);
+  font-size: 11px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(35, 61, 71, 0.72);
+}
 
 .fye .mm__viewall {
   display: inline-flex; align-items: center; gap: var(--s3);
@@ -1395,6 +1444,29 @@
           "default": "View all"
         },
         {
+          "type": "url",
+          "id": "zone1_extra_url",
+          "label": "Second head link"
+        },
+        {
+          "type": "text",
+          "id": "zone1_extra_label",
+          "label": "Second head link label"
+        },
+        {
+          "type": "text",
+          "id": "zone1_notes",
+          "label": "Notes under the columns",
+          "info": "Separate items with a middle dot ·"
+        },
+        {
+          "type": "checkbox",
+          "id": "drawer_full",
+          "label": "Full panel in the mobile drawer",
+          "info": "Adds the view-all label, shapes, second head link and guide links to this item's drawer section.",
+          "default": false
+        },
+        {
           "type": "header",
           "content": "Shape grid"
         },
@@ -1563,6 +1635,10 @@
             {
               "value": "eternity",
               "label": "Eternity (8)"
+            },
+            {
+              "value": "bracelet",
+              "label": "Bracelets (6)"
             }
           ],
           "default": ""
@@ -1571,6 +1647,12 @@
           "type": "checkbox",
           "id": "shapes_first",
           "label": "Shapes before the menu columns",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "shapes_second",
+          "label": "Shapes after the first menu column",
           "default": false
         },
         {

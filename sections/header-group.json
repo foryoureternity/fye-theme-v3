@@ -186,7 +186,7 @@
             "guide2_cover": "",
             "guide2_blurb": "",
             "guide2_link": "",
-            "side_note": "Not sure where to start? Book a consultation and we’ll source the stone with you."
+            "side_note": "Not sure where to start? Book a consultation and we\u2019ll source the stone with you."
           }
         },
         "nav_gallery": {
@@ -195,6 +195,29 @@
             "title": "Gallery",
             "url": "/pages/jewellery-gallery"
           }
+        },
+        "nav_jewellery": {
+          "type": "mega",
+          "settings": {
+            "title": "Jewellery",
+            "url": "/collections/bracelets",
+            "menu": "mega-bracelets",
+            "zone1_title": "Bracelets",
+            "zone1_all_url": "/collections/bracelets",
+            "zone1_all_label": "View All Bracelets",
+            "zone1_extra_url": "/collections/lab-grown-diamond-bracelets",
+            "zone1_extra_label": "Lab-Grown Diamond Bracelets",
+            "zone1_notes": "Handmade to order in the UK \u00b7 Hallmarked \u00b7 Other lengths made to order \u00b7 Free insured UK delivery",
+            "shape_set": "bracelet",
+            "shape_label": "Shop by Shape",
+            "shapes_second": true,
+            "side_title": "Guides & Advice",
+            "edu_menu": "mega-bracelets-edu",
+            "edu_label": "Diamond Education",
+            "jewel_menu": "mega-bracelets-guide",
+            "jewel_label": "Jewellery Guide",
+            "drawer_full": true
+          }
         }
       },
       "block_order": [
@@ -202,6 +225,7 @@
         "nav_wedding",
         "nav_eternity",
         "nav_diamonds",
+        "nav_jewellery",
         "nav_gallery"
       ]
     }

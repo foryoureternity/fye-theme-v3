@@ -28,6 +28,15 @@
     assign names = 'Round,Pear,Princess,Emerald,Oval,Asscher,Marquise,Heart' | split: ','
     assign icons = 'icon101,icon104,icon107,icon105,icon102,icon109,icon108,icon110' | split: ','
     assign urls = 'eternity-round,eternity-pear,eternity-princess,eternity-emerald-cut,eternity-oval,eternity-asscher,eternity-marquise,eternity-heart' | split: ','
+  elsif set == 'bracelet'
+    comment
+      Bracelets (09/10/2026): only the six shapes with diamond bracelets in
+      stock. Order reads across the two-column grid: Round/Oval,
+      Emerald/Princess, Pear/Cushion.
+    endcomment
+    assign names = 'Round,Oval,Emerald,Princess,Pear,Cushion' | split: ','
+    assign icons = 'icon101,icon102,icon105,icon107,icon104,icon103' | split: ','
+    assign urls = 'round-diamond-bracelets,oval-diamond-bracelets,emerald-cut-diamond-bracelets,princess-cut-diamond-bracelets,pear-diamond-bracelets,cushion-diamond-bracelets' | split: ','
   else
     break
   endif

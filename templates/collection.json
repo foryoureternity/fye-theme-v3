@@ -74,113 +74,171 @@
     "fye_shop_chooser": {
       "type": "fye-shop-chooser",
       "blocks": {
-        "pt_rings": {
-          "type": "product_type",
+        "cat_rings": {
+          "type": "category",
           "settings": {
-            "label": "Rings",
+            "key": "rings",
+            "title": "Rings",
             "note": "Engagement, wedding and eternity",
-            "opens_rings": true
+            "collection": "rings",
+            "question": "Which kind of ring?",
+            "see_all_label": "See all rings"
           }
         },
-        "pt_bracelets": {
-          "type": "product_type",
+        "cat_bracelets": {
+          "type": "category",
           "settings": {
-            "label": "Bracelets",
-            "opens_rings": false
+            "key": "bracelets",
+            "title": "Bracelets",
+            "note": "Tennis bracelets, bangles and cuffs",
+            "question": "Which kind of bracelet?",
+            "see_all_label": "See all bracelets"
           }
         },
-        "pt_necklaces": {
-          "type": "product_type",
+        "cat_necklaces": {
+          "type": "category",
           "settings": {
-            "label": "Necklaces",
-            "opens_rings": false
+            "key": "necklaces",
+            "title": "Necklaces",
+            "note": "Pendants and tennis necklaces"
           }
         },
-        "pt_earrings": {
-          "type": "product_type",
+        "cat_earrings": {
+          "type": "category",
           "settings": {
-            "label": "Earrings",
-            "opens_rings": false
+            "key": "earrings",
+            "title": "Earrings",
+            "note": "Studs, drops and hoops"
           }
         },
-        "pt_gemstones": {
-          "type": "product_type",
+        "cat_gemstones": {
+          "type": "category",
           "settings": {
-            "label": "Gemstones",
-            "note": "Loose sapphires, rubies, emeralds and more",
-            "collection": "gemstones",
-            "opens_rings": false
+            "key": "gemstones",
+            "title": "Gemstones",
+            "note": "Sapphires, rubies, emeralds and more",
+            "collection": "gemstones"
           }
         },
-        "pt_diamonds": {
-          "type": "product_type",
+        "cat_diamonds": {
+          "type": "category",
           "settings": {
-            "label": "Diamonds",
-            "note": "Loose natural and lab-grown",
+            "key": "diamonds",
+            "title": "Diamonds",
+            "note": "Natural, lab-grown and fancy colour",
             "collection": "loose-diamonds",
-            "opens_rings": false
+            "question": "Which kind of diamond?",
+            "see_all_label": "See all diamonds"
           }
         },
-        "rt_engagement": {
-          "type": "ring_type",
+        "sub_engagement": {
+          "type": "sub_option",
           "settings": {
-            "label": "Engagement rings",
+            "parent_key": "rings",
+            "title": "Engagement rings",
             "note": "Solitaire, halo, trilogy and more",
             "collection": "engagement-rings"
           }
         },
-        "rt_plain": {
-          "type": "ring_type",
+        "sub_plain": {
+          "type": "sub_option",
           "settings": {
-            "label": "Plain wedding rings",
-            "note": "Bands in every metal and profile",
+            "parent_key": "rings",
+            "title": "Plain wedding rings",
+            "note": "Every metal, width and profile",
             "collection": "plain-wedding-rings"
           }
         },
-        "rt_set_wedding": {
-          "type": "ring_type",
+        "sub_diamond_wedding": {
+          "type": "sub_option",
           "settings": {
-            "label": "Diamond and gemstone wedding rings",
-            "note": "Set bands to wear beside an engagement ring",
+            "parent_key": "rings",
+            "title": "Diamond wedding rings",
+            "note": "Set with diamonds or gemstones",
             "collection": "diamond-wedding-rings"
           }
         },
-        "rt_eternity": {
-          "type": "ring_type",
+        "sub_eternity": {
+          "type": "sub_option",
           "settings": {
-            "label": "Eternity rings",
+            "parent_key": "rings",
+            "title": "Eternity rings",
             "note": "Half and full eternity",
             "collection": "eternity-rings"
           }
         },
-        "rt_signet": {
-          "type": "ring_type",
+        "sub_signet": {
+          "type": "sub_option",
           "settings": {
-            "label": "Signet rings"
+            "parent_key": "rings",
+            "title": "Signet rings",
+            "note": "Plain or engraved"
+          }
+        },
+        "sub_tennis": {
+          "type": "sub_option",
+          "settings": {
+            "parent_key": "bracelets",
+            "title": "Tennis bracelets",
+            "note": "A continuous line of diamonds or gemstones"
+          }
+        },
+        "sub_bangles": {
+          "type": "sub_option",
+          "settings": {
+            "parent_key": "bracelets",
+            "title": "Bangles and cuffs",
+            "note": "Solid, plain or set"
+          }
+        },
+        "sub_natural": {
+          "type": "sub_option",
+          "settings": {
+            "parent_key": "diamonds",
+            "title": "Natural diamonds",
+            "collection": "natural-diamonds"
+          }
+        },
+        "sub_lab": {
+          "type": "sub_option",
+          "settings": {
+            "parent_key": "diamonds",
+            "title": "Lab-grown diamonds",
+            "collection": "lab-diamonds"
+          }
+        },
+        "sub_fancy": {
+          "type": "sub_option",
+          "settings": {
+            "parent_key": "diamonds",
+            "title": "Fancy colour diamonds",
+            "collection": "fancy-diamonds"
           }
         }
       },
       "block_order": [
-        "pt_rings",
-        "pt_bracelets",
-        "pt_necklaces",
-        "pt_earrings",
-        "pt_gemstones",
-        "pt_diamonds",
-        "rt_engagement",
-        "rt_plain",
-        "rt_set_wedding",
-        "rt_eternity",
-        "rt_signet"
+        "cat_rings",
+        "cat_bracelets",
+        "cat_necklaces",
+        "cat_earrings",
+        "cat_gemstones",
+        "cat_diamonds",
+        "sub_engagement",
+        "sub_plain",
+        "sub_diamond_wedding",
+        "sub_eternity",
+        "sub_signet",
+        "sub_tennis",
+        "sub_bangles",
+        "sub_natural",
+        "sub_lab",
+        "sub_fancy"
       ],
       "settings": {
         "show_on": "all",
         "eyebrow": "Start here",
         "heading": "What are you looking for?",
-        "intro": "",
-        "ring_heading": "Which kind of ring?",
-        "browse_note": "Or browse everything below.",
-        "band": "white"
+        "browse_label": "Or browse all jewellery"
       }
     }
   },
@@ -191,5 +249,3 @@
     "fye_collection_guide"
   ]
 }
-
-

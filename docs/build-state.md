@@ -3932,3 +3932,10 @@ Ship: `./tools/fye ship "Google tracking from the page, not the pixel"`.
   /collections/all, so price options are dropped there and a price URL gets a
   sentence instead of an error.
 Ship: `./tools/fye ship "ALL: shop chooser, add-on page, no price sort on all"`.
+- Follow-up, same day (after the 15:12 ship verified live): chooser grid
+  minmax 160 to 140px so a 375px phone shows two across; ring question
+  centred; top padding restored under the teal masthead (the intro's
+  follower-collapse rule had put "Start here" against the teal edge).
+  The 9 add-ons now carry templateSuffix `addon`; engraving add-to-basket and
+  the trilogy side-diamond panel re-tested live, fine.
+Ship: `./tools/fye ship "Shop chooser: two across on phones, spacing"`.

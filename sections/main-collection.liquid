@@ -134,7 +134,7 @@
   endif
   assign tile_at = s.fye_tile_position | default: 4
 -%}
-<section class="band band--white coll" data-screen-label="Collection">
+<section class="band band--white coll" id="grid" data-screen-label="Collection">
   <div class="wrap wrap--wide">
     <div class="coll__layout">
 
@@ -705,6 +705,10 @@
      height PLUS its own padding. */
   --coll-row: 44px;
 }
+
+/* The shop chooser's "Or browse all jewellery" link lands on #grid (09/10/2026);
+   the margin keeps the toolbar clear of the top edge when it does. */
+.fye .coll { scroll-margin-top: var(--s4); }
 
 .fye .coll__layout {
   display: grid;

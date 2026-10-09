@@ -4887,3 +4887,124 @@
     }
   }, true);
 })();
+
+
+/* ============================================================================
+   SHOP CHOOSER — 09/10/2026 (T354)
+   ----------------------------------------------------------------------------
+   sections/fye-shop-chooser.liquid, on /collections/all. A category tile that
+   has sub-options is a real link to its collection in the markup, so it still
+   goes somewhere without JavaScript. This upgrades it to a toggle:
+
+     tile:   <a data-fye-pick="panel-id" aria-controls="panel-id">
+     panel:  <div class="pick__panel" id="panel-id" hidden>
+     close:  <button data-fye-pick-close>  (closes the panel it sits in)
+
+   One panel open at a time. The reveal fades opacity only, never height
+   (Claude Design handoff). Closing returns focus to the tile. On a phone the
+   opened panel's question is scrolled to just below the header.
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var phone = window.matchMedia('(max-width: 560px)');
+
+  function upgrade(scope) {
+    var tiles = (scope || document).querySelectorAll('[data-fye-pick]');
+    for (var i = 0; i < tiles.length; i++) {
+      tiles[i].setAttribute('role', 'button');
+      tiles[i].setAttribute('aria-expanded', 'false');
+    }
+  }
+
+  function tileFor(panel) {
+    return document.querySelector('[data-fye-pick="' + panel.id + '"]');
+  }
+
+  function closePanel(panel, refocus) {
+    if (!panel || panel.hidden) return;
+    panel.hidden = true;
+    panel.classList.remove('is-fading');
+    var tile = tileFor(panel);
+    if (tile) {
+      tile.setAttribute('aria-expanded', 'false');
+      if (refocus) tile.focus();
+    }
+  }
+
+  /* Only a header that stays on screen hides content, so only then offset. */
+  function headerOffset() {
+    var hdr = document.querySelector('.hdr');
+    var el = hdr;
+    while (el && el !== document.body) {
+      var pos = window.getComputedStyle(el).position;
+      if (pos === 'sticky' || pos === 'fixed') return el.offsetHeight;
+      el = el.parentElement;
+    }
+    return 0;
+  }
+
+  function openPanel(panel, tile) {
+    var root = tile.closest('.pick') || document;
+    var all = root.querySelectorAll('.pick__panel');
+    for (var i = 0; i < all.length; i++) {
+      if (all[i] !== panel) closePanel(all[i], false);
+    }
+    panel.classList.add('is-fading');
+    panel.hidden = false;
+    tile.setAttribute('aria-expanded', 'true');
+    /* Two frames: the first paints the panel at opacity 0, the second fades. */
+    window.requestAnimationFrame(function () {
+      window.requestAnimationFrame(function () { panel.classList.remove('is-fading'); });
+    });
+    if (phone.matches) {
+      var q = panel.querySelector('.pick__q') || panel;
+      window.scrollTo({
+        top: q.getBoundingClientRect().top + window.scrollY - headerOffset() - 16,
+        behavior: reduceMotion.matches ? 'auto' : 'smooth'
+      });
+    }
+  }
+
+  function togglePick(tile) {
+    var panel = document.getElementById(tile.getAttribute('data-fye-pick'));
+    if (!panel) return false;
+    if (panel.hidden) openPanel(panel, tile);
+    else closePanel(panel, true);
+    return true;
+  }
+
+  document.addEventListener('click', function (e) {
+    var tile = e.target.closest('[data-fye-pick]');
+    if (tile) {
+      if (togglePick(tile)) e.preventDefault();
+      return;
+    }
+    var x = e.target.closest('[data-fye-pick-close]');
+    if (x) {
+      e.preventDefault();
+      closePanel(x.closest('.pick__panel'), true);
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    /* role="button" on a link: Space must press it, as it would a button. */
+    if (e.key === ' ' || e.key === 'Spacebar') {
+      var tile = e.target.closest && e.target.closest('[data-fye-pick]');
+      if (tile && togglePick(tile)) e.preventDefault();
+      return;
+    }
+    if (e.key === 'Escape') {
+      var open = document.querySelector('.pick__panel:not([hidden])');
+      if (open) closePanel(open, true);
+    }
+  });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { upgrade(); });
+  } else {
+    upgrade();
+  }
+  document.addEventListener('shopify:section:load', function (e) { upgrade(e.target); });
+})();

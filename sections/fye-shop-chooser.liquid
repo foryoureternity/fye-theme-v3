@@ -2,41 +2,49 @@
   fye-shop-chooser — "What are you looking for?", asked before the products
   on /collections/all. 1 use: templates/collection.json. That template is
   shared by every collection, so the section renders only on the collection
-  whose handle matches the `show_on` setting (default `all`) and is silent on
-  every other collection page.
+  whose handle matches `show_on` (default `all`).
 
-  WHY IT EXISTS (Ed, 09/10/2026, T354). ALL holds every product on the site:
-  about 33,500 loose stones and 5,900 rings. The xCloud filter rail is one
-  global list, so on ALL it shows every facet at once (21 on 09/10/2026:
-  diamond, gemstone, engagement, eternity and plain-band facets mixed). No
-  rail can serve all of that. So ALL asks what the shopper wants first, then
-  sends them to the collection whose rail is built for that family, where the
-  filters are the right ones. The full grid stays below for anyone who just
-  scrolls.
+  WHY IT EXISTS (Ed, 09/10/2026, T354). ALL holds every product on the site.
+  The xCloud filter rail is one global list, so on ALL it showed every facet at
+  once. The chooser routes the shopper to the collection whose rail is built
+  for that family. The grid stays below, behind "Or browse all jewellery".
 
-  HOW IT WORKS
-  - Step 1 is the `product_type` blocks. One with "Opens the ring
-    question" ticked does not navigate: it reveals step 2 (the `ring_type` blocks)
-    in place through the generic data-fye-toggle disclosure in fye-ui.js.
-    Without JavaScript it is an ordinary link to the first live ring option,
-    so it still goes somewhere sensible (conventions §6, a trigger keeps its
-    href).
-  - An option whose collection is unset or has no products is NOT shown on
-    the live site. On 09/10/2026 that is Bracelets, Necklaces, Earrings and
-    Signet rings. Each appears by itself once its collection is picked in the
-    theme editor and holds products, so no shopper is sent to an empty page.
-    In the theme editor every option shows, with empty ones marked, so they
-    can be set up.
-  - While this section is on the page, main-collection's filter rail is
-    hidden and the grid runs full width (the :has() rule at the foot of the
-    stylesheet). That rule is the one deliberate third selector part in this
-    file: keying it to the chooser's presence means switching the chooser
-    off brings the rail straight back, with no second setting to keep in
-    step.
+  V2, 09/10/2026: rebuilt to the Claude Design handoff (design_handoff_shop_
+  chooser, frame 2b). Block types changed from product_type / ring_type to
+  category / sub_option so that ANY category can carry a second question.
+  This section has one use and was a day old, so the rename was safe; the
+  JSON template was rewritten in the same release.
+
+  CONTENT MODEL
+  - `category` blocks (Rings, Bracelets, Necklaces, Earrings, Gemstones,
+    Diamonds). `key` ties sub-options to their parent.
+  - `sub_option` blocks, each naming its parent by `parent_key`.
+  - Anything whose collection is unset or empty is not rendered on the live
+    site, so a category appears by itself once its collection has products.
+    In the theme editor everything renders, marked, so it can be set up.
+  - A category with one or more live sub-options becomes a toggle and gets a
+    panel. Any other category is a plain link to its collection.
+
+  NO JAVASCRIPT: a toggle is an ordinary link to its category's collection.
+  fye-ui.js (SHOP CHOOSER block) upgrades it to role="button", opens one
+  panel at a time, fades it in (opacity only, never height), returns focus on
+  close and, on phones, scrolls the opened panel's heading into view.
+
+  DEPARTURES FROM THE HANDOFF, deliberate:
+  - Type sizes snap to the nearest fye-core token (within 2px of the spec)
+    rather than carrying literal px values (conventions §3).
+  - Soft text uses --ink-soft (0.72). The handoff's 0.62 is not a token and
+    measures about 3.9:1 on white, under the 4.5:1 body text needs.
+  - Vertical rhythm comes from --sect-y via .band (64px here), not from
+    separate top and bottom paddings.
+  - The 560-899 tile columns follow the handoff table exactly; 749 is unused.
+
+  The one extra-specific selector at the foot of the stylesheet hides the
+  xCloud rail while the chooser is on the page: keyed to the chooser's
+  presence, so switching the chooser off brings the rail straight back.
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
-  assign band = s.band | default: 'white'
   assign show_on = s.show_on | default: 'all'
 
   assign show = false
@@ -44,129 +52,219 @@
     assign show = true
   endif
 
-  assign panel_id = 'pick-rings-' | append: section.id
+  assign editing = request.design_mode
 
   comment
-    Live ring options decide two things: whether the ring question is worth
-    opening at all, and where the "Rings" card goes without JavaScript.
+    Pass 1: which sub-options are live, per parent key, and how many
+    categories will render. Live = collection set and holding products.
   endcomment
-  assign ring_live = 0
-  assign ring_href = ''
+  assign live_parents = ','
   for block in section.blocks
-    if block.type == 'ring_type'
-      assign rc = block.settings.collection
-      if rc != blank and rc.products_count > 0
-        assign ring_live = ring_live | plus: 1
-        if ring_href == blank
-          assign ring_href = rc.url
-        endif
+    if block.type == 'sub_option'
+      assign sc = block.settings.collection
+      if sc != blank and sc.products_count > 0
+        assign pk = block.settings.parent_key | strip | downcase
+        assign live_parents = live_parents | append: pk | append: ','
       endif
     endif
   endfor
 
-  assign step_open = ''
-  if request.design_mode
-    assign step_open = ' is-open'
+  assign cat_count = 0
+  for block in section.blocks
+    if block.type == 'category'
+      assign cc = block.settings.collection
+      assign ck = block.settings.key | strip | downcase
+      assign needle = ',' | append: ck | append: ','
+      if editing or live_parents contains needle or cc != blank and cc.products_count > 0
+        assign cat_count = cat_count | plus: 1
+      endif
+    endif
+  endfor
+  if cat_count > 6
+    assign cat_count = 6
   endif
 -%}
 
-{%- if show -%}
-<section class="pick band band--{{ band }}" data-screen-label="Shop chooser">
-  <div class="wrap">
+{%- if show and cat_count > 0 -%}
+<section class="pick band band--white" data-screen-label="Shop chooser">
+  <div class="wrap wrap--wide pick__wrap">
 
-    <div class="sect-head">
+    <div class="pick__head">
       {%- if s.eyebrow != blank -%}
-        <p class="eyebrow">{{ s.eyebrow }}</p>
+        <p class="pick__eyebrow">{{ s.eyebrow }}</p>
       {%- endif -%}
-      <h2 class="heading-flank">{{ s.heading | default: 'What are you looking for?' }}</h2>
-      {%- if s.intro != blank -%}
-        <p class="lead pick__intro">{{ s.intro }}</p>
-      {%- endif -%}
+      <h2 class="pick__title">{{ s.heading | default: 'What are you looking for?' }}</h2>
     </div>
 
-    <ul class="pick__grid" role="list">
+    <ul class="pick__grid" role="list" data-count="{{ cat_count }}">
       {%- for block in section.blocks -%}
-        {%- if block.type != 'product_type' -%}{%- continue -%}{%- endif -%}
+        {%- if block.type != 'category' -%}{%- continue -%}{%- endif -%}
         {%- liquid
           assign b = block.settings
           assign c = b.collection
-          assign live = false
-          assign href = ''
+          assign key = b.key | strip | downcase
+          assign needle = ',' | append: key | append: ','
+          assign c_live = false
           if c != blank and c.products_count > 0
+            assign c_live = true
+          endif
+          assign has_subs = false
+          if live_parents contains needle
+            assign has_subs = true
+          endif
+          if editing
+            for sb in section.blocks
+              if sb.type == 'sub_option'
+                assign spk = sb.settings.parent_key | strip | downcase
+                if spk == key
+                  assign has_subs = true
+                endif
+              endif
+            endfor
+          endif
+          assign live = false
+          if c_live or has_subs
             assign live = true
+          endif
+          assign label = b.title | default: c.title
+          comment
+            Without JavaScript a toggle is a link: to its own collection, or,
+            while that is unpublished or empty, to its first live sub-option.
+          endcomment
+          assign href = '#'
+          if c_live
             assign href = c.url
+          elsif has_subs
+            for sb in section.blocks
+              if sb.type == 'sub_option'
+                assign spk = sb.settings.parent_key | strip | downcase
+                assign sc = sb.settings.collection
+                if spk == key and sc != blank and sc.products_count > 0
+                  assign href = sc.url
+                  break
+                endif
+              endif
+            endfor
           endif
-          assign opens = false
-          if b.opens_rings and ring_live > 0
-            assign opens = true
-            assign live = true
-            assign href = ring_href
-          endif
-          assign label = b.label | default: c.title
+          assign panel_id = 'pick-panel-' | append: block.id
         -%}
-        {%- unless live or request.design_mode -%}{%- continue -%}{%- endunless -%}
+        {%- unless live or editing -%}{%- continue -%}{%- endunless -%}
         <li class="pick__item" {{ block.shopify_attributes }}>
-          <a class="pick__card{% unless live %} is-empty{% endunless %}"
-             href="{{ href | default: '#' }}"
-             {%- if opens %} data-fye-toggle="{{ panel_id }}" aria-controls="{{ panel_id }}" aria-expanded="{% if request.design_mode %}true{% else %}false{% endif %}"{% endif %}>
+          <a class="pick__tile{% if b.image == blank %} pick__tile--text{% endif %}{% unless live %} is-empty{% endunless %}"
+             href="{{ href }}"
+             {%- if has_subs %} data-fye-pick="{{ panel_id }}" aria-controls="{{ panel_id }}" aria-expanded="false"{% endif %}>
             {%- if b.image != blank -%}
-              {{ b.image | image_url: width: 600 | image_tag: loading: 'lazy', widths: '300, 450, 600', sizes: '(max-width: 560px) 50vw, 20vw', class: 'pick__img', alt: '' }}
+              <span class="pick__media">
+                {{ b.image | image_url: width: 800 | image_tag: loading: 'lazy', widths: '400, 600, 800', sizes: '(max-width: 560px) 33vw, (max-width: 900px) 33vw, 16vw', class: 'pick__img', alt: '' }}
+              </span>
             {%- endif -%}
-            <span class="pick__label">{{ label }}</span>
-            {%- if b.note != blank -%}
-              <span class="pick__note">{{ b.note }}</span>
-            {%- endif -%}
-            {%- if opens -%}
-              {%- render 'icon', name: 'chevron-down', size: 14, class: 'pick__icon pick__icon--open' -%}
-            {%- else -%}
-              {%- render 'icon', name: 'arrow-right', size: 14, class: 'pick__icon' -%}
-            {%- endif -%}
-            {%- unless live -%}
-              <span class="pick__flag">Hidden on the live site until its collection has products</span>
-            {%- endunless -%}
+            <span class="pick__label">
+              <span class="pick__words">
+                <span class="pick__name">{{ label }}</span>
+                {%- if b.note != blank -%}
+                  <span class="pick__note">{{ b.note }}</span>
+                {%- endif -%}
+                {%- unless live -%}
+                  <span class="pick__note">Hidden on the live site until its collection has products</span>
+                {%- endunless -%}
+              </span>
+              {%- if has_subs -%}
+                {%- render 'icon', name: 'chevron-down', size: 18, class: 'pick__icon pick__icon--closed' -%}
+                {%- render 'icon', name: 'chevron-up', size: 18, class: 'pick__icon pick__icon--open' -%}
+              {%- else -%}
+                {%- render 'icon', name: 'arrow-right', size: 18, class: 'pick__icon' -%}
+              {%- endif -%}
+            </span>
           </a>
         </li>
       {%- endfor -%}
     </ul>
 
-    {%- if ring_live > 0 or request.design_mode -%}
-      <div class="pick__step{{ step_open }}" id="{{ panel_id }}">
-        <p class="pick__q">{{ s.ring_heading | default: 'Which kind of ring?' }}</p>
-        <ul class="pick__grid" role="list">
-          {%- for block in section.blocks -%}
-            {%- if block.type != 'ring_type' -%}{%- continue -%}{%- endif -%}
-            {%- liquid
-              assign b = block.settings
-              assign c = b.collection
-              assign live = false
-              if c != blank and c.products_count > 0
-                assign live = true
+    {%- comment -%} One panel per category with sub-options, all after the grid. {%- endcomment -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type != 'category' -%}{%- continue -%}{%- endif -%}
+      {%- liquid
+        assign b = block.settings
+        assign c = b.collection
+        assign key = b.key | strip | downcase
+        assign panel_id = 'pick-panel-' | append: block.id
+        assign q_id = 'pick-q-' | append: block.id
+
+        assign sub_count = 0
+        for sb in section.blocks
+          if sb.type == 'sub_option'
+            assign spk = sb.settings.parent_key | strip | downcase
+            if spk == key
+              assign sc = sb.settings.collection
+              if editing or sc != blank and sc.products_count > 0
+                assign sub_count = sub_count | plus: 1
               endif
-              assign label = b.label | default: c.title
+            endif
+          endif
+        endfor
+        assign question = b.question | default: 'Which kind?'
+      -%}
+      {%- if sub_count == 0 -%}{%- continue -%}{%- endif -%}
+      <div class="pick__panel" id="{{ panel_id }}" role="region" aria-labelledby="{{ q_id }}" hidden>
+        <div class="pick__bar">
+          <span aria-hidden="true"></span>
+          <h3 class="pick__q" id="{{ q_id }}">{{ question }}</h3>
+          <button type="button" class="pick__close" data-fye-pick-close aria-label="Close">
+            <span class="pick__closeword">Close</span>
+            {%- render 'icon', name: 'close', size: 18 -%}
+          </button>
+        </div>
+
+        <ul class="pick__subs" role="list" data-count="{{ sub_count }}">
+          {%- for sb in section.blocks -%}
+            {%- if sb.type != 'sub_option' -%}{%- continue -%}{%- endif -%}
+            {%- liquid
+              assign sbs = sb.settings
+              assign spk = sbs.parent_key | strip | downcase
+              assign sc = sbs.collection
+              assign s_live = false
+              if sc != blank and sc.products_count > 0
+                assign s_live = true
+              endif
             -%}
-            {%- unless live or request.design_mode -%}{%- continue -%}{%- endunless -%}
-            <li class="pick__item" {{ block.shopify_attributes }}>
-              <a class="pick__card{% unless live %} is-empty{% endunless %}" href="{% if live %}{{ c.url }}{% else %}#{% endif %}">
-                {%- if b.image != blank -%}
-                  {{ b.image | image_url: width: 600 | image_tag: loading: 'lazy', widths: '300, 450, 600', sizes: '(max-width: 560px) 50vw, 20vw', class: 'pick__img', alt: '' }}
-                {%- endif -%}
-                <span class="pick__label">{{ label }}</span>
-                {%- if b.note != blank -%}
-                  <span class="pick__note">{{ b.note }}</span>
-                {%- endif -%}
-                {%- render 'icon', name: 'arrow-right', size: 14, class: 'pick__icon' -%}
-                {%- unless live -%}
-                  <span class="pick__flag">Hidden on the live site until its collection has products</span>
-                {%- endunless -%}
+            {%- if spk != key -%}{%- continue -%}{%- endif -%}
+            {%- unless s_live or editing -%}{%- continue -%}{%- endunless -%}
+            <li class="pick__subitem" {{ sb.shopify_attributes }}>
+              <a class="pick__sub{% unless s_live %} is-empty{% endunless %}" href="{% if s_live %}{{ sc.url }}{% else %}#{% endif %}">
+                <span class="pick__words">
+                  <span class="pick__subname">{{ sbs.title | default: sc.title }}</span>
+                  {%- if sbs.note != blank -%}
+                    <span class="pick__note">{{ sbs.note }}</span>
+                  {%- endif -%}
+                  {%- unless s_live -%}
+                    <span class="pick__note">Hidden on the live site until its collection has products</span>
+                  {%- endunless -%}
+                </span>
+                {%- render 'icon', name: 'arrow-right', size: 18, class: 'pick__icon pick__icon--wide' -%}
+                {%- render 'icon', name: 'chevron-right', size: 18, class: 'pick__icon pick__icon--phone' -%}
               </a>
             </li>
           {%- endfor -%}
         </ul>
-      </div>
-    {%- endif -%}
 
-    {%- if s.browse_note != blank -%}
-      <p class="fine pick__browse">{{ s.browse_note }}</p>
+        {%- if c != blank and c.products_count > 0 and b.see_all_label != blank -%}
+          <p class="pick__more">
+            <a class="pick__link" href="{{ c.url }}">
+              <span class="pick__linkword">{{ b.see_all_label }}</span>
+              {%- render 'icon', name: 'arrow-right', size: 16 -%}
+            </a>
+          </p>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+
+    {%- if s.browse_label != blank -%}
+      <p class="pick__browse">
+        <a class="pick__link" href="#grid">
+          <span class="pick__linkword">{{ s.browse_label }}</span>
+          {%- render 'icon', name: 'chevron-down', size: 16 -%}
+        </a>
+      </p>
     {%- endif -%}
 
   </div>
@@ -174,75 +272,273 @@
 {%- endif -%}
 
 {% stylesheet %}
-.fye .pick__intro { margin-inline: auto; max-width: 60ch; }
+/* Literal px values in this block (44, 64, 96, 112, 124, 128, 148, 6, 10)
+   are the handoff's measured sizes for tap targets and tile heights, which
+   have no token. Everything else is a fye-core token. */
 
-/* auto-fit rather than the three breakpoints: the number of live options
-   changes as collections gain products (three on 09/10/2026, up to six), and
-   the row should stay full whatever the count. 160px keeps two across on a
-   375px phone. */
-.fye .pick__grid {
-  list-style: none;
+/* --- section ------------------------------------------------------------ */
+.fye .pick { --sect-y: var(--s10); }
+.fye .pick__wrap { display: flex; flex-direction: column; align-items: center; }
+
+.fye .pick__head { display: flex; flex-direction: column; align-items: center; gap: var(--s3); margin-bottom: var(--s8); text-align: center; }
+.fye .pick__eyebrow {
   margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: var(--s4);
+  font-size: var(--fs-fine);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
 }
-
-.fye .pick__item { margin: 0; min-width: 0; }
-
-.fye .pick__card {
+/* 40px hairline either side of the heading, 20px off it (handoff). */
+.fye .pick__title {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--s2);
-  height: 100%;
-  min-height: var(--s12);
-  padding: var(--s5);
-  border: var(--hairline);
-  transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
-}
-.fye .pick__card:hover { border-color: var(--sage); color: var(--sage); }
-.fye .pick__card[aria-expanded="true"] { border-color: var(--ink); }
-.fye .pick__card.is-empty { border-style: dashed; }
-
-.fye .pick__img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
-
-.fye .pick__label {
+  align-items: center;
+  gap: var(--s5);
+  margin: 0;
   font-family: var(--font-display);
-  font-size: var(--fs-body);
-  letter-spacing: 0.07em;
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-h3);
+  letter-spacing: var(--tr-h2);
   line-height: 1.3;
   text-transform: uppercase;
 }
-.fye .pick__note { font-size: var(--fs-small); line-height: 1.5; color: var(--ink-soft); }
-.fye .pick__card:hover .pick__note { color: inherit; }
+.fye .pick__title::before,
+.fye .pick__title::after { content: ""; flex: none; width: var(--s8); height: 1px; background: var(--ink); }
 
-.fye .pick__icon { margin-top: auto; flex: none; transition: transform var(--dur) var(--ease); }
-.fye .pick__card:hover .pick__icon { transform: translateX(3px); }
-.fye .pick__card:hover .pick__icon--open { transform: translateY(2px); }
-.fye .pick__card[aria-expanded="true"] .pick__icon--open { transform: rotate(180deg); }
+/* --- step 1 grid: column count follows the number of live categories ---- */
+.fye .pick__grid {
+  --gap: var(--s6);
+  --cols: 3;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--gap);
+}
+.fye .pick__grid[data-count="4"] { --cols: 4; }
+.fye .pick__grid[data-count="5"] { --cols: 5; }
+.fye .pick__grid[data-count="6"] { --cols: 6; }
+.fye .pick__item { margin: 0; flex: none; width: calc((100% - (var(--cols) - 1) * var(--gap)) / var(--cols)); min-width: 0; }
 
-.fye .pick__flag { font-size: var(--fs-fine); line-height: 1.4; }
+.fye .pick__tile {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--white);
+  border: var(--hairline);
+  color: var(--ink);
+  transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.fye .pick__media { display: block; background: var(--ivory); aspect-ratio: 4 / 3; overflow: hidden; }
+.fye .pick__img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
 
-.fye .pick__step { display: none; margin-top: var(--s8); }
-.fye .pick__step.is-open { display: block; }
-
-.fye .pick__q {
-  margin: 0 0 var(--s5);
+.fye .pick__label {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s3);
+  padding: var(--s4) var(--s5);
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.fye .pick__tile--text .pick__label { min-height: 128px; }
+.fye .pick__words { display: flex; flex-direction: column; gap: var(--s1); min-width: 0; }
+.fye .pick__name {
   font-family: var(--font-display);
   font-size: var(--fs-h4);
   letter-spacing: var(--tr-h2);
+  line-height: 1.3;
+  text-transform: uppercase;
+  transition: color var(--dur) var(--ease);
 }
+.fye .pick__note { font-size: var(--fs-small); font-weight: var(--fw-light); line-height: 1.45; color: var(--ink-soft); }
+.fye .pick__icon { flex: none; }
+.fye .pick__icon--open { display: none; }
 
-.fye .pick__browse { margin: var(--s7) 0 0; text-align: center; }
+/* hover, pressed, selected. Colour and border only: no transform. */
+.fye .pick__tile:hover { border-color: var(--sage); }
+.fye .pick__tile:hover .pick__name,
+.fye .pick__tile:hover .pick__icon { color: var(--sage); }
+.fye .pick__tile:active { border-color: var(--sage-deep); }
+.fye .pick__tile[aria-expanded="true"] { border-color: var(--ink); }
+.fye .pick__tile[aria-expanded="true"] .pick__label { background: var(--ink); color: var(--ivory); }
+.fye .pick__tile[aria-expanded="true"] .pick__name,
+.fye .pick__tile[aria-expanded="true"] .pick__note,
+.fye .pick__tile[aria-expanded="true"] .pick__icon { color: var(--ivory); }
+.fye .pick__tile[aria-expanded="true"] .pick__icon--closed { display: none; }
+.fye .pick__tile[aria-expanded="true"] .pick__icon--open { display: block; }
+.fye .pick__tile.is-empty,
+.fye .pick__sub.is-empty { border-style: dashed; }
 
-/* The chooser replaces the rail on this page: see the file comment. */
+/* --- step 2 panel: one pattern for every category ------------------------ */
+.fye .pick__panel {
+  width: 100%;
+  margin-top: var(--s7);
+  padding: var(--s9) var(--s9) var(--s7);
+  background: var(--ivory);
+  opacity: 1;
+  transition: opacity var(--dur) var(--ease);
+}
+.fye .pick__panel.is-fading { opacity: 0; }
+
+.fye .pick__bar {
+  display: grid;
+  grid-template-columns: 44px 1fr 96px;
+  align-items: center;
+  margin-bottom: var(--s6);
+}
+.fye .pick__q {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-h4);
+  letter-spacing: var(--tr-h2);
+  text-transform: uppercase;
+  text-align: center;
+}
+.fye .pick__close {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-button);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color var(--dur) var(--ease);
+}
+.fye .pick__close:hover { color: var(--sage); }
+
+.fye .pick__subs {
+  --gap: var(--s6);
+  --slots: 5;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--gap);
+}
+.fye .pick__subitem { margin: 0; flex: none; width: calc((100% - (var(--slots) - 1) * var(--gap)) / var(--slots)); min-width: 0; }
+.fye .pick__sub {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--s4);
+  height: 100%;
+  min-height: 148px;
+  padding: var(--s6);
+  background: var(--white);
+  border: var(--hairline);
+  color: var(--ink);
+  transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.fye .pick__sub .pick__words { gap: 6px; }
+.fye .pick__subname {
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  letter-spacing: var(--tr-h2);
+  line-height: 1.3;
+  text-transform: uppercase;
+  transition: color var(--dur) var(--ease);
+}
+.fye .pick__icon--wide { align-self: flex-end; }
+.fye .pick__icon--phone { display: none; }
+.fye .pick__sub:hover { border-color: var(--sage); }
+.fye .pick__sub:hover .pick__subname,
+.fye .pick__sub:hover .pick__icon { color: var(--sage); }
+.fye .pick__sub:active { border-color: var(--sage-deep); }
+
+/* --- links: "See all ..." and "Or browse all jewellery" ------------------- */
+.fye .pick__more { margin: var(--s4) 0 0; text-align: center; }
+.fye .pick__browse { margin: var(--s9) 0 0; text-align: center; }
+.fye .pick__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  min-height: 44px;
+  color: var(--ink);
+  font-size: var(--fs-fine);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-button);
+  text-transform: uppercase;
+  transition: color var(--dur) var(--ease);
+}
+.fye .pick__browse .pick__link { font-size: var(--fs-small); }
+.fye .pick__linkword { padding-bottom: 3px; border-bottom: 1px solid currentColor; }
+.fye .pick__link:hover { color: var(--sage); }
+
+/* fye-collection-intro collapses the top padding of whatever follows it,
+   because the listing it was written for brings its own. The chooser does
+   not, so its eyebrow sat against the teal edge (measured 09/10/2026).
+   `.band.pick` so this outranks the collapse rule, one class shorter. */
+.fye .shopify-section:has(> .cintro) + .shopify-section > .band.pick { padding-block-start: var(--sect-y); }
+
+/* The chooser replaces the xCloud rail on this page: see the file comment. */
 .fye:has(.pick) .coll__rail { display: none; }
 .fye:has(.pick) .coll__layout { grid-template-columns: minmax(0, 1fr); }
 
+/* --- 560 to 899 ----------------------------------------------------------- */
+@media (max-width: 900px) {
+  .fye .pick { --sect-y: var(--s9); }
+  .fye .pick__grid { --gap: var(--s4); }
+  .fye .pick__grid[data-count="5"],
+  .fye .pick__grid[data-count="6"] { --cols: 3; }
+  .fye .pick__label { padding: var(--s3) var(--s4); }
+  .fye .pick__tile--text .pick__label { min-height: 112px; }
+  .fye .pick__panel { margin-top: var(--s6); padding: var(--s7) var(--s7) var(--s4); }
+  .fye .pick__subs { --gap: var(--s4); --slots: 3; }
+  .fye .pick__subs[data-count="4"] { --slots: 2; }
+  .fye .pick__sub { min-height: 124px; padding: var(--s5); }
+}
+
+/* --- under 560 ------------------------------------------------------------ */
+@media (max-width: 560px) {
+  .fye .pick { --sect-y: var(--s8); }
+  .fye .pick__head { margin-bottom: var(--s6); }
+  .fye .pick__grid { --gap: var(--s2); }
+  .fye .pick__grid[data-count="4"] { --cols: 2; }
+  .fye .pick__media { aspect-ratio: 1 / 1; }
+  .fye .pick__label { justify-content: center; align-items: center; min-height: 44px; padding: 10px 6px; text-align: center; }
+  .fye .pick__tile--text .pick__label { min-height: 88px; }
+  .fye .pick__label .pick__note,
+  .fye .pick__label .pick__icon { display: none; }
+  .fye .pick__name { font-size: var(--fs-fine); letter-spacing: 0.06em; }
+
+  .fye .pick__panel { margin-top: var(--s5); padding: var(--s3) 0 var(--s1); }
+  .fye .pick__bar { grid-template-columns: 44px 1fr 44px; margin-bottom: var(--s2); }
+  .fye .pick__closeword { display: none; }
+
+  /* Phone: a full-width list, not tiles. */
+  .fye .pick__subs { display: block; border-top: var(--hairline); background: var(--white); }
+  .fye .pick__subitem { width: auto; border-bottom: var(--hairline); }
+  .fye .pick__sub {
+    flex-direction: row;
+    align-items: center;
+    min-height: 64px;
+    padding: var(--s3) var(--s4);
+    border: 0;
+  }
+  .fye .pick__subname { font-size: var(--fs-small); }
+  .fye .pick__sub .pick__note { font-size: var(--fs-fine); line-height: 1.4; }
+  .fye .pick__icon--wide { display: none; }
+  .fye .pick__icon--phone { display: block; }
+  .fye .pick__more { margin-top: var(--s2); }
+  .fye .pick__browse { margin-top: var(--s6); }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .fye .pick__icon { transition: none; }
+  .fye .pick__panel { transition: none; }
 }
 {% endstylesheet %}
 
@@ -250,6 +546,7 @@
 {
   "name": "Shop chooser",
   "class": "pick-sect",
+  "max_blocks": 30,
   "settings": [
     {
       "type": "text",
@@ -260,44 +557,31 @@
     },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Start here" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "What are you looking for?" },
-    { "type": "textarea", "id": "intro", "label": "Introduction" },
-    { "type": "text", "id": "ring_heading", "label": "Ring question", "default": "Which kind of ring?" },
-    { "type": "text", "id": "browse_note", "label": "Note below the options", "default": "Or browse everything below." },
-    {
-      "type": "select", "id": "band", "label": "Background", "default": "white",
-      "options": [
-        { "value": "white", "label": "White" },
-        { "value": "ivory", "label": "Champagne ivory" },
-        { "value": "mist", "label": "Mist blue" }
-      ]
-    }
+    { "type": "text", "id": "browse_label", "label": "Link to the products below", "default": "Or browse all jewellery" }
   ],
   "blocks": [
     {
-      "type": "product_type",
-      "name": "Product type",
+      "type": "category",
+      "name": "Category",
+      "limit": 6,
       "settings": [
-        { "type": "text", "id": "label", "label": "Label" },
-        { "type": "text", "id": "note", "label": "Short note" },
+        { "type": "text", "id": "key", "label": "Key", "info": "Short id, for example rings. Sub-options name their category by this key." },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "text", "id": "note", "label": "Note" },
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "4:3, cropped square on phones." },
         { "type": "collection", "id": "collection", "label": "Collection" },
-        {
-          "type": "checkbox",
-          "id": "opens_rings",
-          "label": "Opens the ring question",
-          "default": false,
-          "info": "Shows the ring types instead of going to a collection."
-        },
-        { "type": "image_picker", "id": "image", "label": "Image" }
+        { "type": "text", "id": "question", "label": "Second question", "info": "Shown when this category has sub-options." },
+        { "type": "text", "id": "see_all_label", "label": "See all link label" }
       ]
     },
     {
-      "type": "ring_type",
-      "name": "Ring type",
+      "type": "sub_option",
+      "name": "Sub-option",
       "settings": [
-        { "type": "text", "id": "label", "label": "Label" },
-        { "type": "text", "id": "note", "label": "Short note" },
-        { "type": "collection", "id": "collection", "label": "Collection" },
-        { "type": "image_picker", "id": "image", "label": "Image" }
+        { "type": "text", "id": "parent_key", "label": "Category key", "info": "Must match the key of its category." },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "text", "id": "note", "label": "Note" },
+        { "type": "collection", "id": "collection", "label": "Collection" }
       ]
     }
   ],
@@ -305,9 +589,7 @@
     {
       "name": "Shop chooser",
       "blocks": [
-        { "type": "product_type", "settings": { "label": "Rings", "opens_rings": true } },
-        { "type": "product_type", "settings": { "label": "Gemstones" } },
-        { "type": "product_type", "settings": { "label": "Diamonds" } }
+        { "type": "category", "settings": { "key": "rings", "title": "Rings", "question": "Which kind of ring?", "see_all_label": "See all rings" } }
       ]
     }
   ]

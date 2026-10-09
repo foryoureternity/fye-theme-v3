@@ -247,6 +247,38 @@
   endif
 
   comment
+    ── Not a ring (Ed, 09/10/2026) ──
+    Bracelets, and later earrings, pendants and necklaces, share this layout.
+    A product is NOT a ring when its template turns ask_ring_size off, or it
+    is tagged or typed as one of those. Not a ring: no ring size, no sizer,
+    no resize promise, no wedding-ring offer. (Named is_bracelet for history;
+    it means "not a ring".)
+    And no option is chosen on opening (pick_all): metal and diamond quality
+    start empty, the price reads "From", and the button waits for both.
+    Rings still open on 18ct gold, below. A ?variant= link still opens
+    chosen, so shared links and back-from-the-bag keep working.
+  endcomment
+  assign is_bracelet = false
+  if s.ask_ring_size == false
+    assign is_bracelet = true
+  endif
+  assign nonring_words = 'Bracelet,Bracelets,Bangle,Earrings,Earring,Pendant,Necklace' | split: ','
+  assign ptype = p.type | downcase
+  for w in nonring_words
+    if p.tags contains w
+      assign is_bracelet = true
+    endif
+    assign wl = w | downcase
+    if ptype contains wl
+      assign is_bracelet = true
+    endif
+  endfor
+  assign pick_all = false
+  if is_bracelet and p.selected_variant == nil
+    assign pick_all = true
+  endif
+
+  comment
     ── Open on 18ct gold (Ed, 27/09/2026) ──
     Every ring except a plain wedding band opens on 18ct gold, at the
     cheapest NATURAL grade in 18ct: main-product's W831 rule, applied within
@@ -255,7 +287,7 @@
     links, back from the bag), and when no 18ct variant is for sale, which
     falls back to W831's pick. Matches "18k Gold" and "18ct Gold" spellings.
   endcomment
-  unless is_plain or p.selected_variant or metal_idx < 0
+  unless is_plain or p.selected_variant or metal_idx < 0 or pick_all
     assign gold18 = nil
     for var in p.variants
       unless var.available
@@ -288,6 +320,10 @@
   if quality_idx >= 0
     assign v_quality = current.options[quality_idx]
   endif
+  if pick_all
+    assign v_metal = ''
+    assign v_quality = ''
+  endif
 
   assign v_is_gold = false
   if v_metal contains 'Gold'
@@ -307,6 +343,9 @@
     assign metal_label = v_metal | replace: 'k Gold', 'ct' | replace: 'K Gold', 'ct' | append: ' ' | append: gold_default | append: ' Gold'
   else
     assign metal_label = v_metal
+  endif
+  if pick_all
+    assign metal_label = ''
   endif
 
   assign preferred_karat = ''
@@ -456,8 +495,19 @@
   assign metal_slug = metal_now | handle
 -%}
 
+{%- liquid
+  comment
+    pdx_noun swaps "ring" for "bracelet" in the visible wording. The
+    non-ring switch (is_bracelet) is set further up, before the opening pick.
+  endcomment
+  if is_bracelet
+    assign noun = s.pdx_noun | default: 'piece'
+  else
+    assign noun = s.pdx_noun | default: 'ring'
+  endif
+-%}
 <section class="band band--white band--lead pdx pdx--ring" data-screen-label="Product" data-fye-pdx
-         data-noun="{{ s.pdx_noun | default: 'ring' }}"
+         data-noun="{{ noun }}"
          data-offer-pct="{{ s.pdx_offer_pct | default: 10 }}">
   <div class="wrap">
 
@@ -575,13 +625,13 @@
         {%- if is_full_eternity -%}
           {%- render 'fye-pdx-assure', kind: 'full-eternity' -%}
         {%- else -%}
-          {%- render 'fye-pdx-assure', kind: 'ring' -%}
+          {%- if is_bracelet -%}{%- render 'fye-pdx-assure', kind: 'bracelet' -%}{%- else -%}{%- render 'fye-pdx-assure', kind: 'ring' -%}{%- endif -%}
         {%- endif -%}
       </div>
 
       {%- comment -%} ---- Buy box, part one: the decision ---- {%- endcomment -%}
       {%- form 'product', p, class: 'pdx__buy pdx__buy--a', id: 'pdp-form' -%}
-        <input type="hidden" name="id" value="{{ current.id }}" data-fye-variant-id>
+        <input type="hidden" name="id" value="{{ current.id }}" data-fye-variant-id{% if pick_all %} data-fye-pick-all{% endif %}>
 
         <script type="application/json" data-fye-variants>
           [
@@ -595,6 +645,9 @@
         <p class="pdx__eyebrow">{{ type_word }} · {{ s.pdx_made_line | default: 'Handmade in the UK' }}</p>
         <h1 class="pdx__title" data-fye-product-title>{{ short_title }}</h1>
 
+        {%- if pick_all -%}
+          {%- if tail != blank -%}<p class="pdx__summary">{{ tail }}</p>{%- endif -%}
+        {%- else -%}
         <p class="pdx__summary" data-pdx-summary>
           <span data-pdx-sum-metal>{{ metal_label }}</span>
           {%- if quality_opt != nil and hide_quality == false -%}
@@ -604,6 +657,7 @@
             <span aria-hidden="true"> · </span><span>{{ tail }}</span>
           {%- endif -%}
         </p>
+        {%- endif -%}
 
         {%- assign por = false -%}
         {%- if p.tags contains 'Price on Request' %}{% assign por = true %}{% endif -%}
@@ -611,7 +665,7 @@
           <p class="pdx__price">Price on request</p>
           <span data-fye-price hidden></span>
         {%- else -%}
-        <p class="pdx__price" data-fye-price aria-live="polite">{{ current.price | money }}</p>
+        <p class="pdx__price" data-fye-price aria-live="polite">{% if pick_all %}From {{ p.price_min | money }}{% else %}{{ current.price | money }}{% endif %}</p>
         {%- endif -%}
         {%- if show_centre -%}
           <p class="pdx__pricenote">{{ s.pdx_setting_note | default: 'Setting price · Centre diamond not included' }}</p>
@@ -837,6 +891,7 @@
           `required` check stops the form posting without one. Every other
           ring: a line-item property, with the oversize surcharge flag.
         {%- endcomment -%}
+        {%- unless is_bracelet -%}
         <div class="pdx__field">
           <div class="pdx__labelrow">
             <label class="pdx__label" for="pdx-size">Ring size</label>
@@ -890,6 +945,7 @@
             </div>
           {%- endif -%}
         </div>
+        {%- endunless -%}
 
         {%- comment -%} ---- Finish, plain rings only ---- {%- endcomment -%}
         {%- if is_plain -%}
@@ -1040,8 +1096,8 @@
         {%- endcapture -%}
 
         {%- if versions_rows contains 'pdx__vrow' -%}
-          <nav class="pdx__versions" aria-label="{{ s.pdx_versions_label | default: 'Other versions of this ring' | escape }}">
-            <p class="pdx__vhead">{{ s.pdx_versions_label | default: 'Other versions of this ring' }}</p>
+          <nav class="pdx__versions" aria-label="{{ s.pdx_versions_label | default: 'Other versions of this ' | append: noun | escape }}">
+            <p class="pdx__vhead">{{ s.pdx_versions_label | default: 'Other versions of this ' | append: noun }}</p>
             {{ versions_rows }}
           </nav>
         {%- endif -%}
@@ -1056,11 +1112,11 @@
         {%- if por -%}
           <div class="por" role="note">
             <p class="por__title">Please contact us for a price</p>
-            <p class="por__text">This ring is made to order and priced individually. Tell us your preferred metal and stone quality and we will reply with a quote.</p>
+            <p class="por__text">This {{ noun }} is made to order and priced individually. Tell us your preferred metal and stone quality and we will reply with a quote.</p>
             <a class="btn btn--block por__btn" href="/pages/contact-us" data-fye-popup="enquire">Contact us for a price</a>
           </div>
         {%- else -%}
-        <button class="btn btn--block pdx__atc" type="submit" name="add" data-fye-atc{% unless current.available %} disabled{% endunless %}>
+        <button class="btn btn--block pdx__atc" type="submit" name="add" data-fye-atc{% unless current.available %} disabled{% endunless %}{% if pick_all %} disabled{% endif %}>
           {%- if current.available -%}
             {{ s.atc_label | default: 'Add to bag' }}
           {%- else -%}
@@ -1070,7 +1126,9 @@
         {%- endif -%}
 
         {%- liquid
-          if is_full_eternity
+          if is_bracelet
+            assign deliv_sub = 'Free insured UK delivery · Handmade to order in the UK'
+          elsif is_full_eternity
             assign deliv_sub = 'Free insured UK delivery · Free ring sizer before you order'
           else
             assign deliv_sub = 'Free insured UK delivery · Free first resize within 12 months'
@@ -1082,11 +1140,18 @@
 
       {%- comment -%} ---- Buy box, part two: reassurance and reference ---- {%- endcomment -%}
       <div class="pdx__buy pdx__buy--b">
-        {%- render 'fye-pdx-engage', product: p, settings: s, context: 'form', noun: 'ring', offer: 'ring', is_plain: is_plain, is_engagement: is_engagement -%}
+        {%- liquid
+          assign offer_kind = 'ring'
+          if is_bracelet
+            assign offer_kind = 'none'
+          endif
+        -%}
+        {%- render 'fye-pdx-engage', product: p, settings: s, context: 'form', noun: noun, offer: offer_kind, is_plain: is_plain, is_engagement: is_engagement -%}
 
+        {%- assign details_heading = noun | capitalize | append: ' details' -%}
         <div class="pdx__accs">
           <details class="pdx__acc" open>
-            <summary class="pdx__accsum">{{ s.pdx_details_heading | default: 'Ring details' }}</summary>
+            <summary class="pdx__accsum">{{ s.pdx_details_heading | default: details_heading }}</summary>
             <div class="pdx__accbody">
               {%- if p.description != blank -%}
                 <div class="pdx__story rte">{{ p.description }}</div>
@@ -1107,10 +1172,10 @@
                     <div><dt>Centre stone</dt><dd>{{ gx.centre_stone_cut }}{% if cw_label != blank %}, {{ cw_label }}ct{% endif %}</dd></div>
                   {%- endif -%}
                   {%- if tdw_label != blank -%}<div><dt>Total diamonds</dt><dd>{{ tdw_label }}ct</dd></div>{%- endif -%}
-                  {%- if metal_opt != nil -%}<div><dt>Metal</dt><dd data-pdx-sum-metal>{{ metal_label }}</dd></div>{%- endif -%}
-                  {%- if quality_opt != nil and hide_quality == false -%}<div><dt>{{ quality_heading }}</dt><dd data-pdx-sum-qual>{{ v_quality }}</dd></div>{%- endif -%}
+                  {%- if metal_opt != nil -%}<div><dt>Metal</dt><dd data-pdx-sum-metal>{{ metal_label | default: 'Not chosen yet' }}</dd></div>{%- endif -%}
+                  {%- if quality_opt != nil and hide_quality == false -%}<div><dt>{{ quality_heading }}</dt><dd data-pdx-sum-qual>{{ v_quality | default: 'Not chosen yet' }}</dd></div>{%- endif -%}
                 {%- endif -%}
-                {%- if current.sku != blank -%}<div><dt>SKU</dt><dd data-fye-sku>{{ current.sku }}</dd></div>{%- endif -%}
+                {%- if current.sku != blank and s.show_sku != false -%}<div><dt>SKU</dt><dd data-fye-sku>{{ current.sku }}</dd></div>{%- endif -%}
               </dl>
             </div>
           </details>
@@ -1120,6 +1185,12 @@
             <div class="pdx__accbody">{{ s.pdx_acc_delivery | default: '<p>Each ring is handmade to order in the UK and delivered free, fully insured.</p><p>As every ring is made to order, and its diamonds and other stones are sourced individually for that piece, returns are not offered, except in the case of a manufacturing defect.</p>' }}</div>
           </details>
 
+          {%- if is_bracelet -%}
+          <details class="pdx__acc">
+            <summary class="pdx__accsum">Length</summary>
+            <div class="pdx__accbody">{{ '<p>The standard length is shown in the details above. Other lengths can be made to order: tell us the length you need when you enquire.</p>' }}</div>
+          </details>
+          {%- else -%}
           <details class="pdx__acc">
             {%- if is_full_eternity -%}
               <summary class="pdx__accsum">Sizing</summary>
@@ -1129,6 +1200,7 @@
               <div class="pdx__accbody">{{ s.pdx_acc_sizing | default: '<p>Order a free ring sizer if you are unsure. Every ring includes a complimentary resize within the first year.</p>' }}</div>
             {%- endif -%}
           </details>
+          {%- endif -%}
 
           <details class="pdx__acc">
             <summary class="pdx__accsum">Hallmarking &amp; ethics</summary>
@@ -1139,5 +1211,5 @@
     </div>
   </div>
 
-  {%- render 'fye-pdx-enquire', product: p, noun: 'ring', price: current.price -%}
+  {%- render 'fye-pdx-enquire', product: p, noun: noun, price: current.price -%}
 </section>

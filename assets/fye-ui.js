@@ -1310,7 +1310,23 @@
      say what is missing instead of being mysteriously dead. `open` means the
      shopper can act on it by pressing the button itself. */
 
+  /* Non-ring pages open with nothing chosen (data-fye-pick-all, Ed
+     09/10/2026): the button waits until every option has a value. */
+  function pickAllNeed(form) {
+    if (!form.querySelector('[data-fye-pick-all]')) return null;
+    var metal = form.querySelector('[data-fye-metal-input]');
+    var qual = form.querySelector('[data-fye-quality]');
+    var noMetal = metal && !metal.value;
+    var noQual = qual && !qual.value;
+    if (noMetal && noQual) return { label: 'Choose metal and diamond quality', block: true };
+    if (noMetal) return { label: 'Choose your metal', block: true };
+    if (noQual) return { label: 'Choose your diamond quality', block: true };
+    return null;
+  }
+
   function requirement(form) {
+    var first = pickAllNeed(form);
+    if (first) return first;
     var centre = centreOf(form);
     var sides = sidesOf(form);
 
@@ -1404,11 +1420,13 @@
     var base = Math.round(v.price * mul);
     var total = base + engraveFee(form) + finishFee(form) + centreAddOn(form) + sidesAddOn(form);
 
+    /* A pick-all page keeps its "From" price until every option is chosen. */
+    var holdFrom = provisional && !!form.querySelector('[data-fye-pick-all]');
     var price = form.querySelector('[data-fye-price]');
-    if (price) price.textContent = money(total);
+    if (price && !holdFrom) price.textContent = money(total);
 
     var sku = document.querySelector('[data-fye-sku]');
-    if (sku && v.sku) sku.textContent = v.sku;
+    if (sku && v.sku && !holdFrom) sku.textContent = v.sku;
 
     var need = requirement(form);
     var out = {
@@ -2114,7 +2132,7 @@
 
     /* Quality fallback — do not strand the buy box on a variant that is not
        made. Live's selectMetal does the same. */
-    if (quality) {
+    if (quality && quality.value) {
       var all = variants(form);
       var made = all.some(function (v) {
         var pt = partsOf(v);
@@ -2182,6 +2200,23 @@
       if (!metalInput) return;
 
       var metal = metalInput.value;
+      /* Pick-all page, nothing chosen yet: choose the colour only and show
+         the carat row, leaving the carat (the actual option) to the shopper. */
+      if (!metal && form.querySelector('[data-fye-pick-all]')) {
+        var gIn = form.querySelector('[data-fye-gold-input]');
+        var colour = goldBtn.getAttribute('data-fye-gold');
+        if (gIn) { gIn.value = colour; gIn.disabled = false; }
+        var kRow = document.querySelector('[data-fye-karatrow]');
+        if (kRow) kRow.hidden = false;
+        document.querySelectorAll('[data-fye-gold]').forEach(function (b) {
+          b.classList.toggle('is-current', b === goldBtn);
+        });
+        document.querySelectorAll('[data-fye-metal-label]').forEach(function (l) {
+          l.textContent = colour + ' Gold';
+        });
+        if (window.FYE && window.FYE.refresh) window.FYE.refresh(goldBtn);
+        return;
+      }
       /* Coming from platinum or palladium, land on the preferred carat. */
       if (!isGold(metal) && wrap) metal = wrap.getAttribute('data-preferred-karat') || metal;
 
@@ -4393,6 +4428,21 @@
     return (kt ? kt + 'ct ' : '') + colour + 'Gold';
   }
 
+  /* Lowest price across the other option, for a pick-all page where one
+     side is still empty: metal given, any quality; or quality given, any
+     metal. null if nothing is made. */
+  function fromPrice(form, metal, quality) {
+    var low = null;
+    variantsOf(form).forEach(function (v) {
+      if (!v.available) return;
+      var bits = String(v.title).split(' / ');
+      if (metal && bits[0] !== metal) return;
+      if (quality && bits[1] !== quality) return;
+      if (low == null || v.price < low) low = v.price;
+    });
+    return low;
+  }
+
   /* Price of the variant with this metal and quality, or null if not made. */
   function priceFor(form, metal, quality) {
     var hasQ = !!form.querySelector('[data-fye-quality]');
@@ -4443,8 +4493,14 @@
     if (metalInput) {
       root.querySelectorAll('[data-pdx-metal-price]').forEach(function (el) {
         var m = el.getAttribute('data-pdx-metal-price');
-        var p = priceFor(form, m, quality);
-        el.textContent = p == null ? 'Not made' : money(p);
+        var p;
+        if (!quality && qualInput) {
+          p = fromPrice(form, m, '');
+          el.textContent = p == null ? 'Not made' : 'From ' + money(p);
+        } else {
+          p = priceFor(form, m, quality);
+          el.textContent = p == null ? 'Not made' : money(p);
+        }
         var tile = el.closest('button');
         if (tile) tile.disabled = p == null && m !== metal;
       });
@@ -4461,6 +4517,12 @@
         tile.setAttribute('aria-checked', on ? 'true' : 'false');
 
         var out = tile.querySelector('[data-pdx-qual-price]');
+        if (!metal && metalInput) {
+          var fp = fromPrice(form, '', q);
+          tile.disabled = fp == null;
+          if (out) out.textContent = fp == null ? 'Not made' : 'From ' + money(fp);
+          return;
+        }
         var p = priceFor(form, metal, q);
         tile.disabled = p == null && !on;
         if (!out) return;

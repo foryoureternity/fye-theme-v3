@@ -23,6 +23,8 @@
         assign cert_title = cert | append: ' certified'
       endif
       assign rows = 'shipping|Free insured delivery|Fully tracked across the UK~doc|' | append: cert_title | append: '|Certificate supplied~ethical|Responsibly sourced|Traceable origin~ring|Set it with us|Handmade settings in the UK'
+    when 'bracelet'
+      assign rows = "shipping|Free insured delivery|Fully tracked across the UK~info|Lengths to order|Tell us the length you need~hand|Handmade to order|Crafted for you in the UK~certificate|UK hallmarked|With certificate of authenticity"
     when 'full-eternity'
       assign rows = "shipping|Free insured delivery|Fully tracked across the UK~refresh|Free ring sizer|Size carefully: full eternity rings cannot be resized~hand|Handmade to order|Crafted for you in the UK~certificate|UK hallmarked|With certificate of authenticity"
     else

@@ -76,7 +76,9 @@
   endif
   assign wa = wa | remove: '+'
 
-  if noun == 'ring'
+  if noun == 'bracelet'
+    assign talk_copy = s.pdx_talk_copy | default: "Book a consultation in person in London or online. We'll help you choose the metal, the diamonds and the length, and answer any questions before you commit."
+  elsif noun == 'ring'
     assign talk_copy = s.pdx_talk_copy | default: "Book a consultation in person in London or online. We'll help you choose the metal, the diamond and the size, and answer any questions before you commit."
   else
     assign talk_copy = s.pdx_talk_copy | default: "Book a consultation in person in London or online. We'll help you compare stones and choose the right setting."
@@ -90,7 +92,9 @@
   if pct == 0
     assign show_offer = false
   endif
-  if offer == 'stone'
+  if offer == 'none'
+    assign show_offer = false
+  elsif offer == 'stone'
     assign offer_title = 'Want this ' | append: noun | append: ' set in a ring?'
     assign offer_line = 'Choose a handmade setting that suits a ' | append: stone_words | append: ' ' | append: noun | append: '.'
     assign offer_cta = 'Browse settings'

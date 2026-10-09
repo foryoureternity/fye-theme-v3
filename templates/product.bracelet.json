@@ -12,7 +12,10 @@
         "enquire_link": "",
         "reassurance": "Handmade to order in the UK. Free, tracked and insured UK delivery.",
         "carat_scale": "Diamond weight",
-        "engraving": false
+        "engraving": false,
+        "pdx_noun": "bracelet",
+        "pdx_acc_delivery": "<p>Each bracelet is handmade to order in the UK and delivered free, fully insured.</p><p>As every bracelet is made to order, and its diamonds and other stones are sourced individually for that piece, returns are not offered, except in the case of a manufacturing defect.</p>",
+        "pdx_acc_ethics": "<p>Every bracelet is independently hallmarked and supplied with a certificate of authenticity. Ethically sourced, independently certified, fairly priced.</p>"
       }
     },
     "related": {
@@ -38,7 +41,3 @@
     "related"
   ]
 }
-
-
-
-

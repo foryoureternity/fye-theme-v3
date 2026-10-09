@@ -3939,3 +3939,33 @@ Ship: `./tools/fye ship "ALL: shop chooser, add-on page, no price sort on all"`.
   The 9 add-ons now carry templateSuffix `addon`; engraving add-to-basket and
   the trilogy side-diamond panel re-tested live, fine.
 Ship: `./tools/fye ship "Shop chooser: two across on phones, spacing"`.
+
+## 09/10/2026 (evening): shop chooser v2, to the Claude Design handoff
+- sections/fye-shop-chooser.liquid rebuilt to design_handoff_shop_chooser
+  (v2, frame 2b). Block types now `category` (max 6, key/title/note/image/
+  collection/question/see_all_label) and `sub_option` (parent_key/title/note/
+  collection). Replaces product_type / ring_type; collection.json rewritten in
+  the same release. Supersedes the 140px/spacing follow-up above, which never
+  shipped.
+- Columns follow the live category count (data-count): one row of up to six
+  at 900+, 3 / 4 / 3+2 / 3+3 at 560-899, 3 / 2x2 / 3+2 / 3+3 under 560.
+  Selected tile fills teal with ivory type; panel is ivory, one per category,
+  hidden until opened; phones get a list, not tiles. Hover is colour and
+  border only (the old arrow nudge is gone).
+- Departures from the handoff: type sizes snap to fye-core tokens; soft text
+  is --ink-soft 0.72 (the handoff's 0.62 is about 3.9:1 on white); rhythm via
+  --sect-y.
+- assets/fye-ui.js: new SHOP CHOOSER block (data-fye-pick / data-fye-pick-close).
+  Toggles stay real links without JS; upgraded to role=button; Space and
+  Escape handled; opacity fade only; phone scroll under any sticky header.
+- sections/main-collection.liquid: `id="grid"` on the listing for the
+  "Or browse all jewellery" anchor, plus a small scroll-margin.
+- New smart collection `rings` (gid 707591700864): all ring product types.
+  NOT yet published to the Online Store (Claude was refused). Until it is, the
+  Rings tile links to its first sub-option without JS and has no See all link.
+- Bracelets, Necklaces, Earrings and Signet render once their collections
+  exist, hold products and are picked in the theme editor.
+- v2 went live inside the 16:51 bracelets ship (git add -A) and was verified
+  live: 3 tiles, two panels, swap, close, focus return, phone list and scroll.
+  Follow-up: tile and sub-option titles capped at 18px / 17px.
+Ship: `./tools/fye ship "Shop chooser: cap tile title sizes"`.

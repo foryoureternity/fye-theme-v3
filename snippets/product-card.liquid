@@ -78,6 +78,12 @@
     endif
   endif
 
+  comment
+    09/10/2026: what GA4's select_item needs when this card is clicked, read
+    by fye-ui.js (GOOGLE SENDS FROM THE PAGE). Price in pounds, not pence.
+  endcomment
+  assign ga_price = product.price | divided_by: 100.0
+
   assign price_lead = ''
   if prefix_mode == 'setting'
     assign price_lead = 'Setting from '
@@ -87,7 +93,7 @@
 -%}
 
 <div class="pcard">
-  <a class="pcard__link" href="{{ product.url }}">
+  <a class="pcard__link" href="{{ product.url }}" data-fye-item="{{ product.id }}" data-fye-item-name="{{ product.title | escape }}" data-fye-item-price="{{ ga_price }}">
     <span class="pcard__media">
       {%- if product.featured_image != blank -%}
         {{ product.featured_image | image_url: width: 900 | image_tag:

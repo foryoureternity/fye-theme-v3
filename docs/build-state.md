@@ -3889,3 +3889,19 @@ Ship: `./tools/fye ship "Shape filter icons for Emerald and Round; guides page c
 - Tested: FYE.ga on the live product page sent contact_click with the page's own cid
   and real page_location (tt=internal, filtered); callback in 14ms. node --check passes.
 Ship: `./tools/fye ship "Google tracking from the page, not the pixel"`.
+
+## 09/10/2026: select_item restored (GA4 audit, problem 6)
+- v2 sent select_item from theme code; v3 never did, so GA4 saw view_item_list
+  (Google & YouTube app) but not which product was opened from a list.
+- snippets/product-card.liquid: the card link carries data-fye-item (product id),
+  data-fye-item-name and data-fye-item-price (pounds), computed in the liquid block.
+- assets/fye-ui.js, GOOGLE SENDS FROM THE PAGE: delegated click on product links.
+  Cards anywhere (collections, search, featured rows, related products), plus any
+  product link on /collections, /search and the xCloud /a/search pages, whose
+  markup is the app's (item_id falls back to the handle there). item_list_name
+  is the page h1 on list pages, else the nearest data-screen-label, else the
+  page title; index is the card's
+  position. No navigation delay: gtag sends with keepalive.
+- Shipped on its own with a targeted commit, because the bracelet work
+  (main-product ask_ring_size, fye-buybox-eternity, product.bracelet.json) was
+  uncommitted in the working tree at the time and is not part of this change.

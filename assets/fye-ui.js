@@ -4101,6 +4101,48 @@
     return null;
   };
 
+  /* ── select_item: a product clicked from a list ───────────────────────────
+     The old theme sent this from its own code and v3 never did, so from the
+     rebuild GA4 knew a collection was viewed (view_item_list, from the
+     Google & YouTube app) but not which product was then opened from it.
+     Covers product cards (snippets/product-card.liquid carries
+     data-fye-item*) and any other product link on a collection, search or
+     filter page, including the xCloud /a/search pages whose markup is the
+     app's. The page then unloads; gtag sends with keepalive, so no delay. */
+  document.addEventListener('click', function (e) {
+    if (!e.target || !e.target.closest || e.button !== 0) return;
+    var a = e.target.closest('a[href*="/products/"]');
+    if (!a) return;
+    var path = window.location.pathname;
+    var onList = /^\/(collections|search|a\/search)(\/|$)/.test(path);
+    if (!a.hasAttribute('data-fye-item') && !onList) return;
+    if (/^\/products\//.test(path) && !a.hasAttribute('data-fye-item')) return;
+
+    var handle = (a.pathname.split('/products/')[1] || '').split('/')[0];
+    var item = {
+      item_id: a.getAttribute('data-fye-item') || handle,
+      item_name: a.getAttribute('data-fye-item-name') || a.getAttribute('title') ||
+        (a.textContent || '').replace(/\s+/g, ' ').split('\u00a3')[0].trim().slice(0, 100) || handle
+    };
+    var price = parseFloat(a.getAttribute('data-fye-item-price'));
+    if (price > 0) item.price = price;
+
+    /* On a list page the list IS the page, so name it by its heading
+       ("Engagement Rings"), not the section's generic label ("Collection").
+       Elsewhere (a featured row, related products) the section label says
+       which list it was. */
+    var h1 = document.querySelector('h1');
+    var sect = a.closest('[data-screen-label]');
+    var listName = (onList && h1 && h1.textContent.replace(/\s+/g, ' ').trim()) ||
+      (sect && sect.getAttribute('data-screen-label')) ||
+      document.title.split('|')[0].trim();
+    item.item_list_name = listName;
+    var cards = document.querySelectorAll('a[data-fye-item]');
+    for (var i = 0; i < cards.length; i++) { if (cards[i] === a) { item.index = i; break; } }
+
+    window.FYE.ga('select_item', { item_list_name: listName, items: [item] });
+  }, true);
+
   /* ── Form enquiries ────────────────────────────────────────────────────
      A Shopify contact form posts and the page reloads with
      ?contact_posted=true#<form id>. On submit we note which form it was (and

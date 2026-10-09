@@ -1424,6 +1424,18 @@
     var holdFrom = provisional && !!form.querySelector('[data-fye-pick-all]');
     var price = form.querySelector('[data-fye-price]');
     if (price && !holdFrom) price.textContent = money(total);
+    if (price && holdFrom) {
+      /* Narrow the "From" to whatever has been chosen so far. */
+      var picked = Array.prototype.map.call(form.querySelectorAll('[data-fye-option]'), function (o) { return o.value; });
+      var low = null;
+      (variantsOf(form) || []).forEach(function (x) {
+        if (!x.available) return;
+        var bits = String(x.title).split(' / ');
+        for (var i = 0; i < picked.length; i++) { if (picked[i] && bits[i] !== picked[i]) return; }
+        if (low == null || x.price < low) low = x.price;
+      });
+      if (low != null) price.textContent = 'From ' + money(low);
+    }
 
     var sku = document.querySelector('[data-fye-sku]');
     if (sku && v.sku && !holdFrom) sku.textContent = v.sku;
@@ -4462,6 +4474,7 @@
     var qualInput = form.querySelector('[data-fye-quality]');
     var metal = metalInput ? metalInput.value : '';
     var quality = qualInput ? qualInput.value : '';
+    var nonRing = root.hasAttribute('data-pdx-nonring');
 
     /* The button: its default label, then the total. requirement() owns the
        words while something is outstanding, so they are left alone. */
@@ -4497,6 +4510,18 @@
         if (!quality && qualInput) {
           p = fromPrice(form, m, '');
           el.textContent = p == null ? 'Not made' : 'From ' + money(p);
+        } else if (nonRing && metal && /gold/i.test(metal)) {
+          /* Non-rings (Ed 09/10/2026): carats read like the quality tiles,
+             "Selected" on the chosen one, the difference on the others. */
+          p = priceFor(form, m, quality);
+          var cur = priceFor(form, metal, quality);
+          if (m === metal) el.textContent = 'Selected';
+          else if (p == null) el.textContent = 'Not made';
+          else if (cur == null) el.textContent = money(p);
+          else {
+            var dm = p - cur;
+            el.textContent = dm === 0 ? 'Same price' : (dm > 0 ? '+' : '−') + money(Math.abs(dm));
+          }
         } else {
           p = priceFor(form, m, quality);
           el.textContent = p == null ? 'Not made' : money(p);
@@ -4526,7 +4551,7 @@
         var p = priceFor(form, metal, q);
         tile.disabled = p == null && !on;
         if (!out) return;
-        if (on) { out.textContent = 'Included'; return; }
+        if (on) { out.textContent = nonRing ? 'Selected' : 'Included'; return; }
         if (p == null) { out.textContent = 'Not made in this metal'; return; }
         if (now == null) { out.textContent = money(p); return; }
         var diff = p - now;

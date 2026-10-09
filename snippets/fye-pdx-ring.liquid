@@ -507,7 +507,7 @@
   endif
 -%}
 <section class="band band--white band--lead pdx pdx--ring" data-screen-label="Product" data-fye-pdx
-         data-noun="{{ noun }}"
+         data-noun="{{ noun }}"{% if is_bracelet %} data-pdx-nonring{% endif %}
          data-offer-pct="{{ s.pdx_offer_pct | default: 10 }}">
   <div class="wrap">
 

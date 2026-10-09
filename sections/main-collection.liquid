@@ -130,6 +130,14 @@
   endif
 -%}
 
+{%- if collection.handle contains 'bracelet' or collection.handle == 'bangles-and-cuffs' -%}
+  {%- comment -%}
+    XCloud has ONE global filter list and shows whichever filters have values
+    in the collection. Every bracelet is a diamond piece, so Stone type is a
+    single-value filter here and is hidden (Ed, 09/10/2026).
+  {%- endcomment -%}
+  <style>.cloud-search-filter[data-filter-name="Stone type"]{display:none !important}</style>
+{%- endif -%}
 {%- paginate collection.products by per_page -%}
 {%- liquid
   assign first_index = paginate.current_offset | plus: 1

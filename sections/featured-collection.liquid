@@ -60,6 +60,7 @@
     {%- if src.products.size > 0 -%}
       <ul class="pgrid" style="--pcols: {{ cols }}; --pcols-mb: {{ cols_mb }};">
         {%- for product in src.products limit: lim -%}
+          {%- if product.tags contains 'fye-addon' -%}{%- continue -%}{%- endif -%}
           <li>
             {%- render 'product-card', product: product, loading: 'lazy' -%}
           </li>

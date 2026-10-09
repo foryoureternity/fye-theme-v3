@@ -135,6 +135,17 @@
   assign threshold = s.surcharge_size | default: 'Q'
 
   comment
+    Bracelets, bangles and cuffs (product.bracelet.json, 09/10/2026) turn
+    `ask_ring_size` off. An empty list removes the whole ring size field,
+    and with it the _size_surcharge input, so the oversize ring surcharge
+    can never reach a bracelet line. The setting defaults to true, so every
+    ring template is unchanged.
+  endcomment
+  if s.ask_ring_size == false
+    assign sizes = '' | split: ','
+  endif
+
+  comment
     The carat to land on when someone picks a gold colour from platinum.
     The FIRST gold in Shopify's own option order, which on this catalogue is
     14ct — the middle of the three, and a fair place to land. Deliberately

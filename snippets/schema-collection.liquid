@@ -44,6 +44,20 @@
     assign offset = paginate.current_offset
   endif
   assign coll_desc = c.description | strip_html | strip_newlines | strip | truncate: 300
+
+  comment
+    fye-addon products are skipped in the grid (main-collection), so they are
+    skipped here too: the ItemList must describe what the page shows.
+  endcomment
+  assign listed = 0
+  for item in items
+    unless item.tags contains 'fye-addon'
+      assign listed = listed | plus: 1
+    endunless
+  endfor
+  if listed == 0
+    assign skip = true
+  endif
 -%}
 {%- unless skip -%}
 <script type="application/ld+json">
@@ -59,16 +73,20 @@
   "isPartOf": { "@id": {{ shop.url | append: '/#business' | json }} },
   "mainEntity": {
     "@type": "ItemList",
-    "numberOfItems": {{ items.size }},
+    "numberOfItems": {{ listed }},
     "itemListOrder": "https://schema.org/ItemListOrderAscending",
     "itemListElement": [
+      {%- assign pos = 0 -%}
       {%- for item in items -%}
+      {%- if item.tags contains 'fye-addon' -%}{%- continue -%}{%- endif -%}
+      {%- if pos > 0 %},{% endif -%}
+      {%- assign pos = pos | plus: 1 -%}
       {
         "@type": "ListItem",
-        "position": {{ offset | plus: forloop.index }},
+        "position": {{ offset | plus: pos }},
         "url": {{ item.url | prepend: shop.url | json }},
         "name": {{ item.title | json }}
-      }{% unless forloop.last %},{% endunless %}
+      }
       {%- endfor -%}
     ]
   }

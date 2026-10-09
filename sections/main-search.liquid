@@ -74,7 +74,9 @@
           assign product_count = 0
           for item in search.results
             if item.object_type == 'product'
-              assign product_count = product_count | plus: 1
+              unless item.tags contains 'fye-addon'
+                assign product_count = product_count | plus: 1
+              endunless
             endif
           endfor
           assign reading_count = paginate.page_size | minus: product_count
@@ -94,6 +96,7 @@
           <ul class="srch__grid" style="--cols: {{ cols }}; --cols-mb: {{ cols_mb }};">
             {%- for item in search.results -%}
               {%- if item.object_type != 'product' -%}{% continue %}{%- endif -%}
+              {%- if item.tags contains 'fye-addon' -%}{% continue %}{%- endif -%}
               <li>
                 {%- render 'product-card',
                       product: item,

@@ -478,7 +478,7 @@
         </p>
 
         <div class="pdp__meta">
-          {%- if current.sku != blank -%}
+          {%- if current.sku != blank and s.show_sku != false -%}
             <p class="pdp__metarow"><span class="pdp__metakey">SKU</span> <span data-fye-sku>{{ current.sku }}</span></p>
           {%- endif -%}
           {%- if p.collections.size > 0 -%}
@@ -2457,6 +2457,8 @@
     { "type": "text", "id": "atc_label", "label": "Add to bag label", "default": "Add to bag" },
     { "type": "text", "id": "mto_label", "label": "Unavailable label", "default": "Made to order — enquire" },
     { "type": "url", "id": "size_guide_url", "label": "Ring size guide" },
+    { "type": "checkbox", "id": "show_sku", "label": "Show SKU", "default": true, "info": "Off for bracelets, whose SKUs are supplier codes (09/10/2026)." },
+    { "type": "checkbox", "id": "ask_ring_size", "label": "Ask for ring size", "default": true, "info": "Off for bracelets, bangles and cuffs. Also switches off the oversize ring surcharge, which only rides on the ring size." },
     { "type": "text", "id": "enquire_label", "label": "Secondary button label", "default": "Contact us about this ring" },
     { "type": "url", "id": "enquire_link", "label": "Secondary button link" },
     {

@@ -124,6 +124,9 @@
         if found >= s.count
           break
         endif
+        if item.tags contains 'fye-addon'
+          continue
+        endif
         unless item.handle == p.handle or item.available == false
           assign picks = picks | append: item.handle | append: ','
           assign found = found | plus: 1
@@ -167,6 +170,7 @@
       <div class="rel__grid">
         {%- for handle in handles -%}
           {%- assign item = all_products[handle] -%}
+          {%- if item != blank and item.tags contains 'fye-addon' -%}{%- continue -%}{%- endif -%}
           {%- if item != blank -%}
             {%- render 'product-card',
                   product: item,

@@ -41,23 +41,40 @@
   assign qty_down = item.quantity | minus: 1
   assign qty_up = item.quantity | plus: 1
   assign remove_url = routes.cart_change_url | append: '?line=' | append: line | append: '&quantity=0'
+
+  comment
+    An add-on (engraving, surcharge, side diamonds, a setting fee) has no
+    page worth visiting, so its line names it without linking. Ed, 09/10/2026.
+  endcomment
+  assign is_addon = false
+  if item.product.tags contains 'fye-addon'
+    assign is_addon = true
+  endif
 -%}
 
 <div class="cart__line">
-  <a class="cart__media" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
+  {%- if is_addon -%}
+    <span class="cart__media" aria-hidden="true">
+  {%- else -%}
+    <a class="cart__media" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
+  {%- endif -%}
     {%- if item.image -%}
       {{ item.image | image_url: width: 200 | image_tag: loading: 'lazy', widths: '100, 200', class: 'cart__img', alt: '' }}
     {%- else -%}
       <span class="cart__img cart__img--ph"></span>
     {%- endif -%}
-  </a>
+  {%- if is_addon -%}</span>{%- else -%}</a>{%- endif -%}
 
   <div class="cart__body">
     {%- if label != blank -%}
       <p class="cart__role">{{ label }}</p>
     {%- endif -%}
 
-    <a class="cart__name" href="{{ item.url }}">{{ item.product.title }}</a>
+    {%- if is_addon -%}
+      <p class="cart__name">{{ item.product.title }}</p>
+    {%- else -%}
+      <a class="cart__name" href="{{ item.url }}">{{ item.product.title }}</a>
+    {%- endif -%}
 
     {%- unless item.variant.title contains 'Default' -%}
       <p class="cart__variant">{{ item.variant.title }}</p>

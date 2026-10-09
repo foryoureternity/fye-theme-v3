@@ -211,6 +211,15 @@
         {%- if collection.products.size > 0 -%}
           <ul class="pgrid coll__grid" style="--pcols: {{ cols }}; --pcols-mb: {{ cols_mb }};">
             {%- for product in collection.products -%}
+              {%- comment -%}
+                fye-addon: fees and add-ons (engraving, surcharge, side
+                diamonds, setting fees). They must stay published to the
+                Online Store or the ring page cannot add them to the basket,
+                so they are kept out of every listing here instead. Ed,
+                09/10/2026. Keyed to a tag, not seo.hidden: all 13,196 loose
+                gemstones carry seo.hidden as well.
+              {%- endcomment -%}
+              {%- if product.tags contains 'fye-addon' -%}{%- continue -%}{%- endif -%}
               {%- if tile_on and forloop.index == tile_at -%}
                 <li class="coll__tile">
                   <div class="coll__tileinner">

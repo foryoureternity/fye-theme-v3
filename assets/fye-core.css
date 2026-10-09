@@ -1753,3 +1753,8 @@ a.visually-hidden:focus-visible {
 .fye .por { border: 1px solid var(--line, #d9d4cc); padding: 1.25rem; margin: 1rem 0; text-align: center; }
 .fye .por__title { font-size: 1.15em; margin: 0 0 .5rem; }
 .fye .por__text { margin: 0 0 1rem; color: var(--ink-soft); }
+
+/* Non-ring pages (bracelets, Ed 09/10/2026): supplier photographs are not
+   square (Artisan's are 577x432), so cover cropped and enlarged them. Show
+   the whole photograph on the white stage instead. */
+.fye .pdx[data-pdx-nonring] .pdx__img { object-fit: contain; background: var(--white); }

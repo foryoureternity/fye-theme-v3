@@ -70,112 +70,124 @@
         "fye_tile_link": "",
         "fye_tile_position": 4
       }
+    },
+    "fye_shop_chooser": {
+      "type": "fye-shop-chooser",
+      "blocks": {
+        "pt_rings": {
+          "type": "product_type",
+          "settings": {
+            "label": "Rings",
+            "note": "Engagement, wedding and eternity",
+            "opens_rings": true
+          }
+        },
+        "pt_bracelets": {
+          "type": "product_type",
+          "settings": {
+            "label": "Bracelets",
+            "opens_rings": false
+          }
+        },
+        "pt_necklaces": {
+          "type": "product_type",
+          "settings": {
+            "label": "Necklaces",
+            "opens_rings": false
+          }
+        },
+        "pt_earrings": {
+          "type": "product_type",
+          "settings": {
+            "label": "Earrings",
+            "opens_rings": false
+          }
+        },
+        "pt_gemstones": {
+          "type": "product_type",
+          "settings": {
+            "label": "Gemstones",
+            "note": "Loose sapphires, rubies, emeralds and more",
+            "collection": "gemstones",
+            "opens_rings": false
+          }
+        },
+        "pt_diamonds": {
+          "type": "product_type",
+          "settings": {
+            "label": "Diamonds",
+            "note": "Loose natural and lab-grown",
+            "collection": "loose-diamonds",
+            "opens_rings": false
+          }
+        },
+        "rt_engagement": {
+          "type": "ring_type",
+          "settings": {
+            "label": "Engagement rings",
+            "note": "Solitaire, halo, trilogy and more",
+            "collection": "engagement-rings"
+          }
+        },
+        "rt_plain": {
+          "type": "ring_type",
+          "settings": {
+            "label": "Plain wedding rings",
+            "note": "Bands in every metal and profile",
+            "collection": "plain-wedding-rings"
+          }
+        },
+        "rt_set_wedding": {
+          "type": "ring_type",
+          "settings": {
+            "label": "Diamond and gemstone wedding rings",
+            "note": "Set bands to wear beside an engagement ring",
+            "collection": "diamond-wedding-rings"
+          }
+        },
+        "rt_eternity": {
+          "type": "ring_type",
+          "settings": {
+            "label": "Eternity rings",
+            "note": "Half and full eternity",
+            "collection": "eternity-rings"
+          }
+        },
+        "rt_signet": {
+          "type": "ring_type",
+          "settings": {
+            "label": "Signet rings"
+          }
+        }
+      },
+      "block_order": [
+        "pt_rings",
+        "pt_bracelets",
+        "pt_necklaces",
+        "pt_earrings",
+        "pt_gemstones",
+        "pt_diamonds",
+        "rt_engagement",
+        "rt_plain",
+        "rt_set_wedding",
+        "rt_eternity",
+        "rt_signet"
+      ],
+      "settings": {
+        "show_on": "all",
+        "eyebrow": "Start here",
+        "heading": "What are you looking for?",
+        "intro": "",
+        "ring_heading": "Which kind of ring?",
+        "browse_note": "Or browse everything below.",
+        "band": "white"
+      }
     }
   },
   "order": [
     "fye_collection_intro",
+    "fye_shop_chooser",
     "main",
     "fye_collection_guide"
   ]
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

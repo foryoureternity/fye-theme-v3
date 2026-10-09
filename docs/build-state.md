@@ -3905,3 +3905,30 @@ Ship: `./tools/fye ship "Google tracking from the page, not the pixel"`.
 - Shipped on its own with a targeted commit, because the bracelet work
   (main-product ask_ring_size, fye-buybox-eternity, product.bracelet.json) was
   uncommitted in the working tree at the time and is not part of this change.
+
+## 09/10/2026: add-ons never listed, ALL asks first (T354)
+- Rule: a product tagged `fye-addon` is never listed as a product. The 9 add-ons
+  (engraving, custom finish, oversize surcharge, 4 trilogy side-diamond sets,
+  2 setting fees) carry it, and seo.hidden = 1. They stay published to the
+  Online Store because the ring pages add them to the basket by variant id.
+  NOT keyed to seo.hidden: all 13,196 loose gemstones carry seo.hidden too.
+- Skipped in: main-collection grid, featured-collection, fye-related-products
+  (fallback and curated), main-search (grid and count), schema-collection
+  (ItemList count, positions and commas). cart-line: add-on lines name the
+  item without linking to it. These six edits went out inside the 14:01
+  "Bracelets" ship (git add -A) and were verified live after it.
+- templates/product.addon.json + sections/fye-addon-notice.liquid: the page an
+  add-on URL shows. No buy box. Assign templateSuffix `addon` to the 9 only
+  after this ships.
+- sections/fye-shop-chooser.liquid, in collection.json between intro and main,
+  renders only where collection.handle == show_on (default `all`). Step 1
+  product type, step 2 ring type (data-fye-toggle). Options whose collection is
+  unset or empty are hidden on the live site (Bracelets, Necklaces, Earrings,
+  Signet on 09/10). While it renders, the xCloud rail is hidden and the grid
+  goes full width (:has rule in its stylesheet).
+- fye-collection-intro: on `all` the title is the new `all_title` setting
+  (default "All jewellery") and the count is hidden (Shopify printed 25001).
+- main-collection: Shopify throws "internal" when price-sorting
+  /collections/all, so price options are dropped there and a price URL gets a
+  sentence instead of an error.
+Ship: `./tools/fye ship "ALL: shop chooser, add-on page, no price sort on all"`.

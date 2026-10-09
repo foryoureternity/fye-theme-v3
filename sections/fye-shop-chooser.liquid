@@ -1,0 +1,315 @@
+{%- comment -%}
+  fye-shop-chooser — "What are you looking for?", asked before the products
+  on /collections/all. 1 use: templates/collection.json. That template is
+  shared by every collection, so the section renders only on the collection
+  whose handle matches the `show_on` setting (default `all`) and is silent on
+  every other collection page.
+
+  WHY IT EXISTS (Ed, 09/10/2026, T354). ALL holds every product on the site:
+  about 33,500 loose stones and 5,900 rings. The xCloud filter rail is one
+  global list, so on ALL it shows every facet at once (21 on 09/10/2026:
+  diamond, gemstone, engagement, eternity and plain-band facets mixed). No
+  rail can serve all of that. So ALL asks what the shopper wants first, then
+  sends them to the collection whose rail is built for that family, where the
+  filters are the right ones. The full grid stays below for anyone who just
+  scrolls.
+
+  HOW IT WORKS
+  - Step 1 is the `product_type` blocks. One with "Opens the ring
+    question" ticked does not navigate: it reveals step 2 (the `ring_type` blocks)
+    in place through the generic data-fye-toggle disclosure in fye-ui.js.
+    Without JavaScript it is an ordinary link to the first live ring option,
+    so it still goes somewhere sensible (conventions §6, a trigger keeps its
+    href).
+  - An option whose collection is unset or has no products is NOT shown on
+    the live site. On 09/10/2026 that is Bracelets, Necklaces, Earrings and
+    Signet rings. Each appears by itself once its collection is picked in the
+    theme editor and holds products, so no shopper is sent to an empty page.
+    In the theme editor every option shows, with empty ones marked, so they
+    can be set up.
+  - While this section is on the page, main-collection's filter rail is
+    hidden and the grid runs full width (the :has() rule at the foot of the
+    stylesheet). That rule is the one deliberate third selector part in this
+    file: keying it to the chooser's presence means switching the chooser
+    off brings the rail straight back, with no second setting to keep in
+    step.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'white'
+  assign show_on = s.show_on | default: 'all'
+
+  assign show = false
+  if collection.handle == show_on
+    assign show = true
+  endif
+
+  assign panel_id = 'pick-rings-' | append: section.id
+
+  comment
+    Live ring options decide two things: whether the ring question is worth
+    opening at all, and where the "Rings" card goes without JavaScript.
+  endcomment
+  assign ring_live = 0
+  assign ring_href = ''
+  for block in section.blocks
+    if block.type == 'ring_type'
+      assign rc = block.settings.collection
+      if rc != blank and rc.products_count > 0
+        assign ring_live = ring_live | plus: 1
+        if ring_href == blank
+          assign ring_href = rc.url
+        endif
+      endif
+    endif
+  endfor
+
+  assign step_open = ''
+  if request.design_mode
+    assign step_open = ' is-open'
+  endif
+-%}
+
+{%- if show -%}
+<section class="pick band band--{{ band }}" data-screen-label="Shop chooser">
+  <div class="wrap">
+
+    <div class="sect-head">
+      {%- if s.eyebrow != blank -%}
+        <p class="eyebrow">{{ s.eyebrow }}</p>
+      {%- endif -%}
+      <h2 class="heading-flank">{{ s.heading | default: 'What are you looking for?' }}</h2>
+      {%- if s.intro != blank -%}
+        <p class="lead pick__intro">{{ s.intro }}</p>
+      {%- endif -%}
+    </div>
+
+    <ul class="pick__grid" role="list">
+      {%- for block in section.blocks -%}
+        {%- if block.type != 'product_type' -%}{%- continue -%}{%- endif -%}
+        {%- liquid
+          assign b = block.settings
+          assign c = b.collection
+          assign live = false
+          assign href = ''
+          if c != blank and c.products_count > 0
+            assign live = true
+            assign href = c.url
+          endif
+          assign opens = false
+          if b.opens_rings and ring_live > 0
+            assign opens = true
+            assign live = true
+            assign href = ring_href
+          endif
+          assign label = b.label | default: c.title
+        -%}
+        {%- unless live or request.design_mode -%}{%- continue -%}{%- endunless -%}
+        <li class="pick__item" {{ block.shopify_attributes }}>
+          <a class="pick__card{% unless live %} is-empty{% endunless %}"
+             href="{{ href | default: '#' }}"
+             {%- if opens %} data-fye-toggle="{{ panel_id }}" aria-controls="{{ panel_id }}" aria-expanded="{% if request.design_mode %}true{% else %}false{% endif %}"{% endif %}>
+            {%- if b.image != blank -%}
+              {{ b.image | image_url: width: 600 | image_tag: loading: 'lazy', widths: '300, 450, 600', sizes: '(max-width: 560px) 50vw, 20vw', class: 'pick__img', alt: '' }}
+            {%- endif -%}
+            <span class="pick__label">{{ label }}</span>
+            {%- if b.note != blank -%}
+              <span class="pick__note">{{ b.note }}</span>
+            {%- endif -%}
+            {%- if opens -%}
+              {%- render 'icon', name: 'chevron-down', size: 14, class: 'pick__icon pick__icon--open' -%}
+            {%- else -%}
+              {%- render 'icon', name: 'arrow-right', size: 14, class: 'pick__icon' -%}
+            {%- endif -%}
+            {%- unless live -%}
+              <span class="pick__flag">Hidden on the live site until its collection has products</span>
+            {%- endunless -%}
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+
+    {%- if ring_live > 0 or request.design_mode -%}
+      <div class="pick__step{{ step_open }}" id="{{ panel_id }}">
+        <p class="pick__q">{{ s.ring_heading | default: 'Which kind of ring?' }}</p>
+        <ul class="pick__grid" role="list">
+          {%- for block in section.blocks -%}
+            {%- if block.type != 'ring_type' -%}{%- continue -%}{%- endif -%}
+            {%- liquid
+              assign b = block.settings
+              assign c = b.collection
+              assign live = false
+              if c != blank and c.products_count > 0
+                assign live = true
+              endif
+              assign label = b.label | default: c.title
+            -%}
+            {%- unless live or request.design_mode -%}{%- continue -%}{%- endunless -%}
+            <li class="pick__item" {{ block.shopify_attributes }}>
+              <a class="pick__card{% unless live %} is-empty{% endunless %}" href="{% if live %}{{ c.url }}{% else %}#{% endif %}">
+                {%- if b.image != blank -%}
+                  {{ b.image | image_url: width: 600 | image_tag: loading: 'lazy', widths: '300, 450, 600', sizes: '(max-width: 560px) 50vw, 20vw', class: 'pick__img', alt: '' }}
+                {%- endif -%}
+                <span class="pick__label">{{ label }}</span>
+                {%- if b.note != blank -%}
+                  <span class="pick__note">{{ b.note }}</span>
+                {%- endif -%}
+                {%- render 'icon', name: 'arrow-right', size: 14, class: 'pick__icon' -%}
+                {%- unless live -%}
+                  <span class="pick__flag">Hidden on the live site until its collection has products</span>
+                {%- endunless -%}
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- endif -%}
+
+    {%- if s.browse_note != blank -%}
+      <p class="fine pick__browse">{{ s.browse_note }}</p>
+    {%- endif -%}
+
+  </div>
+</section>
+{%- endif -%}
+
+{% stylesheet %}
+.fye .pick__intro { margin-inline: auto; max-width: 60ch; }
+
+/* auto-fit rather than the three breakpoints: the number of live options
+   changes as collections gain products (three on 09/10/2026, up to six), and
+   the row should stay full whatever the count. 160px keeps two across on a
+   375px phone. */
+.fye .pick__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--s4);
+}
+
+.fye .pick__item { margin: 0; min-width: 0; }
+
+.fye .pick__card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s2);
+  height: 100%;
+  min-height: var(--s12);
+  padding: var(--s5);
+  border: var(--hairline);
+  transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.fye .pick__card:hover { border-color: var(--sage); color: var(--sage); }
+.fye .pick__card[aria-expanded="true"] { border-color: var(--ink); }
+.fye .pick__card.is-empty { border-style: dashed; }
+
+.fye .pick__img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+
+.fye .pick__label {
+  font-family: var(--font-display);
+  font-size: var(--fs-body);
+  letter-spacing: 0.07em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+.fye .pick__note { font-size: var(--fs-small); line-height: 1.5; color: var(--ink-soft); }
+.fye .pick__card:hover .pick__note { color: inherit; }
+
+.fye .pick__icon { margin-top: auto; flex: none; transition: transform var(--dur) var(--ease); }
+.fye .pick__card:hover .pick__icon { transform: translateX(3px); }
+.fye .pick__card:hover .pick__icon--open { transform: translateY(2px); }
+.fye .pick__card[aria-expanded="true"] .pick__icon--open { transform: rotate(180deg); }
+
+.fye .pick__flag { font-size: var(--fs-fine); line-height: 1.4; }
+
+.fye .pick__step { display: none; margin-top: var(--s8); }
+.fye .pick__step.is-open { display: block; }
+
+.fye .pick__q {
+  margin: 0 0 var(--s5);
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  letter-spacing: var(--tr-h2);
+}
+
+.fye .pick__browse { margin: var(--s7) 0 0; text-align: center; }
+
+/* The chooser replaces the rail on this page: see the file comment. */
+.fye:has(.pick) .coll__rail { display: none; }
+.fye:has(.pick) .coll__layout { grid-template-columns: minmax(0, 1fr); }
+
+@media (prefers-reduced-motion: reduce) {
+  .fye .pick__icon { transition: none; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Shop chooser",
+  "class": "pick-sect",
+  "settings": [
+    {
+      "type": "text",
+      "id": "show_on",
+      "label": "Show on collection",
+      "default": "all",
+      "info": "The handle of the one collection this appears on. It is hidden on every other collection page."
+    },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Start here" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What are you looking for?" },
+    { "type": "textarea", "id": "intro", "label": "Introduction" },
+    { "type": "text", "id": "ring_heading", "label": "Ring question", "default": "Which kind of ring?" },
+    { "type": "text", "id": "browse_note", "label": "Note below the options", "default": "Or browse everything below." },
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "white",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Champagne ivory" },
+        { "value": "mist", "label": "Mist blue" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_type",
+      "name": "Product type",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "text", "id": "note", "label": "Short note" },
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        {
+          "type": "checkbox",
+          "id": "opens_rings",
+          "label": "Opens the ring question",
+          "default": false,
+          "info": "Shows the ring types instead of going to a collection."
+        },
+        { "type": "image_picker", "id": "image", "label": "Image" }
+      ]
+    },
+    {
+      "type": "ring_type",
+      "name": "Ring type",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "text", "id": "note", "label": "Short note" },
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "image_picker", "id": "image", "label": "Image" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop chooser",
+      "blocks": [
+        { "type": "product_type", "settings": { "label": "Rings", "opens_rings": true } },
+        { "type": "product_type", "settings": { "label": "Gemstones" } },
+        { "type": "product_type", "settings": { "label": "Diamonds" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -91,6 +91,23 @@
 
   assign sort_current = collection.sort_by | default: collection.default_sort_by
 
+  comment
+    Shopify cannot price-sort /collections/all: on 09/10/2026, with 39,512
+    products, both price orders threw "Liquid error (main-collection): internal"
+    the moment the grid touched collection.products, and showed no products.
+    Every real collection price-sorts fine. So on `all` the two price options
+    are not offered, and a price URL reached anyway gets a sentence instead of
+    an error. Ed, 09/10/2026, T354.
+  endcomment
+  assign is_all = false
+  if collection.handle == 'all'
+    assign is_all = true
+  endif
+  assign no_price_sort = false
+  if is_all and sort_current contains 'price'
+    assign no_price_sort = true
+  endif
+
   assign show_promo = false
   if s.fye_promo_heading != blank
     assign show_promo = true
@@ -199,6 +216,7 @@
                     <label class="visually-hidden" for="coll-sort">Sort by</label>
                     <select id="coll-sort" class="coll__select" data-fye-sort>
                       {%- for option in collection.sort_options -%}
+                        {%- if is_all and option.value contains 'price' -%}{%- continue -%}{%- endif -%}
                         <option value="{{ option.value }}"{% if option.value == sort_current %} selected{% endif %}>{{ option.name }}</option>
                       {%- endfor -%}
                     </select>
@@ -208,7 +226,9 @@
           </div>
         {%- endif -%}
 
-        {%- if collection.products.size > 0 -%}
+        {%- if no_price_sort -%}
+          <p class="coll__empty lead">Price order is not available across every product at once. Choose a category above to sort by price.</p>
+        {%- elsif collection.products.size > 0 -%}
           <ul class="pgrid coll__grid" style="--pcols: {{ cols }}; --pcols-mb: {{ cols_mb }};">
             {%- for product in collection.products -%}
               {%- comment -%}

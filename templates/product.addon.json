@@ -1,0 +1,19 @@
+{
+  "sections": {
+    "main": {
+      "type": "fye-addon-notice",
+      "settings": {
+        "eyebrow": "Add-on",
+        "body": "This is chosen on a ring’s page, as part of a complete ring. It cannot be ordered on its own.",
+        "primary_label": "Browse the rings",
+        "primary_link": "",
+        "secondary_label": "Talk to us",
+        "secondary_link": "/pages/contact-us",
+        "band": "ivory"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

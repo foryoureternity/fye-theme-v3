@@ -1,0 +1,83 @@
+{%- comment -%}
+  fye-addon-notice — the whole page for an add-on product. 1 use:
+  templates/product.addon.json, assigned to the nine `fye-addon` products
+  (engraving, custom finish, oversize surcharge, the four trilogy side-diamond
+  sets, the two setting fees).
+
+  WHY (Ed, 09/10/2026, T354): add-ons must never be shown or sold as products
+  on their own, only attached to a ring. They cannot be unpublished, because a
+  product that is not on the Online Store cannot be added to the basket by the
+  ring page. So they stay published, every listing skips the `fye-addon` tag
+  (main-collection, featured-collection, fye-related-products, main-search,
+  schema-collection), seo.hidden keeps them out of search and the sitemap,
+  and anyone who still reaches the URL gets this instead of a buy box.
+
+  Deliberately has NO add-to-basket form. Basket lines for add-ons no longer
+  link here (snippets/cart-line.liquid), so a shopper only lands on this page
+  from an old or typed link.
+
+  Must not depend on anything the ring pages read: they add these products by
+  variant id and read prices through all_products, neither of which touches
+  the product template.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign band = s.band | default: 'ivory'
+  assign primary_link = s.primary_link | default: routes.all_products_collection_url
+-%}
+
+<section class="addon band band--{{ band }}" data-screen-label="Add-on notice">
+  <div class="wrap addon__wrap">
+    <p class="eyebrow">{{ s.eyebrow | default: 'Add-on' }}</p>
+    <h1 class="addon__title">{{ product.title | escape }}</h1>
+    <p class="lead addon__body">
+      {{- s.body | default: 'This is chosen on a ring’s page, as part of a complete ring. It cannot be ordered on its own.' -}}
+    </p>
+    <div class="row addon__actions">
+      <a class="btn" href="{{ primary_link }}">{{ s.primary_label | default: 'Browse the rings' }}</a>
+      {%- if s.secondary_label != blank and s.secondary_link != blank -%}
+        <a class="btn btn--outline" href="{{ s.secondary_link }}">{{ s.secondary_label }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.fye .addon__wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s5);
+  text-align: center;
+}
+.fye .addon__title { margin: 0; }
+.fye .addon__body { margin: 0; max-width: 52ch; }
+.fye .addon__actions { justify-content: center; flex-wrap: wrap; gap: var(--s4); }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Add-on notice",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Add-on" },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Message",
+      "default": "This is chosen on a ring’s page, as part of a complete ring. It cannot be ordered on its own."
+    },
+    { "type": "text", "id": "primary_label", "label": "Button label", "default": "Browse the rings" },
+    { "type": "url", "id": "primary_link", "label": "Button link" },
+    { "type": "text", "id": "secondary_label", "label": "Second button label", "default": "Talk to us" },
+    { "type": "url", "id": "secondary_link", "label": "Second button link" },
+    {
+      "type": "select", "id": "band", "label": "Background", "default": "ivory",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Champagne ivory" },
+        { "value": "mist", "label": "Mist blue" }
+      ]
+    }
+  ]
+}
+{% endschema %}

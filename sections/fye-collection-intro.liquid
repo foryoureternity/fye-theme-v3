@@ -60,6 +60,19 @@
     assign is_centred = true
   endif
 
+  comment
+    /collections/all is Shopify's virtual collection. It is titled
+    "Products", and its products_count is capped (it printed 25001 against
+    39,512 live products on 09/10/2026), so on that one page the title comes
+    from a setting and the count is not shown. Ed, 09/10/2026, T354.
+  endcomment
+  assign ctitle = collection.title
+  assign show_count = s.show_eyebrow
+  if collection.handle == 'all'
+    assign ctitle = s.all_title | default: 'All jewellery'
+    assign show_count = false
+  endif
+
   assign unit = s.unit_plural | default: 'designs'
   if collection.products_count == 1
     assign unit = s.unit_singular | default: 'design'
@@ -87,7 +100,7 @@
               <a href="{{ s.parent_link }}">{{ s.parent_label | escape }}</a>
             {%- endif -%}
             <span class="cintro__sep" aria-hidden="true">&rsaquo;</span>
-            <span class="cintro__here" aria-current="page">{{ collection.title | escape }}</span>
+            <span class="cintro__here" aria-current="page">{{ ctitle | escape }}</span>
           </nav>
           {%- comment -%}
             The same trail as JSON-LD (audit 02/09/2026, D3), rendered beside
@@ -95,20 +108,20 @@
             only when the trail shows one.
           {%- endcomment -%}
           {%- if s.parent_label != blank and s.parent_link != blank -%}
-            {%- render 'schema-breadcrumbs', mid_name: s.parent_label, mid_url: s.parent_link, last_name: collection.title, last_url: canonical_url -%}
+            {%- render 'schema-breadcrumbs', mid_name: s.parent_label, mid_url: s.parent_link, last_name: ctitle, last_url: canonical_url -%}
           {%- else -%}
-            {%- render 'schema-breadcrumbs', last_name: collection.title, last_url: canonical_url -%}
+            {%- render 'schema-breadcrumbs', last_name: ctitle, last_url: canonical_url -%}
           {%- endif -%}
         {%- endif -%}
 
         <div class="cintro__headline">
-          {%- if s.show_eyebrow and collection.products_count > 0 -%}
+          {%- if show_count and collection.products_count > 0 -%}
             <p class="eyebrow cintro__eyebrow">
               {{- collection.products_count }} {{ unit -}}
               {%- if from_price != blank %} &middot; from {{ from_price }}{% endif -%}
             </p>
           {%- endif -%}
-          <h1 class="cintro__title">{{ collection.title | escape }}</h1>
+          <h1 class="cintro__title">{{ ctitle | escape }}</h1>
         </div>
       </div>
 
@@ -356,6 +369,14 @@
       "info": "Optional middle crumb. Applies to every collection using this template."
     },
     { "type": "url", "id": "parent_link", "label": "Parent link" },
+
+    {
+      "type": "text",
+      "id": "all_title",
+      "label": "Title on the all-products page",
+      "default": "All jewellery",
+      "info": "Shopify names /collections/all \"Products\". The count is not shown on that page."
+    },
 
     { "type": "header", "content": "Eyebrow" },
     { "type": "checkbox", "id": "show_eyebrow", "label": "Show count eyebrow", "default": true },

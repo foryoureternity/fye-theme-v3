@@ -114,6 +114,20 @@
   endif
   assign promo_link = s.fye_promo_link | default: '/pages/contact-us'
   assign tile_link = s.fye_tile_link | default: '/pages/create-your-own-ring'
+
+  comment
+    Bracelet collections (Ed, 09/10/2026) share this template, so the ring
+    wording in the bespoke tile and the promo is swapped here rather than in
+    a second collection template that would drift from this one.
+  endcomment
+  assign tile_heading = s.fye_tile_heading
+  assign tile_body = s.fye_tile_body
+  assign promo_body = s.fye_promo_body
+  if collection.handle contains 'bracelet' or collection.handle == 'bangles-and-cuffs'
+    assign tile_heading = 'Design your own bracelet'
+    assign tile_body = tile_body | replace: 'ring', 'bracelet'
+    assign promo_body = promo_body | replace: 'rings', 'bracelets'
+  endif
 -%}
 
 {%- paginate collection.products by per_page -%}
@@ -184,8 +198,8 @@
             {%- if show_promo -%}
               <div class="coll__promo">
                 <p class="coll__promotitle">{{ s.fye_promo_heading }}</p>
-                {%- if s.fye_promo_body != blank -%}
-                  <p class="coll__promobody">{{ s.fye_promo_body }}</p>
+                {%- if promo_body != blank -%}
+                  <p class="coll__promobody">{{ promo_body }}</p>
                 {%- endif -%}
                 {%- if s.fye_promo_label != blank -%}
                   <a class="link coll__promolink" href="{{ promo_link }}">{{ s.fye_promo_label }}</a>
@@ -247,9 +261,9 @@
                       {%- if s.fye_tile_eyebrow != blank -%}
                         <p class="eyebrow">{{ s.fye_tile_eyebrow }}</p>
                       {%- endif -%}
-                      <p class="coll__tiletitle">{{ s.fye_tile_heading }}</p>
-                      {%- if s.fye_tile_body != blank -%}
-                        <p class="coll__tilebody">{{ s.fye_tile_body }}</p>
+                      <p class="coll__tiletitle">{{ tile_heading }}</p>
+                      {%- if tile_body != blank -%}
+                        <p class="coll__tilebody">{{ tile_body }}</p>
                       {%- endif -%}
                     </div>
                     {%- if s.fye_tile_label != blank -%}

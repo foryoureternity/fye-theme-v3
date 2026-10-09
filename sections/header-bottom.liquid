@@ -698,6 +698,29 @@
    header width; the nav band is the positioned ancestor. */
 .fye .hdr__nav-item.has-mega { position: static; }
 
+/* Hover dead band (Ed, 09/10/2026): the items were 37px tall, centred in a
+   49px band, and the panel hangs from the BAND's bottom edge, so moving the
+   mouse down crossed 6px that belonged to no item and the panel shut. Items
+   and links now fill the band's height, so the item ends exactly where the
+   panel starts (and the 2px bar meets the panel's top rule, as intended).
+   The panel also waits 180ms before closing, so a slightly diagonal move
+   down to a column does not lose it. */
+.fye .hdr__nav-list { align-items: stretch; }
+.fye .hdr__nav-item { display: flex; }
+.fye .has-mega .mega {
+  display: block;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 120ms ease, visibility 0s linear 180ms;
+}
+.fye .hdr__nav-item.has-mega:hover .mega,
+.fye .hdr__nav-item.has-mega:focus-within .mega {
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
+  z-index: 51;
+}
+
 .fye .has-mega .mega {
   position: absolute;
   left: 0; right: 0; top: 100%;

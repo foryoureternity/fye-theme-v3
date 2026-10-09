@@ -3869,3 +3869,23 @@ Ship: `./tools/fye ship "Shape filter icons for Emerald and Round; guides page c
   1. `./tools/fye push "Footer: accreditations slot and LinkedIn setting"`
   2. wait a minute, then `./tools/fye run w497-footer-settings.mjs` and
      `./tools/fye push "Footer: NAJ mark, Instagram and LinkedIn"`.
+
+## 09/10/2026: Google sends move from the custom pixel to the page (GA4 audit, problem 3)
+- Why: the FYE enquiry tracking custom pixel runs sandboxed, so its GA4 hits had their
+  own client id (leads with no source), its Ads Enquiry conversion could not see the ad
+  click, it logged /web-pixels@.../sandbox/ page paths, and Tag Manager flagged it. A
+  WhatsApp enquiry on 08/10 (1ct Asscher, mobile) left no contact_click at all.
+- assets/fye-ui.js: new block GOOGLE SENDS FROM THE PAGE before CONTACT CLICK TRACKING.
+  FYE.ga() sends via the page's gtag (Google & YouTube app); FYE.gaFor() maps
+  fye_contact_click / fye_wishlist_add / fye_share / fye_offer_claim to contact_click /
+  book_consultation_click / add_to_wishlist / share / offer_claim_start. Contact taps
+  call it directly; FYE.track() calls it after publish(). Same-tab http(s) contact
+  links (wa.me, booking) wait for the hit, max 350ms, then navigate. Form enquiries:
+  submit listener stores form id/name/email/phone in sessionStorage; on the
+  ?contact_posted=true reload it sends generate_lead (or guide_request) to GA4 and the
+  Ads Enquiry conversion with user_data, then deletes the stored copy.
+- Pixel v6 (project folder, FYE_enquiry_tracking_pixel_v6.js) is Meta only. Ship the
+  theme and paste v6 together, or GA4 double counts taps until v6 is in.
+- Tested: FYE.ga on the live product page sent contact_click with the page's own cid
+  and real page_location (tt=internal, filtered); callback in 14ms. node --check passes.
+Ship: `./tools/fye ship "Google tracking from the page, not the pixel"`.

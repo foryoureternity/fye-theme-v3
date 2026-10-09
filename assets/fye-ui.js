@@ -4035,14 +4035,184 @@
 
 
 /* ============================================================================
+   GOOGLE SENDS FROM THE PAGE: 09/10/2026 (GA4 audit, problem 3)
+   ----------------------------------------------------------------------------
+   Until today every enquiry signal went Google-bound through the "FYE enquiry
+   tracking" custom pixel. Measured on 08-09/10/2026 that loses leads:
+
+   - A custom pixel runs in a sandboxed iframe with no access to the site's
+     cookies, so its GA4 hits carry a different client id and session from
+     the visitor's, and its Google Ads conversions cannot see the ad click
+     (_gcl_aw). Leads arrived with no traffic source, and an ad-driven
+     enquiry could never be credited to the ad.
+   - On a phone a WhatsApp tap leaves the page at once, most likely before
+     the publish() hop into the sandbox has sent anything: a WhatsApp
+     enquiry for a 1ct Asscher on 08/10 shows two page views and no
+     contact_click.
+   - Its own Google tag logged pages under /web-pixels@.../sandbox/...,
+     doubling rows in Pages and screens, and Tag Manager flags it as an
+     "unsupported tag implementation".
+
+   So GA4 and Google Ads are now sent from the page's own Google tag (loaded
+   by the Google & YouTube app, which already sends page_view and
+   add_to_cart). Consent mode on that tag governs these hits exactly as it
+   governs page views, and gtag sends with keepalive, so a hit survives the
+   page closing. The pixel (v6) keeps Meta only; FYE.track() still publishes
+   the Shopify event for it.
+
+   FYE.ga(name, params, done): one GA4 event; done() runs when it has gone,
+   or after 350ms, whichever is first. A no-op without gtag.
+   ========================================================================== */
+(function () {
+  'use strict';
+  window.FYE = window.FYE || {};
+
+  var GA4 = 'G-4EBBPX6EPJ';
+  var ADS_ENQUIRY = 'AW-16978175893/GV_8CMycoPocEJXP6Z8_';
+
+  window.FYE.ga = function (name, params, done) {
+    var called = false;
+    function finish() { if (!called) { called = true; if (done) done(); } }
+    try {
+      if (typeof window.gtag !== 'function') { finish(); return; }
+      params = params || {};
+      params.send_to = params.send_to || GA4;
+      params.event_callback = finish;
+      window.gtag('event', name, params);
+    } catch (err) {}
+    if (done) setTimeout(finish, 350);
+  };
+
+  /* The Shopify events the theme publishes, and the GA4 event each becomes. */
+  window.FYE.gaFor = function (name, d) {
+    d = d || {};
+    if (name === 'fye_contact_click') {
+      if (d.channel === 'book_consultation') return ['book_consultation_click', { link_location: d.location }];
+      return ['contact_click', { method: d.channel, link_location: d.location }];
+    }
+    if (name === 'fye_wishlist_add') {
+      var item = { item_id: String(d.variant_id || d.handle || ''), item_name: d.title || d.handle || '' };
+      var p = { items: [item] };
+      if (d.price) { item.price = Number(d.price); p.currency = 'GBP'; p.value = Number(d.price); }
+      return ['add_to_wishlist', p];
+    }
+    if (name === 'fye_share') return ['share', { method: d.method, content_type: 'product', item_id: d.handle || '' }];
+    if (name === 'fye_offer_claim') return ['offer_claim_start', { offer: d.offer || '', item_id: d.handle || '' }];
+    return null;
+  };
+
+  /* ── Form enquiries ────────────────────────────────────────────────────
+     A Shopify contact form posts and the page reloads with
+     ?contact_posted=true#<form id>. On submit we note which form it was (and
+     the enquirer's email and phone, for Google's enhanced conversions, which
+     gtag hashes before sending); on the reload we send generate_lead to GA4
+     and the Enquiry conversion to Google Ads, then delete the stored copy.
+     A rejected post (hCaptcha) never reloads with contact_posted, so nothing
+     is sent for it. */
+  var LEAD_FORMS = {
+    'fcon-form': 'Contact page',
+    'pop-form-contact': 'Contact us popup',
+    'pop-form-consultation': 'Contact us popup',
+    'pop-form-open-design-your-own': 'Design your own',
+    'pop-form-enquire': 'Ring enquiry',
+    'rsz-form': 'Free ring sizer request',
+    'rfd-enquiry': 'Ring finder enquiry',
+    'pop-form-pdx-enquire': 'Product enquiry'
+  };
+  var GUIDE_FORMS = {
+    'pop-form-v9edyg': 'Engagement Ring Guide',
+    'pop-form-xmznms': 'Plain Wedding Ring Guide',
+    'pop-form-rch5bg': 'Diamond Wedding Ring Guide',
+    'pop-form-tnb26i': 'Eternity Ring Guide',
+    'pop-form-ubtxh7': 'Diamond and Gemstone Guide',
+    'pop-form-ringcare': 'Ring Care Guide'
+  };
+  var KEY = 'fye_enquiry_pending';
+
+  function cleanEmail(v) {
+    var s = String(v || '').trim().toLowerCase();
+    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(s) ? s : '';
+  }
+  function cleanPhone(v) {
+    var s = String(v || '').replace(/[^\d+]/g, '');
+    if (!s) return '';
+    if (s.indexOf('00') === 0) s = '+' + s.slice(2);
+    else if (s.charAt(0) === '0') s = '+44' + s.slice(1);
+    else if (s.indexOf('44') === 0) s = '+' + s;
+    else if (s.charAt(0) !== '+') s = '+44' + s;
+    var n = s.slice(1).length;
+    return n >= 10 && n <= 15 ? s : '';
+  }
+  function formName(form) {
+    var base = LEAD_FORMS[form.id] || GUIDE_FORMS[form.id] || '';
+    if (form.id !== 'pop-form-pdx-enquire') return base;
+    var t = form.querySelector('#pdx-enq-topic');
+    var v = t ? String(t.value || '') : '';
+    if (v.indexOf('Offer claim') === 0) return 'Offer claim';
+    if (v === 'Faster delivery') return 'Faster delivery enquiry';
+    return base;
+  }
+
+  document.addEventListener('submit', function (e) {
+    var form = e.target;
+    if (!form || !form.id || !(LEAD_FORMS[form.id] || GUIDE_FORMS[form.id])) return;
+    var rec = { id: form.id, name: formName(form), email: '', phone: '' };
+    var els = form.elements || [];
+    for (var i = 0; i < els.length; i++) {
+      var f = els[i], nm = String(f.name || f.id || '').toLowerCase();
+      if (!f.value) continue;
+      if (!rec.email && (nm.indexOf('email') > -1 || f.type === 'email')) rec.email = cleanEmail(f.value);
+      if (!rec.phone && (nm.indexOf('phone') > -1 || nm.indexOf('tel') > -1 || f.type === 'tel')) rec.phone = cleanPhone(f.value);
+    }
+    try { window.sessionStorage.setItem(KEY, JSON.stringify(rec)); } catch (err) {}
+  }, true);
+
+  function onPosted() {
+    if (!/[?&]contact_posted=true/.test(window.location.search)) return;
+    var id = (window.location.hash || '').replace('#', '');
+    var rec = null;
+    try {
+      rec = JSON.parse(window.sessionStorage.getItem(KEY) || 'null');
+      window.sessionStorage.removeItem(KEY);
+      var once = 'fye_lead_' + window.location.href;
+      if (window.sessionStorage.getItem(once)) return; /* a reload is not a second lead */
+      window.sessionStorage.setItem(once, '1');
+    } catch (err) {}
+    if (rec && rec.id !== id) rec = null;
+    if (!id && rec) id = rec.id;
+    if (!(LEAD_FORMS[id] || GUIDE_FORMS[id])) return;
+    var name = (rec && rec.name) || LEAD_FORMS[id] || GUIDE_FORMS[id];
+
+    if (GUIDE_FORMS[id]) {
+      window.FYE.ga('guide_request', { guide_name: name });
+      return;
+    }
+    window.FYE.ga('generate_lead', { form_name: name, form_id: id });
+    try {
+      if (typeof window.gtag !== 'function') return;
+      var ud = {};
+      if (rec && rec.email) ud.email = rec.email;
+      if (rec && rec.phone) ud.phone_number = rec.phone;
+      if (ud.email || ud.phone_number) window.gtag('set', 'user_data', ud);
+      window.gtag('event', 'conversion', { send_to: ADS_ENQUIRY });
+    } catch (err) {}
+  }
+
+  /* The Google & YouTube app loads gtag after this file, so wait for load. */
+  if (document.readyState === 'complete') setTimeout(onPosted, 0);
+  else window.addEventListener('load', function () { setTimeout(onPosted, 0); });
+})();
+
+
+/* ============================================================================
    CONTACT CLICK TRACKING: 25/09/2026 (W420)
    ----------------------------------------------------------------------------
    Every tap on a call, text, WhatsApp or email link anywhere on the site, and
    on the Book consultation diary link, is published as a Shopify customer
-   event named `fye_contact_click`. The theme sends nothing to Google or Meta
-   itself: the "FYE enquiry tracking" custom pixel (Shopify admin > Settings >
-   Customer events) subscribes to it and forwards it, so consent is handled in
-   one place and only for visitors who accepted marketing cookies.
+   event named `fye_contact_click`, which the "FYE enquiry tracking" custom
+   pixel forwards to Meta. Since 09/10/2026 the GA4 event (contact_click /
+   book_consultation_click) is sent from the page itself: see GOOGLE SENDS
+   FROM THE PAGE above for why.
 
    Delegated from document, so links in article bodies, product descriptions,
    the header, footer and popups are all covered with no markup changes.
@@ -4089,16 +4259,30 @@
     var channel = channelOf(a.getAttribute('href'));
     if (!channel) return;
 
+    var data = { channel: channel, location: placeOf(a), page_path: window.location.pathname };
     try {
       var an = window.Shopify && window.Shopify.analytics;
-      if (an && typeof an.publish === 'function') {
-        an.publish('fye_contact_click', {
-          channel: channel,
-          location: placeOf(a),
-          page_path: window.location.pathname
-        });
-      }
+      if (an && typeof an.publish === 'function') an.publish('fye_contact_click', data);
     } catch (err) {}
+
+    /* 09/10/2026: GA4 straight from the page (see GOOGLE SENDS above). A
+       WhatsApp or booking link that would replace this page waits until the
+       hit has gone, at most 350ms, so a phone tap is no longer lost. tel:,
+       sms: and mailto: hand off to another app and leave the page alive,
+       and new-tab or modified clicks are left alone. */
+    var ga = window.FYE && window.FYE.gaFor && window.FYE.gaFor('fye_contact_click', data);
+    if (!ga) return;
+    var href = a.href;
+    var replaces = /^https?:/i.test(href) &&
+      (!a.target || a.target === '_self') &&
+      !e.defaultPrevented && e.button === 0 &&
+      !(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey);
+    if (replaces) {
+      e.preventDefault();
+      window.FYE.ga(ga[0], ga[1], function () { window.location.href = href; });
+    } else {
+      window.FYE.ga(ga[0], ga[1]);
+    }
   }, true);
 })();
 
@@ -4600,9 +4784,8 @@
    ENGAGEMENT TRACKING: 27/09/2026 (W442)
    ----------------------------------------------------------------------------
    The same route as CONTACT CLICK TRACKING above: the theme publishes Shopify
-   customer events and sends nothing to Google or Meta itself. The "FYE
-   enquiry tracking" custom pixel (v5) subscribes and forwards them, so consent
-   is handled in one place.
+   customer events for the custom pixel to forward to Meta, and since
+   09/10/2026 sends the GA4 event itself from the page (GOOGLE SENDS above).
 
      fye_wishlist_add   a heart that SAVES (not one that removes), with the
                         handle, variant, title and, on a product page, the
@@ -4632,6 +4815,11 @@
         an.publish(name, data);
       }
     } catch (err) {}
+    /* 09/10/2026: GA4 from the page; the pixel keeps Meta. */
+    try {
+      var ga = window.FYE.gaFor && window.FYE.gaFor(name, data || {});
+      if (ga) window.FYE.ga(ga[0], ga[1]);
+    } catch (err2) {}
   };
 
   function productOf(el) {

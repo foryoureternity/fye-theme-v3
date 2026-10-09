@@ -92,7 +92,8 @@
             "title": "Bracelets",
             "note": "Tennis bracelets, bangles and cuffs",
             "question": "Which kind of bracelet?",
-            "see_all_label": "See all bracelets"
+            "see_all_label": "See all bracelets",
+            "collection": "bracelets"
           }
         },
         "cat_necklaces": {
@@ -180,7 +181,8 @@
           "settings": {
             "parent_key": "bracelets",
             "title": "Tennis bracelets",
-            "note": "A continuous line of diamonds or gemstones"
+            "note": "A continuous line of diamonds or gemstones",
+            "collection": "tennis-bracelets"
           }
         },
         "sub_bangles": {
@@ -188,7 +190,8 @@
           "settings": {
             "parent_key": "bracelets",
             "title": "Bangles and cuffs",
-            "note": "Solid, plain or set"
+            "note": "Solid, plain or set",
+            "collection": "bangles-and-cuffs"
           }
         },
         "sub_natural": {
@@ -249,13 +252,3 @@
     "fye_collection_guide"
   ]
 }
-
-
-
-
-
-
-
-
-
-

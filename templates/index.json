@@ -291,7 +291,7 @@
         "heading": "Buy direct, or talk it through with us first",
         "subline": "Order online whenever you are ready, or speak to us first and take as long as you need.",
         "card_a_title": "Buy direct",
-        "card_a_lede": "Everything on the site is ready to order today.",
+        "card_a_lede": "Everything on the site can be ordered online.",
         "card_a_cta_label": "Shop rings",
         "card_a_cta_link": "shopify://collections/engagement-rings",
         "card_b_title": "Talk it through first",
@@ -724,21 +724,6 @@
         "variant": "lede"
       }
     },
-    "founder_home": {
-      "type": "fye-founder",
-      "settings": {
-        "band": "ivory",
-        "image_right": false,
-        "image": "shopify://shop_images/Edward_Marno.png",
-        "image_position": "center center",
-        "image_alt": "Edward Marno, founder of For Your Eternity, on a rooftop with the London skyline behind him",
-        "caption": "Edward Marno, founder.",
-        "eyebrow": "The person behind the work",
-        "heading": "Meet Edward",
-        "intro": "<p>Edward Marno founded For Your Eternity in London in 2024, after years working for and with London jewellers. He meets clients himself, designs each commission with them and sees it through to delivery.</p>",
-        "outro": "<p><a href=\"/pages/about-us\">About us</a></p>"
-      }
-    },
     "steps_home": {
       "type": "fye-steps",
       "blocks": {
@@ -873,7 +858,6 @@
     "custom_collections_cq7kaN",
     "quote_home",
     "fye_finder_entry_home",
-    "founder_home",
     "steps_home",
     "feature_columns2_A486RK",
     "featured_collection_PHLfPD",
@@ -888,4 +872,3 @@
     "fye_consultation_home"
   ]
 }
-

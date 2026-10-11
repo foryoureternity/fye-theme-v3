@@ -4092,3 +4092,10 @@ Ship: `./tools/fye ship "Phase 4a: ring page intros, tables, FAQs, eternity shop
 - Brand FAQ timing answer says rings 3 to 4 weeks and that bracelet times are confirmed
   at order (bracelet lead times are not confirmed with suppliers yet).
 Ship: `./tools/fye ship "Phase 4b: homepage Meet Edward, how it works, brand FAQ, sourced reviews"`.
+- Verified live 11/10/2026: both .liquid checksums match; homepage FAQPage 7, nine
+  "via Trustpilot" labels, Meet Edward photo renders, View all buttons go to indexed
+  collections, About Us testimonials unchanged. Follow-up (unshipped): two-ways card
+  lede "ready to order today" -> "can be ordered online".
+- 11/10/2026, Ed: no Meet Edward on the homepage; his photo and profile belong on About Us
+  only. founder_home removed from index.json (17 sections). His name stays in the About
+  paragraph and the brand FAQ text.

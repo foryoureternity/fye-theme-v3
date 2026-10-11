@@ -200,7 +200,7 @@
           "type": "mega",
           "settings": {
             "title": "Jewellery",
-            "url": "/collections/bracelets",
+            "url": "/pages/bracelets",
             "menu": "mega-bracelets",
             "zone1_title": "Bracelets",
             "zone1_all_url": "/collections/bracelets",

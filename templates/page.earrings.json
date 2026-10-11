@@ -1,0 +1,348 @@
+{
+  "sections": {
+    "hero": {
+      "type": "fye-hero",
+      "settings": {
+        "band": "teal",
+        "align": "center",
+        "logo_url": "https://cdn.shopify.com/s/files/1/0972/5391/7056/files/temp-logo-white-1.svg?v=1771834133",
+        "logo_alt": "For Your Eternity",
+        "logo_width": 250,
+        "heading": "Earrings by",
+        "heading_style": "sentence",
+        "subheading": "Diamond studs, gold hoops, pearl and gemstone earrings in solid 9ct or 18ct gold or platinum, made to order in our London workshop and hallmarked, with natural or lab-grown diamonds.",
+        "button_label": "Start a bespoke enquiry",
+        "button_link": "/pages/contact-us#popup-contact"
+      }
+    },
+    "know": {
+      "type": "fye-media-text",
+      "settings": {
+        "band": "sage",
+        "reverse": false,
+        "full_bleed": true,
+        "image": "shopify://shop_images/fffg1_5.png",
+        "image_alt": "Loose diamonds and a jeweller's tools on a workbench",
+        "placeholder": "Image",
+        "heading": "Why does solid gold matter more in an earring?",
+        "body": "<p>An earring sits in a pierced hole for hours at a time, so what it is made of matters more than for any other piece. Plated and hollow earrings wear through and tarnish, and they are the usual cause of sore ears. Every pair we make is solid 9ct or 18ct gold or platinum, hallmarked, with posts and backs in the same metal.</p><ul><li>Stud sizes are quoted for the pair: a 1ct pair is two diamonds of about 0.50ct each.</li><li>Butterfly, screw or locking backs, chosen for how often you take them out.</li><li>Platinum and 18ct yellow gold suit nickel-sensitive ears; ask us about the alloy if you react to white gold.</li></ul>",
+        "eyebrow": "Before you choose"
+      },
+      "blocks": {
+        "btn": {
+          "type": "button",
+          "settings": {
+            "label": "Talk it through with us",
+            "link": "/pages/contact-us#popup-contact",
+            "style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "btn"
+      ]
+    },
+    "bespoke": {
+      "type": "fye-media-text",
+      "settings": {
+        "band": "sage",
+        "reverse": true,
+        "full_bleed": true,
+        "image": "shopify://shop_images/Ring_11.png",
+        "image_alt": "A diamond ring resting on design drawings",
+        "placeholder": "Image",
+        "heading": "Earrings designed with you",
+        "body": "<p>Family diamonds reset as studs, drops to wear on the day, or a coloured stone we source for you. Tell us what you have in mind and we will come back with what is possible, what it would cost and how long it would take.</p>"
+      },
+      "blocks": {
+        "btn": {
+          "type": "button",
+          "settings": {
+            "label": "Start a bespoke enquiry",
+            "link": "/pages/contact-us#popup-contact",
+            "style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "btn"
+      ]
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "btn": {
+          "type": "button",
+          "settings": {
+            "label": "View the guide",
+            "link": "shopify://pages/ring-and-jewellery-care-guide",
+            "style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "btn"
+      ],
+      "settings": {
+        "band": "teal",
+        "cover": "shopify://shop_images/ring-care-guide-cover.png",
+        "cover_alt": "The Ring and Jewellery Care Guide",
+        "cover_caption": "The Ring and Jewellery Care Guide",
+        "heading": "The Ring and Jewellery Care Guide",
+        "body": "<p>Cleaning diamond studs, checking posts and backs, and storing pearls so they keep their lustre. Read online or take the free PDF.</p>"
+      }
+    },
+    "why": {
+      "type": "shipping",
+      "blocks": {
+        "why_1": {
+          "type": "shipping",
+          "settings": {
+            "illustration": "diamond",
+            "text": "<p>Ethically sourced diamonds, gemstones and metals</p>"
+          }
+        },
+        "why_2": {
+          "type": "shipping",
+          "settings": {
+            "illustration": "pricing",
+            "text": "<p>Fair, transparent pricing, fixed before we make</p>"
+          }
+        },
+        "why_3": {
+          "type": "shipping",
+          "settings": {
+            "illustration": "hallmark",
+            "text": "<p>Hallmarked at a UK Assay Office</p>"
+          }
+        },
+        "why_4": {
+          "type": "shipping",
+          "settings": {
+            "illustration": "education",
+            "text": "<p>Honest advice on what is worth paying for</p>"
+          }
+        },
+        "why_5": {
+          "type": "shipping",
+          "settings": {
+            "illustration": "custom",
+            "text": "<p>Made in our London workshop, or designed with you from scratch</p>"
+          }
+        },
+        "why_6": {
+          "type": "shipping",
+          "settings": {
+            "illustration": "shipping",
+            "text": "<p>Free, tracked and insured UK delivery</p>"
+          }
+        }
+      },
+      "block_order": [
+        "why_1",
+        "why_2",
+        "why_3",
+        "why_4",
+        "why_5",
+        "why_6"
+      ],
+      "settings": {
+        "top_heading": "Why choose For Your Eternity?",
+        "col_dk": "3",
+        "band": "white"
+      }
+    },
+    "consult": {
+      "type": "fye-media-text",
+      "settings": {
+        "band": "sage",
+        "reverse": true,
+        "full_bleed": true,
+        "image": "shopify://shop_images/fffg1_1.png",
+        "image_alt": "A ring presented during a personalised consultation",
+        "placeholder": "Image",
+        "heading": "Book a personalised consultation",
+        "body": "<ul><li>Decide between studs, hoops, drops and pearls.</li><li>Choose natural or lab-grown diamonds and the size that suits you.</li><li>Pick the metal and backs for comfortable daily wear.</li><li>Match earrings to a ring or necklace you already own.</li></ul>",
+        "eyebrow": "Personal guidance"
+      },
+      "blocks": {
+        "btn": {
+          "type": "button",
+          "settings": {
+            "label": "Book a free consultation",
+            "link": "/pages/contact-us#popup-contact",
+            "style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "btn"
+      ]
+    },
+    "faq": {
+      "type": "accordion",
+      "blocks": {
+        "q1": {
+          "type": "accor_item",
+          "settings": {
+            "title": "What size diamond studs should I choose?",
+            "content": "<p>Stud sizes are quoted as the total for the pair: a 0.50ct pair is two 0.25ct diamonds of about 4 mm each, and a 1ct pair is two 0.50ct diamonds of about 5 mm. Most people wearing studs daily choose between 0.50ct and 1ct in total; larger pairs read as evening wear. Compare the millimetre size as well as the carat.</p>"
+          }
+        },
+        "q2": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Is the carat weight for one earring or the pair?",
+            "content": "<p>On our listings it is for the pair unless the listing says otherwise, and the price covers both earrings. Halo and cluster styles split that weight across more, smaller stones, so they can look larger than a solitaire stud of the same total weight.</p>"
+          }
+        },
+        "q3": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Are your earrings nickel-free?",
+            "content": "<p>Platinum and 18ct yellow gold contain no nickel. White gold alloys vary, some using nickel and some palladium, so tell us if you react to white gold and we will choose a nickel-free alloy or recommend platinum. Every pair is solid metal with posts and backs in the same metal, never plated over a base metal.</p>"
+          }
+        },
+        "q4": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Which earring backs are most secure?",
+            "content": "<p>Butterfly backs are the everyday standard and suit lighter studs. Screw backs thread onto the post and are the safest for diamond studs you rarely remove. Locking backs click into a groove on the post and combine security with easy removal. We suggest the right back for the weight of the earring.</p>"
+          }
+        },
+        "q5": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Can I wear diamond studs every day?",
+            "content": "<p>Yes, but take them out at night: sleeping in studs stresses the posts. Soap, shampoo and hairspray dull the stones, so clean them with warm water, a drop of washing-up liquid and a soft brush. Bring them in for their free inspection and cleaning whenever you like.</p>"
+          }
+        },
+        "q6": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Are the diamonds certified?",
+            "content": "<p>Centre diamonds come with a GIA or IGI certificate, shown on the listing before you buy. The smaller stones in pavé, halo and cluster earrings are not individually certified; the listing states their grade.</p>"
+          }
+        },
+        "q7": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Can you make earrings to match a ring I already own?",
+            "content": "<p>Yes. Send us a photograph of the ring, or bring it to a consultation, and we will match the metal colour, setting style and stone cut. If we did not make the ring, we will tell you honestly what can be matched and what cannot.</p>"
+          }
+        },
+        "q8": {
+          "type": "accor_item",
+          "settings": {
+            "title": "How do I choose earrings as a gift?",
+            "content": "<p>Start with what they already wear: the metal colour, the usual size, and whether they favour studs, hoops or drops. If you are unsure, send us a few photographs of earrings they wear and we will help you narrow it down.</p>"
+          }
+        },
+        "q9": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Can I return earrings?",
+            "content": "<p>Ready-made earrings can be returned within 14 days of delivery if unworn and in their original packaging; for hygiene reasons, pierced earrings that have been worn cannot be returned. Made-to-order and bespoke pairs are made for you, so we talk the order through first. A faulty pair can be rejected for a full refund within 30 days.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8",
+        "q9"
+      ],
+      "settings": {
+        "top_heading": "Frequently asked questions",
+        "left_heading": "Have another question?",
+        "left_text": "<p>Tell us what you are considering and we will help you compare the details and work out your next step.</p>",
+        "left_btn": "Ask us a question",
+        "left_url": "shopify://pages/contact-us",
+        "emit_schema": true,
+        "band": "white"
+      }
+    },
+    "commitment": {
+      "type": "fye-media-text",
+      "settings": {
+        "band": "mist",
+        "reverse": false,
+        "full_bleed": true,
+        "image": "shopify://shop_images/fffg1_4.png",
+        "image_alt": "A diamond ring beside pieces of gold ready for making",
+        "placeholder": "Image",
+        "heading": "Our commitment to you",
+        "body": "<ul><li>Every centre and loose diamond comes with a GIA or IGI certificate. Stones in multi-stone pieces are not individually certified; the listing states their grade.</li><li>Lifetime warranty against manufacturing defects.</li><li>Free inspection and cleaning for life.</li><li>If a piece arrives faulty or not as ordered, you can reject it for a full refund within 30 days; after that we repair or replace it.</li><li>Made-to-order and bespoke pieces are made for you, so we talk each order through before we start. Ready-made pieces can be returned within 14 days of delivery, unworn and in their original packaging.</li></ul>"
+      },
+      "blocks": {
+        "btn": {
+          "type": "button",
+          "settings": {
+            "label": "Talk to us",
+            "link": "/pages/contact-us#popup-contact",
+            "style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "btn"
+      ]
+    },
+    "closing": {
+      "type": "fye-consultation",
+      "blocks": {
+        "contact_phone": {
+          "type": "contact",
+          "settings": {
+            "type": "phone",
+            "label": "0208 178 6687"
+          }
+        },
+        "contact_email": {
+          "type": "contact",
+          "settings": {
+            "type": "email",
+            "label": "enquiries@foryoureternity.com"
+          }
+        },
+        "contact_whatsapp": {
+          "type": "contact",
+          "settings": {
+            "type": "whatsapp",
+            "label": "WhatsApp",
+            "link": "https://wa.me/447840042922"
+          }
+        }
+      },
+      "block_order": [
+        "contact_phone",
+        "contact_email",
+        "contact_whatsapp"
+      ],
+      "settings": {
+        "band": "teal",
+        "eyebrow": "Personal guidance",
+        "heading": "Still unsure where to start?",
+        "lead": "Book a free consultation in person across London, or by video, phone or WhatsApp.",
+        "btn_label": "Book a free consultation",
+        "btn_link": "/pages/contact-us#popup-contact"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "know",
+    "bespoke",
+    "guide",
+    "why",
+    "consult",
+    "faq",
+    "commitment",
+    "closing"
+  ]
+}

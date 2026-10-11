@@ -1,0 +1,545 @@
+{
+  "sections": {
+    "hero": {
+      "type": "fye-hero",
+      "settings": {
+        "band": "teal",
+        "align": "center",
+        "logo_url": "https://cdn.shopify.com/s/files/1/0972/5391/7056/files/temp-logo-white-1.svg?v=1771834133",
+        "logo_alt": "For Your Eternity",
+        "logo_width": 250,
+        "heading": "Bracelets by",
+        "heading_style": "sentence",
+        "subheading": "Diamond tennis bracelets, bezel-set bracelets, bangles and cuffs, made to order in our London workshop with natural or lab-grown diamonds and hallmarked before they reach you.",
+        "button_label": "View all bracelets",
+        "button_link": "shopify://collections/bracelets",
+        "button2_label": "Start a bespoke enquiry",
+        "button2_link": "/pages/contact-us#popup-contact"
+      }
+    },
+    "styles": {
+      "type": "about-columns-four",
+      "blocks": {
+        "card_1": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/four-claw-round-diamond-tennis-bracelet-5ct-white-1.jpg",
+            "title": "Tennis bracelets",
+            "button_label": "View bracelets",
+            "button_link": "shopify://collections/tennis-bracelets"
+          }
+        },
+        "card_2": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/claw-set-round-diamond-tennis-bracelet-5ct-white-1.jpg",
+            "title": "Lab-grown diamond bracelets",
+            "button_label": "View bracelets",
+            "button_link": "shopify://collections/lab-grown-diamond-bracelets"
+          }
+        },
+        "card_3": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/1_23f91bfb-9b92-4a1b-b7e6-df430f178e19.jpg",
+            "title": "Bezel-set bracelets",
+            "button_label": "View bracelets",
+            "button_link": "shopify://collections/bezel-bracelets"
+          }
+        },
+        "card_4": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/1_c88bbf1b-2e2d-4e6c-9543-81661a9d9edb.jpg",
+            "title": "Halo bracelets",
+            "button_label": "View bracelets",
+            "button_link": "shopify://collections/halo-bracelets"
+          }
+        },
+        "card_5": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/BG111.jpg",
+            "title": "Bangles and cuffs",
+            "button_label": "View bracelets",
+            "button_link": "shopify://collections/bangles-and-cuffs"
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3",
+        "card_4",
+        "card_5"
+      ],
+      "settings": {
+        "top_heading": "Shop by style",
+        "col_dk": 5,
+        "band": "mist"
+      }
+    },
+    "row_1": {
+      "type": "collections-list",
+      "blocks": {
+        "tile_1": {
+          "type": "collection_item",
+          "settings": {
+            "collection_title": "Round",
+            "collection_link": "shopify://collections/round-diamond-bracelets",
+            "image": "shopify://shop_images/icon101.svg"
+          }
+        },
+        "tile_2": {
+          "type": "collection_item",
+          "settings": {
+            "collection_title": "Oval",
+            "collection_link": "shopify://collections/oval-diamond-bracelets",
+            "image": "shopify://shop_images/icon102.svg"
+          }
+        },
+        "tile_3": {
+          "type": "collection_item",
+          "settings": {
+            "collection_title": "Cushion",
+            "collection_link": "shopify://collections/cushion-diamond-bracelets",
+            "image": "shopify://shop_images/icon103.svg"
+          }
+        },
+        "tile_4": {
+          "type": "collection_item",
+          "settings": {
+            "collection_title": "Pear",
+            "collection_link": "shopify://collections/pear-diamond-bracelets",
+            "image": "shopify://shop_images/icon104.svg"
+          }
+        },
+        "tile_5": {
+          "type": "collection_item",
+          "settings": {
+            "collection_title": "Emerald",
+            "collection_link": "shopify://collections/emerald-cut-diamond-bracelets",
+            "image": "shopify://shop_images/icon105.svg"
+          }
+        },
+        "tile_6": {
+          "type": "collection_item",
+          "settings": {
+            "collection_title": "Princess",
+            "collection_link": "shopify://collections/princess-cut-diamond-bracelets",
+            "image": "shopify://shop_images/icon107.svg"
+          }
+        }
+      },
+      "block_order": [
+        "tile_1",
+        "tile_2",
+        "tile_3",
+        "tile_4",
+        "tile_5",
+        "tile_6"
+      ],
+      "settings": {
+        "top_heading": "Shop by diamond shape",
+        "heading_mb": "Shop by diamond shape",
+        "col_dk": 6,
+        "band": "ivory"
+      }
+    },
+    "row_2": {
+      "type": "collections-list",
+      "blocks": {
+        "tile_1": {
+          "type": "collection_item",
+          "settings": {
+            "collection_title": "Up to 3ct",
+            "collection_link": "shopify://collections/bracelets-up-to-3ct"
+          }
+        },
+        "tile_2": {
+          "type": "collection_item",
+          "settings": {
+            "collection_title": "3 to 5ct",
+            "collection_link": "shopify://collections/bracelets-3-to-5ct"
+          }
+        },
+        "tile_3": {
+          "type": "collection_item",
+          "settings": {
+            "collection_title": "5 to 10ct",
+            "collection_link": "shopify://collections/bracelets-5-to-10ct"
+          }
+        },
+        "tile_4": {
+          "type": "collection_item",
+          "settings": {
+            "collection_title": "10ct and above",
+            "collection_link": "shopify://collections/bracelets-10ct-and-above"
+          }
+        }
+      },
+      "block_order": [
+        "tile_1",
+        "tile_2",
+        "tile_3",
+        "tile_4"
+      ],
+      "settings": {
+        "top_heading": "Shop by total carat weight",
+        "heading_mb": "Shop by total carat weight",
+        "col_dk": 4,
+        "band": "ivory"
+      }
+    },
+    "know": {
+      "type": "fye-media-text",
+      "settings": {
+        "band": "sage",
+        "reverse": false,
+        "full_bleed": true,
+        "image": "shopify://shop_images/BE-OVL_85242c11-6fdc-4e1d-9aca-47f3c92033e7.jpg",
+        "image_alt": "Oval diamond tennis bracelet in white gold",
+        "placeholder": "Image",
+        "heading": "What does the carat weight on a bracelet mean?",
+        "body": "<p>On a tennis bracelet the carat figure is the total across every stone, not the size of any one of them. Two 5ct bracelets can look quite different: one of forty small diamonds, one of twenty-five larger ones. Compare the stone size and count as well as the total, and ask us if a listing leaves you unsure.</p><ul><li>Natural or lab-grown diamonds in the same settings. Both are diamonds; lab-grown usually allows a heavier bracelet for the same spend.</li><li>Platinum, 18ct, 14ct or 9ct gold, every piece hallmarked at a UK Assay Office.</li><li>Made to the length you need: measure your wrist and tell us when you order.</li></ul>",
+        "eyebrow": "Before you choose"
+      },
+      "blocks": {
+        "btn": {
+          "type": "button",
+          "settings": {
+            "label": "Talk it through with us",
+            "link": "/pages/contact-us#popup-contact",
+            "style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "btn"
+      ]
+    },
+    "featured": {
+      "type": "featured-collection",
+      "settings": {
+        "top_heading": "Featured bracelets",
+        "collection": "featured-bracelets",
+        "limit": 8,
+        "head_btn_label": "View all",
+        "col_dk": "4",
+        "col_mb": "2",
+        "band": "white"
+      }
+    },
+    "bespoke": {
+      "type": "fye-media-text",
+      "settings": {
+        "band": "sage",
+        "reverse": true,
+        "full_bleed": true,
+        "image": "shopify://shop_images/BE-EMC_461806fe-6dea-448a-b72c-453296fd3b99.jpg",
+        "image_alt": "Emerald-cut diamond tennis bracelet in white gold",
+        "placeholder": "Image",
+        "heading": "A bracelet designed with you",
+        "body": "<p>Mixed cuts, coloured stones, a bangle that sits beside a ring you already wear, or a family diamond reset into a line bracelet. Tell us what you have in mind and we will come back with what is possible, what it would cost and how long it would take.</p>"
+      },
+      "blocks": {
+        "btn": {
+          "type": "button",
+          "settings": {
+            "label": "Start a bespoke enquiry",
+            "link": "/pages/contact-us#popup-contact",
+            "style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "btn"
+      ]
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "btn": {
+          "type": "button",
+          "settings": {
+            "label": "View the guide",
+            "link": "shopify://pages/ring-and-jewellery-care-guide",
+            "style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "btn"
+      ],
+      "settings": {
+        "band": "teal",
+        "cover": "shopify://shop_images/ring-care-guide-cover.png",
+        "cover_alt": "The Ring and Jewellery Care Guide",
+        "cover_caption": "The Ring and Jewellery Care Guide",
+        "heading": "The Ring and Jewellery Care Guide",
+        "body": "<p>How to clean a diamond bracelet at home, check the clasp and settings, and know when to bring it in. Read online or take the free PDF.</p>"
+      }
+    },
+    "why": {
+      "type": "shipping",
+      "blocks": {
+        "why_1": {
+          "type": "shipping",
+          "settings": {
+            "illustration": "diamond",
+            "text": "<p>Ethically sourced diamonds, gemstones and metals</p>"
+          }
+        },
+        "why_2": {
+          "type": "shipping",
+          "settings": {
+            "illustration": "pricing",
+            "text": "<p>Fair, transparent pricing, fixed before we make</p>"
+          }
+        },
+        "why_3": {
+          "type": "shipping",
+          "settings": {
+            "illustration": "hallmark",
+            "text": "<p>Hallmarked at a UK Assay Office</p>"
+          }
+        },
+        "why_4": {
+          "type": "shipping",
+          "settings": {
+            "illustration": "education",
+            "text": "<p>Honest advice on what is worth paying for</p>"
+          }
+        },
+        "why_5": {
+          "type": "shipping",
+          "settings": {
+            "illustration": "custom",
+            "text": "<p>Made in our London workshop, or designed with you from scratch</p>"
+          }
+        },
+        "why_6": {
+          "type": "shipping",
+          "settings": {
+            "illustration": "shipping",
+            "text": "<p>Free, tracked and insured UK delivery</p>"
+          }
+        }
+      },
+      "block_order": [
+        "why_1",
+        "why_2",
+        "why_3",
+        "why_4",
+        "why_5",
+        "why_6"
+      ],
+      "settings": {
+        "top_heading": "Why choose For Your Eternity?",
+        "col_dk": "3",
+        "band": "white"
+      }
+    },
+    "consult": {
+      "type": "fye-media-text",
+      "settings": {
+        "band": "sage",
+        "reverse": true,
+        "full_bleed": true,
+        "image": "shopify://shop_images/fffg1_1.png",
+        "image_alt": "A ring presented during a personalised consultation",
+        "placeholder": "Image",
+        "heading": "Book a personalised consultation",
+        "body": "<ul><li>Choose between tennis, bezel-set and halo settings.</li><li>Decide natural or lab-grown, and the weight that suits you.</li><li>Get the length and clasp right for daily wear.</li><li>Match a bracelet to rings or earrings you already own.</li></ul>",
+        "eyebrow": "Personal guidance"
+      },
+      "blocks": {
+        "btn": {
+          "type": "button",
+          "settings": {
+            "label": "Book a free consultation",
+            "link": "/pages/contact-us#popup-contact",
+            "style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "btn"
+      ]
+    },
+    "faq": {
+      "type": "accordion",
+      "blocks": {
+        "q1": {
+          "type": "accor_item",
+          "settings": {
+            "title": "What is a tennis bracelet?",
+            "content": "<p>A tennis bracelet is a flexible line of diamonds of the same size and cut, each in its own setting, joined so the bracelet moves with the wrist. The name comes from the 1978 US Open, when Chris Evert stopped a match to find the diamond bracelet that had fallen from her wrist. Look for a box clasp with a safety catch.</p>"
+          }
+        },
+        "q2": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Should I choose natural or lab-grown diamonds for a bracelet?",
+            "content": "<p>Both are diamonds, with the same hardness and sparkle; the difference is origin and price. Because a bracelet carries many stones, lab-grown often means a heavier total weight or a higher grade for the same spend. Natural stones carry rarity and a documented origin. We set both and will not push you towards either.</p>"
+          }
+        },
+        "q3": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Which metal is best for a bracelet worn every day?",
+            "content": "<p>Platinum is the most durable and stays white without plating. 18ct gold has the richest colour; 9ct gold is harder-wearing and paler. White gold is rhodium plated and needs replating every few years to keep its bright finish. Every piece is hallmarked, so the metal and fineness are stamped on it.</p>"
+          }
+        },
+        "q4": {
+          "type": "accor_item",
+          "settings": {
+            "title": "How do I find the right bracelet length?",
+            "content": "<p>Measure snugly around the wrist bone and add 1.5 to 2 cm. We make bracelets to the length you need, so tell us your measurement when you order. A bracelet should move freely but never slide over the hand. Bangles need their inside diameter checked instead.</p>"
+          }
+        },
+        "q5": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Can I wear a diamond bracelet every day?",
+            "content": "<p>Yes, if it is well made and you treat it as fine jewellery. Take it off for exercise, the gym and manual work, where it can catch or take a knock. Check the clasp closes firmly, and bring it in for its free inspection if anything feels loose.</p>"
+          }
+        },
+        "q6": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Can a bracelet be shortened or lengthened later?",
+            "content": "<p>Shortening a tennis bracelet means removing links, which we can do. Lengthening means adding links with matching diamonds and metal, which is possible but harder than ordering the right length at the start. Bangles and cuffs are made to size and cannot be altered.</p>"
+          }
+        },
+        "q7": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Can a bracelet be engraved?",
+            "content": "<p>Some of our bracelets can be engraved, and the listing says when engraving is available. We send you a proof before anything is engraved, and hand engraving adds about a week.</p>"
+          }
+        },
+        "q8": {
+          "type": "accor_item",
+          "settings": {
+            "title": "How long does a bracelet take?",
+            "content": "<p>Bracelets are made to order, and we confirm the making time for your bracelet before you order. If you have a date to hit, tell us before you order and we will say honestly whether we can make it.</p>"
+          }
+        },
+        "q9": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Can I return a bracelet?",
+            "content": "<p>Every bracelet is made to order for you, so we do not offer change-of-mind returns, which is why we talk each order through first. If a bracelet arrives faulty or not as ordered, you can reject it for a full refund within 30 days; after that we repair or replace it under our lifetime warranty.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8",
+        "q9"
+      ],
+      "settings": {
+        "top_heading": "Frequently asked questions",
+        "left_heading": "Have another question?",
+        "left_text": "<p>Tell us what you are considering and we will help you compare the details and work out your next step.</p>",
+        "left_btn": "Ask us a question",
+        "left_url": "shopify://pages/contact-us",
+        "emit_schema": true,
+        "band": "white"
+      }
+    },
+    "commitment": {
+      "type": "fye-media-text",
+      "settings": {
+        "band": "mist",
+        "reverse": false,
+        "full_bleed": true,
+        "image": "shopify://shop_images/BE-RND_da315bbd-4f14-4171-88b3-7be2fbfa6e70.jpg",
+        "image_alt": "Round diamond tennis bracelet in white gold",
+        "placeholder": "Image",
+        "heading": "Our commitment to you",
+        "body": "<ul><li>Every centre and loose diamond comes with a GIA or IGI certificate. Stones in multi-stone pieces are not individually certified; the listing states their grade.</li><li>Lifetime warranty against manufacturing defects.</li><li>Free inspection and cleaning for life.</li><li>If a piece arrives faulty or not as ordered, you can reject it for a full refund within 30 days; after that we repair or replace it.</li><li>Made-to-order and bespoke pieces are made for you, so we talk each order through before we start. Ready-made pieces can be returned within 14 days of delivery, unworn and in their original packaging.</li></ul>"
+      },
+      "blocks": {
+        "btn": {
+          "type": "button",
+          "settings": {
+            "label": "Talk to us",
+            "link": "/pages/contact-us#popup-contact",
+            "style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "btn"
+      ]
+    },
+    "closing": {
+      "type": "fye-consultation",
+      "blocks": {
+        "contact_phone": {
+          "type": "contact",
+          "settings": {
+            "type": "phone",
+            "label": "0208 178 6687"
+          }
+        },
+        "contact_email": {
+          "type": "contact",
+          "settings": {
+            "type": "email",
+            "label": "enquiries@foryoureternity.com"
+          }
+        },
+        "contact_whatsapp": {
+          "type": "contact",
+          "settings": {
+            "type": "whatsapp",
+            "label": "WhatsApp",
+            "link": "https://wa.me/447840042922"
+          }
+        }
+      },
+      "block_order": [
+        "contact_phone",
+        "contact_email",
+        "contact_whatsapp"
+      ],
+      "settings": {
+        "band": "teal",
+        "eyebrow": "Personal guidance",
+        "heading": "Still unsure where to start?",
+        "lead": "Book a free consultation in person across London, or by video, phone or WhatsApp.",
+        "btn_label": "Book a free consultation",
+        "btn_link": "/pages/contact-us#popup-contact"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "styles",
+    "row_1",
+    "row_2",
+    "know",
+    "featured",
+    "bespoke",
+    "guide",
+    "why",
+    "consult",
+    "faq",
+    "commitment",
+    "closing"
+  ]
+}

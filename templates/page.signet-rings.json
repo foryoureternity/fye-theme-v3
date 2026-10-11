@@ -1,0 +1,340 @@
+{
+  "sections": {
+    "hero": {
+      "type": "fye-hero",
+      "settings": {
+        "band": "teal",
+        "align": "center",
+        "logo_url": "https://cdn.shopify.com/s/files/1/0972/5391/7056/files/temp-logo-white-1.svg?v=1771834133",
+        "logo_alt": "For Your Eternity",
+        "logo_width": 250,
+        "heading": "Signet rings by",
+        "heading_style": "sentence",
+        "subheading": "Oval, cushion and round signet rings in 9ct or 18ct gold or platinum, plain, engraved with initials or a family crest, or stone-set, made to order in our London workshop and hallmarked.",
+        "button_label": "Start a bespoke enquiry",
+        "button_link": "/pages/contact-us#popup-contact"
+      }
+    },
+    "know": {
+      "type": "fye-media-text",
+      "settings": {
+        "band": "sage",
+        "reverse": false,
+        "full_bleed": true,
+        "image": "shopify://shop_images/fffg1_5.png",
+        "image_alt": "Loose diamonds and a jeweller's tools on a workbench",
+        "placeholder": "Image",
+        "heading": "What makes a signet ring sit right?",
+        "body": "<p>A signet ring is judged by its face. An oval face of about 12 by 10 mm reads as a small, everyday signet; around 16 by 13 mm is a heavy, traditional signet. The weight behind the face matters as much: a thin shank under a large face will turn on the finger. We make to the face size and weight you choose, and show you both before you order.</p><ul><li>Worn on the little finger by tradition, on any finger today. Measure the finger it will live on with our free UK ring sizer.</li><li>Engraved on the surface to read correctly on the ring, or seal-engraved in reverse to print the right way in wax.</li><li>Hallmarked: 9ct gold 375, 18ct 750, platinum 950.</li></ul>",
+        "eyebrow": "Before you choose"
+      },
+      "blocks": {
+        "btn": {
+          "type": "button",
+          "settings": {
+            "label": "Talk it through with us",
+            "link": "/pages/contact-us#popup-contact",
+            "style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "btn"
+      ]
+    },
+    "bespoke": {
+      "type": "fye-media-text",
+      "settings": {
+        "band": "sage",
+        "reverse": true,
+        "full_bleed": true,
+        "image": "shopify://shop_images/Ring_11.png",
+        "image_alt": "A diamond ring resting on design drawings",
+        "placeholder": "Image",
+        "heading": "A signet ring designed with you",
+        "body": "<p>A crest you already have, a monogram we draw for you, a stone from a family ring, or a face shape no one else makes. We design it in CAD and show you the render and the engraving proof before anything is made.</p>"
+      },
+      "blocks": {
+        "btn": {
+          "type": "button",
+          "settings": {
+            "label": "Start a bespoke enquiry",
+            "link": "/pages/contact-us#popup-contact",
+            "style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "btn"
+      ]
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "btn": {
+          "type": "button",
+          "settings": {
+            "label": "View the guide",
+            "link": "shopify://pages/ring-and-jewellery-care-guide",
+            "style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "btn"
+      ],
+      "settings": {
+        "band": "teal",
+        "cover": "shopify://shop_images/ring-care-guide-cover.png",
+        "cover_alt": "The Ring and Jewellery Care Guide",
+        "cover_caption": "The Ring and Jewellery Care Guide",
+        "heading": "The Ring and Jewellery Care Guide",
+        "body": "<p>Keeping an engraved face crisp, cleaning stone-set signets safely, and knowing when a worn shank needs building up. Read online or take the free PDF.</p>"
+      }
+    },
+    "why": {
+      "type": "shipping",
+      "blocks": {
+        "why_1": {
+          "type": "shipping",
+          "settings": {
+            "illustration": "diamond",
+            "text": "<p>Ethically sourced diamonds, gemstones and metals</p>"
+          }
+        },
+        "why_2": {
+          "type": "shipping",
+          "settings": {
+            "illustration": "pricing",
+            "text": "<p>Fair, transparent pricing, fixed before we make</p>"
+          }
+        },
+        "why_3": {
+          "type": "shipping",
+          "settings": {
+            "illustration": "hallmark",
+            "text": "<p>Hallmarked at a UK Assay Office</p>"
+          }
+        },
+        "why_4": {
+          "type": "shipping",
+          "settings": {
+            "illustration": "education",
+            "text": "<p>Honest advice on what is worth paying for</p>"
+          }
+        },
+        "why_5": {
+          "type": "shipping",
+          "settings": {
+            "illustration": "custom",
+            "text": "<p>Made in our London workshop, or designed with you from scratch</p>"
+          }
+        },
+        "why_6": {
+          "type": "shipping",
+          "settings": {
+            "illustration": "shipping",
+            "text": "<p>Free, tracked and insured UK delivery</p>"
+          }
+        }
+      },
+      "block_order": [
+        "why_1",
+        "why_2",
+        "why_3",
+        "why_4",
+        "why_5",
+        "why_6"
+      ],
+      "settings": {
+        "top_heading": "Why choose For Your Eternity?",
+        "col_dk": "3",
+        "band": "white"
+      }
+    },
+    "consult": {
+      "type": "fye-media-text",
+      "settings": {
+        "band": "sage",
+        "reverse": true,
+        "full_bleed": true,
+        "image": "shopify://shop_images/fffg1_1.png",
+        "image_alt": "A ring presented during a personalised consultation",
+        "placeholder": "Image",
+        "heading": "Book a personalised consultation",
+        "body": "<ul><li>Choose the face shape and size for the finger it will be worn on.</li><li>Decide plain, engraved or stone-set.</li><li>Get a crest or monogram drawn and proofed before it is cut.</li><li>Order a free ring sizer and confirm the size with us.</li></ul>",
+        "eyebrow": "Personal guidance"
+      },
+      "blocks": {
+        "btn": {
+          "type": "button",
+          "settings": {
+            "label": "Book a free consultation",
+            "link": "/pages/contact-us#popup-contact",
+            "style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "btn"
+      ]
+    },
+    "faq": {
+      "type": "accordion",
+      "blocks": {
+        "q1": {
+          "type": "accor_item",
+          "settings": {
+            "title": "What is a signet ring?",
+            "content": "<p>A signet ring has a flat face, traditionally engraved with a seal or symbol that identified its owner. Today it may be plain, engraved with initials or a crest, or set with a stone, and it is chosen as much for personal meaning, or simply for its shape, as for tradition.</p>"
+          }
+        },
+        "q2": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Which finger is a signet ring worn on?",
+            "content": "<p>By tradition the little finger of the non-dominant hand, where a family signet could be used as a seal. Today it is worn on any finger, and sometimes as a wedding ring. Whichever you choose, measure that finger: a little finger is usually several sizes smaller than a ring finger. We post a free UK ring sizer.</p>"
+          }
+        },
+        "q3": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Can anyone wear a signet ring?",
+            "content": "<p>Yes. Signet rings are not reserved for a gender, a family or a tradition. Choose the face size, band width and design around your hand and what you like, and wear it however feels right to you.</p>"
+          }
+        },
+        "q4": {
+          "type": "accor_item",
+          "settings": {
+            "title": "What is the difference between engraving and seal engraving?",
+            "content": "<p>Surface engraving cuts the design so it reads correctly on the ring, which suits initials and monograms. Seal engraving is cut deeper and in reverse, so that pressed into wax it prints the right way round, which is the traditional way to carry a crest. If you want a working seal, tell us at the start; we quote both before you order.</p>"
+          }
+        },
+        "q5": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Oval, cushion, round or square: which face should I choose?",
+            "content": "<p>Oval is the classic and takes a crest or three initials comfortably. Cushion has softer corners and suits a single initial. Round and square faces feel more contemporary and suit a plain or stone-set finish. Bring a photograph of a signet you like and we will size the face to your finger.</p>"
+          }
+        },
+        "q6": {
+          "type": "accor_item",
+          "settings": {
+            "title": "9ct, 18ct or platinum?",
+            "content": "<p>9ct gold, hallmarked 375, is the traditional metal for a signet: hard-wearing and paler in colour. 18ct, hallmarked 750, has a richer colour but is softer, so it shows wear sooner. Platinum, hallmarked 950, is the heaviest and holds fine engraved detail well. We show the weight of each option before you order.</p>"
+          }
+        },
+        "q7": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Can a signet ring be resized later?",
+            "content": "<p>Usually. A plain or engraved signet is resized at the back of the shank without touching the face. Stone-set signets can be adjusted within a size or two with care. Every ring we make includes one free resize within 12 months of delivery, but getting the size right before engraving is always best.</p>"
+          }
+        },
+        "q8": {
+          "type": "accor_item",
+          "settings": {
+            "title": "How long does a signet ring take?",
+            "content": "<p>We confirm the making time before you order, with initials or a monogram included. A hand-engraved crest adds about a week, and a working seal about two weeks. Every engraving is proofed before it is cut, because engraved rings are made for you alone.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8"
+      ],
+      "settings": {
+        "top_heading": "Frequently asked questions",
+        "left_heading": "Have another question?",
+        "left_text": "<p>Tell us what you are considering and we will help you compare the details and work out your next step.</p>",
+        "left_btn": "Ask us a question",
+        "left_url": "shopify://pages/contact-us",
+        "emit_schema": true,
+        "band": "white"
+      }
+    },
+    "commitment": {
+      "type": "fye-media-text",
+      "settings": {
+        "band": "mist",
+        "reverse": false,
+        "full_bleed": true,
+        "image": "shopify://shop_images/fffg1_4.png",
+        "image_alt": "A diamond ring beside pieces of gold ready for making",
+        "placeholder": "Image",
+        "heading": "Our commitment to you",
+        "body": "<ul><li>Every centre and loose diamond comes with a GIA or IGI certificate. Stones in multi-stone pieces are not individually certified; the listing states their grade.</li><li>Lifetime warranty against manufacturing defects.</li><li>Free inspection and cleaning for life.</li><li>One free resize within 12 months of delivery.</li><li>Every engraving proofed before it is cut.</li><li>If a piece arrives faulty or not as ordered, you can reject it for a full refund within 30 days; after that we repair or replace it.</li><li>Made-to-order and bespoke pieces are made for you, so we talk each order through before we start. Ready-made pieces can be returned within 14 days of delivery, unworn and in their original packaging.</li></ul>"
+      },
+      "blocks": {
+        "btn": {
+          "type": "button",
+          "settings": {
+            "label": "Talk to us",
+            "link": "/pages/contact-us#popup-contact",
+            "style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "btn"
+      ]
+    },
+    "closing": {
+      "type": "fye-consultation",
+      "blocks": {
+        "contact_phone": {
+          "type": "contact",
+          "settings": {
+            "type": "phone",
+            "label": "0208 178 6687"
+          }
+        },
+        "contact_email": {
+          "type": "contact",
+          "settings": {
+            "type": "email",
+            "label": "enquiries@foryoureternity.com"
+          }
+        },
+        "contact_whatsapp": {
+          "type": "contact",
+          "settings": {
+            "type": "whatsapp",
+            "label": "WhatsApp",
+            "link": "https://wa.me/447840042922"
+          }
+        }
+      },
+      "block_order": [
+        "contact_phone",
+        "contact_email",
+        "contact_whatsapp"
+      ],
+      "settings": {
+        "band": "teal",
+        "eyebrow": "Personal guidance",
+        "heading": "Still unsure where to start?",
+        "lead": "Book a free consultation in person across London, or by video, phone or WhatsApp.",
+        "btn_label": "Book a free consultation",
+        "btn_link": "/pages/contact-us#popup-contact"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "know",
+    "bespoke",
+    "guide",
+    "why",
+    "consult",
+    "faq",
+    "commitment",
+    "closing"
+  ]
+}

@@ -4027,3 +4027,23 @@ Ship: `./tools/fye ship "Phase 1b: shoulder links, stone menu, labels, enquiries
   if a visible breadcrumb is added. Text-only tiles needed no code: collections-list
   already renders a tile with no image as its name alone.
 Ship: `./tools/fye ship "Phase 2: founder schema, hero alt, one shape heading, hallmark"`.
+
+## 11/10/2026: Phase 3 (the five jewellery hubs)
+- New templates: page.bracelets, page.signet-rings, page.earrings,
+  page.necklaces-and-pendants, page.cufflinks. Generated from the master plan copy
+  (claude.ai doc "FYE jewellery and ring pages: master plan") by a script, so every hub
+  shares one order: teal hero (no photo yet, white wordmark), shop-by cards and rows
+  (bracelets only), What to know, featured grid (bracelets only), bespoke band, Care
+  Guide band, six Why choose bullets (new hallmark drawing), consultation, FAQ with
+  FAQPage schema, Our commitment, closing band.
+- Bracelets uses bracelet product photographs from Files. The other four reuse brand
+  images (fffg1_5, Ring_11, fffg1_4, fffg1_1) until their own photography exists.
+- Store data: pages created with matching template suffixes and SEO title/description.
+  bracelets is visible; the other four carry seo.hidden = 1 and are linked from nowhere
+  until their stock lands. New manual collection featured-bracelets (8 products,
+  seo.hidden like featured-engagement-rings). Footer - Shop menu gains Bracelets.
+- header-group.json: the Jewellery nav item now opens /pages/bracelets (was the
+  collection). index.json: the Bracelets category tile is enabled and links to the hub.
+- Not done yet: one-column-per-type Jewellery mega menu (waits for a second visible
+  type); 18k/14k/9k bracelet option values to "ct" (needs a check of the import first).
+Ship: `./tools/fye ship "Phase 3: five jewellery hubs, bracelets live, four hidden"`.

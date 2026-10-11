@@ -1,0 +1,340 @@
+{
+  "sections": {
+    "hero": {
+      "type": "fye-hero",
+      "settings": {
+        "band": "teal",
+        "align": "center",
+        "logo_url": "https://cdn.shopify.com/s/files/1/0972/5391/7056/files/temp-logo-white-1.svg?v=1771834133",
+        "logo_alt": "For Your Eternity",
+        "logo_width": 250,
+        "heading": "Necklaces and pendants by",
+        "heading_style": "sentence",
+        "subheading": "Diamond and gemstone pendants, birthstone pendants and solid gold chains, made to order in our London workshop and hallmarked, from a classic solitaire to a design that starts with your own stone.",
+        "button_label": "Start a bespoke enquiry",
+        "button_link": "/pages/contact-us#popup-contact"
+      }
+    },
+    "know": {
+      "type": "fye-media-text",
+      "settings": {
+        "band": "sage",
+        "reverse": false,
+        "full_bleed": true,
+        "image": "shopify://shop_images/fffg1_5.png",
+        "image_alt": "Loose diamonds and a jeweller's tools on a workbench",
+        "placeholder": "Image",
+        "heading": "Why does the chain matter as much as the pendant?",
+        "body": "<p>A necklace is the complete piece worn around the neck; a pendant is the ornament that hangs from a chain, and it may be sold with or without one. A pendant is only as secure as its chain. For a pendant worn every day, choose a solid chain of at least 1 mm with a lobster clasp, and have the bail checked when the setting is checked.</p><ul><li>45 cm (18 inches) is the most common pendant length and sits just below the collarbone; 40 cm sits on it, 50 cm on the chest.</li><li>A fixed chain, with the pendant soldered in place, keeps it centred and cannot slip off.</li><li>Natural or lab-grown diamonds, coloured gemstones, or a stone you already own.</li></ul>",
+        "eyebrow": "Before you choose"
+      },
+      "blocks": {
+        "btn": {
+          "type": "button",
+          "settings": {
+            "label": "Talk it through with us",
+            "link": "/pages/contact-us#popup-contact",
+            "style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "btn"
+      ]
+    },
+    "bespoke": {
+      "type": "fye-media-text",
+      "settings": {
+        "band": "sage",
+        "reverse": true,
+        "full_bleed": true,
+        "image": "shopify://shop_images/Ring_11.png",
+        "image_alt": "A diamond ring resting on design drawings",
+        "placeholder": "Image",
+        "heading": "A pendant designed with you",
+        "body": "<p>Start with a stone, a sketch, an initial or an inherited piece that needs a new life. We design it in CAD, show you the render, and make it once you approve it. We can also match a pendant to your engagement ring's metal, stone shape and setting.</p>"
+      },
+      "blocks": {
+        "btn": {
+          "type": "button",
+          "settings": {
+            "label": "Start a bespoke enquiry",
+            "link": "/pages/contact-us#popup-contact",
+            "style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "btn"
+      ]
+    },
+    "guide": {
+      "type": "fye-guide-download",
+      "blocks": {
+        "btn": {
+          "type": "button",
+          "settings": {
+            "label": "View the guide",
+            "link": "shopify://pages/ring-and-jewellery-care-guide",
+            "style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "btn"
+      ],
+      "settings": {
+        "band": "teal",
+        "cover": "shopify://shop_images/ring-care-guide-cover.png",
+        "cover_alt": "The Ring and Jewellery Care Guide",
+        "cover_caption": "The Ring and Jewellery Care Guide",
+        "heading": "The Ring and Jewellery Care Guide",
+        "body": "<p>How to clean a pendant without loosening the bail, store chains so they do not knot, and know when a clasp needs replacing. Read online or take the free PDF.</p>"
+      }
+    },
+    "why": {
+      "type": "shipping",
+      "blocks": {
+        "why_1": {
+          "type": "shipping",
+          "settings": {
+            "illustration": "diamond",
+            "text": "<p>Ethically sourced diamonds, gemstones and metals</p>"
+          }
+        },
+        "why_2": {
+          "type": "shipping",
+          "settings": {
+            "illustration": "pricing",
+            "text": "<p>Fair, transparent pricing, fixed before we make</p>"
+          }
+        },
+        "why_3": {
+          "type": "shipping",
+          "settings": {
+            "illustration": "hallmark",
+            "text": "<p>Hallmarked at a UK Assay Office</p>"
+          }
+        },
+        "why_4": {
+          "type": "shipping",
+          "settings": {
+            "illustration": "education",
+            "text": "<p>Honest advice on what is worth paying for</p>"
+          }
+        },
+        "why_5": {
+          "type": "shipping",
+          "settings": {
+            "illustration": "custom",
+            "text": "<p>Made in our London workshop, or designed with you from scratch</p>"
+          }
+        },
+        "why_6": {
+          "type": "shipping",
+          "settings": {
+            "illustration": "shipping",
+            "text": "<p>Free, tracked and insured UK delivery</p>"
+          }
+        }
+      },
+      "block_order": [
+        "why_1",
+        "why_2",
+        "why_3",
+        "why_4",
+        "why_5",
+        "why_6"
+      ],
+      "settings": {
+        "top_heading": "Why choose For Your Eternity?",
+        "col_dk": "3",
+        "band": "white"
+      }
+    },
+    "consult": {
+      "type": "fye-media-text",
+      "settings": {
+        "band": "sage",
+        "reverse": true,
+        "full_bleed": true,
+        "image": "shopify://shop_images/fffg1_1.png",
+        "image_alt": "A ring presented during a personalised consultation",
+        "placeholder": "Image",
+        "heading": "Book a personalised consultation",
+        "body": "<ul><li>Choose a pendant style and the chain to carry it.</li><li>Decide natural, lab-grown or a coloured stone.</li><li>Get the length right for the necklines you wear most.</li><li>Reset a stone or an heirloom piece into something you will wear.</li></ul>",
+        "eyebrow": "Personal guidance"
+      },
+      "blocks": {
+        "btn": {
+          "type": "button",
+          "settings": {
+            "label": "Book a free consultation",
+            "link": "/pages/contact-us#popup-contact",
+            "style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "btn"
+      ]
+    },
+    "faq": {
+      "type": "accordion",
+      "blocks": {
+        "q1": {
+          "type": "accor_item",
+          "settings": {
+            "title": "What is the difference between a necklace and a pendant?",
+            "content": "<p>A necklace is a complete piece worn around the neck. A pendant is a decorative element that hangs from a chain or cord. A pendant on its chain is a necklace, but a pendant listing does not always include a chain, so check the listing or ask us.</p>"
+          }
+        },
+        "q2": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Is a chain included with my pendant?",
+            "content": "<p>Each listing says chain included or pendant only beside the price, with the chain's metal, length and style. If you are unsure, ask us before ordering.</p>"
+          }
+        },
+        "q3": {
+          "type": "accor_item",
+          "settings": {
+            "title": "What length necklace should I choose?",
+            "content": "<p>40 cm (16 inches) sits at the collarbone and suits high necklines. 45 cm (18 inches) sits just below it and is the length most pendants are worn at. 50 cm (20 inches) sits on the chest and suits lower necklines. If you are between two, go longer: a chain can be shortened, and a pendant that sits too high looks tight.</p>"
+          }
+        },
+        "q4": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Which chain is strongest for a pendant worn every day?",
+            "content": "<p>Solid curb, box and rope chains are the strongest. Trace chains are the classic choice for a solitaire pendant and fine for daily wear at 1 mm or more. Avoid hollow chains, which dent and are hard to repair, and chains under 0.8 mm, which snag and snap. A lobster clasp is more secure than a bolt ring.</p>"
+          }
+        },
+        "q5": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Can I put a new pendant on a chain I already own?",
+            "content": "<p>Often, if the bail is large enough for the chain and its end fittings, and the chain is strong enough for the pendant's weight. Send us the dimensions or a photograph and we will check before you order.</p>"
+          }
+        },
+        "q6": {
+          "type": "accor_item",
+          "settings": {
+            "title": "What size diamond suits a solitaire pendant?",
+            "content": "<p>A pendant diamond looks larger than the same stone in a ring because nothing frames it, so 0.30ct to 0.50ct reads clearly at a normal distance and suits daily wear. Lab-grown diamonds allow a larger stone or higher grade for the same spend. Every centre diamond comes with a GIA or IGI certificate.</p>"
+          }
+        },
+        "q7": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Which birthstone is for my month?",
+            "content": "<p>January garnet, February amethyst, March aquamarine, April diamond, May emerald, June pearl or moonstone, July ruby, August peridot, September sapphire, October opal or tourmaline, November topaz or citrine, December tanzanite or turquoise. Softer stones such as opal, pearl and tanzanite suit a pendant better than a ring because they take far fewer knocks.</p>"
+          }
+        },
+        "q8": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Can you reset my own diamond or an heirloom stone into a pendant?",
+            "content": "<p>Yes. We check the stone first, tell you honestly what condition it is in and which settings would protect it, then show you a CAD design before anything is made. We confirm the making time before we start.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8"
+      ],
+      "settings": {
+        "top_heading": "Frequently asked questions",
+        "left_heading": "Have another question?",
+        "left_text": "<p>Tell us what you are considering and we will help you compare the details and work out your next step.</p>",
+        "left_btn": "Ask us a question",
+        "left_url": "shopify://pages/contact-us",
+        "emit_schema": true,
+        "band": "white"
+      }
+    },
+    "commitment": {
+      "type": "fye-media-text",
+      "settings": {
+        "band": "mist",
+        "reverse": false,
+        "full_bleed": true,
+        "image": "shopify://shop_images/fffg1_4.png",
+        "image_alt": "A diamond ring beside pieces of gold ready for making",
+        "placeholder": "Image",
+        "heading": "Our commitment to you",
+        "body": "<ul><li>Every centre and loose diamond comes with a GIA or IGI certificate. Stones in multi-stone pieces are not individually certified; the listing states their grade.</li><li>Lifetime warranty against manufacturing defects.</li><li>Free inspection and cleaning for life.</li><li>If a piece arrives faulty or not as ordered, you can reject it for a full refund within 30 days; after that we repair or replace it.</li><li>Made-to-order and bespoke pieces are made for you, so we talk each order through before we start. Ready-made pieces can be returned within 14 days of delivery, unworn and in their original packaging.</li></ul>"
+      },
+      "blocks": {
+        "btn": {
+          "type": "button",
+          "settings": {
+            "label": "Talk to us",
+            "link": "/pages/contact-us#popup-contact",
+            "style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "btn"
+      ]
+    },
+    "closing": {
+      "type": "fye-consultation",
+      "blocks": {
+        "contact_phone": {
+          "type": "contact",
+          "settings": {
+            "type": "phone",
+            "label": "0208 178 6687"
+          }
+        },
+        "contact_email": {
+          "type": "contact",
+          "settings": {
+            "type": "email",
+            "label": "enquiries@foryoureternity.com"
+          }
+        },
+        "contact_whatsapp": {
+          "type": "contact",
+          "settings": {
+            "type": "whatsapp",
+            "label": "WhatsApp",
+            "link": "https://wa.me/447840042922"
+          }
+        }
+      },
+      "block_order": [
+        "contact_phone",
+        "contact_email",
+        "contact_whatsapp"
+      ],
+      "settings": {
+        "band": "teal",
+        "eyebrow": "Personal guidance",
+        "heading": "Still unsure where to start?",
+        "lead": "Book a free consultation in person across London, or by video, phone or WhatsApp.",
+        "btn_label": "Book a free consultation",
+        "btn_link": "/pages/contact-us#popup-contact"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "know",
+    "bespoke",
+    "guide",
+    "why",
+    "consult",
+    "faq",
+    "commitment",
+    "closing"
+  ]
+}

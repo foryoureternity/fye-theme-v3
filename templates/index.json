@@ -62,10 +62,9 @@
           "type": "category",
           "settings": {
             "label": "Bracelets",
-            "link": "/collections/bracelets",
+            "link": "shopify://pages/bracelets",
             "badge": "New"
-          },
-          "disabled": true
+          }
         },
         "cat_earrings": {
           "type": "category",

@@ -123,14 +123,18 @@
   color: var(--ink);
   transition: border-color var(--dur) var(--ease);
 }
-.fye .band--white .fnd__tile { background: transparent; }
+/* On white the tiles take an ivory fill and drop the hairline box (homepage
+   once-over, 11/10/2026): the band alternates white / ivory around it, and a
+   filled tile reads as a choice where a hairline box read as a form. */
+.fye .band--white .fnd__tile { background: var(--ivory); border-color: transparent; }
+.fye .band--white .fnd__tile:hover { border-color: var(--sage); }
 .fye .fnd__tile:hover { border-color: var(--sage); color: var(--ink); }
 .fye .fnd__tile:hover .fnd__name,
 .fye .fnd__tile:hover .fnd__go { color: var(--sage); }
 .fye .fnd__icon { width: 68px; height: 68px; }
 .fye .fnd__name {
   font-family: var(--font-display);
-  font-size: var(--fs-small);
+  font-size: var(--fs-h4);
   letter-spacing: 0.07em;
   text-transform: uppercase;
   transition: color var(--dur) var(--ease);

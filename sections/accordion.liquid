@@ -59,10 +59,11 @@
           {%- for block in section.blocks -%}
             {%- assign b = block.settings -%}
             {%- if b.title != blank -%}
-              <details class="acc__item" {{ block.shopify_attributes }}>
+              <details class="acc__item"{% if s.open_first and forloop.first %} open{% endif %} {{ block.shopify_attributes }}>
                 <summary class="acc__q">
                   <span>{{ b.title }}</span>
-                  {%- render 'icon', name: 'plus', class: 'icon--sm' -%}
+                  {%- render 'icon', name: 'plus', class: 'icon--sm acc__plus' -%}
+                  {%- render 'icon', name: 'minus', class: 'icon--sm acc__minus' -%}
                 </summary>
                 {%- if b.content != blank -%}
                   <div class="acc__a">{{ b.content }}</div>
@@ -162,10 +163,24 @@
 }
 .fye .acc__q::-webkit-details-marker { display: none; }
 .fye .acc__q:hover { color: var(--sage); }
-.fye .acc__q .icon { flex: 0 0 auto; transition: transform var(--dur) var(--ease); }
-.fye .acc__item[open] .acc__q .icon { transform: rotate(45deg); }
+/* Thin plus when closed, minus when open (design system "Accordion",
+   11/10/2026; was a plus rotated to a cross). One component for the homepage
+   and the ring page FAQs. Answers stay in the DOM inside <details>, closed or
+   open, so crawlers and the FAQPage data read every one. */
+.fye .acc__q .icon { flex: 0 0 auto; }
+.fye .acc__minus,
+.fye .acc__item[open] .acc__plus { display: none; }
+.fye .acc__item[open] .acc__minus { display: inline-block; }
+.fye .acc__q { font-weight: var(--fw-regular); line-height: 1.3; }
 
-.fye .acc__a { padding-bottom: var(--s6); color: var(--ink-soft); }
+.fye .acc__a {
+  padding: 0 var(--s10) var(--s6) 0;
+  font-size: var(--fs-small);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-body);
+  color: var(--ink);
+}
+@media (max-width: 560px) { .fye .acc__a { padding-right: 0; } }
 .fye .acc__a :where(a) { text-decoration: underline; text-underline-offset: 3px; }
 .fye .acc__a :where(ul) { padding-left: 1.1em; }
 
@@ -185,6 +200,7 @@
     { "type": "richtext", "id": "left_text", "label": "Text" },
     { "type": "text", "id": "left_btn", "label": "Button label" },
     { "type": "url", "id": "left_url", "label": "Button link" },
+    { "type": "checkbox", "id": "open_first", "label": "Open the first question", "default": false },
     { "type": "header", "content": "SEO" },
     { "type": "checkbox", "id": "emit_schema", "label": "Add FAQ structured data", "default": true, "info": "Generated from these questions. Delete any separate FAQ code block on the page — two sets compete." },
     { "type": "header", "content": "Background" },

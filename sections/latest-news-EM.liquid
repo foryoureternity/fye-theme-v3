@@ -18,6 +18,9 @@
 
   Do not reintroduce aspect ratios or negative margins here. Four passes were
   lost to that before I read live's numbers.
+  SUPERSEDED 11/10/2026: the geometry above is the old live layout. The band
+  was redrawn from the Claude Design homepage handoff (see the stylesheet
+  note); the markup and the hidden link text are unchanged.
 
   28/09/2026 (W446): the "Read more" links carry the article title as
   visually hidden text instead of an aria-label. Crawlers and SEO tools read
@@ -116,64 +119,64 @@
 </div>
 
 {% stylesheet %}
-/* stretch, not start: the right column's height is the section's height and
-   the photograph opposite fills it. */
+/* REDRAWN 11/10/2026 from the homepage design handoff. The lead story is now
+   a card with the photograph and the words side by side (no caption box laid
+   over the photo); the three others are hairline rows with a 4:3 thumbnail.
+   Excerpts clamp to whole lines in CSS only: the full excerpt stays in the
+   page for search. The 44px touch targets from 03/09/2026 are kept. */
 .fye .news__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 25px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s9) var(--grid-gap);
   align-items: stretch;
 }
 
 /* ---- lead ---------------------------------------------------------------- */
-
-.fye .news__lead { position: relative; }
-.fye .news__lead-img { display: block; height: 100%; }
-.fye .news__lead-img :where(img) {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.fye .news__lead {
+  flex: 1 1 340px;
+  display: flex;
+  flex-wrap: wrap;
+  background: var(--white);
 }
-
-/* Absolutely positioned inside the photograph, bottom-left. This is live's
-   device and the reason the caption never hangs below the image. */
+.fye .band--white .news__lead { background: var(--ivory); }
+.fye .news__lead-img { flex: 1 1 220px; display: block; min-height: 280px; }
+.fye .news__lead-img :where(img) { display: block; width: 100%; height: 100%; object-fit: cover; }
 .fye .news__lead-words {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  max-width: 280px;
-  padding: 16px 18px;
+  flex: 1 1 220px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: flex-start;
-  gap: 6px;
-  background: #fff;
+  gap: var(--s4);
+  padding: var(--s7);
 }
-.fye .band--white .news__lead-words { background: var(--ivory); }
-
-/* ---- the three compact cards -------------------------------------------- */
-
-.fye .news__list { display: flex; flex-direction: column; gap: 20px; height: 100%; }
-/* flex: 1 — three equal thirds, which is what sets the band's height. */
-.fye .news__row { display: flex; gap: 15px; flex: 1; }
-.fye .news__row-img { flex: 0 0 239px; display: block; }
-.fye .news__row-img :where(img) {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.fye .news__lead-words .news__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  line-height: var(--lh-heading);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
-.fye .news__row-words { flex: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+.fye .news__lead-words .news__excerpt { -webkit-line-clamp: 3; }
 
-/* ---- type: live's 16px, not 20 ------------------------------------------- */
+/* ---- the three rows ------------------------------------------------------ */
+.fye .news__list { flex: 1 1 340px; display: flex; flex-direction: column; }
+.fye .news__row {
+  display: flex;
+  gap: var(--s6);
+  padding: var(--s4) 0;
+  border-top: var(--hairline);
+}
+.fye .news__row:last-child { border-bottom: var(--hairline); }
+.fye .news__row-img { flex: none; width: clamp(96px, 28%, 180px); display: block; }
+.fye .news__row-img :where(img) { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.fye .news__row-words { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: var(--s2); }
 
+/* ---- type ---------------------------------------------------------------- */
 .fye .news__title {
-  font-size: 16px;
-  line-height: 1.4;
-  font-weight: 400;
-  letter-spacing: 0.01em;
-  text-transform: none;
+  font-size: var(--fs-body);
+  line-height: 1.3;
+  font-weight: var(--fw-regular);
   color: var(--ink);
   text-decoration: none;
   text-wrap: pretty;
@@ -183,83 +186,40 @@
 .fye .news__excerpt {
   margin: 0;
   font-size: var(--fs-small);
-  line-height: 1.55;
-  color: var(--ink-soft);
-  text-wrap: pretty;
+  font-weight: var(--fw-light);
+  line-height: var(--lh-body);
+  color: var(--ink);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
+/* The underlined uppercase link of the design system, not a filled chip. */
 .fye .news__more {
-  display: inline-block;
-  margin-top: 4px;
-  padding: 6px 15px;
-  background: var(--teal);
-  color: var(--on-dark);
-  font-size: 12px;
+  font-size: var(--fs-fine);
   font-weight: var(--fw-medium);
   letter-spacing: var(--tr-eyebrow);
   text-transform: uppercase;
-  text-decoration: none;
-  transition: background var(--dur) var(--ease);
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+  transition: color var(--dur) var(--ease);
 }
-.fye .news__more:hover { background: var(--sage); color: var(--teal); }
-
+.fye .news__more:hover { color: var(--sage); }
 .fye .news__ph { display: block; width: 100%; height: 100%; min-height: 160px; background: var(--ivory); border: var(--hairline); }
-.fye .news__foot { display: flex; justify-content: center; margin-top: var(--s8); }
+.fye .news__foot { display: flex; justify-content: center; margin-top: var(--s9); }
 
-/* Live's caps: between these widths the columns stretch to whatever the three
-   cards need, so the band runs long. Cap the imagery, clamp the text. */
-@media (min-width: 901px) and (max-width: 1400px) {
-  .fye .news__lead-img :where(img) { max-height: 560px; }
-  .fye .news__row-img { flex: 0 0 190px; }
-  .fye .news__title,
-  .fye .news__excerpt {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-}
-
-@media (max-width: 900px) {
-  .fye .news__grid { grid-template-columns: 1fr; gap: var(--s7); }
-
-  /* EVERY desktop mechanic has to stand down here, not just the caption's
-     position. On desktop the right column sets the height, the lead image
-     fills it with height: 100%, and the caption is absolute inside it. Stacked,
-     there is no definite height to fill, so height: 100% resolves to auto in
-     some places and collapses in others — which is how the caption ended up
-     over the next article's photograph even with position: static.
-     Spelled out property by property, because relying on one of them is what
-     failed the first time. */
-  .fye .news__lead { position: static; }
-  .fye .news__lead-img { height: auto; }
-  .fye .news__lead-img :where(img) { height: auto; }
-  .fye .news__list { height: auto; }
-  .fye .news__row { flex: 0 0 auto; }
-  .fye .news__row-img :where(img) { height: auto; }
-
-  .fye .news__lead-words,
-  .fye .band--white .news__lead-words {
-    position: static;
-    max-width: 100%;
-    padding: var(--s4) 0 0;
-    background: transparent;
-  }
-  .fye .news__lead-img :where(img) { max-height: 420px; }
-  .fye .news__row { flex-direction: column; gap: 10px; }
-  .fye .news__row-img { flex: 0 0 auto; }
-  .fye .news__row-img :where(img) { max-height: 220px; }
+@media (max-width: 560px) {
+  .fye .news__lead-words { padding: var(--s6); }
+  .fye .news__row { gap: var(--s4); }
 }
 
 /* ---------------------------------------------------------------------------
-   TOUCH TARGETS, 03/09/2026. Found by fyeSmoke on the live homepage.
-
-   .news__more measured 118x31, .news__title about 22px on any title short
-   enough to sit on one line. Both under the 44px minimum, conventions §7.
-
-   flex + min-height, not padding: a title that already wraps to two lines is
-   past 44px and is left completely unchanged, while a single-line title grows
-   to 44px with the text centred, which reads as space above the excerpt.
-   Padding would have shifted every title, wrapped or not.
+   TOUCH TARGETS, 03/09/2026. Found by fyeSmoke on the live homepage: the
+   links and single-line titles measured under the 44px minimum, conventions
+   section 7. flex + min-height, not padding, so a title that already wraps
+   is left unchanged.
    --------------------------------------------------------------------------- */
 .fye .news__more {
   display: inline-flex;

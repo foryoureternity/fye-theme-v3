@@ -48,7 +48,7 @@
   endif
 -%}
 
-<section class="fcols band band--{{ band }} fcols--{{ align }}{% if s.pad == 'tight' %} fcols--tight{% endif %}" data-screen-label="Feature columns">
+<section class="fcols band band--{{ band }} fcols--{{ align }}{% if s.pad == 'tight' %} fcols--tight{% endif %}{% if s.split_rule %} fcols--split{% endif %}" data-screen-label="Feature columns">
   <div class="wrap">
     {%- if s.top_heading != blank -%}
       <div class="sect-head">
@@ -136,7 +136,7 @@
    fix-whychoose.mjs on why the dropped fs_text setting had a point. */
 .fye .fcols__text {
   color: var(--ink-soft);
-  font-size: var(--fs-lead);
+  font-size: var(--fs-body-lg);  /* was --fs-lead, a token that does not exist, so it fell back to inherit */
   line-height: 1.55;
   text-wrap: pretty;
 }
@@ -150,8 +150,28 @@
 .fye .fcols--tight { padding-block: var(--s6); }
 .fye .fcols__btn { margin-top: var(--s2); }
 
+/* SPLIT layout (homepage "About For Your Eternity", design handoff
+   11/10/2026): mark and heading on the left, the copy on the right behind a
+   hairline, top-aligned. The copy column holds a 66ch measure, its first
+   paragraph at lead size and the rest at body size, so two paragraphs read
+   as an opening and a follow-on instead of one wall. A column that carries a
+   title shows its mark small (80px) above the heading. */
+.fye .fcols--split .fcols__grid { align-items: start; gap: var(--s9) var(--s11); }
+.fye .fcols--split .fcols__col { gap: var(--s7); }
+.fye .fcols--split .fcols__col + .fcols__col {
+  border-left: 1px solid var(--line);
+  padding-left: clamp(var(--s6), 3vw, var(--s9));
+}
+.fye .fcols--split .fcols__text { max-width: 66ch; color: inherit; }
+.fye .fcols--split .fcols__text :where(p) { margin: 0; }
+.fye .fcols--split .fcols__text :where(p + p) { margin-top: var(--s6); font-size: var(--fs-body); }
+.fye .fcols--split .fcols__text :where(p:first-child) { font-size: var(--fs-body-lg); font-weight: var(--fw-light); }
+.fye .fcols--split .fcols__title { font-size: var(--fs-h2); max-width: 12ch; margin: 0; }
+.fye .fcols__col:has(.fcols__title) .fcols__media { max-width: var(--s11); margin-block: 0; }
+
 @media (max-width: 900px) {
   .fye .fcols__col { grid-column: 1 / -1; }
+  .fye .fcols--split .fcols__col + .fcols__col { border-left: 0; padding-left: 0; }
 }
 
 /* 26/09/2026, Ed's spec: on desktop the monogram is capped at 240px with
@@ -174,6 +194,10 @@
         { "value": "center", "label": "Centred" },
         { "value": "right",  "label": "Right" }
       ]
+    },
+    {
+      "type": "checkbox", "id": "split_rule", "label": "Split layout", "default": false,
+      "info": "Heading column left, copy right behind a hairline, top-aligned."
     },
     {
       "type": "select", "id": "pad", "label": "Vertical space", "default": "standard",

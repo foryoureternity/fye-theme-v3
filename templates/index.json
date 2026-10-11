@@ -128,7 +128,7 @@
           "settings": {
             "icon": "guidance",
             "label": "Personal guidance",
-            "sub": "Free 1-to-1 consultations with our founder"
+            "sub": "Free 1-to-1 consultations"
           }
         },
         "point_riskfree": {
@@ -156,8 +156,8 @@
         "text_block_VY9JKk": {
           "type": "text_block",
           "settings": {
-            "col_dk": "3",
-            "title": "",
+            "col_dk": "4",
+            "title": "About For Your Eternity",
             "text": "",
             "enable_image": true,
             "image": "shopify://shop_images/FYE-initial-logo-light_1.png",
@@ -170,7 +170,7 @@
           "type": "text_block",
           "settings": {
             "col_dk": "8",
-            "title": "About For Your Eternity",
+            "title": "",
             "text": "<p>For Your Eternity is an independent London jeweller founded by Edward Marno in 2024 and a member of the National Association of Jewellers. We make engagement, wedding and eternity rings and diamond bracelets: more than 3,000 rings to configure online in platinum or gold, set with GIA or IGI certified natural or lab-grown diamonds, or coloured gemstones from sapphire and ruby to tanzanite and opal.</p><p>Every piece is made in our London workshop, ethically sourced, transparently priced with the price fixed before we make, and hallmarked. Consultations are free, by appointment, in person across London or by video, phone or WhatsApp.</p>",
             "enable_image": false,
             "button_label": "",
@@ -186,8 +186,9 @@
       "settings": {
         "top_heading": "",
         "text_align": "left",
-        "pad": "tight",
-        "band": "teal"
+        "pad": "standard",
+        "band": "teal",
+        "split_rule": true
       }
     },
     "fye_two_ways_wdDULb": {
@@ -318,7 +319,51 @@
         "bottom_heading": "Eternity rings",
         "bottom_btn": "View our rings",
         "bottom_link": "shopify://collections/eternity-rings"
-      }
+      },
+      "blocks": {
+        "panel_left": {
+          "type": "panel",
+          "settings": {
+            "image": "shopify://shop_images/nectar871.png",
+            "heading": "Engagement rings",
+            "btn": "View our rings",
+            "link": "shopify://collections/engagement-rings"
+          }
+        },
+        "panel_top": {
+          "type": "panel",
+          "settings": {
+            "image": "shopify://shop_images/womens-wedding-ring.webp",
+            "heading": "Wedding rings",
+            "btn": "View our rings",
+            "link": "shopify://collections/wedding-rings"
+          }
+        },
+        "panel_bottom": {
+          "type": "panel",
+          "settings": {
+            "image": "shopify://shop_images/Ring_211_5.png",
+            "heading": "Eternity rings",
+            "btn": "View our rings",
+            "link": "shopify://collections/eternity-rings"
+          }
+        },
+        "panel_bracelets": {
+          "type": "panel",
+          "settings": {
+            "image": "shopify://shop_images/claw-set-round-diamond-tennis-bracelet-5ct-white-1.jpg",
+            "heading": "Bracelets",
+            "btn": "View bracelets",
+            "link": "shopify://pages/bracelets"
+          }
+        }
+      },
+      "block_order": [
+        "panel_left",
+        "panel_top",
+        "panel_bottom",
+        "panel_bracelets"
+      ]
     },
     "fye_finder_entry_home": {
       "type": "fye-finder-entry",
@@ -356,7 +401,7 @@
         "intro": "Answer a few questions and we will show you the rings that match, or start a design with us instead.",
         "page_url": "",
         "cta": "Begin",
-        "band": "ivory"
+        "band": "white"
       }
     },
     "featured_collection_PHLfPD": {
@@ -425,16 +470,6 @@
             "source": "Trustpilot"
           }
         },
-        "testimonial_tpOllie": {
-          "type": "testimonial",
-          "settings": {
-            "quote": "<p>Ed was brilliant from start to finish and created an unbelievable ring both my partner and myself are extremely happy with. Couldn’t recommend For Your Eternity more!</p>",
-            "name": "Ollie E.",
-            "context": "",
-            "rating": 5,
-            "source": "Trustpilot"
-          }
-        },
         "testimonial_tpTom": {
           "type": "testimonial",
           "settings": {
@@ -473,7 +508,6 @@
         "testimonial_Rhnrrc",
         "testimonial_tpRicky",
         "testimonial_tpLydia",
-        "testimonial_tpOllie",
         "testimonial_tpTom",
         "testimonial_tpSamir"
       ],
@@ -482,7 +516,7 @@
         "enable_autoplay": true,
         "autoplay_seconds": 5.5,
         "transition_ms": 500,
-        "band": "ivory",
+        "band": "white",
         "source_label": "Read all our reviews on Trustpilot",
         "source_url": "https://uk.trustpilot.com/review/foryoureternity.com"
       }
@@ -509,7 +543,7 @@
         "placeholder": "Bespoke design",
         "eyebrow": "Bespoke design",
         "heading": "Designed with you",
-        "body": "<p>Tell us what you have in mind. We'll source the perfect stone, refine the design, and craft your ring in London.</p><p><em>Every commission is guided personally by our founder, from first sketch to final polish.</em></p>",
+        "body": "<p>Tell us what you have in mind. We'll source the perfect stone, refine the design, and craft your ring in London.</p>",
         "reverse": true,
         "full_bleed": true,
         "band": "sage"
@@ -553,7 +587,7 @@
       ],
       "settings": {
         "eyebrow": "From our workshop",
-        "heading": "<p>Pieces we've<br/>already made</p>",
+        "heading": "<p>Pieces we've <br/>already made</p>",
         "body": "<p>Engagement rings, wedding pairs and pendants we've made for our clients: some chosen from our collections, some designed from scratch, most somewhere in between. Use the gallery to see what's possible, then tell us where you'd like to start.</p>",
         "cta_label": "View the gallery",
         "cta_link": "shopify://pages/jewellery-gallery",
@@ -572,7 +606,10 @@
         "body": "<ul><li>GIA & IGI certified centre diamonds</li><li>Ethical, conflict free gemstones & precious metals</li><li>10% off wedding rings for clients whose engagement ring we made</li><li>Free, tracked and insured UK delivery</li><li>One free resize within 12 months of delivery (full eternity rings are sized before they are made)</li><li>Free inspection and cleaning for life</li><li>Lifetime warranty against manufacturing defects</li></ul>",
         "reverse": false,
         "full_bleed": true,
-        "band": "mist"
+        "band": "mist",
+        "list_style": "checks",
+        "watermark": true,
+        "copy_first_mobile": true
       }
     },
     "guide_download_block_HFUQjC": {
@@ -718,10 +755,11 @@
     "quote_home": {
       "type": "fye-rich-text",
       "settings": {
-        "band": "white",
+        "band": "ivory",
         "narrow": true,
         "body": "<blockquote><p>&ldquo;Ed was brilliant from start to finish and created an unbelievable ring both my partner and myself are extremely happy with. Couldn&rsquo;t recommend For Your Eternity more!&rdquo;</p></blockquote><p>Ollie E., via <a href=\"https://uk.trustpilot.com/review/foryoureternity.com\" target=\"_blank\" rel=\"noopener\">Trustpilot</a></p>",
-        "variant": "lede"
+        "variant": "pull_quote",
+        "stars": true
       }
     },
     "steps_home": {
@@ -764,7 +802,7 @@
           "settings": {
             "label": "Book a free consultation",
             "link": "/pages/contact-us#popup-contact",
-            "style": "btn--outline"
+            "style": "btn"
           }
         }
       },
@@ -780,7 +818,8 @@
         "eyebrow": "How it works",
         "heading": "From first conversation to delivery",
         "columns": "4",
-        "band": "white"
+        "band": "ivory",
+        "layout": "timeline"
       }
     },
     "faq_home": {
@@ -848,7 +887,8 @@
       "settings": {
         "top_heading": "Frequently asked questions",
         "emit_schema": true,
-        "band": "white"
+        "band": "white",
+        "open_first": true
       }
     }
   },
@@ -867,10 +907,8 @@
     "fye_gallery_promo_home",
     "fye_mediatext_guarantee_home",
     "guide_download_block_HFUQjC",
-    "faq_home",
     "latest_news_em_7BeeqP",
+    "faq_home",
     "fye_consultation_home"
   ]
 }
-
-

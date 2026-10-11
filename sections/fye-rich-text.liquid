@@ -13,8 +13,12 @@
   `variant` is rendered as a modifier class rather than a branch. The old
   theme's option list is not fully known here, so any value it holds becomes
   `.rtext--<value>` and an unrecognised one simply falls back to the base
-  treatment. Two are styled: `lede` (larger opening paragraph) and `note`
-  (quieter, for an aside). Add more here as they turn up in the templates.
+  treatment. Three are styled: `lede` (larger opening paragraph), `note`
+  (quieter, for an aside) and `pull_quote` (one client review on its own
+  band: optional five stars, the quote in light Outfit at h3 size, centred at
+  the narrow measure, and the attribution paragraph as a flanked eyebrow).
+  Pull quote added 11/10/2026 from the homepage design handoff; the body
+  should be a <blockquote> followed by one <p> for the attribution.
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
@@ -31,6 +35,12 @@
         align: 'left',
         flank: false -%}
 
+    {%- if variant == 'pull_quote' and s.stars -%}
+      <p class="rtext__stars">
+        {%- for i in (1..5) -%}{%- render 'icon', name: 'star', class: 'icon--sm' -%}{%- endfor -%}
+        <span class="visually-hidden">5 out of 5 stars</span>
+      </p>
+    {%- endif -%}
     {%- if s.body != blank -%}
       <div class="prose rtext__body">{{ s.body }}</div>
     {%- endif -%}
@@ -46,6 +56,44 @@
 
 /* A larger opening paragraph, for the top of a guide. */
 .fye .rtext--lede .rtext__body { font-size: var(--fs-body-lg); color: var(--ink-soft); }
+
+/* Pull quote: one review given a band of its own. */
+.fye .rtext--pull_quote .wrap { text-align: center; }
+.fye .rtext__stars { display: flex; justify-content: center; gap: var(--s1); margin: 0 0 var(--s7); color: var(--sage); }
+.fye .rtext__stars :where(svg, svg *) { fill: currentColor; stroke: none; }
+.fye .rtext--pull_quote .rtext__body { max-width: none; }
+.fye .rtext--pull_quote .rtext__body blockquote {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: var(--font-body);
+  font-weight: var(--fw-light);
+  font-size: var(--fs-h3);
+  line-height: 1.45;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.fye .rtext--pull_quote .rtext__body blockquote :where(p) { margin: 0; font: inherit; }
+.fye .rtext--pull_quote .rtext__body > p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s5);
+  margin: var(--s7) 0 0;
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.fye .rtext--pull_quote .rtext__body > p::before,
+.fye .rtext--pull_quote .rtext__body > p::after {
+  content: '';
+  flex: none;
+  width: var(--s7);
+  height: 1px;
+  background: var(--teal);
+}
 
 /* A quieter aside. Smaller and indented behind a hairline, not lighter — the
    two-text-levels rule holds. */
@@ -68,9 +116,11 @@
       "options": [
         { "value": "default", "label": "Body copy" },
         { "value": "lede",    "label": "Opening paragraph" },
-        { "value": "note",    "label": "Aside" }
+        { "value": "note",    "label": "Aside" },
+        { "value": "pull_quote", "label": "Pull quote" }
       ]
     },
+    { "type": "checkbox", "id": "stars", "label": "Five stars above a pull quote", "default": false },
     { "type": "checkbox", "id": "narrow", "label": "Narrow measure", "default": true, "info": "780px — the reading width for guides." },
     {
       "type": "select", "id": "band", "label": "Background", "default": "ivory",

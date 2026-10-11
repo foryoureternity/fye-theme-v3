@@ -9,6 +9,12 @@
   the heading ("Read all our reviews on Trustpilot"); each block's `source`
   prints "via <source>" after the name, linked to `source_url` when set. Both
   blank by default, so existing uses render exactly as before.
+  SOURCE ROW (design handoff 11/10/2026, "Review source line" in the design
+  system): with a source link set, the head gains a full-width row under the
+  heading (sage stars, the link as an uppercase eyebrow with an arrow, a
+  hairline below) and the arrows move onto that row's right-hand end. Each
+  quote's caption sits under a hairline at the card foot: the name, then one
+  meta line "Engagement ring · via Trustpilot".
 
   HOW THE ROTATION WORKS, and why it is built this way
   The track is a real horizontal scroll container with scroll-snap, three
@@ -39,19 +45,25 @@
   endif
 -%}
 
-<section class="tmon band band--{{ band }}" data-screen-label="Testimonials">
+<section class="tmon band band--{{ band }}{% if s.source_label != blank %} tmon--sourced{% endif %}" data-screen-label="Testimonials">
   <div class="wrap">
     <div class="tmon__head">
       <div class="tmon__head-words">
         {%- if s.heading != blank -%}
-          <h2 class="tmon__heading">{{ s.heading }}</h2>
-        {%- endif -%}
-        {%- if s.source_label != blank -%}
-          <p class="tmon__src-all">
-            {%- if s.source_url != blank -%}<a href="{{ s.source_url }}" target="_blank" rel="noopener">{{ s.source_label }}</a>{%- else -%}{{ s.source_label }}{%- endif -%}
-          </p>
+          <h2 class="tmon__heading heading-flank">{{ s.heading }}</h2>
         {%- endif -%}
       </div>
+      {%- if s.source_label != blank -%}
+        <p class="tmon__src-all">
+          {%- if s.source_url != blank -%}<a href="{{ s.source_url }}" target="_blank" rel="noopener">{%- else -%}<span>{%- endif -%}
+            <span class="tmon__src-stars" aria-hidden="true">
+              {%- for i in (1..5) -%}{%- render 'icon', name: 'star', class: 'icon--sm' -%}{%- endfor -%}
+            </span>
+            <span class="tmon__src-label">{{ s.source_label }}</span>
+            {%- render 'icon', name: 'arrow-right', class: 'icon--sm' -%}
+          {%- if s.source_url != blank -%}</a>{%- else -%}</span>{%- endif -%}
+        </p>
+      {%- endif -%}
     </div>
 
     <div
@@ -81,11 +93,12 @@
                 {%- if b.name != blank -%}
                   <span class="tmon__name">{{ b.name }}</span>
                 {%- endif -%}
-                {%- if b.context != blank -%}
-                  <span class="tmon__context">{{ b.context }}</span>
-                {%- endif -%}
-                {%- if b.source != blank -%}
-                  <span class="tmon__src">via {% if s.source_url != blank %}<a href="{{ s.source_url }}" target="_blank" rel="noopener">{{ b.source }}</a>{% else %}{{ b.source }}{% endif %}</span>
+                {%- if b.context != blank or b.source != blank -%}
+                  <span class="tmon__meta">
+                    {%- if b.context != blank -%}<span class="tmon__context">{{ b.context }}</span>{%- endif -%}
+                    {%- if b.context != blank and b.source != blank %} · {% endif -%}
+                    {%- if b.source != blank -%}<span class="tmon__src">via {% if s.source_url != blank %}<a href="{{ s.source_url }}" target="_blank" rel="noopener">{{ b.source }}</a>{% else %}{{ b.source }}{% endif %}</span>{%- endif -%}
+                  </span>
                 {%- endif -%}
               </figcaption>
             {%- endif -%}
@@ -119,6 +132,8 @@
   text-align: center;
 }
 .fye .tmon__head-words { display: flex; flex-direction: column; align-items: center; gap: var(--s3); }
+/* Stretch so the flanked heading's hairlines have width to grow into. */
+.fye .tmon__head-words { align-self: stretch; }
 
 
 .fye .tmon__rot { position: relative; }
@@ -161,7 +176,15 @@
 .fye .tmon__stars :where(svg, svg *) { fill: currentColor; stroke: none; }
 .fye .tmon__quote { margin: 0; font-size: var(--fs-body); color: var(--ink); }
 .fye .tmon__quote :where(p) { margin: 0; }
-.fye .tmon__by { display: flex; flex-direction: column; gap: 2px; margin-top: auto; }
+.fye .tmon__by {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s1);
+  margin-top: auto;
+  padding-top: var(--s4);
+  border-top: var(--hairline);
+}
+.fye .tmon__meta { font-size: var(--fs-fine); color: var(--ink-soft); }
 .fye .tmon__name {
   font-size: var(--fs-fine);
   font-weight: var(--fw-medium);
@@ -171,7 +194,41 @@
 .fye .tmon__context { font-size: var(--fs-fine); color: var(--ink-soft); }
 .fye .tmon__src { font-size: var(--fs-fine); color: var(--ink-soft); }
 .fye .tmon__src a, .fye .tmon__src-all a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
-.fye .tmon__src-all { margin: 0; font-size: var(--fs-fine); color: var(--ink-soft); }
+.fye .tmon__src a { text-decoration: underline; }
+
+/* The source row. Full width under the centred heading, link on the left,
+   the carousel arrows pinned to its right-hand end (positioned from the
+   rotator below, because fye-ui.js finds the arrows inside the rotator). */
+.fye .tmon--sourced .tmon__head { margin-bottom: 0; }
+.fye .tmon__src-all {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  margin: var(--s6) 0 0;
+  padding-bottom: var(--s6);
+  border-bottom: var(--hairline);
+  text-align: left;
+}
+.fye .tmon__src-all > a,
+.fye .tmon__src-all > span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s3);
+  color: var(--ink);
+  text-decoration: none;
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+}
+.fye .tmon__src-label { border-bottom: 1px solid var(--line-strong); padding-bottom: 3px; }
+.fye .tmon__src-all > a:hover { color: var(--sage); }
+.fye .tmon__src-all > a:hover .tmon__src-label { border-color: var(--sage); }
+.fye .tmon__src-stars { display: flex; gap: 2px; color: var(--sage); }
+.fye .tmon__src-stars :where(svg, svg *) { fill: currentColor; stroke: none; }
+.fye .tmon--sourced .tmon__rot { padding-top: var(--s6); }
+.fye .tmon--sourced .tmon__nav { top: calc(-1 * (var(--s6) + 44px)); transform: none; }
 
 /* Arrows sit with the heading on desktop, under the track on mobile. */
 .fye .tmon__nav {
@@ -202,6 +259,7 @@
 
 @media (max-width: 560px) {
   .fye .tmon__item { flex-basis: 100%; }
+  .fye .tmon--sourced .tmon__nav { top: auto; }
   .fye .tmon__head { margin-bottom: var(--s7); }
   .fye .tmon__nav {
     position: static;

@@ -4099,3 +4099,33 @@ Ship: `./tools/fye ship "Phase 4b: homepage Meet Edward, how it works, brand FAQ
 - 11/10/2026, Ed: no Meet Edward on the homepage; his photo and profile belong on About Us
   only. founder_home removed from index.json (17 sections). His name stays in the About
   paragraph and the brand FAQ text.
+- Verified live 11/10/2026: Meet Edward gone from the homepage (17 sections), two-ways wording live.
+
+## 11/10/2026: homepage v2 from the Claude Design handoff [W509]
+Handoff: "FYE Homepage Handoff" zip (Homepage v2 + change list). Same 17 sections and
+copy; one reorder (FAQ below Latest news, so it leads into the consultation close).
+Grounds now alternate: white, white, ivory, white, ivory, teal, white, ivory, white, sage,
+white, mist, teal, ivory, white, teal.
+- index.json: four category panels as blocks (Bracelets added, interim packshot until a
+  lifestyle photo exists); pull quote band (ivory, new `pull_quote` variant, stars on);
+  finder white; steps ivory + timeline + filled button; About split layout (mark and h2
+  left, copy right); testimonials white, the duplicate Ollie E. quote dropped from the
+  carousel (it is the pull quote); guarantee checks + watermark + copy first on mobile;
+  FAQ open_first. Founder mentions removed from the trust strip and the bespoke band
+  (handoff copy flag, Ed: himself on About Us only). Gallery heading gains a space
+  before the <br/> so it reads "we've already".
+- New settings, all default off so other pages are untouched: fye-rich-text `pull_quote`
+  + `stars`; fye-steps `layout` (columns/timeline); feature_columns2 `split_rule`;
+  fye-media-text `list_style`, `watermark`, `copy_first_mobile`; accordion `open_first`.
+- Sitewide by design (design system components): accordion plus/minus and answer type
+  (ring pages too); testimonials flanked heading, source row, hairline captions (About Us
+  too); two-ways teal checks + hairline; guide titles reserve two lines; trust strip
+  balance; finder ivory tiles on white; category panels labels below the photo;
+  latest news redrawn (lead card side by side, hairline rows, clamped excerpts in CSS).
+- Not taken from the handoff, deliberately: the bespoke band stays --sage-band
+  (#5A6B5A), not Sage Green Deep (#6E836E): ivory on #6E836E is 3.6:1 and fails AA, see
+  the deviation note in fye-core.css. Band padding already steps down at 900/560 via
+  --sect-y, so the fluid clamp was not added. featured_collection stays rings only
+  until Ed picks bracelets.
+- Fixed on the way: feature_columns2 used --fs-lead, a token that does not exist.
+Ship: `./tools/fye ship "Homepage v2: design handoff"`.

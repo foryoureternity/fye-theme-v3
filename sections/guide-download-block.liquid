@@ -128,7 +128,12 @@
   gap: var(--s3);
 }
 /* Smaller at six across: the title is a label on a shelf, not a heading. */
-.fye .guides__title { font-size: var(--fs-fine); letter-spacing: var(--tr-h2); }
+.fye .guides__title { font-size: var(--fs-fine); letter-spacing: var(--tr-h2); text-wrap: balance; }
+/* Desktop: every title reserves two lines, so the six buttons sit on one line
+   whether a title wraps or not (handoff 11/10/2026). */
+@media (min-width: 769px) {
+  .fye .guides__title { min-height: calc(2em * var(--lh-heading)); }
+}
 .fye .guides__blurb {
   margin: 0;
   font-size: var(--fs-fine);

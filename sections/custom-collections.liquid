@@ -21,10 +21,13 @@
     section renders them as three equal panels rather than breaking. Once the
     template is moved to blocks, they can go.
 
-  Label bottom-left over a soft dark gradient, as live. Not the full-frame
-  `.scrim`: these are dark-ish photographs already, and a full teal wash over
-  all three flattens them. The gradient only covers the lower third, which is
-  where the type sits.
+  LABELS BELOW THE PHOTO (homepage once-over, Claude Design handoff
+  11/10/2026). The heading and link used to sit bottom-left over a dark
+  gradient; the design system does not allow gradient overlays, so the photo
+  now stands clean at 4:3 and the words sit underneath it: heading in Tenor
+  at h4, link as the underlined uppercase .link. A hairline above the row
+  binds it to the trust strip as one shop block. Four panels on the homepage
+  since bracelets went live; the row is auto-fit, 2 x 2 on a phone.
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
@@ -48,10 +51,12 @@
           {%- if b.heading != blank or b.image != blank -%}
             <a class="ccols__panel" href="{{ b.link | default: '#' }}" {{ block.shopify_attributes }}>
               {%- if b.image != blank -%}
-                {{ b.image | image_url: width: 1000 | image_tag:
+                <span class="ccols__media">
+                {{- b.image | image_url: width: 1000 | image_tag:
                    loading: 'lazy', widths: '400,600,800,1000',
-                   sizes: '(max-width: 900px) 100vw, 33vw',
-                   alt: b.heading, class: 'ccols__img' }}
+                   sizes: '(max-width: 560px) 50vw, (max-width: 900px) 50vw, 25vw',
+                   alt: b.heading, class: 'ccols__img' -}}
+                </span>
               {%- endif -%}
               <span class="ccols__words">
                 {%- if b.heading != blank -%}
@@ -123,65 +128,63 @@
 </section>
 
 {% stylesheet %}
-/* Equal panels in one row. auto-fit so a fourth or fifth range needs no
-   setting change, and so three do not stretch when one is removed. */
+/* auto-fit so a fifth range needs no setting change. The 150px floor lets four
+   sit in one row from about 700px; 2 x 2 is forced below 768 so a phone never
+   gets one long column of photographs. */
 .fye .ccols__row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--grid-gap);
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--s9) var(--grid-gap);
+  border-top: var(--hairline);
+  padding-top: var(--s9);
 }
 
 .fye .ccols__panel {
-  position: relative;
-  display: block;
-  overflow: hidden;
-  aspect-ratio: 4 / 3;
-  color: var(--on-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s4);
+  color: var(--ink);
 }
+.fye .ccols__media {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--ivory);
+}
+/* The legacy setting path renders the img without the media wrapper. */
 .fye .ccols__img {
-  position: absolute;
-  inset: 0;
+  display: block;
   width: 100%;
   height: 100%;
+  aspect-ratio: 4 / 3;
   object-fit: cover;
   transition: transform var(--dur) var(--ease);
 }
 .fye .ccols__panel:hover .ccols__img { transform: scale(1.03); }
 
-/* Gradient over the lower third only, where the type sits. A full-frame teal
-   wash over three already-dark photographs flattens all of them. */
-.fye .ccols__panel::after {
-  content: '';
-  position: absolute;
-  inset-inline: 0;
-  inset-block-end: 0;
-  height: 55%;
-  background: linear-gradient(to top, rgba(35, 61, 71, 0.62), rgba(35, 61, 71, 0));
-  pointer-events: none;
-}
-
 .fye .ccols__words {
-  position: absolute;
-  z-index: 1;
-  inset-inline-start: var(--s6);
-  inset-block-end: var(--s6);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--s2);
+  gap: var(--s4);
 }
 .fye .ccols__heading {
   font-family: var(--font-display);
   font-size: var(--fs-h4);
+  line-height: var(--lh-heading);
   letter-spacing: var(--tr-h2);
   text-transform: uppercase;
-  color: var(--on-dark);
+  color: var(--ink);
+  transition: color var(--dur) var(--ease);
 }
-.fye .ccols__link { color: var(--on-dark); font-size: var(--fs-eyebrow); }
-.fye .ccols__panel:hover .ccols__link { color: var(--sage-grey); }
+.fye .ccols__link { font-size: var(--fs-fine); }
+.fye .ccols__panel:hover .ccols__heading,
+.fye .ccols__panel:hover .ccols__link { color: var(--sage); }
 
-@media (max-width: 560px) {
-  .fye .ccols__words { inset-inline-start: var(--s5); inset-block-end: var(--s5); }
+@media (max-width: 768px) {
+  .fye .ccols__row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s7) var(--s4); }
 }
 @media (prefers-reduced-motion: reduce) {
   .fye .ccols__panel:hover .ccols__img { transform: none; }

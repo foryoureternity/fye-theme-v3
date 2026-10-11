@@ -58,7 +58,6 @@
   assign band = s.band | default: 'ivory'
   assign align = s.align | default: 'center'
   assign hstyle = s.heading_style | default: 'display'
-  assign hero_alt = s.heading | default: shop.name | strip_html
   assign has_img = false
   if s.image != blank
     assign has_img = true
@@ -72,6 +71,21 @@
     so the sentence is read once and looks exactly as before.
   endcomment
   assign logo_words = s.logo_alt | default: shop.name | strip_html
+
+  comment
+    11/10/2026 (jewellery and ring pages master plan, Phase 2): the
+    photograph's alt used to be the heading, so on the landing pages it read
+    "Engagement rings by", a fragment. It now describes the picture: the
+    image_alt setting first, then the alt stored on the image in Content >
+    Files, and only then the heading, completed by the wordmark words when
+    the heading is written to run into them.
+  endcomment
+  assign hero_alt_fallback = s.heading | default: shop.name | strip_html | strip
+  assign heading_tail = hero_alt_fallback | slice: -3, 3
+  if heading_tail == ' by'
+    assign hero_alt_fallback = hero_alt_fallback | append: ' ' | append: logo_words
+  endif
+  assign hero_alt = s.image_alt | default: s.image.alt | default: hero_alt_fallback | strip_html
 
   comment
     25/09/2026 (W406): `logo_words_first` moves those hidden words to the
@@ -383,6 +397,7 @@
     },
     { "type": "text", "id": "subheading", "label": "Subheading" },
     { "type": "image_picker", "id": "image", "label": "Background image", "info": "Optional. Type sits on a teal scrim when set." },
+    { "type": "text", "id": "image_alt", "label": "Image description", "info": "What the photograph shows, for search engines and screen readers." },
     { "type": "header", "content": "Logo" },
     { "type": "text", "id": "logo_url", "label": "Logo URL", "info": "A file URL. Shown above the heading." },
     { "type": "text", "id": "logo_alt", "label": "Logo description" },

@@ -22,11 +22,22 @@
   `collection_des`, `source`, `icon_width`, the ratio and spacing sets, and
   `layout`. `col_dk` was "9" — a Bootstrap column span, not a column count;
   it is a real count now, defaulting to the 10 tiles the live site shows.
+
+  11/10/2026 (master plan Phase 2): ONE heading in the DOM. The desktop and
+  mobile headings used to be two <h2>s with one hidden by CSS, so crawlers
+  and screen readers met both. Now `top_heading` is the only h2. When
+  `heading_mb` differs it is an aria-hidden <p> shown below 900px, and the
+  h2 is visually hidden there rather than display:none, so it still counts.
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
   assign band = s.band | default: 'white'
   assign cols = s.col_dk | default: 10
+  assign h_main = s.top_heading | default: s.heading_mb
+  assign h_short = ''
+  if s.top_heading != blank and s.heading_mb != blank and s.heading_mb != s.top_heading
+    assign h_short = s.heading_mb
+  endif
   assign target = ''
   if s.open_link == '_blank'
     assign target = '_blank'
@@ -36,11 +47,11 @@
 <section class="clist band band--{{ band }}" data-screen-label="Category tiles">
   <div class="wrap">
     <div class="clist__head">
-      {%- if s.top_heading != blank -%}
-        <h2 class="clist__heading">{{ s.top_heading }}</h2>
+      {%- if h_main != blank -%}
+        <h2 class="clist__heading{% if h_short != blank %} clist__heading--full{% endif %}">{{ h_main }}</h2>
       {%- endif -%}
-      {%- if s.heading_mb != blank -%}
-        <h2 class="clist__heading clist__heading--mb">{{ s.heading_mb }}</h2>
+      {%- if h_short != blank -%}
+        <p class="clist__heading clist__heading--mb" aria-hidden="true">{{ h_short }}</p>
       {%- endif -%}
 
       {%- if s.mobile_view_all_link != blank and s.head_btn_label != blank -%}
@@ -123,7 +134,14 @@
    pushes the rest of the page off a phone screen; a strip keeps it one line
    and swipeable, with the short heading and a way out to the full list. */
 @media (max-width: 900px) {
-  .fye .clist__heading { display: none; }
+  .fye .clist__heading--full {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
   .fye .clist__heading--mb { display: block; }
   .fye .clist__all { display: inline-flex; }
   .fye .clist__row {

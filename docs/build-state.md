@@ -4009,3 +4009,21 @@ Ship: `./tools/fye ship "Phase 1a: claims, guarantee, em dashes, hero copy"`.
 - Last em dashes out of page.contact, article and blog. Eleven other templates still have
   some; sweep pending.
 Ship: `./tools/fye ship "Phase 1b: shoulder links, stone menu, labels, enquiries email"`.
+
+## 11/10/2026: Phase 2 (sitewide schema and sections)
+- snippets/schema-org.liquid: founder (the schema-person node, @id #edward-marno, so
+  article author and business founder are one entity), memberOf National Association of
+  Jewellers, foundingDate 2024, NAJ listing and LinkedIn company page added to sameAs,
+  description widened to rings and diamond bracelets.
+- sections/fye-hero.liquid: new `image_alt` setting; alt falls back to the image's own alt
+  in Files, then the heading completed by the wordmark words. Alts set on the four heroes
+  (index and the three ring pages), written from the photographs.
+- sections/collections-list.liquid: one h2 in the DOM; a differing mobile heading is an
+  aria-hidden <p>, and the h2 is visually hidden (not display:none) below 900.
+- snippets/illustration.liquid + sections/shipping.liquid: new `hallmark` drawing for the
+  hub pages' "Hallmarked at a UK Assay Office" bullet.
+- NOT done, deliberately: BreadcrumbList on page templates. The hubs draw no visible
+  trail, and Google wants structured data that matches what is on the page. Revisit only
+  if a visible breadcrumb is added. Text-only tiles needed no code: collections-list
+  already renders a tile with no image as its name alone.
+Ship: `./tools/fye ship "Phase 2: founder schema, hero alt, one shape heading, hallmark"`.

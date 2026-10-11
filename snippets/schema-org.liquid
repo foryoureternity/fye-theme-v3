@@ -80,6 +80,17 @@
     Maps CID URL (ludocid 128471562827034776), not a share short link.
   endcomment
   assign site_url = shop.url | append: '/'
+
+  comment
+    11/10/2026 (jewellery and ring pages master plan, Phase 2): founder,
+    memberOf and foundingDate. Answer engines weight a named, verifiable
+    founder and trade body above "our experts". founder is the same Person
+    node the articles emit (schema-person, @id #edward-marno), so the article
+    author and the business founder resolve to one entity. NAJ membership
+    confirmed by Ed 06/10/2026; the NAJ listing and the LinkedIn company page
+    are both already linked from the footer, so both go in sameAs.
+    Description widened from rings only, because bracelets are on sale.
+  endcomment
 -%}
 <script type="application/ld+json">
 {
@@ -89,7 +100,14 @@
   "name": {{ shop.name | json }},
   "legalName": "For Your Eternity Ltd",
   "alternateName": "For Your Eternity Jewellery",
-  "description": "For Your Eternity is an independent London jeweller making ethical engagement, wedding and eternity rings. GIA/IGI-certified natural and lab-grown diamonds, transparent pricing, in-person and online consultations.",
+  "description": "For Your Eternity is an independent London jeweller making ethical engagement, wedding and eternity rings and diamond bracelets, made to order in its London workshop. GIA or IGI certified natural and lab-grown centre diamonds, fair and transparent pricing, and free consultations in person across London or online.",
+  "foundingDate": "2024",
+  "founder": {% render 'schema-person', name: 'Edward Marno' %},
+  "memberOf": {
+    "@type": "Organization",
+    "name": "National Association of Jewellers",
+    "url": "https://www.naj.co.uk/"
+  },
   "url": "{{ site_url }}",
   "identifier": {
     "@type": "PropertyValue",
@@ -113,7 +131,9 @@
     "https://www.instagram.com/foryoureternityjewellery/",
     "https://uk.trustpilot.com/review/foryoureternity.com",
     "https://find-and-update.company-information.service.gov.uk/company/16261484",
-    "https://maps.google.com/?cid=128471562827034776"
+    "https://maps.google.com/?cid=128471562827034776",
+    "https://www.naj.co.uk/find-a-jeweller/detail/For-Your-Eternity/179147",
+    "https://www.linkedin.com/company/for-your-eternity"
   ],
   "potentialAction": {
     "@type": "ReserveAction",

@@ -156,7 +156,12 @@
    paragraph at lead size and the rest at body size, so two paragraphs read
    as an opening and a follow-on instead of one wall. A column that carries a
    title shows its mark small (80px) above the heading. */
-.fye .fcols--split .fcols__grid { align-items: start; gap: var(--s9) var(--s11); }
+/* Flex, not the 12-track grid: an 80px column gap repeated across eleven
+   grid gaps would eat the row (and overflowed a phone). Two flexible columns
+   as the handoff draws them: heading 1 1 280px, copy 999 1 480px. */
+.fye .fcols--split .fcols__grid { display: flex; flex-wrap: wrap; align-items: flex-start; gap: var(--s9) var(--s11); }
+.fye .fcols--split .fcols__col { flex: 1 1 280px; min-width: 0; }
+.fye .fcols--split .fcols__col + .fcols__col { flex: 999 1 480px; }
 .fye .fcols--split .fcols__col { gap: var(--s7); }
 .fye .fcols--split .fcols__col + .fcols__col {
   border-left: 1px solid var(--line);

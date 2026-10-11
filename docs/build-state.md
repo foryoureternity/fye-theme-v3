@@ -4129,3 +4129,9 @@ white, mist, teal, ivory, white, teal.
   until Ed picks bracelets.
 - Fixed on the way: feature_columns2 used --fs-lead, a token that does not exist.
 Ship: `./tools/fye ship "Homepage v2: design handoff"`.
+- Verified live 11/10/2026: all 12 section checksums match; homepage keeps every link,
+  heading (gallery h2 now reads "we've already"), FAQPage (7) and all 7 answers in the
+  DOM; words 2,135 -> 2,109 (the duplicate quote and the two founder lines). Ring page
+  accordions and About Us testimonials pick up the new components as intended.
+- Follow-up fix (unshipped): feature_columns2 split layout moved from the 12-track grid to
+  flex. An 80px column gap across eleven grid gaps overflowed the About band on a phone.

@@ -334,6 +334,27 @@
   assign gold_default = golds[0] | strip | split: ' ' | first
 
   comment
+    Only offer gold colours the piece is really made in. Ed, 11/10/2026.
+    Same rule as fye-buybox-eternity:
+    · Stock pieces (IBB) carry fye.gold_colours, e.g. ["Yellow Gold"], and
+      get only those tiles. Made-to-order pieces leave it blank and keep all
+      three from the section setting above.
+    · No gold tiles at all when the product has no gold variant, so a
+      platinum-only piece never offers a gold it cannot be bought in.
+  endcomment
+  if p.metafields.fye.gold_colours != blank
+    assign golds = p.metafields.fye.gold_colours.value
+    assign gold_default = golds[0] | strip | remove: ' Gold' | strip
+  endif
+  assign has_gold = false
+  for value in metal_opt.values
+    if value contains 'Gold'
+      assign has_gold = true
+      break
+    endif
+  endfor
+
+  comment
     The label the shopper reads: "14ct Yellow Gold", "Platinum". The option
     value itself ("14k Gold") is never changed, label only (W325).
   endcomment
@@ -762,22 +783,24 @@
             <p class="pdx__label">Metal <span class="pdx__labelval" data-fye-metal-label>{{ metal_label }}</span></p>
 
             <ul class="pdp__colours" data-fye-metals data-preferred-karat="{{ preferred_karat | escape }}">
+              {%- if has_gold -%}
               {%- for colour in golds -%}
                 {%- liquid
                   assign name = colour | strip
-                  assign key = name | split: ' ' | first
-                  assign tone = key | downcase | prepend: '--metal-18-'
+                  assign key = name | remove: ' Gold' | strip
+                  assign tone = key | split: ' ' | first | split: '-' | first | downcase | prepend: '--metal-18-'
                 -%}
                 <li>
                   <button type="button"
                           class="pdp__colour{% if v_is_gold and forloop.first %} is-current{% endif %}"
-                          style="--sw: var({{ tone }});"
+                          style="--sw: var({{ tone }}, var(--metal-18-yellow));"
                           data-fye-gold="{{ key | escape }}">
                     <span class="pdp__dot"></span>
                     <span class="pdp__colourname">{{ name }}</span>
                   </button>
                 </li>
               {%- endfor -%}
+              {%- endif -%}
               {%- for value in metal_opt.values -%}
                 {%- unless value contains 'Gold' -%}
                   {%- liquid

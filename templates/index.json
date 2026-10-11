@@ -170,8 +170,8 @@
           "type": "text_block",
           "settings": {
             "col_dk": "8",
-            "title": "Why choose For Your Eternity?",
-            "text": "<p>At For Your Eternity, we offer ethically crafted engagement and wedding rings that combine exceptional quality, timeless design, and fair pricing. With ethical diamonds, both natural and lab-grown, and sustainable metals, a transparent and educational approach, and bespoke or ready-to-wear options, we make finding the perfect ring an effortless and meaningful experience.<br/>As a London-based jeweller, we offer in-person consultations across London and online appointments wherever you are.</p>",
+            "title": "About For Your Eternity",
+            "text": "<p>For Your Eternity is an independent London jeweller founded by Edward Marno in 2024 and a member of the National Association of Jewellers. We make engagement, wedding and eternity rings and diamond bracelets: more than 3,000 rings to configure online in platinum or gold, set with GIA or IGI certified natural or lab-grown diamonds, or coloured gemstones from sapphire and ruby to tanzanite and opal.</p><p>Every piece is made in our London workshop, ethically sourced, transparently priced with the price fixed before we make, and hallmarked. Consultations are free, by appointment, in person across London or by video, phone or WhatsApp.</p>",
             "enable_image": false,
             "button_label": "",
             "button_link": "",
@@ -204,7 +204,7 @@
         "point_a_kkeCXY": {
           "type": "point_a",
           "settings": {
-            "text": "Order online today, no appointment needed",
+            "text": "Order online, no appointment needed",
             "short": "",
             "hide_mobile": false
           }
@@ -212,15 +212,15 @@
         "point_a_KDzAiU": {
           "type": "point_a",
           "settings": {
-            "text": "Free insured delivery",
-            "short": "Free insured delivery, a free first-year resize, lifetime warranty",
+            "text": "Free, tracked and insured UK delivery",
+            "short": "Free UK delivery, a free resize within 12 months, lifetime warranty",
             "hide_mobile": false
           }
         },
         "point_a_GET8UM": {
           "type": "point_a",
           "settings": {
-            "text": "One complimentary resize in the first year",
+            "text": "One free resize within 12 months of delivery",
             "short": "",
             "hide_mobile": true
           }
@@ -228,7 +228,7 @@
         "point_a_GVQnne": {
           "type": "point_a",
           "settings": {
-            "text": "Lifetime warranty",
+            "text": "Lifetime warranty against manufacturing defects",
             "short": "",
             "hide_mobile": true
           }
@@ -368,7 +368,8 @@
         "head_btn_label": "View all",
         "col_dk": "4",
         "col_mb": "2",
-        "band": "white"
+        "band": "white",
+        "head_btn_link": "/collections/all"
       }
     },
     "fye_testimonials_WTRaAj": {
@@ -380,7 +381,8 @@
             "quote": "<p>The entire process was informative, with helpful guidence, lots of ideas and resulting in delivery of the very moment I had hoped. For your eternity is the place to start your special moments without doubt. Incredible quality and the correct asnwer !</p>",
             "name": "Matthew C.",
             "context": "Engagement ring",
-            "rating": 5
+            "rating": 5,
+            "source": "Trustpilot"
           }
         },
         "testimonial_3QkATh": {
@@ -389,7 +391,8 @@
             "quote": "<p>Expert and friendly guidance through out the process. I ended up with a beautiful ring both me and my partner love. would recommend highly to anyone.</p>",
             "name": "James G.",
             "context": "Engagement ring",
-            "rating": 5
+            "rating": 5,
+            "source": "Trustpilot"
           }
         },
         "testimonial_Rhnrrc": {
@@ -398,7 +401,8 @@
             "quote": "<p>Trustworthy, reliable and attentive - exactly what we wanted and delivered in time for the big day - thank you Ed. Great service</p>",
             "name": "Azeem A.",
             "context": "Pair of wedding rings",
-            "rating": 5
+            "rating": 5,
+            "source": "Trustpilot"
           }
         },
         "testimonial_tpRicky": {
@@ -407,7 +411,8 @@
             "quote": "<p>What a amazing experience, full 5 star concierge treatment from start to finish</p>",
             "name": "Ricky",
             "context": "",
-            "rating": 5
+            "rating": 5,
+            "source": "Trustpilot"
           }
         },
         "testimonial_tpLydia": {
@@ -416,7 +421,8 @@
             "quote": "<p>Ed really knows his stuff! Myself and my husband bought our wedding rings through ‘For your eternity’ and we are so happy with them! The whole process was enjoyable and seamless! Buying your wedding rings is a big decision and Ed was so knowledgeable and patient!</p>",
             "name": "Lydia",
             "context": "Pair of wedding rings",
-            "rating": 5
+            "rating": 5,
+            "source": "Trustpilot"
           }
         },
         "testimonial_tpOllie": {
@@ -425,7 +431,8 @@
             "quote": "<p>Ed was brilliant from start to finish and created an unbelievable ring both my partner and myself are extremely happy with. Couldn’t recommend For Your Eternity more!</p>",
             "name": "Ollie E.",
             "context": "",
-            "rating": 5
+            "rating": 5,
+            "source": "Trustpilot"
           }
         },
         "testimonial_tpTom": {
@@ -434,7 +441,8 @@
             "quote": "<p>My wife and I had a brilliant experience with For Your Eternity while choosing her wedding ring. Ed was absolutely fantastic - friendly, knowledgeable, and genuinely invested in helping us find the perfect ring.</p>",
             "name": "Tom",
             "context": "Wedding ring",
-            "rating": 5
+            "rating": 5,
+            "source": "Trustpilot"
           }
         },
         "testimonial_tpSamir": {
@@ -443,11 +451,23 @@
             "quote": "<p>Had a tricky problem with my engagement ring. Felt uninformed and uncertain how to proceed. Ed helped me through every step of our process and came up with a great solution. Thoroughly recommend for your jewellery needs.</p>",
             "name": "Samir K.",
             "context": "Engagement ring resizing",
-            "rating": 5
+            "rating": 5,
+            "source": "Trustpilot"
+          }
+        },
+        "testimonial_tpPedro": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>Great experience and product, Ed understands the importance of the moment and offers you a variety of options, no matter if you have an idea of what you want or you ar just browsing.</p>",
+            "name": "Pedro S.",
+            "context": "Engagement ring",
+            "rating": 5,
+            "source": "Trustpilot"
           }
         }
       },
       "block_order": [
+        "testimonial_tpPedro",
         "testimonial_YWNeHc",
         "testimonial_3QkATh",
         "testimonial_Rhnrrc",
@@ -458,11 +478,13 @@
         "testimonial_tpSamir"
       ],
       "settings": {
-        "heading": "Testimonials",
+        "heading": "What our clients say",
         "enable_autoplay": true,
         "autoplay_seconds": 5.5,
         "transition_ms": 500,
-        "band": "ivory"
+        "band": "ivory",
+        "source_label": "Read all our reviews on Trustpilot",
+        "source_url": "https://uk.trustpilot.com/review/foryoureternity.com"
       }
     },
     "fye_mediatext_designed_home": {
@@ -692,60 +714,177 @@
         "btn2_link": "",
         "btn2_new_tab": false
       }
+    },
+    "quote_home": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "body": "<blockquote><p>&ldquo;Ed was brilliant from start to finish and created an unbelievable ring both my partner and myself are extremely happy with. Couldn&rsquo;t recommend For Your Eternity more!&rdquo;</p></blockquote><p>Ollie E., via <a href=\"https://uk.trustpilot.com/review/foryoureternity.com\" target=\"_blank\" rel=\"noopener\">Trustpilot</a></p>",
+        "variant": "lede"
+      }
+    },
+    "founder_home": {
+      "type": "fye-founder",
+      "settings": {
+        "band": "ivory",
+        "image_right": false,
+        "image": "shopify://shop_images/Edward_Marno.png",
+        "image_position": "center center",
+        "image_alt": "Edward Marno, founder of For Your Eternity, on a rooftop with the London skyline behind him",
+        "caption": "Edward Marno, founder.",
+        "eyebrow": "The person behind the work",
+        "heading": "Meet Edward",
+        "intro": "<p>Edward Marno founded For Your Eternity in London in 2024, after years working for and with London jewellers. He meets clients himself, designs each commission with them and sees it through to delivery.</p>",
+        "outro": "<p><a href=\"/pages/about-us\">About us</a></p>"
+      }
+    },
+    "steps_home": {
+      "type": "fye-steps",
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "number": "1",
+            "heading": "Talk to us or browse",
+            "body": "<p>A free consultation in person across London or by video, phone or WhatsApp, or configure a ring yourself online.</p>"
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "number": "2",
+            "heading": "Choose the design and the stone",
+            "body": "<p>Natural or lab-grown, with a GIA or IGI certificate for every centre diamond. The price is fixed before we make.</p>"
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "number": "3",
+            "heading": "Made in London",
+            "body": "<p>Rings are made to order in our London workshop in 3 to 4 weeks (bespoke 2 to 5 weeks), then hallmarked at a UK Assay Office.</p>"
+          }
+        },
+        "s4": {
+          "type": "step",
+          "settings": {
+            "number": "4",
+            "heading": "Delivered and looked after",
+            "body": "<p>Free, tracked and insured UK delivery, with free inspection and cleaning for life.</p>"
+          }
+        },
+        "cta": {
+          "type": "cta",
+          "settings": {
+            "label": "Book a free consultation",
+            "link": "/pages/contact-us#popup-contact",
+            "style": "btn--outline"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "cta"
+      ],
+      "settings": {
+        "show_head": true,
+        "eyebrow": "How it works",
+        "heading": "From first conversation to delivery",
+        "columns": "4",
+        "band": "white"
+      }
+    },
+    "faq_home": {
+      "type": "accordion",
+      "blocks": {
+        "q1": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Where is For Your Eternity based?",
+            "content": "<p>We are an independent jeweller based in London. Consultations are by appointment, in person across London or by video, phone and WhatsApp; there is no walk-in showroom. Delivery is free, tracked and insured anywhere in the UK, and we can ship internationally by arrangement before you order.</p>"
+          }
+        },
+        "q2": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Who designs and makes the jewellery?",
+            "content": "<p>Every piece is designed with you, guided by our founder Edward Marno, made to order in our London workshop and hallmarked at the London or Birmingham Assay Office. We are a member of the National Association of Jewellers, and For Your Eternity Ltd is registered at Companies House, number 16261484.</p>"
+          }
+        },
+        "q3": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Are your diamonds certified and ethically sourced?",
+            "content": "<p>Yes. Every centre diamond, natural or lab-grown, comes with a GIA or IGI certificate shown on the listing; smaller stones are graded and the grade is listed. Natural diamonds are sourced under the Kimberley Process and the World Diamond Council System of Warranties, and our metals are responsibly sourced.</p>"
+          }
+        },
+        "q4": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Can I buy online, or do I need an appointment?",
+            "content": "<p>Both work. More than 3,000 rings can be configured and ordered online by metal, size and centre stone, with no appointment needed. Or book a free consultation first: 20 minutes to start, as long as you need after that, and no obligation either way.</p>"
+          }
+        },
+        "q5": {
+          "type": "accor_item",
+          "settings": {
+            "title": "How long does a piece take?",
+            "content": "<p>Rings normally take 3 to 4 weeks from the next working day. Bespoke designs take 2 to 5 weeks depending on the design, plus any time needed to source a particular stone. For bracelets we confirm the time when you order. If you have a date, tell us before you order.</p>"
+          }
+        },
+        "q6": {
+          "type": "accor_item",
+          "settings": {
+            "title": "What if the ring does not fit?",
+            "content": "<p>We post a free UK ring sizer before you order, and every ring includes one free resize within 12 months of delivery. Full eternity rings are the exception, because they are set all the way round, so we confirm their size with extra care before they are made.</p>"
+          }
+        },
+        "q7": {
+          "type": "accor_item",
+          "settings": {
+            "title": "What if something is wrong with my piece?",
+            "content": "<p>Every piece carries a lifetime warranty against manufacturing defects. If it arrives faulty or not as ordered, you can reject it for a full refund within 30 days; after that we repair or replace it. Made-to-order and bespoke pieces have no change-of-mind returns; ready-made pieces can be returned within 14 days of delivery, unworn.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7"
+      ],
+      "settings": {
+        "top_heading": "Frequently asked questions",
+        "emit_schema": true,
+        "band": "white"
+      }
     }
   },
   "order": [
     "hero",
     "fye_trust_strip_home",
-    "feature_columns2_A486RK",
-    "fye_two_ways_wdDULb",
     "custom_collections_cq7kaN",
+    "quote_home",
     "fye_finder_entry_home",
+    "founder_home",
+    "steps_home",
+    "feature_columns2_A486RK",
     "featured_collection_PHLfPD",
+    "fye_two_ways_wdDULb",
     "fye_testimonials_WTRaAj",
     "fye_mediatext_designed_home",
     "fye_gallery_promo_home",
     "fye_mediatext_guarantee_home",
     "guide_download_block_HFUQjC",
+    "faq_home",
     "latest_news_em_7BeeqP",
     "fye_consultation_home"
   ]
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

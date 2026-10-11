@@ -232,7 +232,8 @@
         "head_btn_label": "View all",
         "col_dk": "4",
         "col_mb": "2",
-        "band": "white"
+        "band": "white",
+        "head_btn_link": "/collections/bracelets"
       }
     },
     "bespoke": {
@@ -543,4 +544,3 @@
     "closing"
   ]
 }
-

@@ -4068,3 +4068,27 @@ Ship: `./tools/fye ship "Phase 3: five jewellery hubs, bracelets live, four hidd
   seo.hidden); manual collection coloured-stone-eternity-rings (published).
 - page.bracelets: halo card image swapped. Hidden hubs: trailing newline only.
 Ship: `./tools/fye ship "Phase 4a: ring page intros, tables, FAQs, eternity shop-by"`.
+
+## 11/10/2026: Phase 4b (homepage) [W500]
+- Phase 4a verified live first: FAQPage 8/8/7 on engagement/wedding/eternity, tables
+  render, featured-eternity-rings shows 8, no em dashes, bracelets halo image live.
+- templates/index.json, new order: hero, trust strip, category grid, one Trustpilot
+  quote (quote_home, Ollie E.), Ring Matchmaker, Meet Edward (founder_home, fye-founder,
+  Edward_Marno.png and the wording from the About page), How it works (steps_home,
+  4 steps + consultation button), About For Your Eternity (the entity paragraph, in the
+  old "Why choose" feature_columns2), featured rings, two ways to buy, testimonials,
+  bespoke, gallery, guarantee, guides, brand FAQ (faq_home, 7 Qs, FAQPage on), news,
+  consultation. 18 sections.
+- Two-ways points: "Order online today" lost "today" (implied immediate dispatch);
+  delivery, resize and warranty lines now match the guarantee wording.
+- sections/fye-testimonials.liquid: new section settings source_label/source_url (one
+  link under the heading) and block setting source ("via Trustpilot"). Blank by default,
+  so About Us renders as before. All 8 homepage quotes were checked against Trustpilot
+  (11/10/2026); the newest review (Pedro S., 27/09/2026) added first.
+- sections/featured-collection.liquid: optional head_btn_link. The five featured grids
+  draw from seo.hidden collections, so their "View all" buttons pointed at noindex
+  pages; they now go to /collections/all, bracelets, engagement-rings, eternity-rings
+  and wedding-rings.
+- Brand FAQ timing answer says rings 3 to 4 weeks and that bracelet times are confirmed
+  at order (bracelet lead times are not confirmed with suppliers yet).
+Ship: `./tools/fye ship "Phase 4b: homepage Meet Edward, how it works, brand FAQ, sourced reviews"`.

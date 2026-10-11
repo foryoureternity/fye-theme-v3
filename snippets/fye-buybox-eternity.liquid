@@ -131,6 +131,28 @@
   endcomment
   assign golds = s.gold_colours | default: 'Yellow Gold,White Gold,Rose Gold' | split: ','
   assign gold_default = golds[0] | strip | split: ' ' | first
+
+  comment
+    Only offer gold colours the piece is really made in. Ed, 11/10/2026.
+    · Stock pieces (IBB) carry fye.gold_colours, e.g. ["Yellow Gold"], and
+      get only those tiles. Made-to-order pieces leave it blank and keep all
+      three from the section setting above.
+    · No gold tiles at all when the product has no gold variant, so a
+      platinum-only piece never offers a yellow, white or rose it cannot be
+      bought in (clicking one used to jump to a preferred carat that did not
+      exist).
+  endcomment
+  if p.metafields.fye.gold_colours != blank
+    assign golds = p.metafields.fye.gold_colours.value
+    assign gold_default = golds[0] | strip | remove: ' Gold' | strip
+  endif
+  assign has_gold = false
+  for value in metal_opt.values
+    if value contains 'Gold'
+      assign has_gold = true
+      break
+    endif
+  endfor
   assign sizes = s.ring_sizes | default: 'A,A.5,B,B.5,C,C.5,D,D.5,E,E.5,F,F.5,G,G.5,H,H.5,I,I.5,J,J.5,K,K.5,L,L.5,M,M.5,N,N.5,O,O.5,P,P.5,Q,Q.5,R,R.5,S,S.5,T,T.5,U,U.5,V,V.5,W,W.5,X,X.5,Y,Y.5,Z,Z.5,Z+1,Z+1.5,Z+2,Z+2.5,Z+3,Z+3.5,Z+4,Z+4.5,Z+5,Z+5.5,Z+6,Z+6.5,Z+7,Z+7.5,Z+8,Z+8.5,Z+9,Z+9.5' | split: ','
   assign threshold = s.surcharge_size | default: 'Q'
 
@@ -281,6 +303,7 @@
     <p class="pdp__label pdp__label--inline">Metal: <span class="pdp__labelval" data-fye-metal-label>{{ metal_label }}</span></p>
 
     <ul class="pdp__colours" data-fye-metals data-preferred-karat="{{ preferred_karat | escape }}">
+      {%- if has_gold -%}
       {%- for colour in golds -%}
         {%- liquid
           comment
@@ -293,19 +316,20 @@
             word in exactly this way.
           endcomment
           assign name = colour | strip
-          assign key = name | split: ' ' | first
-          assign tone = key | downcase | prepend: '--metal-18-'
+          assign key = name | remove: ' Gold' | strip
+          assign tone = key | split: ' ' | first | split: '-' | first | downcase | prepend: '--metal-18-'
         -%}
         <li>
           <button type="button"
                   class="pdp__colour{% if is_gold and forloop.first %} is-current{% endif %}"
-                  style="--sw: var({{ tone }});"
+                  style="--sw: var({{ tone }}, var(--metal-18-yellow));"
                   data-fye-gold="{{ key | escape }}">
             <span class="pdp__dot"></span>
             <span class="pdp__colourname">{{ name }}</span>
           </button>
         </li>
       {%- endfor -%}
+      {%- endif -%}
 
       {%- for value in metal_opt.values -%}
         {%- unless value contains 'Gold' -%}

@@ -3969,3 +3969,24 @@ Ship: `./tools/fye ship "Shop chooser: two across on phones, spacing"`.
   live: 3 tiles, two panels, swap, close, focus return, phone list and scroll.
   Follow-up: tile and sub-option titles capped at 18px / 17px.
 Ship: `./tools/fye ship "Shop chooser: cap tile title sizes"`.
+
+## 11/10/2026: Phase 1a of the jewellery and ring pages master plan (claims and copy)
+Plan doc: claude.ai artifact "FYE jewellery and ring pages: master plan".
+- index, page.engagement-rings, page.wedding-rings, page.eternity-rings: every em dash out;
+  "Competitive pricing" now "Fair, transparent pricing, fixed before we make"; guarantee list
+  rewritten identically on all four (10% off wedding rings for engagement-ring clients, free
+  tracked insured UK delivery, one free resize within 12 months with the full eternity
+  exception, free inspection and cleaning, lifetime warranty); 20% lines gone.
+- Hero subheadings now factual; "made to order in our London workshop" (Ed, 11/10).
+- Certificate FAQ on the three ring pages: centre diamonds certified, smaller stones in
+  multi-stone designs graded on the listing, not individually certified.
+- Homepage trust strip: "Risk-free purchasing" now "Aftercare for life"; guidance line
+  "Free 1-to-1 consultations with our founder"; certified line says centre diamonds.
+- "Competitive pricing" also fixed on page.contact, article, page.downloadable-guides, blog;
+  about-us "Risk-free purchasing" point replaced the same way.
+- footer-group.json: mission "Ethical fine jewellery, designed with you in London...";
+  legal line says certified centre diamonds.
+- Store data (not git): SEO description on engagement-rings and wedding-rings pages, title
+  tag on eternity-rings (56 chars).
+- Not touched yet: FAQ sets and intro bands (Phase 4), links and labels (Phase 1b).
+Ship: `./tools/fye ship "Phase 1a: claims, guarantee, em dashes, hero copy"`.

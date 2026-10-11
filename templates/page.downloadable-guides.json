@@ -139,7 +139,7 @@
       "blocks": {
         "trust_pricing": {
           "type": "shipping",
-          "settings": { "illustration": "pricing", "text": "<p>Competitive pricing</p>" }
+          "settings": { "illustration": "pricing", "text": "<p>Fair, transparent pricing, fixed before we make</p>" }
         },
         "trust_shipping": {
           "type": "shipping",

@@ -28,7 +28,6 @@
         "button2_link": "shopify://pages/eternity-ring-guide"
       }
     },
-
     "fye_mediatext_custom_eter": {
       "type": "fye-media-text",
       "blocks": {
@@ -41,7 +40,9 @@
           }
         }
       },
-      "block_order": ["btn_book"],
+      "block_order": [
+        "btn_book"
+      ],
       "settings": {
         "band": "sage",
         "reverse": true,
@@ -53,12 +54,11 @@
         "body": "<p>An eternity ring marks a milestone: an anniversary, a vow renewed, a life shared. We can make one to sit perfectly alongside your engagement and wedding rings, matched to their exact contours. Book a free consultation to design yours.</p>"
       }
     },
-
     "featured_collection_NFfNPH": {
       "type": "featured-collection",
       "settings": {
-        "top_heading": "Our most popular eternity rings",
-        "collection": "eternity-rings",
+        "top_heading": "Featured eternity rings",
+        "collection": "featured-eternity-rings",
         "limit": 8,
         "head_btn_label": "View all",
         "col_dk": "4",
@@ -66,7 +66,6 @@
         "band": "white"
       }
     },
-
     "fye_guidedl_eter": {
       "type": "fye-guide-download",
       "blocks": {
@@ -79,7 +78,9 @@
           }
         }
       },
-      "block_order": ["btn_download"],
+      "block_order": [
+        "btn_download"
+      ],
       "settings": {
         "band": "teal",
         "cover": "shopify://shop_images/Eternity_Ring_Guide_Cover_v3.png",
@@ -89,46 +90,75 @@
         "body": "<p>Full and half eternity styles, stone settings, spacing and how to wear them: read online or take the free PDF.</p>"
       }
     },
-
     "shipping_why_eter": {
       "type": "shipping",
       "blocks": {
         "shipping_CDXd6U": {
           "type": "shipping",
-          "settings": { "illustration": "diamond", "text": "<p>Ethically sourced diamonds and materials</p>" }
+          "settings": {
+            "illustration": "diamond",
+            "text": "<p>Ethically sourced diamonds and materials</p>"
+          }
         },
         "shipping_VVCxnM": {
           "type": "shipping",
-          "settings": { "illustration": "pricing", "text": "<p>Fair, transparent pricing, fixed before we make</p>" }
+          "settings": {
+            "illustration": "pricing",
+            "text": "<p>Fair, transparent pricing, fixed before we make</p>"
+          }
         },
         "shipping_KaUaYF": {
           "type": "shipping",
-          "settings": { "illustration": "rings", "text": "<p>Matching wedding rings</p>" }
+          "settings": {
+            "illustration": "rings",
+            "text": "<p>Matching wedding rings</p>"
+          }
         },
         "shipping_UJihwF": {
           "type": "shipping",
-          "settings": { "illustration": "education", "text": "<p>Educational approach to finding you the right ring</p>" }
+          "settings": {
+            "illustration": "education",
+            "text": "<p>Educational approach to finding you the right ring</p>"
+          }
         },
         "shipping_FbFyEk": {
           "type": "shipping",
-          "settings": { "illustration": "custom", "text": "<p>Fully customisable designs</p>" }
+          "settings": {
+            "illustration": "custom",
+            "text": "<p>Fully customisable designs</p>"
+          }
         },
         "shipping_jAAiTU": {
           "type": "shipping",
-          "settings": { "illustration": "shipping", "text": "<p>Free, insured shipping</p>" }
+          "settings": {
+            "illustration": "shipping",
+            "text": "<p>Free, tracked and insured UK delivery</p>"
+          }
         },
         "shipping_L4p6LB": {
           "type": "shipping",
-          "settings": { "illustration": "resize", "text": "<p>Free resize within 12 months on half eternity rings</p>" }
+          "settings": {
+            "illustration": "resize",
+            "text": "<p>Free resize within 12 months on half eternity rings</p>"
+          }
         },
         "shipping_bVDUpk": {
           "type": "shipping",
-          "settings": { "illustration": "warranty", "text": "<p>Lifetime warranty*</p>" }
+          "settings": {
+            "illustration": "warranty",
+            "text": "<p>Lifetime warranty against manufacturing defects</p>"
+          }
         }
       },
       "block_order": [
-        "shipping_CDXd6U", "shipping_VVCxnM", "shipping_KaUaYF", "shipping_UJihwF",
-        "shipping_FbFyEk", "shipping_jAAiTU", "shipping_L4p6LB", "shipping_bVDUpk"
+        "shipping_CDXd6U",
+        "shipping_VVCxnM",
+        "shipping_KaUaYF",
+        "shipping_UJihwF",
+        "shipping_FbFyEk",
+        "shipping_jAAiTU",
+        "shipping_L4p6LB",
+        "shipping_bVDUpk"
       ],
       "settings": {
         "top_heading": "Why choose For Your Eternity?",
@@ -136,7 +166,6 @@
         "band": "white"
       }
     },
-
     "fye_mediatext_consult_eter": {
       "type": "fye-media-text",
       "blocks": {
@@ -149,7 +178,9 @@
           }
         }
       },
-      "block_order": ["btn_book"],
+      "block_order": [
+        "btn_book"
+      ],
       "settings": {
         "band": "sage",
         "reverse": true,
@@ -162,63 +193,67 @@
         "body": "<ul><li>Ensure you choose the right ring</li><li>Discover different ring styles</li><li>Pick the right ring for your budget</li><li>Find out how to choose the correct size</li></ul>"
       }
     },
-
     "accordion_faq_eter": {
       "type": "accordion",
       "blocks": {
-        "accor_item_ii7YzP": {
+        "q1": {
           "type": "accor_item",
           "settings": {
-            "title": "What makes your eternity rings ethical?",
-            "content": "<p>At For Your Eternity, we are committed to ethical sourcing and responsible practices. Our rings are crafted using conflict-free or lab-grown diamonds, responsibly sourced or recycled precious metals, and sustainable materials wherever possible. We adhere to the Kimberley Process Certification Scheme (KPCS) and the World Diamond Council System of Warranties (SoW) to ensure all our diamonds are ethically obtained. Additionally, we work only with trusted suppliers who meet strict environmental and human rights standards.</p>"
+            "title": "Full or half eternity: which should I choose?",
+            "content": "<p>Half, for most people. A half eternity ring has stones across the top and a plain back, so it can be resized, sits flat beside a wedding ring and keeps the stones away from knocks. A full eternity ring is set all the way round, sparkles from every angle and usually cannot be resized, so it suits a finger whose size is settled.</p>"
           }
         },
-        "accor_item_H98KiF": {
+        "q2": {
           "type": "accor_item",
           "settings": {
-            "title": "Do you offer custom ring designs?",
-            "content": "<p>Yes! We offer a <strong>fully bespoke ring design service</strong>, allowing you to create a one-of-a-kind engagement or wedding ring. Our experts will guide you through the process, from selecting the perfect diamond or gemstone to designing a setting that reflects your unique style. Whether you want a modern, classic, or vintage-inspired design, we can bring your vision to life.</p>"
+            "title": "What does an eternity ring mean, and when is it given?",
+            "content": "<p>An eternity ring marks a milestone in a marriage or long relationship: traditionally a significant anniversary or the birth of a first child, and today any moment that matters. The unbroken line of stones is the symbol. There is no rule about who gives it or when; some couples choose one together.</p>"
           }
         },
-        "accor_item_DiqKtg": {
+        "q3": {
           "type": "accor_item",
           "settings": {
-            "title": "How long does it take to receive a custom ring?",
-            "content": "<p>Once the design is confirmed, custom rings normally take between 2 and 4 weeks to make. However, this timeframe can vary depending on the complexity of the design, material availability, and any additional customisation requests. If you need a ring by a specific date, please contact us, and we’ll do our best to accommodate your timeline.</p>"
+            "title": "Which finger is an eternity ring worn on?",
+            "content": "<p>Most wear it on the left ring finger, stacked with the wedding ring nearest the hand, the engagement ring next and the eternity ring on top. Others wear it alone on the right hand. If it will sit against other rings, tell us which, so we size and shape it to fit beside them.</p>"
           }
         },
-        "accor_item_xc9rtw": {
+        "q4": {
           "type": "accor_item",
           "settings": {
-            "title": "What is your return policy?",
-            "content": "<p>We want you to love your ring, and we stand by the quality of our craftsmanship. However, due to the personalised nature of engagement and wedding rings, we can only accept returns in the following circumstances:</p><ul><li>Custom, bespoke, or made-to-order rings are non-returnable and non-refundable.</li><li>Ready-to-wear rings can be returned within 30 days of purchase, provided they are unworn, in original packaging, and in resalable condition.</li><li>If there is a manufacturing defect or the ring does not match the agreed specifications, we will replace or repair it free of charge.</li></ul><p>To initiate a return, please email <a href=\"mailto:enquiries@foryoureternity.com\">enquiries@foryoureternity.com</a> with your order details.</p>"
+            "title": "Can an eternity ring be resized?",
+            "content": "<p>A half eternity ring can, at the plain back of the band, and every ring includes one free resize within 12 months of delivery. A full eternity ring usually cannot, because there is no plain metal to work on. That is why we post a free ring sizer and confirm the size before a full eternity ring is made.</p>"
           }
         },
-        "accor_item_inPnDK": {
+        "q5": {
           "type": "accor_item",
           "settings": {
-            "title": "Are your diamonds certified?",
-            "content": "<p>Every centre diamond, natural or lab-grown, comes with a certificate from the Gemological Institute of America (GIA) or the International Gemological Institute (IGI), shown on the listing and detailing its cut, colour, clarity and carat weight. Smaller stones in multi-stone designs are not individually certified; the listing states their grade.</p>"
+            "title": "Which setting is most secure for daily wear?",
+            "content": "<p>Channel and bar settings hold the stones between walls of metal and are the most protective. Claw settings show the most light and benefit from a regular check of the claws, which we do free of charge for life. Fine claw and grain settings hold small stones in a slim line and suit narrow rings.</p>"
           }
         },
-        "accor_item_ptL8Qy": {
+        "q6": {
           "type": "accor_item",
           "settings": {
-            "title": "Do you offer matching wedding bands?",
-            "content": "<p>Absolutely! We can create perfectly matching wedding bands to complement your engagement ring. Whether you want a classic plain band, diamond-set band, or a custom-fitted design, we’ll ensure your wedding band sits seamlessly alongside your engagement ring. We can also design bands to match rings purchased elsewhere. Book a consultation to discuss your options.</p>"
+            "title": "What carat weight should an eternity ring be?",
+            "content": "<p>The carat figure is the total of every stone. A half eternity ring of 0.25ct to 0.50ct reads as a fine, wearable band; 1ct and above is a statement. Keep the stones smaller than the centre stone of an engagement ring it sits beside, so the two do not compete. Every listing shows total weight and stone size.</p>"
           }
         },
-        "accor_item_ieUPmV": {
+        "q7": {
           "type": "accor_item",
           "settings": {
-            "title": "Do you offer financing or payment plans?",
-            "content": "<p>For bespoke pieces we can take an agreed deposit, with the balance due before dispatch. We don't offer credit or finance ourselves. Please contact us at <a href=\"mailto:enquiries@foryoureternity.com\">enquiries@foryoureternity.com</a> to talk through payment for your piece.</p>"
+            "title": "Diamonds or coloured stones?",
+            "content": "<p>Sapphire and ruby are hard enough for daily wear in any setting. Emerald is softer and does best in a channel or bar setting on a half eternity ring, where the metal protects its edges. Diamonds, natural or lab-grown, suit every setting, and we also make mixed rows of diamonds and colour.</p>"
           }
         }
       },
       "block_order": [
-        "accor_item_ii7YzP", "accor_item_H98KiF", "accor_item_DiqKtg", "accor_item_xc9rtw",
-        "accor_item_inPnDK", "accor_item_ptL8Qy", "accor_item_ieUPmV"
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7"
       ],
       "settings": {
         "top_heading": "Frequently asked questions",
@@ -230,7 +265,6 @@
         "band": "white"
       }
     },
-
     "fye_mediatext_guarantee_eter": {
       "type": "fye-media-text",
       "settings": {
@@ -243,24 +277,37 @@
         "body": "<ul><li>GIA & IGI certified centre diamonds</li><li>Ethical, conflict free gemstones & precious metals</li><li>10% off wedding rings for clients whose engagement ring we made</li><li>Free, tracked and insured UK delivery</li><li>One free resize within 12 months of delivery (full eternity rings are sized before they are made)</li><li>Free inspection and cleaning for life</li><li>Lifetime warranty against manufacturing defects</li></ul>"
       }
     },
-
     "fye_consultation_eter": {
       "type": "fye-consultation",
       "blocks": {
         "contact_phone": {
           "type": "contact",
-          "settings": { "type": "phone", "label": "0208 178 6687" }
+          "settings": {
+            "type": "phone",
+            "label": "0208 178 6687"
+          }
         },
         "contact_email": {
           "type": "contact",
-          "settings": { "type": "email", "label": "enquiries@foryoureternity.com" }
+          "settings": {
+            "type": "email",
+            "label": "enquiries@foryoureternity.com"
+          }
         },
         "contact_whatsapp": {
           "type": "contact",
-          "settings": { "type": "whatsapp", "label": "WhatsApp", "link": "https://wa.me/447840042922" }
+          "settings": {
+            "type": "whatsapp",
+            "label": "WhatsApp",
+            "link": "https://wa.me/447840042922"
+          }
         }
       },
-      "block_order": ["contact_phone", "contact_email", "contact_whatsapp"],
+      "block_order": [
+        "contact_phone",
+        "contact_email",
+        "contact_whatsapp"
+      ],
       "settings": {
         "band": "teal",
         "eyebrow": "Personal guidance",
@@ -269,12 +316,248 @@
         "btn_label": "Contact us",
         "btn_link": "/pages/contact-us#popup-contact"
       }
+    },
+    "intro_eter": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "heading": "What is an eternity ring?",
+        "body": "<p>An eternity ring is a band set with a continuous line of matching stones, a symbol of lasting love, traditionally given on a significant anniversary or the birth of a child. A full eternity ring is set all the way round; a half eternity across the top only. After that you choose the setting, the stone and the total carat weight, which is the sum of every stone, not the size of one.</p><p>Our <a href=\"/pages/eternity-ring-guide\">Eternity Ring Guide</a> goes through each choice, or <a href=\"/pages/contact-us#popup-contact\">book a free consultation</a>.</p>",
+        "variant": "default",
+        "eyebrow": "Start here"
+      }
+    },
+    "styles_eter": {
+      "type": "about-columns-four",
+      "blocks": {
+        "c1": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": false,
+            "title": "Half eternity",
+            "button_label": "View rings",
+            "button_link": "shopify://collections/half-eternity"
+          }
+        },
+        "c2": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": false,
+            "title": "Full eternity",
+            "button_label": "View rings",
+            "button_link": "shopify://collections/full-eternity"
+          }
+        },
+        "c3": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": false,
+            "title": "Diamond",
+            "button_label": "View rings",
+            "button_link": "shopify://collections/eternity-diamond"
+          }
+        },
+        "c4": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": false,
+            "title": "Coloured stone",
+            "button_label": "View rings",
+            "button_link": "shopify://collections/coloured-stone-eternity-rings"
+          }
+        },
+        "c5": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": false,
+            "title": "Black diamond",
+            "button_label": "View rings",
+            "button_link": "shopify://collections/black-diamond-eternity-rings"
+          }
+        },
+        "c6": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": false,
+            "title": "Shaped to fit",
+            "button_label": "Discuss shaped-to-fit",
+            "button_link": "shopify://pages/shaped-to-fit-rings"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6"
+      ],
+      "settings": {
+        "top_heading": "Shop by style",
+        "col_dk": 6,
+        "band": "mist"
+      }
+    },
+    "shapes_eter": {
+      "type": "collections-list",
+      "blocks": {
+        "t1": {
+          "type": "collection_item",
+          "settings": {
+            "image": "shopify://shop_images/icon101.svg",
+            "collection_title": "Round",
+            "collection_link": "shopify://collections/eternity-round"
+          }
+        },
+        "t2": {
+          "type": "collection_item",
+          "settings": {
+            "image": "shopify://shop_images/icon102.svg",
+            "collection_title": "Oval",
+            "collection_link": "shopify://collections/eternity-oval"
+          }
+        },
+        "t3": {
+          "type": "collection_item",
+          "settings": {
+            "image": "shopify://shop_images/icon104.svg",
+            "collection_title": "Pear",
+            "collection_link": "shopify://collections/eternity-pear"
+          }
+        },
+        "t4": {
+          "type": "collection_item",
+          "settings": {
+            "image": "shopify://shop_images/icon105.svg",
+            "collection_title": "Emerald",
+            "collection_link": "shopify://collections/eternity-emerald-cut"
+          }
+        },
+        "t5": {
+          "type": "collection_item",
+          "settings": {
+            "image": "shopify://shop_images/icon107.svg",
+            "collection_title": "Princess",
+            "collection_link": "shopify://collections/eternity-princess"
+          }
+        },
+        "t6": {
+          "type": "collection_item",
+          "settings": {
+            "image": "shopify://shop_images/icon108.svg",
+            "collection_title": "Marquise",
+            "collection_link": "shopify://collections/eternity-marquise"
+          }
+        },
+        "t7": {
+          "type": "collection_item",
+          "settings": {
+            "image": "shopify://shop_images/icon109.svg",
+            "collection_title": "Asscher",
+            "collection_link": "shopify://collections/eternity-asscher"
+          }
+        },
+        "t8": {
+          "type": "collection_item",
+          "settings": {
+            "image": "shopify://shop_images/icon110.svg",
+            "collection_title": "Heart",
+            "collection_link": "shopify://collections/eternity-heart"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6",
+        "t7",
+        "t8"
+      ],
+      "settings": {
+        "top_heading": "Shop by diamond shape",
+        "heading_mb": "Shop by diamond shape",
+        "head_btn_label": "Compare the shapes",
+        "mobile_view_all_link": "shopify://pages/diamond-shapes",
+        "col_dk": 8,
+        "band": "ivory"
+      }
+    },
+    "compare_eter": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Stones|Across the top of the band|All the way round"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Comfort|Plain back sits flat against other rings|Stones touch neighbouring rings on every side"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Resizing|Can be resized at the plain back; one free resize within 12 months|Usually cannot be resized, so we confirm the size before making"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Look|Sparkle where it is seen|Sparkle from every angle"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Suits|Daily wear and stacking|A finger whose size is settled"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5"
+      ],
+      "settings": {
+        "show_head": true,
+        "heading": "Full or half eternity",
+        "headers": " |Half eternity|Full eternity",
+        "first_col_bold": true,
+        "col1_width": 0,
+        "narrow": true,
+        "band": "white"
+      }
+    },
+    "wear_eter": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "narrow": true,
+        "heading": "How to wear an eternity ring",
+        "body": "<p>Most people wear it on the left hand with the wedding ring nearest the hand, the engagement ring next and the eternity ring on top. Others wear it alone, or on the right hand. If it will sit beside other rings, tell us which, so we size and shape it to fit beside them.</p>",
+        "variant": "default"
+      }
     }
   },
   "order": [
     "hero",
+    "intro_eter",
+    "styles_eter",
+    "shapes_eter",
+    "compare_eter",
     "fye_mediatext_custom_eter",
     "featured_collection_NFfNPH",
+    "wear_eter",
     "fye_guidedl_eter",
     "shipping_why_eter",
     "fye_mediatext_consult_eter",
@@ -283,121 +566,3 @@
     "fye_consultation_eter"
   ]
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

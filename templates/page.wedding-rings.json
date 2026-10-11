@@ -52,13 +52,13 @@
         "placeholder": "Couple / pair of wedding rings photo",
         "eyebrow": "Chosen together, worn for life",
         "heading": "Finding bands you'll forget you're wearing",
-        "body": "<p>Matching, complementary or completely different: wedding rings are often chosen as a pair. The right profile, width and metal decide how a band feels every day.</p><ul><li>Court, D-shape or flat: profiles for every hand</li><li>Yellow, white and rose gold, or platinum for life</li><li>Matched pairs and bands shaped to fit your engagement ring</li></ul>"
+        "body": "<p>Matching, complementary or completely different: wedding rings are often chosen as a pair. The right profile, width and metal decide how a band feels every day.</p><p>Plain rings come in nine profiles, widths from 1.5 mm to 10 mm and four weights, in 9ct or 18ct yellow, white and rose gold or platinum, made to order in our London workshop in 3 to 4 weeks, with one free resize within 12 months.</p><ul><li>Court, D-shape or flat: profiles for every hand</li><li>Yellow, white and rose gold, or platinum for life</li><li>Matched pairs and bands shaped to fit your engagement ring</li></ul>"
       }
     },
     "featured_collection_NFfNPH": {
       "type": "featured-collection",
       "settings": {
-        "top_heading": "Our most popular wedding rings",
+        "top_heading": "Featured wedding rings",
         "collection": "featured-wedding-rings",
         "limit": 8,
         "head_btn_label": "View all",
@@ -137,7 +137,7 @@
           "type": "shipping",
           "settings": {
             "illustration": "shipping",
-            "text": "<p>Free, insured shipping</p>"
+            "text": "<p>Free, tracked and insured UK delivery</p>"
           }
         },
         "shipping_L4p6LB": {
@@ -151,7 +151,7 @@
           "type": "shipping",
           "settings": {
             "illustration": "warranty",
-            "text": "<p>Lifetime warranty*</p>"
+            "text": "<p>Lifetime warranty against manufacturing defects</p>"
           }
         }
       },
@@ -201,64 +201,72 @@
     "accordion_faq_wed": {
       "type": "accordion",
       "blocks": {
-        "accor_item_ii7YzP": {
+        "q1": {
           "type": "accor_item",
           "settings": {
-            "title": "What makes your wedding and engagement rings ethical?",
-            "content": "<p>At For Your Eternity, we are committed to ethical sourcing and responsible practices. Our rings are crafted using conflict-free or lab-grown diamonds, responsibly sourced or recycled precious metals, and sustainable materials wherever possible. We adhere to the Kimberley Process Certification Scheme (KPCS) and the World Diamond Council System of Warranties (SoW) to ensure all our diamonds are ethically obtained. Additionally, we work only with trusted suppliers who meet strict environmental and human rights standards.</p>"
+            "title": "Which wedding ring profile is the most comfortable?",
+            "content": "<p>Court, rounded on the inside and the outside, is the most popular for that reason: it slides over the knuckle and does not catch. D-shape is flat inside and domed outside, slimmer on the finger. Flat and flat court are more modern and suit wider rings. Our Plain Wedding Ring Guide shows all nine in cross-section.</p>"
           }
         },
-        "accor_item_H98KiF": {
+        "q2": {
           "type": "accor_item",
           "settings": {
-            "title": "Do you offer custom ring designs?",
-            "content": "<p>Yes! We offer a <strong>fully bespoke ring design service</strong>, allowing you to create a one-of-a-kind engagement or wedding ring. Our experts will guide you through the process, from selecting the perfect diamond or gemstone to designing a setting that reflects your unique style. Whether you want a modern, classic, or vintage-inspired design, we can bring your vision to life.</p>"
+            "title": "How wide should a wedding ring be?",
+            "content": "<p>Most women's bands are 2 to 3 mm and most men's 4 to 6 mm, but the right width is the one that suits the hand and sits well beside any other ring worn with it. A wider band fits more tightly, so from about 5 mm you usually need a size larger than a slim ring on the same finger; we allow for this when we size you.</p>"
           }
         },
-        "accor_item_DiqKtg": {
+        "q3": {
           "type": "accor_item",
           "settings": {
-            "title": "How long does it take to receive a custom wedding or engagement ring?",
-            "content": "<p>Once the design is confirmed, custom rings normally take between 2 and 4 weeks to make. However, this timeframe can vary depending on the complexity of the design, material availability, and any additional customisation requests. If you need a ring by a specific date, please contact us, and we’ll do our best to accommodate your timeline.</p>"
+            "title": "Should my wedding ring match my engagement ring's metal?",
+            "content": "<p>Match the metal and the carat if you can: two rings in the same alloy wear at the same rate and keep the same colour. Platinum beside white gold looks the same on day one and different in a few years, when the gold needs replating. The profile and width can differ; the metal is the thing to match.</p>"
           }
         },
-        "accor_item_xc9rtw": {
+        "q4": {
           "type": "accor_item",
           "settings": {
-            "title": "What is your return policy?",
-            "content": "<p>We want you to love your ring, and we stand by the quality of our craftsmanship. However, due to the personalised nature of engagement and wedding rings, we can only accept returns in the following circumstances:</p><ul><li>Custom, bespoke, or made-to-order rings are non-returnable and non-refundable.</li><li>Ready-to-wear rings can be returned within 30 days of purchase, provided they are unworn, in original packaging, and in resalable condition.</li><li>If there is a manufacturing defect or the ring does not match the agreed specifications, we will replace or repair it free of charge.</li></ul><p>To initiate a return, please email <a href=\"mailto:enquiries@foryoureternity.com\">enquiries@foryoureternity.com</a> with your order details.</p>"
+            "title": "What if a straight band will not sit flush against my engagement ring?",
+            "content": "<p>A shaped-to-fit band follows the line of the engagement ring so the two sit together without a gap. Low-set rings and those with a halo or a wide setting usually need one. Designed as a pair from the start, they sit together better than any later shaping can achieve.</p>"
           }
         },
-        "accor_item_inPnDK": {
+        "q5": {
           "type": "accor_item",
           "settings": {
-            "title": "Are your diamonds certified?",
-            "content": "<p>Every centre diamond, natural or lab-grown, comes with a certificate from the Gemological Institute of America (GIA) or the International Gemological Institute (IGI), shown on the listing and detailing its cut, colour, clarity and carat weight. Smaller stones in multi-stone designs are not individually certified; the listing states their grade.</p>"
+            "title": "Can you make a wedding ring to fit an engagement ring bought elsewhere?",
+            "content": "<p>Yes. Send us the engagement ring, or bring it to a consultation, and we will shape a band to follow it. We need the ring itself, not a photograph, to get the fit right.</p>"
           }
         },
-        "accor_item_ptL8Qy": {
+        "q6": {
           "type": "accor_item",
           "settings": {
-            "title": "Do you offer matching wedding bands?",
-            "content": "<p>Absolutely! We can create perfectly matching wedding bands to complement your engagement ring. Whether you want a classic plain band, diamond-set band, or a custom-fitted design, we’ll ensure your wedding band sits seamlessly alongside your engagement ring. We can also design bands to match rings purchased elsewhere. Book a consultation to discuss your options.</p>"
+            "title": "Do our wedding rings need to match?",
+            "content": "<p>No. Many couples choose the same profile and metal in different widths; others choose two different rings. If you want them to match, we make the pair together so the finish and colour are identical, and we can engrave both.</p>"
           }
         },
-        "accor_item_ieUPmV": {
+        "q7": {
           "type": "accor_item",
           "settings": {
-            "title": "Do you offer financing or payment plans?",
-            "content": "<p>For bespoke pieces we can take an agreed deposit, with the balance due before dispatch. We don't offer credit or finance ourselves. Please contact us at <a href=\"mailto:enquiries@foryoureternity.com\">enquiries@foryoureternity.com</a> to talk through payment for your piece.</p>"
+            "title": "Can you engrave our wedding rings?",
+            "content": "<p>Yes: initials, a date, a short phrase or a signature on the inside of the band. We send a proof before anything is engraved, and hand engraving adds about a week. See our ring engraving page for the options.</p>"
+          }
+        },
+        "q8": {
+          "type": "accor_item",
+          "settings": {
+            "title": "When should we order our wedding rings?",
+            "content": "<p>Rings are made to order and normally take 3 to 4 weeks from the next working day; allow time for a ring sizer to reach you and for any engraving. Ordering eight weeks before the wedding leaves room for everything, including a resize if a size needs adjusting.</p>"
           }
         }
       },
       "block_order": [
-        "accor_item_ii7YzP",
-        "accor_item_H98KiF",
-        "accor_item_DiqKtg",
-        "accor_item_xc9rtw",
-        "accor_item_inPnDK",
-        "accor_item_ptL8Qy",
-        "accor_item_ieUPmV"
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8"
       ],
       "settings": {
         "top_heading": "Frequently asked questions",
@@ -347,136 +355,163 @@
         "btn_label": "Contact us",
         "btn_link": "/pages/contact-us#popup-contact"
       }
+    },
+    "types_wed": {
+      "type": "about-columns-four",
+      "blocks": {
+        "c1": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": false,
+            "title": "Plain wedding rings",
+            "button_label": "View rings",
+            "button_link": "shopify://collections/plain-wedding-rings"
+          }
+        },
+        "c2": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": false,
+            "title": "Diamond-set wedding rings",
+            "button_label": "View rings",
+            "button_link": "shopify://collections/diamond-wedding-rings"
+          }
+        },
+        "c3": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": false,
+            "title": "Gemstone-set wedding rings",
+            "button_label": "View rings",
+            "button_link": "shopify://collections/coloured-stone-eternity-rings"
+          }
+        },
+        "c4": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": false,
+            "title": "Shaped to fit",
+            "button_label": "Discuss shaped-to-fit",
+            "button_link": "shopify://pages/shaped-to-fit-rings"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "settings": {
+        "top_heading": "Shop by type",
+        "col_dk": 4,
+        "band": "mist"
+      }
+    },
+    "profile_wed": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Profile|Court is rounded inside and out; D-shape is flat inside and domed outside; flat and flat court are more modern|Court is the most comfortable over the knuckle"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "Width|Most women's bands are 2 to 3 mm, most men's 4 to 6 mm|From about 5 mm you usually need a size larger"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Weight|Heavier bands feel more substantial and wear longer|Daily wearers often choose medium or heavy"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "settings": {
+        "show_head": true,
+        "heading": "Profile, width and weight at a glance",
+        "headers": "Choice|What changes|Rule of thumb",
+        "first_col_bold": true,
+        "col1_width": 0,
+        "narrow": true,
+        "band": "white",
+        "note": "Full detail is in the Plain Wedding Ring Guide."
+      }
+    },
+    "metal_wed": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "Platinum|950|The most durable; stays white without plating and develops a soft patina that polishes out"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "18ct white gold|750|Rhodium plated for its bright white; needs replating every few years"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "18ct yellow gold|750|The richest colour; softer, so shows fine scratches sooner"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "18ct rose gold|750|Warm colour from copper; hard-wearing and keeps its colour"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "9ct gold|375|Harder-wearing and paler in colour"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5"
+      ],
+      "settings": {
+        "show_head": true,
+        "heading": "Which metal for a wedding ring?",
+        "headers": "Metal|Hallmark|Wear and upkeep",
+        "first_col_bold": true,
+        "col1_width": 0,
+        "narrow": true,
+        "band": "ivory",
+        "note": "The full comparison is in our Find the Right Metal guide."
+      }
     }
   },
   "order": [
     "hero",
     "fye_mediatext_findingbands_wed",
+    "types_wed",
+    "fye_mediatext_custom_wed",
+    "profile_wed",
+    "metal_wed",
     "featured_collection_NFfNPH",
     "fye_guidedl_wed",
     "shipping_why_wed",
     "fye_mediatext_consult_wed",
     "accordion_faq_wed",
-    "fye_mediatext_custom_wed",
     "fye_mediatext_guarantee_wed",
     "fye_consultation_wed"
   ]
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

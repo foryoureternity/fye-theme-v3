@@ -4047,3 +4047,24 @@ Ship: `./tools/fye ship "Phase 2: founder schema, hero alt, one shape heading, h
 - Not done yet: one-column-per-type Jewellery mega menu (waits for a second visible
   type); 18k/14k/9k bracelet option values to "ct" (needs a check of the import first).
 Ship: `./tools/fye ship "Phase 3: five jewellery hubs, bracelets live, four hidden"`.
+
+## 11/10/2026: Phase 4a (ring pages: intros, tables, FAQs) [W500]
+- page.engagement-rings: opening "What are you choosing between?" paragraph under the
+  hero; three ways to start (fye-cards); setting-price note above the featured grid
+  (now "Featured engagement rings"); natural vs lab-grown table; ethics paragraph;
+  Design-your-own band buttons go to the Ring Matchmaker (?j=eng) plus Contact us;
+  8 new FAQs replacing the old ones (which still said 30-day returns and 2-4 weeks).
+- page.wedding-rings: facts paragraph in the findings band; types cards (plain,
+  diamond-set, gemstone-set, shaped to fit); shaped-to-fit band moved up; profile and
+  metal tables; 8 new FAQs. Featured grid keeps featured-wedding-rings because the
+  diamond-set wedding rings in this catalogue are eternity products.
+- page.eternity-rings: opening paragraph; styles cards (half, full, diamond, coloured
+  stone, black diamond, shaped to fit); shop by shape (8 eternity shape collections);
+  full vs half table; how to wear it; featured grid now featured-eternity-rings;
+  7 new FAQs.
+- All three: shipping bullets read "Free, tracked and insured UK delivery" and
+  "Lifetime warranty against manufacturing defects".
+- Store data (live already): manual collection featured-eternity-rings (8 products,
+  seo.hidden); manual collection coloured-stone-eternity-rings (published).
+- page.bracelets: halo card image swapped. Hidden hubs: trailing newline only.
+Ship: `./tools/fye ship "Phase 4a: ring page intros, tables, FAQs, eternity shop-by"`.

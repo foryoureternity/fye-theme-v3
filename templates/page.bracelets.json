@@ -54,7 +54,7 @@
           "type": "text_block",
           "settings": {
             "enable_image": true,
-            "image": "shopify://shop_images/1_c88bbf1b-2e2d-4e6c-9543-81661a9d9edb.jpg",
+            "image": "shopify://shop_images/1_1389e3fa-ae27-436d-9b81-d6a73ea65a00.jpg",
             "title": "Halo bracelets",
             "button_label": "View bracelets",
             "button_link": "shopify://collections/halo-bracelets"
@@ -543,4 +543,3 @@
     "closing"
   ]
 }
-

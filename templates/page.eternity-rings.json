@@ -190,7 +190,7 @@
           "type": "accor_item",
           "settings": {
             "title": "What is your return policy?",
-            "content": "<p>We want you to love your ring, and we stand by the quality of our craftsmanship. However, due to the personalised nature of engagement and wedding rings, we can only accept returns in the following circumstances:</p><ul><li>Custom, bespoke, or made-to-order rings are non-returnable and non-refundable.</li><li>Ready-to-wear rings can be returned within 30 days of purchase, provided they are unworn, in original packaging, and in resalable condition.</li><li>If there is a manufacturing defect or the ring does not match the agreed specifications, we will replace or repair it free of charge.</li></ul><p>To initiate a return, please email <a href=\"mailto:hello@foryoureternity.com\">hello@foryoureternity.com</a> with your order details.</p>"
+            "content": "<p>We want you to love your ring, and we stand by the quality of our craftsmanship. However, due to the personalised nature of engagement and wedding rings, we can only accept returns in the following circumstances:</p><ul><li>Custom, bespoke, or made-to-order rings are non-returnable and non-refundable.</li><li>Ready-to-wear rings can be returned within 30 days of purchase, provided they are unworn, in original packaging, and in resalable condition.</li><li>If there is a manufacturing defect or the ring does not match the agreed specifications, we will replace or repair it free of charge.</li></ul><p>To initiate a return, please email <a href=\"mailto:enquiries@foryoureternity.com\">enquiries@foryoureternity.com</a> with your order details.</p>"
           }
         },
         "accor_item_inPnDK": {
@@ -211,7 +211,7 @@
           "type": "accor_item",
           "settings": {
             "title": "Do you offer financing or payment plans?",
-            "content": "<p>For bespoke pieces we can take an agreed deposit, with the balance due before dispatch. We don't offer credit or finance ourselves. Please contact us at <a href=\"mailto:hello@foryoureternity.com\">hello@foryoureternity.com</a> to talk through payment for your piece.</p>"
+            "content": "<p>For bespoke pieces we can take an agreed deposit, with the balance due before dispatch. We don't offer credit or finance ourselves. Please contact us at <a href=\"mailto:enquiries@foryoureternity.com\">enquiries@foryoureternity.com</a> to talk through payment for your piece.</p>"
           }
         }
       },
@@ -252,7 +252,7 @@
         },
         "contact_email": {
           "type": "contact",
-          "settings": { "type": "email", "label": "hello@foryoureternity.com" }
+          "settings": { "type": "email", "label": "enquiries@foryoureternity.com" }
         },
         "contact_whatsapp": {
           "type": "contact",

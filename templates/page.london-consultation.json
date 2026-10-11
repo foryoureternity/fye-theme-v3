@@ -261,8 +261,8 @@
           "type": "contact",
           "settings": {
             "type": "email",
-            "label": "hello@foryoureternity.com",
-            "link": "mailto:hello@foryoureternity.com"
+            "label": "enquiries@foryoureternity.com",
+            "link": "mailto:enquiries@foryoureternity.com"
           }
         },
         "whatsapp": {

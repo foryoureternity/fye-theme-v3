@@ -3990,3 +3990,22 @@ Plan doc: claude.ai artifact "FYE jewellery and ring pages: master plan".
   tag on eternity-rings (56 chars).
 - Not touched yet: FAQ sets and intro bands (Phase 4), links and labels (Phase 1b).
 Ship: `./tools/fye ship "Phase 1a: claims, guarantee, em dashes, hero copy"`.
+
+## 11/10/2026: Phase 1b (links, labels, email)
+- page.engagement-rings: the four shoulder cards now go to four new smart collections
+  (store data, published to Online Store and Google): solitaire-diamond-shoulders (387),
+  solitaire-plain-shoulders (172), halo-diamond-shoulders (404), halo-plain-shoulders (89),
+  each one TAG rule on the existing shoulder tags. Shape row: one heading "Shop by diamond
+  shape" on both desktop and mobile settings; its link now says "Compare all ten shapes"
+  because it opens the shapes guide, not a shop.
+- page.wedding-rings: hero button 2 is the Plain Wedding Ring Guide (was the guides hub);
+  the findings band button says "View all wedding rings" (it opens the collection).
+- snippets/mm-stones.liquid: no stone label sends to the mixed coloured-stone-rings
+  collection any more. Eternity and wedding show the five stones with eternity
+  collections; engagement drops Black Diamond (no products). See the file header.
+- Email: hello@ replaced by enquiries@foryoureternity.com in 22 files, Ed's decision
+  11/10/2026, including schema-org.liquid, header-bottom, footer, fye-popups,
+  fye-consultation, affiliate terms, llms.txt and config/settings_data.json (one value).
+- Last em dashes out of page.contact, article and blog. Eleven other templates still have
+  some; sweep pending.
+Ship: `./tools/fye ship "Phase 1b: shoulder links, stone menu, labels, enquiries email"`.

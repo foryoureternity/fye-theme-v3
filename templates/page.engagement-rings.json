@@ -38,7 +38,7 @@
             "image": "shopify://shop_images/11_2ffb2c6d-eff8-43b3-b8b0-a76aea4e77b4.png",
             "title": "Solitaire with diamond shoulders",
             "button_label": "View our rings",
-            "button_link": "shopify://collections/solitaire"
+            "button_link": "shopify://collections/solitaire-diamond-shoulders"
           }
         },
         "text_block_9Um8WB": {
@@ -48,7 +48,7 @@
             "image": "shopify://shop_images/12.png",
             "title": "Solitaire with plain shoulders",
             "button_label": "View our rings",
-            "button_link": "shopify://collections/solitaire"
+            "button_link": "shopify://collections/solitaire-plain-shoulders"
           }
         },
         "text_block_hwAaxQ": {
@@ -58,7 +58,7 @@
             "image": "shopify://shop_images/13.png",
             "title": "Halo with diamond shoulders",
             "button_label": "View our rings",
-            "button_link": "shopify://collections/halo-1"
+            "button_link": "shopify://collections/halo-diamond-shoulders"
           }
         },
         "text_block_9iby6F": {
@@ -68,7 +68,7 @@
             "image": "shopify://shop_images/14.png",
             "title": "Halo with plain shoulders",
             "button_label": "View our rings",
-            "button_link": "shopify://collections/halo-1"
+            "button_link": "shopify://collections/halo-plain-shoulders"
           }
         },
         "text_block_hTMd4B": {
@@ -195,9 +195,9 @@
         "collection_item_76hcJM"
       ],
       "settings": {
-        "top_heading": "Shop by diamond cut",
-        "heading_mb": "Shop by shape",
-        "head_btn_label": "View all",
+        "top_heading": "Shop by diamond shape",
+        "heading_mb": "Shop by diamond shape",
+        "head_btn_label": "Compare all ten shapes",
         "mobile_view_all_link": "shopify://pages/diamond-shapes",
         "col_dk": 10,
         "band": "ivory"
@@ -366,7 +366,7 @@
           "type": "accor_item",
           "settings": {
             "title": "What is your return policy?",
-            "content": "<p>We want you to love your ring, and we stand by the quality of our craftsmanship. However, due to the personalised nature of engagement and wedding rings, we can only accept returns in the following circumstances:</p><ul><li>Custom, bespoke, or made-to-order rings are non-returnable and non-refundable.</li><li>Ready-to-wear rings can be returned within 30 days of purchase, provided they are unworn, in original packaging, and in resalable condition.</li><li>If there is a manufacturing defect or the ring does not match the agreed specifications, we will replace or repair it free of charge.</li></ul><p>To initiate a return, please email <a href=\"mailto:hello@foryoureternity.com\">hello@foryoureternity.com</a> with your order details.</p>"
+            "content": "<p>We want you to love your ring, and we stand by the quality of our craftsmanship. However, due to the personalised nature of engagement and wedding rings, we can only accept returns in the following circumstances:</p><ul><li>Custom, bespoke, or made-to-order rings are non-returnable and non-refundable.</li><li>Ready-to-wear rings can be returned within 30 days of purchase, provided they are unworn, in original packaging, and in resalable condition.</li><li>If there is a manufacturing defect or the ring does not match the agreed specifications, we will replace or repair it free of charge.</li></ul><p>To initiate a return, please email <a href=\"mailto:enquiries@foryoureternity.com\">enquiries@foryoureternity.com</a> with your order details.</p>"
           }
         },
         "accor_item_e4XNEX": {
@@ -387,7 +387,7 @@
           "type": "accor_item",
           "settings": {
             "title": "Do you offer financing or payment plans?",
-            "content": "<p>For bespoke pieces we can take an agreed deposit, with the balance due before dispatch. We don't offer credit or finance ourselves. Please contact us at <a href=\"mailto:hello@foryoureternity.com\">hello@foryoureternity.com</a> to talk through payment for your piece.</p>"
+            "content": "<p>For bespoke pieces we can take an agreed deposit, with the balance due before dispatch. We don't offer credit or finance ourselves. Please contact us at <a href=\"mailto:enquiries@foryoureternity.com\">enquiries@foryoureternity.com</a> to talk through payment for your piece.</p>"
           }
         }
       },
@@ -428,7 +428,7 @@
         },
         "contact_email": {
           "type": "contact",
-          "settings": { "type": "email", "label": "hello@foryoureternity.com" }
+          "settings": { "type": "email", "label": "enquiries@foryoureternity.com" }
         },
         "contact_whatsapp": {
           "type": "contact",

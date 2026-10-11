@@ -3,9 +3,14 @@
 
   Params: set ('engagement' | 'wedding' | 'eternity'), label, all_url, all_label.
 
-  Handles per set, because live's differ: engagement has a collection per
-  stone; wedding points every one at coloured-stone-rings; eternity has five of
-  its own and sends the rest to coloured-stone-rings.
+  Handles per set. Engagement has a collection per stone. Eternity has five
+  (ruby, sapphire, pink sapphire, emerald, black diamond) and wedding shares
+  them, because gem-set wedding bands are eternity rings in this catalogue.
+  A '-' in the list means no collection of that stone exists for the set, so
+  the stone is left out rather than sent to the mixed coloured-stone-rings
+  collection (11/10/2026, master plan Phase 1b: a label must lead to the
+  selection it names). Measured then: every other eternity stone had 0 or 1
+  products, and there were no black diamond engagement rings.
 
   The dot is a span with a background — a colour sample, not artwork.
   Seventeen images would be seventeen requests for a hex value. Opal and the
@@ -19,14 +24,11 @@
 
   assign names = 'Ruby,Sapphire,Pink Sapphire,Yellow Sapphire,Emerald,Tanzanite,Aquamarine,Morganite,Peridot,Amethyst,Garnet,Citrine,Blue Topaz,Opal,Fire Opal,Pink Tourmaline,Black Diamond' | split: ','
   assign hexes = '#9E2B2B,#1F4E79,#D46A8B,#E3C14E,#1E7A4C,#5B5AA0,#8FC7D8,#E3ADA6,#94A83E,#7E5AA2,#8B2E2E,#E0A33E,#4E93C4,#EAE6D9,#E0713E,#DE7BA0,#141414' | split: ','
-  assign csr = 'coloured-stone-rings'
 
   if set == 'engagement'
-    assign urls = 'ruby-engagement-rings,sapphire-engagement-rings,pink-sapphire-engagement-rings,yellow-sapphire-engagement-rings,emerald-engagement-rings,tanzanite-engagement-rings,aquamarine-engagement-rings,morganite-engagement-rings,peridot-engagement-rings,amethyst-engagement-rings,garnet-engagement-rings,citrine-engagement-rings,blue-topaz-engagement-rings,opal-engagement-rings,fire-opal-engagement-rings,pink-tourmaline-engagement-rings,coloured-stone-rings' | split: ','
-  elsif set == 'eternity'
-    assign urls = 'eternity-ruby,eternity-sapphire,pink-sapphire-eternity-rings,coloured-stone-rings,eternity-emerald,coloured-stone-rings,coloured-stone-rings,coloured-stone-rings,coloured-stone-rings,coloured-stone-rings,coloured-stone-rings,coloured-stone-rings,coloured-stone-rings,coloured-stone-rings,coloured-stone-rings,coloured-stone-rings,black-diamond-eternity-rings' | split: ','
+    assign urls = 'ruby-engagement-rings,sapphire-engagement-rings,pink-sapphire-engagement-rings,yellow-sapphire-engagement-rings,emerald-engagement-rings,tanzanite-engagement-rings,aquamarine-engagement-rings,morganite-engagement-rings,peridot-engagement-rings,amethyst-engagement-rings,garnet-engagement-rings,citrine-engagement-rings,blue-topaz-engagement-rings,opal-engagement-rings,fire-opal-engagement-rings,pink-tourmaline-engagement-rings,-' | split: ','
   else
-    assign urls = 'a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a' | split: ','
+    assign urls = 'eternity-ruby,eternity-sapphire,pink-sapphire-eternity-rings,-,eternity-emerald,-,-,-,-,-,-,-,-,-,-,-,black-diamond-eternity-rings' | split: ','
   endif
 -%}
 
@@ -44,8 +46,8 @@
     {%- for name in names -%}
       {%- liquid
         assign u = urls[forloop.index0]
-        if set == 'wedding'
-          assign u = csr
+        if u == '-'
+          continue
         endif
         assign hex = hexes[forloop.index0]
       -%}

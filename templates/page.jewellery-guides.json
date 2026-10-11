@@ -102,7 +102,7 @@
       "type": "fye-consultation",
       "blocks": {
         "phone": { "type": "contact", "settings": { "type": "phone", "label": "0208 178 6687", "link": "tel:+442081786687" } },
-        "email": { "type": "contact", "settings": { "type": "email", "label": "hello@foryoureternity.com", "link": "mailto:hello@foryoureternity.com" } },
+        "email": { "type": "contact", "settings": { "type": "email", "label": "enquiries@foryoureternity.com", "link": "mailto:enquiries@foryoureternity.com" } },
         "whatsapp": { "type": "contact", "settings": { "type": "whatsapp", "label": "WhatsApp", "link": "https://wa.me/447840042922" } }
       },
       "block_order": ["phone", "email", "whatsapp"],

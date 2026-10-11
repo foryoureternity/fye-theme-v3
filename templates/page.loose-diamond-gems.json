@@ -222,7 +222,7 @@
       "type": "fye-consultation",
       "blocks": {
         "contact_phone": { "type": "contact", "settings": { "type": "phone", "label": "0208 178 6687" } },
-        "contact_email": { "type": "contact", "settings": { "type": "email", "label": "hello@foryoureternity.com" } },
+        "contact_email": { "type": "contact", "settings": { "type": "email", "label": "enquiries@foryoureternity.com" } },
         "contact_whatsapp": {
           "type": "contact",
           "settings": { "type": "whatsapp", "label": "WhatsApp", "link": "https://wa.me/447840042922" }

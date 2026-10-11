@@ -4135,3 +4135,4 @@ Ship: `./tools/fye ship "Homepage v2: design handoff"`.
   accordions and About Us testimonials pick up the new components as intended.
 - Follow-up fix (unshipped): feature_columns2 split layout moved from the 12-track grid to
   flex. An 80px column gap across eleven grid gaps overflowed the About band on a phone.
+- Verified live 11/10/2026: About band fix shipped (checksum match); no horizontal scroll at 375px, copy wraps inside the band.

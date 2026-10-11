@@ -183,7 +183,7 @@
   assign gold_keys = ''
   for value in metal_opt.values
     if value contains 'Gold'
-      assign kt = value | downcase | split: 'k' | first | strip
+      assign kt = value | downcase | remove: ' gold' | remove: 'ct' | remove: 'k' | strip
       assign kt_num = kt | plus: 0
       if kt_num > 0
         assign label = kt | append: 'ct'

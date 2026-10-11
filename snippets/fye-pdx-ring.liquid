@@ -340,7 +340,7 @@
   if is_plain
     assign metal_label = metal_now
   elsif v_is_gold
-    assign metal_label = v_metal | replace: 'k Gold', 'ct' | replace: 'K Gold', 'ct' | append: ' ' | append: gold_default | append: ' Gold'
+    assign metal_label = v_metal | replace: 'ct Gold', 'ct' | replace: 'k Gold', 'ct' | replace: 'K Gold', 'ct' | append: ' ' | append: gold_default | append: ' Gold'
   else
     assign metal_label = v_metal
   endif
@@ -356,7 +356,11 @@
         if preferred_karat == blank
           assign preferred_karat = value
         endif
-        assign kt = value | downcase | split: 'k' | first | strip
+        comment
+          Accepts "18k Gold" and "18ct Gold" (Ed, 11/10/2026: ct is the house
+          spelling for new options; older products still say k).
+        endcomment
+        assign kt = value | downcase | remove: ' gold' | remove: 'ct' | remove: 'k' | strip
         assign kt_num = kt | plus: 0
         if kt_num > 0
           assign label = kt | append: 'ct'
@@ -1174,6 +1178,15 @@
                   {%- if tdw_label != blank -%}<div><dt>Total diamonds</dt><dd>{{ tdw_label }}ct</dd></div>{%- endif -%}
                   {%- if metal_opt != nil -%}<div><dt>Metal</dt><dd data-pdx-sum-metal>{{ metal_label | default: 'Not chosen yet' }}</dd></div>{%- endif -%}
                   {%- if quality_opt != nil and hide_quality == false -%}<div><dt>{{ quality_heading }}</dt><dd data-pdx-sum-qual>{{ v_quality | default: 'Not chosen yet' }}</dd></div>{%- endif -%}
+                  {%- if is_bracelet and p.metafields.fye.length != blank -%}
+                    {%- liquid
+                      assign len_label = 'Length'
+                      if p.tags contains 'Bangle' or p.tags contains 'Cuff'
+                        assign len_label = 'Size'
+                      endif
+                    -%}
+                    <div><dt>{{ len_label }}</dt><dd>{{ p.metafields.fye.length }}</dd></div>
+                  {%- endif -%}
                 {%- endif -%}
                 {%- if current.sku != blank and s.show_sku != false -%}<div><dt>SKU</dt><dd data-fye-sku>{{ current.sku }}</dd></div>{%- endif -%}
               </dl>
@@ -1185,12 +1198,12 @@
             <div class="pdx__accbody">{{ s.pdx_acc_delivery | default: '<p>Each ring is handmade to order in the UK and delivered free, fully insured.</p><p>As every ring is made to order, and its diamonds and other stones are sourced individually for that piece, returns are not offered, except in the case of a manufacturing defect.</p>' }}</div>
           </details>
 
-          {%- if is_bracelet -%}
-          <details class="pdx__acc">
-            <summary class="pdx__accsum">Length</summary>
-            <div class="pdx__accbody">{{ '<p>The standard length is shown in the details above. Other lengths can be made to order: tell us the length you need when you enquire.</p>' }}</div>
-          </details>
-          {%- else -%}
+          {%- comment -%}
+            Not a ring: no sizing panel. Length now comes from fye.length and
+            sits in the details list above, worded per product, because only
+            made-to-order pieces can be made to another length (Ed, 11/10/2026).
+          {%- endcomment -%}
+          {%- unless is_bracelet -%}
           <details class="pdx__acc">
             {%- if is_full_eternity -%}
               <summary class="pdx__accsum">Sizing</summary>
@@ -1200,7 +1213,7 @@
               <div class="pdx__accbody">{{ s.pdx_acc_sizing | default: '<p>Order a free ring sizer if you are unsure. Every ring includes a complimentary resize within the first year.</p>' }}</div>
             {%- endif -%}
           </details>
-          {%- endif -%}
+          {%- endunless -%}
 
           <details class="pdx__acc">
             <summary class="pdx__accsum">Hallmarking &amp; ethics</summary>

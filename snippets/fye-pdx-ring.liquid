@@ -277,6 +277,14 @@
   if is_bracelet and p.selected_variant == nil
     assign pick_all = true
   endif
+  comment
+    Nothing to pick on a single-variant piece (most IBB stock pieces have no
+    options), so pick_all would leave Add to bag disabled for good. Ed,
+    11/10/2026.
+  endcomment
+  if p.has_only_default_variant
+    assign pick_all = false
+  endif
 
   comment
     ── Open on 18ct gold (Ed, 27/09/2026) ──
@@ -530,6 +538,33 @@
   else
     assign noun = s.pdx_noun | default: 'ring'
   endif
+
+  comment
+    Anklets, bangles and cuffs share the bracelet templates, so the noun
+    follows the product's own tag rather than reading "bracelet" on an
+    anklet. Ed, 11/10/2026.
+  endcomment
+  if is_bracelet
+    if p.tags contains 'Anklet'
+      assign noun = 'anklet'
+    elsif p.tags contains 'Cuff'
+      assign noun = 'cuff'
+    elsif p.tags contains 'Bangle'
+      assign noun = 'bangle'
+    endif
+  endif
+
+  comment
+    Stock pieces (IBB London, product.bracelet-stock.json) are bought in
+    finished, not made to order: they get their own reassurance tiles, a
+    delivery window in working days rather than weeks, and no "handmade to
+    order" line. Everything else on the page comes from that template's
+    settings. Ed, 11/10/2026.
+  endcomment
+  assign is_stock = false
+  if template.suffix == 'bracelet-stock'
+    assign is_stock = true
+  endif
 -%}
 <section class="band band--white band--lead pdx pdx--ring" data-screen-label="Product" data-fye-pdx
          data-noun="{{ noun }}"{% if is_bracelet %} data-pdx-nonring{% endif %}
@@ -650,7 +685,7 @@
         {%- if is_full_eternity -%}
           {%- render 'fye-pdx-assure', kind: 'full-eternity' -%}
         {%- else -%}
-          {%- if is_bracelet -%}{%- render 'fye-pdx-assure', kind: 'bracelet' -%}{%- else -%}{%- render 'fye-pdx-assure', kind: 'ring' -%}{%- endif -%}
+          {%- if is_stock -%}{%- render 'fye-pdx-assure', kind: 'stock' -%}{%- elsif is_bracelet -%}{%- render 'fye-pdx-assure', kind: 'bracelet' -%}{%- else -%}{%- render 'fye-pdx-assure', kind: 'ring' -%}{%- endif -%}
         {%- endif -%}
       </div>
 
@@ -1153,7 +1188,11 @@
         {%- endif -%}
 
         {%- liquid
-          if is_bracelet
+          assign deliv_unit = 'weeks'
+          if is_stock
+            assign deliv_sub = 'Free insured UK delivery · Dispatched from stock'
+            assign deliv_unit = ''
+          elsif is_bracelet
             assign deliv_sub = 'Free insured UK delivery · Handmade to order in the UK'
           elsif is_full_eternity
             assign deliv_sub = 'Free insured UK delivery · Free ring sizer before you order'
@@ -1161,7 +1200,7 @@
             assign deliv_sub = 'Free insured UK delivery · Free first resize within 12 months'
           endif
         -%}
-        {%- render 'fye-pdx-delivery', lead_min: lead_min, lead_max: lead_max, unit: 'weeks', sub: deliv_sub -%}
+        {%- render 'fye-pdx-delivery', lead_min: lead_min, lead_max: lead_max, unit: deliv_unit, sub: deliv_sub -%}
         </div>
       {%- endform -%}
 

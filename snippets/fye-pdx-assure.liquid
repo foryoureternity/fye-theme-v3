@@ -25,6 +25,14 @@
       assign rows = 'shipping|Free insured delivery|Fully tracked across the UK~doc|' | append: cert_title | append: '|Certificate supplied~ethical|Responsibly sourced|Traceable origin~ring|Set it with us|Handmade settings in the UK'
     when 'bracelet'
       assign rows = "shipping|Free insured delivery|Fully tracked across the UK~info|Lengths to order|Tell us the length you need~hand|Handmade to order|Crafted for you in the UK~certificate|UK hallmarked|With certificate of authenticity"
+    when 'stock'
+      comment
+        Stock pieces (Ed, 11/10/2026). No "handmade to order", no lengths
+        to order, and no hallmark or certificate claim until the supplier
+        confirms both. Returns: the statutory 14 days for goods that are not
+        made to order.
+      endcomment
+      assign rows = "shipping|Free insured delivery|Fully tracked across the UK~info|Dispatched from stock|No making time~refresh|14-day returns|Unworn, in original packaging~ethical|Genuine gold and platinum|Never plated"
     when 'full-eternity'
       assign rows = "shipping|Free insured delivery|Fully tracked across the UK~refresh|Free ring sizer|Size carefully: full eternity rings cannot be resized~hand|Handmade to order|Crafted for you in the UK~certificate|UK hallmarked|With certificate of authenticity"
     else

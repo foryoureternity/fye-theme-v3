@@ -1,0 +1,48 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "atc_label": "Add to bag",
+        "mto_label": "Enquire about this piece",
+        "size_guide_url": "",
+        "ask_ring_size": false,
+        "show_sku": false,
+        "enquire_label": "Contact us about this piece",
+        "enquire_link": "",
+        "reassurance": "Dispatched from stock. Free, tracked and insured UK delivery.",
+        "carat_scale": "Diamond weight",
+        "engraving": false,
+        "pdx_noun": "bracelet",
+        "pdx_acc_delivery": "<p>This piece is in stock and dispatched from the UK, delivered free and fully insured.</p><p>If you change your mind, you can return it unworn and in its original packaging within 14 days of delivery for a full refund.</p>",
+        "pdx_acc_ethics": "<p>Made in genuine gold or platinum, never plated. The metal and carat are shown in the details above.</p>",
+        "pdx_made_line": "Dispatched from stock",
+        "pdx_micro": "VAT included · Dispatched from stock · Free insured delivery",
+        "pdx_lead_min": 5,
+        "pdx_lead_max": 10,
+        "pdx_talk_copy": "Speak to us in person in London or online. We'll help you choose the right piece and answer any questions before you buy."
+      }
+    },
+    "related": {
+      "type": "fye-related-products",
+      "settings": {
+        "source": "related",
+        "fallback": true,
+        "count": 4,
+        "eyebrow": "You may also like",
+        "heading": "Similar Pieces",
+        "heading_fallback": "More from this collection",
+        "intro": "",
+        "align": "center",
+        "flank": true,
+        "ground": "ivory",
+        "link_label": "",
+        "link_url": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "related"
+  ]
+}

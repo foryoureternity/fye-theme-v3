@@ -76,7 +76,7 @@
   endif
   assign wa = wa | remove: '+'
 
-  if noun == 'bracelet'
+  if noun == 'bracelet' or noun == 'bangle' or noun == 'cuff' or noun == 'anklet'
     assign talk_copy = s.pdx_talk_copy | default: "Book a consultation in person in London or online. We'll help you choose the metal, the diamonds and the length, and answer any questions before you commit."
   elsif noun == 'ring'
     assign talk_copy = s.pdx_talk_copy | default: "Book a consultation in person in London or online. We'll help you choose the metal, the diamond and the size, and answer any questions before you commit."

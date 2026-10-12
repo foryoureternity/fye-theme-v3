@@ -4136,3 +4136,12 @@ Ship: `./tools/fye ship "Homepage v2: design handoff"`.
 - Follow-up fix (unshipped): feature_columns2 split layout moved from the 12-track grid to
   flex. An 80px column gap across eleven grid gaps overflowed the About band on a phone.
 - Verified live 11/10/2026: About band fix shipped (checksum match); no horizontal scroll at 375px, copy wraps inside the band.
+
+## 12/10/2026: filter rail back on ALL (T362)
+- fye-shop-chooser: removed the two `.fye:has(.pick)` rules that hid
+  `.coll__rail` and made `.coll__layout` one column while the chooser rendered.
+  Shoppers who bypass the chooser and browse the grid can filter again. The
+  chooser itself is unchanged. Header comment updated to match.
+- Ed to assess the state of the ALL rail afterwards: it is xCloud's one global
+  filter list, so it shows every facet that has values across all products.
+Ship: `./tools/fye ship "ALL: filter rail back beside the grid"`.

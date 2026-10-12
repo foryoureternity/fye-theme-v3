@@ -39,9 +39,10 @@
     separate top and bottom paddings.
   - The 560-899 tile columns follow the handoff table exactly; 749 is unused.
 
-  The one extra-specific selector at the foot of the stylesheet hides the
-  xCloud rail while the chooser is on the page: keyed to the chooser's
-  presence, so switching the chooser off brings the rail straight back.
+  THE RAIL STAYS (Ed, 12/10/2026, T362). V1 hid the xCloud rail and widened
+  the grid while the chooser was on the page. Shoppers who skip the chooser
+  and browse the grid below still need to filter, so that rule was removed
+  and the rail shows on ALL as on every other collection.
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
@@ -485,10 +486,6 @@
    not, so its eyebrow sat against the teal edge (measured 09/10/2026).
    `.band.pick` so this outranks the collapse rule, one class shorter. */
 .fye .shopify-section:has(> .cintro) + .shopify-section > .band.pick { padding-block-start: var(--sect-y); }
-
-/* The chooser replaces the xCloud rail on this page: see the file comment. */
-.fye:has(.pick) .coll__rail { display: none; }
-.fye:has(.pick) .coll__layout { grid-template-columns: minmax(0, 1fr); }
 
 /* --- 560 to 899 ----------------------------------------------------------- */
 @media (max-width: 900px) {

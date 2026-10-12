@@ -426,15 +426,29 @@
   flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-  width: var(--s7);
-  height: var(--s7);
+  width: var(--s5);
+  height: var(--s6);
   margin-left: auto;
-  padding: 0;
+  padding: 0 0 0 var(--s2);
   border: 0;
   background: none;
   color: var(--ink-soft);
   cursor: help;
   transition: color var(--dur) var(--ease);
+}
+
+/* 12px glyph (was 16): the desktop rail is narrow, and at 16 the (i)s read
+   as a second column competing with the shape icons. Ed, 12/10/2026. */
+.fye .fii .icon {
+  width: var(--s3);
+  height: var(--s3);
+}
+
+/* A value name never wraps: "Round Brilliant" broke over two lines once the
+   (i) took its share of the row. The count may still drop below on a very
+   narrow rail, which reads fine; a split name does not. */
+.fye .cloud-search-filter-value__name {
+  white-space: nowrap;
 }
 
 .fye .fii:hover,

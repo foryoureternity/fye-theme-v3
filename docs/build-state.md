@@ -4168,3 +4168,7 @@ Ship: `./tools/fye ship "Filter rail: info notes on filter values"`.
   Tapered Baguette, Slight Court, Flat Court, E, F, H, Lab-grown) and split the shared
   clarity notes so VVS1, VVS2, VS1, VS2, SI1, SI2, I1, I2, I3 each have their own.
 Ship: `./tools/fye ship "Filter info: every note stands alone"`.
+- Follow-up (12/10/2026): (i) glyph 16px -> 12px and its button 32px -> 20x24 on desktop
+  (44px tap target on phones unchanged); value names set nowrap so "Round Brilliant"
+  stays on one line.
+Ship: `./tools/fye ship "Filter info: smaller icons, names on one line"`.

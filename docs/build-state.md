@@ -4163,3 +4163,8 @@ Ship: `./tools/fye ship "ALL: filter rail back beside the grid"`.
 - Deliberately left without a note until Ed confirms the meaning: Setting
   "Oyster", Bracelet type "Halo".
 Ship: `./tools/fye ship "Filter rail: info notes on filter values"`.
+- Follow-up (12/10/2026): Ed's rule, every note must stand alone. Rewrote the notes that
+  leaned on another value (Oval, Radiant, Mixed, Square Radiant, Square Emerald, Old Miner,
+  Tapered Baguette, Slight Court, Flat Court, E, F, H, Lab-grown) and split the shared
+  clarity notes so VVS1, VVS2, VS1, VS2, SI1, SI2, I1, I2, I3 each have their own.
+Ship: `./tools/fye ship "Filter info: every note stands alone"`.

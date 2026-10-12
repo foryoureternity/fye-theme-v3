@@ -203,6 +203,12 @@
             {%- endcomment -%}
             {%- render 'fye-filter-icons' -%}
 
+            {%- comment -%}
+              Copy for the (i) notes beside filter values. Inert <template>,
+              read once by fye-ui.js (FILTER INFO). Added 12/10/2026.
+            {%- endcomment -%}
+            {%- render 'fye-filter-info' -%}
+
             {%- if show_promo -%}
               <div class="coll__promo">
                 <p class="coll__promotitle">{{ s.fye_promo_heading }}</p>
@@ -408,6 +414,73 @@
 .fye .cloud-search-filter__values {
   max-height: none;
   overflow: visible;
+}
+
+/* --- the (i) after a value, and its note -------------------------------
+   Added 12/10/2026. Button injected by fye-ui.js (FILTER INFO), copy in
+   snippets/fye-filter-info. margin-left: auto sends it to the row's right
+   edge, so the (i)s line up in a column rather than trailing each label at a
+   different x. --ink-soft at rest so twenty of them down a rail do not shout. */
+.fye .fii {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: var(--s7);
+  height: var(--s7);
+  margin-left: auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink-soft);
+  cursor: help;
+  transition: color var(--dur) var(--ease);
+}
+
+.fye .fii:hover,
+.fye .fii:focus-visible,
+.fye .fii[aria-describedby] {
+  color: var(--sage-deep);
+}
+
+/* 44px tap target on a phone. The row is min-height 44px with 5px of
+   vertical padding, so the negative block margin lets a 44px button sit in
+   the row without making it taller. */
+@media (max-width: 900px) {
+  .fye .fii {
+    width: 44px;
+    height: 44px;
+    margin-block: -5px;
+  }
+}
+
+/* One shared note, fixed to the viewport and placed by script. Ivory on
+   teal computes to 10.1:1, so --fs-small is comfortably safe.
+   pointer-events: none so it never steals the hover that keeps it
+   open. 280px holds about forty characters a line, the comfortable measure
+   for a note this short. z-index clears the mobile filter drawer (60). */
+.fye .fii-pop {
+  position: fixed;
+  z-index: 70;
+  width: max-content;
+  max-width: min(280px, calc(100vw - var(--s4)));
+  padding: var(--s3) var(--s4);
+  background: var(--teal);
+  color: var(--on-dark);
+  font-size: var(--fs-small);
+  line-height: var(--lh-heading);
+  box-shadow: var(--shadow-raised);
+  pointer-events: none;
+}
+
+.fye .fii-pop[hidden] {
+  display: none;
+}
+
+.fye .fii-pop strong {
+  display: block;
+  margin-bottom: var(--s1);
+  font-weight: var(--fw-medium);
 }
 
 /* --- stone shapes: mask-image on ::before --------------------------------

@@ -4145,3 +4145,21 @@ Ship: `./tools/fye ship "Homepage v2: design handoff"`.
 - Ed to assess the state of the ALL rail afterwards: it is xCloud's one global
   filter list, so it shows every facet that has values across all products.
 Ship: `./tools/fye ship "ALL: filter rail back beside the grid"`.
+
+## 12/10/2026: (i) notes in the filter rail
+- New `snippets/fye-filter-info.liquid`: an inert `<template>` of short notes keyed
+  `Group:Value` exactly as xCloud spells them (e.g. `Diamond cut:Oval`,
+  `Shape:Oval`). Rendered in main-collection beside fye-filter-icons.
+- `assets/fye-ui.js` FILTER INFO block: adds a `<button class="fii">` (info icon) to
+  every rail row that has a note, shows one shared teal tooltip on hover (hover
+  devices), keyboard focus, or tap. Click is stopped in the capture phase so it
+  never ticks the filter or reaches xCloud. Re-injects on xCloud redraws.
+- `sections/main-collection.liquid` stylesheet: `.fii` and `.fii-pop` rules.
+- Scope (Ed, 12/10/2026): jargon groups only. Diamond cut, Shape, Ring style,
+  Shoulder style, Setting, Eternity style, Wedding Ring Type (eternity values),
+  Profile, Plain Ring Weight, Clarity, Colour (D-J and three fancy colours),
+  Origin, Certificate Lab (main labs), Bracelet type. No notes for metals,
+  carats, widths, lengths, prices or gemstone names.
+- Deliberately left without a note until Ed confirms the meaning: Setting
+  "Oyster", Bracelet type "Halo".
+Ship: `./tools/fye ship "Filter rail: info notes on filter values"`.

@@ -1,0 +1,180 @@
+{%- comment -%}
+  fye-filter-info — the copy behind the small (i) buttons in the xCloud
+  filter rail. Added 12/10/2026 at Ed's request: hover or tap the (i) beside a
+  filter value and a short note explains what it means.
+
+  HOW IT WORKS. Same shape as fye-filter-icons, for the same reason: xCloud
+  renders the rail at runtime and redraws it on every change, so nothing can be
+  rendered into it from Liquid. This snippet emits one inert <template>; the
+  filterInfo block in assets/fye-ui.js reads it once, adds a <button> to every
+  row that has copy, and shows the note in one shared tooltip.
+
+  THE KEY IS "Group:Value", BOTH EXACTLY AS xCLOUD SPELLS THEM. The group is
+  the rail heading (data-filter-name), the value is data-filter-value. The
+  group is part of the key because the same word means different things in
+  different groups: "Emerald" is a cut under Shape and a gemstone under Stone
+  type, and "Clarity" holds D-to-I grades on diamonds but "Eye Clean" on
+  gemstones. One note can serve several keys, separated by ";".
+
+  A value with no entry simply gets no button. That is the intended failure:
+  a renamed filter loses its (i) quietly and the rail keeps working. When
+  adding a note, copy the group and value from the live rail, not from the
+  metafield, because xCloud's labels are what the key matches.
+
+  WHAT IS DELIBERATELY NOT COVERED: metals, carats, band widths, lengths,
+  prices and gemstone names. Ed chose "jargon groups only" on 12/10/2026, so
+  the (i) appears where a shopper might genuinely not know the term.
+
+  House style: British English, no em dashes, never sell on price.
+{%- endcomment -%}
+
+<template data-fye-filter-info>
+
+  <span data-fii-glyph>{%- render 'icon', name: 'info', size: 16 -%}</span>
+
+  {%- comment -%} ---- Cuts and shapes. Rings say "Diamond cut", loose stones say "Shape". ---- {%- endcomment -%}
+
+  <p data-fii="Diamond cut:Round Brilliant;Shape:Round">The classic round cut, with 57 facets arranged for maximum sparkle. By far the most popular choice for engagement rings.</p>
+  <p data-fii="Diamond cut:Oval;Shape:Oval">An elongated round with similar brilliance. Its length flatters the finger, and it tends to look larger than a round of the same carat weight.</p>
+  <p data-fii="Diamond cut:Princess;Shape:Princess">A square cut with sharp corners and crisp, modern sparkle. Best held by claws that protect its points.</p>
+  <p data-fii="Diamond cut:Cushion;Shape:Cushion">A square or slightly rectangular cut with softly rounded corners and larger facets, giving a romantic, vintage glow.</p>
+  <p data-fii="Diamond cut:Asscher;Shape:Asscher">A square step cut with cropped corners. Its stepped facets create a hall-of-mirrors effect with an Art Deco feel.</p>
+  <p data-fii="Diamond cut:Emerald Cut;Shape:Emerald">A rectangular step cut with cropped corners. Long, clean facets favour clarity over sparkle for a calm, elegant look.</p>
+  <p data-fii="Diamond cut:Heart;Shape:Heart">A brilliant cut shaped as a heart. Symmetry matters most, so the two lobes should be evenly matched.</p>
+  <p data-fii="Diamond cut:Marquise;Shape:Marquise">A long, boat-shaped brilliant with pointed ends. It makes the most of its carat weight and lengthens the finger.</p>
+  <p data-fii="Diamond cut:Pear;Shape:Pear">A teardrop, rounded at one end and pointed at the other. Worn with the point towards the fingertip, it elongates the hand.</p>
+  <p data-fii="Diamond cut:Radiant;Shape:Radiant">A rectangular cut with cropped corners and brilliant faceting: the outline of an emerald cut with the sparkle of a round.</p>
+  <p data-fii="Diamond cut:Baguette;Shape:Baguette">A slim rectangular step cut, most often used as side stones or set in a row for clean, sleek lines.</p>
+  <p data-fii="Diamond cut:Mixed">The piece combines more than one cut, for example round brilliants alongside baguettes.</p>
+  <p data-fii="Shape:Square Radiant">A radiant cut with equal sides: a square outline, cropped corners and brilliant sparkle.</p>
+  <p data-fii="Shape:Square Emerald">An emerald cut with equal sides. Close to an Asscher, but usually with smaller corners and a shallower profile.</p>
+  <p data-fii="Shape:Square">A square outline, cut either as a step cut or a brilliant.</p>
+  <p data-fii="Shape:Rectangular">A rectangular outline, usually step cut to show off the colour of the stone.</p>
+  <p data-fii="Shape:European Cut">An antique round cut from around 1890 to 1930, with a small table, a high crown and broad facets that give a soft, flashy sparkle.</p>
+  <p data-fii="Shape:Old Miner">An antique cushion-shaped cut from the 1700s and 1800s, cut by hand. Deep, with broad facets and plenty of character.</p>
+  <p data-fii="Shape:Rose">An antique cut with a flat base and a domed top covered in triangular facets. It glows softly rather than flashing.</p>
+  <p data-fii="Shape:Half Moon">A semicircle. Almost always used as a matched pair of side stones, one either side of a centre stone.</p>
+  <p data-fii="Shape:Kite">A four-sided cut shaped like a kite, longer at one end. Striking as a centre stone or as side stones.</p>
+  <p data-fii="Shape:Lozenge">An elongated rhombus with pointed ends, much loved in vintage and Art Deco designs.</p>
+  <p data-fii="Shape:Shield">A shield outline with a flat top and a pointed base, mostly used as side stones.</p>
+  <p data-fii="Shape:Trapezoid">A four-sided cut, wider at one end, used as side stones to frame a centre stone.</p>
+  <p data-fii="Shape:Tapered Baguette">A baguette that narrows at one end, designed to sit either side of a centre stone.</p>
+  <p data-fii="Shape:Bullet">A long, narrow cut with one pointed end. Usually used as side stones.</p>
+  <p data-fii="Shape:Calf">A five-sided cut shaped a little like a calf's head, mainly used as side stones.</p>
+  <p data-fii="Shape:Triangular">A three-sided cut. Bold on its own, and often used in pairs as side stones.</p>
+  <p data-fii="Shape:Trilliant">A triangular brilliant with gently curved sides, cut for sparkle rather than clean lines.</p>
+  <p data-fii="Shape:Pentagonal">A five-sided cut. Unusual and architectural.</p>
+  <p data-fii="Shape:Hexagonal">A six-sided cut, usually step cut. A geometric, contemporary choice.</p>
+  <p data-fii="Shape:Heptagonal">A seven-sided cut. Rare and distinctive.</p>
+  <p data-fii="Shape:Octagonal">An eight-sided outline, often step cut, with an Art Deco character.</p>
+  <p data-fii="Shape:Briolette">A teardrop covered entirely in triangular facets, with no flat top. Mostly used in earrings and pendants.</p>
+  <p data-fii="Shape:Star">A cut with a star-shaped outline. A rare and playful choice.</p>
+
+  {%- comment -%} ---- Ring style ---- {%- endcomment -%}
+
+  <p data-fii="Ring style:Solitaire">A single centre stone on a simple band. Timeless, and it lets the stone speak for itself.</p>
+  <p data-fii="Ring style:Halo">The centre stone is surrounded by a ring of small diamonds, adding sparkle and making it look larger.</p>
+  <p data-fii="Ring style:Double Halo">Two rings of small diamonds around the centre stone, for the most presence on the hand.</p>
+  <p data-fii="Ring style:Hidden Halo">A ring of small diamonds set just beneath the centre stone. You see it from the side, not from above.</p>
+  <p data-fii="Ring style:Trilogy">Three stones side by side, often said to represent your past, present and future together.</p>
+  <p data-fii="Ring style:Multistone">Several stones of similar importance set together, rather than one centre stone.</p>
+  <p data-fii="Ring style:Toi et Moi">French for "you and me". Two stones set side by side, often of different shapes or colours.</p>
+
+  {%- comment -%} ---- Shoulder style. The shoulders are the band either side of the centre stone. ---- {%- endcomment -%}
+
+  <p data-fii="Shoulder style:Plain">Plain metal shoulders, keeping all the attention on the centre stone.</p>
+  <p data-fii="Shoulder style:Diamond set">The shoulders, the part of the band either side of the centre stone, are set with diamonds along their length.</p>
+  <p data-fii="Shoulder style:Accent">A few small diamonds in the shoulders add a touch of sparkle without competing with the centre stone.</p>
+  <p data-fii="Shoulder style:Pavé">Tiny diamonds set closely along the shoulders, held by small beads of metal, so the band looks paved with sparkle.</p>
+  <p data-fii="Shoulder style:Channel">Diamonds sit in a row between two walls of metal along the shoulders. Smooth to the touch and very secure.</p>
+  <p data-fii="Shoulder style:Curved">The shoulders curve or twist towards the centre stone for a softer, flowing shape.</p>
+  <p data-fii="Shoulder style:Split">The band divides into two strands as it meets the centre stone, giving an open, airy look.</p>
+
+  {%- comment -%} ---- Setting. Eternity rings, diamond wedding rings and bracelets. ---- {%- endcomment -%}
+
+  <p data-fii="Setting:Claw">Each stone is held by small metal claws, letting in the most light for the most sparkle.</p>
+  <p data-fii="Setting:Micro-claw">Very fine claws, so the metal almost disappears and the stones read as one continuous line.</p>
+  <p data-fii="Setting:French Cut">Stones held by small claws with V-shaped cuts in the metal beside them, showing more of each stone.</p>
+  <p data-fii="Setting:Grain">Stones held by tiny beads of metal raised from the band itself. Delicate and low profile.</p>
+  <p data-fii="Setting:Pavé">Small stones set close together and held by tiny beads of metal, for a surface covered in sparkle.</p>
+  <p data-fii="Setting:Channel">Stones sit in a row between two walls of metal. Smooth to the touch and very secure.</p>
+  <p data-fii="Setting:Bar">Each stone is held between thin bars of metal, leaving the sides open to the light.</p>
+  <p data-fii="Setting:Rubover">A smooth rim of metal wraps around the edge of each stone. Very secure and practical for everyday wear.</p>
+  <p data-fii="Setting:Invisible">Stones set edge to edge with no metal showing between them, held by grooves hidden underneath.</p>
+  <p data-fii="Setting:Tension">The stone looks as if it is held by the pressure of the band alone, almost floating.</p>
+  <p data-fii="Setting:Illusion">Stones set into a polished metal plate that reflects light, making them look larger.</p>
+
+  {%- comment -%} ---- Eternity style. Two groups carry the same idea in different words. ---- {%- endcomment -%}
+
+  <p data-fii="Eternity style:Full Eternity;Wedding Ring Type:Full Eternity Style Wedding Ring">Stones set all the way round the band. The most sparkle, but it cannot easily be resized, so getting the size right matters.</p>
+  <p data-fii="Eternity style:Half Eternity;Wedding Ring Type:Half Eternity Style Wedding Ring">Stones across the top half of the band only. Comfortable for everyday wear, and it can be resized later.</p>
+
+  {%- comment -%} ---- Profile: the shape of a plain band in cross-section. ---- {%- endcomment -%}
+
+  <p data-fii="Profile:Traditional Court">Rounded on the outside and the inside. The classic wedding ring shape, and the most comfortable for everyday wear.</p>
+  <p data-fii="Profile:Slight Court">Gently rounded outside and inside. Softer than a flat ring, slimmer looking than a traditional court.</p>
+  <p data-fii="Profile:Flat">Flat on the outside and the inside, with squared edges. Clean and contemporary.</p>
+  <p data-fii="Profile:Flat Court">Flat on the outside and rounded on the inside: a modern look with the comfort of a court fit.</p>
+  <p data-fii="Profile:Edged Court">Rounded inside and out, with crisp, defined edges along each side.</p>
+  <p data-fii="Profile:Edged Flat Court">Flat on top with defined edges, and a rounded comfort fit on the inside.</p>
+  <p data-fii="Profile:D Shape">Rounded on the outside and flat on the inside. A traditional profile with a lighter feel.</p>
+  <p data-fii="Profile:Concave">The outside curves gently inwards, catching the light along both edges.</p>
+  <p data-fii="Profile:Engagement Match">Shaped to sit neatly against an engagement ring, so the two can be worn together.</p>
+
+  {%- comment -%} ---- Plain ring weight ---- {%- endcomment -%}
+
+  <p data-fii="Plain Ring Weight:Light Weight">A slimmer, lighter band. Ideal if you prefer a delicate ring.</p>
+  <p data-fii="Plain Ring Weight:Medium Weight">A balance of comfort and substance that suits most people.</p>
+  <p data-fii="Plain Ring Weight:Signature Weight">A more substantial band with a reassuring feel on the hand.</p>
+  <p data-fii="Plain Ring Weight:Heavy Weight">The most metal and the most solid feel. Built for a lifetime of daily wear.</p>
+
+  {%- comment -%} ---- Clarity. Diamonds use the GIA scale; gemstones use eye-based grades. ---- {%- endcomment -%}
+
+  <p data-fii="Clarity:FL">Flawless. No inclusions or surface marks visible under 10x magnification. Extremely rare.</p>
+  <p data-fii="Clarity:IF">Internally Flawless. No inclusions under 10x magnification, only the faintest surface marks.</p>
+  <p data-fii="Clarity:VVS1;Clarity:VVS2">Very, very slightly included. Inclusions so small that a trained grader struggles to see them under 10x magnification.</p>
+  <p data-fii="Clarity:VS1;Clarity:VS2">Very slightly included. Minor inclusions seen under magnification, but normally invisible to the eye.</p>
+  <p data-fii="Clarity:SI1;Clarity:SI2">Slightly included. Inclusions are visible under magnification. SI1 is often clean to the eye; SI2 sometimes is not.</p>
+  <p data-fii="Clarity:I1;Clarity:I2;Clarity:I3">Included. Inclusions can be seen with the naked eye and may affect the stone's brilliance.</p>
+  <p data-fii="Clarity:Eye Clean">No inclusions visible to the naked eye at a normal viewing distance.</p>
+  <p data-fii="Clarity:Slightly Included">Small inclusions you may notice on close inspection. Usual for many coloured gemstones.</p>
+  <p data-fii="Clarity:Moderately Included">Inclusions visible to the eye. Common and accepted in some gems, such as emerald.</p>
+
+  {%- comment -%} ---- Colour. White diamonds D to J, plus the three fancy colours that are jargon. ---- {%- endcomment -%}
+
+  <p data-fii="Colour:D">Colourless. The highest colour grade a diamond can receive: icy and bright.</p>
+  <p data-fii="Colour:E">Colourless. Any difference from a D can only be seen by an expert grader.</p>
+  <p data-fii="Colour:F">Colourless. The last of the colourless grades, and white to any eye.</p>
+  <p data-fii="Colour:G">Near colourless. Faces up white, especially in platinum or white gold.</p>
+  <p data-fii="Colour:H">Near colourless. A faint warmth that only shows beside higher grades.</p>
+  <p data-fii="Colour:I">Near colourless. A slight warmth that looks lovely in yellow or rose gold.</p>
+  <p data-fii="Colour:J">Near colourless. Gentle warmth, more noticeable in larger stones. Beautiful in yellow gold.</p>
+  <p data-fii="Colour:Champagne">A light brown diamond with a soft, warm tone.</p>
+  <p data-fii="Colour:Cognac">A deeper, richer brown diamond, named after the colour of cognac.</p>
+  <p data-fii="Colour:Chameleon">A rare natural diamond that temporarily changes colour, usually from olive green towards yellow, when warmed or kept in the dark.</p>
+
+  {%- comment -%} ---- Origin ---- {%- endcomment -%}
+
+  <p data-fii="Origin:Natural">Formed deep in the earth over millions, often billions, of years, then mined.</p>
+  <p data-fii="Origin:Lab-grown">Grown in a laboratory. Chemically, physically and optically identical to a mined diamond; only specialist equipment can tell them apart.</p>
+
+  {%- comment -%} ---- Certificate lab. Only the labs worth explaining; the long tail gets no button. ---- {%- endcomment -%}
+
+  <p data-fii="Certificate Lab:GIA">Gemological Institute of America. The world's most respected grading laboratory, and the benchmark for natural diamonds.</p>
+  <p data-fii="Certificate Lab:IGI">International Gemological Institute. One of the largest grading laboratories, and the leading grader of lab-grown diamonds.</p>
+  <p data-fii="Certificate Lab:HRD">HRD Antwerp. A well-respected European diamond grading laboratory based in Belgium.</p>
+  <p data-fii="Certificate Lab:GRS">GemResearch Swisslab. A leading Swiss laboratory for coloured gemstones, known for its origin reports.</p>
+  <p data-fii="Certificate Lab:AGL">American Gemological Laboratories, New York. Specialists in coloured gemstone reports.</p>
+  <p data-fii="Certificate Lab:LOTUS">Lotus Gemology, Bangkok. Highly regarded for ruby, sapphire and spinel.</p>
+  <p data-fii="Certificate Lab:AIGS">Asian Institute of Gemological Sciences, Bangkok. A long-established coloured gemstone laboratory.</p>
+
+  {%- comment -%} ---- Bracelet type ---- {%- endcomment -%}
+
+  <p data-fii="Bracelet type:Tennis">A flexible line of diamonds set all the way round the wrist.</p>
+  <p data-fii="Bracelet type:Line">A single, flexible line of stones, usually of matching size.</p>
+  <p data-fii="Bracelet type:Bangle">A rigid, rounded bracelet that slips over the hand.</p>
+  <p data-fii="Bracelet type:Cuff">A rigid bracelet with an opening, slipped on from the side of the wrist.</p>
+  <p data-fii="Bracelet type:Chain">A flexible chain of linked metal, sometimes set with stones.</p>
+  <p data-fii="Bracelet type:Charm">A chain designed to carry charms, which can be added over time.</p>
+
+</template>

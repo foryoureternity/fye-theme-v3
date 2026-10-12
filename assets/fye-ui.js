@@ -645,6 +645,168 @@
 
 
 /* ============================================================================
+   FILTER INFO — 12/10/2026
+   The small (i) after a filter value in the xCloud rail, and the note it
+   shows on hover, focus or tap. Copy lives in snippets/fye-filter-info, keyed
+   "Group:Value" exactly as xCloud spells both; read that file's header before
+   adding a note.
+
+   Same injection pattern as FILTER ICONS above, for the same reason: the rail
+   is the app's markup and it is redrawn on every filter change.
+
+   Three things that are not obvious:
+     · The row is a <label> wrapping the checkbox. A click on the (i) must not
+       tick the filter, and xCloud's own handlers must never see it, so the
+       click is caught on document in the CAPTURE phase and stopped there.
+     · ONE tooltip element, appended to <body>, positioned from the button's
+       rect. Not one per row: the rail clips overflow on a phone, and a
+       per-row tooltip would be cut off at the drawer edge.
+     · Hover only opens it on devices that genuinely hover. On touch, the
+       emulated mouseover that precedes a tap would otherwise open it a beat
+       before the tap's own click.
+   ========================================================================== */
+(function filterInfo() {
+  var tpl = document.querySelector('[data-fye-filter-info]');
+  if (!tpl) return;
+
+  var copy = {};
+  Array.prototype.forEach.call(tpl.content.querySelectorAll('[data-fii]'), function (el) {
+    var text = el.textContent.trim();
+    el.getAttribute('data-fii').split(';').forEach(function (key) {
+      copy[key.trim()] = text;
+    });
+  });
+
+  var glyphHolder = tpl.content.querySelector('[data-fii-glyph]');
+  var glyph = glyphHolder ? glyphHolder.firstElementChild : null;
+  var hoverable = window.matchMedia('(hover: hover) and (pointer: fine)');
+
+  var pop = document.createElement('div');
+  pop.className = 'fii-pop';
+  pop.id = 'fye-fii-pop';
+  pop.setAttribute('role', 'tooltip');
+  pop.hidden = true;
+  var popTitle = document.createElement('strong');
+  var popText = document.createElement('span');
+  pop.appendChild(popTitle);
+  pop.appendChild(popText);
+  document.body.appendChild(pop);
+
+  var current = null;
+
+  function inject() {
+    if (current && !document.body.contains(current)) hide();
+
+    var rows = document.querySelectorAll('.cloud-search-filter-value[data-filter-value]');
+    Array.prototype.forEach.call(rows, function (row) {
+      if (row.querySelector('.fii')) return;
+      var group = row.closest('.cloud-search-filter');
+      if (!group) return;
+      var value = row.getAttribute('data-filter-value');
+      var key = group.getAttribute('data-filter-name') + ':' + value;
+      if (!copy[key]) return;
+
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'fii';
+      btn.setAttribute('data-fye-fii', key);
+      btn.setAttribute('aria-label', 'What is ' + value + '?');
+      if (glyph) btn.appendChild(glyph.cloneNode(true));
+      row.appendChild(btn);
+    });
+  }
+
+  function show(btn) {
+    var key = btn.getAttribute('data-fye-fii');
+    if (!copy[key]) return;
+    if (current && current !== btn) current.removeAttribute('aria-describedby');
+    current = btn;
+    popTitle.textContent = key.slice(key.indexOf(':') + 1);
+    popText.textContent = copy[key];
+    btn.setAttribute('aria-describedby', pop.id);
+    pop.hidden = false;
+
+    /* Above the button, centred on it, kept inside the viewport; below it
+       when there is no room above. Computed, so style.* is allowed here. */
+    var r = btn.getBoundingClientRect();
+    var w = pop.offsetWidth;
+    var h = pop.offsetHeight;
+    var gap = 8;
+    var left = Math.min(Math.max(gap, r.left + r.width / 2 - w / 2), window.innerWidth - w - gap);
+    var top = r.top - h - gap;
+    if (top < gap) top = r.bottom + gap;
+    pop.style.left = Math.round(left) + 'px';
+    pop.style.top = Math.round(top) + 'px';
+  }
+
+  function hide() {
+    if (current) current.removeAttribute('aria-describedby');
+    current = null;
+    pop.hidden = true;
+  }
+
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest ? e.target.closest('.fii') : null;
+    if (!btn) {
+      if (current) hide();
+      return;
+    }
+    e.preventDefault();
+    e.stopPropagation();
+    if (current === btn && !hoverable.matches) hide();
+    else show(btn);
+  }, true);
+
+  document.addEventListener('mouseover', function (e) {
+    if (!hoverable.matches || !e.target.closest) return;
+    var btn = e.target.closest('.fii');
+    if (btn && btn !== current) show(btn);
+  });
+
+  document.addEventListener('mouseout', function (e) {
+    if (!current || !e.target.closest) return;
+    var from = e.target.closest('.fii');
+    if (from && from === current && !from.contains(e.relatedTarget)) hide();
+  });
+
+  /* Keyboard focus only. A tap focuses the button too, and opening here would
+     make the tap's click read as a second press and close it again. */
+  document.addEventListener('focusin', function (e) {
+    var btn = e.target.closest ? e.target.closest('.fii') : null;
+    if (btn && btn.matches(':focus-visible')) show(btn);
+  });
+
+  document.addEventListener('focusout', function (e) {
+    if (current && e.target === current) hide();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && current) hide();
+  });
+
+  /* The rail scrolls inside its own drawer on a phone, so a fixed tooltip
+     would drift away from its button. Close rather than chase it. */
+  window.addEventListener('scroll', function () { if (current) hide(); }, { capture: true, passive: true });
+  window.addEventListener('resize', function () { if (current) hide(); });
+
+  function boot() {
+    inject();
+    var pending;
+    new MutationObserver(function () {
+      clearTimeout(pending);
+      pending = setTimeout(inject, 60);
+    }).observe(document.body, { childList: true, subtree: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
+
+
+/* ============================================================================
    PRODUCT GALLERY, ENGRAVING, STONE CHOOSERS AND CART — 31/08/2026
    ----------------------------------------------------------------------------
    Five behaviours, one block, because they all read and write the same buy box

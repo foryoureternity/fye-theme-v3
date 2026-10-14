@@ -1,0 +1,331 @@
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "crumbs": {
+          "type": "3",
+          "settings": {}
+        },
+        "title": {
+          "type": "1",
+          "settings": {
+            "heading": "Hallmarking"
+          }
+        },
+        "sub": {
+          "type": "2",
+          "settings": {
+            "content": "<p>What a UK hallmark tells you, and the FYE mark we have registered at Goldsmiths' Hall</p>"
+          }
+        }
+      },
+      "block_order": [
+        "crumbs",
+        "title",
+        "sub"
+      ],
+      "settings": {
+        "ground": "teal",
+        "use_specify_image": false,
+        "overlay": 100,
+        "content_align": "t4s-text-center",
+        "heading_fullwidth": false
+      }
+    },
+    "fye_answer": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "mist",
+        "variant": "lede",
+        "narrow": true,
+        "eyebrow": "The short answer",
+        "heading": "Is For Your Eternity jewellery hallmarked?",
+        "body": "<p>Yes. Every precious metal piece we sell is independently tested and hallmarked by a UK Assay Office, as the Hallmarking Act 1973 requires. The only exceptions are the very lightest pieces, which the law exempts. For Your Eternity is registered with the London Assay Office at Goldsmiths' Hall, and our own sponsor's mark is FYE. A hallmark is your independent guarantee that the metal is exactly what it is described as.</p>"
+      }
+    },
+    "dealers_notice": {
+      "type": "fye-media-text",
+      "blocks": {
+        "pdf": {
+          "type": "button",
+          "settings": {
+            "label": "Download the Dealer's Notice (PDF)",
+            "link": "https://cdn.shopify.com/s/files/1/0972/5391/7056/files/hallmarking-dealers-notice-online.pdf?v=1791985986",
+            "style": "btn--outline",
+            "trigger_class": ""
+          }
+        }
+      },
+      "block_order": [
+        "pdf"
+      ],
+      "settings": {
+        "band": "ivory",
+        "reverse": false,
+        "full_bleed": false,
+        "list_style": "default",
+        "watermark": false,
+        "copy_first_mobile": true,
+        "image": "shopify://shop_images/hallmarking-dealers-notice-online.jpg",
+        "image_alt": "The British Hallmarking Council Dealer's Notice, showing the sponsor's mark, the fineness marks for silver, palladium, gold and platinum, the marks of the four UK Assay Offices and the Common Control Mark",
+        "placeholder": "Dealer's Notice",
+        "eyebrow": "Dealer's Notice",
+        "heading": "Look for the Hallmark",
+        "body": "<p>Every UK jewellery seller must display the British Hallmarking Council's Dealer's Notice, which explains the approved hallmarks. This is the notice for online sales, displayed in accordance with the Hallmarking Act 1973.</p><p>It shows what each part of a hallmark means, the marks of the four UK Assay Offices, and the international Common Control Mark, which is also recognised in the UK.</p>"
+      }
+    },
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "white",
+        "variant": "default",
+        "narrow": true,
+        "eyebrow": "Why It Matters",
+        "heading": "Independent Proof of What You Are Buying",
+        "body": "<p>Precious metals are almost never used pure. Gold is alloyed with other metals for strength and colour, so you cannot tell by looking how much gold a ring really contains. Hallmarking settles the question independently: before a piece can be sold as gold, platinum, palladium or silver, an Assay Office tests it and marks it with the result.</p><p>It is one of the oldest forms of consumer protection in the world. The Goldsmiths' Company has been hallmarking in London since 1300, and in the UK it is illegal to describe an item as gold, silver, platinum or palladium unless it is hallmarked, apart from very light pieces below the exemption weights.</p>"
+      }
+    },
+    "parts": {
+      "type": "fye-steps",
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "number": "",
+            "heading": "Sponsor's mark",
+            "body": "<p>The registered mark of the business that submitted the piece for hallmarking and takes responsibility for it. Ours is FYE.</p>"
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "number": "",
+            "heading": "Fineness mark",
+            "body": "<p>The precious metal content in parts per thousand, inside a shape that identifies the metal: 750 for 18ct gold, for example, or 950 for platinum.</p>"
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "number": "",
+            "heading": "Assay Office mark",
+            "body": "<p>Which of the four UK Assay Offices tested and marked the piece: the leopard's head for London, the anchor for Birmingham, the rose for Sheffield and the castle for Edinburgh.</p>"
+          }
+        },
+        "s4": {
+          "type": "step",
+          "settings": {
+            "number": "",
+            "heading": "Date letter (optional)",
+            "body": "<p>A letter showing the year the piece was hallmarked. It is not compulsory, but it is a lovely detail on a ring you will keep for life.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "settings": {
+        "show_head": true,
+        "eyebrow": "Reading a Hallmark",
+        "heading": "What a UK Hallmark Shows",
+        "intro": "Three marks are compulsory. A fourth, the date letter, is optional.",
+        "layout": "columns",
+        "columns": "4",
+        "band": "ivory"
+      }
+    },
+    "fineness": {
+      "type": "fye-facts",
+      "blocks": {
+        "f1": {
+          "type": "fact",
+          "settings": {
+            "label": "9ct gold",
+            "value": "<p>375</p>",
+            "show_scale": false
+          }
+        },
+        "f2": {
+          "type": "fact",
+          "settings": {
+            "label": "14ct gold",
+            "value": "<p>585</p>",
+            "show_scale": false
+          }
+        },
+        "f3": {
+          "type": "fact",
+          "settings": {
+            "label": "18ct gold",
+            "value": "<p>750</p>",
+            "show_scale": false
+          }
+        },
+        "f4": {
+          "type": "fact",
+          "settings": {
+            "label": "Platinum",
+            "value": "<p>950</p>",
+            "show_scale": false
+          }
+        },
+        "f5": {
+          "type": "fact",
+          "settings": {
+            "label": "Palladium",
+            "value": "<p>950</p>",
+            "show_scale": false
+          }
+        },
+        "f6": {
+          "type": "fact",
+          "settings": {
+            "label": "Sterling silver",
+            "value": "<p>925</p>",
+            "show_scale": false
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4",
+        "f5",
+        "f6"
+      ],
+      "settings": {
+        "band": "white",
+        "show_head": true,
+        "eyebrow": "Fineness Marks",
+        "heading": "The Numbers You Will See",
+        "intro": "The fineness mark gives the metal's purity in parts per thousand. These are the UK standards for the metals used in fine jewellery.",
+        "note": "Each metal has its own outline around the number, so a 950 in the platinum shape and a 950 in the palladium shape are different metals."
+      }
+    },
+    "our_mark": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "mist",
+        "variant": "default",
+        "narrow": true,
+        "eyebrow": "Our Sponsor's Mark",
+        "heading": "FYE, Registered at Goldsmiths' Hall",
+        "body": "<p>For Your Eternity has registered its own sponsor's mark with the London Assay Office, the Goldsmiths' Company's Assay Office at Goldsmiths' Hall. Our mark is the letters FYE, applied by laser.</p><p>Pieces we submit for hallmarking ourselves carry FYE beside the London leopard's head. Some pieces are hallmarked by the specialist workshop that made them before they reach us, and those carry that workshop's registered mark and the mark of the Assay Office it uses. Either way the guarantee is the same: the metal has been independently tested and marked under UK law.</p>"
+      }
+    },
+    "faq": {
+      "type": "fye-faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "q": "Which pieces do not need a hallmark?",
+            "a": "<p>UK law exempts very light pieces: under 1 gram for gold and palladium, under 0.5 grams for platinum and under 7.78 grams for silver. Anything heavier must be hallmarked before it can be described as precious metal.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "q": "Where will I find the hallmark on my ring?",
+            "a": "<p>Usually on the inside of the band, where it cannot be seen when the ring is worn. On a very slim or detailed ring it is placed wherever the metal allows a clear mark.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "q": "Why might my piece carry a sponsor's mark other than FYE?",
+            "a": "<p>Some pieces are hallmarked by the specialist workshop that made them, before they reach us. They carry that workshop's registered mark instead of ours, and the mark of the Assay Office it uses. The hallmark gives you exactly the same guarantee.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "q": "Is a laser hallmark as valid as a struck one?",
+            "a": "<p>Yes. A laser mark is applied by the Assay Office after testing, just as a struck mark is, and has exactly the same legal standing. Laser marking puts no pressure on the metal, which makes it well suited to finished rings set with stones.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I ask for a date letter or a traditional mark?",
+            "a": "<p>The date letter and the traditional fineness symbols, such as the crown for gold and the orb for platinum, are optional extras. Mention it when you order and we will let you know what is possible for your piece.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "q": "Is a hallmark the same as a diamond certificate?",
+            "a": "<p>No. A hallmark guarantees the precious metal content. A diamond or gemstone grading report describes the stone. A fine ring usually has both, and they answer different questions. Our guide to <a href=\"/pages/diamond-certification\">certificates and grading reports</a> explains the second.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6"
+      ],
+      "settings": {
+        "show_head": true,
+        "eyebrow": "Questions",
+        "heading": "Hallmarking FAQs",
+        "intro": "",
+        "open_first": true,
+        "emit_schema": true,
+        "narrow": true,
+        "band": "white"
+      }
+    },
+    "contact": {
+      "type": "fye-consultation",
+      "blocks": {
+        "phone": {
+          "type": "contact",
+          "settings": {
+            "type": "phone",
+            "label": "0208 178 6687",
+            "link": "tel:+442081786687"
+          }
+        },
+        "email": {
+          "type": "contact",
+          "settings": {
+            "type": "email",
+            "label": "enquiries@foryoureternity.com",
+            "link": "mailto:enquiries@foryoureternity.com"
+          }
+        }
+      },
+      "block_order": [
+        "phone",
+        "email"
+      ],
+      "settings": {
+        "band": "teal",
+        "eyebrow": "Any Questions?",
+        "heading": "Ask Us About Hallmarking",
+        "lead": "If you would like to know how a particular piece will be marked, or you would like a date letter on yours, we are happy to help.",
+        "btn_label": "Send an enquiry",
+        "btn_link": "/pages/contact-us#popup-contact"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "fye_answer",
+    "dealers_notice",
+    "intro",
+    "parts",
+    "fineness",
+    "our_mark",
+    "faq",
+    "contact"
+  ]
+}

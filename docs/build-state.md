@@ -4172,3 +4172,26 @@ Ship: `./tools/fye ship "Filter info: every note stands alone"`.
   (44px tap target on phones unchanged); value names set nowrap so "Round Brilliant"
   stays on one line.
 Ship: `./tools/fye ship "Filter info: smaller icons, names on one line"`.
+
+## 14/10/2026: Hallmarking page + Dealer's Notice
+- FYE's sponsor's mark is registered with the London Assay Office (initials FYE,
+  shape 1, Arial, laser only; registration complete 13/10/2026). UK law requires an
+  online seller to display the British Hallmarking Council Dealer's Notice.
+- New `templates/page.hallmarking.json`, built only from existing sections:
+  heading-template, fye-rich-text, fye-media-text (the Dealer's Notice image),
+  fye-steps, fye-facts, fye-faq (FAQPage schema on), fye-consultation. Validator clean.
+- Shopify page `/pages/hallmarking` (Page/763380695424, suffix `hallmarking`) created
+  with SEO title/description; its body holds a fallback copy of the notice.
+- Files: `hallmarking-dealers-notice-online.jpg` and `.pdf` (BHC "Dealers Notice B",
+  the online-sales version, from assayofficelondon.co.uk/downloads). An older
+  `london-assay-office-dealers-notice.pdf` (Sep 2019, linked in the welcome email) was
+  uploaded first and is unused.
+- Menu `footer-help` gained "Hallmarking" after Ethical & Responsible Sourcing (API).
+- Trust copy: About Us trust strip "Independently certified" sub now ends "UK hallmarked
+  metals"; the PDP reassurance line on the six ring product templates now reads
+  "Handmade to order and hallmarked in the UK." Bracelet, diamond and default
+  product.json left alone: light chains and earrings can fall under the exemption
+  weights, so the claim is not safe there.
+- Copy rule: never claim every piece carries FYE. Gemex hallmarks at Sheffield under
+  its own mark unless Ed authorises his mark there.
+Ship: `./tools/fye ship "Hallmarking page, Dealer's Notice and hallmark trust lines"`.

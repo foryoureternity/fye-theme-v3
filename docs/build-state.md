@@ -4195,3 +4195,7 @@ Ship: `./tools/fye ship "Filter info: smaller icons, names on one line"`.
 - Copy rule: never claim every piece carries FYE. Gemex hallmarks at Sheffield under
   its own mark unless Ed authorises his mark there.
 Ship: `./tools/fye ship "Hallmarking page, Dealer's Notice and hallmark trust lines"`.
+- Follow-up (14/10/2026): footer legal text (`sections/footer-group.json`, setting `legal`)
+  gained a linked line to /pages/hallmarking: "UK hallmarked, with our own FYE sponsor's
+  mark registered at the London Assay Office."
+Ship: `./tools/fye ship "Footer: hallmarking line"`.

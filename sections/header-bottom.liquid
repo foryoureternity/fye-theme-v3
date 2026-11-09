@@ -1364,7 +1364,10 @@
    underline and -1px to sit ON the hairline, the rule lands at 38.8px, the
    same height as the guides heading's rule (22.8 + 16 padding), so the two
    hairlines still line up across the panel. */
-.fye .mega--jewellery { padding-bottom: 26px; }   /* handoff; the foot row's 40px replaces the old 48 */
+.fye .has-mega .mega--jewellery { padding-bottom: 26px; }   /* handoff; the foot row's 40px replaces the old 48 */
+/* The base .mega__in rule carries gap: 64px, which became a 64px ROW gap
+   above the foot row once the foot joined the grid. */
+.fye .mega--jewellery .mega__in { row-gap: 0; }
 .fye .mm__row-head--jtabs { padding-bottom: 0; }
 .fye .mm__jtabs { display: flex; align-items: flex-end; gap: var(--s8); min-width: 0; }
 .fye .mm__jtab {
@@ -1421,8 +1424,13 @@
 /* Signets: four groups in three columns, so tighter gaps than the bracelet
    row's 80px. The face-shape grid is the same object as the diamond shape
    grid, a narrower column gap only. */
-.fye .mm__cols--signet { gap: var(--s9); }
+.fye .mm__cols--signet { gap: var(--s7); }   /* 32px, handoff; 48 wrapped MORE SHAPES at 1281 */
 .fye .mm__cols--signet .mm__shapes { column-gap: var(--s6); }
+/* .mm__label's text-wrap: pretty re-enables wrapping (text-wrap is a
+   shorthand that resets the wrap mode white-space: nowrap set), so a label in
+   a squeezed flex column breaks: MORE / SHAPES at 1281. Signet labels stay on
+   one line; the Make column's explainers take up the slack instead. */
+.fye .mm__cols--signet .mm__label { text-wrap: nowrap; }
 
 /* Shop by Make: the title, then a one-line explainer in sentence case. */
 .fye .mm__list--make a { flex-direction: column; align-items: flex-start; gap: 4px; }

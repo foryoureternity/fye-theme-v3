@@ -4268,3 +4268,36 @@ Ship: `./tools/fye ship "Signets: size-priced variants and face engraving picker
   and still sends nothing on reloads, without a stored record, or for unknown ids.
   node --check passes.
 Ship: `./tools/fye ship "Enquiry tracking: survive hCaptcha return and late gtag (W314)"`.
+## 09/11/2026: Jewellery mega panel, tabs for Bracelets and Signet Rings
+- From the Claude Design handoff "Jewellery mega menu, Direction A (header tabs)".
+  The BRACELETS zone title is now a tab row (BRACELETS, SIGNET RINGS); the head
+  links and trust strip moved to a full-width foot row; columns, guides, links and
+  trust line swap per type; the empty band under GUIDES & ADVICE is gone.
+- Data model: new section block `jtype` (Jewellery type) in header-bottom, one per
+  tab, in block order; not a nav item (both loops `continue` past it). The mega
+  block gains a `jtabs` checkbox; when ticked and jtype blocks exist, the panel is
+  rendered by `snippets/mm-jewellery.liquid` instead of the normal mega markup.
+  Four or more types switch the tabs to the compact nav-row type automatically.
+- Bracelets pane emits the old column markup (mm__cols/mm__col/mm-shapes), so it is
+  unchanged. Signets: menu `mega-signet-rings` (Face Shape icon grid, More Shapes,
+  Shop by Make with explainers from `make_notes`, Personalise stacked under Make),
+  guides menu `mega-signet-rings-guide`.
+- Signet face icons: `assets/fye-signet-*.svg` (10), drawn to icon101-110's rules
+  (0.75px teal on a 240-unit canvas, outline plus inset bevel). The handoff's own
+  icon set was rejected by Ed and is NOT used.
+- Store data (09/11/2026): smart collections `signet-rings-{oval,cushion,rectangle,
+  round,hexagon,horizontal-oval,square,shield,octagon,heart,cast,die-struck,
+  seal-engraving}`, each product type = Signet Ring AND the face/make tag
+  (hexagon takes Hexagon Signet OR Elongated Hexagon Signet). Counts 11/10/4/3/3/3/
+  2/2/1/1/21/19/35. Published to Online Store.
+- JS: `assets/fye-ui.js`, last IIFE. 150ms hover intent, click, arrows/Home/End,
+  roving tabindex, inert panes; resets to the first type on hover/focus of the
+  JEWELLERY nav link.
+- Traps found: `.mm__label`'s `text-wrap: pretty` re-enables wrapping despite
+  `white-space: nowrap` (text-wrap is a shorthand for the wrap mode); the base
+  `.mega__in { gap: 64px }` becomes a ROW gap once a third grid child joins.
+- Drawer: Jewellery opens to a nested accordion per type with every desktop link
+  (42/42 checked) plus the trust line.
+- Copy decided by Ed: quick link "About Signet Rings"; Personalise links "Order a
+  Free Ring Sizer" (guides keep "Find Your Ring Size"); explainers as handoff.
+Ship: `./tools/fye ship "Jewellery mega panel: tabs for Bracelets and Signet Rings"`.

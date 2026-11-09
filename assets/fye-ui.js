@@ -5483,3 +5483,111 @@
     refresh(panel);
   });
 })();
+
+/* ---- Jewellery panel tabs (09/11/2026) -----------------------------------
+   snippets/mm-jewellery.liquid. One tab per jewellery type; every pane for a
+   type (columns, guides, foot row) carries data-fye-jpane="<block id>", and
+   the tabs and panes share the [data-fye-jtabs] root.
+
+     hover     switches after a 150ms intent delay; leaving the tab sooner
+               cancels it, so a diagonal path across another tab does not
+               flip the type
+     click     instant; tabs never navigate
+     keyboard  Left/Right move and select, Home/End jump; tabindex roves so
+               only the active tab is in the Tab order
+     reopen    the panel opens on the FIRST type every time: hovering or
+               focusing the JEWELLERY nav link resets it
+
+   Delegated from document, so a theme-editor re-render needs no re-binding.
+   ------------------------------------------------------------------------ */
+(function () {
+  'use strict';
+
+  var INTENT_MS = 150;
+  var timer = null;
+
+  function select(root, id, focus) {
+    clearTimeout(timer);
+    var tabs = root.querySelectorAll('[data-fye-jtab]');
+    Array.prototype.forEach.call(tabs, function (t) {
+      var on = t.getAttribute('data-fye-jtab') === id;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      if (on && focus) t.focus();
+    });
+    var panes = root.querySelectorAll('[data-fye-jpane]');
+    Array.prototype.forEach.call(panes, function (p) {
+      var on = p.getAttribute('data-fye-jpane') === id;
+      p.classList.toggle('is-active', on);
+      if (on) p.removeAttribute('inert');
+      else p.setAttribute('inert', '');
+    });
+  }
+
+  function reset(root) {
+    var first = root.querySelector('[data-fye-jtab]');
+    if (first && first.getAttribute('aria-selected') !== 'true') {
+      select(root, first.getAttribute('data-fye-jtab'), false);
+    }
+  }
+
+  /* The nav item whose panel holds the tabs. */
+  function rootFromNavLink(el) {
+    var link = el.closest && el.closest('.hdr__nav-link');
+    if (!link) return null;
+    var item = link.closest('.hdr__nav-item');
+    return item ? item.querySelector('[data-fye-jtabs]') : null;
+  }
+
+  document.addEventListener('mouseover', function (e) {
+    if (!e.target.closest) return;
+    var navRoot = rootFromNavLink(e.target);
+    if (navRoot) { clearTimeout(timer); reset(navRoot); return; }
+
+    var tab = e.target.closest('[data-fye-jtab]');
+    if (!tab || tab.getAttribute('aria-selected') === 'true') return;
+    if (e.relatedTarget && tab.contains(e.relatedTarget)) return;
+    var root = tab.closest('[data-fye-jtabs]');
+    if (!root) return;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      select(root, tab.getAttribute('data-fye-jtab'), false);
+    }, INTENT_MS);
+  });
+
+  document.addEventListener('mouseout', function (e) {
+    if (!e.target.closest) return;
+    var tab = e.target.closest('[data-fye-jtab]');
+    if (tab && !(e.relatedTarget && tab.contains(e.relatedTarget))) clearTimeout(timer);
+  });
+
+  document.addEventListener('focusin', function (e) {
+    var navRoot = e.target.closest ? rootFromNavLink(e.target) : null;
+    if (navRoot) reset(navRoot);
+  });
+
+  document.addEventListener('click', function (e) {
+    var tab = e.target.closest ? e.target.closest('[data-fye-jtab]') : null;
+    if (!tab) return;
+    e.preventDefault();
+    var root = tab.closest('[data-fye-jtabs]');
+    if (root) select(root, tab.getAttribute('data-fye-jtab'), false);
+  });
+
+  document.addEventListener('keydown', function (e) {
+    var tab = e.target.closest ? e.target.closest('[data-fye-jtab]') : null;
+    if (!tab) return;
+    var root = tab.closest('[data-fye-jtabs]');
+    if (!root) return;
+    var tabs = Array.prototype.slice.call(root.querySelectorAll('[data-fye-jtab]'));
+    var i = tabs.indexOf(tab);
+    var n = null;
+    if (e.key === 'ArrowRight') n = (i + 1) % tabs.length;
+    else if (e.key === 'ArrowLeft') n = (i - 1 + tabs.length) % tabs.length;
+    else if (e.key === 'Home') n = 0;
+    else if (e.key === 'End') n = tabs.length - 1;
+    if (n === null) return;
+    e.preventDefault();
+    select(root, tabs[n].getAttribute('data-fye-jtab'), true);
+  });
+})();

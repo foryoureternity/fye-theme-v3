@@ -216,7 +216,44 @@
             "edu_label": "Diamond Education",
             "jewel_menu": "mega-bracelets-guide",
             "jewel_label": "Jewellery Guide",
-            "drawer_full": true
+            "drawer_full": true,
+            "jtabs": true
+          }
+        },
+        "jtype_bracelets": {
+          "type": "jtype",
+          "settings": {
+            "label": "Bracelets",
+            "menu": "mega-bracelets",
+            "icons": "bracelet",
+            "shape_label": "Shop by Shape",
+            "notes": "Handmade to order in the UK \u00b7 Hallmarked \u00b7 Other lengths made to order \u00b7 Free insured UK delivery",
+            "page_label": "Lab-Grown Diamond Bracelets",
+            "page_url": "/collections/lab-grown-diamond-bracelets",
+            "all_label": "View All Bracelets",
+            "all_url": "/collections/bracelets",
+            "edu_menu": "mega-bracelets-edu",
+            "edu_label": "Diamond Education",
+            "jewel_menu": "mega-bracelets-guide",
+            "jewel_label": "Jewellery Guide"
+          }
+        },
+        "jtype_signets": {
+          "type": "jtype",
+          "settings": {
+            "label": "Signet Rings",
+            "menu": "mega-signet-rings",
+            "icons": "signet",
+            "shape_label": "Shop by Shape",
+            "make_notes": "Cast: Poured into a mould for fine detail\nDie-Struck: Stamped under pressure for denser metal",
+            "notes": "Handmade to order \u00b7 Hallmarked \u00b7 Seal engraving available \u00b7 Free insured UK delivery",
+            "page_label": "About Signet Rings",
+            "page_url": "/pages/signet-rings",
+            "all_label": "View All Signet Rings",
+            "all_url": "/collections/signet-rings",
+            "edu_label": "Diamond Education",
+            "jewel_menu": "mega-signet-rings-guide",
+            "jewel_label": "Jewellery Guide"
           }
         }
       },
@@ -226,7 +263,9 @@
         "nav_eternity",
         "nav_diamonds",
         "nav_jewellery",
-        "nav_gallery"
+        "nav_gallery",
+        "jtype_bracelets",
+        "jtype_signets"
       ]
     }
   },

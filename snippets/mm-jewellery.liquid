@@ -1,0 +1,205 @@
+{%- comment -%}
+  mm-jewellery — the JEWELLERY mega panel: one tab per jewellery type.
+
+  Params:
+    types       the header section's `jtype` blocks, in order. The first is
+                the default and the panel reopens on it every time.
+    side_title  the right zone's heading ("Guides & Advice").
+
+  Built 09/11/2026 from the Claude Design handoff "Jewellery mega menu,
+  Bracelets + Signet Rings (Direction A, header tabs)". What changed from the
+  single-type Bracelets panel, and nothing else:
+    - the BRACELETS zone title became a row of tabs, same face, size, place;
+    - the two head links and the trust strip moved to a foot row spanning the
+      whole panel, and swap per type;
+    - the empty band in the guides zone (row-head rule, then 40px of nothing,
+      then the side-cols rule) is gone.
+  The Bracelets pane emits the SAME column markup as the old panel (mm__cols,
+  mm__col, mm__label, mm__list, mm-shapes), so it renders as it did.
+
+  Every type's pane is rendered and they share one grid cell (.mm__jstack),
+  so the panel is always as tall as the tallest type and nothing jumps when
+  the tab changes. Inactive panes are visibility:hidden and inert.
+
+  The handoff's signet icon set was NOT used (Ed, 09/11/2026). The face-shape
+  icons are assets/fye-signet-*.svg, drawn to the live diamond icons' rules:
+  0.75px teal hairline on a 240-unit canvas, outline plus an inset bevel.
+  They render as <img> at 38px exactly like icon101-110 in mm-shapes.
+
+  Column rules, driven by the type's menu (two levels, like Mega - Bracelets):
+    - each top-level item is a column; its children are the links;
+    - icons 'bracelet': the existing diamond shape column goes in second;
+    - icons 'signet': the FIRST group is drawn as the face-shape icon grid,
+      the icon chosen from the link's collection handle
+      (/collections/signet-rings-oval -> fye-signet-oval.svg);
+    - a group whose title mentions "make" lists each link with an explainer
+      from the type's make_notes ("Cast: Poured into a mould ...");
+    - a group whose title starts "Personalise" stacks under the column before
+      it instead of taking a column of its own.
+{%- endcomment -%}
+{%- liquid
+  assign n_types = types.size
+  assign compact = false
+  if n_types >= 4
+    assign compact = true
+  endif
+-%}
+
+<div class="mm__main mm__main--jewellery">
+  <div class="mm__row-head mm__row-head--major mm__row-head--jtabs">
+    <div class="mm__jtabs{% if compact %} mm__jtabs--compact{% endif %}" role="tablist" aria-label="Jewellery types">
+      {%- for t in types -%}
+        <button class="mm__jtab" type="button" role="tab"
+          id="mmj-tab-{{ t.id }}"
+          aria-controls="mmj-pane-{{ t.id }}"
+          aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+          tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
+          data-fye-jtab="{{ t.id }}" {{ t.shopify_attributes }}>{{ t.settings.label }}</button>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <div class="mm__jstack">
+    {%- for t in types -%}
+      {%- liquid
+        assign ts = t.settings
+        assign tmenu = linklists[ts.menu]
+        assign icons = ts.icons | default: 'none'
+        assign notes = ts.make_notes | newline_to_br | split: '<br />'
+      -%}
+      <div class="mm__jpane{% if forloop.first %} is-active{% endif %}" data-fye-jpane="{{ t.id }}"
+           role="tabpanel" id="mmj-pane-{{ t.id }}" aria-labelledby="mmj-tab-{{ t.id }}"
+           {% unless forloop.first %}inert{% endunless %}>
+        <div class="mm__cols mm__cols--{{ icons }}">
+          {%- for group in tmenu.links -%}
+            {%- liquid
+              assign lower = group.title | downcase
+              assign stacks = false
+              if lower contains 'personalise'
+                assign stacks = true
+              endif
+              assign next_lower = tmenu.links[forloop.index].title | downcase
+              assign next_stacks = false
+              if next_lower contains 'personalise'
+                assign next_stacks = true
+              endif
+              assign as_signets = false
+              if icons == 'signet' and forloop.first
+                assign as_signets = true
+              endif
+            -%}
+            {%- unless stacks -%}<div class="mm__col{% if as_signets %} mm__col--shapes{% endif %}">{%- endunless -%}
+              <div class="mm__group">
+                <p class="mm__label">{{ group.title }}</p>
+                {%- if as_signets -%}
+                  <ul class="mm__shapes">
+                    {%- for l in group.links -%}
+                      {%- assign face = l.url | split: '/' | last | split: '?' | first | remove: 'signet-rings-' -%}
+                      <li>
+                        <a href="{{ l.url }}">
+                          <img src="{{ 'fye-signet-' | append: face | append: '.svg' | asset_url }}" alt="" width="38" height="38" loading="lazy">
+                          <span>{{ l.title }}</span>
+                        </a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                {%- elsif lower contains 'make' -%}
+                  <ul class="mm__list mm__list--make">
+                    {%- for l in group.links -%}
+                      {%- liquid
+                        assign note = ''
+                        for line in notes
+                          assign parts = line | strip | split: ':'
+                          if parts[0] == l.title
+                            assign note = line | strip | remove_first: parts[0] | remove_first: ':' | strip
+                          endif
+                        endfor
+                      -%}
+                      <li>
+                        <a href="{{ l.url }}">
+                          <span>{{ l.title }}</span>
+                          {%- if note != blank -%}<span class="mm__make-note">{{ note }}</span>{%- endif -%}
+                        </a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                {%- else -%}
+                  <ul class="mm__list">
+                    {%- for l in group.links -%}
+                      <li><a href="{{ l.url }}"><span>{{ l.title }}</span></a></li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+              </div>
+            {%- unless next_stacks -%}</div>{%- endunless -%}
+            {%- if icons == 'bracelet' and forloop.first -%}
+              {%- render 'mm-shapes', set: 'bracelet', label: ts.shape_label -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+<div class="mm__side">
+  <div class="mm__row-head mm__row-head--major">
+    <p class="mm__zone-title">{{ side_title | default: 'Guides & Advice' }}</p>
+  </div>
+  <div class="mm__jstack">
+    {%- for t in types -%}
+      {%- liquid
+        assign ts = t.settings
+        assign edu = linklists[ts.edu_menu]
+        assign jew = linklists[ts.jewel_menu]
+      -%}
+      <div class="mm__jpane{% if forloop.first %} is-active{% endif %}" data-fye-jpane="{{ t.id }}" {% unless forloop.first %}inert{% endunless %}>
+        <div class="mm__side-cols">
+          {%- if edu.links.size > 0 -%}
+            <div class="mm__col">
+              <p class="mm__label">{{ ts.edu_label | default: 'Diamond Education' }}</p>
+              <ul class="mm__list mm__list--caps">
+                {%- for link in edu.links -%}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{%- endfor -%}
+              </ul>
+            </div>
+          {%- endif -%}
+          {%- if jew.links.size > 0 -%}
+            <div class="mm__col">
+              <p class="mm__label">{{ ts.jewel_label | default: 'Jewellery Guide' }}</p>
+              <ul class="mm__list mm__list--caps">
+                {%- for link in jew.links -%}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{%- endfor -%}
+              </ul>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+<div class="mm__jfoot mm__jstack">
+  {%- for t in types -%}
+    {%- assign ts = t.settings -%}
+    <div class="mm__jpane{% if forloop.first %} is-active{% endif %}" data-fye-jpane="{{ t.id }}" {% unless forloop.first %}inert{% endunless %}>
+      {%- if ts.notes != blank -%}
+        <ul class="mm__notes">
+          {%- assign items = ts.notes | split: '·' -%}
+          {%- for it in items -%}<li>{{ it | strip }}</li>{%- endfor -%}
+        </ul>
+      {%- else -%}
+        <span></span>
+      {%- endif -%}
+      <span class="mm__head-links">
+        {%- if ts.page_url != blank and ts.page_label != blank -%}
+          <a class="mm__viewall mm__viewall--plain" href="{{ ts.page_url }}">{{ ts.page_label }}</a>
+        {%- endif -%}
+        {%- if ts.all_url != blank -%}
+          <a class="mm__viewall" href="{{ ts.all_url }}">
+            {{ ts.all_label | default: 'View all' }}
+            {% render 'icon', name: 'arrow-right', size: 16 %}
+          </a>
+        {%- endif -%}
+      </span>
+    </div>
+  {%- endfor -%}
+</div>

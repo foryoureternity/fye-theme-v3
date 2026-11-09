@@ -111,10 +111,17 @@
     </div>
   </div>
 
+  {%- comment -%}
+    `jtype` blocks are not nav items: they are the tabs of the mega panel
+    whose "Jewellery type tabs" box is ticked (09/11/2026). Collected once
+    here and skipped by both loops below.
+  {%- endcomment -%}
+  {%- assign jtypes = section.blocks | where: 'type', 'jtype' -%}
   {%- if section.blocks.size > 0 -%}
     <nav class="hdr__nav" aria-label="Main">
       <ul class="hdr__nav-list">
         {%- for block in section.blocks -%}
+          {%- if block.type == 'jtype' -%}{%- continue -%}{%- endif -%}
           {%- liquid
             assign is_active = false
             if block.settings.url == request.path
@@ -143,7 +150,18 @@
                 if b.tab2_label != blank
                   assign tabbed = true
                 endif
+                assign jtabbed = false
+                if b.jtabs and jtypes.size > 0
+                  assign jtabbed = true
+                endif
               -%}
+              {%- if jtabbed -%}
+                <div class="mega mega--jewellery">
+                  <div class="mega__in" data-fye-jtabs>
+                    {%- render 'mm-jewellery', types: jtypes, side_title: b.side_title -%}
+                  </div>
+                </div>
+              {%- else -%}
               <div class="mega">
                 <div class="mega__in">
 
@@ -344,6 +362,7 @@
 
                 </div>
               </div>
+              {%- endif -%}
             {%- endif -%}
           </li>
         {%- endfor -%}
@@ -359,8 +378,69 @@
     </button>
     <ul class="drawer__list">
       {%- for block in section.blocks -%}
+        {%- if block.type == 'jtype' -%}{%- continue -%}{%- endif -%}
         {%- assign dsub = linklists[block.settings.menu] -%}
-        {%- if block.type == 'mega' and dsub.links.size > 0 -%}
+        {%- if block.type == 'mega' and block.settings.jtabs and jtypes.size > 0 -%}
+          {%- comment -%}
+            The jewellery item opens to a list of types, each its own
+            accordion holding every link its desktop pane carries (parity
+            rule): page link, view all, each group, that type's guides, and
+            its trust line. Same menus as desktop, so the two cannot drift.
+          {%- endcomment -%}
+          <li>
+            <details class="drawer__acc">
+              <summary>
+                <span>{{ block.settings.title }}</span>
+                {% render 'icon', name: 'chevron-down', size: 16 %}
+              </summary>
+              <ul class="drawer__sub drawer__sub--types">
+                {%- for t in jtypes -%}
+                  {%- liquid
+                    assign ts = t.settings
+                    assign tmenu = linklists[ts.menu]
+                    assign t_edu = linklists[ts.edu_menu]
+                    assign t_jew = linklists[ts.jewel_menu]
+                  -%}
+                  <li>
+                    <details class="drawer__acc drawer__acc--type">
+                      <summary>
+                        <span>{{ ts.label }}</span>
+                        {% render 'icon', name: 'chevron-down', size: 14 %}
+                      </summary>
+                      <ul class="drawer__sub">
+                        {%- if ts.page_url != blank and ts.page_label != blank -%}
+                          <li><a href="{{ ts.page_url }}">{{ ts.page_label }}</a></li>
+                        {%- endif -%}
+                        {%- if ts.all_url != blank -%}
+                          <li><a href="{{ ts.all_url }}">{{ ts.all_label | default: 'View all' }}</a></li>
+                        {%- endif -%}
+                        {%- for group in tmenu.links -%}
+                          <li><span class="drawer__sub-head">{{ group.title }}</span></li>
+                          {%- for gc in group.links -%}
+                            <li class="drawer__sub-deep"><a href="{{ gc.url }}">{{ gc.title }}</a></li>
+                          {%- endfor -%}
+                          {%- if ts.icons == 'bracelet' and forloop.first -%}
+                            <li><span class="drawer__sub-head">{{ ts.shape_label | default: 'Shop by Shape' }}</span></li>
+                            {%- assign shp = 'Round|round-diamond-bracelets,Oval|oval-diamond-bracelets,Emerald|emerald-cut-diamond-bracelets,Princess|princess-cut-diamond-bracelets,Pear|pear-diamond-bracelets,Cushion|cushion-diamond-bracelets' | split: ',' -%}
+                            {%- for sh in shp -%}{%- assign sb = sh | split: '|' -%}<li class="drawer__sub-deep"><a href="/collections/{{ sb[1] }}">{{ sb[0] }}</a></li>{%- endfor -%}
+                          {%- endif -%}
+                        {%- endfor -%}
+                        {%- if t_edu.links.size > 0 or t_jew.links.size > 0 -%}
+                          <li><span class="drawer__sub-head">{{ block.settings.side_title | default: 'Guides & Advice' }}</span></li>
+                          {%- for l in t_edu.links -%}<li class="drawer__sub-deep"><a href="{{ l.url }}">{{ l.title }}</a></li>{%- endfor -%}
+                          {%- for l in t_jew.links -%}<li class="drawer__sub-deep"><a href="{{ l.url }}">{{ l.title }}</a></li>{%- endfor -%}
+                        {%- endif -%}
+                        {%- if ts.notes != blank -%}
+                          <li class="drawer__sub-trust">{{ ts.notes }}</li>
+                        {%- endif -%}
+                      </ul>
+                    </details>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </details>
+          </li>
+        {%- elsif block.type == 'mega' and dsub.links.size > 0 -%}
           {%- comment -%}
             Native <details>, same reasoning as the footer: keyboard operable,
             announced properly, and it opens with no JavaScript. Closed by
@@ -1273,6 +1353,123 @@
 .fye .drawer__sub-deep { padding-left: var(--s4); }
 .fye .drawer__sub-deep a { font-size: 14px; color: var(--ink-soft); }
 
+/* ---- jewellery panel: one tab per type (09/11/2026) ----------------------
+   snippets/mm-jewellery.liquid. From the Claude Design handoff "Jewellery
+   mega menu, Direction A", whose values were measured against the live
+   Bracelets panel. Only what is NEW lives here; the columns, labels, lists
+   and shape grid are the shared mm__ rules above, untouched.
+
+   The tab row replaces the zone title, so it copies the title's metrics
+   exactly: 19px Tenor at line-height 1.2. With 15px under the text, a 2px
+   underline and -1px to sit ON the hairline, the rule lands at 38.8px, the
+   same height as the guides heading's rule (22.8 + 16 padding), so the two
+   hairlines still line up across the panel. */
+.fye .mega--jewellery { padding-bottom: 26px; }   /* handoff; the foot row's 40px replaces the old 48 */
+.fye .mm__row-head--jtabs { padding-bottom: 0; }
+.fye .mm__jtabs { display: flex; align-items: flex-end; gap: var(--s8); min-width: 0; }
+.fye .mm__jtab {
+  appearance: none;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  margin: 0 0 -1px;
+  padding: 0 0 15px;
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: rgba(35, 61, 71, 0.60);
+  cursor: pointer;
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.fye .mm__jtab:hover { color: var(--sage); }
+.fye .mm__jtab:active { color: var(--sage-deep); }
+.fye .mm__jtab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+.fye .mm__jtab:focus { outline: none; }
+.fye .mm__jtab:focus-visible { outline: 2px solid var(--sage); outline-offset: 4px; }
+/* Four or more types: the nav row's own type, so six labels fit at 1281. */
+.fye .mm__jtabs--compact { gap: 28px; }
+.fye .mm__jtabs--compact .mm__jtab {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.06em;
+}
+
+/* Every pane sits in ONE grid cell, so the panel is the tallest type's
+   height and the foot row never jumps on a switch. Cross-fade only. */
+.fye .mm__jstack { display: grid; min-width: 0; }
+.fye .mm__jstack > .mm__jpane {
+  grid-area: 1 / 1;
+  min-width: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 180ms ease, visibility 0s linear 180ms;
+}
+.fye .mm__jstack > .mm__jpane.is-active {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 180ms ease, visibility 0s;
+}
+
+/* Two groups in one column (Make + Personalise). */
+.fye .mm__col:has(> .mm__group + .mm__group) { display: flex; flex-direction: column; gap: var(--s6); }
+
+/* Signets: four groups in three columns, so tighter gaps than the bracelet
+   row's 80px. The face-shape grid is the same object as the diamond shape
+   grid, a narrower column gap only. */
+.fye .mm__cols--signet { gap: var(--s9); }
+.fye .mm__cols--signet .mm__shapes { column-gap: var(--s6); }
+
+/* Shop by Make: the title, then a one-line explainer in sentence case. */
+.fye .mm__list--make a { flex-direction: column; align-items: flex-start; gap: 4px; }
+.fye .mm__make-note {
+  max-width: 24ch;
+  font-size: 12px;
+  font-weight: var(--fw-light);
+  letter-spacing: 0.01em;
+  line-height: 1.45;
+  text-transform: none;
+  white-space: normal;
+  color: var(--ink-soft);
+}
+
+/* The empty band is gone: no second rule under the guides heading. */
+.fye .mega--jewellery .mm__side-cols { margin-top: 0; padding-top: 0; border-top: 0; }
+
+/* Foot row: trust strip left, the type's two links right, full panel width. */
+.fye .mm__jfoot {
+  grid-column: 1 / -1;
+  margin-top: var(--s8);
+  padding-top: var(--s5);
+  border-top: 1px solid rgba(35, 61, 71, 0.18);
+}
+.fye .mm__jfoot > .mm__jpane {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s7);
+}
+.fye .mm__jfoot .mm__notes { margin: 0; padding: 0; border: 0; flex-wrap: nowrap; white-space: nowrap; }
+
+/* Drawer: a type is an accordion inside the Jewellery accordion. */
+.fye .drawer__sub--types { padding-left: 0; }
+.fye .drawer__acc--type > summary {
+  min-height: 44px;
+  font-size: 13px;
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.14em;
+}
+.fye .drawer__sub-trust {
+  padding-top: var(--s3);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
 /* ---- mega panel breakpoints — last in the chain, as they must be -------- */
 
 @media (max-width: 1400px) {
@@ -1288,6 +1485,7 @@
 }
 @media (max-width: 1100px) {
   .fye .mm__cols { flex-wrap: wrap; gap: var(--s8); }
+  .fye .mm__jfoot > .mm__jpane { flex-wrap: wrap; }
   /* Back to wrapping flex, which makes the feature grid's placement inert. */
   .fye .mm__cols:has(.mm__feature) { display: flex; }
   .fye .mm__feature { flex: 1 1 320px; max-width: 420px; }
@@ -1487,6 +1685,13 @@
           "id": "drawer_full",
           "label": "Full panel in the mobile drawer",
           "info": "Adds the view-all label, shapes, second head link and guide links to this item's drawer section.",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "jtabs",
+          "label": "Jewellery type tabs",
+          "info": "Replaces this panel with one tab per Jewellery type block. Its columns, links and guides then come from those blocks.",
           "default": false
         },
         {
@@ -1781,6 +1986,107 @@
           "type": "textarea",
           "id": "side_note",
           "label": "Right-zone note"
+        }
+      ]
+    },
+    {
+      "type": "jtype",
+      "name": "Jewellery type",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "One tab in the Jewellery panel, in block order. The first is the default. Not shown as a nav item."
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Tab label"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Columns menu",
+          "info": "Each top-level item is a column. A title mentioning Make shows explainers; one starting Personalise stacks under the column before it."
+        },
+        {
+          "type": "select",
+          "id": "icons",
+          "label": "Shape icons",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "bracelet", "label": "Diamond shapes, second column" },
+            { "value": "signet", "label": "Signet faces, first group" }
+          ],
+          "default": "none"
+        },
+        {
+          "type": "text",
+          "id": "shape_label",
+          "label": "Diamond shapes heading",
+          "default": "Shop by Shape"
+        },
+        {
+          "type": "textarea",
+          "id": "make_notes",
+          "label": "Make explainers",
+          "info": "One per line, as Title: explainer"
+        },
+        {
+          "type": "header",
+          "content": "Foot row"
+        },
+        {
+          "type": "text",
+          "id": "notes",
+          "label": "Trust strip",
+          "info": "Separate items with a middle dot ·"
+        },
+        {
+          "type": "text",
+          "id": "page_label",
+          "label": "First link label"
+        },
+        {
+          "type": "url",
+          "id": "page_url",
+          "label": "First link"
+        },
+        {
+          "type": "text",
+          "id": "all_label",
+          "label": "View-all label",
+          "default": "View all"
+        },
+        {
+          "type": "url",
+          "id": "all_url",
+          "label": "View-all link"
+        },
+        {
+          "type": "header",
+          "content": "Guides"
+        },
+        {
+          "type": "link_list",
+          "id": "edu_menu",
+          "label": "First guides menu"
+        },
+        {
+          "type": "text",
+          "id": "edu_label",
+          "label": "First guides heading",
+          "default": "Diamond Education"
+        },
+        {
+          "type": "link_list",
+          "id": "jewel_menu",
+          "label": "Second guides menu"
+        },
+        {
+          "type": "text",
+          "id": "jewel_label",
+          "label": "Second guides heading",
+          "default": "Jewellery Guide"
         }
       ]
     }

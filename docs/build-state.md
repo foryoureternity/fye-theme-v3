@@ -4224,3 +4224,29 @@ Ship: `./tools/fye ship "Bracelets hub: restore images, add chain/charm/line, ca
   The four carat collections now exclude the `Coloured Stone Bracelet` tag (store data,
   not theme).
 Ship: `./tools/fye ship "Bracelets hub: ready-made wording and hallmark claim"`.
+
+## 09/11/2026: Signets, size-priced variants and face engraving picker
+- 40 Weston Beamor signets (product type `Signet Ring`, templateSuffix `signet`) have
+  Metal x Ring Size variants: price depends on both. The pdx page only posted Metal as a
+  variant option (size was a property), so the price never moved. Fix in
+  `snippets/fye-pdx-ring.liquid`: when a non-plain product has an option whose name
+  contains "Size", the ring size select becomes a variant option
+  (`data-fye-option data-fye-size-option required`), the opening price reads
+  "From £x" until a size is chosen, and there is no above-Q size surcharge.
+- `assets/fye-ui.js`: size-option forms block add to bag until a size is chosen; carat
+  tiles price at the chosen size (`priceAt`), "From" before; a metal not made in the
+  chosen size clears the size.
+- Face engraving picker (new panel, before "Other versions"): None / Initials / Motif or
+  crest / Seal (Seal only when the product is tagged `Seal Engraving`). Prices come from
+  the variants of the hidden add-on `signet-face-engraving` (ACTIVE, Online Store only,
+  seo.hidden, tags fee/fye-addon/hidden-addon). Initials price by letter count (1 to 3);
+  motif tiles Classic / Inverted / Layered; motif and seal take design notes. The fee is
+  added as its own cart line, like inside engraving. Properties: Face engraving, Face
+  initials, Lettering style, Design notes. Artwork redraw (£90) is quoted, not picked.
+- `sections/main-product.liquid`: settings face_engraving_product, face_engraving_label,
+  face_engraving_note, face_engraving_styles, face_design_note. Empty product hides it.
+- New `templates/product.signet.json`: product.json settings plus the add-on, related
+  heading "More signet rings", no matching-band section. Validator clean.
+- Pricing rule: ring = WB trade (dearest colour) x 2.2 inc VAT; face engraving = WB x 1.5
+  inc VAT (Ed, 09/11/2026).
+Ship: `./tools/fye ship "Signets: size-priced variants and face engraving picker"`.

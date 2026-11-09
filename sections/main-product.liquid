@@ -2187,6 +2187,13 @@
 /* Shoulder diamonds: priced tiles. A teal fill here keeps both levels of
    type readable because on teal they switch to --on-dark (10.1:1) and
    --on-dark-soft (8.0:1). */
+/* Face engraving (signets): the fields under a chosen kind. */
+.fye .pdx__facebody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
 .fye .pdx__qgrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
@@ -2574,6 +2581,11 @@
       "label": "Fonts (pipe-separated)",
       "default": "Classic Script|Elegant Serif|Modern Sans|Block Capitals"
     },
+    { "type": "product", "id": "face_engraving_product", "label": "Face engraving add-on", "info": "Signets. The hidden add-on whose variants are the engraving types and prices. Empty hides the face engraving choice." },
+    { "type": "text", "id": "face_engraving_label", "label": "Face engraving heading", "default": "Face engraving" },
+    { "type": "text", "id": "face_engraving_note", "label": "Face engraving note", "default": "Hand engraved on the face of your signet ring." },
+    { "type": "text", "id": "face_engraving_styles", "label": "Lettering styles", "default": "We will advise|Block capitals|Serif|Script|Interlaced monogram", "info": "Separate with a vertical bar." },
+    { "type": "textarea", "id": "face_design_note", "label": "Motif and seal note" },
 
     { "type": "header", "content": "Finish" },
     {

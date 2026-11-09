@@ -949,6 +949,15 @@
     return parseInt(block.getAttribute('data-fee-price'), 10) || 0;
   }
 
+  /* Face engraving, signets. The FACE ENGRAVING block near the end of this
+     file writes the chosen add-on's price onto [data-fye-face]; nothing
+     chosen writes a zero. Read off the DOM like every other add-on. */
+  function faceFee(form) {
+    var block = form.querySelector('[data-fye-face]');
+    if (!block) return 0;
+    return parseInt(block.getAttribute('data-fee-price'), 10) || 0;
+  }
+
   /* ---- choosers: reading state -----------------------------------------
      Every question below is answered off the DOM, so there is one source of
      truth and no object to keep in step. */
@@ -1489,6 +1498,17 @@
   function requirement(form) {
     var first = pickAllNeed(form);
     if (first) return first;
+
+    /* Metal x Size rings (signets): the size is the variant, so without it
+       there is no price to charge. Ed, 09/11/2026. */
+    var sizeOpt = form.querySelector('[data-fye-size-option]');
+    if (sizeOpt && !sizeOpt.value) return { label: 'Choose your ring size', block: true };
+
+    var face = form.querySelector('[data-fye-face]');
+    if (face && face.getAttribute('data-kind') === 'initials') {
+      var ini = face.querySelector('[data-fye-face-initials]');
+      if (!ini || !ini.value.trim()) return { label: 'Enter your initials', block: true };
+    }
     var centre = centreOf(form);
     var sides = sidesOf(form);
 
@@ -1580,10 +1600,13 @@
        travels as its own unflagged cart line and is not surcharged. Taking it
        on the total here would make the page disagree with the cart. */
     var base = Math.round(v.price * mul);
-    var total = base + engraveFee(form) + finishFee(form) + centreAddOn(form) + sidesAddOn(form);
+    var total = base + engraveFee(form) + finishFee(form) + faceFee(form) + centreAddOn(form) + sidesAddOn(form);
 
-    /* A pick-all page keeps its "From" price until every option is chosen. */
-    var holdFrom = provisional && !!form.querySelector('[data-fye-pick-all]');
+    /* A pick-all page keeps its "From" price until every option is chosen.
+       So does a signet until its size is chosen, with the engravings added,
+       since the shopper may choose those first. */
+    var sizeForm = !!form.querySelector('[data-fye-size-option]');
+    var holdFrom = provisional && (!!form.querySelector('[data-fye-pick-all]') || sizeForm);
     var price = form.querySelector('[data-fye-price]');
     if (price && !holdFrom) price.textContent = money(total);
     if (price && holdFrom) {
@@ -1596,6 +1619,7 @@
         for (var i = 0; i < picked.length; i++) { if (picked[i] && bits[i] !== picked[i]) return; }
         if (low == null || x.price < low) low = x.price;
       });
+      if (low != null && sizeForm) low += engraveFee(form) + faceFee(form);
       if (low != null) price.textContent = 'From ' + money(low);
     }
 
@@ -1611,6 +1635,7 @@
       sides: sidesAddOn(form),
       engrave: engraveFee(form),
       finish: finishFee(form),
+      face: faceFee(form),
       need: need,
       provisional: provisional
     };
@@ -1940,6 +1965,13 @@
     if (block && block.getAttribute('data-on') === 'yes') {
       var engVariant = (block.getAttribute('data-fee-variant') || '').trim();
       if (engVariant) lines.push({ id: parseInt(engVariant, 10), quantity: 1, properties: tag });
+    }
+
+    /* Face engraving, signets: its own line, like the inside engraving. */
+    var face = form.querySelector('[data-fye-face]');
+    if (face) {
+      var faceVariant = (face.getAttribute('data-fee-variant') || '').trim();
+      if (faceVariant) lines.push({ id: parseInt(faceVariant, 10), quantity: 1, properties: tag });
     }
 
     /* The finish fee. No toggle to read: Polished leaves the variant empty,
@@ -2322,6 +2354,17 @@
         });
         if (alt) quality.value = alt;
       }
+    }
+
+    /* Signets: if the chosen size is not made in this metal (one platinum
+       size is missing on FSR1 16x13), clear it rather than strand the page on
+       a variant that does not exist. */
+    var sizeOpt = form.querySelector('[data-fye-size-option]');
+    if (sizeOpt && sizeOpt.value) {
+      var sized = variants(form).some(function (v) {
+        return v.title === metal + ' / ' + sizeOpt.value && v.available;
+      });
+      if (!sized) sizeOpt.value = '';
     }
 
     metalInput.value = metal;
@@ -4617,6 +4660,13 @@
     return low;
   }
 
+  /* Price of the available variant with exactly this title, or null. */
+  function priceAt(form, title) {
+    var hit = null;
+    variantsOf(form).forEach(function (v) { if (v.title === title && v.available) hit = v; });
+    return hit ? hit.price : null;
+  }
+
   /* Price of the variant with this metal and quality, or null if not made. */
   function priceFor(form, metal, quality) {
     var hasQ = !!form.querySelector('[data-fye-quality]');
@@ -4664,12 +4714,23 @@
       el.textContent = money(d.base);
     });
 
-    /* Carat tiles on a Metal x Quality ring. */
+    /* Carat tiles on a Metal x Quality ring, or a Metal x Size ring
+       (signets): the price at the chosen size, or "From" the smallest size
+       while no size is chosen. */
+    var sizeOpt = form.querySelector('[data-fye-size-option]');
     if (metalInput) {
       root.querySelectorAll('[data-pdx-metal-price]').forEach(function (el) {
         var m = el.getAttribute('data-pdx-metal-price');
         var p;
-        if (!quality && qualInput) {
+        if (sizeOpt) {
+          if (sizeOpt.value) {
+            p = priceAt(form, m + ' / ' + sizeOpt.value);
+            el.textContent = p == null ? 'Not made' : money(p);
+          } else {
+            p = fromPrice(form, m, '');
+            el.textContent = p == null ? 'Not made' : 'From ' + money(p);
+          }
+        } else if (!quality && qualInput) {
           p = fromPrice(form, m, '');
           el.textContent = p == null ? 'Not made' : 'From ' + money(p);
         } else if (nonRing && metal && /gold/i.test(metal)) {
@@ -5256,4 +5317,131 @@
     upgrade();
   }
   document.addEventListener('shopify:section:load', function (e) { upgrade(e.target); });
+})();
+
+
+/* ============================================================================
+   FACE ENGRAVING - signets, 09/11/2026 (Ed)
+   ----------------------------------------------------------------------------
+   The kind of engraving on a signet's face: None, Initials, Motif or crest,
+   Seal. fye-pdx-ring renders the tiles and the add-on product's variants as
+   JSON; this picks the variant and writes it onto [data-fye-face]
+   (data-fee-variant, data-fee-price), where faceFee() and addOnLines() read
+   it, then asks for a repaint through window.FYE.refresh, the same door the
+   finish picker uses.
+
+     Initials   the variant follows the number of letters typed (1 to 3)
+     Motif      the style tile picks the variant; Classic until changed
+     Seal       one variant
+
+   Fields under a kind that is not chosen are disabled, so ringProps() never
+   posts them. requirement() holds the button until initials are typed.
+   ========================================================================== */
+(function faceEngraving() {
+  function variants(panel) {
+    var island = panel.querySelector('[data-fye-face-variants]');
+    if (!island) return [];
+    try { return JSON.parse(island.textContent); } catch (e) { return []; }
+  }
+
+  function find(panel, test) {
+    var hit = null;
+    variants(panel).forEach(function (v) { if (!hit && v.available && test(v.title)) hit = v; });
+    return hit;
+  }
+
+  function refresh(el) {
+    if (window.FYE && window.FYE.refresh) window.FYE.refresh(el);
+  }
+
+  function setFee(panel, v, label) {
+    panel.setAttribute('data-fee-variant', v ? String(v.id) : '');
+    panel.setAttribute('data-fee-price', v ? String(v.price) : '0');
+    var input = panel.querySelector('[data-fye-face-input]');
+    if (input) {
+      input.value = v ? v.title : '';
+      input.disabled = !v;
+    }
+    var now = panel.querySelector('[data-fye-face-now]');
+    if (now) now.textContent = label;
+  }
+
+  function show(panel, kind) {
+    panel.querySelectorAll('[data-fye-face-body]').forEach(function (body) {
+      var key = body.getAttribute('data-fye-face-body');
+      var on = key === kind || (key === 'design' && (kind === 'motif' || kind === 'seal'));
+      body.hidden = !on;
+      body.querySelectorAll('input, select, textarea').forEach(function (f) { f.disabled = !on; });
+    });
+  }
+
+  function initialsVariant(panel) {
+    var field = panel.querySelector('[data-fye-face-initials]');
+    var n = field ? field.value.replace(/[^A-Za-z]/g, '').length : 0;
+    n = Math.max(1, Math.min(3, n || 1));
+    return find(panel, function (t) { return /initials/i.test(t) && t.indexOf(String(n)) !== -1; });
+  }
+
+  function pickStyle(panel, tile) {
+    panel.querySelectorAll('[data-fye-face-style]').forEach(function (b) {
+      var on = b === tile;
+      b.classList.toggle('is-on', on);
+      b.setAttribute('aria-checked', on ? 'true' : 'false');
+    });
+    var title = tile.getAttribute('data-fye-face-style');
+    setFee(panel, find(panel, function (t) { return t === title; }), title);
+    refresh(panel);
+  }
+
+  function choose(panel, kind) {
+    panel.setAttribute('data-kind', kind);
+    panel.querySelectorAll('[data-fye-face-kind]').forEach(function (b) {
+      var on = b.getAttribute('data-fye-face-kind') === kind;
+      b.classList.toggle('is-on', on);
+      b.setAttribute('aria-checked', on ? 'true' : 'false');
+    });
+    show(panel, kind);
+
+    if (kind === 'motif') {
+      var tile = panel.querySelector('[data-fye-face-style].is-on') || panel.querySelector('[data-fye-face-style]');
+      if (tile) { pickStyle(panel, tile); return; }
+      setFee(panel, null, 'None');
+    } else if (kind === 'initials') {
+      var iv = initialsVariant(panel);
+      setFee(panel, iv, iv ? iv.title : 'Initials');
+    } else if (kind === 'seal') {
+      var sv = find(panel, function (t) { return /seal/i.test(t); });
+      setFee(panel, sv, sv ? sv.title : 'Seal engraving');
+    } else {
+      setFee(panel, null, 'None');
+    }
+    refresh(panel);
+  }
+
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest) return;
+    var kindBtn = e.target.closest('[data-fye-face-kind]');
+    if (kindBtn) {
+      var panel = kindBtn.closest('[data-fye-face]');
+      if (panel) choose(panel, kindBtn.getAttribute('data-fye-face-kind'));
+      return;
+    }
+    var styleBtn = e.target.closest('[data-fye-face-style]');
+    if (styleBtn) {
+      var p2 = styleBtn.closest('[data-fye-face]');
+      if (p2) pickStyle(p2, styleBtn);
+    }
+  });
+
+  document.addEventListener('input', function (e) {
+    var field = e.target.closest ? e.target.closest('[data-fye-face-initials]') : null;
+    if (!field) return;
+    var clean = field.value.replace(/[^A-Za-z]/g, '').toUpperCase().slice(0, 3);
+    if (clean !== field.value) field.value = clean;
+    var panel = field.closest('[data-fye-face]');
+    if (!panel) return;
+    var v = initialsVariant(panel);
+    setFee(panel, v, v ? v.title : 'Initials');
+    refresh(panel);
+  });
 })();

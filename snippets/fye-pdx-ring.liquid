@@ -208,8 +208,10 @@
   endcomment
   assign metal_opt = nil
   assign quality_opt = nil
+  assign size_opt = nil
   assign metal_idx = -1
   assign quality_idx = -1
+  assign size_idx = -1
   for option in p.options_with_values
     if option.name == 'Metal'
       assign metal_opt = option
@@ -217,8 +219,32 @@
     elsif option.name contains 'Quality'
       assign quality_opt = option
       assign quality_idx = forloop.index0
+    elsif option.name contains 'Size'
+      assign size_opt = option
+      assign size_idx = forloop.index0
     endif
   endfor
+
+  comment
+    ── Size as a variant: signets (Ed, 09/11/2026) ──
+    A set ring sells its size as a line-item property with no price of its
+    own. A signet is Metal x Ring Size, each size priced from the supplier's
+    ladder, so its size select IS the option: it carries data-fye-option, the
+    price follows it, and there is NO oversize surcharge, which would charge
+    the bigger size twice (same ruling as the plain wedding rings, Ed
+    31/08/2026). Detected from the data, a non-plain product with a Size
+    option, not from the product type.
+
+    The title's tail after the comma ("11 x 10mm") goes into the summary
+    line, as the carat does on a set ring, since the short title drops it.
+  endcomment
+  assign size_variant = false
+  if is_plain == false and size_opt != nil
+    assign size_variant = true
+  endif
+  if size_variant and tail == blank and p.title contains ','
+    assign tail = p.title | remove_first: short_title | remove_first: ',' | strip
+  endif
 
   comment
     ── Trilogy side pair: priced once (W480/W475, Ed 03/10/2026) ──
@@ -725,7 +751,7 @@
           <p class="pdx__price">Price on request</p>
           <span data-fye-price hidden></span>
         {%- else -%}
-        <p class="pdx__price" data-fye-price aria-live="polite">{% if pick_all %}From {{ p.price_min | money }}{% else %}{{ current.price | money }}{% endif %}</p>
+        <p class="pdx__price" data-fye-price aria-live="polite">{% if pick_all %}From {{ p.price_min | money }}{% elsif size_variant and p.selected_variant == nil %}From {{ current.price | money }}{% else %}{{ current.price | money }}{% endif %}</p>
         {%- endif -%}
         {%- if show_centre -%}
           <p class="pdx__pricenote">{{ s.pdx_setting_note | default: 'Setting price · Centre diamond not included' }}</p>
@@ -960,16 +986,33 @@
             <a class="pdx__textlink" href="{{ size_guide }}">{{ s.pdx_size_guide_label | default: 'Size guide' }}</a>
           </div>
 
-          {%- if is_plain -%}
+          {%- if is_plain or size_variant -%}
             {%- assign size_option = nil -%}
             {%- for option in p.options_with_values -%}
               {%- if option.name contains 'Size' -%}{%- assign size_option = option -%}{%- endif -%}
             {%- endfor -%}
             {%- if size_option != nil -%}
-              <select class="pdx__select" id="pdx-size" name="options[{{ size_option.name | escape }}]" data-fye-option required>
+              {%- comment -%}
+                data-fye-size-option marks a Metal x Size ring (signets): until
+                a size is chosen fye-ui.js shows a "From" price for the metal
+                and holds the button at "Choose your ring size".
+              {%- endcomment -%}
+              <select class="pdx__select" id="pdx-size" name="options[{{ size_option.name | escape }}]" data-fye-option{% if size_variant %} data-fye-size-option{% endif %} required>
                 <option value="">{{ s.pdx_size_placeholder | default: 'Select your UK size' }}</option>
                 {%- for value in size_option.values -%}
-                  <option value="{{ value | escape }}"{% if p.selected_variant and current.title == value %} selected{% endif %}>{{ value }}</option>
+                  {%- liquid
+                    assign size_sel = false
+                    if p.selected_variant
+                      if size_variant
+                        if current.options[size_idx] == value
+                          assign size_sel = true
+                        endif
+                      elsif current.title == value
+                        assign size_sel = true
+                      endif
+                    endif
+                  -%}
+                  <option value="{{ value | escape }}"{% if size_sel %} selected{% endif %}>{{ value }}</option>
                 {%- endfor -%}
               </select>
             {%- endif -%}
@@ -1068,6 +1111,150 @@
         {%- endif -%}
 
         {%- comment -%}
+          ---- Face engraving: signets (Ed, 09/11/2026) ----
+          The kind of engraving on the face, sold as its own cart line from the
+          hidden add-on product named in the template's face_engraving_product
+          setting, exactly as the inside engraving is. Its variants carry the
+          prices, so a price change is a product edit, not a theme edit. The
+          variant TITLES are read, not ids hardcoded:
+            "Initials, 1 letter" to "Initials, 3 letters": chosen by how many
+              initials are typed
+            "Motif or crest, Classic" / "Inverted" / "Layered"
+            "Seal engraving": only on a product tagged Seal Engraving (the
+              supplier cuts a seal only into a face 1.5mm deep or more)
+            "Artwork redraw": never offered here; quoted after review
+          The details ride on the RING line as properties, as the inside
+          engraving's text does. The panel renders nothing when the setting is
+          empty or the add-on is not published, so other rings are untouched.
+        {%- endcomment -%}
+        {%- assign fe = s.face_engraving_product -%}
+        {%- if fe != blank and fe.variants.size > 0 -%}
+          {%- liquid
+            assign seal_ok = false
+            if p.tags contains 'Seal Engraving'
+              assign seal_ok = true
+            endif
+            assign fe_init_from = nil
+            assign fe_motif_from = nil
+            assign fe_seal = nil
+            for fv in fe.variants
+              if fv.title contains 'Initials'
+                if fe_init_from == nil
+                  assign fe_init_from = fv.price
+                elsif fv.price < fe_init_from
+                  assign fe_init_from = fv.price
+                endif
+              elsif fv.title contains 'Motif'
+                if fe_motif_from == nil
+                  assign fe_motif_from = fv.price
+                elsif fv.price < fe_motif_from
+                  assign fe_motif_from = fv.price
+                endif
+              elsif fv.title contains 'Seal'
+                assign fe_seal = fv
+              endif
+            endfor
+            assign fe_label = s.face_engraving_label | default: 'Face engraving'
+            assign fe_styles = s.face_engraving_styles | default: 'We will advise|Block capitals|Serif|Script|Interlaced monogram' | split: '|'
+          -%}
+          <div class="pdx__field pdx__face" data-fye-face data-kind="none" data-fee-variant="" data-fee-price="0">
+            <script type="application/json" data-fye-face-variants>
+              [
+                {%- for fv in fe.variants -%}
+                  {"id":{{ fv.id }},"title":{{ fv.title | json }},"price":{{ fv.price | json }},"available":{{ fv.available }}}{%- unless forloop.last -%},{%- endunless -%}
+                {%- endfor -%}
+              ]
+            </script>
+
+            <div class="pdx__fieldhead">
+              <div class="pdx__labelrow">
+                <p class="pdx__label">{{ fe_label }} <span class="pdx__labelval" data-fye-face-now>None</span></p>
+              </div>
+              <p class="pdx__help">{{ s.face_engraving_note | default: 'Hand engraved on the face of your signet ring.' }}</p>
+            </div>
+
+            <div class="pdx__qgrid" role="radiogroup" aria-label="{{ fe_label | escape }}">
+              <button type="button" class="pdx__qtile is-on" role="radio" aria-checked="true" data-fye-face-kind="none">
+                <span class="pdx__qname">None</span>
+                <span class="pdx__qorigin">A plain face</span>
+              </button>
+              {%- if fe_init_from != nil -%}
+                <button type="button" class="pdx__qtile" role="radio" aria-checked="false" data-fye-face-kind="initials">
+                  <span class="pdx__qname">Initials</span>
+                  <span class="pdx__qorigin">Up to three letters</span>
+                  <span class="pdx__qprice">From {{ fe_init_from | money }}</span>
+                </button>
+              {%- endif -%}
+              {%- if fe_motif_from != nil -%}
+                <button type="button" class="pdx__qtile" role="radio" aria-checked="false" data-fye-face-kind="motif">
+                  <span class="pdx__qname">Motif or crest</span>
+                  <span class="pdx__qorigin">Your crest or emblem</span>
+                  <span class="pdx__qprice">From {{ fe_motif_from | money }}</span>
+                </button>
+              {%- endif -%}
+              {%- if seal_ok and fe_seal != nil -%}
+                <button type="button" class="pdx__qtile" role="radio" aria-checked="false" data-fye-face-kind="seal">
+                  <span class="pdx__qname">Seal engraving</span>
+                  <span class="pdx__qorigin">Cut in reverse, for wax</span>
+                  <span class="pdx__qprice">{{ fe_seal.price | money }}</span>
+                </button>
+              {%- endif -%}
+            </div>
+
+            <input type="hidden" name="properties[Face engraving]" value="" data-fye-face-input disabled>
+
+            <div class="pdx__facebody" data-fye-face-body="initials" hidden>
+              <label class="pdx__label" for="pdx-face-initials">Your initials</label>
+              <input class="pdx__input" id="pdx-face-initials" type="text" name="properties[Face initials]" maxlength="3" autocomplete="off" autocapitalize="characters" data-fye-face-initials disabled>
+              <label class="pdx__label" for="pdx-face-style">Lettering style</label>
+              <select class="pdx__select" id="pdx-face-style" name="properties[Lettering style]" disabled>
+                {%- for st in fe_styles -%}
+                  <option>{{ st | strip }}</option>
+                {%- endfor -%}
+              </select>
+            </div>
+
+            <div class="pdx__facebody" data-fye-face-body="motif" hidden>
+              <p class="pdx__label">Engraving style</p>
+              <div class="pdx__qgrid" role="radiogroup" aria-label="Motif engraving style">
+                {%- for fv in fe.variants -%}
+                  {%- if fv.title contains 'Motif' -%}
+                    {%- liquid
+                      assign mstyle = fv.title | split: ',' | last | strip
+                      case mstyle
+                        when 'Classic'
+                          assign mnote = 'A clean cut outline'
+                        when 'Inverted'
+                          assign mnote = 'The background cut away'
+                        when 'Layered'
+                          assign mnote = 'Modelled in depth'
+                        else
+                          assign mnote = ''
+                      endcase
+                    -%}
+                    <button type="button" class="pdx__qtile" role="radio" aria-checked="false" data-fye-face-style="{{ fv.title | escape }}">
+                      <span class="pdx__qname">{{ mstyle }}</span>
+                      {%- if mnote != blank -%}<span class="pdx__qorigin">{{ mnote }}</span>{%- endif -%}
+                      <span class="pdx__qprice">{{ fv.price | money }}</span>
+                    </button>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+
+            <div class="pdx__facebody" data-fye-face-body="design" hidden>
+              <label class="pdx__label" for="pdx-face-notes">About your design</label>
+              <textarea class="pdx__input" id="pdx-face-notes" name="properties[Design notes]" rows="3" maxlength="500" placeholder="For example: our family crest, or a stag's head" disabled></textarea>
+              <p class="pdx__help">{{ s.face_design_note | default: 'After you order we will ask for your design (a photo or a drawing is fine) and send you a proof before we engrave. If it needs redrawing first, we will quote for that before we start.' }}</p>
+            </div>
+
+            {%- if fe_seal != nil and seal_ok == false -%}
+              <p class="pdx__help">Seal engraving needs a deeper face than this ring has.</p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- comment -%}
           ---- Other versions of this ring ----
           Plain rings: width and weight siblings, by handle. Everything else:
           the design family (fye.family), labelled by fye.family_carat, the
@@ -1127,6 +1314,13 @@
               {%- else -%}
                 {%- assign fam_label = 'Centre' -%}
               {%- endif -%}
+              {%- comment -%}
+                Signets have no carat: their family is face sizes, labelled by
+                each member's title tail ("11 x 10mm"). Ed, 09/11/2026.
+              {%- endcomment -%}
+              {%- if size_variant -%}
+                {%- assign fam_label = 'Face size' -%}
+              {%- endif -%}
               {%- capture fam_chips -%}
                 {%- assign seen = '~' -%}
                 {%- for m in fam limit: 8 -%}
@@ -1139,14 +1333,21 @@
                   {%- assign m_fc = m.metafields.fye.family_carat.value.first | default: m.metafields.fye.family_carat.value -%}
                   {%- capture m_ct -%}{%- render 'fye-carat-label', value: m_fc -%}{%- endcapture -%}
                   {%- assign m_ct = m_ct | strip -%}
+                  {%- assign m_lab = '' -%}
+                  {%- if m_ct != blank -%}
+                    {%- assign m_lab = m_ct | append: 'ct' -%}
+                  {%- elsif size_variant and m.title contains ',' -%}
+                    {%- assign m_short = m.title | split: ',' | first -%}
+                    {%- assign m_lab = m.title | remove_first: m_short | remove_first: ',' | strip -%}
+                  {%- endif -%}
                   {%- if m.handle == p.handle -%}
-                    <span class="pdx__vchip is-current" aria-current="true">{% if m_ct != blank %}{{ m_ct }}ct{% else %}This ring{% endif %}</span>
+                    <span class="pdx__vchip is-current" aria-current="true">{% if m_lab != blank %}{{ m_lab }}{% else %}This ring{% endif %}</span>
                   {%- else -%}
-                    {%- if m_ct == blank -%}{%- continue -%}{%- endif -%}
-                    {%- assign key = '~' | append: m_ct | append: '~' -%}
+                    {%- if m_lab == blank -%}{%- continue -%}{%- endif -%}
+                    {%- assign key = '~' | append: m_lab | append: '~' -%}
                     {%- if seen contains key -%}{%- continue -%}{%- endif -%}
-                    {%- assign seen = seen | append: m_ct | append: '~' -%}
-                    <a class="pdx__vchip" href="{{ m.url }}">{{ m_ct }}ct</a>
+                    {%- assign seen = seen | append: m_lab | append: '~' -%}
+                    <a class="pdx__vchip" href="{{ m.url }}">{{ m_lab }}</a>
                   {%- endif -%}
                 {%- endfor -%}
               {%- endcapture -%}

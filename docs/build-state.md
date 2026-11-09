@@ -4199,3 +4199,22 @@ Ship: `./tools/fye ship "Hallmarking page, Dealer's Notice and hallmark trust li
   gained a linked line to /pages/hallmarking: "UK hallmarked, with our own FYE sponsor's
   mark registered at the London Assay Office."
 Ship: `./tools/fye ship "Footer: hallmarking line"`.
+
+## 09/11/2026: Bracelets hub, broken images fixed and IBB ranges added
+- Six images on /pages/bracelets had vanished: the template pointed at product media
+  (BE-OVL_/BE-EMC_/BE-RND_ uuid files, BG111.jpg, two Artisan 1_*.jpg) that were deleted
+  when the bracelets were re-imported with descriptive filenames. Three full-bleed panels
+  showed the editor placeholder (the "know" one also covered half its heading) and three
+  Shop by style cards had no photo.
+- Fix: 15 page-owned copies in Files, all `bracelets-page-*.jpg` (fileCreate from the
+  product images, 09/11/2026), so a future product re-import cannot break the page again.
+  Rule for hub pages: never reference a product's own media from a template.
+- Shop by style: 8 cards, col_dk 4; added Chain, Charm and Line bracelets (IBB, about two
+  thirds of the 774 live bracelets). IBB photos have a pale grey background.
+- `row_2` (Shop by total carat weight) changed from collections-list text tiles to
+  about-columns-four photo cards, band ivory; same four collection links.
+- Hero subheading now names chain and charm bracelets and drops "made to order" and the
+  blanket "hallmarked before they reach you" (IBB pieces are ready-made; light chains can
+  fall under the hallmarking exemption weight).
+- Validator: page.bracelets clean.
+Ship: `./tools/fye ship "Bracelets hub: restore images, add chain/charm/line, carat cards"`.

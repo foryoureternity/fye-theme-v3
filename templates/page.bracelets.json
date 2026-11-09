@@ -10,7 +10,7 @@
         "logo_width": 250,
         "heading": "Bracelets by",
         "heading_style": "sentence",
-        "subheading": "Diamond tennis bracelets, bezel-set bracelets, bangles and cuffs, made to order in our London workshop with natural or lab-grown diamonds and hallmarked before they reach you.",
+        "subheading": "Diamond tennis bracelets, bangles and cuffs, and gold chain and charm bracelets, made in our London workshop in solid gold or platinum, with natural or lab-grown diamonds.",
         "button_label": "View all bracelets",
         "button_link": "shopify://collections/bracelets",
         "button2_label": "Start a bespoke enquiry",
@@ -24,7 +24,7 @@
           "type": "text_block",
           "settings": {
             "enable_image": true,
-            "image": "shopify://shop_images/four-claw-round-diamond-tennis-bracelet-5ct-white-1.jpg",
+            "image": "shopify://shop_images/bracelets-page-tennis.jpg",
             "title": "Tennis bracelets",
             "button_label": "View bracelets",
             "button_link": "shopify://collections/tennis-bracelets"
@@ -34,7 +34,7 @@
           "type": "text_block",
           "settings": {
             "enable_image": true,
-            "image": "shopify://shop_images/claw-set-round-diamond-tennis-bracelet-5ct-white-1.jpg",
+            "image": "shopify://shop_images/bracelets-page-lab-grown.jpg",
             "title": "Lab-grown diamond bracelets",
             "button_label": "View bracelets",
             "button_link": "shopify://collections/lab-grown-diamond-bracelets"
@@ -44,7 +44,7 @@
           "type": "text_block",
           "settings": {
             "enable_image": true,
-            "image": "shopify://shop_images/1_23f91bfb-9b92-4a1b-b7e6-df430f178e19.jpg",
+            "image": "shopify://shop_images/bracelets-page-bezel-set.jpg",
             "title": "Bezel-set bracelets",
             "button_label": "View bracelets",
             "button_link": "shopify://collections/bezel-bracelets"
@@ -54,7 +54,7 @@
           "type": "text_block",
           "settings": {
             "enable_image": true,
-            "image": "shopify://shop_images/1_1389e3fa-ae27-436d-9b81-d6a73ea65a00.jpg",
+            "image": "shopify://shop_images/bracelets-page-halo.jpg",
             "title": "Halo bracelets",
             "button_label": "View bracelets",
             "button_link": "shopify://collections/halo-bracelets"
@@ -64,10 +64,40 @@
           "type": "text_block",
           "settings": {
             "enable_image": true,
-            "image": "shopify://shop_images/BG111.jpg",
+            "image": "shopify://shop_images/bracelets-page-bangle.jpg",
             "title": "Bangles and cuffs",
             "button_label": "View bracelets",
             "button_link": "shopify://collections/bangles-and-cuffs"
+          }
+        },
+        "card_6": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/bracelets-page-chain.jpg",
+            "title": "Chain bracelets",
+            "button_label": "View bracelets",
+            "button_link": "shopify://collections/chain-bracelets"
+          }
+        },
+        "card_7": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/bracelets-page-charm.jpg",
+            "title": "Charm bracelets",
+            "button_label": "View bracelets",
+            "button_link": "shopify://collections/charm-bracelets"
+          }
+        },
+        "card_8": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/bracelets-page-line.jpg",
+            "title": "Line bracelets",
+            "button_label": "View bracelets",
+            "button_link": "shopify://collections/line-bracelets"
           }
         }
       },
@@ -76,11 +106,14 @@
         "card_2",
         "card_3",
         "card_4",
-        "card_5"
+        "card_5",
+        "card_6",
+        "card_7",
+        "card_8"
       ],
       "settings": {
         "top_heading": "Shop by style",
-        "col_dk": 5,
+        "col_dk": 4,
         "band": "mist"
       }
     },
@@ -152,46 +185,57 @@
       }
     },
     "row_2": {
-      "type": "collections-list",
+      "type": "about-columns-four",
       "blocks": {
-        "tile_1": {
-          "type": "collection_item",
+        "carat_1": {
+          "type": "text_block",
           "settings": {
-            "collection_title": "Up to 3ct",
-            "collection_link": "shopify://collections/bracelets-up-to-3ct"
+            "enable_image": true,
+            "image": "shopify://shop_images/bracelets-page-up-to-3ct.jpg",
+            "title": "Up to 3ct",
+            "button_label": "View bracelets",
+            "button_link": "shopify://collections/bracelets-up-to-3ct"
           }
         },
-        "tile_2": {
-          "type": "collection_item",
+        "carat_2": {
+          "type": "text_block",
           "settings": {
-            "collection_title": "3 to 5ct",
-            "collection_link": "shopify://collections/bracelets-3-to-5ct"
+            "enable_image": true,
+            "image": "shopify://shop_images/bracelets-page-3-to-5ct.jpg",
+            "title": "3 to 5ct",
+            "button_label": "View bracelets",
+            "button_link": "shopify://collections/bracelets-3-to-5ct"
           }
         },
-        "tile_3": {
-          "type": "collection_item",
+        "carat_3": {
+          "type": "text_block",
           "settings": {
-            "collection_title": "5 to 10ct",
-            "collection_link": "shopify://collections/bracelets-5-to-10ct"
+            "enable_image": true,
+            "image": "shopify://shop_images/bracelets-page-5-to-10ct.jpg",
+            "title": "5 to 10ct",
+            "button_label": "View bracelets",
+            "button_link": "shopify://collections/bracelets-5-to-10ct"
           }
         },
-        "tile_4": {
-          "type": "collection_item",
+        "carat_4": {
+          "type": "text_block",
           "settings": {
-            "collection_title": "10ct and above",
-            "collection_link": "shopify://collections/bracelets-10ct-and-above"
+            "enable_image": true,
+            "image": "shopify://shop_images/bracelets-page-10ct-and-above.jpg",
+            "title": "10ct and above",
+            "button_label": "View bracelets",
+            "button_link": "shopify://collections/bracelets-10ct-and-above"
           }
         }
       },
       "block_order": [
-        "tile_1",
-        "tile_2",
-        "tile_3",
-        "tile_4"
+        "carat_1",
+        "carat_2",
+        "carat_3",
+        "carat_4"
       ],
       "settings": {
         "top_heading": "Shop by total carat weight",
-        "heading_mb": "Shop by total carat weight",
         "col_dk": 4,
         "band": "ivory"
       }
@@ -202,7 +246,7 @@
         "band": "sage",
         "reverse": false,
         "full_bleed": true,
-        "image": "shopify://shop_images/BE-OVL_85242c11-6fdc-4e1d-9aca-47f3c92033e7.jpg",
+        "image": "shopify://shop_images/bracelets-page-oval-tennis-6ct.jpg",
         "image_alt": "Oval diamond tennis bracelet in white gold",
         "placeholder": "Image",
         "heading": "What does the carat weight on a bracelet mean?",
@@ -242,7 +286,7 @@
         "band": "sage",
         "reverse": true,
         "full_bleed": true,
-        "image": "shopify://shop_images/BE-EMC_461806fe-6dea-448a-b72c-453296fd3b99.jpg",
+        "image": "shopify://shop_images/bracelets-page-emerald-cut-tennis-6-25ct.jpg",
         "image_alt": "Emerald-cut diamond tennis bracelet in white gold",
         "placeholder": "Image",
         "heading": "A bracelet designed with you",
@@ -467,7 +511,7 @@
         "band": "mist",
         "reverse": false,
         "full_bleed": true,
-        "image": "shopify://shop_images/BE-RND_da315bbd-4f14-4171-88b3-7be2fbfa6e70.jpg",
+        "image": "shopify://shop_images/bracelets-page-round-tennis-10ct.jpg",
         "image_alt": "Round diamond tennis bracelet in white gold",
         "placeholder": "Image",
         "heading": "Our commitment to you",

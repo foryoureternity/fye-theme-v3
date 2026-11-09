@@ -4218,3 +4218,9 @@ Ship: `./tools/fye ship "Footer: hallmarking line"`.
   fall under the hallmarking exemption weight).
 - Validator: page.bracelets clean.
 Ship: `./tools/fye ship "Bracelets hub: restore images, add chain/charm/line, carat cards"`.
+- Follow-up (09/11/2026): ready-made wording. Carat panel and FAQ q3 now say hallmarked
+  "where the law requires it"; q4 (length), q8 (timing) and q9 (returns) now cover
+  ready-made pieces as well as made-to-order (14-day unworn returns on ready-made).
+  The four carat collections now exclude the `Coloured Stone Bracelet` tag (store data,
+  not theme).
+Ship: `./tools/fye ship "Bracelets hub: ready-made wording and hallmark claim"`.

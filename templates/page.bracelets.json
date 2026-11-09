@@ -250,7 +250,7 @@
         "image_alt": "Oval diamond tennis bracelet in white gold",
         "placeholder": "Image",
         "heading": "What does the carat weight on a bracelet mean?",
-        "body": "<p>On a tennis bracelet the carat figure is the total across every stone, not the size of any one of them. Two 5ct bracelets can look quite different: one of forty small diamonds, one of twenty-five larger ones. Compare the stone size and count as well as the total, and ask us if a listing leaves you unsure.</p><ul><li>Natural or lab-grown diamonds in the same settings. Both are diamonds; lab-grown usually allows a heavier bracelet for the same spend.</li><li>Platinum, 18ct, 14ct or 9ct gold, every piece hallmarked at a UK Assay Office.</li><li>Made to the length you need: measure your wrist and tell us when you order.</li></ul>",
+        "body": "<p>On a tennis bracelet the carat figure is the total across every stone, not the size of any one of them. Two 5ct bracelets can look quite different: one of forty small diamonds, one of twenty-five larger ones. Compare the stone size and count as well as the total, and ask us if a listing leaves you unsure.</p><ul><li>Natural or lab-grown diamonds in the same settings. Both are diamonds; lab-grown usually allows a heavier bracelet for the same spend.</li><li>Platinum, 18ct, 14ct or 9ct gold, hallmarked at a UK Assay Office where the law requires it.</li><li>Made to the length you need: measure your wrist and tell us when you order.</li></ul>",
         "eyebrow": "Before you choose"
       },
       "blocks": {
@@ -438,14 +438,14 @@
           "type": "accor_item",
           "settings": {
             "title": "Which metal is best for a bracelet worn every day?",
-            "content": "<p>Platinum is the most durable and stays white without plating. 18ct gold has the richest colour; 9ct gold is harder-wearing and paler. White gold is rhodium plated and needs replating every few years to keep its bright finish. Every piece is hallmarked, so the metal and fineness are stamped on it.</p>"
+            "content": "<p>Platinum is the most durable and stays white without plating. 18ct gold has the richest colour; 9ct gold is harder-wearing and paler. White gold is rhodium plated and needs replating every few years to keep its bright finish. Pieces are hallmarked at a UK Assay Office where the law requires it, so the metal and fineness are stamped on them.</p>"
           }
         },
         "q4": {
           "type": "accor_item",
           "settings": {
             "title": "How do I find the right bracelet length?",
-            "content": "<p>Measure snugly around the wrist bone and add 1.5 to 2 cm. We make bracelets to the length you need, so tell us your measurement when you order. A bracelet should move freely but never slide over the hand. Bangles need their inside diameter checked instead.</p>"
+            "content": "<p>Measure snugly around the wrist bone and add 1.5 to 2 cm. Made-to-order bracelets are made to the length you need, so tell us your measurement when you order; ready-made bracelets are listed with their length. A bracelet should move freely but never slide over the hand. Bangles need their inside diameter checked instead.</p>"
           }
         },
         "q5": {
@@ -473,14 +473,14 @@
           "type": "accor_item",
           "settings": {
             "title": "How long does a bracelet take?",
-            "content": "<p>Bracelets are made to order, and we confirm the making time for your bracelet before you order. If you have a date to hit, tell us before you order and we will say honestly whether we can make it.</p>"
+            "content": "<p>We confirm the delivery time for your bracelet before you order: made-to-order bracelets need making time, while ready-made bracelets do not. If you have a date to hit, tell us before you order and we will say honestly whether we can make it.</p>"
           }
         },
         "q9": {
           "type": "accor_item",
           "settings": {
             "title": "Can I return a bracelet?",
-            "content": "<p>Every bracelet is made to order for you, so we do not offer change-of-mind returns, which is why we talk each order through first. If a bracelet arrives faulty or not as ordered, you can reject it for a full refund within 30 days; after that we repair or replace it under our lifetime warranty.</p>"
+            "content": "<p>Ready-made bracelets can be returned within 14 days of delivery, unworn and in their original packaging. Made-to-order and bespoke bracelets are made for you, so we do not offer change-of-mind returns on them, which is why we talk each order through first. If a bracelet arrives faulty or not as ordered, you can reject it for a full refund within 30 days; after that we repair or replace it under our lifetime warranty.</p>"
           }
         }
       },

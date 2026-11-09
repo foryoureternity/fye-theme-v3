@@ -4461,9 +4461,44 @@
     try { window.sessionStorage.setItem(KEY, JSON.stringify(rec)); } catch (err) {}
   }, true);
 
+  /* 09/11/2026 (W314): two ways a real lead could still go unrecorded.
+
+     1. The hash is a hint, not a requirement. When Shopify's hCaptcha is
+        unsure it sends the visitor through its own /challenge page, which
+        re-posts from a form whose action carries no #<form id>, so the
+        return can arrive with ?contact_posted=true and no hash. The old test
+        then threw the stored record away and sent nothing. Now the record
+        decides when the hash is empty or unknown; a hash naming a DIFFERENT
+        known form still wins, so a stale record is never credited.
+     2. gtag is defined by the Google & YouTube app, and on a slow phone it
+        can arrive after the load event. Sending waits for it, polling every
+        250ms for up to 10s, instead of trying once at load and giving up.
+
+     Proven on the live contact page the same day with one real test post:
+     the return was /pages/contact-us?contact_posted=true#fcon-form and the
+     stored record matched, so the normal path was already sound. The two
+     genuine enquiries since 09/10 (30/10, 08/11) left no page view in GA4
+     at all: those visitors had not accepted cookies, which no code can
+     change. Consent is respected; see W119 for advanced consent mode.
+
+     Guide popups now send guide_download (method: popup), the key event
+     GA4 already holds, instead of guide_request, which v3 alone sent and
+     which was never a key event. The guide-download page's own sends, with
+     method auto or manual, are unchanged. */
+  function knownForm(k) { return !!(k && (LEAD_FORMS[k] || GUIDE_FORMS[k])); }
+
+  function whenGtag(fn) {
+    var tries = 0;
+    (function check() {
+      if (typeof window.gtag === 'function' || tries >= 40) { fn(); return; }
+      tries++;
+      setTimeout(check, 250);
+    })();
+  }
+
   function onPosted() {
     if (!/[?&]contact_posted=true/.test(window.location.search)) return;
-    var id = (window.location.hash || '').replace('#', '');
+    var hash = (window.location.hash || '').replace('#', '');
     var rec = null;
     try {
       rec = JSON.parse(window.sessionStorage.getItem(KEY) || 'null');
@@ -4472,27 +4507,30 @@
       if (window.sessionStorage.getItem(once)) return; /* a reload is not a second lead */
       window.sessionStorage.setItem(once, '1');
     } catch (err) {}
-    if (rec && rec.id !== id) rec = null;
+    if (rec && !knownForm(rec.id)) rec = null;
+    var id = knownForm(hash) ? hash : '';
+    if (rec && id && rec.id !== id) rec = null;
     if (!id && rec) id = rec.id;
-    if (!(LEAD_FORMS[id] || GUIDE_FORMS[id])) return;
+    if (!id) return;
     var name = (rec && rec.name) || LEAD_FORMS[id] || GUIDE_FORMS[id];
 
-    if (GUIDE_FORMS[id]) {
-      window.FYE.ga('guide_request', { guide_name: name });
-      return;
-    }
-    window.FYE.ga('generate_lead', { form_name: name, form_id: id });
-    try {
-      if (typeof window.gtag !== 'function') return;
-      var ud = {};
-      if (rec && rec.email) ud.email = rec.email;
-      if (rec && rec.phone) ud.phone_number = rec.phone;
-      if (ud.email || ud.phone_number) window.gtag('set', 'user_data', ud);
-      window.gtag('event', 'conversion', { send_to: ADS_ENQUIRY });
-    } catch (err) {}
+    whenGtag(function () {
+      if (GUIDE_FORMS[id]) {
+        window.FYE.ga('guide_download', { guide_name: name, method: 'popup' });
+        return;
+      }
+      window.FYE.ga('generate_lead', { form_name: name, form_id: id });
+      try {
+        if (typeof window.gtag !== 'function') return;
+        var ud = {};
+        if (rec && rec.email) ud.email = rec.email;
+        if (rec && rec.phone) ud.phone_number = rec.phone;
+        if (ud.email || ud.phone_number) window.gtag('set', 'user_data', ud);
+        window.gtag('event', 'conversion', { send_to: ADS_ENQUIRY });
+      } catch (err) {}
+    });
   }
 
-  /* The Google & YouTube app loads gtag after this file, so wait for load. */
   if (document.readyState === 'complete') setTimeout(onPosted, 0);
   else window.addEventListener('load', function () { setTimeout(onPosted, 0); });
 })();

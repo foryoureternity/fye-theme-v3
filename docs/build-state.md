@@ -4250,3 +4250,21 @@ Ship: `./tools/fye ship "Bracelets hub: ready-made wording and hallmark claim"`.
 - Pricing rule: ring = WB trade (dearest colour) x 2.2 inc VAT; face engraving = WB x 1.5
   inc VAT (Ed, 09/11/2026).
 Ship: `./tools/fye ship "Signets: size-priced variants and face engraving picker"`.
+
+## 09/11/2026: enquiry tracking hardened (W314)
+- Why: GA4 showed no generate_lead since the 09/10 move to page-side sends. Diagnosed with
+  one real, guarded test post on /pages/contact-us (once-keys pre-set so nothing was sent):
+  Shopify returned to ?contact_posted=true#fcon-form, the stored record matched, so the
+  normal path was sound. The two genuine enquiries since 09/10 (30/10 product enquiry,
+  08/11 ring sizer) have no page views in GA4 at all: those visitors had not accepted
+  cookies. That is consent, not code (W119 covers advanced consent mode).
+- assets/fye-ui.js, GOOGLE SENDS FROM THE PAGE, onPosted: (1) the URL hash is now a hint;
+  when it is empty or unknown (Shopify's hCaptcha /challenge re-post drops it) the stored
+  record decides, and a hash naming a different known form still wins; (2) sends wait for
+  gtag, polling 250ms for up to 10s, instead of one try at load; (3) guide popups send
+  guide_download {method: popup}, the existing key event, not guide_request.
+- Tested offline (node harness, 10 scenarios): old code sent nothing for no-hash and
+  late-gtag returns; new code sends generate_lead + the Ads Enquiry conversion for both,
+  and still sends nothing on reloads, without a stored record, or for unknown ids.
+  node --check passes.
+Ship: `./tools/fye ship "Enquiry tracking: survive hCaptcha return and late gtag (W314)"`.

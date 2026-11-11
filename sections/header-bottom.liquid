@@ -400,6 +400,14 @@
                     assign tmenu = linklists[ts.menu]
                     assign t_edu = linklists[ts.edu_menu]
                     assign t_jew = linklists[ts.jewel_menu]
+                    assign hub_url = ts.hub_url
+                    if hub_url == blank
+                      assign hub_url = ts.label | handleize | prepend: '/pages/'
+                    endif
+                    assign hub_label = ts.hub_label
+                    if hub_label == blank
+                      assign hub_label = ts.label | prepend: 'Explore '
+                    endif
                   -%}
                   <li>
                     <details class="drawer__acc drawer__acc--type">
@@ -408,7 +416,8 @@
                         {% render 'icon', name: 'chevron-down', size: 14 %}
                       </summary>
                       <ul class="drawer__sub">
-                        {%- if ts.page_url != blank and ts.page_label != blank -%}
+                        <li><a href="{{ hub_url }}">{{ hub_label }}</a></li>
+                        {%- if ts.page_url != blank and ts.page_label != blank and ts.page_url != hub_url -%}
                           <li><a href="{{ ts.page_url }}">{{ ts.page_label }}</a></li>
                         {%- endif -%}
                         {%- if ts.all_url != blank -%}
@@ -1368,7 +1377,11 @@
 /* The base .mega__in rule carries gap: 64px, which became a 64px ROW gap
    above the foot row once the foot joined the grid. */
 .fye .mega--jewellery .mega__in { row-gap: 0; }
-.fye .mm__row-head--jtabs { padding-bottom: 0; }
+.fye .mm__row-head--jtabs { padding-bottom: 0; position: relative; }
+/* The landing-page link at the right of the tab row. Positioned, not in
+   flow: in flow it made the row 6px taller than the guides heading, so the
+   two hairlines no longer lined up. 15px sits its text on the tabs' line. */
+.fye .mm__jhub { position: absolute; right: 0; bottom: 15px; justify-items: end; }
 .fye .mm__jtabs { display: flex; align-items: flex-end; gap: var(--s8); min-width: 0; }
 .fye .mm__jtab {
   appearance: none;
@@ -2043,6 +2056,22 @@
           "id": "make_notes",
           "label": "Make explainers",
           "info": "One per line, as Title: explainer"
+        },
+        {
+          "type": "header",
+          "content": "Landing page link"
+        },
+        {
+          "type": "text",
+          "id": "hub_label",
+          "label": "Label",
+          "info": "Blank shows Explore plus the tab label"
+        },
+        {
+          "type": "url",
+          "id": "hub_url",
+          "label": "Link",
+          "info": "Blank links to /pages/ plus the tab label, e.g. /pages/signet-rings"
         },
         {
           "type": "header",

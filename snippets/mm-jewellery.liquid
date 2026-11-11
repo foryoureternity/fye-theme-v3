@@ -57,6 +57,30 @@
           data-fye-jtab="{{ t.id }}" {{ t.shopify_attributes }}>{{ t.settings.label }}</button>
       {%- endfor -%}
     </div>
+    {%- comment -%}
+      Each type's landing page ("mini home page"), at the right of the tab
+      row where the old head links sat (Ed, 11/11/2026). Defaults to
+      /pages/<label handle> and "Explore <label>"; hub_url / hub_label
+      override. One per type, stacked like the panes so it swaps with them.
+    {%- endcomment -%}
+    <div class="mm__jstack mm__jhub">
+      {%- for t in types -%}
+        {%- liquid
+          assign ts = t.settings
+          assign hub_url = ts.hub_url
+          if hub_url == blank
+            assign hub_url = ts.label | handleize | prepend: '/pages/'
+          endif
+          assign hub_label = ts.hub_label
+          if hub_label == blank
+            assign hub_label = ts.label | prepend: 'Explore '
+          endif
+        -%}
+        <div class="mm__jpane{% if forloop.first %} is-active{% endif %}" data-fye-jpane="{{ t.id }}" {% unless forloop.first %}inert{% endunless %}>
+          <a class="mm__viewall mm__viewall--plain" href="{{ hub_url }}">{{ hub_label }}</a>
+        </div>
+      {%- endfor -%}
+    </div>
   </div>
 
   <div class="mm__jstack">
@@ -179,7 +203,13 @@
 
 <div class="mm__jfoot mm__jstack">
   {%- for t in types -%}
-    {%- assign ts = t.settings -%}
+    {%- liquid
+      assign ts = t.settings
+      assign hub_url = ts.hub_url
+      if hub_url == blank
+        assign hub_url = ts.label | handleize | prepend: '/pages/'
+      endif
+    -%}
     <div class="mm__jpane{% if forloop.first %} is-active{% endif %}" data-fye-jpane="{{ t.id }}" {% unless forloop.first %}inert{% endunless %}>
       {%- if ts.notes != blank -%}
         <ul class="mm__notes">
@@ -190,7 +220,8 @@
         <span></span>
       {%- endif -%}
       <span class="mm__head-links">
-        {%- if ts.page_url != blank and ts.page_label != blank -%}
+        {%- comment -%} Skipped when it is the same page as the hub link above. {%- endcomment -%}
+        {%- if ts.page_url != blank and ts.page_label != blank and ts.page_url != hub_url -%}
           <a class="mm__viewall mm__viewall--plain" href="{{ ts.page_url }}">{{ ts.page_label }}</a>
         {%- endif -%}
         {%- if ts.all_url != blank -%}

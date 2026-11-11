@@ -29,6 +29,11 @@
         "type": "shopify://apps/xcloud-search-filter/blocks/cloudsearch_opt/8ddbd0bf-e311-492e-ab28-69d0ad268fac",
         "disabled": false,
         "settings": {}
+      },
+      "12412247409707363845": {
+        "type": "shopify://apps/contentsquare-analytics/blocks/csq_tag_snippet_script/019a7cb2-3ace-7c1e-bb5d-112ee54f5310",
+        "disabled": false,
+        "settings": {}
       }
     }
   },

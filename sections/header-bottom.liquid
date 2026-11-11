@@ -1412,8 +1412,13 @@
   opacity: 0;
   transition: opacity 180ms ease, visibility 0s linear 180ms;
 }
+/* inherit, NOT visible (11/11/2026). A child set to visibility: visible
+   shows through a visibility: hidden parent, so with the panel closed the
+   active pane was still invisible-but-hoverable, and hovering the page
+   where it sits opened the whole panel (:hover on the nav item). inherit
+   takes the panel's own state: hidden when closed, visible when open. */
 .fye .mm__jstack > .mm__jpane.is-active {
-  visibility: visible;
+  visibility: inherit;
   opacity: 1;
   transition: opacity 180ms ease, visibility 0s;
 }

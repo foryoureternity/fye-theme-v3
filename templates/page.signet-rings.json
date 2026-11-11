@@ -3,37 +3,304 @@
     "hero": {
       "type": "fye-hero",
       "settings": {
-        "band": "teal",
-        "align": "center",
+        "band": "ivory",
+        "align": "left",
+        "image": "shopify://shop_images/signet-page-hero.jpg",
+        "image_alt": "A hand wearing a gold signet ring engraved with a family crest, beside a wax seal and a fountain pen",
         "logo_url": "https://cdn.shopify.com/s/files/1/0972/5391/7056/files/temp-logo-white-1.svg?v=1771834133",
         "logo_alt": "For Your Eternity",
         "logo_width": 250,
         "heading": "Signet rings by",
         "heading_style": "sentence",
-        "subheading": "Oval, cushion and round signet rings in 9ct or 18ct gold or platinum, plain, engraved with initials or a family crest, or stone-set, made to order in our London workshop and hallmarked.",
-        "button_label": "Start a bespoke enquiry",
-        "button_link": "/pages/contact-us#popup-contact"
+        "subheading": "Signet rings in 9ct, 14ct and 18ct gold and platinum, in ten face shapes from a fine little-finger oval to a heavy traditional cushion. Made to order, hallmarked, and engraved with initials, a crest or a working seal.",
+        "button_label": "View all signet rings",
+        "button_link": "shopify://collections/signet-rings",
+        "button2_label": "Book a free consultation",
+        "button2_link": "/pages/contact-us#popup-contact"
       }
     },
-    "know": {
+    "intro": {
+      "type": "fye-rich-text",
+      "settings": {
+        "band": "ivory",
+        "narrow": true,
+        "variant": "default",
+        "eyebrow": "Start here",
+        "heading": "What are you choosing between?",
+        "body": "<p>Our signet rings come in ten face shapes and two makes, cast and die-struck, in 9ct, 14ct or 18ct gold, and platinum on most designs. Each is made to order in the UK in solid gold or platinum, and hallmarked. Choose the face for the finger it will be worn on, then the engraving: initials, a motif or crest, or a seal cut in reverse for wax.</p><p>Read how to <a href=\"/pages/find-your-ring-size\">find your ring size</a>, <a href=\"/pages/order-a-free-ring-sizer\">order a free ring sizer</a>, or <a href=\"/pages/contact-us#popup-contact\">book a free consultation</a>.</p>"
+      }
+    },
+    "makes": {
+      "type": "about-columns-four",
+      "blocks": {
+        "make_1": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/signet-page-cast.jpg",
+            "title": "Cast",
+            "button_label": "View signet rings",
+            "button_link": "shopify://collections/signet-rings-cast"
+          }
+        },
+        "make_2": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/signet-page-die-struck.jpg",
+            "title": "Die-struck",
+            "button_label": "View signet rings",
+            "button_link": "shopify://collections/signet-rings-die-struck"
+          }
+        },
+        "make_3": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/signet-page-seal.jpg",
+            "title": "Ready for seal engraving",
+            "button_label": "View signet rings",
+            "button_link": "shopify://collections/signet-rings-seal-engraving"
+          }
+        }
+      },
+      "block_order": [
+        "make_1",
+        "make_2",
+        "make_3"
+      ],
+      "settings": {
+        "top_heading": "Shop by make",
+        "col_dk": 3,
+        "band": "mist"
+      }
+    },
+    "shapes": {
+      "type": "collections-list",
+      "blocks": {
+        "shape_1": {
+          "type": "collection_item",
+          "settings": {
+            "image": "shopify://shop_images/fye-signet-oval.svg",
+            "collection_title": "Oval",
+            "collection_link": "shopify://collections/signet-rings-oval"
+          }
+        },
+        "shape_2": {
+          "type": "collection_item",
+          "settings": {
+            "image": "shopify://shop_images/fye-signet-cushion.svg",
+            "collection_title": "Cushion",
+            "collection_link": "shopify://collections/signet-rings-cushion"
+          }
+        },
+        "shape_3": {
+          "type": "collection_item",
+          "settings": {
+            "image": "shopify://shop_images/fye-signet-rectangle.svg",
+            "collection_title": "Rectangle",
+            "collection_link": "shopify://collections/signet-rings-rectangle"
+          }
+        },
+        "shape_4": {
+          "type": "collection_item",
+          "settings": {
+            "image": "shopify://shop_images/fye-signet-round.svg",
+            "collection_title": "Round",
+            "collection_link": "shopify://collections/signet-rings-round"
+          }
+        },
+        "shape_5": {
+          "type": "collection_item",
+          "settings": {
+            "image": "shopify://shop_images/fye-signet-hexagon.svg",
+            "collection_title": "Hexagon",
+            "collection_link": "shopify://collections/signet-rings-hexagon"
+          }
+        },
+        "shape_6": {
+          "type": "collection_item",
+          "settings": {
+            "image": "shopify://shop_images/fye-signet-horizontal-oval.svg",
+            "collection_title": "Horizontal oval",
+            "collection_link": "shopify://collections/signet-rings-horizontal-oval"
+          }
+        },
+        "shape_7": {
+          "type": "collection_item",
+          "settings": {
+            "image": "shopify://shop_images/fye-signet-square.svg",
+            "collection_title": "Square",
+            "collection_link": "shopify://collections/signet-rings-square"
+          }
+        },
+        "shape_8": {
+          "type": "collection_item",
+          "settings": {
+            "image": "shopify://shop_images/fye-signet-shield.svg",
+            "collection_title": "Shield",
+            "collection_link": "shopify://collections/signet-rings-shield"
+          }
+        },
+        "shape_9": {
+          "type": "collection_item",
+          "settings": {
+            "image": "shopify://shop_images/fye-signet-octagon.svg",
+            "collection_title": "Octagon",
+            "collection_link": "shopify://collections/signet-rings-octagon"
+          }
+        },
+        "shape_10": {
+          "type": "collection_item",
+          "settings": {
+            "image": "shopify://shop_images/fye-signet-heart.svg",
+            "collection_title": "Heart",
+            "collection_link": "shopify://collections/signet-rings-heart"
+          }
+        }
+      },
+      "block_order": [
+        "shape_1",
+        "shape_2",
+        "shape_3",
+        "shape_4",
+        "shape_5",
+        "shape_6",
+        "shape_7",
+        "shape_8",
+        "shape_9",
+        "shape_10"
+      ],
+      "settings": {
+        "top_heading": "Shop by face shape",
+        "heading_mb": "Shop by face shape",
+        "head_btn_label": "View all signet rings",
+        "mobile_view_all_link": "shopify://collections/signet-rings",
+        "col_dk": 10,
+        "band": "ivory"
+      }
+    },
+    "start": {
+      "type": "fye-cards",
+      "blocks": {
+        "c1": {
+          "type": "card",
+          "settings": {
+            "heading": "Choose a ring, then the engraving",
+            "body": "<p>Pick the face, metal and size, and add engraving on the ring page. <a href=\"/collections/signet-rings\">View all signet rings</a>.</p>"
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "heading": "Start with your crest or initials",
+            "body": "<p>Send us the artwork and we will suggest the face shape and size that suit it. <a href=\"/pages/contact-us#popup-contact\">Send us your artwork</a>.</p>"
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "heading": "Design it with us",
+            "body": "<p>A face we do not list, a stone set in the face, or a family signet remade. <a href=\"/pages/contact-us#popup-contact\">Start a bespoke enquiry</a>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "settings": {
+        "show_head": true,
+        "heading": "Three ways to start",
+        "columns": "3",
+        "band": "white"
+      }
+    },
+    "featured": {
+      "type": "featured-collection",
+      "settings": {
+        "top_heading": "Featured signet rings",
+        "collection": "featured-signet-rings",
+        "limit": 8,
+        "head_btn_label": "View all",
+        "head_btn_link": "/collections/signet-rings",
+        "col_dk": "4",
+        "col_mb": "2",
+        "band": "white"
+      }
+    },
+    "compare": {
+      "type": "fye-table",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "cells": "How it is made|Molten metal poured into a mould|Solid metal stamped under great pressure"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "cells": "The face|Crisp shapes and fine detail|Denser metal that keeps engraving sharp"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "cells": "Gold colours|Yellow or white|Yellow, white or rose"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "cells": "Platinum|On every cast design|On 13 of 19 designs"
+          }
+        },
+        "r5": {
+          "type": "row",
+          "settings": {
+            "cells": "Designs in our range|21|19"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5"
+      ],
+      "settings": {
+        "show_head": true,
+        "heading": "Cast or die-struck: the short version",
+        "headers": " |Cast|Die-struck",
+        "first_col_bold": true,
+        "col1_width": 0,
+        "narrow": true,
+        "band": "ivory",
+        "note": "Both are solid gold or platinum, made to order and hallmarked."
+      }
+    },
+    "face_size": {
       "type": "fye-media-text",
       "settings": {
         "band": "sage",
         "reverse": false,
         "full_bleed": true,
-        "image": "shopify://shop_images/fffg1_5.png",
-        "image_alt": "Loose diamonds and a jeweller's tools on a workbench",
+        "image": "shopify://shop_images/signet-page-face-size.jpg",
+        "image_alt": "Four signet rings with faces of different sizes above paper cut-outs of their faces, with a steel ruler and a ring sizer",
         "placeholder": "Image",
-        "heading": "What makes a signet ring sit right?",
-        "body": "<p>A signet ring is judged by its face. An oval face of about 12 by 10 mm reads as a small, everyday signet; around 16 by 13 mm is a heavy, traditional signet. The weight behind the face matters as much: a thin shank under a large face will turn on the finger. We make to the face size and weight you choose, and show you both before you order.</p><ul><li>Worn on the little finger by tradition, on any finger today. Measure the finger it will live on with our free UK ring sizer.</li><li>Engraved on the surface to read correctly on the ring, or seal-engraved in reverse to print the right way in wax.</li><li>Hallmarked: 9ct gold 375, 18ct 750, platinum 950.</li></ul>",
+        "heading": "How big should the face be?",
+        "body": "<p>Choose the face for the finger it will live on. Every listing gives the face in millimetres, so cut that size from paper, lay it on your finger and look in a mirror before you order.</p><ul><li>Little finger: faces from 8 x 7mm to about 12 x 10mm sit neatly without catching on the next finger.</li><li>Ring or middle finger, or a statement little-finger ring: 13 x 11mm to 16 x 13mm, the traditional weight for a crest.</li><li>Horizontal faces sit across the finger and suit initials set in a line.</li><li>Face depth matters for engraving: each listing gives it, and only deeper faces take a seal.</li></ul>",
         "eyebrow": "Before you choose"
       },
       "blocks": {
         "btn": {
           "type": "button",
           "settings": {
-            "label": "Talk it through with us",
-            "link": "/pages/contact-us#popup-contact",
+            "label": "Order a free ring sizer",
+            "link": "shopify://pages/order-a-free-ring-sizer",
             "style": "btn"
           }
         }
@@ -42,17 +309,89 @@
         "btn"
       ]
     },
+    "engraving": {
+      "type": "fye-media-text",
+      "settings": {
+        "band": "mist",
+        "reverse": true,
+        "full_bleed": true,
+        "image": "shopify://shop_images/signet-page-engraving.jpg",
+        "image_alt": "A gold cushion signet ring engraved with the letter A, beside a pencil drawing of the same letter and an engraving tool",
+        "placeholder": "Image",
+        "heading": "Engraved for you, priced before you order",
+        "body": "<p>Choose the engraving on the ring page and its price is added to your order there, so nothing is quoted later. Initials, a crest, a working seal or a few words inside the band: each type is set out below.</p><p>Want to see it first? Ask for a proof when you order.</p>",
+        "eyebrow": "Personalise it"
+      },
+      "blocks": {
+        "btn": {
+          "type": "button",
+          "settings": {
+            "label": "View all signet rings",
+            "link": "shopify://collections/signet-rings",
+            "style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "btn"
+      ]
+    },
+    "engraving_types": {
+      "type": "fye-cards",
+      "blocks": {
+        "e1": {
+          "type": "card",
+          "settings": {
+            "heading": "Initials",
+            "body": "<p>One, two or three letters on the face, in block capitals, serif, script or an interlaced monogram, or let us advise. &pound;30 for one letter, &pound;52.50 for two, &pound;75 for three. Available on every signet.</p>"
+          }
+        },
+        "e2": {
+          "type": "card",
+          "settings": {
+            "heading": "Motif or crest",
+            "body": "<p>Your family crest, an emblem or a symbol, in one of three styles. Classic, a clean cut outline: &pound;120. Inverted, with the background cut away: &pound;180. Layered, modelled in depth: &pound;225. Send a photo or drawing after you order; if it needs redrawing first, we quote that before we start.</p>"
+          }
+        },
+        "e3": {
+          "type": "card",
+          "settings": {
+            "heading": "Seal engraving",
+            "body": "<p>Cut deep and in reverse, so the ring presses a crisp, right-way-round impression into sealing wax, the signet's original purpose. &pound;375. It needs a face at least 1.5mm deep, so it is offered on 35 of our 40 signets, and each listing says whether it is available.</p>"
+          }
+        },
+        "e4": {
+          "type": "card",
+          "settings": {
+            "heading": "Inside the band",
+            "body": "<p>A name, a date or a few words, up to 35 characters, inside the shank, in Classic Script, Elegant Serif, Modern Sans or Block Capitals. &pound;55, and it can be added to any face engraving.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "e1",
+        "e2",
+        "e3",
+        "e4"
+      ],
+      "settings": {
+        "show_head": true,
+        "heading": "Types of engraving",
+        "columns": "4",
+        "band": "white"
+      }
+    },
     "bespoke": {
       "type": "fye-media-text",
       "settings": {
         "band": "sage",
         "reverse": true,
         "full_bleed": true,
-        "image": "shopify://shop_images/Ring_11.png",
-        "image_alt": "A diamond ring resting on design drawings",
+        "image": "shopify://shop_images/signet-page-bespoke.jpg",
+        "image_alt": "Sketches of signet faces, a carved wax model and a finished bloodstone signet engraved with a family crest",
         "placeholder": "Image",
         "heading": "A signet ring designed with you",
-        "body": "<p>A crest you already have, a monogram we draw for you, a stone from a family ring, or a face shape no one else makes. We design it in CAD and show you the render and the engraving proof before anything is made.</p>"
+        "body": "<p>A face shape we do not list, a stone set into the face, a crest drawn from scratch, or a family signet remade at a new size. We design it with you and show you the render and the engraving proof before anything is made.</p>"
       },
       "blocks": {
         "btn": {
@@ -98,8 +437,8 @@
         "why_1": {
           "type": "shipping",
           "settings": {
-            "illustration": "diamond",
-            "text": "<p>Ethically sourced diamonds, gemstones and metals</p>"
+            "illustration": "rings",
+            "text": "<p>Solid gold and platinum only</p>"
           }
         },
         "why_2": {
@@ -112,22 +451,22 @@
         "why_3": {
           "type": "shipping",
           "settings": {
-            "illustration": "hallmark",
-            "text": "<p>Hallmarked at a UK Assay Office</p>"
+            "illustration": "custom",
+            "text": "<p>Engraving priced before you order</p>"
           }
         },
         "why_4": {
           "type": "shipping",
           "settings": {
-            "illustration": "education",
-            "text": "<p>Honest advice on what is worth paying for</p>"
+            "illustration": "hallmark",
+            "text": "<p>Hallmarked at a UK Assay Office</p>"
           }
         },
         "why_5": {
           "type": "shipping",
           "settings": {
-            "illustration": "custom",
-            "text": "<p>Made in our London workshop, or designed with you from scratch</p>"
+            "illustration": "education",
+            "text": "<p>Made to order in the UK, with honest advice before you choose</p>"
           }
         },
         "why_6": {
@@ -135,6 +474,20 @@
           "settings": {
             "illustration": "shipping",
             "text": "<p>Free, tracked and insured UK delivery</p>"
+          }
+        },
+        "why_7": {
+          "type": "shipping",
+          "settings": {
+            "illustration": "resize",
+            "text": "<p>One free resize within 12 months</p>"
+          }
+        },
+        "why_8": {
+          "type": "shipping",
+          "settings": {
+            "illustration": "warranty",
+            "text": "<p>Lifetime warranty against manufacturing defects</p>"
           }
         }
       },
@@ -144,11 +497,13 @@
         "why_3",
         "why_4",
         "why_5",
-        "why_6"
+        "why_6",
+        "why_7",
+        "why_8"
       ],
       "settings": {
         "top_heading": "Why choose For Your Eternity?",
-        "col_dk": "3",
+        "col_dk": "4",
         "band": "white"
       }
     },
@@ -162,7 +517,7 @@
         "image_alt": "A ring presented during a personalised consultation",
         "placeholder": "Image",
         "heading": "Book a personalised consultation",
-        "body": "<ul><li>Choose the face shape and size for the finger it will be worn on.</li><li>Decide plain, engraved or stone-set.</li><li>Get a crest or monogram drawn and proofed before it is cut.</li><li>Order a free ring sizer and confirm the size with us.</li></ul>",
+        "body": "<ul><li>Try face sizes against your finger before you choose.</li><li>Decide on initials, a crest or a working seal.</li><li>Bring a crest, a sketch or an old signet and we will show you how it engraves.</li><li>Order a free ring sizer and confirm the size with us.</li></ul>",
         "eyebrow": "Personal guidance"
       },
       "blocks": {
@@ -192,50 +547,71 @@
         "q2": {
           "type": "accor_item",
           "settings": {
-            "title": "Which finger is a signet ring worn on?",
-            "content": "<p>By tradition the little finger of the non-dominant hand, where a family signet could be used as a seal. Today it is worn on any finger, and sometimes as a wedding ring. Whichever you choose, measure that finger: a little finger is usually several sizes smaller than a ring finger. We post a free UK ring sizer.</p>"
+            "title": "Can anyone wear a signet ring?",
+            "content": "<p>Yes. Signet rings are not reserved for a gender, a family or a tradition. Choose the face size, band width and design around your hand and what you like, and wear it however feels right to you.</p>"
           }
         },
         "q3": {
           "type": "accor_item",
           "settings": {
-            "title": "Can anyone wear a signet ring?",
-            "content": "<p>Yes. Signet rings are not reserved for a gender, a family or a tradition. Choose the face size, band width and design around your hand and what you like, and wear it however feels right to you.</p>"
+            "title": "Which finger is a signet ring worn on?",
+            "content": "<p>In Britain the convention is the little finger of the left hand, a habit of the royal family since Queen Victoria's sons. Today it is worn on any finger, and sometimes as a wedding ring. Whichever you choose, measure that finger: a little finger is usually several sizes smaller than a ring finger. We post a free UK ring sizer.</p>"
           }
         },
         "q4": {
           "type": "accor_item",
           "settings": {
-            "title": "What is the difference between engraving and seal engraving?",
-            "content": "<p>Surface engraving cuts the design so it reads correctly on the ring, which suits initials and monograms. Seal engraving is cut deeper and in reverse, so that pressed into wax it prints the right way round, which is the traditional way to carry a crest. If you want a working seal, tell us at the start; we quote both before you order.</p>"
+            "title": "Which face shape and size should I choose?",
+            "content": "<p>Oval is the classic and takes a crest or three initials comfortably. Cushion has softer corners and more room for detail. The shield is the heraldic shape, made for a crest. Round, square, hexagon and octagon faces feel more contemporary, and the heart suits a single initial. For size, cut the face from paper at the size the listing gives and try it on the finger it will be worn on.</p>"
           }
         },
         "q5": {
           "type": "accor_item",
           "settings": {
-            "title": "Oval, cushion, round or square: which face should I choose?",
-            "content": "<p>Oval is the classic and takes a crest or three initials comfortably. Cushion has softer corners and suits a single initial. Round and square faces feel more contemporary and suit a plain or stone-set finish. Bring a photograph of a signet you like and we will size the face to your finger.</p>"
+            "title": "Cast or die-struck: what is the difference?",
+            "content": "<p>A cast signet is made by pouring molten metal into a mould, which gives fine, crisp shapes. A die-struck signet is stamped from solid metal under great pressure, which makes the face denser so engraving stays sharp. Both are solid metal and hallmarked. Die-struck rings are also made in rose gold.</p>"
           }
         },
         "q6": {
           "type": "accor_item",
           "settings": {
-            "title": "9ct, 18ct or platinum?",
-            "content": "<p>9ct gold, hallmarked 375, is the traditional metal for a signet: hard-wearing and paler in colour. 18ct, hallmarked 750, has a richer colour but is softer, so it shows wear sooner. Platinum, hallmarked 950, is the heaviest and holds fine engraved detail well. We show the weight of each option before you order.</p>"
+            "title": "What is the difference between engraving and seal engraving?",
+            "content": "<p>Surface engraving reads correctly on the ring and suits initials and monograms. Seal engraving is cut deeper and in reverse, so that pressed into wax it prints the right way round. It needs a deep face, so it is offered on most of our signets, and each listing says whether it is available.</p>"
           }
         },
         "q7": {
+          "type": "accor_item",
+          "settings": {
+            "title": "How much does engraving cost?",
+            "content": "<p>Initials cost &pound;30 to &pound;75 for one to three letters, a motif or crest &pound;120 to &pound;225 depending on style, and a seal engraving &pound;375; engraving inside the band is &pound;55. You choose it on the ring page and the price is shown before you order.</p>"
+          }
+        },
+        "q8": {
+          "type": "accor_item",
+          "settings": {
+            "title": "Can you engrave our family crest?",
+            "content": "<p>Yes. Send us a photograph, a drawing or an old signet, and we will prepare it for engraving; we can send you a proof first if you would like one. If your artwork needs redrawing first we quote that before starting. If you are unsure whether a crest is your family's, the College of Arms can advise.</p>"
+          }
+        },
+        "q9": {
+          "type": "accor_item",
+          "settings": {
+            "title": "9ct, 14ct, 18ct or platinum?",
+            "content": "<p>9ct gold, hallmarked 375, is the traditional signet metal: hard-wearing and paler in colour. 14ct, hallmarked 585, sits between the two. 18ct, hallmarked 750, has the richest colour but is softer, so it shows wear sooner. Platinum, hallmarked 950, is the heaviest and holds fine engraving well; it is offered on most designs.</p>"
+          }
+        },
+        "q10": {
           "type": "accor_item",
           "settings": {
             "title": "Can a signet ring be resized later?",
             "content": "<p>Usually. A plain or engraved signet is resized at the back of the shank without touching the face. Stone-set signets can be adjusted within a size or two with care. Every ring we make includes one free resize within 12 months of delivery, but getting the size right before engraving is always best.</p>"
           }
         },
-        "q8": {
+        "q11": {
           "type": "accor_item",
           "settings": {
             "title": "How long does a signet ring take?",
-            "content": "<p>We confirm the making time before you order, with initials or a monogram included. A hand-engraved crest adds about a week, and a working seal about two weeks. Every engraving is proofed before it is cut, because engraved rings are made for you alone.</p>"
+            "content": "<p>Every signet is made to order, and we confirm the making time before you order. An engraved crest adds about a week, and a seal engraving about two weeks.</p>"
           }
         }
       },
@@ -247,7 +623,10 @@
         "q5",
         "q6",
         "q7",
-        "q8"
+        "q8",
+        "q9",
+        "q10",
+        "q11"
       ],
       "settings": {
         "top_heading": "Frequently asked questions",
@@ -259,17 +638,17 @@
         "band": "white"
       }
     },
-    "commitment": {
+    "guarantee": {
       "type": "fye-media-text",
       "settings": {
         "band": "mist",
         "reverse": false,
         "full_bleed": true,
-        "image": "shopify://shop_images/fffg1_4.png",
-        "image_alt": "A diamond ring beside pieces of gold ready for making",
+        "image": "shopify://shop_images/signet-page-guarantee.jpg",
+        "image_alt": "A white gold signet ring engraved with a family crest in an open teal presentation box, beside a polishing cloth",
         "placeholder": "Image",
-        "heading": "Our commitment to you",
-        "body": "<ul><li>Every centre and loose diamond comes with a GIA or IGI certificate. Stones in multi-stone pieces are not individually certified; the listing states their grade.</li><li>Lifetime warranty against manufacturing defects.</li><li>Free inspection and cleaning for life.</li><li>One free resize within 12 months of delivery.</li><li>Every engraving proofed before it is cut.</li><li>If a piece arrives faulty or not as ordered, you can reject it for a full refund within 30 days; after that we repair or replace it.</li><li>Made-to-order and bespoke pieces are made for you, so we talk each order through before we start. Ready-made pieces can be returned within 14 days of delivery, unworn and in their original packaging.</li></ul>"
+        "heading": "The For Your Eternity guarantee",
+        "body": "<ul><li>Solid gold and platinum, hallmarked.</li><li>Lifetime warranty against manufacturing defects.</li><li>Free inspection and cleaning for life.</li><li>One free resize within 12 months of delivery.</li><li>A proof of your engraving before it is cut, if you would like one.</li><li>Signet rings are made and engraved for you, so we talk each order through before we start. If a piece arrives faulty or not as ordered, you can reject it for a full refund within 30 days; after that we repair or replace it.</li></ul>"
       },
       "blocks": {
         "btn": {
@@ -328,37 +707,21 @@
   },
   "order": [
     "hero",
-    "know",
+    "intro",
+    "makes",
+    "shapes",
+    "start",
+    "featured",
+    "compare",
+    "face_size",
+    "engraving",
+    "engraving_types",
     "bespoke",
     "guide",
     "why",
     "consult",
     "faq",
-    "commitment",
+    "guarantee",
     "closing"
   ]
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

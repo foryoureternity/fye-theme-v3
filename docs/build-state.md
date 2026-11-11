@@ -4301,3 +4301,24 @@ Ship: `./tools/fye ship "Enquiry tracking: survive hCaptcha return and late gtag
 - Copy decided by Ed: quick link "About Signet Rings"; Personalise links "Order a
   Free Ring Sizer" (guides keep "Find Your Ring Size"); explainers as handoff.
 Ship: `./tools/fye ship "Jewellery mega panel: tabs for Bracelets and Signet Rings"`.
+
+## 11/11/2026: Signet rings hub rebuilt on the ring-page spine
+- From the design brief "Bracelets and Signet Rings Pages: Design Brief" (Claude Doc, 10/11/2026),
+  built from existing sections only; Claude Design's optional face-size chart and engraving
+  illustrations are not in this release.
+- templates/page.signet-rings.json: 17 sections in the engagement page's order: ivory photo hero,
+  Start here, Shop by make (3 photo tiles, band mist: about-columns-four has no teal option),
+  Shop by face shape (10 icons), Three ways to start, Featured (featured-signet-rings), Cast or
+  die-struck table, face size panel, engraving panel, Types of engraving (4 cards with prices from
+  the signet-face-engraving add-on and inside engraving), bespoke, care guide, 8 why points,
+  consultation, 11 FAQs (FAQ schema on), The For Your Eternity guarantee, closing.
+- Decisions by Ed (10/11/2026): "Made to order in the UK", not the London workshop; crest adds about a
+  week and seal about two; proofs offered, never a step before ordering; family crest used in images.
+- templates/product.signet.json: face_engraving_note no longer says "Hand engraved";
+  face_design_note makes the proof optional.
+- Store data: Files signet-page-{hero,face-size,engraving,bespoke,guarantee}.jpg (uploaded by Ed),
+  signet-page-{cast,die-struck,seal}.jpg (page-owned copies of product photos), fye-signet-*.svg
+  (10, MediaImage copies of the theme assets for collections-list). Manual collection
+  featured-signet-rings (8, seo.hidden, published).
+- Validator: page.signet-rings and product.signet clean.
+Ship: `./tools/fye ship "Signet rings hub: ring-page structure, shop sections, new copy and images"`.

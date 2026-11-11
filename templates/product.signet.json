@@ -17,7 +17,9 @@
         "engraving_placeholder": "Engraving (35 characters max)",
         "engraving_max": 35,
         "engraving_fonts": "Classic Script|Elegant Serif|Modern Sans|Block Capitals",
-        "face_engraving_product": "signet-face-engraving"
+        "face_engraving_product": "signet-face-engraving",
+        "face_engraving_note": "Engraved on the face of your signet ring.",
+        "face_design_note": "After you order we will ask for your design (a photo or a drawing is fine). We can send you a proof before we engrave if you would like one. If it needs redrawing first, we will quote for that before we start."
       }
     },
     "related": {
@@ -43,7 +45,3 @@
     "related"
   ]
 }
-
-
-
-

@@ -25,7 +25,6 @@
         "band": "ivory",
         "narrow": true,
         "variant": "default",
-        "eyebrow": "Start here",
         "heading": "What are you choosing between?",
         "body": "<p>Our signet rings come in ten face shapes, in 9ct, 14ct or 18ct yellow, white or rose gold, and platinum on most designs. Each is made to order in the UK in solid gold or platinum, and hallmarked. Choose the face for the finger it will be worn on, then the engraving: initials, a motif or crest, or a seal cut in reverse for wax.</p><p>Read how to <a href=\"/pages/find-your-ring-size\">find your ring size</a>, <a href=\"/pages/order-a-free-ring-sizer\">order a free ring sizer</a>, or <a href=\"/pages/contact-us#popup-contact\">book a free consultation</a>.</p>"
       }
@@ -575,9 +574,9 @@
   },
   "order": [
     "hero",
+    "start",
     "intro",
     "shapes",
-    "start",
     "featured",
     "face_size",
     "engraving_types",
@@ -590,4 +589,3 @@
     "closing"
   ]
 }
-

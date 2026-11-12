@@ -4333,4 +4333,6 @@ Ship: `./tools/fye ship "Signet rings hub: ring-page structure, shop sections, n
   size panel copy cut to three bullets (it was taller than its photo and sat tight to the top).
 - Still showing make: the Jewellery mega panel's "Shop by Make" column (header-group.json) and
   the "Die-Struck" product titles. Not changed, awaiting Ed.
-Ship: `./tools/fye ship "Signet rings hub: drop cast and die-struck sections, spacing"`.
+- Order changed (Ed): Three ways to start now sits under the hero, then "What are you choosing
+  between?" without its "Start here" eyebrow.
+Ship: `./tools/fye ship "Signet rings hub: drop cast and die-struck sections, spacing, new order"`.

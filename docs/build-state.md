@@ -4322,3 +4322,15 @@ Ship: `./tools/fye ship "Jewellery mega panel: tabs for Bracelets and Signet Rin
   featured-signet-rings (8, seo.hidden, published).
 - Validator: page.signet-rings and product.signet clean.
 Ship: `./tools/fye ship "Signet rings hub: ring-page structure, shop sections, new copy and images"`.
+
+## 12/11/2026: Signet hub, cast and die-struck no longer shown
+- Ed: customers will not care about the make. Removed "Shop by make" and "Cast or die-struck:
+  the short version" from page.signet-rings.json, the cast/die-struck FAQ, and the "two makes"
+  line in Start here; the metals FAQ now says rose gold is offered on many designs.
+- Also removed the "Personalise it / Engraved for you, priced before you order" panel (Ed); its
+  proof line moved into the Motif or crest card.
+- Spacing: Shop by face shape band ivory -> mist so it no longer runs into Start here; the face
+  size panel copy cut to three bullets (it was taller than its photo and sat tight to the top).
+- Still showing make: the Jewellery mega panel's "Shop by Make" column (header-group.json) and
+  the "Die-Struck" product titles. Not changed, awaiting Ed.
+Ship: `./tools/fye ship "Signet rings hub: drop cast and die-struck sections, spacing"`.

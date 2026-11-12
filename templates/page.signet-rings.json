@@ -27,52 +27,7 @@
         "variant": "default",
         "eyebrow": "Start here",
         "heading": "What are you choosing between?",
-        "body": "<p>Our signet rings come in ten face shapes and two makes, cast and die-struck, in 9ct, 14ct or 18ct gold, and platinum on most designs. Each is made to order in the UK in solid gold or platinum, and hallmarked. Choose the face for the finger it will be worn on, then the engraving: initials, a motif or crest, or a seal cut in reverse for wax.</p><p>Read how to <a href=\"/pages/find-your-ring-size\">find your ring size</a>, <a href=\"/pages/order-a-free-ring-sizer\">order a free ring sizer</a>, or <a href=\"/pages/contact-us#popup-contact\">book a free consultation</a>.</p>"
-      }
-    },
-    "makes": {
-      "type": "about-columns-four",
-      "blocks": {
-        "make_1": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "image": "shopify://shop_images/signet-page-cast.jpg",
-            "title": "Cast",
-            "button_label": "View signet rings",
-            "button_link": "shopify://collections/signet-rings-cast"
-          }
-        },
-        "make_2": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "image": "shopify://shop_images/signet-page-die-struck.jpg",
-            "title": "Die-struck",
-            "button_label": "View signet rings",
-            "button_link": "shopify://collections/signet-rings-die-struck"
-          }
-        },
-        "make_3": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "image": "shopify://shop_images/signet-page-seal.jpg",
-            "title": "Ready for seal engraving",
-            "button_label": "View signet rings",
-            "button_link": "shopify://collections/signet-rings-seal-engraving"
-          }
-        }
-      },
-      "block_order": [
-        "make_1",
-        "make_2",
-        "make_3"
-      ],
-      "settings": {
-        "top_heading": "Shop by make",
-        "col_dk": 3,
-        "band": "mist"
+        "body": "<p>Our signet rings come in ten face shapes, in 9ct, 14ct or 18ct yellow, white or rose gold, and platinum on most designs. Each is made to order in the UK in solid gold or platinum, and hallmarked. Choose the face for the finger it will be worn on, then the engraving: initials, a motif or crest, or a seal cut in reverse for wax.</p><p>Read how to <a href=\"/pages/find-your-ring-size\">find your ring size</a>, <a href=\"/pages/order-a-free-ring-sizer\">order a free ring sizer</a>, or <a href=\"/pages/contact-us#popup-contact\">book a free consultation</a>.</p>"
       }
     },
     "shapes": {
@@ -177,7 +132,7 @@
         "head_btn_label": "View all signet rings",
         "mobile_view_all_link": "shopify://collections/signet-rings",
         "col_dk": 10,
-        "band": "ivory"
+        "band": "mist"
       }
     },
     "start": {
@@ -230,58 +185,6 @@
         "band": "white"
       }
     },
-    "compare": {
-      "type": "fye-table",
-      "blocks": {
-        "r1": {
-          "type": "row",
-          "settings": {
-            "cells": "How it is made|Molten metal poured into a mould|Solid metal stamped under great pressure"
-          }
-        },
-        "r2": {
-          "type": "row",
-          "settings": {
-            "cells": "The face|Crisp shapes and fine detail|Denser metal that keeps engraving sharp"
-          }
-        },
-        "r3": {
-          "type": "row",
-          "settings": {
-            "cells": "Gold colours|Yellow or white|Yellow, white or rose"
-          }
-        },
-        "r4": {
-          "type": "row",
-          "settings": {
-            "cells": "Platinum|On every cast design|On 13 of 19 designs"
-          }
-        },
-        "r5": {
-          "type": "row",
-          "settings": {
-            "cells": "Designs in our range|21|19"
-          }
-        }
-      },
-      "block_order": [
-        "r1",
-        "r2",
-        "r3",
-        "r4",
-        "r5"
-      ],
-      "settings": {
-        "show_head": true,
-        "heading": "Cast or die-struck: the short version",
-        "headers": " |Cast|Die-struck",
-        "first_col_bold": true,
-        "col1_width": 0,
-        "narrow": true,
-        "band": "ivory",
-        "note": "Both are solid gold or platinum, made to order and hallmarked."
-      }
-    },
     "face_size": {
       "type": "fye-media-text",
       "settings": {
@@ -292,7 +195,7 @@
         "image_alt": "Four signet rings with faces of different sizes above paper cut-outs of their faces, with a steel ruler and a ring sizer",
         "placeholder": "Image",
         "heading": "How big should the face be?",
-        "body": "<p>Choose the face for the finger it will live on. Every listing gives the face in millimetres, so cut that size from paper, lay it on your finger and look in a mirror before you order.</p><ul><li>Little finger: faces from 8 x 7mm to about 12 x 10mm sit neatly without catching on the next finger.</li><li>Ring or middle finger, or a statement little-finger ring: 13 x 11mm to 16 x 13mm, the traditional weight for a crest.</li><li>Horizontal faces sit across the finger and suit initials set in a line.</li><li>Face depth matters for engraving: each listing gives it, and only deeper faces take a seal.</li></ul>",
+        "body": "<p>Choose the face for the finger it will be worn on. Every listing gives its size in millimetres: cut that size from paper and try it on before you order.</p><ul><li>Little finger: faces up to about 12 x 10mm sit neatly.</li><li>Ring or middle finger, or a statement signet: 13 x 11mm to 16 x 13mm, the traditional size for a crest.</li><li>For a seal, choose a deeper face: each listing says whether seal engraving is offered.</li></ul>",
         "eyebrow": "Before you choose"
       },
       "blocks": {
@@ -301,33 +204,6 @@
           "settings": {
             "label": "Order a free ring sizer",
             "link": "shopify://pages/order-a-free-ring-sizer",
-            "style": "btn"
-          }
-        }
-      },
-      "block_order": [
-        "btn"
-      ]
-    },
-    "engraving": {
-      "type": "fye-media-text",
-      "settings": {
-        "band": "mist",
-        "reverse": true,
-        "full_bleed": true,
-        "image": "shopify://shop_images/signet-page-engraving.jpg",
-        "image_alt": "A gold cushion signet ring engraved with the letter A, beside a pencil drawing of the same letter and an engraving tool",
-        "placeholder": "Image",
-        "heading": "Engraved for you, priced before you order",
-        "body": "<p>Choose the engraving on the ring page and its price is added to your order there, so nothing is quoted later. Initials, a crest, a working seal or a few words inside the band: each type is set out below.</p><p>Want to see it first? Ask for a proof when you order.</p>",
-        "eyebrow": "Personalise it"
-      },
-      "blocks": {
-        "btn": {
-          "type": "button",
-          "settings": {
-            "label": "View all signet rings",
-            "link": "shopify://collections/signet-rings",
             "style": "btn"
           }
         }
@@ -350,7 +226,7 @@
           "type": "card",
           "settings": {
             "heading": "Motif or crest",
-            "body": "<p>Your family crest, an emblem or a symbol, in one of three styles. Classic, a clean cut outline: &pound;120. Inverted, with the background cut away: &pound;180. Layered, modelled in depth: &pound;225. Send a photo or drawing after you order; if it needs redrawing first, we quote that before we start.</p>"
+            "body": "<p>Your family crest, an emblem or a symbol, in one of three styles. Classic, a clean cut outline: &pound;120. Inverted, with the background cut away: &pound;180. Layered, modelled in depth: &pound;225. Send a photo or drawing after you order; if it needs redrawing first, we quote that before we start. Ask for a proof when you order if you would like to see it first.</p>"
           }
         },
         "e3": {
@@ -565,13 +441,6 @@
             "content": "<p>Oval is the classic and takes a crest or three initials comfortably. Cushion has softer corners and more room for detail. The shield is the heraldic shape, made for a crest. Round, square, hexagon and octagon faces feel more contemporary, and the heart suits a single initial. For size, cut the face from paper at the size the listing gives and try it on the finger it will be worn on.</p>"
           }
         },
-        "q5": {
-          "type": "accor_item",
-          "settings": {
-            "title": "Cast or die-struck: what is the difference?",
-            "content": "<p>A cast signet is made by pouring molten metal into a mould, which gives fine, crisp shapes. A die-struck signet is stamped from solid metal under great pressure, which makes the face denser so engraving stays sharp. Both are solid metal and hallmarked. Die-struck rings are also made in rose gold.</p>"
-          }
-        },
         "q6": {
           "type": "accor_item",
           "settings": {
@@ -597,7 +466,7 @@
           "type": "accor_item",
           "settings": {
             "title": "9ct, 14ct, 18ct or platinum?",
-            "content": "<p>9ct gold, hallmarked 375, is the traditional signet metal: hard-wearing and paler in colour. 14ct, hallmarked 585, sits between the two. 18ct, hallmarked 750, has the richest colour but is softer, so it shows wear sooner. Platinum, hallmarked 950, is the heaviest and holds fine engraving well; it is offered on most designs.</p>"
+            "content": "<p>9ct gold, hallmarked 375, is the traditional signet metal: hard-wearing and paler in colour. 14ct, hallmarked 585, sits between the two. 18ct, hallmarked 750, has the richest colour but is softer, so it shows wear sooner. Platinum, hallmarked 950, is the heaviest and holds fine engraving well; it is offered on most designs. Gold comes in yellow or white, and many designs in rose gold too.</p>"
           }
         },
         "q10": {
@@ -620,7 +489,6 @@
         "q2",
         "q3",
         "q4",
-        "q5",
         "q6",
         "q7",
         "q8",
@@ -708,13 +576,10 @@
   "order": [
     "hero",
     "intro",
-    "makes",
     "shapes",
     "start",
     "featured",
-    "compare",
     "face_size",
-    "engraving",
     "engraving_types",
     "bespoke",
     "guide",
@@ -725,4 +590,3 @@
     "closing"
   ]
 }
-

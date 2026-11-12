@@ -1245,6 +1245,18 @@
             <div class="pdx__facebody" data-fye-face-body="design" hidden>
               <label class="pdx__label" for="pdx-face-notes">About your design</label>
               <textarea class="pdx__input" id="pdx-face-notes" name="properties[Design notes]" rows="3" maxlength="500" placeholder="For example: our family crest, or a stag's head" disabled></textarea>
+              {%- comment -%}
+                Artwork upload (Ed, 12/11/2026). Optional. Shown with the design
+                notes, so only for Motif or crest and Seal. A file cannot travel
+                in the JSON cart call, so fye-ui.js switches the add to a
+                multipart post when one is attached; Shopify stores the file and
+                the line carries its URL as the "Artwork" property, which shows
+                on the order. Disabled until the body is shown, like every field
+                here, so a hidden upload is never posted.
+              {%- endcomment -%}
+              <label class="pdx__label" for="pdx-face-artwork">Upload your design (optional)</label>
+              <input class="pdx__file" id="pdx-face-artwork" type="file" name="properties[Artwork]" accept="image/*,.heic,.pdf" data-fye-face-file disabled>
+              <p class="pdx__help" data-fye-face-file-msg>A photo, drawing or PDF, up to 10MB.</p>
               <p class="pdx__help">{{ s.face_design_note | default: 'After you order we will ask for your design (a photo or a drawing is fine) and send you a proof before we engrave. If it needs redrawing first, we will quote for that before we start.' }}</p>
             </div>
 

@@ -1950,11 +1950,44 @@
     form.querySelectorAll('[name^="properties["]').forEach(function (field) {
       if (field.disabled) return;
       if (field.type === 'checkbox' && !field.checked) return;
+      if (field.type === 'file') return; /* sent by cartBody(), never as text */
       var name = field.getAttribute('name').replace(/^properties\[/, '').replace(/\]$/, '');
       if (!field.value) return;
       props[name] = field.value;
     });
     return props;
+  }
+
+  /* The cart request. JSON as always, unless an enabled file field holds a
+     file (the signet artwork upload): a file cannot go in JSON, so the same
+     items go as multipart, items[n][...] keys, with the file on the ring's
+     line. Still one request. Tested against the live cart 12/11/2026: Shopify
+     stores the file and returns its CDN URL as the property value. */
+  function cartBody(form, items) {
+    var files = [];
+    form.querySelectorAll('input[type="file"][name^="properties["]').forEach(function (f) {
+      if (!f.disabled && f.files && f.files[0]) files.push(f);
+    });
+    if (!files.length) {
+      return {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: items })
+      };
+    }
+    var fd = new FormData();
+    items.forEach(function (it, i) {
+      fd.append('items[' + i + '][id]', it.id);
+      fd.append('items[' + i + '][quantity]', it.quantity);
+      Object.keys(it.properties || {}).forEach(function (k) {
+        fd.append('items[' + i + '][properties][' + k + ']', it.properties[k]);
+      });
+    });
+    files.forEach(function (f) {
+      var name = f.getAttribute('name').replace(/^properties\[/, '').replace(/\]$/, '');
+      fd.append('items[0][properties][' + name + ']', f.files[0]);
+    });
+    return { method: 'POST', headers: { 'Accept': 'application/json' }, body: fd };
   }
 
   function addOnLines(form, ring) {
@@ -2169,11 +2202,7 @@
 
     var items = [{ id: v.id, quantity: 1, properties: ringProps(form) }].concat(extras);
 
-    fetch('/cart/add.js', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ items: items })
-    })
+    fetch('/cart/add.js', cartBody(form, items))
       .then(function (res) { return res.ok ? res.json() : Promise.reject(res); })
       .then(function () { window.location.href = '/cart'; })
       .catch(function () {
@@ -5412,6 +5441,22 @@
       body.querySelectorAll('input, select, textarea').forEach(function (f) { f.disabled = !on; });
     });
   }
+
+  /* Artwork upload: refuse files over 10MB here, with a message, rather than
+     let the cart call fail. */
+  var FILE_MAX = 10 * 1024 * 1024;
+  document.addEventListener('change', function (e) {
+    var f = e.target;
+    if (!f.matches || !f.matches('[data-fye-face-file]')) return;
+    var msg = f.parentNode.querySelector('[data-fye-face-file-msg]');
+    var file = f.files && f.files[0];
+    if (file && file.size > FILE_MAX) {
+      f.value = '';
+      if (msg) msg.textContent = 'That file is over 10MB. Please choose a smaller one, or send it to us after you order.';
+    } else if (msg) {
+      msg.textContent = 'A photo, drawing or PDF, up to 10MB.';
+    }
+  });
 
   function initialsVariant(panel) {
     var field = panel.querySelector('[data-fye-face-initials]');

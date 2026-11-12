@@ -4336,3 +4336,22 @@ Ship: `./tools/fye ship "Signet rings hub: ring-page structure, shop sections, n
 - Order changed (Ed): Three ways to start now sits under the hero, then "What are you choosing
   between?" without its "Start here" eyebrow.
 Ship: `./tools/fye ship "Signet rings hub: drop cast and die-struck sections, spacing, new order"`.
+
+## 12/11/2026: Signet artwork upload, and Shop by Make removed from the menu
+- snippets/fye-pdx-ring.liquid: optional "Upload your design" file field (properties[Artwork],
+  image/*, .heic, .pdf) inside the design body, so it shows only for Motif or crest and Seal,
+  disabled until shown like every face field.
+- assets/fye-ui.js: ringProps() skips file inputs; new cartBody() sends the same items as
+  multipart (items[n][id|quantity|properties]) when a file is attached, still one /cart/add.js
+  call, JSON otherwise. Verified against the live cart first (12/11/2026, cart cleared after):
+  the ring line came back with Artwork = a cdn.shopify.com/.../uploads/ URL and the add-on line
+  intact. Files over 10MB are refused client-side with a message (faceEngraving IIFE).
+- sections/main-product.liquid: .pdx__file rule. templates/product.signet.json:
+  face_design_note now points at the upload ("or send it to us after you order").
+- Store data: "Shop by Make" group (Cast, Die-Struck) deleted from menu mega-signet-rings
+  (Ed); Personalise now stacks under More Shapes, and lists Initials, Motif or Crest (both to
+  /collections/signet-rings, every signet takes them), Seal Engraving, Order a Free Ring Sizer.
+  jtype make_notes left in header-group.json,
+  unused.
+- node --check fye-ui.js passes; validator clean.
+Ship: `./tools/fye ship "Signets: artwork upload for motif and seal engraving"`.
